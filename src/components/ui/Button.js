@@ -1,0 +1,37 @@
+import React from "react";
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}
+
+const Button = ({ className, variant = "primary", size = "md", children, ...props }) => {
+  const variants = {
+    primary: "bg-secondary text-white hover:bg-gold",
+    outline: "border-2 border-secondary text-secondary hover:bg-secondary hover:text-white",
+    ghost: "text-secondary hover:bg-secondary/10",
+  };
+
+  const sizes = {
+    sm: "px-4 py-2 text-sm",
+    md: "px-6 py-3 text-base",
+    lg: "px-8 py-4 text-lg font-bold",
+  };
+
+  return (
+    <button
+      className={cn(
+        "rounded-full transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none",
+        variants[variant],
+        sizes[size],
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+
+export default Button;
