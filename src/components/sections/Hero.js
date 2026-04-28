@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import Button from "../ui/Button";
 import TypewriterText from "@/components/TypewriterText";
 import { ArrowLeft } from "lucide-react";
@@ -56,11 +57,11 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12 lg:mb-0" data-aos="fade-up" data-aos-delay="800">
-            <Button size="lg" className="flex items-center justify-center gap-2 group text-sm sm:text-base">
+            <Button as={Link} href="/projects" size="lg" className="flex items-center justify-center gap-2 group text-sm sm:text-base">
               {lang === 'ar' ? 'استكشف مشاريعنا' : 'Explore Projects'}
               <ArrowLeft className={`transition-transform ${lang === 'ar' ? 'group-hover:translate-x-[-5px]' : 'rotate-180 group-hover:translate-x-[5px]'}`} />
             </Button>
-            <Button variant="outline" size="lg" className="text-sm sm:text-base">
+            <Button as={Link} href="/us" variant="outline" size="lg" className="text-sm sm:text-base">
               {lang === 'ar' ? 'من نحن' : 'About Us'}
             </Button>
           </div>

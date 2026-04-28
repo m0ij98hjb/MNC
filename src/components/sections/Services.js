@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { FaHardHat, FaDraftingCompass, FaProjectDiagram, FaCouch } from "react-icons/fa";
 import { useLanguage } from "@/context/LanguageContext";
@@ -98,10 +99,10 @@ const Services = () => {
               </p>
 
               {/* Permanent Learn More Link */}
-              <div className="mt-auto pt-4 flex items-center gap-2 text-secondary text-xs font-black uppercase tracking-widest transition-all duration-500 cursor-pointer hover:gap-3">
+              <Link href="/projects" className="mt-auto pt-4 flex items-center gap-2 text-secondary text-xs font-black uppercase tracking-widest transition-all duration-500 hover:gap-3">
                 {lang === 'ar' ? 'اكتشف المزيد' : 'Learn More'}
                 {lang === 'ar' ? <ArrowRight size={14} className="rotate-180" /> : <ArrowRight size={14} />}
-              </div>
+              </Link>
             </div>
           ))}
         </div>
