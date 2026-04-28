@@ -28,13 +28,60 @@
 
 * {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--background);
 }
 
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+html,
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-body);
   overflow-x: hidden;
+  max-width: 100%;
+  position: relative;
+}
+
+/* Responsive base improvements */
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent text overflow on mobile */
+.text-overflow-break {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* Better touch targets for mobile */
+@media (max-width: 768px) {
+  button, a, input, textarea, select {
+    min-height: 44px;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -51,6 +98,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .text-gradient {
   background: linear-gradient(135deg, #c5a059 0%, #d4af37 100%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -62,6 +110,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .animate-slow-zoom {
   animation: slow-zoom 25s ease-in-out infinite alternate;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-cursor-blink {
+  animation: cursor-blink 1s step-end infinite;
 }
 
 /* AOS Tweaks */
