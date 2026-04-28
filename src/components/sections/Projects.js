@@ -3,57 +3,69 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Plus, ExternalLink } from "lucide-react";
-
-const projects = [
-  {
-    id: 1,
-    title: "فيلا سكنية فاخرة",
-    category: "تصميم وتنفيذ",
-    image: "/project1.png",
-    location: "جدة، حي أبحر",
-  },
-  {
-    id: 2,
-    title: "برج إداري تجاري",
-    category: "إدارة مشاريع",
-    image: "/project2.png",
-    location: "جدة، طريق الملك",
-  },
-  {
-    id: 3,
-    title: "مجمع فلل مودرن",
-    category: "تصميم معماري",
-    image: "/project1.png",
-    location: "جدة، حي المحمدية",
-  },
-  {
-    id: 4,
-    title: "مقر شركة هندسية",
-    category: "تصميم داخلي",
-    image: "/project2.png",
-    location: "جدة، حي الروضة",
-  },
-];
+import { useLanguage } from "@/context/LanguageContext";
 
 const Projects = () => {
-  const [filter, setFilter] = useState("الكل");
+  const { lang, t } = useLanguage();
+  const [filter, setFilter] = useState(lang === 'ar' ? "الكل" : "All");
 
-  const categories = ["الكل", "تصميم وتنفيذ", "إدارة مشاريع", "تصميم معماري", "تصميم داخلي"];
+  const projects = [
+    {
+      id: 1,
+      title: lang === 'ar' ? "فيلا سكنية فاخرة" : "Luxury Residential Villa",
+      category: lang === 'ar' ? "تصميم وتنفيذ" : "Design & Construction",
+      image: "/project1.png",
+      location: lang === 'ar' ? "جدة، حي أبحر" : "Jeddah, Obhur",
+    },
+    {
+      id: 2,
+      title: lang === 'ar' ? "برج إداري تجاري" : "Commercial Admin Tower",
+      category: lang === 'ar' ? "إدارة مشاريع" : "Project Management",
+      image: "/project2.png",
+      location: lang === 'ar' ? "جدة، طريق الملك" : "Jeddah, King Road",
+    },
+    {
+      id: 3,
+      title: lang === 'ar' ? "مجمع فلل مودرن" : "Modern Villas Complex",
+      category: lang === 'ar' ? "تصميم معماري" : "Architectural Design",
+      image: "/project1.png",
+      location: lang === 'ar' ? "جدة، حي المحمدية" : "Jeddah, Mohammedia",
+    },
+    {
+      id: 4,
+      title: lang === 'ar' ? "مقر شركة هندسية" : "Engineering Office Headquarters",
+      category: lang === 'ar' ? "تصميم داخلي" : "Interior Design",
+      image: "/project2.png",
+      location: lang === 'ar' ? "جدة، حي الروضة" : "Jeddah, Rawdah",
+    },
+  ];
 
-  const filteredProjects = filter === "الكل" 
+  const categories = lang === 'ar' 
+    ? ["الكل", "تصميم وتنفيذ", "إدارة مشاريع", "تصميم معماري", "تصميم داخلي"]
+    : ["All", "Design & Construction", "Project Management", "Architectural Design", "Interior Design"];
+
+  const filteredProjects = filter === (lang === 'ar' ? "الكل" : "All")
     ? projects 
     : projects.filter(p => p.category === filter);
 
   return (
     <section id="projects" className="py-16 bg-white dark:bg-primary">
       <div className="container mx-auto px-6 max-w-6xl">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-8">
-          <div data-aos="fade-right">
-            <span className="text-secondary font-bold tracking-widest uppercase text-sm block mb-4">معرض الأعمال</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">بصماتنا <span className="text-secondary">الميدانية</span></h2>
+        <div className={`flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-8`}>
+          <div className={`${lang === 'ar' ? 'text-right' : 'text-left'} w-full md:w-auto`} data-aos="fade-up">
+            <span className="text-secondary font-bold tracking-widest uppercase text-sm block mb-4">
+              {lang === 'ar' ? 'معرض الأعمال' : 'Portfolio'}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+              {lang === 'ar' ? (
+                <>بصماتنا <span className="text-secondary">الميدانية</span></>
+              ) : (
+                <>Our <span className="text-secondary">Field</span> Marks</>
+              )}
+            </h2>
           </div>
 
-          <div className="flex flex-wrap gap-4" data-aos="fade-left">
+          <div className={`flex flex-wrap justify-center ${lang === 'ar' ? 'md:justify-end' : 'md:justify-start'} gap-4 w-full md:w-auto`} data-aos="fade-up">
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -90,8 +102,8 @@ const Projects = () => {
               
               {/* Content */}
               <div className="absolute bottom-0 left-0 w-full p-8 translate-y-10 group-hover:translate-y-0 transition-transform duration-500 opacity-0 group-hover:opacity-100">
-                <div className="flex justify-between items-end">
-                  <div>
+                <div className={`flex justify-between items-end ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
+                  <div className={lang === 'ar' ? 'text-right' : 'text-left'}>
                     <span className="text-secondary text-sm font-bold uppercase tracking-widest block mb-2">{project.category}</span>
                     <h3 className="text-xl font-bold text-white mb-1">{project.title}</h3>
                     <p className="text-slate-300 text-sm">{project.location}</p>
@@ -103,7 +115,7 @@ const Projects = () => {
               </div>
 
               {/* Tag in corner */}
-              <div className="absolute top-6 right-6">
+              <div className={`absolute top-6 ${lang === 'ar' ? 'right-6' : 'left-6'}`}>
                  <div className="glass-morphism px-4 py-2 rounded-full text-white text-xs font-bold tracking-widest uppercase border border-white/20">
                     MNC PROJECT
                  </div>
@@ -113,9 +125,12 @@ const Projects = () => {
         </div>
 
         <div className="mt-16 text-center" data-aos="fade-up">
-           <p className="text-muted mb-6 italic">وهناك المزيد من المشاريع قيد التنفيذ...</p>
-           <button className="inline-flex items-center gap-2 text-secondary font-bold hover:gap-4 transition-all">
-             شاهد جميع المشاريع <ExternalLink size={18} />
+           <p className="text-muted mb-6 italic">
+             {lang === 'ar' ? 'وهناك المزيد من المشاريع قيد التنفيذ...' : 'And there are more projects in progress...'}
+           </p>
+           <button className={`inline-flex items-center gap-2 text-secondary font-bold hover:gap-4 transition-all ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
+             {lang === 'ar' ? 'شاهد جميع المشاريع' : 'View All Projects'} 
+             <ExternalLink size={18} className={lang === 'ar' ? '' : 'rotate-180'} />
            </button>
         </div>
       </div>

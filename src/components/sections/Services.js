@@ -1,35 +1,46 @@
 "use client";
 
-import { Building2, Ruler, BarChart3, Palette, ArrowRight } from "lucide-react";
-
-const services = [
-  {
-    title: "مشاريع المقاولات",
-    description: "تنفيذ كافة أعمال الإنشاءات والمباني السكنية والتجارية بأعلى دقة ومعايير السلامة العالمية.",
-    icon: Building2,
-    delay: "100",
-  },
-  {
-    title: "التصميم المعماري",
-    description: "نبتكر حلولاً تصميمية فريدة تجمع بين الجمالية والوظيفة العملية، محولين المساحات إلى تحف فنية.",
-    icon: Ruler,
-    delay: "200",
-  },
-  {
-    title: "إدارة المشاريع",
-    description: "إشراف هندسي متكامل ومتابعة دقيقة لكل مراحل العمل لضمان الجودة الصارمة والجدول الزمني.",
-    icon: BarChart3,
-    delay: "300",
-  },
-  {
-    title: "التصميم الداخلي",
-    description: "لمسات إبداعية في الديكور والتنسيق الداخلي تضفي الفخامة والراحة وتناسب ذوقك الرفيع.",
-    icon: Palette,
-    delay: "400",
-  },
-];
+import { Building2, Ruler, BarChart3, Palette, ArrowRight, ArrowLeft } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Services = () => {
+  const { lang, t } = useLanguage();
+
+  const services = [
+    {
+      title: lang === 'ar' ? "مشاريع المقاولات" : "Construction Projects",
+      description: lang === 'ar' 
+        ? "تنفيذ كافة أعمال الإنشاءات والمباني السكنية والتجارية بأعلى دقة ومعايير السلامة العالمية."
+        : "Execution of all construction, residential and commercial building works with the highest precision and international safety standards.",
+      icon: Building2,
+      delay: "100",
+    },
+    {
+      title: lang === 'ar' ? "التصميم المعماري" : "Architectural Design",
+      description: lang === 'ar'
+        ? "نبتكر حلولاً تصميمية فريدة تجمع بين الجمالية والوظيفة العملية، محولين المساحات إلى تحف فنية."
+        : "We create unique design solutions that combine aesthetics and practical function, turning spaces into artistic masterpieces.",
+      icon: Ruler,
+      delay: "200",
+    },
+    {
+      title: lang === 'ar' ? "إدارة المشاريع" : "Project Management",
+      description: lang === 'ar'
+        ? "إشراف هندسي متكامل ومتابعة دقيقة لكل مراحل العمل لضمان الجودة الصارمة والجدول الزمني."
+        : "Integrated engineering supervision and close follow-up of all work phases to ensure strict quality and scheduling.",
+      icon: BarChart3,
+      delay: "300",
+    },
+    {
+      title: lang === 'ar' ? "التصميم الداخلي" : "Interior Design",
+      description: lang === 'ar'
+        ? "لمسات إبداعية في الديكور والتنسيق الداخلي تضفي الفخامة والراحة وتناسب ذوقك الرفيع."
+        : "Creative touches in decoration and interior coordination that add luxury and comfort, suiting your high taste.",
+      icon: Palette,
+      delay: "400",
+    },
+  ];
+
   return (
     <section id="services" className="py-20 bg-[#f8fafc] relative overflow-hidden">
       {/* Decorative background elements */}
@@ -40,15 +51,22 @@ const Services = () => {
         <div className="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
           <div className="flex items-center justify-center gap-3 mb-4">
             <span className="h-px w-8 bg-secondary"></span>
-            <span className="text-secondary font-bold tracking-widest uppercase text-xs">خدماتنا الهندسية</span>
+            <span className="text-secondary font-bold tracking-widest uppercase text-xs">
+              {lang === 'ar' ? 'خدماتنا الهندسية' : 'Our Engineering Services'}
+            </span>
             <span className="h-px w-8 bg-secondary"></span>
           </div>
           <h2 className="text-3xl md:text-4xl font-black mb-6 text-primary leading-tight">
-            حلول هندسية <span className="text-secondary">متكاملة</span> <br />
-            بمعايير عالمية
+            {lang === 'ar' ? (
+              <>حلول هندسية <span className="text-secondary">متكاملة</span> <br /> بمعايير عالمية</>
+            ) : (
+              <>Integrated <span className="text-secondary">Engineering</span> <br /> Solutions</>
+            )}
           </h2>
           <p className="text-slate-500 text-base md:text-lg leading-relaxed">
-            نغطي كافة جوانب العمل الهندسي والإنشائي، من الفكرة والتصميم وحتى تسليم المفتاح، مع التركيز التام على أدق التفاصيل لضمان تميز مشروعك.
+            {lang === 'ar'
+              ? "نغطي كافة جوانب العمل الهندسي والإنشائي، من الفكرة والتصميم وحتى تسليم المفتاح، مع التركيز التام على أدق التفاصيل لضمان تميز مشروعك."
+              : "We cover all aspects of engineering and construction work, from concept and design to turnkey delivery, with total focus on the finest details to ensure your project's excellence."}
           </p>
         </div>
 
@@ -78,8 +96,8 @@ const Services = () => {
 
               {/* Permanent Learn More Link */}
               <div className="mt-auto pt-4 flex items-center gap-2 text-secondary text-xs font-black uppercase tracking-widest transition-all duration-500 cursor-pointer hover:gap-3">
-                اكتشف المزيد
-                <ArrowRight size={14} className="rtl:rotate-180" />
+                {lang === 'ar' ? 'اكتشف المزيد' : 'Learn More'}
+                {lang === 'ar' ? <ArrowRight size={14} className="rotate-180" /> : <ArrowRight size={14} />}
               </div>
             </div>
           ))}

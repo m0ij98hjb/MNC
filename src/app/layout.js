@@ -11,17 +11,26 @@ const cairo = Cairo({
 export const metadata = {
   title: "MNC Construction | Eng. Marwan Ahmed Nazer",
   description: "A distinguished engineering mark in construction and architectural design. Managed by Eng. Marwan Ahmed Nazer.",
+  icons: {
+    icon: "/asstes/logo.png",
+    apple: "/asstes/logo.png",
+  },
 };
 
 import Footer from "@/components/layout/Footer";
+import FloatingContact from "@/components/layout/FloatingContact";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="ar" dir="rtl" className={`${cairo.variable}`}>
-      <body className="antialiased flex flex-col min-h-screen">
-        <AOSInit />
-        {children}
-        <Footer />
+      <body className="antialiased flex flex-col min-h-screen relative">
+        <LanguageProvider>
+          <AOSInit />
+          {children}
+          <FloatingContact />
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );
