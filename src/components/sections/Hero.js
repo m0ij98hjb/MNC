@@ -20,8 +20,7 @@ const Hero = () => {
           className="object-cover opacity-80 scale-105 animate-slow-zoom"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/30 to-transparent"></div>
-
+        
         {/* Subtle Pattern Overlay */}
         <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
       </div>

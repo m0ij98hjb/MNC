@@ -31,12 +31,14 @@ const FloatingContact = () => {
 
   return (
     <div className={`fixed bottom-6 ${lang === 'ar' ? 'right-6' : 'left-6'} flex flex-col gap-3 z-50 transition-all duration-500`}>
-      {/* WhatsApp - Reverted to Original Phone-style SVG */}
+      {/* WhatsApp - Hidden on mobile until scroll */}
       <Link
         href="https://wa.me/966598242385"
         target="_blank"
         rel="noopener noreferrer"
-        className="w-12 h-12 bg-secondary text-white rounded-full flex items-center justify-center shadow-lg hover:bg-gold transition-colors hover:-translate-y-1 duration-300"
+        className={`md:flex w-12 h-12 bg-secondary text-white rounded-full items-center justify-center shadow-lg hover:bg-gold transition-colors hover:-translate-y-1 duration-300 ${
+          isVisible ? "flex opacity-100 translate-y-0" : "hidden opacity-0 translate-y-10 pointer-events-none"
+        }`}
         aria-label="Contact on WhatsApp"
       >
         <svg
@@ -54,10 +56,12 @@ const FloatingContact = () => {
         </svg>
       </Link>
 
-      {/* Email - Reverted as it was originally Mail */}
+      {/* Email - Hidden on mobile until scroll */}
       <Link
         href="mailto:1@marwannazer.com"
-        className="w-12 h-12 bg-secondary text-white rounded-full flex items-center justify-center shadow-lg hover:bg-gold transition-colors hover:-translate-y-1 duration-300"
+        className={`md:flex w-12 h-12 bg-secondary text-white rounded-full items-center justify-center shadow-lg hover:bg-gold transition-colors hover:-translate-y-1 duration-300 ${
+          isVisible ? "flex opacity-100 translate-y-0" : "hidden opacity-0 translate-y-10 pointer-events-none"
+        }`}
         aria-label="Send Email"
       >
         <Mail size={22} />
