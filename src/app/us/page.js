@@ -40,7 +40,7 @@ export default function AboutUsPage() {
                 textClassNames={["", "text-secondary"]}
               />
             </h1>
-            <p className="text-xl text-white/80 leading-relaxed font-semibold">
+            <p className="text-xl text-white/80 leading-relaxed font-semibold" data-aos="fade-up" data-aos-delay="300">
               {lang === 'ar' 
                 ? "علامة متميزة في مجال البناء وتطوير المشاريع وإدارتها في مدينة جدة."
                 : "A distinctive mark in the field of construction, project development, and management in Jeddah."}
@@ -86,18 +86,18 @@ export default function AboutUsPage() {
             {/* Text Content */}
             <div className={`space-y-6 lg:space-y-8 ${lang === 'ar' ? 'text-right' : 'text-left'}`} data-aos={lang === 'ar' ? 'fade-right' : 'fade-left'}>
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-4 lg:mb-6 text-primary font-heading relative inline-block">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-4 lg:mb-6 text-primary font-heading relative inline-block" data-aos="fade-up" data-aos-delay="100">
                   {lang === 'ar' ? 'رؤيتنا وتاريخنا' : 'Our Vision & History'}
                   <div className={`absolute -bottom-2 ${lang === 'ar' ? 'right-0' : 'left-0'} w-1/2 h-1 bg-secondary rounded-full`}></div>
                 </h2>
-                <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium">
+                <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium" data-aos="fade-up" data-aos-delay="200">
                   {lang === 'ar' 
                     ? "تعد شركة إم إن سي MNC لتطوير وتنفيذ المشاريع وإدارتها علامة متميزة في مجال البناء في مدينة جدة، فلقد تميزت وخلال فترة وجيزة من إدارة وتنفيذ مشاريع عديدة ولله الحمد تكللت بالنجاح. وكل هذا كان من منطلق الخطة التي وضعت من قبل خبراء متميزين ومتمرسين في هذا المجال الهام."
                     : "MNC Project Development and Management is a distinctive mark in the construction field in Jeddah. In a short period, it has successfully managed and executed numerous projects. All this was based on a plan developed by distinguished and experienced experts in this important field."}
                 </p>
               </div>
 
-              <div className={`bg-slate-50 p-6 rounded-2xl ${lang === 'ar' ? 'border-r-4' : 'border-l-4'} border-secondary shadow-sm`}>
+              <div className={`bg-slate-50 p-6 rounded-2xl ${lang === 'ar' ? 'border-r-4' : 'border-l-4'} border-secondary shadow-sm`} data-aos="fade-up" data-aos-delay="300">
                 <p className="text-lg leading-relaxed text-slate-700 font-medium">
                   {lang === 'ar'
                     ? "لقد كان وراء كل هذه الإنجازات تكريس جهود من قبل المدير العام المهندس/ مروان أحمد ناظر بصفته صاحب هذا الكيان. وتعمل شركة إم إن سي M.N.C لتنفيذ المشاريع وإدارتها تحت مظلة ”مكتب الإستشاري مروان أحمد ناظر قسم الإستشارات الهندسية، تصاميم، مساحة، إدارة مشاريع” وقد لاقت إستحسان من كل العملاء ولله الحمد."
@@ -106,7 +106,7 @@ export default function AboutUsPage() {
               </div>
 
               <div className="space-y-3 sm:space-y-4">
-                <div className={`flex items-start gap-3 sm:gap-4 ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
+                <div className={`flex items-start gap-3 sm:gap-4 ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`} data-aos="fade-up" data-aos-delay="400">
                   <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
                     <Target className="text-secondary" size={20} />
                   </div>
@@ -120,7 +120,7 @@ export default function AboutUsPage() {
                   </div>
                 </div>
 
-                <div className={`flex items-start gap-3 sm:gap-4 ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
+                <div className={`flex items-start gap-3 sm:gap-4 ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`} data-aos="fade-up" data-aos-delay="500">
                   <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
                     <Building2 className="text-secondary" size={20} />
                   </div>
@@ -156,7 +156,7 @@ export default function AboutUsPage() {
             {/* Text Content */}
             <div className={`space-y-6 lg:space-y-8 ${lang === 'ar' ? 'order-first text-right' : 'order-last text-left'}`} data-aos={lang === 'ar' ? 'fade-right' : 'fade-left'}>
               <div className={lang === 'ar' ? 'text-right' : 'text-left'}>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 font-heading mb-4">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 font-heading mb-4" data-aos="fade-up" data-aos-delay="100">
                   {lang === 'ar' ? 'المدير التنفيذي' : 'Executive Director'}
                 </h2>
                 <div className={`w-16 h-1 bg-secondary ${lang === 'ar' ? 'mr-0 ml-auto lg:mr-0' : 'ml-0 mr-auto lg:ml-0'} mb-6 lg:mb-8`}></div>
@@ -248,10 +248,10 @@ export default function AboutUsPage() {
       {/* Call to Action */}
       <section className="py-20 bg-secondary relative overflow-hidden">
         <div className="container relative z-10 mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 font-heading">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 font-heading" data-aos="fade-up">
             {lang === 'ar' ? 'جاهزون لبناء رؤيتك القادمة' : 'Ready to build your next vision'}
           </h2>
-          <Link href="/contact" className={`inline-flex items-center gap-2 bg-[#eaeaea] text-secondary px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-primary transition-all shadow-xl ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
+          <Link href="/contact" className={`inline-flex items-center gap-2 bg-[#eaeaea] text-secondary px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-primary transition-all shadow-xl ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`} data-aos="fade-up" data-aos-delay="200">
             {lang === 'ar' ? 'تواصل معنا الآن' : 'Contact Us Now'}
             {lang === 'ar' ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
           </Link>

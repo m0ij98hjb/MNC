@@ -47,11 +47,11 @@ const About = () => {
             </div>
 
             {/* Director Title Card */}
-            <div className={`absolute -bottom-10 ${lang === 'ar' ? 'left-2 md:left-6 lg:-left-10' : 'right-2 md:right-6 lg:-right-10'} bg-primary/95 backdrop-blur-md p-4 md:p-5 rounded-xl border border-white/10 shadow-2xl z-20`} data-aos="fade-up" data-aos-delay="500">
+            <div className={`absolute -bottom-10 ${lang === 'ar' ? 'left-2 md:left-6 lg:-left-10' : 'right-2 md:right-6 lg:-right-10'} bg-white backdrop-blur-md p-4 md:p-5 rounded-xl border border-white/10 shadow-2xl z-20`} data-aos="fade-up" data-aos-delay="500">
               <h4 className="text-secondary font-bold text-base md:text-lg mb-0.5">
                 {lang === 'ar' ? 'م. مروان أحمد ناظر' : 'Eng. Marwan Ahmed Nazer'}
               </h4>
-              <p className="text-white/60 text-[8px] md:text-[10px] uppercase tracking-widest font-medium">
+              <p className="text-slate-500 text-[8px] md:text-[10px] uppercase tracking-widest font-bold">
                 {lang === 'ar' ? 'المدير التنفيذي لشركة MNC' : 'CEO of MNC Company'}
               </p>
             </div>
@@ -60,20 +60,20 @@ const About = () => {
           {/* Content Side */}
           <div className="w-full lg:w-1/2" data-aos="fade-up">
             <div className={`mb-10 text-center ${lang === 'ar' ? 'lg:text-right' : 'lg:text-left'}`}>
-              <div className={`flex items-center gap-3 mb-4 justify-center ${lang === 'ar' ? 'lg:justify-start' : 'lg:justify-start'}`}>
+              <div className={`flex items-center gap-3 mb-4 justify-center ${lang === 'ar' ? 'lg:justify-start' : 'lg:justify-start'}`} data-aos="fade-up" data-aos-delay="100">
                 <span className="h-px w-8 bg-secondary"></span>
                 <span className="text-secondary font-bold tracking-widest uppercase text-xs">
                   {lang === 'ar' ? 'رؤية وخبرة' : 'Vision & Expertise'}
                 </span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-black mb-6 text-primary leading-[1.2]">
+              <h2 className="text-3xl md:text-4xl font-black mb-6 text-primary leading-[1.2]" data-aos="fade-up" data-aos-delay="200">
                 {lang === 'ar' ? (
                   <>نحن لا نبني جدراناً، <br /> <span className="text-secondary">بل نُصمم مستقبلاً متميزاً</span></>
                 ) : (
                   <>We don't just build walls, <br /> <span className="text-secondary">We design an excellent future</span></>
                 )}
               </h2>
-              <p className="text-slate-600 leading-relaxed text-base md:text-lg mb-8 font-medium">
+              <p className="text-slate-600 leading-relaxed text-base md:text-lg mb-8 font-medium" data-aos="fade-up" data-aos-delay="300">
                 {lang === 'ar'
                   ? "تعتبر مؤسسة مروان أحمد ناظر للمقاولات العامة من المؤسسات الرائدة في المملكة، حيث نجمع بين الأصالة الهندسية والرؤية العصرية. نلتزم بتحويل المخططات الصماء إلى بصمات معمارية تنبض بالحياة والجودة."
                   : "Marwan Ahmed Nazer General Contracting is one of the leading institutions in the Kingdom, where we combine engineering authenticity with modern vision. We are committed to turning mute plans into architectural marks that pulse with life and quality."}
@@ -81,7 +81,7 @@ const About = () => {
             </div>
 
             {/* Highlights Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 mb-12" data-aos="fade-up" data-aos-delay="400">
               {highlights.map((item, index) => (
                 <div key={index} className="flex items-center gap-3 group">
                   <div className="w-6 h-6 rounded-full bg-secondary/10 flex items-center justify-center transition-colors group-hover:bg-secondary">
@@ -93,7 +93,7 @@ const About = () => {
             </div>
 
             {/* Quote Section */}
-            <div className={`relative p-8 bg-slate-50 rounded-2xl ${lang === 'ar' ? 'border-r-4' : 'border-l-4'} border-secondary group hover:shadow-xl transition-all duration-500`}>
+            <div className={`relative p-8 bg-slate-50 rounded-2xl ${lang === 'ar' ? 'border-r-4' : 'border-l-4'} border-secondary group hover:shadow-xl transition-all duration-500`} data-aos="fade-up" data-aos-delay="500">
               <Quote className={`absolute -top-4 ${lang === 'ar' ? 'left-6' : 'right-6'} text-secondary/20 group-hover:text-secondary/40 transition-colors`} size={48} />
               <p className="italic text-slate-700 leading-relaxed font-semibold relative z-10">
                 {lang === 'ar'

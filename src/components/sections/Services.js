@@ -1,6 +1,7 @@
 "use client";
 
-import { Building2, Ruler, BarChart3, Palette, ArrowRight, ArrowLeft } from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
+import { FaHardHat, FaDraftingCompass, FaProjectDiagram, FaCouch } from "react-icons/fa";
 import { useLanguage } from "@/context/LanguageContext";
 
 const Services = () => {
@@ -12,7 +13,7 @@ const Services = () => {
       description: lang === 'ar' 
         ? "تنفيذ كافة أعمال الإنشاءات والمباني السكنية والتجارية بأعلى دقة ومعايير السلامة العالمية."
         : "Execution of all construction, residential and commercial building works with the highest precision and international safety standards.",
-      icon: Building2,
+      icon: <FaHardHat size={38} />,
       delay: "100",
     },
     {
@@ -20,7 +21,7 @@ const Services = () => {
       description: lang === 'ar'
         ? "نبتكر حلولاً تصميمية فريدة تجمع بين الجمالية والوظيفة العملية، محولين المساحات إلى تحف فنية."
         : "We create unique design solutions that combine aesthetics and practical function, turning spaces into artistic masterpieces.",
-      icon: Ruler,
+      icon: <FaDraftingCompass size={38} />,
       delay: "200",
     },
     {
@@ -28,7 +29,7 @@ const Services = () => {
       description: lang === 'ar'
         ? "إشراف هندسي متكامل ومتابعة دقيقة لكل مراحل العمل لضمان الجودة الصارمة والجدول الزمني."
         : "Integrated engineering supervision and close follow-up of all work phases to ensure strict quality and scheduling.",
-      icon: BarChart3,
+      icon: <FaProjectDiagram size={38} />,
       delay: "300",
     },
     {
@@ -36,7 +37,7 @@ const Services = () => {
       description: lang === 'ar'
         ? "لمسات إبداعية في الديكور والتنسيق الداخلي تضفي الفخامة والراحة وتناسب ذوقك الرفيع."
         : "Creative touches in decoration and interior coordination that add luxury and comfort, suiting your high taste.",
-      icon: Palette,
+      icon: <FaCouch size={38} />,
       delay: "400",
     },
   ];
@@ -56,14 +57,14 @@ const Services = () => {
             </span>
             <span className="h-px w-8 bg-secondary"></span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-black mb-6 text-primary leading-tight">
+          <h2 className="text-3xl md:text-4xl font-black mb-6 text-primary leading-tight" data-aos="fade-up" data-aos-delay="100">
             {lang === 'ar' ? (
               <>حلول هندسية <span className="text-secondary">متكاملة</span> <br /> بمعايير عالمية</>
             ) : (
               <>Integrated <span className="text-secondary">Engineering</span> <br /> Solutions</>
             )}
           </h2>
-          <p className="text-slate-500 text-base md:text-lg leading-relaxed">
+          <p className="text-slate-500 text-base md:text-lg leading-relaxed" data-aos="fade-up" data-aos-delay="200">
             {lang === 'ar'
               ? "نغطي كافة جوانب العمل الهندسي والإنشائي، من الفكرة والتصميم وحتى تسليم المفتاح، مع التركيز التام على أدق التفاصيل لضمان تميز مشروعك."
               : "We cover all aspects of engineering and construction work, from concept and design to turnkey delivery, with total focus on the finest details to ensure your project's excellence."}
@@ -81,9 +82,11 @@ const Services = () => {
               {/* Permanent Top Border */}
               <div className="absolute top-0 left-0 w-full h-1.5 bg-secondary/80"></div>
               
-              {/* Icon Container - Permanent Color */}
-              <div className="w-20 h-20 bg-secondary/10 rounded-2xl flex items-center justify-center mb-8 relative z-10 group-hover:bg-secondary group-hover:rotate-[10deg] transition-all duration-500 shadow-sm">
-                <service.icon className="text-secondary group-hover:text-white transition-colors duration-500" size={36} strokeWidth={1.5} />
+              {/* Icon Container */}
+              <div className="w-24 h-24 bg-secondary/10 rounded-2xl flex items-center justify-center mb-8 relative z-10 group-hover:bg-secondary group-hover:rotate-[10deg] transition-all duration-500 shadow-sm">
+                <div className="text-secondary group-hover:text-white transition-colors duration-500">
+                  {service.icon}
+                </div>
               </div>
 
               {/* Text Content */}

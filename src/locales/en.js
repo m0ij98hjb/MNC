@@ -5,7 +5,7 @@ export const en = {
     services: "Services",
     projects: "Projects",
     contact: "Contact Us",
-    profile: "Profile"
+    profile: "Download Profile"
   },
   hero: {
     badge: "Engineering Excellence",
@@ -31,6 +31,26 @@ export const en = {
       service: "Service Type",
       message: "Message Details",
       submit: "Send Message"
+    }
+  },
+  features: {
+    title: "Why Choose MNC?",
+    subtitle: "We deliver quality and innovation in every project",
+    precision: {
+      title: "Execution Precision",
+      desc: "We adhere to the strictest engineering standards to ensure exceptional quality."
+    },
+    innovation: {
+      title: "Innovative Solutions",
+      desc: "We use the latest architectural technologies to turn your vision into reality."
+    },
+    management: {
+      title: "Professional Management",
+      desc: "A dedicated team to follow up on all project stages with full professionalism."
+    },
+    deadlines: {
+      title: "Commitment to Deadlines",
+      desc: "We value your time, so we are committed to delivering projects on schedule."
     }
   }
 };

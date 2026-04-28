@@ -6,7 +6,7 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-const Button = ({ className, variant = "primary", size = "md", children, ...props }) => {
+const Button = ({ className, variant = "primary", size = "md", children, as: Component = "button", ...props }) => {
   const variants = {
     primary: "bg-secondary text-white hover:bg-gold",
     outline: "border-2 border-secondary text-secondary hover:bg-secondary hover:text-white",
@@ -19,10 +19,13 @@ const Button = ({ className, variant = "primary", size = "md", children, ...prop
     lg: "px-8 py-4 text-lg font-bold",
   };
 
+  // If href is provided, default to 'a' tag
+  const Tag = props.href ? "a" : Component;
+
   return (
-    <button
+    <Tag
       className={cn(
-        "rounded-full transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none",
+        "inline-flex items-center justify-center rounded-full transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none",
         variants[variant],
         sizes[size],
         className
@@ -30,7 +33,7 @@ const Button = ({ className, variant = "primary", size = "md", children, ...prop
       {...props}
     >
       {children}
-    </button>
+    </Tag>
   );
 };
 
