@@ -50,14 +50,14 @@ export default function ContactPage() {
               />
             </div>
 
-            <h1 className="text-3xl md:text-6xl lg:text-7xl font-black text-white mb-6 font-heading leading-[1.2] md:leading-[1.1] tracking-tight">
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-black text-white mb-6 font-heading leading-[1.2] md:leading-[1.1] tracking-tight" data-aos="fade-up" data-aos-delay="200">
               {t('hero.title')} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary via-[#f3d091] to-secondary text-2xl md:text-6xl lg:text-7xl">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary via-[#f3d091] to-secondary text-xl md:text-4xl lg:text-5xl">
                 {t('hero.subtitle')}
               </span>
             </h1>
             
-            <p className="text-base md:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto font-medium px-4 md:px-0">
+            <p className="text-base md:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto font-medium px-4 md:px-0" data-aos="fade-up" data-aos-delay="400">
               {t('hero.description')}
             </p>
 
@@ -88,7 +88,7 @@ export default function ContactPage() {
             <div className="w-full lg:w-1/2 space-y-10" data-aos="fade-right">
               <div>
                 <span className="text-secondary font-bold tracking-widest text-xs mb-3 block">{t('contact.info')}</span>
-                <h2 className="text-2xl md:text-3xl font-black mb-4 leading-tight text-slate-800">
+                <h2 className="text-2xl md:text-3xl font-black mb-4 leading-tight text-slate-800" data-aos="fade-up" data-aos-delay="100">
                   {t('contact.ready')} <br />
                   <span className="text-secondary">{t('contact.nextProject')}</span>
                 </h2>
@@ -98,7 +98,7 @@ export default function ContactPage() {
               </div>
 
               <div className="space-y-5">
-                <div className="flex items-center gap-5 group cursor-pointer">
+                <div className="flex items-center gap-5 group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-slate-300 bg-white group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
                     <Phone className="text-secondary" size={20} />
                   </div>
@@ -108,7 +108,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <a href="mailto:1@marwannazer.com" className="flex items-center gap-5 group cursor-pointer">
+                <a href="mailto:1@marwannazer.com" className="flex items-center gap-5 group cursor-pointer" data-aos="fade-up" data-aos-delay="300">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-slate-300 bg-white group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
                     <Mail className="text-secondary" size={20} />
                   </div>
@@ -118,7 +118,7 @@ export default function ContactPage() {
                   </div>
                 </a>
 
-                <div className="flex items-center gap-5 group cursor-default">
+                <div className="flex items-center gap-5 group cursor-default" data-aos="fade-up" data-aos-delay="400">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-slate-300 bg-white group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
                     <MapPin className="text-secondary" size={20} />
                   </div>
@@ -129,7 +129,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-secondary/10 to-transparent border border-secondary/30 rounded-2xl p-6">
+              <div className="bg-gradient-to-br from-secondary/10 to-transparent border border-secondary/30 rounded-2xl p-6" data-aos="fade-up" data-aos-delay="500">
                 <p className="text-secondary font-bold text-sm mb-2">{t('contact.hours')}</p>
                 <p className="text-slate-800 font-semibold">{t('contact.days')}</p>
                 <p className="text-slate-600 text-sm">{t('contact.time')}</p>

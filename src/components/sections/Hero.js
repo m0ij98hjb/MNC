@@ -28,7 +28,7 @@ const Hero = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl" data-aos="fade-up">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-morphism border border-secondary/30 mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-morphism border border-secondary/30 mb-8" data-aos="fade-down" data-aos-delay="200">
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span>
@@ -38,7 +38,7 @@ const Hero = () => {
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight" data-aos="fade-up" data-aos-delay="400">
             <TypewriterText
               texts={lang === 'ar' ? ["بصمة هندسية", "متميزة"] : ["Distinctive", "Engineering Mark"]}
               typingSpeed={120}
@@ -50,13 +50,13 @@ const Hero = () => {
             />
           </h1>
 
-          <p className="text-base md:text-xl text-slate-300 mb-10 max-w-2xl leading-relaxed">
+          <p className="text-base md:text-xl text-slate-300 mb-10 max-w-2xl leading-relaxed" data-aos="fade-up" data-aos-delay="600">
             {lang === 'ar' 
               ? "مؤسسة مروان أحمد ناظر للمقاولات العامة - خبرة عريقة في التصميم المعماري، إدارة المشاريع، والتنفيذ الإنشائي بأعلى معايير الجودة العالمية."
               : "Marwan Ahmed Nazer General Contracting - Deep expertise in architectural design, project management, and construction execution to the highest international quality standards."}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mb-12 lg:mb-0">
+          <div className="flex flex-col sm:flex-row gap-4 mb-12 lg:mb-0" data-aos="fade-up" data-aos-delay="800">
             <Button size="lg" className="flex items-center justify-center gap-2 group text-sm sm:text-base">
               {lang === 'ar' ? 'استكشف مشاريعنا' : 'Explore Projects'}
               <ArrowLeft className={`transition-transform ${lang === 'ar' ? 'group-hover:translate-x-[-5px]' : 'rotate-180 group-hover:translate-x-[5px]'}`} />
@@ -82,14 +82,14 @@ const Hero = () => {
       </div>
 
       {/* Decorative Elements - Desktop Layout */}
-      <div className={`absolute bottom-10 ${lang === 'ar' ? 'left-10' : 'right-10'} hidden lg:block`} data-aos="fade-up">
+      <div className={`absolute bottom-10 ${lang === 'ar' ? 'left-10' : 'right-10'} hidden lg:block`} data-aos="fade-up" data-aos-delay="1000">
         <div className={`flex flex-col gap-1 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
           <span className="text-4xl font-bold text-white">15+</span>
           <span className="text-sm text-muted uppercase tracking-widest">{lang === 'ar' ? 'عاماً من الخبرة' : 'Years of Experience'}</span>
         </div>
       </div>
 
-      <div className={`absolute bottom-10 ${lang === 'ar' ? 'right-10' : 'left-10'} hidden lg:block`} data-aos="fade-up">
+      <div className={`absolute bottom-10 ${lang === 'ar' ? 'right-10' : 'left-10'} hidden lg:block`} data-aos="fade-up" data-aos-delay="1200">
         <div className={`flex flex-col gap-1 ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
           <span className="text-4xl font-bold text-white">200+</span>
           <span className="text-sm text-muted uppercase tracking-widest">{lang === 'ar' ? 'مشروع ناجح' : 'Successful Projects'}</span>
