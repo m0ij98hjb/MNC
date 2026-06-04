@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Volume2, VolumeX, Music } from 'lucide-react';
+import { Mic, MicOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function VoicePresentation() {
@@ -49,14 +49,12 @@ export default function VoicePresentation() {
       synth.cancel();
       setIsPlaying(false);
     } else {
-      // إيقاف أي عملية كلام حالية
       synth.cancel();
 
-      // إنشاء جملة جديدة
       const utterance = new SpeechSynthesisUtterance(presentationText);
-      utterance.lang = 'ar-SA'; // اللغة العربية - السعودية
-      utterance.rate = 1; // سرعة النطق
-      utterance.pitch = 1.1; // طبقة الصوت
+      utterance.lang = 'ar-SA';
+      utterance.rate = 1;
+      utterance.pitch = 1.1;
       utterance.volume = volume;
 
       utterance.onend = () => {
@@ -75,8 +73,6 @@ export default function VoicePresentation() {
 
   useEffect(() => {
     if (!synth || !isMounted || !isPlaying || !utteranceRef.current) return;
-
-    // تحديث مستوى الصوت
     utteranceRef.current.volume = volume;
   }, [volume, isMounted, isPlaying, synth]);
 
@@ -84,7 +80,6 @@ export default function VoicePresentation() {
 
   return (
     <>
-      {/* مكون التحكم في الكلام الصوتي */}
       <motion.div
         className="fixed bottom-8 right-8 z-40 flex flex-col items-center gap-2"
         initial={{ opacity: 0, scale: 0.8 }}
@@ -98,7 +93,7 @@ export default function VoicePresentation() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              className="flex flex-col items-center gap-2 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg"
+              className="flex flex-col items-center gap-2 bg-white/95 backdrop-blur-md dark:bg-slate-900/95 p-4 rounded-2xl shadow-lg border border-[#c5a059]/20"
             >
               <input
                 type="range"
@@ -106,10 +101,10 @@ export default function VoicePresentation() {
                 max="100"
                 value={volume * 100}
                 onChange={(e) => setVolume(e.target.value / 100)}
-                className="w-20 h-1 transform -rotate-90 origin-left"
+                className="w-20 h-1 transform -rotate-90 origin-left accent-[#c5a059]"
                 style={{ transformOrigin: 'left center' }}
               />
-              <span className="text-xs text-gray-600 dark:text-gray-400">
+              <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                 {Math.round(volume * 100)}%
               </span>
             </motion.div>
@@ -119,54 +114,38 @@ export default function VoicePresentation() {
         {/* زر التشغيل الرئيسي */}
         <motion.button
           onClick={handlePlayPause}
-          onMouseEnter={() => setShowVolumeControl(true)}
-          onMouseLeave={() => setShowVolumeControl(false)}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className={`relative p-4 rounded-full shadow-xl transition-all duration-300 ${
+          whileTap={{ scale: 0.92 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 10 }}
+          className={`relative p-5 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center cursor-pointer ${
             isPlaying
-              ? 'bg-gradient-to-br from-blue-400 to-blue-600 text-white'
-              : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-2 border-gray-300 dark:border-gray-600'
-          } hover:shadow-2xl`}
+              ? 'bg-[#c5a059] text-white shadow-[0_0_20px_rgba(197,160,89,0.4)]'
+              : 'bg-white dark:bg-slate-900 text-[#0f172a] dark:text-[#c5a059] border-2 border-[#c5a059]/30'
+          }`}
           title={isPlaying ? 'إيقاف الكلام' : 'تشغيل الكلام'}
         >
           <AnimatePresence mode="wait">
             {isPlaying ? (
               <motion.div
                 key="playing"
-                initial={{ rotate: -180, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 180, opacity: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="pointer-events-none"
               >
-                <Volume2 size={24} className="animate-pulse" />
+                <Mic size={26} strokeWidth={2} />
               </motion.div>
             ) : (
               <motion.div
                 key="paused"
-                initial={{ rotate: -180, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 180, opacity: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="pointer-events-none"
               >
-                <VolumeX size={24} />
+                <MicOff size={26} strokeWidth={2} />
               </motion.div>
             )}
           </AnimatePresence>
-
-          {/* التأثير المرئي عند التشغيل */}
-          {isPlaying && (
-            <>
-              <motion.div
-                className="absolute inset-0 rounded-full bg-blue-400 opacity-20"
-                animate={{ scale: [1, 1.5, 1.8] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <motion.div
-                className="absolute inset-0 rounded-full bg-blue-500 opacity-10"
-                animate={{ scale: [1, 1.3, 1.6] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
-              />
-            </>
-          )}
         </motion.button>
 
         {/* نص معلوماتي */}
@@ -176,7 +155,7 @@ export default function VoicePresentation() {
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -5 }}
-              className="text-xs text-gray-600 dark:text-gray-400 text-center whitespace-nowrap"
+              className="text-xs font-semibold text-[#c5a059] text-center whitespace-nowrap"
             >
               🎙️ تعريف الشركة
             </motion.div>
