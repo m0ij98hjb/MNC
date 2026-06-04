@@ -1,6 +1,7 @@
 import { Cairo } from "next/font/google";
 import "./globals.css";
 import { AOSInit } from "@/components/AOSInit";
+import VoicePresentation from "@/components/VoicePresentation";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
       <body className="antialiased flex flex-col min-h-screen relative">
         <LanguageProvider>
           <AOSInit />
+          <VoicePresentation />
           {children}
           <FloatingContact />
           <Footer />
