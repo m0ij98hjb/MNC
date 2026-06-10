@@ -46,7 +46,7 @@ export default function VoicePresentation() {
   return (
     <>
       <motion.div
-        className="fixed bottom-8 right-8 z-40 flex flex-col items-center gap-2"
+        className="fixed bottom-8 left-8 z-40 flex flex-col items-center gap-2"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}

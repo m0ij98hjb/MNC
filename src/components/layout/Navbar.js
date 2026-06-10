@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 import { HiDocumentText } from "react-icons/hi";
 import { MdLanguage } from "react-icons/md";
 import Button from "../ui/Button";
@@ -17,6 +18,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { lang, setLang, toggleLanguage, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -111,6 +113,28 @@ const Navbar = () => {
               </a>
             </div>
           </div>
+
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={toggleTheme}
+            className={`relative flex items-center justify-center w-10 h-10 rounded-xl border transition-all duration-300 overflow-hidden group ${
+              theme === 'dark'
+                ? 'border-secondary/40 bg-secondary/10 text-secondary hover:bg-secondary/20'
+                : 'border-secondary/30 bg-white/5 text-secondary hover:bg-secondary/10'
+            }`}
+            title={theme === 'dark' ? 'وضع النهار' : 'وضع الليل'}
+          >
+            <span className={`absolute transition-all duration-500 ${
+              theme === 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'
+            }`}>
+              <Sun size={18} />
+            </span>
+            <span className={`absolute transition-all duration-500 ${
+              theme === 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'
+            }`}>
+              <Moon size={18} />
+            </span>
+          </button>
 
           {/* Language Selector */}
           <div className="relative">
@@ -225,6 +249,17 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
+
+            {/* Mobile Dark Mode Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="w-full text-base font-bold text-slate-600 dark:text-slate-300 border border-slate-200 py-4 rounded-2xl hover:bg-slate-50 transition-colors flex items-center justify-center gap-3"
+            >
+              <span className="text-secondary">
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              </span>
+              <span>{theme === 'dark' ? (lang === 'ar' ? 'وضع النهار' : 'Light Mode') : (lang === 'ar' ? 'وضع الليل' : 'Dark Mode')}</span>
+            </button>
 
             {/* Mobile Language Switcher */}
             <button
