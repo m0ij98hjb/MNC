@@ -5,76 +5,41 @@ import { Mic, MicOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function VoicePresentation() {
-  const synth = typeof window !== 'undefined' ? window.speechSynthesis : null;
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
   const [showVolumeControl, setShowVolumeControl] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const utteranceRef = useRef(null);
-
-  // نص احترافي يعبر عن الشركة والمدير
-  const presentationText = `مرحباً بكم في شركة MNC للمقاولات والتصميم المعماري.
-أنا المهندس مروان أحمد ناظر، المدير التنفيذي للشركة.
-
-مؤسستنا تعتبر من المؤسسات الرائدة في المملكة، حيث نجمع بين الأصالة الهندسية والرؤية العصرية.
-لدينا خبرة تزيد على 15 سنة في مجال الهندسة والبناء والتصميم.
-
-رسالتنا واضحة: نحن لا نبني جدراناً فقط، بل نُصمم مستقبلاً متميزاً.
-
-نقدم خدمات متكاملة تشمل:
-- مشاريع المقاولات بأعلى معايير السلامة والجودة
-- التصميم المعماري المبتكر الذي يجمع بين الجمالية والوظيفة
-- إدارة احترافية للمشاريع من البداية إلى النهاية
-- التصميم الداخلي الفاخر الذي يعكس ذوقكم الرفيع
-
-ما يميزنا هو التزامنا الكامل بـ:
-دقة التنفيذ وفقاً لأحدث المعايير الهندسية العالمية
-الابتكار والحلول الذكية في كل مشروع
-الإدارة المحترفة والإشراف الدقيق على كل التفاصيل
-الالتزام التام بالمواعيد وتسليم المشاريع في الوقت المحدد
-
-إن فريقنا متخصص وعالي الكفاءة، ومجهز بأحدث التقنيات المعمارية والإنشائية.
-نحن هنا لتحويل أحلامكم الهندسية إلى واقع ملموس وتحفة معمارية.
-
-شكراً لاختيارك MNC - حيث نصمم التميز.`;
+  const audioRef = useRef(null);
 
   useEffect(() => {
     setIsMounted(true);
+    audioRef.current = new Audio('/asstes/presentation.mp3');
+    audioRef.current.onended = () => setIsPlaying(false);
+    
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
   }, []);
 
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
+
   const handlePlayPause = () => {
-    if (!synth || !isMounted) return;
+    if (!audioRef.current) return;
 
     if (isPlaying) {
-      synth.cancel();
+      audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      synth.cancel();
-
-      const utterance = new SpeechSynthesisUtterance(presentationText);
-      utterance.lang = 'ar-SA';
-      utterance.rate = 1;
-      utterance.pitch = 1.1;
-      utterance.volume = volume;
-
-      utterance.onend = () => {
-        setIsPlaying(false);
-      };
-
-      utterance.onerror = () => {
-        setIsPlaying(false);
-      };
-
-      utteranceRef.current = utterance;
-      synth.speak(utterance);
+      audioRef.current.play().catch(console.error);
       setIsPlaying(true);
     }
   };
-
-  useEffect(() => {
-    if (!synth || !isMounted || !isPlaying || !utteranceRef.current) return;
-    utteranceRef.current.volume = volume;
-  }, [volume, isMounted, isPlaying, synth]);
 
   if (!isMounted) return null;
 
@@ -93,7 +58,7 @@ export default function VoicePresentation() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              className="flex flex-col items-center gap-2 bg-white/95 backdrop-blur-md dark:bg-slate-900/95 p-4 rounded-2xl shadow-lg border border-[#c5a059]/20"
+              className="flex flex-col items-center gap-2 bg-white/95 backdrop-blur-md dark:bg-slate-900/95 p-4 rounded-2xl shadow-lg border border-[#D5B25D]/20"
             >
               <input
                 type="range"
@@ -101,7 +66,7 @@ export default function VoicePresentation() {
                 max="100"
                 value={volume * 100}
                 onChange={(e) => setVolume(e.target.value / 100)}
-                className="w-20 h-1 transform -rotate-90 origin-left accent-[#c5a059]"
+                className="w-20 h-1 transform -rotate-90 origin-left accent-[#D5B25D]"
                 style={{ transformOrigin: 'left center' }}
               />
               <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
@@ -114,13 +79,14 @@ export default function VoicePresentation() {
         {/* زر التشغيل الرئيسي */}
         <motion.button
           onClick={handlePlayPause}
+          onMouseEnter={() => setShowVolumeControl(true)}
+          onMouseLeave={() => setShowVolumeControl(false)}
           whileTap={{ scale: 0.92 }}
           transition={{ type: 'spring', stiffness: 300, damping: 10 }}
-          className={`relative p-5 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center cursor-pointer ${
-            isPlaying
-              ? 'bg-[#c5a059] text-white shadow-[0_0_20px_rgba(197,160,89,0.4)]'
-              : 'bg-white dark:bg-slate-900 text-[#0f172a] dark:text-[#c5a059] border-2 border-[#c5a059]/30'
-          }`}
+          className={`relative p-5 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center cursor-pointer ${isPlaying
+              ? 'bg-[#D5B25D] text-white shadow-[0_0_20px_rgba(213,178,93,0.4)]'
+              : 'bg-white dark:bg-slate-900 text-[#0f172a] dark:text-[#D5B25D] border-2 border-[#D5B25D]/30'
+            }`}
           title={isPlaying ? 'إيقاف الكلام' : 'تشغيل الكلام'}
         >
           <AnimatePresence mode="wait">
@@ -155,7 +121,7 @@ export default function VoicePresentation() {
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -5 }}
-              className="text-xs font-semibold text-[#c5a059] text-center whitespace-nowrap"
+              className="text-xs font-semibold text-[#D5B25D] text-center whitespace-nowrap"
             >
               🎙️ تعريف الشركة
             </motion.div>

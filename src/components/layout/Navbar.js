@@ -13,6 +13,7 @@ import Button from "../ui/Button";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { lang, setLang, toggleLanguage, t } = useLanguage();
@@ -40,11 +41,12 @@ const Navbar = () => {
         {/* Logo Section */}
         <Link href="/" className="flex items-center min-w-0 sm:min-w-[120px]">
           <Image
-            src="https://marwannazer.com/wp-content/uploads/2018/05/أللوقو-الرئيسي.png"
+            src="/asstes/logo13.png"
             alt="MNC Logo"
-            width={120}
-            height={60}
-            className="h-4 sm:h-8 md:h-10 lg:h-12 w-auto object-contain transition-all duration-500"
+            width={240}
+            height={120}
+            quality={100}
+            className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto object-contain transition-all duration-500"
             priority
           />
         </Link>
@@ -72,19 +74,43 @@ const Navbar = () => {
 
         {/* Action Button Section */}
         <div className="hidden lg:flex items-center justify-end gap-3 min-w-[150px]">
-          <Link
-            href="https://marwannazer.com/bro-Final.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 group"
-          >
-            <span className="flex items-center justify-center w-10 h-10 bg-white/5 text-secondary rounded-xl transition-all duration-300 group-hover:text-gold group-hover:-translate-y-0.5 active:scale-95">
-              <HiDocumentText size={22} />
-            </span>
-            <span className="bg-secondary text-white px-6 py-2 rounded-xl font-bold text-sm shadow-lg shadow-secondary/20 transition-all duration-300 group-hover:bg-gold group-hover:-translate-y-0.5 active:scale-95">
-              {t('nav.profile')}
-            </span>
-          </Link>
+          {/* Profile Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setIsProfileOpen(!isProfileOpen)}
+              className="flex items-center gap-2 group"
+            >
+              <span className="flex items-center justify-center w-10 h-10 bg-white/5 text-secondary rounded-xl transition-all duration-300 group-hover:text-gold group-hover:-translate-y-0.5 active:scale-95">
+                <HiDocumentText size={22} />
+              </span>
+              <span className="bg-secondary text-white px-6 py-2 rounded-xl font-bold text-sm shadow-lg shadow-secondary/20 transition-all duration-300 group-hover:bg-gold group-hover:-translate-y-0.5 active:scale-95 flex items-center gap-2">
+                {t('nav.profile')}
+                <ChevronDown size={14} className={`transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
+              </span>
+            </button>
+
+            {/* Profile Dropdown Menu */}
+            <div className={`absolute top-full mt-2 right-0 w-[170px] bg-white border border-secondary/20 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden ${isProfileOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}`}>
+              <a
+                href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center px-4 py-3 text-sm font-bold text-secondary hover:text-primary hover:bg-slate-50 transition-colors"
+                onClick={() => setIsProfileOpen(false)}
+              >
+                {lang === 'ar' ? 'النسخة العربية' : 'Arabic Version'}
+              </a>
+              <a
+                href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center px-4 py-3 text-sm font-bold text-secondary hover:text-primary hover:bg-slate-50 transition-colors border-t border-slate-100"
+                onClick={() => setIsProfileOpen(false)}
+              >
+                {lang === 'ar' ? 'النسخة الإنجليزية' : 'English Version'}
+              </a>
+            </div>
+          </div>
 
           {/* Language Selector */}
           <div className="relative">
@@ -163,19 +189,42 @@ const Navbar = () => {
           </div>
 
           <div className="mt-auto space-y-4">
-            <Link
-              href="https://marwannazer.com/bro-Final.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 group w-full"
-            >
-              <span className="flex items-center justify-center w-14 h-14 bg-slate-50 text-secondary rounded-2xl transition-all active:scale-95">
-                <HiDocumentText size={28} />
-              </span>
-              <span className="flex-1 bg-secondary text-white py-4 rounded-2xl font-bold text-base text-center shadow-xl shadow-secondary/20 transition-all active:scale-95">
-                {t('nav.profile')}
-              </span>
-            </Link>
+            {/* Mobile Profile Downloads */}
+            <div className="w-full">
+              <button
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                className="flex items-center gap-2 group w-full"
+              >
+                <span className="flex items-center justify-center w-14 h-14 bg-slate-50 text-secondary rounded-2xl transition-all active:scale-95">
+                  <HiDocumentText size={28} />
+                </span>
+                <span className="flex-1 flex items-center justify-center gap-2 bg-secondary text-white py-4 rounded-2xl font-bold text-base shadow-xl shadow-secondary/20 transition-all active:scale-95">
+                  {t('nav.profile')}
+                  <ChevronDown size={18} className={`transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
+                </span>
+              </button>
+              
+              <div className={`overflow-hidden transition-all duration-300 ${isProfileOpen ? "max-h-40 mt-3 opacity-100" : "max-h-0 opacity-0"}`}>
+                <div className="flex flex-col gap-2 pl-16 rtl:pl-0 rtl:pr-16">
+                  <a
+                    href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full text-sm font-bold text-secondary border border-secondary/20 py-3 rounded-xl hover:bg-slate-50 transition-colors text-center"
+                  >
+                    {lang === 'ar' ? 'النسخة العربية' : 'Arabic Version'}
+                  </a>
+                  <a
+                    href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full text-sm font-bold text-secondary border border-secondary/20 py-3 rounded-xl hover:bg-slate-50 transition-colors text-center"
+                  >
+                    {lang === 'ar' ? 'النسخة الإنجليزية' : 'English Version'}
+                  </a>
+                </div>
+              </div>
+            </div>
 
             {/* Mobile Language Switcher */}
             <button

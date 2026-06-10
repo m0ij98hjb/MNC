@@ -10,11 +10,11 @@ const cairo = Cairo({
 });
 
 export const metadata = {
-  title: "MNC Construction | Eng. Marwan Ahmed Nazer",
-  description: "A distinguished engineering mark in construction and architectural design. Managed by Eng. Marwan Ahmed Nazer.",
+  title: "مروان ناظر للاستشارات الهندسية: MNC",
+  description: "خدماتنا ; مشاريع مقاولات. دراسة وتنفيذ ; التصميم المعماري. الأفكار والحلول ; إدارة المشاريع. إدارة التنفيذ ; التصميم الداخلي. الديكور والتشطيب ...",
   icons: {
-    icon: "/asstes/logo.png",
-    apple: "/asstes/logo.png",
+    icon: "/asstes/logo13.png",
+    apple: "/asstes/logo13.png",
   },
 };
 
