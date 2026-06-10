@@ -2,6 +2,10 @@ import { Cairo } from "next/font/google";
 import "./globals.css";
 import { AOSInit } from "@/components/AOSInit";
 import VoicePresentation from "@/components/VoicePresentation";
+import Footer from "@/components/layout/Footer";
+import FloatingContact from "@/components/layout/FloatingContact";
+import { LanguageProvider } from "@/context/LanguageContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -18,21 +22,19 @@ export const metadata = {
   },
 };
 
-import Footer from "@/components/layout/Footer";
-import FloatingContact from "@/components/layout/FloatingContact";
-import { LanguageProvider } from "@/context/LanguageContext";
-
 export default function RootLayout({ children }) {
   return (
     <html lang="ar" dir="rtl" className={`${cairo.variable}`}>
       <body className="antialiased flex flex-col min-h-screen relative">
-        <LanguageProvider>
-          <AOSInit />
-          <VoicePresentation />
-          {children}
-          <FloatingContact />
-          <Footer />
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <AOSInit />
+            <VoicePresentation />
+            {children}
+            <FloatingContact />
+            <Footer />
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

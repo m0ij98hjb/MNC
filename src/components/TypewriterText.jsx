@@ -38,6 +38,8 @@ export default function TypewriterText({
 }) {
   const [displayText, setDisplayText] = useState("");
   const [activeTextIndex, setActiveTextIndex] = useState(0);
+  // Start as false on SSR, update after client mount to avoid hydration mismatch.
+  const [isRTL, setIsRTL] = useState(false);
 
   // Refs avoid stale-closure issues inside setTimeout callbacks.
   const stateRef = useRef({
@@ -47,9 +49,10 @@ export default function TypewriterText({
   });
   const timeoutRef = useRef(null);
 
-  // Auto-detect page direction (RTL / LTR).
-  const isRTL =
-    typeof document !== "undefined" && document.dir === "rtl";
+  // Detect page direction after mount (client-side only).
+  useEffect(() => {
+    setIsRTL(document.dir === "rtl");
+  }, []);
 
   // ------------------------------------------------------------------
   // Core typing engine
