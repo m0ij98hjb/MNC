@@ -14,47 +14,122 @@ export default function ProjectsPage() {
   const galleries = [
     {
       id: "construction",
-      title: lang === 'ar' ? "المقاولات" : "Construction",
+      title: lang === 'ar' ? "مشروع BARJIS" : "BARJIS Project",
       description: lang === 'ar' ? "اضغط على الصورة لتكبيرها ومرر لتصفح باقي الصور" : "Click on the image to enlarge and scroll to browse the rest of the images",
       images: [
-        "/asstes/vela1.png",
-        "/asstes/vela2.png",
-        "/asstes/vela3.png",
-        "/asstes/vela4.png",
+        "/asstes/office-projects/BARJIS FRONT FACADE (05.08.2025).jpg",
+        "/asstes/office-projects/BARJIS - BACK ENTRANCE (07.07.2025).jpg",
+        "/asstes/office-projects/BARJIS - BACK ENTRANCE 02 (07.07.2025).jpg",
+        "/asstes/office-projects/BARJIS - INNER COURT (05.24.2025).jpg",
+        "/asstes/office-projects/BARJIS - INNER COURT (TWO) (05.24.2025).jpg",
+        "/asstes/office-projects/BARJIS - PARKING ENTRANCE (07.07.2025).jpg",
+        "/asstes/office-projects/BARJIS - ROOF (05.24.2025).jpg",
+        "/asstes/office-projects/BARJIS BASEMENT - TWO (07.13.2025).jpg",
       ]
     },
     {
       id: "architecture",
-      title: lang === 'ar' ? "التصميم المعماري" : "Architectural Design",
+      title: lang === 'ar' ? "مشاريع سكنية وإنشائية" : "Residential & Construction Projects",
       description: lang === 'ar' ? "اضغط على الصورة لتكبيرها ومرر لتصفح باقي الصور" : "Click on the image to enlarge and scroll to browse the rest of the images",
       images: [
-           "/asstes/mamary1.png",
-           "/asstes/mamary2.png",
-           "/asstes/mamary3.png",
-           "/asstes/mamary4.png",
-           "/asstes/mamary5.png",
-           "/asstes/mamary6.png",
-           "/asstes/mamary7.png",
-           "/asstes/mamary8.png",
-           "/asstes/mamary9.png",
-           "/asstes/mamary10.png",
+        "/asstes/office-projects/1.jpg",
+        "/asstes/office-projects/2.jpg",
+        "/asstes/office-projects/3.jpg",
+        "/asstes/office-projects/4.jpg",
+        "/asstes/office-projects/5.jpg",
+        "/asstes/office-projects/8.jpg",
+        "/asstes/office-projects/10.jpg",
+        "/asstes/office-projects/11.jpg",
+        "/asstes/office-projects/12.jpg",
+        "/asstes/office-projects/13.jpg",
+        "/asstes/office-projects/14.jpg",
+        "/asstes/office-projects/15.jpg",
+        "/asstes/office-projects/16.jpg",
+        "/asstes/office-projects/17.jpg",
+        "/asstes/office-projects/18.jpg",
+        "/asstes/office-projects/19.jpg",
+        "/asstes/office-projects/20.jpg",
+        "/asstes/office-projects/21.jpg",
+        "/asstes/office-projects/22.jpg",
+        "/asstes/office-projects/23.jpg",
+        "/asstes/office-projects/24.jpg",
+        "/asstes/office-projects/25.jpg",
+        "/asstes/office-projects/26.jpg",
+        "/asstes/office-projects/27.jpg",
+        "/asstes/office-projects/28.jpg",
+        "/asstes/office-projects/29.jpg",
+        "/asstes/office-projects/30.jpg",
+        "/asstes/office-projects/31.jpg",
+        "/asstes/office-projects/32.jpg",
+        "/asstes/office-projects/33.jpg",
+        "/asstes/office-projects/34.jpg",
+        "/asstes/office-projects/35.jpg",
+        "/asstes/office-projects/36.jpg",
+        "/asstes/office-projects/37.jpg",
+        "/asstes/office-projects/38.jpg",
+        "/asstes/office-projects/39.jpg",
+        "/asstes/office-projects/40.jpg",
+        "/asstes/office-projects/41.jpg",
+        "/asstes/office-projects/42.jpg",
+        "/asstes/office-projects/43.jpg",
+        "/asstes/office-projects/44.jpg",
+        "/asstes/office-projects/45.jpg",
+        "/asstes/office-projects/46.jpg",
+        "/asstes/office-projects/47.jpg",
+        "/asstes/office-projects/48.jpg",
+        "/asstes/office-projects/50.jpg",
+        "/asstes/office-projects/51.jpg",
+        "/asstes/office-projects/52.jpg",
+        "/asstes/office-projects/53.jpg",
+        "/asstes/office-projects/54.jpg",
+        "/asstes/office-projects/55.jpg",
+        "/asstes/office-projects/56.jpg",
+        "/asstes/office-projects/57.jpg",
+        "/asstes/office-projects/58.jpg",
+        "/asstes/office-projects/59.jpg",
+        "/asstes/office-projects/60.jpg",
+        "/asstes/office-projects/61.jpg",
       ]
     },
     {
       id: "interior",
-      title: lang === 'ar' ? "التصميم الداخلي" : "Interior Design",
+      title: lang === 'ar' ? "أعمال حديثة 2025" : "Recent Work 2025",
       description: lang === 'ar' ? "اضغط على الصورة لتكبيرها ومرر لتصفح باقي الصور" : "Click on the image to enlarge and scroll to browse the rest of the images",
       images: [
-      "/asstes/internal1.png",
-      "/asstes/internal2.png",
-      "/asstes/internal3.png",
-      "/asstes/internal4.png",
-      "/asstes/internal5.png",
-      "/asstes/internal6.png",
-      "/asstes/internal7.png",
-      "/asstes/internal8.png",
-      "/asstes/internal9.png",
-      "/asstes/internal10.png",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.48 (1).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.48 (2).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.48 (3).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.48 (4).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.48 (5).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.48 (6).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.48 (7).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.48 (8).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.48 (9).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.48 (10).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.48 (11).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.48.jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.49 (1).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.49 (2).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.49 (3).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.49 (4).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.49 (5).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.49.jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 09.08.25.jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 09.08.26 (1).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 09.08.26.jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 09.08.27.jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 09.08.28.jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-30 at 03.35.41 (1).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-30 at 03.35.41 (2).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-30 at 03.35.41.jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-30 at 03.35.42 (1).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-30 at 03.35.42 (2).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-30 at 03.35.42 (3).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-30 at 03.35.42.jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-30 at 05.15.23 (1).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-30 at 05.15.23 (2).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-30 at 05.15.23 (3).jpeg",
+        "/asstes/office-projects/New folder/WhatsApp Image 2025-12-30 at 05.15.23.jpeg",
       ]
     }
   ];
@@ -64,16 +139,17 @@ export default function ProjectsPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+      <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
+            src="/asstes/office-projects/BARJIS FRONT FACADE (05.08.2025).jpg"
             alt="Projects Background"
             fill
-            className="object-cover"
+            className="object-cover opacity-90 scale-105 animate-slow-zoom"
             priority
+            unoptimized
           />
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-black/15" />
         </div>
 
         <div className="container relative z-10 mx-auto px-6">
