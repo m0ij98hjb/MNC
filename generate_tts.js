@@ -16,7 +16,7 @@ const text = `مرحباً بكم في شركة إم - إن - سي، مروان 
 شركة إم - إن - سي، حيث تتحول رؤيتكم إلى واقع هندسي متميز. يسعدنا التواصل معكم وتقديم أفضل الحلول لمشاريعكم، أينما كنتم في أرجاء المملكة. شكراً لزيارتكم.`;
 
 const tts = new EdgeTTS({
-  voice: 'ar-SA-ZariyahNeural',
+  voice: 'ar-EG-SalmaNeural',
   lang: 'ar-SA',
   rate: '-15%',
   outputFormat: 'audio-24khz-48kbitrate-mono-mp3',
