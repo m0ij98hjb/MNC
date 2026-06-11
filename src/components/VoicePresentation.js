@@ -14,6 +14,7 @@ export default function VoicePresentation() {
   useEffect(() => {
     setIsMounted(true);
     audioRef.current = new Audio('/asstes/presentation.mp3');
+    audioRef.current.playbackRate = 1.0;
     audioRef.current.onended = () => setIsPlaying(false);
     
     return () => {
@@ -49,7 +50,7 @@ export default function VoicePresentation() {
         className="fixed bottom-8 left-8 z-40 flex flex-col items-center gap-2"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
       >
         {/* التحكم في مستوى الصوت */}
         <AnimatePresence>
@@ -81,21 +82,19 @@ export default function VoicePresentation() {
           onClick={handlePlayPause}
           onMouseEnter={() => setShowVolumeControl(true)}
           onMouseLeave={() => setShowVolumeControl(false)}
-          whileTap={{ scale: 0.92 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 10 }}
-          className={`relative p-5 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center cursor-pointer ${isPlaying
-              ? 'bg-[#D5B25D] text-white shadow-[0_0_20px_rgba(213,178,93,0.4)]'
-              : 'bg-white dark:bg-slate-900 text-[#0f172a] dark:text-[#D5B25D] border-2 border-[#D5B25D]/30'
-            }`}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 20, mass: 0.5 }}
+          className="relative p-5 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center cursor-pointer bg-[#D5B25D] text-white shadow-[0_0_20px_rgba(213,178,93,0.4)]"
           title={isPlaying ? 'إيقاف الكلام' : 'تشغيل الكلام'}
         >
           <AnimatePresence mode="wait">
             {isPlaying ? (
               <motion.div
                 key="playing"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.15 }}
                 className="pointer-events-none"
               >
                 <Mic size={26} strokeWidth={2} />
@@ -103,9 +102,10 @@ export default function VoicePresentation() {
             ) : (
               <motion.div
                 key="paused"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.15 }}
                 className="pointer-events-none"
               >
                 <MicOff size={26} strokeWidth={2} />
