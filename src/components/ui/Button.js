@@ -8,8 +8,8 @@ export function cn(...inputs) {
 
 const Button = ({ className, variant = "primary", size = "md", children, as: Component = "button", ...props }) => {
   const variants = {
-    primary: "bg-secondary text-white hover:bg-gold",
-    outline: "border-2 border-secondary text-secondary hover:bg-secondary hover:text-white",
+    primary: "bg-[var(--secondary)] text-[var(--foreground)] hover:bg-gold",
+    outline: "border-2 border-[var(--secondary)] text-[var(--secondary)] hover:bg-[var(--secondary)] hover:text-[var(--foreground)]",
     ghost: "text-secondary hover:bg-secondary/10",
   };
 

@@ -20,6 +20,7 @@ const Projects = () => {
       image: "/asstes/office-projects/BARJIS FRONT FACADE (05.08.2025).jpg",
       location: lang === 'ar' ? "مشروع BARJIS" : "BARJIS Project"
     },
+    
     {
       id: 2,
       title: lang === 'ar' ? "مشروع بارجيس - الفناء الداخلي" : "BARJIS - Inner Court",

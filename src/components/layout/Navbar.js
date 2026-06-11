@@ -37,35 +37,43 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed w-full z-[100] transition-all duration-500 flex justify-center px-2 sm:px-4 md:px-6 top-2 sm:top-5">
-      <div className={`w-full max-w-7xl flex justify-between items-center px-4 sm:px-6 md:px-10 py-1 sm:py-2 backdrop-blur-md rounded-full shadow-2xl transition-all duration-500 border border-white/10 ${scrolled ? "bg-[#eaeaea]/95 shadow-secondary/10" : "bg-transparent"}`}>
+    <nav className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500
+      ${scrolled
+        ? "bg-black/90 backdrop-blur-xl border-b border-[#B8923A]/25 shadow-[0_4px_40px_rgba(0,0,0,0.6)]"
+        : "bg-black/20 backdrop-blur-sm border-b border-white/5"
+      }`}>
+      <div className={`w-full mx-auto flex justify-between items-center px-4 sm:px-6 md:px-10 py-4 sm:py-5 transition-all duration-500`}>
 
         {/* Logo Section */}
-        <Link href="/" className="flex items-center min-w-0 sm:min-w-[120px]">
+        <Link href="/" className="flex items-center min-w-0 sm:min-w-[140px] mr-6 lg:mr-10">
           <Image
             src="/asstes/logo13.png"
             alt="MNC Logo"
             width={240}
             height={120}
-            className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto object-contain transition-all duration-500"
+            className="h-12 sm:h-14 md:h-16 lg:h-18 w-auto object-contain transition-all duration-500"
             priority
           />
         </Link>
 
         {/* Centered Desktop Links */}
         <div className="hidden lg:flex items-center justify-center flex-1">
-          <div className="flex items-center space-x-1 rtl:space-x-reverse px-2 rounded-full">
+          <div className="flex items-center space-x-1 rtl:space-x-reverse px-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-sm xl:text-base font-bold px-2 lg:px-3 xl:px-6 py-2 rounded-full transition-all duration-300 relative group overflow-hidden ${isActive ? "bg-secondary/10 text-secondary border border-secondary/20 shadow-sm" : "text-secondary hover:bg-white/5"}`}
+                  className={`text-[15px] font-bold px-2 lg:px-3 xl:px-6 py-2 rounded-full transition-all duration-300 relative group overflow-hidden whitespace-nowrap ${
+                    isActive
+                      ? "bg-[#B8923A]/10 text-[#B8923A] border border-[#B8923A]/25 shadow-sm"
+                      : "text-white hover:text-[#B8923A]"
+                  }`}
                 >
                   <span className="relative z-10">{link.name}</span>
                   {!isActive && (
-                    <span className="absolute inset-0 bg-secondary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-full"></span>
+                    <span className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-full"></span>
                   )}
                 </Link>
               );
@@ -74,38 +82,38 @@ const Navbar = () => {
         </div>
 
         {/* Action Button Section */}
-        <div className="hidden lg:flex items-center justify-end gap-3 min-w-[150px]">
+        <div className="hidden lg:flex items-center justify-end gap-2 min-w-[120px]">
           {/* Profile Dropdown */}
           <div className="relative">
             <button
               onClick={() => setIsProfileOpen(!isProfileOpen)}
               className="flex items-center gap-2 group"
             >
-              <span className="flex items-center justify-center w-10 h-10 bg-white/5 text-secondary rounded-xl transition-all duration-300 group-hover:text-gold group-hover:-translate-y-0.5 active:scale-95">
+              <span className="flex items-center justify-center w-9 h-9 border border-[#B8923A]/30 text-[#B8923A] rounded-md transition-all duration-300 group-hover:bg-[#B8923A]/10 active:scale-95">
                 <HiDocumentText size={22} />
               </span>
-              <span className="bg-secondary text-white px-6 py-2 rounded-xl font-bold text-sm shadow-lg shadow-secondary/20 transition-all duration-300 group-hover:bg-gold group-hover:-translate-y-0.5 active:scale-95 flex items-center gap-2">
+              <span className="bg-[#B8923A] text-black px-4 py-2 rounded-md font-bold text-sm shadow transition-all duration-300 hover:bg-[#C9A34D] active:scale-95 flex items-center gap-2">
                 {t('nav.profile')}
                 <ChevronDown size={14} className={`transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
               </span>
             </button>
 
             {/* Profile Dropdown Menu */}
-            <div className={`absolute top-full mt-2 right-0 w-[170px] bg-white border border-secondary/20 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden ${isProfileOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}`}>
+            <div className={`absolute top-full mt-2 right-0 w-[170px] bg-[#111] border border-[#B8923A]/20 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden ${isProfileOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}`}>
               <a
                 href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-center px-4 py-3 text-sm font-bold text-secondary hover:text-primary hover:bg-slate-50 transition-colors"
+                className="block w-full text-center px-4 py-3 text-sm font-bold text-[#B8923A] hover:bg-[#B8923A]/10 transition-colors"
                 onClick={() => setIsProfileOpen(false)}
               >
                 {lang === 'ar' ? 'النسخة العربية' : 'Arabic Version'}
               </a>
-              <a
+                <a
                 href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-center px-4 py-3 text-sm font-bold text-secondary hover:text-primary hover:bg-slate-50 transition-colors border-t border-slate-100"
+                className="block w-full text-center px-4 py-3 text-sm font-bold text-[#B8923A] hover:bg-[#B8923A]/10 transition-colors border-t border-white/5"
                 onClick={() => setIsProfileOpen(false)}
               >
                 {lang === 'ar' ? 'النسخة الإنجليزية' : 'English Version'}
@@ -116,11 +124,7 @@ const Navbar = () => {
           {/* Dark Mode Toggle */}
           <button
             onClick={toggleTheme}
-            className={`relative flex items-center justify-center w-10 h-10 rounded-xl border transition-all duration-300 overflow-hidden group ${
-              theme === 'dark'
-                ? 'border-secondary/40 bg-secondary/10 text-secondary hover:bg-secondary/20'
-                : 'border-secondary/30 bg-white/5 text-secondary hover:bg-secondary/10'
-            }`}
+            className="relative flex items-center justify-center w-10 h-10 rounded-xl border border-[#B8923A]/30 text-[#B8923A] hover:bg-[#B8923A]/10 transition-all duration-300 overflow-hidden"
             title={theme === 'dark' ? 'وضع النهار' : 'وضع الليل'}
           >
             <span className={`absolute transition-all duration-500 ${
@@ -139,17 +143,17 @@ const Navbar = () => {
           <div className="relative">
             <button
               onClick={() => setIsLangOpen(!isLangOpen)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl border border-secondary/30 bg-white/5 hover:bg-secondary hover:text-white transition-all duration-300 ${scrolled ? "text-secondary" : "text-white"}`}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl border border-[#B8923A]/30 text-white hover:border-[#B8923A] hover:text-[#B8923A] transition-all duration-300"
             >
-              <MdLanguage size={18} className="opacity-80" />
+              <MdLanguage size={18} className="text-[#B8923A] opacity-80" />
               <span className="text-xs font-black tracking-widest uppercase">{lang === 'ar' ? 'AR' : 'EN'}</span>
               <ChevronDown size={12} className={`mt-0.5 transition-transform duration-300 ${isLangOpen ? "rotate-180" : ""}`} />
             </button>
 
             {/* Dropdown Menu */}
-            <div className={`absolute top-full mt-2 right-0 w-full min-w-[120px] bg-white border border-secondary/20 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden ${isLangOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}`}>
+            <div className={`absolute top-full mt-2 right-0 w-full min-w-[120px] bg-[#111] border border-[#B8923A]/20 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden ${isLangOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}`}>
               <button
-                className="w-full text-center px-4 py-3 text-sm font-bold text-secondary hover:text-primary hover:bg-slate-50 transition-colors"
+                className="w-full text-center px-4 py-3 text-sm font-bold text-[#B8923A] hover:bg-[#B8923A]/10 transition-colors"
                 onClick={() => {
                   setLang(lang === 'ar' ? 'en' : 'ar');
                   setIsLangOpen(false);
@@ -163,7 +167,7 @@ const Navbar = () => {
 
         {/* Mobile Toggle */}
         <button
-          className={`lg:hidden p-2 rounded-full transition-colors ${scrolled || isOpen ? "text-primary bg-black/5 hover:bg-black/10" : "text-white bg-white/10 hover:bg-white/20"}`}
+          className="lg:hidden p-2 rounded-full border border-[#B8923A]/30 text-white hover:bg-[#B8923A]/10 transition-colors"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -172,21 +176,19 @@ const Navbar = () => {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`lg:hidden fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm transition-opacity duration-500 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
+        className={`lg:hidden fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm transition-opacity duration-500 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
         onClick={() => setIsOpen(false)}
       />
 
       {/* Mobile Menu Panel */}
       <div
-        className={`lg:hidden fixed ${lang === 'ar' ? 'right-0' : 'left-0'} top-0 bottom-0 w-[85%] max-w-sm bg-white z-[70] transition-transform duration-500 ease-out shadow-2xl ${isOpen ? "translate-x-0" : lang === 'ar' ? "translate-x-full" : "-translate-x-full"
-          }`}
+        className={`lg:hidden fixed ${lang === 'ar' ? 'right-0' : 'left-0'} top-0 bottom-0 w-[85%] max-w-sm bg-[#0a0a0a] z-[70] transition-transform duration-500 ease-out shadow-2xl ${isOpen ? "translate-x-0" : lang === 'ar' ? "translate-x-full" : "-translate-x-full"}`}
       >
         <div className="flex flex-col h-full p-8 pt-24 relative">
           {/* Close button inside panel */}
           <button
             onClick={() => setIsOpen(false)}
-            className="absolute top-8 left-8 p-2 rounded-full bg-slate-100 text-primary hover:bg-slate-200 transition-colors"
+            className="absolute top-8 left-8 p-2 rounded-full border border-[#B8923A]/20 text-white hover:bg-[#B8923A]/10 transition-colors"
           >
             <X size={24} />
           </button>
@@ -199,10 +201,11 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-xl font-bold py-4 px-6 rounded-2xl transition-all ${isActive
-                    ? "bg-secondary/10 text-secondary border border-secondary/20"
-                    : "text-slate-600 hover:bg-slate-50"
-                    }`}
+                  className={`text-xl font-bold py-4 px-6 rounded-2xl transition-all ${
+                    isActive
+                      ? "bg-[#B8923A]/10 text-[#B8923A] border border-[#B8923A]/20"
+                      : "text-white/70 hover:bg-white/5 hover:text-white"
+                  }`}
                   onClick={() => setIsOpen(false)}
                 >
                   {link.name}
@@ -218,22 +221,22 @@ const Navbar = () => {
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 className="flex items-center gap-2 group w-full"
               >
-                <span className="flex items-center justify-center w-14 h-14 bg-slate-50 text-secondary rounded-2xl transition-all active:scale-95">
+                <span className="flex items-center justify-center w-14 h-14 border border-[#B8923A]/20 text-[#B8923A] rounded-2xl transition-all active:scale-95">
                   <HiDocumentText size={28} />
                 </span>
-                <span className="flex-1 flex items-center justify-center gap-2 bg-secondary text-white py-4 rounded-2xl font-bold text-base shadow-xl shadow-secondary/20 transition-all active:scale-95">
+                <span className="flex-1 flex items-center justify-center gap-2 bg-[#B8923A] text-black py-4 rounded-2xl font-bold text-base shadow-xl transition-all active:scale-95">
                   {t('nav.profile')}
                   <ChevronDown size={18} className={`transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
                 </span>
               </button>
-              
+
               <div className={`overflow-hidden transition-all duration-300 ${isProfileOpen ? "max-h-40 mt-3 opacity-100" : "max-h-0 opacity-0"}`}>
                 <div className="flex flex-col gap-2 pl-16 rtl:pl-0 rtl:pr-16">
                   <a
                     href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full text-sm font-bold text-secondary border border-secondary/20 py-3 rounded-xl hover:bg-slate-50 transition-colors text-center"
+                    className="w-full text-sm font-bold text-[#B8923A] border border-[#B8923A]/20 py-3 rounded-xl hover:bg-[#B8923A]/10 transition-colors text-center"
                   >
                     {lang === 'ar' ? 'النسخة العربية' : 'Arabic Version'}
                   </a>
@@ -241,7 +244,7 @@ const Navbar = () => {
                     href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full text-sm font-bold text-secondary border border-secondary/20 py-3 rounded-xl hover:bg-slate-50 transition-colors text-center"
+                    className="w-full text-sm font-bold text-[#B8923A] border border-[#B8923A]/20 py-3 rounded-xl hover:bg-[#B8923A]/10 transition-colors text-center"
                   >
                     {lang === 'ar' ? 'النسخة الإنجليزية' : 'English Version'}
                   </a>
@@ -252,9 +255,9 @@ const Navbar = () => {
             {/* Mobile Dark Mode Toggle */}
             <button
               onClick={toggleTheme}
-              className="w-full text-base font-bold text-slate-600 dark:text-slate-300 border border-slate-200 py-4 rounded-2xl hover:bg-slate-50 transition-colors flex items-center justify-center gap-3"
+              className="w-full text-base font-bold text-white/70 border border-white/10 py-4 rounded-2xl hover:bg-white/5 transition-colors flex items-center justify-center gap-3"
             >
-              <span className="text-secondary">
+              <span className="text-[#B8923A]">
                 {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
               </span>
               <span>{theme === 'dark' ? (lang === 'ar' ? 'وضع النهار' : 'Light Mode') : (lang === 'ar' ? 'وضع الليل' : 'Dark Mode')}</span>
@@ -266,16 +269,16 @@ const Navbar = () => {
                 toggleLanguage();
                 setIsOpen(false);
               }}
-              className="w-full text-base font-bold text-slate-600 border border-slate-200 py-4 rounded-2xl hover:bg-slate-50 transition-colors flex items-center justify-center gap-3"
+              className="w-full text-base font-bold text-white/70 border border-white/10 py-4 rounded-2xl hover:bg-white/5 transition-colors flex items-center justify-center gap-3"
             >
-              <MdLanguage size={20} className="text-secondary" />
+              <MdLanguage size={20} className="text-[#B8923A]" />
               <span>{lang === 'ar' ? 'Switch to English' : 'التحويل للعربية'}</span>
-              <span className="bg-secondary/10 text-secondary text-[10px] px-2 py-0.5 rounded-md uppercase font-black ml-1">
+              <span className="bg-[#B8923A]/15 text-[#B8923A] text-[10px] px-2 py-0.5 rounded-md uppercase font-black ml-1">
                 {lang === 'ar' ? 'EN' : 'AR'}
               </span>
             </button>
 
-            <p className="text-center text-[10px] text-slate-400 font-medium uppercase tracking-[0.2em] mt-4">
+            <p className="text-center text-[10px] text-white/20 font-medium uppercase tracking-[0.2em] mt-4">
               © {new Date().getFullYear()} MNC Construction
             </p>
           </div>

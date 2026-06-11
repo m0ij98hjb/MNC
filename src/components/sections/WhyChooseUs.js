@@ -53,14 +53,14 @@ const WhyChooseUs = () => {
             </span>
             <span className="h-px w-8 bg-secondary"></span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-black text-primary mb-6 leading-tight">
+          <h2 className="text-3xl md:text-5xl font-black text-[var(--foreground)] mb-6 leading-tight">
             {lang === 'ar' ? (
               <>لماذا تختار <span className="text-secondary">MNC</span>؟</>
             ) : (
               <>Why Choose <span className="text-secondary">MNC</span>?</>
             )}
           </h2>
-          <p className="text-slate-500 text-lg font-medium">
+          <p className="text-[var(--foreground)] text-lg font-medium">
             {t('features.subtitle')}
           </p>
         </div>
@@ -70,7 +70,7 @@ const WhyChooseUs = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="relative bg-white rounded-2xl p-8 border border-slate-100 shadow-[0_4px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] transition-all duration-500 group hover:-translate-y-2 flex flex-col items-center text-center overflow-hidden"
+              className="relative bg-white rounded-2xl p-6 border border-slate-100 shadow-[0_4px_18px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-all duration-500 group hover:-translate-y-1 flex flex-col items-center text-center overflow-hidden max-w-sm mx-auto"
               data-aos="fade-up"
               data-aos-delay={feature.delay}
             >
@@ -78,27 +78,27 @@ const WhyChooseUs = () => {
               <div className="absolute inset-0 bg-gradient-to-b from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
 
               {/* Number watermark */}
-              <span className={`absolute top-3 ${lang === 'ar' ? 'left-4' : 'right-4'} text-5xl font-black text-slate-100 group-hover:text-secondary/10 transition-colors duration-500 select-none`}>
+              <span className={`absolute top-3 ${lang === 'ar' ? 'left-4' : 'right-4'} text-4xl font-black text-slate-100 group-hover:text-secondary/10 transition-colors duration-500 select-none`}>
                 {feature.num}
               </span>
 
               {/* Icon */}
-              <div className="relative z-10 w-14 h-14 bg-secondary/10 rounded-xl flex items-center justify-center mb-5 text-secondary group-hover:bg-secondary group-hover:text-white transition-all duration-500 group-hover:scale-110 group-hover:rounded-2xl">
+              <div className="relative z-10 w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center mb-4 text-secondary group-hover:bg-secondary group-hover:text-white transition-all duration-500 group-hover:rounded-2xl">
                 {feature.icon}
               </div>
 
               {/* Title */}
-              <h3 className="relative z-10 text-lg font-bold text-primary mb-3 group-hover:text-secondary transition-colors duration-300">
+              <h3 className="relative z-10 text-lg font-bold text-[#0f172a] mb-2 group-hover:text-[var(--secondary)] transition-colors duration-300">
                 {feature.title}
               </h3>
 
               {/* Description */}
-              <p className="relative z-10 text-slate-500 leading-relaxed text-sm font-medium">
+              <p className="relative z-10 text-[#334155] leading-relaxed text-sm font-medium">
                 {feature.desc}
               </p>
 
               {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[3px] bg-secondary group-hover:w-1/2 transition-all duration-500 rounded-full"></div>
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-0 h-[3px] bg-secondary group-hover:w-1/2 transition-all duration-500 rounded-full"></div>
             </div>
           ))}
         </div>

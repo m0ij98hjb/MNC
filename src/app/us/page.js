@@ -29,18 +29,18 @@ export default function AboutUsPage() {
 
         <div className="container relative z-10 mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center" data-aos="fade-up">
-            <h1 className="text-4xl md:text-6xl font-black text-white mb-6 font-heading">
+            <h1 className="text-4xl md:text-6xl font-black text-[var(--foreground)] mb-6 font-heading">
               <TypewriterText
                 texts={lang === 'ar' ? ["تعرف علينا", "إم إن سي للمقاولات"] : ["Get to Know Us", "MNC Contracting"]}
                 typingSpeed={120}
                 deletingSpeed={60}
                 pauseDuration={2000}
                 loop={true}
-                className="text-white"
+                className="text-[var(--foreground)]"
                 textClassNames={["", "text-secondary"]}
               />
             </h1>
-            <p className="text-xl text-white/80 leading-relaxed font-semibold" data-aos="fade-up" data-aos-delay="300">
+            <p className="text-xl text-[var(--foreground)]/80 leading-relaxed font-semibold" data-aos="fade-up" data-aos-delay="300">
               {lang === 'ar' 
                 ? "علامة متميزة في مجال البناء وتطوير المشاريع وإدارتها في مدينة جدة."
                 : "A distinctive mark in the field of construction, project development, and management in Jeddah."}
@@ -50,7 +50,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* Main Content Section */}
-      <section className="py-20 bg-white text-slate-900">
+      <section className="py-20 bg-[var(--card-bg)] text-[var(--foreground)]">
         <div className="container mx-auto px-6">
           <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center ${lang === 'ar' ? '' : 'lg:grid-flow-dense'}`}>
             {/* Image Grid */}
@@ -86,7 +86,7 @@ export default function AboutUsPage() {
             {/* Text Content */}
             <div className={`space-y-6 lg:space-y-8 ${lang === 'ar' ? 'text-right' : 'text-left'}`} data-aos={lang === 'ar' ? 'fade-right' : 'fade-left'}>
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-4 lg:mb-6 text-primary font-heading relative inline-block" data-aos="fade-up" data-aos-delay="100">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-4 lg:mb-6 text-[var(--foreground)] font-heading relative inline-block" data-aos="fade-up" data-aos-delay="100">
                   {lang === 'ar' ? 'رؤيتنا وتاريخنا' : 'Our Vision & History'}
                   <div className={`absolute -bottom-2 ${lang === 'ar' ? 'right-0' : 'left-0'} w-1/2 h-1 bg-secondary rounded-full`}></div>
                 </h2>
@@ -111,7 +111,7 @@ export default function AboutUsPage() {
                     <Target className="text-secondary" size={20} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-base sm:text-lg text-primary mb-2">{lang === 'ar' ? 'هدفنا الأساسي' : 'Our Main Goal'}</h3>
+                    <h3 className="font-bold text-base sm:text-lg text-[var(--foreground)] mb-2">{lang === 'ar' ? 'هدفنا الأساسي' : 'Our Main Goal'}</h3>
                     <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
                       {lang === 'ar'
                         ? "إيجاد الحلول المناسبة لزبائننا بغية الوصول إلى عمل متكامل حيث أننا وبعد أن يتم عمل التصاميم النهائية لأي مشروع يتم عرض فكرة التنفيذ على المالك... نقوم بتسليم المشروع متكاملاً آخذين بعين الاعتبار الجودة والسمعة الطيبة."
@@ -125,7 +125,7 @@ export default function AboutUsPage() {
                     <Building2 className="text-secondary" size={20} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-base sm:text-lg text-primary mb-2">{lang === 'ar' ? 'مشاريعنا' : 'Our Projects'}</h3>
+                    <h3 className="font-bold text-base sm:text-lg text-[var(--foreground)] mb-2">{lang === 'ar' ? 'مشاريعنا' : 'Our Projects'}</h3>
                     <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
                       {lang === 'ar'
                         ? "لقد قمنا بتنفيذ وتطوير مشاريع عديدة وهناك مشاريع إستثمارية جاري العمل بها وهي على أعلى مستوى من ناحية التصميم أو التنفيذ."
@@ -140,7 +140,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* Executive Director Section */}
-      <section className="py-24 bg-[#eaeaea]">
+      <section className="py-24 bg-[var(--card-bg)]">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 lg:gap-16 items-center`}>
             {/* Image */}
@@ -156,7 +156,7 @@ export default function AboutUsPage() {
             {/* Text Content */}
             <div className={`space-y-6 lg:space-y-8 ${lang === 'ar' ? 'order-first text-right' : 'order-last text-left'}`} data-aos={lang === 'ar' ? 'fade-right' : 'fade-left'}>
               <div className={lang === 'ar' ? 'text-right' : 'text-left'}>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-800 font-heading mb-4" data-aos="fade-up" data-aos-delay="100">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[var(--foreground)] font-heading mb-4" data-aos="fade-up" data-aos-delay="100">
                   {lang === 'ar' ? 'المدير التنفيذي' : 'Executive Director'}
                 </h2>
                 <div className={`w-16 h-1 bg-secondary ${lang === 'ar' ? 'mr-0 ml-auto lg:mr-0' : 'ml-0 mr-auto lg:ml-0'} mb-6 lg:mb-8`}></div>
@@ -183,14 +183,14 @@ export default function AboutUsPage() {
               </span>
               <span className="h-px w-8 bg-secondary"></span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-black mb-6 text-primary leading-tight">
+            <h2 className="text-3xl md:text-4xl font-black mb-6 text-[var(--foreground)] leading-tight">
               {lang === 'ar' ? (
                 <>شركاء <span className="text-secondary">النجاح</span> والإبداع</>
               ) : (
                 <>Partners of <span className="text-secondary">Success</span> & Creativity</>
               )}
             </h2>
-            <p className="text-slate-500 text-base md:text-lg leading-relaxed">
+            <p className="text-[var(--foreground)] text-base md:text-lg leading-relaxed">
               {lang === 'ar'
                 ? "نفخر في مؤسسة مروان أحمد ناظر بامتلاكنا نخبة من أكفأ المهندسين والإداريين والفنيين، الذين يجمعهم الشغف والالتزام بتقديم أفضل الحلول الهندسية بأعلى معايير الجودة والاحترافية."
                 : "At Marwan Ahmed Nazer, we take pride in having a group of the most efficient engineers, administrators, and technicians, united by passion and commitment to provide the best engineering solutions with the highest quality and professionalism standards."}
@@ -199,7 +199,7 @@ export default function AboutUsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 lg:gap-12">
             {/* Team Card 1 */}
-            <div className="group relative rounded-xl lg:rounded-2xl overflow-hidden shadow-lg lg:shadow-xl border border-slate-100 bg-white" data-aos="fade-up" data-aos-delay="100">
+            <div className="group relative rounded-xl lg:rounded-2xl overflow-hidden shadow-lg lg:shadow-xl border border-[rgba(15,23,42,0.06)] bg-[var(--card-bg)]" data-aos="fade-up" data-aos-delay="100">
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <Image
                   src="/asstes/team1.png"
@@ -210,7 +210,7 @@ export default function AboutUsPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 <div className={`absolute bottom-0 ${lang === 'ar' ? 'left-0 text-right' : 'right-0 text-left'} w-full p-4 sm:p-6 translate-y-6 sm:translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500`}>
-                  <h3 className="text-white font-bold text-lg sm:text-xl md:text-2xl mb-1 sm:mb-2">
+                  <h3 className="text-[var(--foreground)] font-bold text-lg sm:text-xl md:text-2xl mb-1 sm:mb-2">
                     {lang === 'ar' ? 'الكوادر الإدارية والهندسية' : 'Administrative & Engineering Staff'}
                   </h3>
                   <p className="text-secondary text-xs sm:text-sm md:text-base font-medium">
@@ -221,7 +221,7 @@ export default function AboutUsPage() {
             </div>
 
             {/* Team Card 2 */}
-            <div className="group relative rounded-xl lg:rounded-2xl overflow-hidden shadow-lg lg:shadow-xl border border-slate-100 bg-white" data-aos="fade-up" data-aos-delay="200">
+            <div className="group relative rounded-xl lg:rounded-2xl overflow-hidden shadow-lg lg:shadow-xl border border-[rgba(15,23,42,0.06)] bg-[var(--card-bg)]" data-aos="fade-up" data-aos-delay="200">
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <Image
                   src="/asstes/team2.png"
@@ -232,7 +232,7 @@ export default function AboutUsPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 <div className={`absolute bottom-0 ${lang === 'ar' ? 'left-0 text-right' : 'right-0 text-left'} w-full p-4 sm:p-6 translate-y-6 sm:translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500`}>
-                  <h3 className="text-white font-bold text-lg sm:text-xl md:text-2xl mb-1 sm:mb-2">
+                  <h3 className="text-[var(--foreground)] font-bold text-lg sm:text-xl md:text-2xl mb-1 sm:mb-2">
                     {lang === 'ar' ? 'الفرق الميدانية والفنية' : 'Field & Technical Teams'}
                   </h3>
                   <p className="text-secondary text-xs sm:text-sm md:text-base font-medium">
@@ -248,10 +248,10 @@ export default function AboutUsPage() {
       {/* Call to Action */}
       <section className="py-20 bg-secondary relative overflow-hidden">
         <div className="container relative z-10 mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 font-heading" data-aos="fade-up">
+          <h2 className="text-3xl md:text-5xl font-bold text-[var(--foreground)] mb-8 font-heading" data-aos="fade-up">
             {lang === 'ar' ? 'جاهزون لبناء رؤيتك القادمة' : 'Ready to build your next vision'}
           </h2>
-          <Link href="/contact" className={`inline-flex items-center gap-2 bg-[#eaeaea] text-secondary px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-primary transition-all shadow-xl ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`} data-aos="fade-up" data-aos-delay="200">
+          <Link href="/contact" className={`inline-flex items-center gap-2 bg-[var(--card-bg)] text-[var(--secondary)] px-8 py-4 rounded-full font-bold text-lg hover:bg-[var(--background)] hover:text-[var(--primary)] transition-all shadow-xl ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`} data-aos="fade-up" data-aos-delay="200">
             {lang === 'ar' ? 'تواصل معنا الآن' : 'Contact Us Now'}
             {lang === 'ar' ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
           </Link>
