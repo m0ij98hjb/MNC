@@ -14,7 +14,7 @@ export default function VoicePresentation() {
   useEffect(() => {
     setIsMounted(true);
     audioRef.current = new Audio('/asstes/presentation.mp3');
-    audioRef.current.playbackRate = 1.0;
+    audioRef.current.playbackRate = 1.1;
     audioRef.current.onended = () => setIsPlaying(false);
     
     return () => {
