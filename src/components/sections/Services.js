@@ -58,14 +58,14 @@ const Services = () => {
             </span>
             <span className="h-px w-8 bg-secondary"></span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-black mb-6 text-primary leading-tight" data-aos="fade-up" data-aos-delay="100">
+          <h2 className="text-3xl md:text-4xl font-black mb-6 text-[var(--foreground)] leading-tight" data-aos="fade-up" data-aos-delay="100">
             {lang === 'ar' ? (
               <>حلول هندسية <span className="text-secondary">متكاملة</span> <br /> بمعايير عالمية</>
             ) : (
               <>Integrated <span className="text-secondary">Engineering</span> <br /> Solutions</>
             )}
           </h2>
-          <p className="text-slate-500 text-base md:text-lg leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+          <p className="text-[var(--foreground)] text-base md:text-lg leading-relaxed" data-aos="fade-up" data-aos-delay="200">
             {lang === 'ar'
               ? "نغطي كافة جوانب العمل الهندسي والإنشائي، من الفكرة والتصميم وحتى تسليم المفتاح، مع التركيز التام على أدق التفاصيل لضمان تميز مشروعك."
               : "We cover all aspects of engineering and construction work, from concept and design to turnkey delivery, with total focus on the finest details to ensure your project's excellence."}
@@ -91,7 +91,7 @@ const Services = () => {
               </div>
 
               {/* Text Content */}
-              <h3 className="text-xl font-black mb-3 text-primary group-hover:text-secondary transition-colors duration-500">
+              <h3 className="text-xl font-black mb-3 text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors duration-500">
                 {service.title}
               </h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-6 font-medium">

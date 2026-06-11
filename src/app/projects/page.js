@@ -154,18 +154,18 @@ export default function ProjectsPage() {
 
         <div className="container relative z-10 mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center" data-aos="fade-up">
-            <h1 className="text-3xl md:text-6xl font-black text-white mb-6 font-heading">
+            <h1 className="text-3xl md:text-6xl font-black text-[var(--foreground)] mb-6 font-heading">
               <TypewriterText
                 texts={lang === 'ar' ? ["مشاريعنا"] : ["Our Projects"]}
                 typingSpeed={120}
                 deletingSpeed={60}
                 pauseDuration={2000}
                 loop={true}
-                className="text-white"
+                className="text-[var(--foreground)]"
               />
             </h1>
             <div className="w-24 h-1 bg-secondary mx-auto mb-6"></div>
-            <p className="text-xl text-white/80 leading-relaxed font-semibold">
+            <p className="text-xl text-[var(--foreground)]/80 leading-relaxed font-semibold">
               {lang === 'ar' ? 'اكتشف إبداعاتنا في مختلف المجالات الهندسية' : 'Discover our creations in various engineering fields'}
             </p>
           </div>
@@ -173,7 +173,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* Galleries Section */}
-      <section className="py-24 bg-white text-slate-900">
+      <section className="py-24 bg-[var(--card-bg)] text-[var(--foreground)]">
         <div className="container mx-auto px-6 max-w-7xl space-y-32">
           <GalleryClient galleries={galleries} />
         </div>
@@ -182,10 +182,10 @@ export default function ProjectsPage() {
       {/* Call to Action */}
       <section className="py-20 bg-secondary relative overflow-hidden">
         <div className="container relative z-10 mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 font-heading">
+          <h2 className="text-3xl md:text-5xl font-bold text-[var(--foreground)] mb-8 font-heading">
             {lang === 'ar' ? 'هل لديك مشروع قادم؟' : 'Have a future project?'}
           </h2>
-          <Link href="/contact" className={`inline-flex items-center gap-2 bg-[#eaeaea] text-secondary px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-primary transition-all shadow-xl ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
+          <Link href="/contact" className={`inline-flex items-center gap-2 bg-[var(--card-bg)] text-[var(--secondary)] px-8 py-4 rounded-full font-bold text-lg hover:bg-[var(--background)] hover:text-[var(--primary)] transition-all shadow-xl ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
             {lang === 'ar' ? 'دعنا نتحدث' : "Let's Talk"}
             {lang === 'ar' ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
           </Link>

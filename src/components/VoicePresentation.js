@@ -59,7 +59,7 @@ export default function VoicePresentation() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              className="flex flex-col items-center gap-2 bg-white/95 backdrop-blur-md dark:bg-slate-900/95 p-4 rounded-2xl shadow-lg border border-[#D5B25D]/20"
+              className="flex flex-col items-center gap-2 bg-[var(--card-bg)]/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-[rgba(213,178,93,0.2)]"
             >
               <input
                 type="range"
@@ -84,7 +84,7 @@ export default function VoicePresentation() {
           onMouseLeave={() => setShowVolumeControl(false)}
           whileTap={{ scale: 0.95 }}
           transition={{ type: 'spring', stiffness: 400, damping: 20, mass: 0.5 }}
-          className="relative p-5 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center cursor-pointer bg-[#D5B25D] text-white shadow-[0_0_20px_rgba(213,178,93,0.4)]"
+          className="relative p-5 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center cursor-pointer bg-[var(--secondary)] text-[var(--foreground)] shadow-[0_0_20px_rgba(213,178,93,0.4)]"
           title={isPlaying ? 'إيقاف الكلام' : 'تشغيل الكلام'}
         >
           <AnimatePresence mode="wait">
@@ -121,7 +121,7 @@ export default function VoicePresentation() {
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -5 }}
-              className="text-xs font-semibold text-[#D5B25D] text-center whitespace-nowrap"
+              className="text-xs font-semibold text-[var(--secondary)] text-center whitespace-nowrap"
             >
               🎙️ تعريف الشركة
             </motion.div>
