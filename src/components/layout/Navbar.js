@@ -47,7 +47,6 @@ const Navbar = () => {
             alt="MNC Logo"
             width={240}
             height={120}
-            quality={100}
             className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto object-contain transition-all duration-500"
             priority
           />
