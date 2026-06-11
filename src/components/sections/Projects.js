@@ -75,28 +75,28 @@ const Projects = () => {
       id: 9,
       title: lang === 'ar' ? "أعمال داخلية حديثة - 1" : "Modern Interior Work - 1",
       category: "recent",
-      image: "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.48 (1).jpeg",
+      image: "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (1).jpeg",
       location: "MNC"
     },
     {
       id: 10,
       title: lang === 'ar' ? "أعمال داخلية حديثة - 2" : "Modern Interior Work - 2",
       category: "recent",
-      image: "/asstes/office-projects/New folder/WhatsApp Image 2025-12-29 at 02.52.48 (3).jpeg",
+      image: "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (3).jpeg",
       location: "MNC"
     },
     {
       id: 11,
       title: lang === 'ar' ? "أعمال داخلية حديثة - 3" : "Modern Interior Work - 3",
       category: "recent",
-      image: "/asstes/office-projects/New folder/WhatsApp Image 2025-12-30 at 03.35.41.jpeg",
+      image: "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 03.35.41.jpeg",
       location: "MNC"
     },
     {
       id: 12,
       title: lang === 'ar' ? "أعمال داخلية حديثة - 4" : "Modern Interior Work - 4",
       category: "recent",
-      image: "/asstes/office-projects/New folder/WhatsApp Image 2025-12-30 at 05.15.23.jpeg",
+      image: "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 05.15.23.jpeg",
       location: "MNC"
     }
   ];
