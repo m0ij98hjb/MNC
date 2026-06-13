@@ -159,7 +159,9 @@ const Navbar = () => {
               {/* Language Dropdown - Desktop */}
               <div className={`absolute top-full mt-2 ${isRTL ? 'left-0' : 'right-0'} w-[260px] bg-[#0d0d0d] border border-[#B8923A]/15 rounded-2xl shadow-2xl transition-all duration-300 overflow-hidden z-50 ${isLangOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-3 pointer-events-none"}`}>
                 <div className="p-3">
-                  <p className="text-[9px] text-white/25 font-medium tracking-[2px] uppercase mb-2 px-1">Select Language</p>
+                  <p className="text-[9px] text-white/25 font-medium tracking-[2px] uppercase mb-2 px-1">
+                    {lang === 'ar' || lang === 'ur' ? 'اختر اللغة' : 'Select Language'}
+                  </p>
                   <div className="grid grid-cols-2 gap-1.5">
                     {LANGUAGES.map((language) => (
                       <button
@@ -231,7 +233,7 @@ const Navbar = () => {
           {/* Nav Links */}
           <div className="px-3.5 pt-4 flex-shrink-0" style={{ backgroundColor: '#0a0a0a' }}>
             <p className="text-[9px] text-white/20 font-medium tracking-[2.5px] uppercase px-1.5 mb-2">
-              {lang === 'ar' ? 'القائمة' : 'Menu'}
+              {lang === 'ar' || lang === 'ur' ? 'القائمة' : 'Navigation'}
             </p>
             <div className="flex flex-col gap-0.5">
               {navLinks.map((link) => {
