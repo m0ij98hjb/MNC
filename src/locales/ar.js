@@ -9,7 +9,7 @@ export const ar = {
     costCalc: "احسب تكلفتك"
   },
   hero: {
-    badge: "Engineering Excellence",
+    badge: "التميز الهندسي",
     title: "نصمم المستقبل",
     subtitle: "بإتقان هندسي",
     description: "نحن هنا للاستماع إلى تطلعاتكم وتقديم الحلول الهندسية التي تتجاوز التوقعات. تواصل مع خبراء MNC اليوم."
