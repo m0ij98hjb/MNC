@@ -7,7 +7,7 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const FloatingContact = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const { lang } = useLanguage();
+  const { lang, isRTL } = useLanguage();
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -30,7 +30,7 @@ const FloatingContact = () => {
   };
 
   return (
-    <div className={`fixed bottom-6 ${lang === 'ar' ? 'right-6' : 'left-6'} flex flex-col gap-3 z-50 transition-all duration-500`}>
+    <div className={`fixed bottom-6 ${isRTL ? 'left-6' : 'right-6'} flex flex-col gap-3 z-50 transition-all duration-500`}>
       {/* WhatsApp - Hidden on mobile until scroll */}
       <Link
         href="https://wa.me/966598242385"

@@ -8,10 +8,10 @@ import Navbar from "@/components/layout/Navbar";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function AboutUsPage() {
-  const { lang, t } = useLanguage();
+  const { lang, t, isRTL } = useLanguage();
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-[var(--background)] font-cairo text-white" dir={isRTL ? "rtl" : "ltr"}>
       <Navbar />
       
       {/* Hero Section */}
@@ -31,7 +31,7 @@ export default function AboutUsPage() {
           <div className="max-w-4xl mx-auto text-center" data-aos="fade-up">
             <h1 className="text-4xl md:text-6xl font-black text-[var(--foreground)] mb-6 font-heading">
               <TypewriterText
-                texts={lang === 'ar' ? ["تعرف علينا", "إم إن سي للمقاولات"] : ["Get to Know Us", "MNC Contracting"]}
+                texts={t("aboutUsPage.titleTypewriter") || ["Get to Know Us", "MNC Contracting"]}
                 typingSpeed={120}
                 deletingSpeed={60}
                 pauseDuration={2000}
@@ -41,131 +41,133 @@ export default function AboutUsPage() {
               />
             </h1>
             <p className="text-xl text-[var(--foreground)]/80 leading-relaxed font-semibold" data-aos="fade-up" data-aos-delay="300">
-              {lang === 'ar' 
-                ? "علامة متميزة في مجال البناء وتطوير المشاريع وإدارتها في مدينة جدة."
-                : "A distinctive mark in the field of construction, project development, and management in Jeddah."}
+              {t("aboutUsPage.subtitle")}
             </p>
           </div>
         </div>
       </section>
 
       {/* Main Content Section */}
-      <section className="py-20 bg-[var(--card-bg)] text-[var(--foreground)]">
-        <div className="container mx-auto px-6">
-          <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center ${lang === 'ar' ? '' : 'lg:grid-flow-dense'}`}>
-            {/* Image Grid */}
-            <div className={`grid grid-cols-2 gap-3 sm:gap-4 lg:hidden ${lang === 'ar' ? 'order-last' : 'order-first'}`} data-aos="fade-left">
-              <div className="space-y-3 sm:space-y-4">
-                <div className="relative h-40 sm:h-48 lg:h-64 rounded-2xl overflow-hidden shadow-xl">
-                  <Image src="/project1.png" alt="Project" fill className="object-cover" />
-                </div>
-                <div className="relative h-32 sm:h-40 lg:h-48 rounded-2xl overflow-hidden shadow-lg">
-                  <Image src="/project2.png" alt="Project" fill className="object-cover" />
-                </div>
-              </div>
-              <div className="relative h-48 sm:h-56 lg:h-96 mt-6 sm:mt-8 lg:mt-12 rounded-2xl overflow-hidden shadow-xl">
-                <Image src="/hero.png" alt="Construction" fill className="object-cover" />
-              </div>
-            </div>
+      <section className="py-24 bg-[var(--background)] relative overflow-hidden">
+        {/* Soft background ambient light */}
+        <div className="absolute top-1/3 left-1/4 -translate-x-1/2 w-[350px] h-[350px] bg-[#D5B25D]/5 rounded-full blur-[120px] pointer-events-none" />
+        
+        <div className="container mx-auto px-6 max-w-7xl relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
-            {/* Desktop Image Grid */}
-            <div className={`hidden lg:grid grid-cols-2 gap-4 space-y-4 ${lang === 'ar' ? 'order-last' : 'order-first'}`} data-aos={lang === 'ar' ? 'fade-left' : 'fade-right'}>
-              <div className="space-y-4">
-                <div className="relative h-64 rounded-3xl overflow-hidden shadow-2xl">
-                  <Image src="/project1.png" alt="Project" fill className="object-cover" />
-                </div>
-                <div className="relative h-48 rounded-3xl overflow-hidden shadow-xl">
-                  <Image src="/project2.png" alt="Project" fill className="object-cover" />
-                </div>
-              </div>
-              <div className="relative h-96 mt-12 rounded-3xl overflow-hidden shadow-2xl">
-                <Image src="/hero.png" alt="Construction" fill className="object-cover" />
-              </div>
-            </div>
-
-            {/* Text Content */}
-            <div className={`space-y-6 lg:space-y-8 ${lang === 'ar' ? 'text-right' : 'text-left'}`} data-aos={lang === 'ar' ? 'fade-right' : 'fade-left'}>
+            {/* Text Content - Column 1 (renders Right in RTL, Left in LTR) */}
+            <div className="lg:col-span-7 space-y-6 lg:space-y-8 text-start" data-aos="fade-up">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-4 lg:mb-6 text-[var(--foreground)] font-heading relative inline-block" data-aos="fade-up" data-aos-delay="100">
-                  {lang === 'ar' ? 'رؤيتنا وتاريخنا' : 'Our Vision & History'}
-                  <div className={`absolute -bottom-2 ${lang === 'ar' ? 'right-0' : 'left-0'} w-1/2 h-1 bg-secondary rounded-full`}></div>
+                <h2 className="text-3xl sm:text-4xl font-black mb-6 text-white font-heading relative inline-block">
+                  {t("aboutUsPage.visionHistoryTitle")}
+                  <span className={`absolute -bottom-2.5 ${isRTL ? 'right-0' : 'left-0'} w-2/3 h-1 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] rounded-full`} />
                 </h2>
-                <p className="text-base sm:text-lg leading-relaxed text-slate-600 font-medium" data-aos="fade-up" data-aos-delay="200">
-                  {lang === 'ar' 
-                    ? "تعد شركة إم إن سي MNC لتطوير وتنفيذ المشاريع وإدارتها علامة متميزة في مجال البناء في مدينة جدة، فلقد تميزت وخلال فترة وجيزة من إدارة وتنفيذ مشاريع عديدة ولله الحمد تكللت بالنجاح. وكل هذا كان من منطلق الخطة التي وضعت من قبل خبراء متميزين ومتمرسين في هذا المجال الهام."
-                    : "MNC Project Development and Management is a distinctive mark in the construction field in Jeddah. In a short period, it has successfully managed and executed numerous projects. All this was based on a plan developed by distinguished and experienced experts in this important field."}
+                <p className="text-base sm:text-lg leading-relaxed text-white/70 font-medium">
+                  {t("aboutUsPage.visionHistoryDesc")}
                 </p>
               </div>
 
-              <div className={`bg-slate-50 p-6 rounded-2xl ${lang === 'ar' ? 'border-r-4' : 'border-l-4'} border-secondary shadow-sm`} data-aos="fade-up" data-aos-delay="300">
-                <p className="text-lg leading-relaxed text-slate-700 font-medium">
-                  {lang === 'ar'
-                    ? "لقد كان وراء كل هذه الإنجازات تكريس جهود من قبل المدير العام المهندس/ مروان أحمد ناظر بصفته صاحب هذا الكيان. وتعمل شركة إم إن سي M.N.C لتنفيذ المشاريع وإدارتها تحت مظلة ”مكتب الإستشاري مروان أحمد ناظر قسم الإستشارات الهندسية، تصاميم، مساحة، إدارة مشاريع” وقد لاقت إستحسان من كل العملاء ولله الحمد."
-                    : "Behind all these achievements was the dedicated effort of the General Manager, Eng. Marwan Ahmed Nazer, as the owner of this entity. MNC for project execution and management operates under the umbrella of 'Consultant Marwan Ahmed Nazer Office for Engineering Consultancy, Designs, Surveying, and Project Management,' and has received praise from all clients."}
+              {/* CEO Quote - Premium Gold Glass Card */}
+              <div className={`bg-white/5 backdrop-blur-md p-6 rounded-2xl ${isRTL ? 'border-r-4 border-r-[#D5B25D]' : 'border-l-4 border-l-[#D5B25D]'} border-t border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.4)] relative overflow-hidden`} data-aos="fade-up" data-aos-delay="100">
+                <div className={`absolute -top-6 ${isRTL ? '-left-6' : '-right-6'} opacity-10 text-white select-none pointer-events-none text-9xl font-serif`}>
+                  ”
+                </div>
+                <p className="text-base sm:text-lg leading-relaxed text-white/90 font-medium relative z-10">
+                  {t("aboutUsPage.ceoQuote")}
                 </p>
               </div>
 
-              <div className="space-y-3 sm:space-y-4">
-                <div className={`flex items-start gap-3 sm:gap-4 ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`} data-aos="fade-up" data-aos-delay="400">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
-                    <Target className="text-secondary" size={20} />
+              {/* Values/Goals List */}
+              <div className="space-y-6 pt-2">
+                <div className={`flex items-start gap-4 ${isRTL ? 'flex-row' : 'flex-row-reverse'}`} data-aos="fade-up" data-aos-delay="200">
+                  <div className="w-12 h-12 rounded-2xl bg-[#D5B25D]/10 border border-[#D5B25D]/20 flex items-center justify-center shrink-0 shadow-lg">
+                    <Target className="text-[#D5B25D]" size={22} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-base sm:text-lg text-[var(--foreground)] mb-2">{lang === 'ar' ? 'هدفنا الأساسي' : 'Our Main Goal'}</h3>
-                    <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                      {lang === 'ar'
-                        ? "إيجاد الحلول المناسبة لزبائننا بغية الوصول إلى عمل متكامل حيث أننا وبعد أن يتم عمل التصاميم النهائية لأي مشروع يتم عرض فكرة التنفيذ على المالك... نقوم بتسليم المشروع متكاملاً آخذين بعين الاعتبار الجودة والسمعة الطيبة."
-                        : "Finding appropriate solutions for our clients to achieve integrated work. After final designs for any project are completed, the execution concept is presented to the owner... we deliver the project integrated, taking into account quality and a good reputation."}
+                    <h3 className="font-bold text-lg text-white mb-1.5">{t("aboutUsPage.goalTitle")}</h3>
+                    <p className="text-sm sm:text-base text-white/60 leading-relaxed">
+                      {t("aboutUsPage.goalDesc")}
                     </p>
                   </div>
                 </div>
 
-                <div className={`flex items-start gap-3 sm:gap-4 ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`} data-aos="fade-up" data-aos-delay="500">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
-                    <Building2 className="text-secondary" size={20} />
+                <div className={`flex items-start gap-4 ${isRTL ? 'flex-row' : 'flex-row-reverse'}`} data-aos="fade-up" data-aos-delay="300">
+                  <div className="w-12 h-12 rounded-2xl bg-[#D5B25D]/10 border border-[#D5B25D]/20 flex items-center justify-center shrink-0 shadow-lg">
+                    <Building2 className="text-[#D5B25D]" size={22} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-base sm:text-lg text-[var(--foreground)] mb-2">{lang === 'ar' ? 'مشاريعنا' : 'Our Projects'}</h3>
-                    <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                      {lang === 'ar'
-                        ? "لقد قمنا بتنفيذ وتطوير مشاريع عديدة وهناك مشاريع إستثمارية جاري العمل بها وهي على أعلى مستوى من ناحية التصميم أو التنفيذ."
-                        : "We have executed and developed numerous projects, and there are investment projects currently in progress that are at the highest level in terms of design or execution."}
+                    <h3 className="font-bold text-lg text-white mb-1.5">{t("aboutUsPage.projectsTitle")}</h3>
+                    <p className="text-sm sm:text-base text-white/60 leading-relaxed">
+                      {t("aboutUsPage.projectsDesc")}
                     </p>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* Image Grid - Column 2 (renders Left in RTL, Right in LTR) */}
+            <div className="lg:col-span-5 grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch" data-aos="fade-up">
+              {/* Stacked Images Column */}
+              <div className={`grid grid-rows-2 gap-6 ${isRTL ? 'order-last md:order-2' : 'order-first md:order-1'}`}>
+                <div className="relative h-[220px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl group cursor-pointer">
+                  <Image src="/project1.png" alt="MNC Residential Project" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent transition-opacity duration-500" />
+                  <div className={`absolute bottom-4 ${isRTL ? 'right-4 text-right' : 'left-4 text-left'}`}>
+                    <span className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider bg-black/60 px-3 py-1.5 rounded-full border border-[#D5B25D]/20">{t("gallery.distinctive")}</span>
+                  </div>
+                </div>
+                
+                <div className="relative h-[220px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl group cursor-pointer">
+                  <Image src="/project2.png" alt="MNC Commercial Project" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent transition-opacity duration-500" />
+                  <div className={`absolute bottom-4 ${isRTL ? 'right-4 text-right' : 'left-4 text-left'}`}>
+                    <span className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider bg-black/60 px-3 py-1.5 rounded-full border border-[#D5B25D]/20">{t("gallery.distinctive")}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tall Image (Hero) */}
+              <div className={`relative h-[350px] sm:h-[450px] md:h-full min-h-[350px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl group cursor-pointer ${isRTL ? 'order-first md:order-1' : 'order-last md:order-2'}`}>
+                <Image src="/hero.png" alt="MNC Engineering" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent transition-opacity duration-500" />
+                <div className={`absolute bottom-6 ${isRTL ? 'right-6 text-right' : 'left-6 text-left'}`}>
+                  <span className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider bg-black/60 px-3 py-1.5 rounded-full border border-[#D5B25D]/20">{t("gallery.distinctive")}</span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
       {/* Executive Director Section */}
-      <section className="py-24 bg-[var(--card-bg)]">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 lg:gap-16 items-center`}>
+      <section className="py-24 bg-[var(--background)] border-t border-white/5 relative overflow-hidden">
+        {/* Soft background ambient light */}
+        <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 w-[300px] h-[300px] bg-[#D5B25D]/5 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="container mx-auto px-6 max-w-6xl relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Image */}
-            <div className={`relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-[4/3] rounded-lg lg:rounded-sm overflow-hidden shadow-2xl ${lang === 'ar' ? 'order-last' : 'order-first'}`} data-aos={lang === 'ar' ? 'fade-left' : 'fade-right'}>
+            <div className={`relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-2xl ${isRTL ? 'order-last' : 'order-first'}`} data-aos={isRTL ? 'fade-left' : 'fade-right'}>
               <Image 
                 src="/asstes/director_ar.png" 
-                alt={lang === 'ar' ? "المدير التنفيذي المهندس مروان ناظر" : "CEO Eng. Marwan Nazer"}
+                alt={t("aboutUsPage.ceoSectionTitle")}
                 fill 
                 className="object-cover" 
               />
             </div>
 
             {/* Text Content */}
-            <div className={`space-y-6 lg:space-y-8 ${lang === 'ar' ? 'order-first text-right' : 'order-last text-left'}`} data-aos={lang === 'ar' ? 'fade-right' : 'fade-left'}>
-              <div className={lang === 'ar' ? 'text-right' : 'text-left'}>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[var(--foreground)] font-heading mb-4" data-aos="fade-up" data-aos-delay="100">
-                  {lang === 'ar' ? 'المدير التنفيذي' : 'Executive Director'}
+            <div className={`space-y-6 lg:space-y-8 ${isRTL ? 'order-first text-right' : 'order-last text-left'}`} data-aos={isRTL ? 'fade-right' : 'fade-left'}>
+              <div className={isRTL ? 'text-right' : 'text-left'}>
+                <h2 className="text-3xl md:text-4xl font-black text-white font-heading mb-4" data-aos="fade-up" data-aos-delay="100">
+                  {t("aboutUsPage.ceoSectionTitle")}
                 </h2>
-                <div className={`w-16 h-1 bg-secondary ${lang === 'ar' ? 'mr-0 ml-auto lg:mr-0' : 'ml-0 mr-auto lg:ml-0'} mb-6 lg:mb-8`}></div>
+                <div className={`w-16 h-1 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] ${isRTL ? 'mr-0 ml-auto lg:mr-0' : 'ml-0 mr-auto lg:ml-0'} mb-6 lg:mb-8 rounded-full`}></div>
                 
-                <div className="space-y-6 text-[15px] md:text-base leading-loose text-slate-700 font-medium">
+                <div className="space-y-6 text-base md:text-lg leading-relaxed text-white/70 font-medium">
                   <p>
-                    {lang === 'ar'
-                      ? "تعد شركة إم إن سي MNC لتطوير وتنفيذ المشاريع وإدارتها علامة متميزة في مجال البناء في مدينة جدة ، فلقد تميزت وخلال فترة وجيزة من إدارة وتنفيذ مشاريع عديدة ولله الحمد تكللت بالنجاح وكل هذا كان من منطلق الخطة التي وضعت من قبل خبراء متميزين ومتمرسي في هذا المجال الهام ،فلقد كان وراء كل هذه الإنجازات تكريس جهود من قبل المدير العام المهندس/ مروان أحمد ناظر بصفته صاحب هذا الكيان وتعمل شركة إم إن سي M.N.C لتنفيذ المشاريع وإدارتها تحت مظلة ” مكتب الإستشاري مروان أحمد ناظر قسم الإستشارات الهندسية ،تصاميم ،مساحة ،إدارة مشاريع ” وقد لاقت إستحسان من كل العملاء ولله الحمد ."
-                      : "MNC Project Development and Management is a distinctive mark in the construction field in Jeddah. In a short period, it has successfully managed and executed numerous projects. All this was based on a plan developed by distinguished and experienced experts in this important field. Behind all these achievements was the dedicated effort of the General Manager, Eng. Marwan Ahmed Nazer, as the owner of this entity. MNC operates under the umbrella of 'Consultant Marwan Ahmed Nazer Office for Engineering Consultancy, Designs, Surveying, and Project Management' and has received praise from all clients."}
+                    {t("aboutUsPage.ceoSectionText")}
                   </p>
                 </div>
               </div>
@@ -174,32 +176,26 @@ export default function AboutUsPage() {
         </div>
 
         {/* Team Section */}
-        <div className="container mx-auto px-6 max-w-7xl mt-24">
+        <div className="container mx-auto px-6 max-w-7xl mt-32 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="h-px w-8 bg-secondary"></span>
-              <span className="text-secondary font-bold tracking-widest uppercase text-xs">
-                {lang === 'ar' ? 'فريق العمل' : 'Our Team'}
+              <span className="h-px w-8 bg-[#D5B25D]"></span>
+              <span className="text-[#D5B25D] font-bold tracking-widest uppercase text-xs">
+                {t("aboutUsPage.teamBadge")}
               </span>
-              <span className="h-px w-8 bg-secondary"></span>
+              <span className="h-px w-8 bg-[#D5B25D]"></span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-black mb-6 text-[var(--foreground)] leading-tight">
-              {lang === 'ar' ? (
-                <>شركاء <span className="text-secondary">النجاح</span> والإبداع</>
-              ) : (
-                <>Partners of <span className="text-secondary">Success</span> & Creativity</>
-              )}
+            <h2 className="text-3xl md:text-4xl font-black mb-6 text-white leading-tight">
+              {t("aboutUsPage.teamTitle")}
             </h2>
-            <p className="text-[var(--foreground)] text-base md:text-lg leading-relaxed">
-              {lang === 'ar'
-                ? "نفخر في مؤسسة مروان أحمد ناظر بامتلاكنا نخبة من أكفأ المهندسين والإداريين والفنيين، الذين يجمعهم الشغف والالتزام بتقديم أفضل الحلول الهندسية بأعلى معايير الجودة والاحترافية."
-                : "At Marwan Ahmed Nazer, we take pride in having a group of the most efficient engineers, administrators, and technicians, united by passion and commitment to provide the best engineering solutions with the highest quality and professionalism standards."}
+            <p className="text-white/70 text-base md:text-lg leading-relaxed font-medium">
+              {t("aboutUsPage.teamDesc")}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
             {/* Team Card 1 */}
-            <div className="group relative rounded-xl lg:rounded-2xl overflow-hidden shadow-lg lg:shadow-xl border border-[rgba(15,23,42,0.06)] bg-[var(--card-bg)]" data-aos="fade-up" data-aos-delay="100">
+            <div className="group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 hover:border-[#D5B25D]/30 transition-all duration-500 bg-white/5" data-aos="fade-up" data-aos-delay="100">
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <Image
                   src="/asstes/team1.png"
@@ -207,21 +203,22 @@ export default function AboutUsPage() {
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                {/* Fixed White-text overlay bug by using dark gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
-                <div className={`absolute bottom-0 ${lang === 'ar' ? 'left-0 text-right' : 'right-0 text-left'} w-full p-4 sm:p-6 translate-y-6 sm:translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500`}>
-                  <h3 className="text-[var(--foreground)] font-bold text-lg sm:text-xl md:text-2xl mb-1 sm:mb-2">
-                    {lang === 'ar' ? 'الكوادر الإدارية والهندسية' : 'Administrative & Engineering Staff'}
+                <div className={`absolute bottom-0 ${isRTL ? 'left-0 text-right' : 'right-0 text-left'} w-full p-6 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500`}>
+                  <h3 className="text-white font-bold text-xl md:text-2xl mb-2">
+                    {t("aboutUsPage.teamStaffTitle")}
                   </h3>
-                  <p className="text-secondary text-xs sm:text-sm md:text-base font-medium">
-                    {lang === 'ar' ? 'خبرات متكاملة لإدارة مشاريعكم باحترافية' : 'Integrated expertise to manage your projects professionally'}
+                  <p className="text-[#D5B25D] text-sm md:text-base font-semibold">
+                    {t("aboutUsPage.teamStaffDesc")}
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Team Card 2 */}
-            <div className="group relative rounded-xl lg:rounded-2xl overflow-hidden shadow-lg lg:shadow-xl border border-[rgba(15,23,42,0.06)] bg-[var(--card-bg)]" data-aos="fade-up" data-aos-delay="200">
+            <div className="group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 hover:border-[#D5B25D]/30 transition-all duration-500 bg-white/5" data-aos="fade-up" data-aos-delay="200">
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <Image
                   src="/asstes/team2.png"
@@ -229,14 +226,15 @@ export default function AboutUsPage() {
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                {/* Fixed White-text overlay bug by using dark gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
-                <div className={`absolute bottom-0 ${lang === 'ar' ? 'left-0 text-right' : 'right-0 text-left'} w-full p-4 sm:p-6 translate-y-6 sm:translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500`}>
-                  <h3 className="text-[var(--foreground)] font-bold text-lg sm:text-xl md:text-2xl mb-1 sm:mb-2">
-                    {lang === 'ar' ? 'الفرق الميدانية والفنية' : 'Field & Technical Teams'}
+                <div className={`absolute bottom-0 ${isRTL ? 'left-0 text-right' : 'right-0 text-left'} w-full p-6 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500`}>
+                  <h3 className="text-white font-bold text-xl md:text-2xl mb-2">
+                    {t("aboutUsPage.teamFieldTitle")}
                   </h3>
-                  <p className="text-secondary text-xs sm:text-sm md:text-base font-medium">
-                    {lang === 'ar' ? 'تنفيذ دقيق بأعلى معايير الجودة العالمية' : 'Precise execution to the highest international quality standards'}
+                  <p className="text-[#D5B25D] text-sm md:text-base font-semibold">
+                    {t("aboutUsPage.teamFieldDesc")}
                   </p>
                 </div>
               </div>
@@ -246,14 +244,22 @@ export default function AboutUsPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-secondary relative overflow-hidden">
+      <section className="py-24 bg-black border-t border-white/5 relative overflow-hidden">
+        {/* Glowing gold ambient light behind content */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-[#D5B25D]/10 rounded-full blur-[120px] pointer-events-none" />
+        
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.03]"
+          style={{ backgroundImage: "linear-gradient(to right, #D5B25D 1px, transparent 1px), linear-gradient(to bottom, #D5B25D 1px, transparent 1px)", backgroundSize: "40px 40px" }}
+        />
+
         <div className="container relative z-10 mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-[var(--foreground)] mb-8 font-heading" data-aos="fade-up">
-            {lang === 'ar' ? 'جاهزون لبناء رؤيتك القادمة' : 'Ready to build your next vision'}
+          <h2 className="text-3xl md:text-5xl font-black text-white mb-8 font-heading leading-tight" data-aos="fade-up">
+            {t("aboutUsPage.ctaTitle")}
           </h2>
-          <Link href="/contact" className={`inline-flex items-center gap-2 bg-[var(--card-bg)] text-[var(--secondary)] px-8 py-4 rounded-full font-bold text-lg hover:bg-[var(--background)] hover:text-[var(--primary)] transition-all shadow-xl ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`} data-aos="fade-up" data-aos-delay="200">
-            {lang === 'ar' ? 'تواصل معنا الآن' : 'Contact Us Now'}
-            {lang === 'ar' ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
+          <Link href="/contact" className="inline-flex items-center gap-3 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] text-black font-black px-10 py-4.5 rounded-full text-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(213,178,93,0.3)] hover:shadow-[0_0_40px_rgba(213,178,93,0.5)] cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+            <span>{t("aboutUsPage.ctaBtn")}</span>
+            {isRTL ? <ArrowLeft size={20} /> : <ArrowRight size={20} />}
           </Link>
         </div>
       </section>

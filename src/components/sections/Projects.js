@@ -7,95 +7,91 @@ import { Plus, ExternalLink } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 const Projects = () => {
-  const { lang } = useLanguage();
+  const { t, lang } = useLanguage();
   const [filter, setFilter] = useState("all");
   const [selectedImage, setSelectedImage] = useState(null);
 
   const projects = [
-    // BARJIS Project - Selected best ones
     {
       id: 1,
-      title: lang === 'ar' ? "مشروع بارجيس - الواجهة الأمامية" : "BARJIS - Front Facade",
+      title: t("projectsSection.items.barjisFacade"),
       category: "barjis",
       image: "/asstes/office-projects/BARJIS FRONT FACADE (05.08.2025).jpg",
-      location: lang === 'ar' ? "مشروع BARJIS" : "BARJIS Project"
+      location: t("projectsSection.categories.barjis")
     },
-    
     {
       id: 2,
-      title: lang === 'ar' ? "مشروع بارجيس - الفناء الداخلي" : "BARJIS - Inner Court",
+      title: t("projectsSection.items.barjisCourt"),
       category: "barjis",
       image: "/asstes/office-projects/BARJIS - INNER COURT (05.24.2025).jpg",
-      location: lang === 'ar' ? "مشروع BARJIS" : "BARJIS Project"
+      location: t("projectsSection.categories.barjis")
     },
     {
       id: 3,
-      title: lang === 'ar' ? "مشروع بارجيس - السطح" : "BARJIS - Roof",
+      title: t("projectsSection.items.barjisRoof"),
       category: "barjis",
       image: "/asstes/office-projects/BARJIS - ROOF (05.24.2025).jpg",
-      location: lang === 'ar' ? "مشروع BARJIS" : "BARJIS Project"
+      location: t("projectsSection.categories.barjis")
     },
     {
       id: 4,
-      title: lang === 'ar' ? "مشروع بارجيس - البدروم" : "BARJIS - Basement",
+      title: t("projectsSection.items.barjisBasement"),
       category: "barjis",
       image: "/asstes/office-projects/BARJIS BASEMENT - TWO (07.13.2025).jpg",
-      location: lang === 'ar' ? "مشروع BARJIS" : "BARJIS Project"
+      location: t("projectsSection.categories.barjis")
     },
-    // Residential - Selected best ones
     {
       id: 5,
-      title: lang === 'ar' ? "تصميم فيلا سكنية - 1" : "Residential Villa - 1",
+      title: t("projectsSection.items.villa1"),
       category: "residential",
       image: "/asstes/office-projects/1.jpg",
       location: "MNC"
     },
     {
       id: 6,
-      title: lang === 'ar' ? "تصميم فيلا سكنية - 2" : "Residential Villa - 2",
+      title: t("projectsSection.items.villa2"),
       category: "residential",
       image: "/asstes/office-projects/2.jpg",
       location: "MNC"
     },
     {
       id: 7,
-      title: lang === 'ar' ? "تصميم فيلا سكنية - 3" : "Residential Villa - 3",
+      title: t("projectsSection.items.villa3"),
       category: "residential",
       image: "/asstes/office-projects/3.jpg",
       location: "MNC"
     },
     {
       id: 8,
-      title: lang === 'ar' ? "تصميم فيلا سكنية - 4" : "Residential Villa - 4",
+      title: t("projectsSection.items.villa4"),
       category: "residential",
       image: "/asstes/office-projects/4.jpg",
       location: "MNC"
     },
-    // Recent - Selected best ones (Interior design)
     {
       id: 9,
-      title: lang === 'ar' ? "أعمال داخلية حديثة - 1" : "Modern Interior Work - 1",
+      title: t("projectsSection.items.interior1"),
       category: "recent",
       image: "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (1).jpeg",
       location: "MNC"
     },
     {
       id: 10,
-      title: lang === 'ar' ? "أعمال داخلية حديثة - 2" : "Modern Interior Work - 2",
+      title: t("projectsSection.items.interior2"),
       category: "recent",
       image: "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (3).jpeg",
       location: "MNC"
     },
     {
       id: 11,
-      title: lang === 'ar' ? "أعمال داخلية حديثة - 3" : "Modern Interior Work - 3",
+      title: t("projectsSection.items.interior3"),
       category: "recent",
       image: "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 03.35.41.jpeg",
       location: "MNC"
     },
     {
       id: 12,
-      title: lang === 'ar' ? "أعمال داخلية حديثة - 4" : "Modern Interior Work - 4",
+      title: t("projectsSection.items.interior4"),
       category: "recent",
       image: "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 05.15.23.jpeg",
       location: "MNC"
@@ -103,10 +99,10 @@ const Projects = () => {
   ];
 
   const categories = [
-    { key: "all", label: lang === 'ar' ? "الكل" : "All" },
-    { key: "barjis", label: lang === 'ar' ? "مشروع BARJIS" : "BARJIS Project" },
-    { key: "residential", label: lang === 'ar' ? "مشاريع سكنية" : "Residential" },
-    { key: "recent", label: lang === 'ar' ? "أعمال حديثة" : "Recent Work" },
+    { key: "all", label: t("projectsSection.categories.all") },
+    { key: "barjis", label: t("projectsSection.categories.barjis") },
+    { key: "residential", label: t("projectsSection.categories.residential") },
+    { key: "recent", label: t("projectsSection.categories.recent") },
   ];
 
   const filteredProjects = filter === "all" ? projects : projects.filter(p => p.category === filter);
@@ -116,19 +112,15 @@ const Projects = () => {
       <div className="container mx-auto px-6 max-w-7xl">
         {/* Header */}
         <div className={`flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-8`}>
-          <div className={`${lang === 'ar' ? 'text-right' : 'text-left'} w-full md:w-auto`} data-aos="fade-up">
+          <div className={`${lang === 'ar' || lang === 'ur' ? 'text-right' : 'text-left'} w-full md:w-auto`} data-aos="fade-up">
             <span className="text-secondary font-bold tracking-widest uppercase text-sm block mb-4">
-              {lang === 'ar' ? 'معرض الأعمال' : 'Portfolio'}
+              {t("projectsSection.badge")}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              {lang === 'ar' ? (
-                <>بصماتنا <span className="text-secondary">الميدانية</span></>
-              ) : (
-                <>Our <span className="text-secondary">Field</span> Marks</>
-              )}
+              {t("projectsSection.titlePart1")}<span className="text-secondary">{t("projectsSection.titlePart2")}</span>{t("projectsSection.titlePart3")}
             </h2>
-            <p className="text-muted mt-2 text-sm">
-              {lang === 'ar' ? 'أبرز المشاريع المختارة من أعمال مكتب MNC' : 'Selected highlights from MNC office projects'}
+            <p className="text-muted mt-2 text-sm font-medium">
+              {t("projectsSection.description")}
             </p>
           </div>
 
@@ -187,16 +179,16 @@ const Projects = () => {
         {/* View All Projects Button */}
         <div className="mt-16 text-center" data-aos="fade-up">
           <p className="text-muted mb-6 italic">
-            {lang === 'ar' ? 'وهناك المزيد من المشاريع قيد التنفيذ...' : 'And there are more projects in progress...'}
+            {t("projectsSection.more")}
           </p>
           <Link
             href="/projects"
             className={`inline-flex items-center gap-2 bg-secondary text-white px-8 py-4 rounded-full font-bold hover:bg-secondary/80 transition-all shadow-md ${
-              lang === 'ar' ? 'flex-row' : 'flex-row-reverse'
+              lang === 'ar' || lang === 'ur' ? 'flex-row' : 'flex-row-reverse'
             }`}
           >
-            {lang === 'ar' ? 'شاهد جميع المشاريع' : 'View All Projects'}
-            <ExternalLink size={18} className={lang === 'ar' ? '' : 'rotate-180'} />
+            {t("projectsSection.viewAll")}
+            <ExternalLink size={18} className={lang === 'ar' || lang === 'ur' ? '' : 'rotate-180'} />
           </Link>
         </div>
       </div>

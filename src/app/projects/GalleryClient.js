@@ -14,7 +14,7 @@ import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 
 export default function GalleryClient({ galleries }) {
-  const { lang } = useLanguage();
+  const { lang, t, isRTL } = useLanguage();
   const [lightbox, setLightbox] = useState({
     isOpen: false,
     images: [],
@@ -78,7 +78,7 @@ export default function GalleryClient({ galleries }) {
             <div className="pb-12">
               <Swiper
                 key={`arch-${lang}`}
-                dir={lang === 'ar' ? 'rtl' : 'ltr'}
+                dir={isRTL ? 'rtl' : 'ltr'}
                 effect={"coverflow"}
                 grabCursor={true}
                 centeredSlides={true}
@@ -159,16 +159,16 @@ export default function GalleryClient({ galleries }) {
           ) : gallery.id === "interior" ? (
             <div className="pb-12 relative px-4 md:px-24 group">
               {/* Custom Navigation Buttons - Corrected RTL/LTR logic */}
-              <button className={`swiper-prev-${gallery.id} absolute ${lang === 'ar' ? 'right-0 md:right-4' : 'left-0 md:left-4'} top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-16 md:h-16 flex items-center justify-center bg-[var(--card-bg)]/10 backdrop-blur-md border border-[rgba(255,255,255,0.2)] text-[var(--secondary)] rounded-2xl hover:bg-[var(--secondary)] hover:text-[var(--foreground)] transition-all duration-300 shadow-xl opacity-0 group-hover:opacity-100 hidden md:flex`}>
-                {lang === 'ar' ? <ChevronRight size={32} /> : <ChevronLeft size={32} />}
+              <button className={`swiper-prev-${gallery.id} absolute ${isRTL ? 'right-0 md:right-4' : 'left-0 md:left-4'} top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-16 md:h-16 flex items-center justify-center bg-[var(--card-bg)]/10 backdrop-blur-md border border-[rgba(255,255,255,0.2)] text-[var(--secondary)] rounded-2xl hover:bg-[var(--secondary)] hover:text-[var(--foreground)] transition-all duration-300 shadow-xl opacity-0 group-hover:opacity-100 hidden md:flex`}>
+                {isRTL ? <ChevronRight size={32} /> : <ChevronLeft size={32} />}
               </button>
-              <button className={`swiper-next-${gallery.id} absolute ${lang === 'ar' ? 'left-0 md:left-4' : 'right-0 md:right-4'} top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-16 md:h-16 flex items-center justify-center bg-[var(--card-bg)]/10 backdrop-blur-md border border-[rgba(255,255,255,0.2)] text-[var(--secondary)] rounded-2xl hover:bg-[var(--secondary)] hover:text-[var(--foreground)] transition-all duration-300 shadow-xl opacity-0 group-hover:opacity-100 hidden md:flex`}>
-                {lang === 'ar' ? <ChevronLeft size={32} /> : <ChevronRight size={32} />}
+              <button className={`swiper-next-${gallery.id} absolute ${isRTL ? 'left-0 md:left-4' : 'right-0 md:right-4'} top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-16 md:h-16 flex items-center justify-center bg-[var(--card-bg)]/10 backdrop-blur-md border border-[rgba(255,255,255,0.2)] text-[var(--secondary)] rounded-2xl hover:bg-[var(--secondary)] hover:text-[var(--foreground)] transition-all duration-300 shadow-xl opacity-0 group-hover:opacity-100 hidden md:flex`}>
+                {isRTL ? <ChevronLeft size={32} /> : <ChevronRight size={32} />}
               </button>
 
               <Swiper
                 key={`int-${lang}`}
-                dir={lang === 'ar' ? 'rtl' : 'ltr'}
+                dir={isRTL ? 'rtl' : 'ltr'}
                 grabCursor={true}
                 autoplay={{
                   delay: 4000,
@@ -207,17 +207,17 @@ export default function GalleryClient({ galleries }) {
                       
                       <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent opacity-0 group-hover/slide:opacity-100 transition-opacity duration-700"></div>
                       
-                      <div className={`absolute bottom-6 ${lang === 'ar' ? 'right-6' : 'left-6'} md:bottom-10 ${lang === 'ar' ? 'md:right-10' : 'md:left-10'} opacity-0 group-hover/slide:opacity-100 translate-y-10 group-hover/slide:translate-y-0 transition-all duration-700 bg-[var(--card-bg)]/10 backdrop-blur-xl border border-[rgba(255,255,255,0.2)] p-3 md:p-4 rounded-2xl`}>
-                        <div className={`flex items-center gap-4 ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
+                      <div className={`absolute bottom-6 ${isRTL ? 'right-6' : 'left-6'} md:bottom-10 ${isRTL ? 'md:right-10' : 'md:left-10'} opacity-0 group-hover/slide:opacity-100 translate-y-10 group-hover/slide:translate-y-0 transition-all duration-700 bg-[var(--card-bg)]/10 backdrop-blur-xl border border-[rgba(255,255,255,0.2)] p-3 md:p-4 rounded-2xl`}>
+                        <div className={`flex items-center gap-4 ${isRTL ? 'flex-row' : 'flex-row-reverse'}`}>
                           <div className="w-10 h-10 md:w-12 md:h-12 bg-secondary rounded-full flex items-center justify-center">
                             <ZoomIn size={20} className="text-[var(--foreground)]" />
                           </div>
-                          <div className={`text-[var(--foreground)] ${lang === 'ar' ? 'text-right' : 'text-left'}`}>
+                          <div className={`text-[var(--foreground)] ${isRTL ? 'text-right' : 'text-left'}`}>
                             <p className="text-[8px] md:text-[10px] uppercase tracking-[0.2em] font-bold opacity-60 mb-0.5">
-                              {lang === 'ar' ? 'مشروع متميز' : 'Distinctive Project'}
+                              {t('gallery.distinctive')}
                             </p>
                             <p className="text-xs md:text-sm font-bold tracking-wide">
-                              {lang === 'ar' ? 'عرض التفاصيل' : 'View Details'}
+                              {t('gallery.viewDetails')}
                             </p>
                           </div>
                         </div>
@@ -275,7 +275,7 @@ export default function GalleryClient({ galleries }) {
         >
           <button
             onClick={closeLightbox}
-            className={`absolute top-6 ${lang === 'ar' ? 'right-6' : 'left-6'} text-[var(--foreground)] hover:text-[var(--secondary)] transition-colors z-10`}
+            className={`absolute top-6 ${isRTL ? 'right-6' : 'left-6'} text-[var(--foreground)] hover:text-[var(--secondary)] transition-colors z-10`}
           >
             <X size={40} />
           </button>
@@ -289,11 +289,11 @@ export default function GalleryClient({ galleries }) {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                lang === 'ar' ? goNext() : goPrev();
+                isRTL ? goNext() : goPrev();
               }}
-              className={`absolute ${lang === 'ar' ? 'left-4 md:left-8' : 'left-4 md:left-8'} top-1/2 -translate-y-1/2 text-[var(--foreground)] hover:text-[var(--secondary)] transition-colors z-10`}
+              className={`absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-[var(--foreground)] hover:text-[var(--secondary)] transition-colors z-10`}
             >
-              {lang === 'ar' ? <ChevronLeft size={50} /> : <ChevronLeft size={50} />}
+              <ChevronLeft size={50} />
             </button>
           )}
 
@@ -315,11 +315,11 @@ export default function GalleryClient({ galleries }) {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                lang === 'ar' ? goPrev() : goNext();
+                isRTL ? goPrev() : goNext();
               }}
-              className={`absolute ${lang === 'ar' ? 'right-4 md:right-8' : 'right-4 md:right-8'} top-1/2 -translate-y-1/2 text-[var(--foreground)] hover:text-[var(--secondary)] transition-colors z-10`}
+              className={`absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-[var(--foreground)] hover:text-[var(--secondary)] transition-colors z-10`}
             >
-              {lang === 'ar' ? <ChevronRight size={50} /> : <ChevronRight size={50} />}
+              <ChevronRight size={50} />
             </button>
           )}
         </div>

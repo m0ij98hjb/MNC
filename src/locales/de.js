@@ -1,0 +1,252 @@
+export const de = {
+  nav: {
+    home: "Startseite",
+    about: "Über Uns",
+    services: "Unsere Dienstleistungen",
+    projects: "Unsere Projekte",
+    contact: "Kontaktieren Sie Uns",
+    profile: "Profil Herunterladen",
+    costCalc: "Kostenrechner"
+  },
+  hero: {
+    badge: "Technische Exzellenz",
+    title: "Die Zukunft Gestalten",
+    subtitle: "Mit Ingenieurskunst",
+    description: "Wir sind hier, um Ihre Visionen zu verwirklichen und Ingenieurlösungen zu bieten, die Erwartungen übertreffen. Kontaktieren Sie MNC-Experten noch heute."
+  },
+  contact: {
+    title: "Kontaktieren Sie Uns",
+    info: "Kontaktinformationen",
+    ready: "Sind Sie bereit, zu beginnen",
+    nextProject: "Ihr nächstes Projekt?",
+    desc: "Unser Ingenieurteam ist bereit, Ihre Visionen zu besprechen und in die Realität umzusetzen. Kontaktieren Sie uns noch heute für eine professionelle Beratung.",
+    phone: "Rufen Sie Uns An",
+    email: "E-Mail",
+    location: "Standort",
+    hours: "Arbeitszeiten",
+    days: "Sonntag – Donnerstag",
+    time: "8:00 – 17:30 Uhr",
+    form: {
+      name: "Vollständiger Name",
+      phone: "Telefonnummer",
+      service: "Dienstleistungsart",
+      message: "Nachrichtendetails",
+      submit: "Nachricht Senden"
+    }
+  },
+  features: {
+    title: "Warum MNC wählen?",
+    subtitle: "Wir bieten Qualität und Innovation in jedem Projekt",
+    precision: {
+      title: "Ausführungspräzision",
+      desc: "Wir halten die strengsten Ingenieurstandards ein, um außergewöhnliche Qualität zu gewährleisten."
+    },
+    innovation: {
+      title: "Innovative Lösungen",
+      desc: "Wir nutzen modernste Architekturtechnologien, um Ihre Vision in die Realität umzusetzen."
+    },
+    management: {
+      title: "Professionelles Management",
+      desc: "Ein engagiertes Team zur Begleitung aller Projektphasen mit höchster Professionalität."
+    },
+    deadlines: {
+      title: "Termintreue",
+      desc: "Wir schätzen Ihre Zeit und sind verpflichtet, Projekte pünktlich zu liefern."
+    }
+  },
+  calculator: {
+    title: "Berechnen Sie Ihre Projektkosten",
+    subtitle: "Ein präzises Schätzwerkzeug basierend auf echten saudischen Marktdaten und MNCs über 15-jähriger Projekterfahrung",
+    badge: "Basierend auf zertifizierten Ingenieurstandards",
+    step1: "Projekttyp",
+    step2: "Spezifikationen",
+    step3: "Technische Schätzung",
+    projectType: "Welcher Projekttyp ist Ihres?",
+    residential: "Wohngebäude",
+    residential_desc: "Villen, Wohnungen, Häuser",
+    commercial: "Gewerbe",
+    commercial_desc: "Einkaufszentren, Büros",
+    industrial: "Industriell",
+    industrial_desc: "Fabriken, Lagerhäuser",
+    renovation: "Renovierung",
+    renovation_desc: "Renovierung & Erweiterungen",
+    area: "Gesamtfläche (m²)",
+    areaPlaceholder: "Geben Sie die Fläche in Quadratmetern ein",
+    floors: "Anzahl der Stockwerke",
+    quality: "Ausbauqualität",
+    economic: "Wirtschaftlich",
+    standard: "Standard",
+    premium: "Premium",
+    ultra: "Ultra Luxus",
+    location: "Projektstandort",
+    jeddah: "Dschidda",
+    riyadh: "Riad",
+    mecca: "Mekka",
+    dammam: "Dammam",
+    other_city: "Andere Stadt",
+    extras: "Extras & Dienstleistungen",
+    pool: "Schwimmbad",
+    elevator: "Aufzug",
+    solar: "Solarenergie",
+    smart: "Smart Home",
+    landscape: "Landschaftsgestaltung",
+    basement: "Keller",
+    calculate: "Kostenschätzung Generieren",
+    calculating: "Ihr Projekt wird analysiert...",
+    result_title: "Technische Kostenschätzung",
+    min_cost: "Mindestkosten",
+    max_cost: "Höchstkosten",
+    avg_cost: "Erwartete Durchschnittskosten",
+    cost_per_sqm: "Kosten pro Quadratmeter",
+    breakdown: "Kostenaufschlüsselung",
+    structure: "Strukturarbeiten",
+    finishing: "Ausbauarbeiten",
+    mep: "Elektro, Sanitär & Mechanik",
+    external: "Außenarbeiten",
+    contingency: "Notfallreserve",
+    timeline: "Erwarteter Zeitplan",
+    months: "Monate",
+    aiInsights: "Ingenieuranalyse",
+    note: "Hinweis",
+    noteText: "Dies ist eine vorläufige Schätzung basierend auf Marktstandards. Für ein genaues Angebot kontaktieren Sie unser Ingenieurteam.",
+    contact_cta: "Genaues Angebot Erhalten",
+    reset: "Neue Berechnung",
+    required: "Dieses Feld ist erforderlich",
+    currency: "SAR",
+    insights: {
+      premium: "✦ Premium-Ausführungen erfordern hochwertige importierte Materialien, was die Kosten um 20-40% erhöht.",
+      large: "✦ Großprojekte profitieren in der Regel von Skaleneffekten, was die Kosten pro m² um bis zu 15% senkt.",
+      solar: "✦ Solarenergie spart bis zu 40% der Stromrechnung bei einer Amortisationszeit von 5-7 Jahren.",
+      smart: "✦ Smart-Home-Systeme steigern den Immobilienwert um 10-15% und erhöhen die Attraktivität für Mieter.",
+      mecca: "✦ Projekte in Mekka unterliegen speziellen Bauvorschriften, die die Kosten im Vergleich zu anderen Städten leicht erhöhen.",
+      renovation: "✦ Renovierungsprojekte können während der Ausführung verborgene Herausforderungen offenbaren; wir empfehlen eine zusätzliche Reserve von 15%.",
+      range: "✦ Die durchschnittlichen Kosten pro m² in {location} liegen je nach Ausbauqualität zwischen {min} und {max} SAR."
+    }
+  },
+  about: {
+    badge: "Vision & Expertise",
+    titlePart1: "Wir bauen nicht nur Mauern,",
+    titlePart2: "Wir gestalten eine hervorragende Zukunft",
+    description: "Marwan Ahmed Nazer General Contracting ist eines der führenden Unternehmen im Königreich, bei dem wir technische Authentizität mit moderner Vision verbinden. Wir verpflichten uns, stumme Pläne in architektonische Zeichen zu verwandeln, die Leben und Qualität ausstrahlen.",
+    highlights: ["Innovative Architekturentwürfe", "Professionelles Projektmanagement", "Ausführung in Höchster Qualität", "Volles Engagement für Fristen"],
+    quote: "\"Unser Ziel ist es, technische Exzellenz zu bieten, die Erwartungen übertrifft, mit Fokus auf Nachhaltigkeit und Innovation in jedem Baudetail.\"",
+    directorName: "Eng. Marwan Ahmed Nazer",
+    directorTitle: "CEO der MNC Company",
+    experienceBadge: "Jahre Erfahrung"
+  },
+  servicesSection: {
+    badge: "Unsere Ingenieurdienstleistungen",
+    titlePart1: "Integrierte ",
+    titlePart2: "Ingenieurlösungen",
+    titlePart3: "",
+    description: "Wir decken alle Aspekte der Ingenieur- und Bauarbeiten ab, vom Konzept und Design bis zur schlüsselfertigen Übergabe, mit vollem Fokus auf die feinsten Details, um die Exzellenz Ihres Projekts zu gewährleisten.",
+    learnMore: "Mehr erfahren",
+    items: {
+      construction: {
+        title: "Bauprojekte",
+        desc: "Ausführung aller Bau-, Wohn- und Gewerbebauarbeiten mit höchster Präzision und internationalen Sicherheitsstandards."
+      },
+      architecture: {
+        title: "Architekturdesign",
+        desc: "Wir schaffen einzigartige Designlösungen, die Ästhetik und praktische Funktion verbinden und Räume in künstlerische Meisterwerke verwandeln."
+      },
+      management: {
+        title: "Projektmanagement",
+        desc: "Integrierte technische Überwachung und genaue Verfolgung aller Arbeitsphasen zur Gewährleistung strenger Qualität und Termintreue."
+      },
+      interior: {
+        title: "Innenarchitektur",
+        desc: "Kreative Akzente in Dekoration und Innenkoordination, die Luxus und Komfort hinzufügen und Ihrem anspruchsvollen Geschmack entsprechen."
+      }
+    }
+  },
+  projectsSection: {
+    badge: "Portfolio",
+    titlePart1: "Unsere ",
+    titlePart2: "Praxisspuren",
+    titlePart3: "",
+    description: "Ausgewählte Highlights aus den Projektarbeiten des MNC-Büros",
+    more: "Und weitere Projekte sind in Arbeit...",
+    viewAll: "Alle Projekte anzeigen",
+    categories: {
+      all: "Alle",
+      barjis: "BARJIS Projekt",
+      residential: "Wohnprojekte",
+      recent: "Aktuelle Arbeiten"
+    },
+    items: {
+      barjisFacade: "BARJIS - Vorderfassade",
+      barjisCourt: "BARJIS - Innenhof",
+      barjisRoof: "BARJIS - Dach",
+      barjisBasement: "BARJIS - Keller",
+      villa1: "Wohnvilla - 1",
+      villa2: "Wohnvilla - 2",
+      villa3: "Wohnvilla - 3",
+      villa4: "Wohnvilla - 4",
+      interior1: "Moderne Innenarchitektur - 1",
+      interior2: "Moderne Innenarchitektur - 2",
+      interior3: "Moderne Innenarchitektur - 3",
+      interior4: "Moderne Innenarchitektur - 4"
+    }
+  },
+  aboutUsPage: {
+    titleTypewriter: ["Lernen Sie uns kennen", "MNC Contracting"],
+    subtitle: "Ein unverwechselbares Zeichen im Bereich Bauwesen, Projektentwicklung und -management in Dschidda.",
+    visionHistoryTitle: "Unsere Vision & Geschichte",
+    visionHistoryDesc: "MNC Project Development and Management ist eine herausragende Marke im Bausektor in Dschidda. In kurzer Zeit wurden zahlreiche Projekte erfolgreich durchgeführt. All dies basierte auf Plänen, die von erfahrenen Experten entwickelt wurden.",
+    ceoQuote: "Hinter all diesen Erfolgen stand das Engagement des Geschäftsführers, Eng. Marwan Ahmed Nazer. MNC operiert unter dem Dach von 'Consultant Marwan Ahmed Nazer Office' und hat breite Anerkennung bei den Kunden gefunden.",
+    goalTitle: "Unser Hauptziel",
+    goalDesc: "Die passenden Lösungen für unsere Kunden zu finden, um ein integriertes Werk zu schaffen. Nach Abschluss der Entwürfe wird das Konzept dem Eigentümer präsentiert, um Qualität und Reputation sicherzustellen.",
+    projectsTitle: "Unsere Projekte",
+    projectsDesc: "Wir haben zahlreiche Projekte entwickelt, darunter laufende Investitionsprojekte auf höchstem Niveau in Design und Ausführung.",
+    ceoSectionTitle: "Geschäftsführer",
+    ceoSectionText: "MNC Project Development and Management ist eine führende Marke in Dschidda. Das Unternehmen arbeitet unter dem Dach von 'Consultant Marwan Ahmed Nazer Office for Engineering Consultancy' und steht für Exzellenz und hohe Qualität.",
+    teamBadge: "Unser Team",
+    teamTitle: "Partner für Erfolg & Kreativität",
+    teamDesc: "Wir sind stolz auf unsere hochqualifizierten Ingenieure und Techniker, die mit Leidenschaft und Engagement die besten technischen Lösungen nach globalen Qualitätsstandards liefern.",
+    teamStaffTitle: "Verwaltungs- & Ingenieurstab",
+    teamStaffDesc: "Integrierte Kompetenz für das professionelle Management Ihrer Projekte",
+    teamFieldTitle: "Feld- & Technikteams",
+    teamFieldDesc: "Präzise Ausführung nach höchsten internationalen Qualitätsstandards",
+    ctaTitle: "Bereit, Ihre nächste Vision zu bauen",
+    ctaBtn: "Kontaktieren Sie uns jetzt"
+  },
+  contactPage: {
+    typewriter: ["Kontaktieren Sie uns", "Wir warten auf Sie"],
+    explore: "Erkunden",
+    address: "Al-Andalus Bezirk - Abdulrahman Al-Tubaishi Str. Villa 72 - P.O. Box 2164 Dschidda 21451",
+    formNamePlaceholder: "Geben Sie Ihren Namen ein",
+    formMessagePlaceholder: "Wie können wir Ihnen helfen?",
+    formServiceOptions: {
+      construction: "Bauprojekte",
+      architecture: "Architekturdesign",
+      management: "Projektmanagement",
+      other: "Andere"
+    },
+    locationBadge: "Unser Standort",
+    visitTitle: "Besuchen Sie unser Büro",
+    mapTitle: "Marwan Nazer Consulting Office",
+    mapDesc: "Al-Andalus Bezirk - Abdulrahman Al-Tubaishi Str. Villa 72 - Dschidda",
+    openMaps: "In Google Maps öffnen"
+  },
+  gallery: {
+    clickEnlarge: "Klicken Sie auf das Bild zum Vergrößern und wischen Sie, um weitere Bilder zu sehen",
+    distinctive: "Herausragendes Projekt",
+    viewDetails: "Details anzeigen",
+    barjisTitle: "BARJIS Projekt",
+    residentialTitle: "Wohn- & Bauprojekte",
+    recentTitle: "Aktuelle Arbeiten 2025"
+  },
+  footer: {
+    brandDesc: "Marwan Ahmed Nazer General Contracting — Seit über 15 Jahren bauen wir unsere Marke im Bauwesen mit höchsten Standards an Qualität und Professionalität.",
+    quickLinks: "Schnelllinks",
+    services: "Dienstleistungen",
+    rightsReserved: "Marwan Nazer Construction — Alle Rechte vorbehalten",
+    location: "Dschidda, Saudi-Arabien"
+  },
+  voice: {
+    stop: "Präsentation stoppen",
+    play: "Präsentation abspielen",
+    intro: "Firmenpräsentation"
+  }
+};
