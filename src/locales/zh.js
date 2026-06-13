@@ -1,0 +1,252 @@
+export const zh = {
+  nav: {
+    home: "首页",
+    about: "关于我们",
+    services: "我们的服务",
+    projects: "我们的项目",
+    contact: "联系我们",
+    profile: "下载简介",
+    costCalc: "费用计算器"
+  },
+  hero: {
+    badge: "卓越工程",
+    title: "设计未来",
+    subtitle: "以精湛工艺",
+    description: "我们致力于倾听您的愿景，提供超越期望的工程解决方案。立即联系MNC专家团队。"
+  },
+  contact: {
+    title: "联系我们",
+    info: "联系信息",
+    ready: "准备好开始",
+    nextProject: "您的下一个项目了吗？",
+    desc: "我们的工程团队随时准备讨论您的愿景并将其变为现实。立即联系我们，获取专业咨询。",
+    phone: "电话联系",
+    email: "电子邮件",
+    location: "地点",
+    hours: "工作时间",
+    days: "周日 – 周四",
+    time: "上午8:00 – 下午5:30",
+    form: {
+      name: "全名",
+      phone: "电话号码",
+      service: "服务类型",
+      message: "消息详情",
+      submit: "发送消息"
+    }
+  },
+  features: {
+    title: "为何选择MNC？",
+    subtitle: "我们在每个项目中提供质量与创新",
+    precision: {
+      title: "精准执行",
+      desc: "我们遵守最严格的工程标准，确保卓越质量。"
+    },
+    innovation: {
+      title: "创新解决方案",
+      desc: "我们使用最新建筑技术将您的愿景变为现实。"
+    },
+    management: {
+      title: "专业管理",
+      desc: "专业团队全程跟进项目各个阶段。"
+    },
+    deadlines: {
+      title: "准时交付",
+      desc: "我们珍视您的时间，致力于按时交付项目。"
+    }
+  },
+  calculator: {
+    title: "计算您的项目费用",
+    subtitle: "基于沙特市场真实数据和MNC超过15年项目经验构建的精准估算工具",
+    badge: "基于认证工程标准",
+    step1: "项目类型",
+    step2: "规格",
+    step3: "工程估算",
+    projectType: "您的项目类型是什么？",
+    residential: "住宅",
+    residential_desc: "别墅、公寓、住房",
+    commercial: "商业",
+    commercial_desc: "购物中心、办公室",
+    industrial: "工业",
+    industrial_desc: "工厂、仓库",
+    renovation: "翻新改造",
+    renovation_desc: "翻新与扩建",
+    area: "总面积（平方米）",
+    areaPlaceholder: "输入面积（平方米）",
+    floors: "楼层数",
+    quality: "装修质量",
+    economic: "经济型",
+    standard: "标准型",
+    premium: "高级型",
+    ultra: "超豪华",
+    location: "项目地点",
+    jeddah: "吉达",
+    riyadh: "利雅得",
+    mecca: "麦加",
+    dammam: "达曼",
+    other_city: "其他城市",
+    extras: "附加服务",
+    pool: "游泳池",
+    elevator: "电梯",
+    solar: "太阳能",
+    smart: "智能家居",
+    landscape: "景观设计",
+    basement: "地下室",
+    calculate: "生成费用估算",
+    calculating: "正在分析您的数据...",
+    result_title: "工程费用估算",
+    min_cost: "最低费用",
+    max_cost: "最高费用",
+    avg_cost: "预期平均费用",
+    cost_per_sqm: "每平方米费用",
+    breakdown: "费用明细",
+    structure: "结构工程",
+    finishing: "装修工程",
+    mep: "电气、管道与机械",
+    external: "外部工程",
+    contingency: "应急储备",
+    timeline: "预期时间表",
+    months: "个月",
+    aiInsights: "专业工程分析",
+    note: "注意",
+    noteText: "这是基于市场标准的初步估算。如需准确报价，请联系我们的工程团队。",
+    contact_cta: "获取准确报价",
+    reset: "重新计算",
+    required: "此字段为必填项",
+    currency: "沙特里亚尔",
+    insights: {
+      premium: "✦ 高档装修需要高质量的进口材料，使成本增加 20-40%。",
+      large: "✦ 大型项目通常受益于规模经济，使每平方米的成本降低多达 15%。",
+      solar: "✦ 太阳能可节省高达 40% 的电费，并在 5-7 年内收回投资。",
+      smart: "✦ 智能家居系统可将房产价值提高 10-15%，并增强租赁吸引力。",
+      mecca: "✦ 麦加项目受特殊建筑规范的约束，与其它城市相比成本略有增加。",
+      renovation: "✦ 翻新项目可能会在执行过程中发现隐蔽的挑战；我们建议追加 15% 的储备金。",
+      range: "✦ {location} 的每平方米平均成本在 {min} 到 {max} 沙特里亚尔之间，具体取决于装修水平。"
+    }
+  },
+  about: {
+    badge: "愿景与经验",
+    titlePart1: "我们不仅仅是建造墙壁，",
+    titlePart2: "我们设计杰出的未来",
+    description: "Marwan Ahmed Nazer 通用承包是沙特王国领先的机构之一，我们将工程的真实性与现代愿景相结合。我们致力于将无声的图纸转化为充满活力和品质的建筑印记。",
+    highlights: ["创新的建筑设计", "专业的项目管理", "最高质量的执行", "完全遵守截止日期"],
+    quote: "\"我们的使命是在每个施工细节中关注可持续性和创新，提供超出预期的卓越工程。\"",
+    directorName: "Marwan Ahmed Nazer 工程师",
+    directorTitle: "MNC 公司首席执行官",
+    experienceBadge: "年经验"
+  },
+  servicesSection: {
+    badge: "我们的工程服务",
+    titlePart1: "一体化",
+    titlePart2: "工程",
+    titlePart3: "解决方案",
+    description: "我们涵盖工程和施工工作的各个方面，从概念和设计到交付，完全关注最微小的细节，以确保您的项目卓越。",
+    learnMore: "了解更多",
+    items: {
+      construction: {
+        title: "建筑工程",
+        desc: "以最高的精确度和国际安全标准执行所有建筑、住宅和商业建筑工程。"
+      },
+      architecture: {
+        title: "建筑设计",
+        desc: "我们创造独特的设计解决方案，将美学与实用功能相结合，将空间转化为艺术杰作。"
+      },
+      management: {
+        title: "项目管理",
+        desc: "一体化工程监督和紧密跟进所有工作阶段，以确保严格的质量和进度。"
+      },
+      interior: {
+        title: "室内设计",
+        desc: "装饰和室内协调中的创意触感，增添奢华与舒适，契合您的尊贵品味。"
+      }
+    }
+  },
+  projectsSection: {
+    badge: "项目案例",
+    titlePart1: "我们的 ",
+    titlePart2: "实地",
+    titlePart3: " 印记",
+    description: "MNC 办公室项目精选亮点",
+    more: "还有更多项目正在进行中...",
+    viewAll: "查看所有项目",
+    categories: {
+      all: "全部",
+      barjis: "BARJIS 项目",
+      residential: "住宅项目",
+      recent: "近期作品"
+    },
+    items: {
+      barjisFacade: "BARJIS - 正面外观",
+      barjisCourt: "BARJIS - 内院",
+      barjisRoof: "BARJIS - 屋顶",
+      barjisBasement: "BARJIS - 地下室",
+      villa1: "住宅别墅 - 1",
+      villa2: "住宅别墅 - 2",
+      villa3: "住宅别墅 - 3",
+      villa4: "住宅别墅 - 4",
+      interior1: "现代室内工程 - 1",
+      interior2: "现代室内工程 - 2",
+      interior3: "现代室内工程 - 3",
+      interior4: "现代室内工程 - 4"
+    }
+  },
+  aboutUsPage: {
+    titleTypewriter: ["了解我们", "MNC 承包"],
+    subtitle: "吉达建筑、项目开发和管理领域的杰出品牌。",
+    visionHistoryTitle: "我们的愿景与历史",
+    visionHistoryDesc: "MNC 项目开发与管理是吉达建筑领域的杰出品牌。在很短的时间内，它已经成功管理和执行了许多项目。这一切都基于一流专家制定的计划。",
+    ceoQuote: "所有这些成就的背后是总经理 Marwan Ahmed Nazer 工程师的辛勤付出。MNC 在 'Consultant Marwan Ahmed Nazer Office' 旗下运营，并赢得了客户的赞誉。",
+    goalTitle: "我们的核心目标",
+    goalDesc: "为客户寻找合适的解决方案，以实现一体化的工作，始终兼顾高质量和良好信誉。",
+    projectsTitle: "我们的项目",
+    projectsDesc: "我们设计并开发了众多项目，部分处于设计或执行最高水平的在建投资项目。",
+    ceoSectionTitle: "执行董事",
+    ceoSectionText: "MNC 是吉达建筑行业的领先品牌。在工程咨询、设计和项目管理领域，在 'Consultant Marwan Ahmed Nazer' 旗下运营。",
+    teamBadge: "我们的团队",
+    teamTitle: "成功与创意的合作伙伴",
+    teamDesc: "我们为拥有一支高素质的工程师和技术人员队伍而感到自豪，他们充满热情，致力于提供符合全球质量标准的最佳工程解决方案。",
+    teamStaffTitle: "行政与工程人员",
+    teamStaffDesc: "一体化专业知识，专业管理您的项目",
+    teamFieldTitle: "外勤与技术团队",
+    teamFieldDesc: "严格遵循国际质量标准的精准执行",
+    ctaTitle: "准备好构建您的下一个愿景了吗",
+    ctaBtn: "立即联系我们"
+  },
+  contactPage: {
+    typewriter: ["联系我们", "我们正在等候您"],
+    explore: "探索",
+    address: "Al-Andalus 区 - Abdulrahman Al-Tubaishi 街. 72号别墅 - 邮政信箱 2164 吉达 21451",
+    formNamePlaceholder: "输入您的名字",
+    formMessagePlaceholder: "我们能为您做些什么？",
+    formServiceOptions: {
+      construction: "建筑工程",
+      architecture: "建筑设计",
+      management: "项目管理",
+      other: "其他"
+    },
+    locationBadge: "我们的位置",
+    visitTitle: "访问我们的办公室",
+    mapTitle: "Marwan Nazer 咨询办公室",
+    mapDesc: "Al-Andalus 区 - Abdulrahman Al-Tubaishi 街. 72号别墅 - 吉达",
+    openMaps: "在 Google 地图中打开"
+  },
+  gallery: {
+    clickEnlarge: "点击图片放大，滑动浏览其他图片",
+    distinctive: "杰出项目",
+    viewDetails: "查看详情",
+    barjisTitle: "BARJIS 项目",
+    residentialTitle: "住宅与建筑项目",
+    recentTitle: "近期作品 2025"
+  },
+  footer: {
+    brandDesc: "Marwan Ahmed Nazer 通用承包 — 15 年来，我们以最高的质量和专业标准打造我们在建筑行业的品牌。",
+    quickLinks: "快速链接",
+    services: "我们的服务",
+    rightsReserved: "Marwan Nazer Construction — 保留所有权利",
+    location: "吉达，沙特阿拉伯"
+  },
+  voice: {
+    stop: "停止介绍",
+    play: "播放介绍",
+    intro: "公司介绍"
+  }
+};

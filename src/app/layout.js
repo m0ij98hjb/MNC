@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import FloatingContact from "@/components/layout/FloatingContact";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { MusicProvider } from "@/context/MusicContext";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -28,11 +29,13 @@ export default function RootLayout({ children }) {
       <body className="antialiased flex flex-col min-h-screen relative">
         <ThemeProvider>
           <LanguageProvider>
-            <AOSInit />
-            <VoicePresentation />
-            {children}
-            <FloatingContact />
-            <Footer />
+            <MusicProvider>
+              <AOSInit />
+              <VoicePresentation />
+              {children}
+              <FloatingContact />
+              <Footer />
+            </MusicProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

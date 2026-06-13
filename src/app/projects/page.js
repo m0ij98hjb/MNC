@@ -9,13 +9,13 @@ import GalleryClient from "./GalleryClient";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function ProjectsPage() {
-  const { lang, t } = useLanguage();
+  const { lang, t, isRTL } = useLanguage();
 
   const galleries = [
     {
       id: "construction",
-      title: lang === 'ar' ? "مشروع BARJIS" : "BARJIS Project",
-      description: lang === 'ar' ? "اضغط على الصورة لتكبيرها ومرر لتصفح باقي الصور" : "Click on the image to enlarge and scroll to browse the rest of the images",
+      title: t("gallery.barjisTitle"),
+      description: t("gallery.clickEnlarge"),
       images: [
         "/asstes/office-projects/BARJIS FRONT FACADE (05.08.2025).jpg",
         "/asstes/office-projects/BARJIS - BACK ENTRANCE (07.07.2025).jpg",
@@ -29,8 +29,8 @@ export default function ProjectsPage() {
     },
     {
       id: "architecture",
-      title: lang === 'ar' ? "مشاريع سكنية وإنشائية" : "Residential & Construction Projects",
-      description: lang === 'ar' ? "اضغط على الصورة لتكبيرها ومرر لتصفح باقي الصور" : "Click on the image to enlarge and scroll to browse the rest of the images",
+      title: t("gallery.residentialTitle"),
+      description: t("gallery.clickEnlarge"),
       images: [
         "/asstes/office-projects/1.jpg",
         "/asstes/office-projects/2.jpg",
@@ -93,8 +93,8 @@ export default function ProjectsPage() {
     },
     {
       id: "interior",
-      title: lang === 'ar' ? "أعمال حديثة 2025" : "Recent Work 2025",
-      description: lang === 'ar' ? "اضغط على الصورة لتكبيرها ومرر لتصفح باقي الصور" : "Click on the image to enlarge and scroll to browse the rest of the images",
+      title: t("gallery.recentTitle"),
+      description: t("gallery.clickEnlarge"),
       images: [
         "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (1).jpeg",
         "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (2).jpeg",
@@ -135,7 +135,7 @@ export default function ProjectsPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background" dir={isRTL ? "rtl" : "ltr"}>
       <Navbar />
 
       {/* Hero Section */}
@@ -156,7 +156,7 @@ export default function ProjectsPage() {
           <div className="max-w-4xl mx-auto text-center" data-aos="fade-up">
             <h1 className="text-3xl md:text-6xl font-black text-[var(--foreground)] mb-6 font-heading">
               <TypewriterText
-                texts={lang === 'ar' ? ["مشاريعنا"] : ["Our Projects"]}
+                texts={[t('aboutUsPage.projectsTitle')]}
                 typingSpeed={120}
                 deletingSpeed={60}
                 pauseDuration={2000}
@@ -166,7 +166,7 @@ export default function ProjectsPage() {
             </h1>
             <div className="w-24 h-1 bg-secondary mx-auto mb-6"></div>
             <p className="text-xl text-[var(--foreground)]/80 leading-relaxed font-semibold">
-              {lang === 'ar' ? 'اكتشف إبداعاتنا في مختلف المجالات الهندسية' : 'Discover our creations in various engineering fields'}
+              {t('projectsSection.description')}
             </p>
           </div>
         </div>
@@ -182,13 +182,28 @@ export default function ProjectsPage() {
       {/* Call to Action */}
       <section className="py-20 bg-secondary relative overflow-hidden">
         <div className="container relative z-10 mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-[var(--foreground)] mb-8 font-heading">
-            {lang === 'ar' ? 'هل لديك مشروع قادم؟' : 'Have a future project?'}
+          <h2 className="text-3xl md:text-5xl font-bold text-[var(--foreground)] mb-8 font-heading leading-normal py-2">
+            {t('aboutUsPage.ctaTitle')}
           </h2>
-          <Link href="/contact" className={`inline-flex items-center gap-2 bg-[var(--card-bg)] text-[var(--secondary)] px-8 py-4 rounded-full font-bold text-lg hover:bg-[var(--background)] hover:text-[var(--primary)] transition-all shadow-xl ${lang === 'ar' ? 'flex-row' : 'flex-row-reverse'}`}>
-            {lang === 'ar' ? 'دعنا نتحدث' : "Let's Talk"}
-            {lang === 'ar' ? <ArrowRight size={20} /> : <ArrowLeft size={20} />}
-          </Link>
+          <div className="flex flex-col items-center gap-4">
+            <Link href="/contact" className="inline-flex items-center gap-2 bg-[var(--card-bg)] text-[var(--secondary)] px-8 py-4 rounded-full font-bold text-lg hover:bg-[var(--background)] hover:text-[var(--primary)] transition-all shadow-xl">
+              <span>{t('aboutUsPage.ctaBtn')}</span>
+              {isRTL ? <ArrowLeft size={20} /> : <ArrowRight size={20} />}
+            </Link>
+            <Link
+              href="/cost-calculator"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full border-2 border-[var(--card-bg)]/40 bg-[var(--card-bg)]/15 hover:bg-[var(--card-bg)]/30 text-[var(--foreground)] font-bold text-base transition-all duration-300 shadow-lg backdrop-blur-sm group"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="4" y="2" width="16" height="20" rx="2"/>
+                <line x1="8" y1="6" x2="16" y2="6"/>
+                <line x1="8" y1="10" x2="16" y2="10"/>
+                <line x1="8" y1="14" x2="12" y2="14"/>
+                <polyline points="15 17 17 19 21 15"/>
+              </svg>
+              {t('calculator.title')}
+            </Link>
+          </div>
         </div>
       </section>
     </main>

@@ -1,0 +1,252 @@
+export const es = {
+  nav: {
+    home: "Inicio",
+    about: "Quiénes Somos",
+    services: "Nuestros Servicios",
+    projects: "Nuestros Proyectos",
+    contact: "Contáctenos",
+    profile: "Descargar Perfil",
+    costCalc: "Calculadora de Costos"
+  },
+  hero: {
+    badge: "Excelencia en Ingeniería",
+    title: "Diseñando el Futuro",
+    subtitle: "Con Maestría en Ingeniería",
+    description: "Estamos aquí para escuchar sus aspiraciones y brindar soluciones de ingeniería que superen las expectativas. Contacte a los expertos de MNC hoy."
+  },
+  contact: {
+    title: "Contáctenos",
+    info: "Información de Contacto",
+    ready: "¿Está listo para comenzar",
+    nextProject: "Su próximo proyecto?",
+    desc: "Nuestro equipo de ingeniería está listo para discutir sus aspiraciones y convertirlas en realidad. Contáctenos hoy para una consulta profesional.",
+    phone: "Llámenos",
+    email: "Correo Electrónico",
+    location: "Ubicación",
+    hours: "Horario de Atención",
+    days: "Domingo – Jueves",
+    time: "8:00 AM – 5:30 PM",
+    form: {
+      name: "Nombre Completo",
+      phone: "Número de Teléfono",
+      service: "Tipo de Servicio",
+      message: "Detalles del Mensaje",
+      submit: "Enviar Mensaje"
+    }
+  },
+  features: {
+    title: "¿Por qué elegir MNC?",
+    subtitle: "Ofrecemos calidad e innovación en cada proyecto",
+    precision: {
+      title: "Precisión en Ejecución",
+      desc: "Cumplimos con los estándares de ingeniería más estrictos para garantizar una calidad excepcional."
+    },
+    innovation: {
+      title: "Soluciones Innovadoras",
+      desc: "Utilizamos las últimas tecnologías arquitectónicas para convertir su visión en realidad."
+    },
+    management: {
+      title: "Gestión Profesional",
+      desc: "Un equipo dedicado para seguir todas las etapas del proyecto con total profesionalismo."
+    },
+    deadlines: {
+      title: "Cumplimiento de Plazos",
+      desc: "Valoramos su tiempo, por eso nos comprometemos a entregar proyectos en la fecha acordada."
+    }
+  },
+  calculator: {
+    title: "Calcule el Costo de Su Proyecto",
+    subtitle: "Una herramienta de estimación precisa basada en datos reales del mercado saudí y más de 15 años de experiencia de MNC",
+    badge: "Basado en Estándares de Ingeniería Certificados",
+    step1: "Tipo de Proyecto",
+    step2: "Especificaciones",
+    step3: "Estimación de Ingeniería",
+    projectType: "¿Cuál es el tipo de su proyecto?",
+    residential: "Residencial",
+    residential_desc: "Villas, apartamentos, hogares",
+    commercial: "Comercial",
+    commercial_desc: "Centros comerciales, oficinas",
+    industrial: "Industrial",
+    industrial_desc: "Fábricas, almacenes",
+    renovation: "Renovación",
+    renovation_desc: "Renovación y ampliaciones",
+    area: "Área Total (m²)",
+    areaPlaceholder: "Ingrese el área en metros cuadrados",
+    floors: "Número de Pisos",
+    quality: "Calidad de Acabados",
+    economic: "Económico",
+    standard: "Estándar",
+    premium: "Premium",
+    ultra: "Ultra Lujo",
+    location: "Ubicación del Proyecto",
+    jeddah: "Yeda",
+    riyadh: "Riad",
+    mecca: "La Meca",
+    dammam: "Dammam",
+    other_city: "Otra Ciudad",
+    extras: "Extras y Servicios",
+    pool: "Piscina",
+    elevator: "Ascensor",
+    solar: "Energía Solar",
+    smart: "Casa Inteligente",
+    landscape: "Paisajismo",
+    basement: "Sótano",
+    calculate: "Generar Estimación de Costos",
+    calculating: "Analizando su proyecto...",
+    result_title: "Estimación de Costos de Ingeniería",
+    min_cost: "Costo Mínimo",
+    max_cost: "Costo Máximo",
+    avg_cost: "Costo Promedio Esperado",
+    cost_per_sqm: "Costo por Metro Cuadrado",
+    breakdown: "Desglose de Costos",
+    structure: "Obras Estructurales",
+    finishing: "Obras de Acabado",
+    mep: "Eléctrico, Fontanería y Mecánico",
+    external: "Obras Externas",
+    contingency: "Reserva de Contingencia",
+    timeline: "Cronograma Esperado",
+    months: "meses",
+    aiInsights: "Análisis de Ingeniería",
+    note: "Nota",
+    noteText: "Esta es una estimación preliminar basada en estándares del mercado. Para una cotización precisa, contacte a nuestro equipo de ingeniería.",
+    contact_cta: "Obtener Cotización Precisa",
+    reset: "Nuevo Cálculo",
+    required: "Este campo es obligatorio",
+    currency: "SAR",
+    insights: {
+      premium: "✦ Los acabados premium requieren materiales importados de alta calidad, lo que aumenta los costos en un 20-40%.",
+      large: "✦ Los proyectos a gran escala suelen beneficiarse de las economías de escala, lo que reduce el costo por m² hasta en un 15%.",
+      solar: "✦ La energía solar ahorra hasta un 40% en las facturas de electricidad con una recuperación de la inversión en 5-7 años.",
+      smart: "✦ Los sistemas de casa inteligente aumentan el valor de la propiedad en un 10-15% y mejoran el atractivo de alquiler.",
+      mecca: "✦ Los proyectos en La Meca están sujetos a códigos de construcción especiales que aumentan ligeramente los costos en comparación con otras ciudades.",
+      renovation: "✦ Los proyectos de renovación pueden descubrir desafíos ocultos durante la ejecución; recomendamos una reserva adicional del 15%.",
+      range: "✦ El costo promedio por m² en {location} varía de {min} a {max} SAR según el nivel de acabado."
+    }
+  },
+  about: {
+    badge: "Visión y Experiencia",
+    titlePart1: "No solo construimos paredes,",
+    titlePart2: "Diseñamos un futuro excelente",
+    description: "Marwan Ahmed Nazer Contratación General es una de las instituciones líderes en el Reino, donde combinamos la autenticidad de la ingeniería con una visión moderna. Nos comprometemos a transformar planos mudos en marcas arquitectónicas que pulsen con vida y calidad.",
+    highlights: ["Diseños Arquitectónicos Innovadores", "Gestión Profesional de Proyectos", "Ejecución de la Más Alta Calidad", "Compromiso Total con los Plazos"],
+    quote: "\"Nuestra misión es proporcionar una excelencia en ingeniería que supere las expectativas, con un enfoque en la sostenibilidad y la innovación en cada detalle de la construcción.\"",
+    directorName: "Ing. Marwan Ahmed Nazer",
+    directorTitle: "CEO de la Compañía MNC",
+    experienceBadge: "Años de Experiencia"
+  },
+  servicesSection: {
+    badge: "Nuestros Servicios de Ingeniería",
+    titlePart1: "Soluciones ",
+    titlePart2: "Integrales",
+    titlePart3: " de Ingeniería",
+    description: "Cubrimos todos los aspectos del trabajo de ingeniería y construcción, desde el concepto y diseño hasta la entrega llave en mano, con un enfoque total en los detalles más finos para garantizar la excelencia de su proyecto.",
+    learnMore: "Saber más",
+    items: {
+      construction: {
+        title: "Proyectos de Construcción",
+        desc: "Ejecución de todas las obras de construcción, edificación residencial y comercial con la máxima precisión y estándares internacionales de seguridad."
+      },
+      architecture: {
+        title: "Diseño Arquitectónico",
+        desc: "Creamos soluciones de diseño únicas que combinan estética y función práctica, convirtiendo espacios en obras maestras artísticas."
+      },
+      management: {
+        title: "Gestión de Proyectos",
+        desc: "Supervisión de ingeniería integrada y seguimiento cercano de todas las fases del trabajo para garantizar una calidad y programación estrictas."
+      },
+      interior: {
+        title: "Diseño de Interiores",
+        desc: "Toques creativos en decoración y coordinación de interiores que aportan lujo y confort, adaptándose a su refinado gusto."
+      }
+    }
+  },
+  projectsSection: {
+    badge: "Portafolio",
+    titlePart1: "Nuestras ",
+    titlePart2: "Marcas",
+    titlePart3: " de Campo",
+    description: "Aspectos destacados de los proyectos de la oficina de MNC",
+    more: "Y hay más proyectos en progreso...",
+    viewAll: "Ver todos los proyectos",
+    categories: {
+      all: "Todos",
+      barjis: "Proyecto BARJIS",
+      residential: "Residencial",
+      recent: "Trabajo Reciente"
+    },
+    items: {
+      barjisFacade: "BARJIS - Fachada Frontal",
+      barjisCourt: "BARJIS - Patio Interior",
+      barjisRoof: "BARJIS - Techo",
+      barjisBasement: "BARJIS - Sótano",
+      villa1: "Villa Residencial - 1",
+      villa2: "Villa Residencial - 2",
+      villa3: "Villa Residencial - 3",
+      villa4: "Villa Residencial - 4",
+      interior1: "Trabajo de Interior Moderno - 1",
+      interior2: "Trabajo de Interior Moderno - 2",
+      interior3: "Trabajo de Interior Moderno - 3",
+      interior4: "Trabajo de Interior Moderno - 4"
+    }
+  },
+  aboutUsPage: {
+    titleTypewriter: ["Conózcanos", "MNC Contratistas"],
+    subtitle: "Una marca distintiva en el campo de la construcción, desarrollo de proyectos y gestión en Yeda.",
+    visionHistoryTitle: "Nuestra Visión e Historia",
+    visionHistoryDesc: "MNC Project Development and Management es una marca destacada en Yeda. En un corto período, ha gestionado y ejecutado con éxito numerosos proyectos, gracias a planes trazados por expertos de primer nivel.",
+    ceoQuote: "Detrás de todos estos logros estuvo el esfuerzo dedicado del Director General, Ing. Marwan Ahmed Nazer. MNC opera bajo el paraguas de 'Consultant Marwan Ahmed Nazer Office' y goza de gran aprecio por parte de los clientes.",
+    goalTitle: "Nuestro Objetivo Principal",
+    goalDesc: "Encontrar soluciones adecuadas para que nuestros clientes obtengan un trabajo integrado, considerando siempre la alta calidad y la excelente reputación.",
+    projectsTitle: "Nuestros Proyectos",
+    projectsDesc: "Hemos realizado y desarrollado numerosos proyectos, con inversiones activas al más alto nivel de diseño y ejecución.",
+    ceoSectionTitle: "Director Ejecutivo",
+    ceoSectionText: "MNC es una marca líder en el sector de la construcción en Yeda. Opera bajo el paraguas de 'Consultant Marwan Ahmed Nazer Office for Engineering Consultancy' ofreciendo los más altos estándares de excelencia.",
+    teamBadge: "Nuestro Equipo",
+    teamTitle: "Socios de Éxito y Creatividad",
+    teamDesc: "Nos enorgullecemos de contar con ingenieros y técnicos altamente capacitados, unidos por la pasión y el compromiso de ofrecer soluciones de calidad bajo estándares globales.",
+    teamStaffTitle: "Personal Administrativo y de Ingeniería",
+    teamStaffDesc: "Experiencia integrada para gestionar sus proyectos con profesionalismo",
+    teamFieldTitle: "Equipos Técnicos y de Campo",
+    teamFieldDesc: "Ejecución precisa con los más altos estándares internacionales de calidad",
+    ctaTitle: "Listos para construir su próxima visión",
+    ctaBtn: "Contáctenos Ahora"
+  },
+  contactPage: {
+    typewriter: ["Contáctenos", "Le estamos esperando"],
+    explore: "Explorar",
+    address: "Distrito de Al-Andalus - Calle Abdulrahman Al-Tubaishi. Villa 72 - P.O. Box 2164 Yeda 21451",
+    formNamePlaceholder: "Escriba su nombre",
+    formMessagePlaceholder: "¿Cómo podemos ayudarle?",
+    formServiceOptions: {
+      construction: "Proyectos de Construcción",
+      architecture: "Diseño Arquitectónico",
+      management: "Gestión de Proyectos",
+      other: "Otro"
+    },
+    locationBadge: "Nuestra Ubicación",
+    visitTitle: "Visite Nuestra Oficina",
+    mapTitle: "Oficina de Consultoría Marwan Nazer",
+    mapDesc: "Distrito de Al-Andalus - Calle Abdulrahman Al-Tubaishi. Villa 72 - Yeda",
+    openMaps: "Abrir en Google Maps"
+  },
+  gallery: {
+    clickEnlarge: "Haga clic en la imagen para ampliar y deslice para ver el resto",
+    distinctive: "Proyecto Distinguido",
+    viewDetails: "Ver Detalles",
+    barjisTitle: "Proyecto BARJIS",
+    residentialTitle: "Proyectos Residenciales y de Construcción",
+    recentTitle: "Trabajos Recientes 2025"
+  },
+  footer: {
+    brandDesc: "Marwan Ahmed Nazer Contratación General — Construyendo nuestra marca en la construcción con los más altos estándares de calidad y profesionalismo por más de 15 años.",
+    quickLinks: "Enlaces Rápidos",
+    services: "Servicios",
+    rightsReserved: "Marwan Nazer Construction — Todos los derechos reservados",
+    location: "Yeda, Arabia Saudita"
+  },
+  voice: {
+    stop: "Detener presentación",
+    play: "Reproducir presentación",
+    intro: "Presentación de la empresa"
+  }
+};

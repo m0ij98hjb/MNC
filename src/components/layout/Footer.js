@@ -90,27 +90,27 @@ const SocialIcon = ({ name }) => {
 };
 
 const Footer = () => {
-  const { lang, t } = useLanguage();
+  const { lang, t, isRTL } = useLanguage();
 
   const links = {
     company: [
-      { label: lang === "ar" ? "من نحن" : "About Us", href: "/us" },
-      { label: lang === "ar" ? "مشاريعنا" : "Projects", href: "/projects" },
-      { label: lang === "ar" ? "خدماتنا" : "Services", href: "/#services" },
-      { label: lang === "ar" ? "تواصل معنا" : "Contact Us", href: "/contact" },
+      { label: t("nav.about"), href: "/us" },
+      { label: t("nav.projects"), href: "/projects" },
+      { label: t("nav.services"), href: "/#services" },
+      { label: t("nav.contact"), href: "/contact" },
     ],
     services: [
-      { label: lang === "ar" ? "مشاريع المقاولات" : "Contracting" },
-      { label: lang === "ar" ? "التصميم المعماري" : "Architectural Design" },
-      { label: lang === "ar" ? "إدارة المشاريع" : "Project Management" },
-      { label: lang === "ar" ? "التصميم الداخلي" : "Interior Design" },
+      { label: t("servicesSection.items.construction.title") },
+      { label: t("servicesSection.items.architecture.title") },
+      { label: t("servicesSection.items.management.title") },
+      { label: t("servicesSection.items.interior.title") },
     ],
   };
 
   return (
     <footer
       className="bg-[var(--background)] text-[var(--foreground)]"
-      dir={lang === "ar" ? "rtl" : "ltr"}
+      dir={isRTL ? "rtl" : "ltr"}
     >
       {/* ── TOP DIVIDER ─────────────────────────────── */}
       <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-[#B8923A] to-transparent" />
@@ -122,18 +122,16 @@ const Footer = () => {
           <div className="lg:col-span-2 flex flex-col gap-5">
             <div className="w-full max-w-sm">
               <Image
-                src="/asstes/imageFooter.png"
+                src="/asstes/logo-footer.png"
                 alt="MNC Logo"
                 width={520}
                 height={260}
-                className="w-auto max-h-28 sm:max-h-32 md:max-h-36 object-contain"
+                className="logo-footer w-auto h-28 sm:max-h-32 md:max-h-36 object-contain"
                 priority
               />
             </div>
             <p className="text-[var(--foreground)] text-sm leading-relaxed max-w-sm">
-              {lang === "ar"
-                ? "مؤسسة مروان أحمد ناظر للمقاولات العامة — نبني بصمتنا في عالم الإنشاء بأعلى معايير الجودة والاحترافية منذ أكثر من ١٥ عاماً."
-                : "Marwan Ahmed Nazer General Contracting — Building our mark in construction with the highest standards of quality and professionalism for over 15 years."}
+              {t("footer.brandDesc")}
             </p>
             {/* Social */}
             <div style={{ display: "flex", gap: "12px" }}>
@@ -177,7 +175,7 @@ const Footer = () => {
           {/* Company links */}
           <div className="flex flex-col gap-4">
             <h4 className="text-[var(--secondary)] font-bold text-sm tracking-widest uppercase">
-              {lang === "ar" ? "روابط سريعة" : "Quick Links"}
+              {t("footer.quickLinks")}
             </h4>
             <div className="w-8 h-[2px] bg-gradient-to-r from-[#B8923A] to-transparent" />
             <ul className="flex flex-col gap-3">
@@ -199,7 +197,7 @@ const Footer = () => {
           {/* Services */}
           <div className="flex flex-col gap-4">
             <h4 className="text-[var(--secondary)] font-bold text-sm tracking-widest uppercase">
-              {lang === "ar" ? "خدماتنا" : "Services"}
+              {t("footer.services")}
             </h4>
             <div className="w-8 h-[2px] bg-gradient-to-r from-[#B8923A] to-transparent" />
             <ul className="flex flex-col gap-3">
@@ -225,17 +223,13 @@ const Footer = () => {
         >
           <p className="text-[var(--foreground)] text-xs">
             &copy; {new Date().getFullYear()}&nbsp;
-            {lang === "ar"
-              ? "مؤسسة مروان أحمد ناظر — جميع الحقوق محفوظة"
-              : "Marwan Nazer Construction — All Rights Reserved"}
+            {t("footer.rightsReserved")}
           </p>
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#B8923A] animate-pulse" />
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--secondary)] animate-pulse" />
             <span className="text-[var(--foreground)] text-xs">
-              {lang === "ar"
-                ? "جدة، المملكة العربية السعودية"
-                : "Jeddah, Saudi Arabia"}
+              {t("footer.location")}
             </span>
           </div>
         </div>

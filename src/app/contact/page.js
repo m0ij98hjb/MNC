@@ -7,10 +7,10 @@ import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactPage() {
-  const { t, lang } = useLanguage();
+  const { t, lang, isRTL } = useLanguage();
 
   return (
-    <main className="min-h-screen bg-[var(--background)] font-cairo">
+    <main className="min-h-screen bg-[var(--background)] font-cairo text-white">
       <Navbar />
 
       {/* Re-applying High-End Engineering Hero Section with Localization */}
@@ -41,7 +41,7 @@ export default function ContactPage() {
 
             <div className="mb-4">
               <TypewriterText
-                texts={lang === 'ar' ? ["تواصل معنا", "نحن في انتظارك"] : ["Contact Us", "We are waiting for you"]}
+                texts={t('contactPage.typewriter')}
                 typingSpeed={120}
                 deletingSpeed={60}
                 pauseDuration={2000}
@@ -64,7 +64,7 @@ export default function ContactPage() {
             {/* Decorative Scroll Indicator */}
             <div className="mt-16 flex flex-col items-center gap-4 animate-bounce opacity-40">
               <span className="text-[var(--foreground)] text-[10px] uppercase tracking-[0.3em] font-bold">
-                {lang === 'ar' ? 'استكشف' : 'Explore'}
+                {t('contactPage.explore')}
               </span>
               <div className="w-0.5 h-12 bg-gradient-to-b from-secondary to-transparent"></div>
             </div>
@@ -88,100 +88,100 @@ export default function ContactPage() {
             <div className="w-full lg:w-1/2 space-y-10" data-aos="fade-right">
               <div>
                 <span className="text-secondary font-bold tracking-widest text-xs mb-3 block">{t('contact.info')}</span>
-                <h2 className="text-2xl md:text-3xl font-black mb-4 leading-tight text-[var(--foreground)]" data-aos="fade-up" data-aos-delay="100">
+                <h2 className="text-2xl md:text-3xl font-black mb-4 leading-tight text-white" data-aos="fade-up" data-aos-delay="100">
                   {t('contact.ready')} <br />
                   <span className="text-secondary">{t('contact.nextProject')}</span>
                 </h2>
-                <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-md">
+                <p className="text-white/60 text-sm md:text-base leading-relaxed max-w-md">
                   {t('contact.desc')}
                 </p>
               </div>
 
               <div className="space-y-5">
                 <div className="flex items-center gap-5 group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[rgba(15,23,42,0.06)] bg-[var(--card-bg)] group-hover:border-[var(--secondary)] transition-all duration-300 shadow-sm shrink-0">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#D5B25D]/30 bg-[#D5B25D]/10 group-hover:border-[var(--secondary)] transition-all duration-300 shadow-sm shrink-0">
                     <Phone className="text-secondary" size={20} />
                   </div>
                   <div>
-                    <p className="text-[var(--foreground)] text-xs mb-1">{t('contact.phone')}</p>
-                    <p className="text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors">0598242385 - 0505649859</p>
+                    <p className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider mb-1">{t('contact.phone')}</p>
+                    <p className="text-lg font-bold text-white group-hover:text-[var(--secondary)] transition-colors">0598242385 - 0505649859</p>
                   </div>
                 </div>
 
                 <a href="mailto:1@marwannazer.com" className="flex items-center gap-5 group cursor-pointer" data-aos="fade-up" data-aos-delay="300">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-slate-300 bg-white group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#D5B25D]/30 bg-[#D5B25D]/10 group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
                     <Mail className="text-secondary" size={20} />
                   </div>
                   <div>
-                    <p className="text-[var(--foreground)] text-xs mb-1">{t('contact.email')}</p>
-                    <p className="text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors">1@marwannazer.com</p>
+                    <p className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider mb-1">{t('contact.email')}</p>
+                    <p className="text-lg font-bold text-white group-hover:text-[var(--secondary)] transition-colors">1@marwannazer.com</p>
                   </div>
                 </a>
 
                 <div className="flex items-center gap-5 group cursor-default" data-aos="fade-up" data-aos-delay="400">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-slate-300 bg-white group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#D5B25D]/30 bg-[#D5B25D]/10 group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
                     <MapPin className="text-secondary" size={20} />
                   </div>
                   <div>
-                    <p className="text-[var(--foreground)] text-xs mb-1">{t('contact.location')}</p>
-                    <p className="text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors text-sm font-sans">{lang === 'ar' ? 'حي الأندلس – شارع عبدالرحمن الطبيشي. فيلا 72 – ص ب 2164 جدة 21451' : 'Al-Andalus District - Abdulrahman Al-Tubaishi St. Villa 72 - P.O. Box 2164 Jeddah 21451'}</p>
+                    <p className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider mb-1">{t('contact.location')}</p>
+                    <p className="text-base font-bold text-white group-hover:text-[var(--secondary)] transition-colors leading-relaxed font-sans max-w-sm">{t('contactPage.address')}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-secondary/10 to-transparent border border-secondary/30 rounded-2xl p-6" data-aos="fade-up" data-aos-delay="500">
-                <p className="text-secondary font-bold text-sm mb-2">{t('contact.hours')}</p>
-                <p className="text-[var(--foreground)] font-semibold">{t('contact.days')}</p>
-                <p className="text-slate-600 text-sm">{t('contact.time')}</p>
+              <div className="bg-gradient-to-br from-secondary/15 to-transparent border border-secondary/20 rounded-2xl p-6" data-aos="fade-up" data-aos-delay="500">
+                <p className="text-secondary font-black text-sm mb-2 uppercase tracking-wider">{t('contact.hours')}</p>
+                <p className="text-white font-bold">{t('contact.days')}</p>
+                <p className="text-white/60 text-sm mt-1">{t('contact.time')}</p>
               </div>
             </div>
 
             {/* Form Side */}
             <div className="lg:w-1/2 w-full" data-aos="fade-left">
-              <div className="bg-[var(--card-bg)] p-8 md:p-10 rounded-3xl shadow-2xl border border-[rgba(15,23,42,0.06)] relative overflow-hidden group">
+              <div className="bg-white/5 p-8 md:p-10 rounded-3xl shadow-2xl border border-white/10 relative overflow-hidden group">
                 {/* Decorative background element */}
                 <div className="absolute -top-24 -right-24 w-48 h-48 bg-secondary/5 rounded-full blur-3xl group-hover:bg-secondary/10 transition-colors duration-700"></div>
                 
                 <form className="space-y-6 relative z-10">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-700 px-1 uppercase tracking-wider">{t('contact.form.name')}</label>
+                      <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t('contact.form.name')}</label>
                       <input 
                         type="text" 
-                        className="w-full bg-[var(--card-bg)] border border-[rgba(15,23,42,0.06)] rounded-xl px-4 py-3.5 text-sm focus:border-[var(--secondary)] focus:bg-[var(--card-bg)] outline-none transition-all duration-300 shadow-sm" 
-                        placeholder={lang === 'ar' ? "أدخل اسمك هنا" : "Enter your name"}
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm" 
+                        placeholder={t('contactPage.formNamePlaceholder')}
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-700 px-1 uppercase tracking-wider">{t('contact.form.phone')}</label>
+                      <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t('contact.form.phone')}</label>
                       <input 
                         type="tel" 
-                        className="w-full bg-[var(--card-bg)] border border-[rgba(15,23,42,0.06)] rounded-xl px-4 py-3.5 text-sm focus:border-[var(--secondary)] focus:bg-[var(--card-bg)] outline-none transition-all duration-300 shadow-sm" 
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm" 
                         placeholder="05xxxxxxxx"
                       />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-700 px-1 uppercase tracking-wider">{t('contact.form.service')}</label>
+                    <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t('contact.form.service')}</label>
                     <div className="relative">
-                      <select className="w-full bg-[var(--card-bg)] border border-[rgba(15,23,42,0.06)] rounded-xl px-4 py-3.5 text-sm focus:border-[var(--secondary)] focus:bg-[var(--card-bg)] outline-none transition-all duration-300 shadow-sm appearance-none cursor-pointer">
-                        <option>{lang === 'ar' ? 'مشاريع مقاولات' : 'Construction Projects'}</option>
-                        <option>{lang === 'ar' ? 'تصميم معماري' : 'Architectural Design'}</option>
-                        <option>{lang === 'ar' ? 'إدارة مشاريع' : 'Project Management'}</option>
-                        <option>{lang === 'ar' ? 'أخرى' : 'Other'}</option>
+                      <select className={`w-full bg-black/40 border border-white/10 rounded-xl ${isRTL ? 'pe-4 ps-10' : 'ps-4 pe-10'} py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm appearance-none cursor-pointer`}>
+                        <option value="construction" className="bg-black text-white">{t('contactPage.formServiceOptions.construction')}</option>
+                        <option value="architecture" className="bg-black text-white">{t('contactPage.formServiceOptions.architecture')}</option>
+                        <option value="management" className="bg-black text-white">{t('contactPage.formServiceOptions.management')}</option>
+                        <option value="other" className="bg-black text-white">{t('contactPage.formServiceOptions.other')}</option>
                       </select>
-                      <ChevronDown className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={16} />
+                      <ChevronDown className={`absolute ${isRTL ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 text-white/50 pointer-events-none`} size={16} />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-700 px-1 uppercase tracking-wider">{t('contact.form.message')}</label>
+                    <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t('contact.form.message')}</label>
                     <textarea 
                       rows="4" 
-                      className="w-full bg-[var(--card-bg)] border border-[rgba(15,23,42,0.06)] rounded-xl px-4 py-3.5 text-sm focus:border-[var(--secondary)] focus:bg-[var(--card-bg)] outline-none transition-all duration-300 shadow-sm resize-none" 
-                      placeholder={lang === 'ar' ? "كيف يمكننا مساعدتك؟" : "How can we help you?"}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm resize-none" 
+                      placeholder={t('contactPage.formMessagePlaceholder')}
                     ></textarea>
                   </div>
-                  <button type="button" className="w-full mt-4 bg-[var(--secondary)] hover:bg-[var(--primary)] text-[var(--foreground)] font-black py-4 rounded-xl transition-all duration-500 flex items-center justify-center gap-3 text-sm shadow-xl shadow-secondary/20 hover:shadow-primary/20 transform hover:-translate-y-1">
+                  <button type="button" className="w-full mt-4 bg-[var(--secondary)] hover:bg-[#E1BF67] text-black font-black py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 text-sm shadow-xl shadow-secondary/20 transform hover:-translate-y-1 active:scale-95 cursor-pointer">
                     {t('contact.form.submit')} <Send size={18} />
                   </button>
                 </form>
@@ -193,15 +193,15 @@ export default function ContactPage() {
       </section>
 
       {/* Map Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
+      <section className="py-24 bg-[var(--background)] relative overflow-hidden">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="text-center mb-16" data-aos="fade-up">
-            <span className="text-secondary font-bold tracking-widest text-xs mb-3 block uppercase">{lang === 'ar' ? 'موقعنا' : 'Our Location'}</span>
-            <h2 className="text-3xl md:text-4xl font-black text-[var(--foreground)] font-heading">{lang === 'ar' ? 'تفضل بزيارة' : 'Visit Our'} <span className="text-[var(--secondary)]">{lang === 'ar' ? 'مقرنا' : 'Office'}</span></h2>
-            <div className="w-20 h-1.5 bg-secondary mx-auto mt-6 rounded-full"></div>
+            <span className="text-secondary font-bold tracking-widest text-xs mb-3 block uppercase">{t('contactPage.locationBadge')}</span>
+            <h2 className="text-3xl md:text-4xl font-black text-white font-heading">{t('contactPage.visitTitle')}</h2>
+            <div className="w-20 h-1.5 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto mt-6 rounded-full"></div>
           </div>
           
-          <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-[#f1f5f9] h-[500px] group" data-aos="zoom-in">
+          <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white/5 h-[500px] group" data-aos="zoom-in">
             <iframe 
               src="https://www.google.com/maps?q=Consultant+Marwan+Ahmed+Nazer+Engineering+Consultancy+Jeddah&output=embed" 
               width="100%" 
@@ -210,20 +210,20 @@ export default function ContactPage() {
               allowFullScreen="" 
               loading="lazy" 
               referrerPolicy="no-referrer-when-downgrade"
-              className="grayscale-[0.2] contrast-[1.1] hover:grayscale-0 transition-all duration-700"
+              className="grayscale-[0.6] contrast-[1.2] invert-[0.9] hue-rotate-[180deg] hover:grayscale-0 hover:invert-0 hover:hue-rotate-0 transition-all duration-700"
             ></iframe>
             
             {/* Floating Info Card on Map */}
-            <div className="absolute top-8 right-8 bg-white/80 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/50 max-w-xs hidden md:block">
-              <h3 className="font-bold text-[var(--foreground)] mb-2">{lang === 'ar' ? 'مكتب الإستشاري مروان ناظر' : 'Marwan Nazer Consulting Office'}</h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-4">{lang === 'ar' ? 'حي الأندلس – شارع عبدالرحمن الطبيشي. فيلا 72 – جدة' : 'Al-Andalus District - Abdulrahman Al-Tubaishi St. Villa 72 - Jeddah'}</p>
+            <div className={`absolute top-8 ${isRTL ? 'right-8' : 'left-8'} bg-black/80 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/10 max-w-xs hidden md:block`}>
+              <h3 className="font-bold text-white mb-2">{t('contactPage.mapTitle')}</h3>
+              <p className="text-white/70 text-sm leading-relaxed mb-4">{t('contactPage.mapDesc')}</p>
               <a 
                 href="https://maps.google.com/maps?q=Consultant+Marwan+Ahmed+Nazer+Engineering+Consultancy+Jeddah" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-block bg-secondary text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-primary transition-colors"
+                className="inline-block bg-secondary text-black font-bold text-xs px-4 py-2 rounded-lg hover:bg-[#E1BF67] transition-colors"
               >
-                {lang === 'ar' ? 'فتح في خرائط Google' : 'Open in Google Maps'}
+                {t('contactPage.openMaps')}
               </a>
             </div>
           </div>

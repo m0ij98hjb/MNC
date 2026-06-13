@@ -3,8 +3,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { Mic, MicOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
+import { useMusic } from '@/context/MusicContext';
 
 export default function VoicePresentation() {
+  const { t, isRTL } = useLanguage();
+  const { pauseMusicForVoice, resumeMusicAfterVoice } = useMusic();
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
   const [showVolumeControl, setShowVolumeControl] = useState(false);
@@ -15,14 +19,18 @@ export default function VoicePresentation() {
     setIsMounted(true);
     audioRef.current = new Audio('/asstes/presentation.mp3');
     audioRef.current.playbackRate = 1.1;
-    audioRef.current.onended = () => setIsPlaying(false);
-    
+    audioRef.current.onended = () => {
+      setIsPlaying(false);
+      // Resume music when voice presentation finishes
+      resumeMusicAfterVoice();
+    };
+
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
       }
     };
-  }, []);
+  }, [resumeMusicAfterVoice]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -36,7 +44,11 @@ export default function VoicePresentation() {
     if (isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
+      // Resume music when voice stops
+      resumeMusicAfterVoice();
     } else {
+      // Pause music when voice starts
+      pauseMusicForVoice();
       audioRef.current.play().catch(console.error);
       setIsPlaying(true);
     }
@@ -47,7 +59,7 @@ export default function VoicePresentation() {
   return (
     <>
       <motion.div
-        className="fixed bottom-8 left-8 z-40 flex flex-col items-center gap-2"
+        className={`fixed bottom-8 ${isRTL ? 'right-8' : 'left-8'} z-40 flex flex-col items-center gap-2`}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.2, ease: 'easeOut' }}
@@ -85,7 +97,7 @@ export default function VoicePresentation() {
           whileTap={{ scale: 0.95 }}
           transition={{ type: 'spring', stiffness: 400, damping: 20, mass: 0.5 }}
           className="relative p-5 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center cursor-pointer bg-[var(--secondary)] text-[var(--foreground)] shadow-[0_0_20px_rgba(213,178,93,0.4)]"
-          title={isPlaying ? 'إيقاف الكلام' : 'تشغيل الكلام'}
+          title={isPlaying ? t('voice.stop') : t('voice.play')}
         >
           <AnimatePresence mode="wait">
             {isPlaying ? (
@@ -123,7 +135,7 @@ export default function VoicePresentation() {
               exit={{ opacity: 0, y: -5 }}
               className="text-xs font-semibold text-[var(--secondary)] text-center whitespace-nowrap"
             >
-              🎙️ تعريف الشركة
+              🎙️ {t('voice.intro')}
             </motion.div>
           )}
         </AnimatePresence>

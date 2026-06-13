@@ -5,7 +5,8 @@ export const en = {
     services: "Services",
     projects: "Projects",
     contact: "Contact Us",
-    profile: "Download Profile"
+    profile: "Download Profile",
+    costCalc: "Cost Calculator"
   },
   hero: {
     badge: "Engineering Excellence",
@@ -52,5 +53,200 @@ export const en = {
       title: "Commitment to Deadlines",
       desc: "We value your time, so we are committed to delivering projects on schedule."
     }
+  },
+  calculator: {
+    title: "Calculate Your Project Cost",
+    subtitle: "A precision-engineered estimator built on real Saudi market data and MNC's 15+ years of project expertise",
+    badge: "Engineering Precision",
+    step1: "Project Type",
+    step2: "Specifications",
+    step3: "Cost Estimate",
+    projectType: "What type is your project?",
+    residential: "Residential",
+    residential_desc: "Villas, apartments, homes",
+    commercial: "Commercial",
+    commercial_desc: "Malls, offices, retail",
+    industrial: "Industrial",
+    industrial_desc: "Factories, warehouses",
+    renovation: "Renovation",
+    renovation_desc: "Renovation & additions",
+    area: "Total Area (m²)",
+    areaPlaceholder: "Enter area in square meters",
+    floors: "Number of Floors",
+    quality: "Finishing Quality",
+    economic: "Economic",
+    standard: "Standard",
+    premium: "Premium",
+    ultra: "Ultra Luxury",
+    location: "Project Location",
+    jeddah: "Jeddah",
+    riyadh: "Riyadh",
+    mecca: "Mecca",
+    dammam: "Dammam",
+    other_city: "Other City",
+    extras: "Extras & Services",
+    pool: "Swimming Pool",
+    elevator: "Elevator",
+    solar: "Solar Energy",
+    smart: "Smart Home",
+    landscape: "Landscaping",
+    basement: "Basement",
+    calculate: "Generate Cost Estimate",
+    calculating: "Analyzing your project...",
+    result_title: "Engineering Cost Estimate",
+    min_cost: "Minimum Cost",
+    max_cost: "Maximum Cost",
+    avg_cost: "Expected Average Cost",
+    cost_per_sqm: "Cost per Square Meter",
+    breakdown: "Cost Breakdown",
+    structure: "Structural Works",
+    finishing: "Finishing Works",
+    mep: "MEP (Electrical, Plumbing & Mechanical)",
+    external: "External Works",
+    contingency: "Contingency Reserve",
+    timeline: "Expected Timeline",
+    months: "months",
+    aiInsights: "Engineering Analysis",
+    note: "Note",
+    noteText: "This is a preliminary estimate based on market standards. For an accurate quote, contact our engineering team.",
+    contact_cta: "Get an Accurate Quote",
+    reset: "New Calculation",
+    required: "This field is required",
+    currency: "SAR",
+    insights: {
+      premium: "✦ Premium finishes require high-quality imported materials, increasing costs by 20-40%.",
+      large: "✦ Large-scale projects typically benefit from economies of scale, reducing cost per m² by up to 15%.",
+      solar: "✦ Solar energy saves up to 40% on electricity bills with investment recovery in 5-7 years.",
+      smart: "✦ Smart home systems increase property value by 10-15% and boost rental appeal.",
+      mecca: "✦ Mecca projects are subject to special building codes which slightly increase costs vs. other cities.",
+      renovation: "✦ Renovation projects may uncover hidden challenges during execution; we recommend an additional 15% reserve.",
+      range: "✦ The average cost per m² in {location} ranges from {min} to {max} SAR based on finishing level."
+    }
+  },
+  about: {
+    badge: "Vision & Expertise",
+    titlePart1: "We don't just build walls,",
+    titlePart2: "We design an excellent future",
+    description: "Marwan Ahmed Nazer General Contracting is one of the leading institutions in the Kingdom, where we combine engineering authenticity with modern vision. We are committed to turning mute plans into architectural marks that pulse with life and quality.",
+    highlights: ["Innovative Architectural Designs", "Professional Project Management", "Highest Quality Execution", "Full Commitment to Deadlines"],
+    quote: "\"Our mission is to provide engineering excellence that exceeds expectations, with a focus on sustainability and innovation in every construction detail.\"",
+    directorName: "Eng. Marwan Ahmed Nazer",
+    directorTitle: "CEO of MNC Company",
+    experienceBadge: "Years of Experience"
+  },
+  servicesSection: {
+    badge: "Our Engineering Services",
+    titlePart1: "Integrated ",
+    titlePart2: "Engineering",
+    titlePart3: " Solutions",
+    description: "We cover all aspects of engineering and construction work, from concept and design to turnkey delivery, with total focus on the finest details to ensure your project's excellence.",
+    learnMore: "Learn More",
+    items: {
+      construction: {
+        title: "Construction Projects",
+        desc: "Execution of all construction, residential and commercial building works with the highest precision and international safety standards."
+      },
+      architecture: {
+        title: "Architectural Design",
+        desc: "We create unique design solutions that combine aesthetics and practical function, turning spaces into artistic masterpieces."
+      },
+      management: {
+        title: "Project Management",
+        desc: "Integrated engineering supervision and close follow-up of all work phases to ensure strict quality and scheduling."
+      },
+      interior: {
+        title: "Interior Design",
+        desc: "Creative touches in decoration and interior coordination that add luxury and comfort, suiting your high taste."
+      }
+    }
+  },
+  projectsSection: {
+    badge: "Portfolio",
+    titlePart1: "Our ",
+    titlePart2: "Field",
+    titlePart3: " Marks",
+    description: "Selected highlights from MNC office projects",
+    more: "And there are more projects in progress...",
+    viewAll: "View All Projects",
+    categories: {
+      all: "All",
+      barjis: "BARJIS Project",
+      residential: "Residential",
+      recent: "Recent Work"
+    },
+    items: {
+      barjisFacade: "BARJIS - Front Facade",
+      barjisCourt: "BARJIS - Inner Court",
+      barjisRoof: "BARJIS - Roof",
+      barjisBasement: "BARJIS - Basement",
+      villa1: "Residential Villa - 1",
+      villa2: "Residential Villa - 2",
+      villa3: "Residential Villa - 3",
+      villa4: "Residential Villa - 4",
+      interior1: "Modern Interior Work - 1",
+      interior2: "Modern Interior Work - 2",
+      interior3: "Modern Interior Work - 3",
+      interior4: "Modern Interior Work - 4"
+    }
+  },
+  aboutUsPage: {
+    titleTypewriter: ["Get to Know Us", "MNC Contracting"],
+    subtitle: "A distinctive mark in the field of construction, project development, and management in Jeddah.",
+    visionHistoryTitle: "Our Vision & History",
+    visionHistoryDesc: "MNC Project Development and Management is a distinctive mark in the construction field in Jeddah. In a short period, it has successfully managed and executed numerous projects. All this was based on a plan developed by distinguished and experienced experts in this important field.",
+    ceoQuote: "Behind all these achievements was the dedicated effort of the General Manager, Eng. Marwan Ahmed Nazer, as the owner of this entity. MNC for project execution and management operates under the umbrella of 'Consultant Marwan Ahmed Nazer Office for Engineering Consultancy, Designs, Surveying, and Project Management,' and has received praise from all clients.",
+    goalTitle: "Our Main Goal",
+    goalDesc: "Finding appropriate solutions for our clients to achieve integrated work. After final designs for any project are completed, the execution concept is presented to the owner... we deliver the project integrated, taking into account quality and a good reputation.",
+    projectsTitle: "Our Projects",
+    projectsDesc: "We have executed and developed numerous projects, and there are investment projects currently in progress that are at the highest level in terms of design or execution.",
+    ceoSectionTitle: "Executive Director",
+    ceoSectionText: "MNC Project Development and Management is a distinctive mark in the construction field in Jeddah. In a short period, it has successfully managed and executed numerous projects. All this was based on a plan developed by distinguished and experienced experts in this important field. Behind all these achievements was the dedicated effort of the General Manager, Eng. Marwan Ahmed Nazer, as the owner of this entity. MNC operates under the umbrella of 'Consultant Marwan Ahmed Nazer Office for Engineering Consultancy, Designs, Surveying, and Project Management' and has received praise from all clients.",
+    teamBadge: "Our Team",
+    teamTitle: "Partners of Success & Creativity",
+    teamDesc: "At Marwan Ahmed Nazer, we take pride in having a group of the most efficient engineers, administrators, and technicians, united by passion and commitment to provide the best engineering solutions with the highest quality and professionalism standards.",
+    teamStaffTitle: "Administrative & Engineering Staff",
+    teamStaffDesc: "Integrated expertise to manage your projects professionally",
+    teamFieldTitle: "Field & Technical Teams",
+    teamFieldDesc: "Precise execution to the highest international quality standards",
+    ctaTitle: "Ready to build your next vision",
+    ctaBtn: "Contact Us Now"
+  },
+  contactPage: {
+    typewriter: ["Contact Us", "We are waiting for you"],
+    explore: "Explore",
+    address: "Al-Andalus District - Abdulrahman Al-Tubaishi St. Villa 72 - P.O. Box 2164 Jeddah 21451",
+    formNamePlaceholder: "Enter your name",
+    formMessagePlaceholder: "How can we help you?",
+    formServiceOptions: {
+      construction: "Construction Projects",
+      architecture: "Architectural Design",
+      management: "Project Management",
+      other: "Other"
+    },
+    locationBadge: "Our Location",
+    visitTitle: "Visit Our Office",
+    mapTitle: "Marwan Nazer Consulting Office",
+    mapDesc: "Al-Andalus District - Abdulrahman Al-Tubaishi St. Villa 72 - Jeddah",
+    openMaps: "Open in Google Maps"
+  },
+  gallery: {
+    clickEnlarge: "Click on the image to enlarge and scroll to browse the rest of the images",
+    distinctive: "Distinctive Project",
+    viewDetails: "View Details",
+    barjisTitle: "BARJIS Project",
+    residentialTitle: "Residential & Construction Projects",
+    recentTitle: "Recent Work 2025"
+  },
+  footer: {
+    brandDesc: "Marwan Ahmed Nazer General Contracting — Building our mark in construction with the highest standards of quality and professionalism for over 15 years.",
+    quickLinks: "Quick Links",
+    services: "Services",
+    rightsReserved: "Marwan Nazer Construction — All Rights Reserved",
+    location: "Jeddah, Saudi Arabia"
+  },
+  voice: {
+    stop: "Stop Presentation",
+    play: "Play Presentation",
+    intro: "Company Presentation"
   }
 };
