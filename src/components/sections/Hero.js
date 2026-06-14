@@ -200,7 +200,7 @@ const Hero = () => {
         DESKTOP LAYOUT  (original design, hidden on < lg)
         ═══════════════════════════════════════════════
       */}
-      <section id="home" className="hidden lg:flex relative h-screen min-h-[700px] items-center overflow-hidden bg-primary">
+      <section id="home" className="hidden lg:flex relative h-screen min-h-[700px] items-center overflow-hidden bg-primary pt-[120px]">
         {/* Background Slideshow */}
         <div className="absolute inset-0 z-0 h-full w-full">
           <Swiper
