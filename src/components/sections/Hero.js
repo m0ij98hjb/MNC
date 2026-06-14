@@ -61,6 +61,61 @@ const Hero = () => {
     zh: "Marwan Ahmed Nazer 通用承包 - 在建筑设计、项目管理和施工执行方面拥有深厚专长，符合最高国际质量标准。"
   }[lang] || "Marwan Ahmed Nazer General Contracting - Deep expertise in architectural design, project management, and construction execution to the highest international quality standards.";
 
+  const requestConsultText = {
+    ar: "اطلب استشارة",
+    en: "Request a Consultation",
+    zh: "请求咨询",
+    es: "Solicitar una consulta",
+    fr: "Demander une consultation",
+    de: "Beratung anfordern",
+    tr: "Danışmanlık Talep Et",
+    ur: "مشاورت کی درخواست کریں"
+  }[lang] || "Request a Consultation";
+
+  const viewWorksText = {
+    ar: "شاهد أعمالنا",
+    en: "View Our Work",
+    zh: "查看我们的作品",
+    es: "Ver nuestro trabajo",
+    fr: "Voir nos réalisations",
+    de: "Unsere Arbeiten ansehen",
+    tr: "Çalışmalarımızı İnceleyin",
+    ur: "ہمارا کام دیکھیں"
+  }[lang] || "View Our Work";
+
+  const projectStatText = {
+    ar: "مشروع",
+    en: "Projects",
+    zh: "项目",
+    es: "Proyectos",
+    fr: "Projets",
+    de: "Projekte",
+    tr: "Proje",
+    ur: "منصوبے"
+  }[lang] || "Projects";
+
+  const satisfactionStatText = {
+    ar: "رضى العملاء",
+    en: "Client Satisfaction",
+    zh: "客户满意度",
+    es: "Satisfacción del cliente",
+    fr: "Satisfaction client",
+    de: "Kundenzufriendenheit",
+    tr: "Müşteri Memnuniyeti",
+    ur: "صارفین کا اطمینان"
+  }[lang] || "Client Satisfaction";
+
+  const designStatText = {
+    ar: "تصميم",
+    en: "Designs",
+    zh: "设计",
+    es: "Diseños",
+    fr: "Designs",
+    de: "Designs",
+    tr: "Tasarım",
+    ur: "ڈیزائن"
+  }[lang] || "Designs";
+
   return (
     <>
       {/*
@@ -145,23 +200,51 @@ const Hero = () => {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col gap-3 mb-4" data-aos="fade-up" data-aos-delay="460">
-            <Button as={Link} href="/projects" size="lg" className="flex items-center justify-center gap-2 group w-full text-sm">
-              {exploreText}
-              <ArrowLeft className={`transition-transform ${isRTL ? 'group-hover:-translate-x-1' : 'rotate-180 group-hover:translate-x-1'}`} size={16} />
+          <div className="flex flex-row gap-3 mb-6" data-aos="fade-up" data-aos-delay="460">
+            <Button
+              as={Link}
+              href="/contact"
+              size="lg"
+              className="flex-1 flex items-center justify-center text-sm font-bold rounded-[4px] bg-white text-slate-950 border border-white hover:bg-white/90 active:scale-95 transition-all duration-300 py-3"
+            >
+              {requestConsultText}
             </Button>
-            <Button as={Link} href="/us" variant="outline" size="lg" className="w-full text-sm">
-              {t('nav.about')}
+            <Button
+              as={Link}
+              href="/projects"
+              variant="outline"
+              size="lg"
+              className="flex-1 flex items-center justify-center text-sm font-bold rounded-[4px] border border-white text-white hover:bg-white hover:text-slate-950 active:scale-95 transition-all duration-300 py-3"
+            >
+              {viewWorksText}
             </Button>
           </div>
 
-          {/* Cost Calculator CTA */}
-          <div data-aos="fade-up" data-aos-delay="580">
+          <div 
+            className="grid grid-cols-3 gap-2 py-4 mb-6 border-y border-white/10" 
+            data-aos="fade-up" 
+            data-aos-delay="520"
+          >
+            <div className="flex flex-col items-center text-center">
+              <span className="text-2xl font-black text-white leading-none">+230</span>
+              <span className="text-[10px] sm:text-xs text-white/60 mt-1.5 font-medium">{projectStatText}</span>
+            </div>
+            <div className="flex flex-col items-center text-center border-x border-white/10">
+              <span className="text-2xl font-black text-white leading-none">99%</span>
+              <span className="text-[10px] sm:text-xs text-white/60 mt-1.5 font-medium">{satisfactionStatText}</span>
+            </div>
+            <div className="flex flex-col items-center text-center">
+              <span className="text-2xl font-black text-white leading-none">+3k</span>
+              <span className="text-[10px] sm:text-xs text-white/60 mt-1.5 font-medium">{designStatText}</span>
+            </div>
+          </div>
+
+          <div data-aos="fade-up" data-aos-delay="580" className="mb-4">
             <Link
               href="/cost-calculator"
-              className="flex items-center gap-3 px-5 py-3 rounded-xl border border-[#D5B25D]/40 bg-[#D5B25D]/10 hover:bg-[#D5B25D]/20 hover:border-[#D5B25D]/70 transition-all duration-300 group backdrop-blur-sm w-full"
+              className="flex items-center gap-3 px-5 py-3 rounded-[4px] border border-[#D5B25D]/40 bg-[#D5B25D]/10 hover:bg-[#D5B25D]/20 hover:border-[#D5B25D]/70 transition-all duration-300 group backdrop-blur-sm w-full"
             >
-              <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-[#D5B25D]/20 border border-[#D5B25D]/30 flex-shrink-0">
+              <span className="flex items-center justify-center w-8 h-8 rounded-[4px] bg-[#D5B25D]/20 border border-[#D5B25D]/30 flex-shrink-0">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#D5B25D" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/>
                   <line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/>
@@ -169,39 +252,14 @@ const Hero = () => {
                 </svg>
               </span>
               <span className="text-[#D5B25D] font-bold text-sm flex-1">{calcText}</span>
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#D5B25D]/20 text-[#D5B25D]/80 font-bold uppercase border border-[#D5B25D]/20 flex-shrink-0">{freeText}</span>
+              <span className="text-[10px] px-2 py-0.5 rounded-[4px] bg-[#D5B25D]/20 text-[#D5B25D]/80 font-bold uppercase border border-[#D5B25D]/20 flex-shrink-0">{freeText}</span>
               <ArrowLeft size={13} className={`text-[#D5B25D]/60 flex-shrink-0 ${isRTL ? 'group-hover:-translate-x-1' : 'rotate-180 group-hover:translate-x-1'} transition-transform`} />
             </Link>
           </div>
         </div>
-
-        {/* Stats bar — bottom */}
-        <div className="relative z-30 border-t border-white/10 bg-black/20">
-          <div className="px-5 py-3 flex items-center justify-between">
-            <div className={`flex flex-col gap-0.5 ${isRTL ? 'text-right' : 'text-left'}`}>
-              <span className="text-xl font-black text-white leading-none">15+</span>
-              <span className="text-[9px] text-white/50 uppercase tracking-widest">{t('about.experienceBadge')}</span>
-            </div>
-            <div className="flex flex-col items-center gap-0.5">
-              <div className="w-px h-6 bg-white/20" />
-              <span className="text-[#D5B25D]/30 text-[9px] font-bold tracking-[3px]">MNC</span>
-              <div className="w-px h-6 bg-white/20" />
-            </div>
-            <div className={`flex flex-col gap-0.5 ${isRTL ? 'text-left' : 'text-right'}`}>
-              <span className="text-xl font-black text-white leading-none">200+</span>
-              <span className="text-[9px] text-white/50 uppercase tracking-widest">{successText}</span>
-            </div>
-          </div>
-        </div>
       </section>
 
-      {/*
-        ═══════════════════════════════════════════════
-        DESKTOP LAYOUT  (original design, hidden on < lg)
-        ═══════════════════════════════════════════════
-      */}
       <section id="home" className="hidden lg:flex relative h-screen min-h-[700px] items-center overflow-hidden bg-primary">
-        {/* Background Slideshow */}
         <div className="absolute inset-0 z-0 h-full w-full">
           <Swiper
             modules={[Autoplay, EffectFade]}
@@ -228,17 +286,12 @@ const Hero = () => {
           <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] z-20" />
         </div>
 
-        {/* Desktop content container */}
         <div className="container mx-auto px-6 relative z-30">
-
-          {/* Music button — top corner */}
           <div className={`absolute top-6 ${isRTL ? 'left-8' : 'right-8'} z-40`}>
             <BackgroundMusicButton />
           </div>
 
           <div className="max-w-4xl" data-aos="fade-up">
-
-            {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-morphism border border-secondary/30 mb-8" data-aos="fade-down" data-aos-delay="200">
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75" />
@@ -247,7 +300,6 @@ const Hero = () => {
               <span className="text-secondary text-sm font-bold tracking-widest uppercase">{t('hero.badge')}</span>
             </div>
 
-            {/* Headline */}
             <h1
               className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
               data-aos="fade-up" data-aos-delay="400"
@@ -266,7 +318,6 @@ const Hero = () => {
               />
             </h1>
 
-            {/* Description */}
             <p
               className="text-base md:text-xl text-slate-100 font-semibold mb-10 max-w-2xl leading-relaxed"
               data-aos="fade-up" data-aos-delay="600"
@@ -275,24 +326,53 @@ const Hero = () => {
               {descText}
             </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-row gap-4 mb-4" data-aos="fade-up" data-aos-delay="800">
-              <Button as={Link} href="/projects" size="lg" className="flex items-center justify-center gap-2 group text-base">
-                {exploreText}
-                <ArrowLeft className={`transition-transform ${isRTL ? 'group-hover:-translate-x-1.5' : 'rotate-180 group-hover:translate-x-1.5'}`} />
+            <div className="flex flex-row gap-4 mb-10" data-aos="fade-up" data-aos-delay="800">
+              <Button
+                as={Link}
+                href="/contact"
+                size="lg"
+                className="flex items-center justify-center text-base font-bold rounded-[4px] bg-white text-slate-950 border border-white hover:bg-white/95 active:scale-95 transition-all duration-300 px-8 py-3.5"
+              >
+                {requestConsultText}
               </Button>
-              <Button as={Link} href="/us" variant="outline" size="lg" className="text-base">
-                {t('nav.about')}
+              <Button
+                as={Link}
+                href="/projects"
+                variant="outline"
+                size="lg"
+                className="flex items-center justify-center text-base font-bold rounded-[4px] border border-white text-white hover:bg-white hover:text-slate-950 active:scale-95 transition-all duration-300 px-8 py-3.5"
+              >
+                {viewWorksText}
               </Button>
             </div>
 
-            {/* Cost Calculator CTA */}
-            <div data-aos="fade-up" data-aos-delay="1000" className="mt-4 mb-12 lg:mb-0">
+            <div 
+              className="flex flex-row items-center gap-8 lg:gap-14 mb-10 max-w-xl border-y border-white/10 py-6" 
+              data-aos="fade-up" 
+              data-aos-delay="900"
+            >
+              <div className="flex flex-col items-center text-center">
+                <span className="text-4xl lg:text-5xl font-black text-white leading-none">+230</span>
+                <span className="text-xs lg:text-sm text-white/70 mt-2 font-semibold tracking-wide">{projectStatText}</span>
+              </div>
+              <div className="w-px h-10 bg-white/20" />
+              <div className="flex flex-col items-center text-center">
+                <span className="text-4xl lg:text-5xl font-black text-white leading-none">99%</span>
+                <span className="text-xs lg:text-sm text-white/70 mt-2 font-semibold tracking-wide">{satisfactionStatText}</span>
+              </div>
+              <div className="w-px h-10 bg-white/20" />
+              <div className="flex flex-col items-center text-center">
+                <span className="text-4xl lg:text-5xl font-black text-white leading-none">+3k</span>
+                <span className="text-xs lg:text-sm text-white/70 mt-2 font-semibold tracking-wide">{designStatText}</span>
+              </div>
+            </div>
+
+            <div data-aos="fade-up" data-aos-delay="1000" className="mt-4">
               <Link
                 href="/cost-calculator"
-                className="inline-flex items-center gap-3 px-6 py-3.5 rounded-xl border border-[#D5B25D]/40 bg-[#D5B25D]/10 hover:bg-[#D5B25D]/20 hover:border-[#D5B25D]/70 transition-all duration-300 group backdrop-blur-sm"
+                className="inline-flex items-center gap-3 px-6 py-3.5 rounded-[4px] border border-[#D5B25D]/40 bg-[#D5B25D]/10 hover:bg-[#D5B25D]/20 hover:border-[#D5B25D]/70 transition-all duration-300 group backdrop-blur-sm"
               >
-                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-[#D5B25D]/20 border border-[#D5B25D]/30 group-hover:bg-[#D5B25D]/30 transition-all duration-300">
+                <span className="flex items-center justify-center w-8 h-8 rounded-[4px] bg-[#D5B25D]/20 border border-[#D5B25D]/30 group-hover:bg-[#D5B25D]/30 transition-all duration-300">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D5B25D" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/>
                     <line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/>
@@ -300,25 +380,10 @@ const Hero = () => {
                   </svg>
                 </span>
                 <span className="text-[#D5B25D] font-bold text-sm">{calcText}</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#D5B25D]/20 text-[#D5B25D]/80 font-bold tracking-wider uppercase border border-[#D5B25D]/20">{freeText}</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-[4px] bg-[#D5B25D]/20 text-[#D5B25D]/80 font-bold tracking-wider uppercase border border-[#D5B25D]/20">{freeText}</span>
                 <ArrowLeft size={14} className={`text-[#D5B25D]/60 transition-transform duration-300 ${isRTL ? 'group-hover:-translate-x-1' : 'rotate-180 group-hover:translate-x-1'}`} />
               </Link>
             </div>
-          </div>
-        </div>
-
-        {/* Desktop Stats — original absolute positioning */}
-        <div className={`absolute bottom-10 ${isRTL ? 'left-10' : 'right-10'} z-30`} data-aos="fade-up" data-aos-delay="1000">
-          <div className={`flex flex-col gap-1 ${isRTL ? 'text-right' : 'text-left'}`}>
-            <span className="text-4xl font-bold text-white">15+</span>
-            <span className="text-sm text-muted uppercase tracking-widest">{t('about.experienceBadge')}</span>
-          </div>
-        </div>
-
-        <div className={`absolute bottom-10 ${isRTL ? 'right-10' : 'left-10'} z-30`} data-aos="fade-up" data-aos-delay="1200">
-          <div className={`flex flex-col gap-1 ${isRTL ? 'text-right' : 'text-left'}`}>
-            <span className="text-4xl font-bold text-white">200+</span>
-            <span className="text-sm text-muted uppercase tracking-widest">{successText}</span>
           </div>
         </div>
       </section>
