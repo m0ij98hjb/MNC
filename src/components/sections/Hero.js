@@ -97,7 +97,7 @@ const Hero = () => {
         </div>
 
         {/* Main content */}
-        <div className="relative z-30 flex flex-col flex-1 justify-center px-5 pt-[100px] pb-6">
+        <div className="relative z-30 flex flex-col flex-1 justify-start px-5 pt-[120px] pb-6">
 
           {/* Badge & Music Button Row */}
           <div className="flex items-center justify-between w-full mb-5" data-aos="fade-down" data-aos-delay="100">
