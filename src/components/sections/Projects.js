@@ -37,7 +37,7 @@ const Projects = () => {
       id: 4,
       title: t("projectsSection.items.barjisBasement"),
       category: "barjis",
-      image: "/asstes/office-projects/BARJIS BASEMENT - TWO (07.13.2025).jpg",
+      image: "/asstes/office-projects/28.jpg",
       location: t("projectsSection.categories.barjis")
     },
     {
@@ -72,28 +72,28 @@ const Projects = () => {
       id: 9,
       title: t("projectsSection.items.interior1"),
       category: "recent",
-      image: "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (1).jpeg",
+      image: "/asstes/office-projects/40.jpg",
       location: "MNC"
     },
     {
       id: 10,
       title: t("projectsSection.items.interior2"),
       category: "recent",
-      image: "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (3).jpeg",
+      image: "/asstes/office-projects/41.jpg",
       location: "MNC"
     },
     {
       id: 11,
       title: t("projectsSection.items.interior3"),
       category: "recent",
-      image: "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 03.35.41.jpeg",
+      image: "/asstes/office-projects/43.jpg",
       location: "MNC"
     },
     {
       id: 12,
       title: t("projectsSection.items.interior4"),
       category: "recent",
-      image: "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 05.15.23.jpeg",
+      image: "/asstes/office-projects/10.jpg",
       location: "MNC"
     }
   ];
@@ -178,7 +178,7 @@ const Projects = () => {
 
         {/* View All Projects Button */}
         <div className="mt-16 text-center" data-aos="fade-up">
-          <p className="text-muted mb-6 italic">
+          <p className="text-white mb-6 italic">
             {t("projectsSection.more")}
           </p>
           <Link

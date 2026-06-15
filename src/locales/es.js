@@ -6,7 +6,8 @@ export const es = {
     projects: "Nuestros Proyectos",
     contact: "Contáctenos",
     profile: "Descargar Perfil",
-    costCalc: "Calculadora de Costos"
+    costCalc: "Calculadora de Costos",
+    careers: "Empleos"
   },
   hero: {
     badge: "Excelencia en Ingeniería",
@@ -248,5 +249,60 @@ export const es = {
     stop: "Detener presentación",
     play: "Reproducir presentación",
     intro: "Presentación de la empresa"
+  },
+  careers: {
+    heroBadge: "Oportunidades de Empleo",
+    heroTitle: "Únete al Equipo MNC",
+    heroSubtitle: "Construye tu Futuro con Nosotros",
+    heroDesc: "Buscamos ingenieros talentosos y profesionales creativos para unirse a nuestro equipo. Sé parte de proyectos que marcan la diferencia.",
+    exploreBtn: "Ver Vacantes",
+    applyBtn: "Postúlate Ahora",
+    whyBadge: "Ambiente Laboral",
+    whyTitle: "¿Por qué trabajar con nosotros?",
+    whySubtitle: "Ofrecemos un entorno profesional que apoya tu crecimiento y libera tu creatividad",
+    benefits: [
+      { title: "Salarios Competitivos", desc: "Ofrecemos salarios e incentivos competitivos que reflejan tus habilidades y experiencia profesional." },
+      { title: "Crecimiento Profesional", desc: "Programas de desarrollo continuo y oportunidades claras de avance dentro de la organización." },
+      { title: "Equipo de Élite", desc: "Únete a un grupo de los mejores ingenieros y especialistas del campo." },
+      { title: "Grandes Proyectos", desc: "Trabaja en proyectos prominentes y diversos que enriquecen tu experiencia y desarrollan tus habilidades." }
+    ],
+    positionsBadge: "Vacantes Abiertas",
+    positionsTitle: "Posiciones Disponibles",
+    positionsSubtitle: "Consulta las oportunidades de empleo disponibles y envía tu solicitud ahora",
+    applyNow: "Postúlate",
+    fullTime: "Tiempo Completo",
+    jeddah: "Jeddah, Arabia Saudita",
+    positions: [
+      { key: "pm",         title: "Gerente de Proyecto",     dept: "Gestión de Proyectos",  desc: "Liderar y gestionar proyectos de construcción desde el inicio hasta la entrega." },
+      { key: "civil",      title: "Ingeniero Civil",          dept: "Ingeniería Civil",       desc: "Diseñar y revisar planos estructurales y supervisar su ejecución en campo." },
+      { key: "arch",       title: "Diseñador Arquitectónico", dept: "Arquitectura",           desc: "Crear soluciones arquitectónicas innovadoras y convertir visiones en diseños reales." },
+      { key: "interior",   title: "Diseñador de Interiores",  dept: "Diseño de Interiores",  desc: "Diseñar espacios interiores combinando estética y funcionalidad." },
+      { key: "supervisor", title: "Supervisor de Obra",       dept: "Ejecución en Campo",    desc: "Supervisar la ejecución de obras de construcción conforme a los planos." },
+      { key: "qty",        title: "Medidor de Cantidades",    dept: "Cantidades y Costos",   desc: "Elaborar cómputos métricos, calcular costos y supervisar materiales." },
+      { key: "autocad",    title: "Diseñador AutoCAD",        dept: "Dibujo de Ingeniería",  desc: "Dibujar y modificar planos de ingeniería con el último software." },
+      { key: "sales",      title: "Gerente de Ventas",        dept: "Ventas y Negocios",     desc: "Desarrollar negocios, gestionar relaciones con clientes y alcanzar objetivos de crecimiento." }
+    ],
+    formBadge: "Enviar Solicitud",
+    formTitle: "Formulario de Solicitud de Empleo",
+    formSubtitle: "Complete sus datos personales y adjunte su CV — nos pondremos en contacto pronto",
+    fullName: "Nombre Completo",
+    email: "Correo Electrónico",
+    phone: "Número de Teléfono",
+    position: "Puesto al que Aplica",
+    choosePosition: "Selecciona un Puesto",
+    experience: "Años de Experiencia",
+    coverLetter: "Carta de Presentación",
+    coverLetterPlaceholder: "Cuéntanos sobre tu experiencia y por qué deseas unirte a MNC...",
+    cvUpload: "Subir CV",
+    cvUploadHint: "Arrastra un archivo PDF aquí o haz clic para seleccionar",
+    cvUploaded: "Archivo cargado con éxito ✓",
+    submitApplication: "Enviar Solicitud",
+    successTitle: "¡Solicitud enviada con éxito!",
+    successDesc: "Gracias por tu interés en unirte a la familia MNC. Nuestro equipo de RRHH revisará tu solicitud y se pondrá en contacto contigo en 5 días hábiles.",
+    successBtn: "Enviar Otra Solicitud",
+    expOptions: ["Menos de 1 año", "1 – 3 años", "3 – 5 años", "5 – 10 años", "Más de 10 años"],
+    namePlaceholder: "Ingresa tu nombre completo",
+    emailPlaceholder: "ejemplo@correo.com",
+    phonePlaceholder: "+966xxxxxxxxx"
   }
 };

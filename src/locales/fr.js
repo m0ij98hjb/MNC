@@ -6,7 +6,8 @@ export const fr = {
     projects: "Nos Projets",
     contact: "Contactez-Nous",
     profile: "Télécharger le Profil",
-    costCalc: "Calculateur de Coûts"
+    costCalc: "Calculateur de Coûts",
+    careers: "Emplois"
   },
   hero: {
     badge: "Excellence en Ingénierie",
@@ -248,5 +249,60 @@ export const fr = {
     stop: "Arrêter la présentation",
     play: "Lire la présentation",
     intro: "Présentation de l'entreprise"
+  },
+  careers: {
+    heroBadge: "Opportunités de Carrière",
+    heroTitle: "Rejoignez l'Équipe MNC",
+    heroSubtitle: "Construisez votre avenir avec nous",
+    heroDesc: "Nous recherchons des ingénieurs talentueux et des professionnels créatifs pour rejoindre notre équipe. Faites partie de projets qui font vraiment la différence.",
+    exploreBtn: "Voir les Postes",
+    applyBtn: "Postuler Maintenant",
+    whyBadge: "Environnement de Travail",
+    whyTitle: "Pourquoi travailler avec nous?",
+    whySubtitle: "Nous offrons un environnement professionnel qui soutient votre croissance et libère votre créativité",
+    benefits: [
+      { title: "Salaires Compétitifs", desc: "Nous offrons des salaires et des incitations compétitifs qui reflètent vos compétences et votre expérience." },
+      { title: "Évolution de Carrière", desc: "Des programmes de développement continus et des opportunités d'avancement claires au sein de l'organisation." },
+      { title: "Équipe d'Élite", desc: "Rejoignez un groupe des meilleurs ingénieurs et spécialistes du domaine." },
+      { title: "Grands Projets", desc: "Travaillez sur des projets importants et diversifiés qui enrichissent votre expérience et développent vos compétences." }
+    ],
+    positionsBadge: "Postes Ouverts",
+    positionsTitle: "Postes Disponibles",
+    positionsSubtitle: "Parcourez les offres d'emploi disponibles et soumettez votre candidature maintenant",
+    applyNow: "Postuler",
+    fullTime: "Temps Plein",
+    jeddah: "Djeddah, Arabie Saoudite",
+    positions: [
+      { key: "pm",         title: "Chef de Projet",          dept: "Gestion de Projets",   desc: "Diriger et gérer des projets de construction de la conception à la livraison." },
+      { key: "civil",      title: "Ingénieur Civil",          dept: "Génie Civil",           desc: "Concevoir et réviser les plans structurels et superviser leur exécution sur le terrain." },
+      { key: "arch",       title: "Designer Architectural",   dept: "Architecture",          desc: "Créer des solutions architecturales innovantes et transformer les visions des clients en designs réels." },
+      { key: "interior",   title: "Designer d'Intérieur",     dept: "Design Intérieur",      desc: "Concevoir des espaces intérieurs dans un style contemporain alliant esthétique et fonctionnalité." },
+      { key: "supervisor", title: "Superviseur de Chantier",  dept: "Exécution sur Terrain", desc: "Surveiller et contrôler l'exécution des travaux de construction conformément aux plans." },
+      { key: "qty",        title: "Métreur",                  dept: "Quantités & Coûts",     desc: "Préparer les métrés, calculer les coûts et superviser les matériaux et ressources." },
+      { key: "autocad",    title: "Dessinateur AutoCAD",      dept: "Dessin Technique",      desc: "Dessiner et modifier des plans d'ingénierie professionnellement avec les derniers logiciels." },
+      { key: "sales",      title: "Directeur Commercial",     dept: "Ventes & Affaires",     desc: "Développer les affaires, gérer les relations clients et atteindre les objectifs de croissance." }
+    ],
+    formBadge: "Soumettre une Candidature",
+    formTitle: "Formulaire de Candidature",
+    formSubtitle: "Complétez vos données personnelles et joignez votre CV — nous vous contacterons prochainement",
+    fullName: "Nom Complet",
+    email: "Adresse E-mail",
+    phone: "Numéro de Téléphone",
+    position: "Poste Sollicité",
+    choosePosition: "Sélectionnez un Poste",
+    experience: "Années d'Expérience",
+    coverLetter: "Lettre de Motivation",
+    coverLetterPlaceholder: "Parlez-nous de votre expérience et de vos motivations pour rejoindre MNC...",
+    cvUpload: "Télécharger le CV",
+    cvUploadHint: "Glissez un fichier PDF ici ou cliquez pour sélectionner",
+    cvUploaded: "Fichier téléchargé avec succès ✓",
+    submitApplication: "Soumettre la Candidature",
+    successTitle: "Candidature soumise avec succès!",
+    successDesc: "Merci pour votre intérêt à rejoindre la famille MNC. Notre équipe RH examinera votre candidature et vous contactera dans les 5 jours ouvrables.",
+    successBtn: "Soumettre une Autre Candidature",
+    expOptions: ["Moins d'1 an", "1 – 3 ans", "3 – 5 ans", "5 – 10 ans", "Plus de 10 ans"],
+    namePlaceholder: "Entrez votre nom complet",
+    emailPlaceholder: "exemple@email.com",
+    phonePlaceholder: "+966xxxxxxxxx"
   }
 };

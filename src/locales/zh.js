@@ -6,7 +6,8 @@ export const zh = {
     projects: "我们的项目",
     contact: "联系我们",
     profile: "下载简介",
-    costCalc: "费用计算器"
+    costCalc: "费用计算器",
+    careers: "招聘"
   },
   hero: {
     badge: "卓越工程",
@@ -248,5 +249,60 @@ export const zh = {
     stop: "停止介绍",
     play: "播放介绍",
     intro: "公司介绍"
+  },
+  careers: {
+    heroBadge: "Career Opportunities",
+    heroTitle: "Join the MNC Team",
+    heroSubtitle: "Build Your Future With Us",
+    heroDesc: "We're looking for talented engineers and creative professionals to join our distinguished team. Be part of projects that make a real difference.",
+    exploreBtn: "Browse Positions",
+    applyBtn: "Apply Now",
+    whyBadge: "Work Environment",
+    whyTitle: "Why Work With Us?",
+    whySubtitle: "We provide a professional environment that supports your career growth and unleashes your creativity",
+    benefits: [
+      { title: "Competitive Salaries", desc: "We offer competitive salaries and incentives that reflect your skills and professional experience." },
+      { title: "Career Growth", desc: "Continuous development programs and clear advancement opportunities within the organization." },
+      { title: "Elite Team", desc: "Join a group of the best engineers and specialists in the field." },
+      { title: "Major Projects", desc: "Work on prominent and diverse projects that enrich your experience and develop your skills." }
+    ],
+    positionsBadge: "Open Vacancies",
+    positionsTitle: "Available Positions",
+    positionsSubtitle: "Browse available job opportunities and submit your application now",
+    applyNow: "Apply Now",
+    fullTime: "Full Time",
+    jeddah: "Jeddah, Saudi Arabia",
+    positions: [
+      { key: "pm",         title: "Project Manager",        dept: "Project Management",   desc: "Lead and manage construction projects from inception to delivery at the highest standards." },
+      { key: "civil",      title: "Civil Engineer",          dept: "Civil Engineering",    desc: "Design and review structural plans and supervise their field execution." },
+      { key: "arch",       title: "Architectural Designer",  dept: "Architecture",         desc: "Create innovative architectural solutions and turn client visions into realistic designs." },
+      { key: "interior",   title: "Interior Designer",       dept: "Interior Design",      desc: "Design interior spaces in a contemporary style combining aesthetics and functionality." },
+      { key: "supervisor", title: "Site Supervisor",         dept: "Field Execution",      desc: "Follow up and monitor construction work execution ensuring conformity with drawings." },
+      { key: "qty",        title: "Quantity Surveyor",       dept: "Quantities & Costs",   desc: "Prepare quantity schedules, calculate costs and oversee materials and resources." },
+      { key: "autocad",    title: "AutoCAD Designer",        dept: "Engineering Drafting", desc: "Draw and modify engineering plans professionally using the latest software." },
+      { key: "sales",      title: "Sales Manager",           dept: "Sales & Business",     desc: "Develop business, manage client relationships, and achieve organizational growth targets." }
+    ],
+    formBadge: "Submit Application",
+    formTitle: "Job Application Form",
+    formSubtitle: "Complete your personal details and attach your CV — we will contact you shortly",
+    fullName: "Full Name",
+    email: "Email Address",
+    phone: "Phone Number",
+    position: "Position Applied For",
+    choosePosition: "Select a Position",
+    experience: "Years of Experience",
+    coverLetter: "Cover Letter",
+    coverLetterPlaceholder: "Tell us about your experience, achievements, and why you'd like to join MNC...",
+    cvUpload: "Upload CV",
+    cvUploadHint: "Drag a PDF file here or click to select",
+    cvUploaded: "File uploaded successfully ✓",
+    submitApplication: "Submit Application",
+    successTitle: "Application Submitted Successfully!",
+    successDesc: "Thank you for your interest in joining the MNC family. Our HR team will review your application and contact you within 5 business days.",
+    successBtn: "Submit Another Application",
+    expOptions: ["Less than 1 year", "1 – 3 years", "3 – 5 years", "5 – 10 years", "More than 10 years"],
+    namePlaceholder: "Enter your full name",
+    emailPlaceholder: "example@email.com",
+    phonePlaceholder: "05xxxxxxxx"
   }
 };

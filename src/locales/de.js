@@ -6,7 +6,8 @@ export const de = {
     projects: "Unsere Projekte",
     contact: "Kontaktieren Sie Uns",
     profile: "Profil Herunterladen",
-    costCalc: "Kostenrechner"
+    costCalc: "Kostenrechner",
+    careers: "Karriere"
   },
   hero: {
     badge: "Technische Exzellenz",
@@ -248,5 +249,60 @@ export const de = {
     stop: "Präsentation stoppen",
     play: "Präsentation abspielen",
     intro: "Firmenpräsentation"
+  },
+  careers: {
+    heroBadge: "Karrieremöglichkeiten",
+    heroTitle: "Treten Sie dem MNC-Team bei",
+    heroSubtitle: "Gestalten Sie Ihre Zukunft mit uns",
+    heroDesc: "Wir suchen talentierte Ingenieure und kreative Fachleute, die unserem Team beitreten. Werden Sie Teil von Projekten, die wirklich etwas bewirken.",
+    exploreBtn: "Stellen anzeigen",
+    applyBtn: "Jetzt bewerben",
+    whyBadge: "Arbeitsumfeld",
+    whyTitle: "Warum bei uns arbeiten?",
+    whySubtitle: "Wir bieten ein professionelles Umfeld, das Ihre Karriereentwicklung unterstützt und Ihre Kreativität entfaltet",
+    benefits: [
+      { title: "Wettbewerbsfähige Gehälter", desc: "Wir bieten wettbewerbsfähige Gehälter und Anreize, die Ihre Fähigkeiten und Erfahrung widerspiegeln." },
+      { title: "Karrierewachstum", desc: "Kontinuierliche Entwicklungsprogramme und klare Aufstiegschancen innerhalb der Organisation." },
+      { title: "Eliteteam", desc: "Treten Sie einer Gruppe der besten Ingenieure und Spezialisten auf dem Gebiet bei." },
+      { title: "Großprojekte", desc: "Arbeiten Sie an bedeutenden und vielfältigen Projekten, die Ihre Erfahrung bereichern und Ihre Fähigkeiten entwickeln." }
+    ],
+    positionsBadge: "Offene Stellen",
+    positionsTitle: "Verfügbare Positionen",
+    positionsSubtitle: "Durchsuchen Sie verfügbare Stellenangebote und bewerben Sie sich jetzt",
+    applyNow: "Bewerben",
+    fullTime: "Vollzeit",
+    jeddah: "Dschidda, Saudi-Arabien",
+    positions: [
+      { key: "pm",         title: "Projektleiter",            dept: "Projektmanagement",    desc: "Leitung und Management von Bauprojekten von Beginn bis zur Übergabe nach höchsten Standards." },
+      { key: "civil",      title: "Bauingenieur",              dept: "Bauingenieurwesen",    desc: "Entwurf und Überprüfung von Bauplänen sowie Überwachung der Ausführung vor Ort." },
+      { key: "arch",       title: "Architekturdesigner",       dept: "Architektur",          desc: "Innovative Architekturlösungen entwickeln und Kundenvisionen in realistische Designs umwandeln." },
+      { key: "interior",   title: "Innenarchitekt",            dept: "Innenarchitektur",     desc: "Innenräume in einem zeitgemäßen Stil gestalten, der Ästhetik und Funktionalität verbindet." },
+      { key: "supervisor", title: "Bauleiter vor Ort",         dept: "Ausführung vor Ort",   desc: "Überwachung und Kontrolle der Bauausführung gemäß den Plänen." },
+      { key: "qty",        title: "Kostenplaner",              dept: "Mengen & Kosten",      desc: "Massenermittlungen erstellen, Kosten berechnen und Materialien überwachen." },
+      { key: "autocad",    title: "AutoCAD-Designer",          dept: "Technisches Zeichnen", desc: "Ingenieurpläne professionell mit modernster Software zeichnen und bearbeiten." },
+      { key: "sales",      title: "Vertriebsleiter",           dept: "Vertrieb & Geschäft",  desc: "Geschäfte entwickeln, Kundenbeziehungen pflegen und Wachstumsziele erreichen." }
+    ],
+    formBadge: "Bewerbung einreichen",
+    formTitle: "Bewerbungsformular",
+    formSubtitle: "Füllen Sie Ihre persönlichen Daten aus und fügen Sie Ihren Lebenslauf bei — wir werden uns bald bei Ihnen melden",
+    fullName: "Vollständiger Name",
+    email: "E-Mail-Adresse",
+    phone: "Telefonnummer",
+    position: "Bewerbungsposition",
+    choosePosition: "Position auswählen",
+    experience: "Jahre der Erfahrung",
+    coverLetter: "Anschreiben",
+    coverLetterPlaceholder: "Erzählen Sie uns von Ihrer Erfahrung und warum Sie MNC beitreten möchten...",
+    cvUpload: "Lebenslauf hochladen",
+    cvUploadHint: "PDF-Datei hier ablegen oder zum Auswählen klicken",
+    cvUploaded: "Datei erfolgreich hochgeladen ✓",
+    submitApplication: "Bewerbung absenden",
+    successTitle: "Bewerbung erfolgreich eingereicht!",
+    successDesc: "Vielen Dank für Ihr Interesse an der MNC-Familie. Unser HR-Team wird Ihre Bewerbung prüfen und sich innerhalb von 5 Werktagen bei Ihnen melden.",
+    successBtn: "Weitere Bewerbung einreichen",
+    expOptions: ["Weniger als 1 Jahr", "1 – 3 Jahre", "3 – 5 Jahre", "5 – 10 Jahre", "Mehr als 10 Jahre"],
+    namePlaceholder: "Vollständigen Namen eingeben",
+    emailPlaceholder: "beispiel@email.com",
+    phonePlaceholder: "+966xxxxxxxxx"
   }
 };

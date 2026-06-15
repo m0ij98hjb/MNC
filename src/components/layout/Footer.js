@@ -16,6 +16,7 @@ import { motion } from "framer-motion";
 import { BsTwitterX } from "react-icons/bs";
 
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 const SocialIcon = ({ name }) => {
   const common = "w-4 h-4";
@@ -91,6 +92,21 @@ const SocialIcon = ({ name }) => {
 
 const Footer = () => {
   const { lang, t, isRTL } = useLanguage();
+  const { theme } = useTheme();
+  const isLightMode = theme === 'dark';
+
+  const socialBtnStyle = {
+    width: "45px",
+    height: "45px",
+    background: isLightMode ? "rgba(15,23,42,0.06)" : "rgba(255,255,255,0.05)",
+    borderRadius: "12px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    border: isLightMode ? "1px solid rgba(15,23,42,0.12)" : "1px solid rgba(255,255,255,0.1)",
+    color: "#B8923A",
+    textDecoration: "none",
+  };
 
   const links = {
     company: [
@@ -109,7 +125,7 @@ const Footer = () => {
 
   return (
     <footer
-      className="bg-[var(--background)] text-[var(--foreground)]"
+      className={`text-[var(--foreground)] ${isLightMode ? 'bg-slate-100' : 'bg-[var(--background)]'}`}
       dir={isRTL ? "rtl" : "ltr"}
     >
       {/* ── TOP DIVIDER ─────────────────────────────── */}
@@ -153,18 +169,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, y: -3 }}
-                  style={{
-                    width: "45px",
-                    height: "45px",
-                    background: "rgba(255, 255, 255, 0.05)",
-                    borderRadius: "12px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                    color: "#B8923A",
-                    textDecoration: "none",
-                  }}
+                  style={socialBtnStyle}
                 >
                   <social.icon size={18} />
                 </motion.a>
@@ -216,7 +221,7 @@ const Footer = () => {
       </div>
 
       {/* ── BOTTOM BAR ──────────────────────────────── */}
-      <div className="border-t border-[rgba(255,255,255,0.05)]">
+      <div className={`border-t ${isLightMode ? 'border-slate-200' : 'border-[rgba(255,255,255,0.05)]'}`}>
         <div
           className="max-w-7xl mx-auto px-6 py-5
           flex flex-col sm:flex-row items-center justify-between gap-3"

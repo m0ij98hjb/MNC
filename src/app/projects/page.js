@@ -6,6 +6,7 @@ import TypewriterText from "@/components/TypewriterText";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import GalleryClient from "./GalleryClient";
+import BuildingJourney from "@/components/sections/BuildingJourney";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function ProjectsPage() {
@@ -139,7 +140,7 @@ export default function ProjectsPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden">
+      <section className="image-hero relative h-screen min-h-[600px] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/asstes/office-projects/BARJIS FRONT FACADE (05.08.2025).jpg"
@@ -171,6 +172,9 @@ export default function ProjectsPage() {
           </div>
         </div>
       </section>
+
+      {/* Video + Construction Journey */}
+      <BuildingJourney />
 
       {/* Galleries Section */}
       <section className="py-24 bg-[var(--card-bg)] text-[var(--foreground)]">

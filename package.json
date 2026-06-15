@@ -12,6 +12,8 @@
     "aos": "^2.3.4",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
+    "hls.js": "^1.6.16",
+    "html5-qrcode": "^2.3.8",
     "lucide-react": "^1.11.0",
     "next": "16.2.4",
     "node-edge-tts": "^1.2.10",

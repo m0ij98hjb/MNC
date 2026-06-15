@@ -6,7 +6,8 @@ export const tr = {
     projects: "Projelerimiz",
     contact: "Bize Ulaşın",
     profile: "Profil İndir",
-    costCalc: "Maliyet Hesaplayıcı"
+    costCalc: "Maliyet Hesaplayıcı",
+    careers: "Kariyer"
   },
   hero: {
     badge: "Mühendislik Mükemmelliği",
@@ -248,5 +249,60 @@ export const tr = {
     stop: "Sunumu durdur",
     play: "Sunumu oynat",
     intro: "Şirket Tanıtımı"
+  },
+  careers: {
+    heroBadge: "Kariyer Fırsatları",
+    heroTitle: "MNC Ekibine Katılın",
+    heroSubtitle: "Geleceğinizi Bizimle İnşa Edin",
+    heroDesc: "Ekibimize katılacak yetenekli mühendisler ve yaratıcı profesyoneller arıyoruz. Gerçek fark yaratan projelerin parçası olun.",
+    exploreBtn: "Pozisyonlara Göz At",
+    applyBtn: "Hemen Başvur",
+    whyBadge: "Çalışma Ortamı",
+    whyTitle: "Neden Bizimle Çalışmalısınız?",
+    whySubtitle: "Kariyer gelişiminizi destekleyen ve yaratıcılığınızı serbest bırakan profesyonel bir ortam sunuyoruz",
+    benefits: [
+      { title: "Rekabetçi Maaşlar", desc: "Becerilerinizi ve profesyonel deneyiminizi yansıtan rekabetçi maaşlar ve teşvikler sunuyoruz." },
+      { title: "Kariyer Gelişimi", desc: "Sürekli gelişim programları ve organizasyon içinde net ilerleme fırsatları." },
+      { title: "Elit Ekip", desc: "Alanın en iyi mühendisleri ve uzmanlarından oluşan bir gruba katılın." },
+      { title: "Büyük Projeler", desc: "Deneyiminizi zenginleştiren ve becerilerinizi geliştiren önemli ve çeşitli projelerde çalışın." }
+    ],
+    positionsBadge: "Açık Pozisyonlar",
+    positionsTitle: "Mevcut Pozisyonlar",
+    positionsSubtitle: "Mevcut iş fırsatlarına göz atın ve şimdi başvurun",
+    applyNow: "Başvur",
+    fullTime: "Tam Zamanlı",
+    jeddah: "Cidde, Suudi Arabistan",
+    positions: [
+      { key: "pm",         title: "Proje Müdürü",         dept: "Proje Yönetimi",      desc: "İnşaat projelerini en yüksek standartlarda başlangıçtan teslimata kadar yönetmek." },
+      { key: "civil",      title: "İnşaat Mühendisi",      dept: "İnşaat Mühendisliği", desc: "Yapısal planları tasarlayıp gözden geçirmek ve saha uygulamasını denetlemek." },
+      { key: "arch",       title: "Mimari Tasarımcı",      dept: "Mimarlık",            desc: "Yenilikçi mimari çözümler oluşturmak ve müşteri vizyonlarını gerçekçi tasarımlara dönüştürmek." },
+      { key: "interior",   title: "İç Mimar",              dept: "İç Tasarım",          desc: "Estetik ve işlevselliği birleştiren çağdaş bir tarzda iç mekanlar tasarlamak." },
+      { key: "supervisor", title: "Şantiye Şefi",          dept: "Saha Uygulaması",     desc: "İnşaat çalışmalarının planlara uygun şekilde yürütülmesini takip ve kontrol etmek." },
+      { key: "qty",        title: "Metraj Uzmanı",         dept: "Metraj & Maliyetler", desc: "Metraj listeleri hazırlamak, maliyetleri hesaplamak ve kaynakları denetlemek." },
+      { key: "autocad",    title: "AutoCAD Tasarımcısı",   dept: "Teknik Çizim",        desc: "En son yazılımları kullanarak mühendislik planlarını profesyonelce çizmek ve düzenlemek." },
+      { key: "sales",      title: "Satış Müdürü",          dept: "Satış & İş",          desc: "İş geliştirmek, müşteri ilişkilerini yönetmek ve büyüme hedeflerine ulaşmak." }
+    ],
+    formBadge: "Başvuru Gönder",
+    formTitle: "İş Başvuru Formu",
+    formSubtitle: "Kişisel bilgilerinizi doldurun ve CV'nizi ekleyin — en kısa sürede sizinle iletişime geçeceğiz",
+    fullName: "Ad Soyad",
+    email: "E-posta Adresi",
+    phone: "Telefon Numarası",
+    position: "Başvurulan Pozisyon",
+    choosePosition: "Pozisyon Seçin",
+    experience: "Deneyim Yılı",
+    coverLetter: "Ön Yazı",
+    coverLetterPlaceholder: "Deneyimlerinizden ve MNC'ye neden katılmak istediğinizden bahsedin...",
+    cvUpload: "CV Yükle",
+    cvUploadHint: "Bir PDF dosyasını buraya sürükleyin veya seçmek için tıklayın",
+    cvUploaded: "Dosya başarıyla yüklendi ✓",
+    submitApplication: "Başvuruyu Gönder",
+    successTitle: "Başvurunuz Başarıyla Gönderildi!",
+    successDesc: "MNC ailesine katılmaya olan ilginiz için teşekkür ederiz. İK ekibimiz başvurunuzu inceleyecek ve 5 iş günü içinde sizinle iletişime geçecektir.",
+    successBtn: "Başka Bir Başvuru Gönder",
+    expOptions: ["1 yıldan az", "1 – 3 yıl", "3 – 5 yıl", "5 – 10 yıl", "10 yıldan fazla"],
+    namePlaceholder: "Tam adınızı girin",
+    emailPlaceholder: "ornek@email.com",
+    phonePlaceholder: "+966xxxxxxxxx"
   }
 };

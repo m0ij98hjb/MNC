@@ -9,6 +9,8 @@ import TypewriterText from "@/components/TypewriterText";
 import { ArrowLeft } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import BackgroundMusicButton from "@/components/ui/BackgroundMusicButton";
+import CounterStat from "@/components/ui/CounterStat";
+import { siteStats, getStatLabel } from "@/lib/siteConfig";
 
 // Import Swiper styles
 import "swiper/css";
@@ -123,7 +125,7 @@ const Hero = () => {
         MOBILE LAYOUT  (hidden on lg+)
         ═══════════════════════════════════════════════
       */}
-      <section className="lg:hidden relative min-h-screen flex flex-col overflow-hidden bg-primary">
+      <section className="image-hero lg:hidden relative min-h-screen flex flex-col overflow-hidden bg-primary">
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <Swiper
@@ -226,16 +228,16 @@ const Hero = () => {
             data-aos-delay="520"
           >
             <div className="flex flex-col items-center text-center">
-              <span className="text-2xl font-black text-white leading-none">+230</span>
-              <span className="text-[10px] sm:text-xs text-white/60 mt-1.5 font-medium">{projectStatText}</span>
+              <div className="text-2xl font-black text-white leading-none">+{siteStats.projects.value}</div>
+              <span className="text-[10px] sm:text-xs text-white/60 mt-1.5 font-medium">{getStatLabel('projects', lang)}</span>
             </div>
             <div className="flex flex-col items-center text-center border-x border-white/10">
-              <span className="text-2xl font-black text-white leading-none">99%</span>
-              <span className="text-[10px] sm:text-xs text-white/60 mt-1.5 font-medium">{satisfactionStatText}</span>
+              <div className="text-2xl font-black text-white leading-none">{siteStats.satisfaction.value}%</div>
+              <span className="text-[10px] sm:text-xs text-white/60 mt-1.5 font-medium">{getStatLabel('satisfaction', lang)}</span>
             </div>
             <div className="flex flex-col items-center text-center">
-              <span className="text-2xl font-black text-white leading-none">+3k</span>
-              <span className="text-[10px] sm:text-xs text-white/60 mt-1.5 font-medium">{designStatText}</span>
+              <div className="text-2xl font-black text-white leading-none">+{siteStats.designs.value}</div>
+              <span className="text-[10px] sm:text-xs text-white/60 mt-1.5 font-medium">{getStatLabel('designs', lang)}</span>
             </div>
           </div>
 
@@ -259,7 +261,7 @@ const Hero = () => {
         </div>
       </section>
 
-      <section id="home" className="hidden lg:flex relative h-screen min-h-[700px] items-center overflow-hidden bg-primary">
+      <section id="home" className="image-hero hidden lg:flex relative h-screen min-h-[700px] items-center overflow-hidden bg-primary">
         <div className="absolute inset-0 z-0 h-full w-full">
           <Swiper
             modules={[Autoplay, EffectFade]}
@@ -286,12 +288,17 @@ const Hero = () => {
           <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] z-20" />
         </div>
 
-        <div className="container mx-auto px-6 relative z-30">
-          <div className={`absolute top-6 ${isRTL ? 'left-8' : 'right-8'} z-40`}>
-            <BackgroundMusicButton />
-          </div>
+        {/* Sound Icon - Left Middle */}
+        <div className="absolute left-8 top-1/2 -translate-y-1/2 z-40">
+          <BackgroundMusicButton />
+        </div>
 
-          <div className="max-w-4xl" data-aos="fade-up">
+        <div className="container mx-auto px-6 relative z-30">
+            {/* Engineering Excellence - Desktop only */}
+            <div className="hidden lg:block mb-12" data-aos="fade-down" data-aos-delay="100">
+              <p className="text-sm font-semibold text-[#B8923A] tracking-widest uppercase">{lang === 'ar' ? 'التميز الهندسى' : 'Engineering Excellence'}</p>
+            </div>
+
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-morphism border border-secondary/30 mb-8" data-aos="fade-down" data-aos-delay="200">
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75" />
@@ -301,7 +308,7 @@ const Hero = () => {
             </div>
 
             <h1
-              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+              className="text-4xl md:text-6xl lg:text-5xl font-bold text-white mb-6 leading-tight"
               data-aos="fade-up" data-aos-delay="400"
               style={{ textShadow: "0 4px 16px rgba(0,0,0,0.7)" }}
             >
@@ -351,20 +358,26 @@ const Hero = () => {
               data-aos="fade-up" 
               data-aos-delay="900"
             >
-              <div className="flex flex-col items-center text-center">
-                <span className="text-4xl lg:text-5xl font-black text-white leading-none">+230</span>
-                <span className="text-xs lg:text-sm text-white/70 mt-2 font-semibold tracking-wide">{projectStatText}</span>
-              </div>
+              <CounterStat 
+                value={siteStats.projects.value}
+                label={getStatLabel('projects', lang)}
+                suffix="+"
+                aosDeley="900"
+              />
               <div className="w-px h-10 bg-white/20" />
-              <div className="flex flex-col items-center text-center">
-                <span className="text-4xl lg:text-5xl font-black text-white leading-none">99%</span>
-                <span className="text-xs lg:text-sm text-white/70 mt-2 font-semibold tracking-wide">{satisfactionStatText}</span>
-              </div>
+              <CounterStat 
+                value={siteStats.satisfaction.value}
+                label={getStatLabel('satisfaction', lang)}
+                suffix="%"
+                aosDeley="950"
+              />
               <div className="w-px h-10 bg-white/20" />
-              <div className="flex flex-col items-center text-center">
-                <span className="text-4xl lg:text-5xl font-black text-white leading-none">+3k</span>
-                <span className="text-xs lg:text-sm text-white/70 mt-2 font-semibold tracking-wide">{designStatText}</span>
-              </div>
+              <CounterStat 
+                value={siteStats.designs.value}
+                label={getStatLabel('designs', lang)}
+                suffix="+"
+                aosDeley="1000"
+              />
             </div>
 
             <div data-aos="fade-up" data-aos-delay="1000" className="mt-4">
@@ -385,7 +398,6 @@ const Hero = () => {
               </Link>
             </div>
           </div>
-        </div>
       </section>
     </>
   );

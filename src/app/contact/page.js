@@ -1,8 +1,7 @@
 "use client";
 
 import Navbar from "@/components/layout/Navbar";
-import TypewriterText from "@/components/TypewriterText";
-import { Phone, Mail, MapPin, Send, ChevronDown } from "lucide-react";
+import { Phone, Mail, MapPin, Send, ChevronDown, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -13,70 +12,119 @@ export default function ContactPage() {
     <main className="min-h-screen bg-[var(--background)] font-cairo text-white">
       <Navbar />
 
-      {/* Re-applying High-End Engineering Hero Section with Localization */}
-      <section className="relative pt-20 pb-4 lg:pt-32 lg:pb-12 overflow-hidden">
-        {/* Background Layer */}
+      {/* Hero Section */}
+      <section className="image-hero relative min-h-screen flex items-center overflow-hidden pt-20">
+        {/* Background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
-            alt="MNC Engineering & Construction"
+            src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?q=85&w=2070&auto=format&fit=crop"
+            alt="Contact MNC"
             fill
-            className="object-cover object-center scale-105"
+            className="object-cover object-center"
             priority
+            unoptimized
           />
-          {/* Multi-layered overlays for depth */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0f172a]/80 via-[#0f172a]/60 to-[#0f172a]/90" />
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20" />
-          
-          {/* Animated geometric lines (Blueprint Grid) */}
-          <div className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: "repeating-linear-gradient(45deg, #ca9e55 0px, #ca9e55 1px, transparent 1px, transparent 100px)"
-            }}
-          />
+          {/* Gradient: stronger on the start side for text readability */}
+          <div className={`absolute inset-0 ${isRTL ? 'bg-gradient-to-l' : 'bg-gradient-to-r'} from-black/85 via-black/55 to-black/20`} />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
         </div>
 
-        <div className="container relative z-10 mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center" data-aos="fade-up">
+        {/* Top accent line */}
+        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-secondary to-transparent z-10" />
 
-            <div className="mb-4">
-              <TypewriterText
-                texts={t('contactPage.typewriter')}
-                typingSpeed={120}
-                deletingSpeed={60}
-                pauseDuration={2000}
-                loop={true}
-                className="text-[var(--foreground)] text-xl md:text-3xl font-bold opacity-90"
-              />
+        {/* Diagonal pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.04] z-0"
+          style={{ backgroundImage: "repeating-linear-gradient(45deg, #D5B25D 0px, #D5B25D 1px, transparent 1px, transparent 80px)" }}
+        />
+
+        <div className="container relative z-10 mx-auto px-6 max-w-7xl py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+            {/* Left / Start: title & CTA */}
+            <div className={isRTL ? "text-right" : "text-left"} data-aos="fade-right">
+              {/* Badge */}
+              <div className={`inline-flex items-center gap-2.5 bg-white/5 backdrop-blur-sm border border-secondary/30 rounded-full px-5 py-2 mb-8`}>
+                <div className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
+                <span className="text-secondary text-xs font-bold tracking-widest uppercase">
+                  {t('contactPage.typewriter')?.[0] || "تواصل معنا"}
+                </span>
+              </div>
+
+              {/* Title */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 font-heading leading-tight">
+                {t('contact.ready')}
+                <br />
+                <span className="text-gradient">{t('contact.nextProject')}</span>
+              </h1>
+
+              <p className="text-white/70 text-base md:text-xl leading-relaxed mb-10 max-w-lg font-medium">
+                {t('contact.desc')}
+              </p>
+
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-secondary to-[#E1BF67] text-black font-black px-8 py-4 rounded-full text-base transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(213,178,93,0.35)] hover:shadow-[0_0_45px_rgba(213,178,93,0.5)] cursor-pointer"
+              >
+                {isRTL ? t('aboutUsPage.ctaBtn') || "ابدأ المشروع" : "Start a Project"}
+                {isRTL ? <ArrowLeft size={20} /> : <ArrowLeft size={20} className="rotate-180" />}
+              </a>
             </div>
 
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-black text-[var(--foreground)] mb-6 font-heading leading-[1.2] md:leading-[1.1] tracking-tight" data-aos="fade-up" data-aos-delay="200">
-              {t('hero.title')} <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary via-[#f3d091] to-secondary text-xl md:text-4xl lg:text-5xl">
-                {t('hero.subtitle')}
-              </span>
-            </h1>
-            
-            <p className="text-base md:text-xl text-[var(--foreground)]/70 leading-relaxed max-w-2xl mx-auto font-medium px-4 md:px-0" data-aos="fade-up" data-aos-delay="400">
-              {t('hero.description')}
-            </p>
+            {/* Right / End: contact info cards */}
+            <div className="space-y-4" data-aos="fade-left" data-aos-delay="150">
+              {/* Phone */}
+              <a
+                href="tel:0598242385"
+                className="flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 hover:border-secondary/40 hover:bg-white/8 transition-all duration-300 group"
+              >
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-secondary/10 border border-secondary/20 shrink-0 group-hover:bg-secondary/20 transition-colors">
+                  <Phone className="text-secondary" size={22} />
+                </div>
+                <div>
+                  <p className="text-secondary text-[10px] font-bold uppercase tracking-widest mb-1">{t('contact.phone')}</p>
+                  <p className="text-white font-bold text-base">0598242385 – 0505649859</p>
+                </div>
+              </a>
 
-            {/* Decorative Scroll Indicator */}
-            <div className="mt-16 flex flex-col items-center gap-4 animate-bounce opacity-40">
-              <span className="text-[var(--foreground)] text-[10px] uppercase tracking-[0.3em] font-bold">
-                {t('contactPage.explore')}
-              </span>
-              <div className="w-0.5 h-12 bg-gradient-to-b from-secondary to-transparent"></div>
+              {/* Email */}
+              <a
+                href="mailto:1@marwannazer.com"
+                className="flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 hover:border-secondary/40 hover:bg-white/8 transition-all duration-300 group"
+              >
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-secondary/10 border border-secondary/20 shrink-0 group-hover:bg-secondary/20 transition-colors">
+                  <Mail className="text-secondary" size={22} />
+                </div>
+                <div>
+                  <p className="text-secondary text-[10px] font-bold uppercase tracking-widest mb-1">{t('contact.email')}</p>
+                  <p className="text-white font-bold text-base">1@marwannazer.com</p>
+                </div>
+              </a>
+
+              {/* Location */}
+              <div className="flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 hover:border-secondary/40 hover:bg-white/8 transition-all duration-300 group cursor-default">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-secondary/10 border border-secondary/20 shrink-0 group-hover:bg-secondary/20 transition-colors">
+                  <MapPin className="text-secondary" size={22} />
+                </div>
+                <div>
+                  <p className="text-secondary text-[10px] font-bold uppercase tracking-widest mb-1">{t('contact.location')}</p>
+                  <p className="text-white font-semibold text-sm leading-relaxed max-w-xs">{t('contactPage.address')}</p>
+                </div>
+              </div>
+
+              {/* Hours */}
+              <div className="bg-gradient-to-r from-secondary/12 to-secondary/5 border border-secondary/25 rounded-2xl p-5">
+                <p className="text-secondary text-[10px] font-bold uppercase tracking-widest mb-2">{t('contact.hours')}</p>
+                <p className="text-white font-bold">{t('contact.days')}</p>
+                <p className="text-white/55 text-sm mt-1">{t('contact.time')}</p>
+              </div>
             </div>
+
           </div>
         </div>
 
-        {/* Bottom Curve Divider */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
-          <svg className="relative block w-full h-12 md:h-24 fill-white" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
-          </svg>
-        </div>
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/60 to-transparent z-10 pointer-events-none" />
       </section>
 
       {/* Contact Form Section */}

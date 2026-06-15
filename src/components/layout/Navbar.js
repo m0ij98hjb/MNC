@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe } from "lucide-react";
+import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users } from "lucide-react";
 import { useLanguage, LANGUAGES } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { HiDocumentText } from "react-icons/hi";
@@ -18,6 +18,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const { lang, setLang, t, isRTL } = useLanguage();
   const { theme, toggleTheme } = useTheme();
+  const isLightMode = theme === 'dark'; // 'dark' class = light/white appearance
   const langDropdownRef = useRef(null);
 
   useEffect(() => {
@@ -43,6 +44,7 @@ const Navbar = () => {
     { name: t('nav.services'),href: "/#services",      icon: Briefcase },
     { name: t('nav.projects'),href: "/projects",       icon: FolderOpen },
     { name: t('nav.contact'), href: "/contact",        icon: PhoneCall },
+    { name: t('nav.careers'), href: "/careers",        icon: Users },
     { name: t('nav.costCalc'),href: "/cost-calculator",isSpecial: true, icon: Calculator },
   ];
 
@@ -60,13 +62,28 @@ const Navbar = () => {
   };
   const tPortfolio = portfolioTranslations[lang] || portfolioTranslations['en'];
 
+  const engineeringExcellenceText = {
+    ar: "التميز الهندسى",
+    en: "Engineering Excellence",
+    zh: "工程卓越",
+    es: "Excelencia en Ingeniería",
+    fr: "Excellence en Ingénierie",
+    de: "Ingenieursexzellenz",
+    tr: "Mühendislik Mükemmeliyeti",
+    ur: "انجینئرنگ میں بہتری"
+  }[lang] || "Engineering Excellence";
+
   return (
     <>
       {/* ===== MAIN NAVBAR ===== */}
       <nav className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500
         ${scrolled
-          ? "bg-black/90 backdrop-blur-xl border-b border-[#B8923A]/25 shadow-[0_4px_40px_rgba(0,0,0,0.6)]"
-          : "bg-black/20 backdrop-blur-sm border-b border-white/5"
+          ? isLightMode
+            ? "bg-white/97 backdrop-blur-xl border-b border-slate-200 shadow-[0_4px_20px_rgba(0,0,0,0.08)]"
+            : "bg-black/90 backdrop-blur-xl border-b border-[#B8923A]/25 shadow-[0_4px_40px_rgba(0,0,0,0.6)]"
+          : isLightMode
+            ? "bg-white/85 backdrop-blur-sm border-b border-slate-100"
+            : "bg-black/20 backdrop-blur-sm border-b border-white/5"
         }`}>
         <div className="w-full mx-auto flex justify-between items-center px-4 sm:px-6 md:px-10 py-4 sm:py-5">
 
@@ -100,7 +117,11 @@ const Navbar = () => {
                 return (
                   <Link key={link.name} href={link.href}
                     className={`text-[12px] lg:text-[13px] xl:text-[15px] font-bold px-2 lg:px-2.5 xl:px-5 py-1.5 xl:py-2 rounded-full transition-all duration-300 relative group overflow-hidden whitespace-nowrap ${
-                      isActive ? "bg-[#B8923A]/10 text-[#B8923A] border border-[#B8923A]/25" : "text-white hover:text-[#B8923A]"
+                      isActive
+                        ? "bg-[#B8923A]/10 text-[#B8923A] border border-[#B8923A]/25"
+                        : isLightMode
+                          ? "text-slate-700 hover:text-[#B8923A]"
+                          : "text-white hover:text-[#B8923A]"
                     }`}>
                     <span className="relative z-10">{link.name}</span>
                     {!isActive && <span className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 rounded-full" />}
@@ -149,7 +170,7 @@ const Navbar = () => {
             <div className="relative" ref={langDropdownRef}>
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl border border-[#B8923A]/30 text-white hover:border-[#B8923A] hover:text-[#B8923A] transition-all duration-300 min-w-[90px]"
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl border border-[#B8923A]/30 hover:border-[#B8923A] hover:text-[#B8923A] transition-all duration-300 min-w-[90px] ${isLightMode ? 'text-slate-700' : 'text-white'}`}
               >
                 <span className="text-lg leading-none">{currentLang.flag}</span>
                 <span className="text-xs font-black tracking-wider uppercase flex-1 text-center">{currentLang.code.toUpperCase()}</span>
@@ -191,7 +212,7 @@ const Navbar = () => {
 
           {/* Mobile Toggle */}
           <button
-            className="lg:hidden p-2 rounded-full border border-[#B8923A]/30 text-white hover:bg-[#B8923A]/10 transition-colors"
+            className={`lg:hidden p-2 rounded-full border border-[#B8923A]/30 hover:bg-[#B8923A]/10 transition-colors ${isLightMode ? 'text-slate-700' : 'text-white'}`}
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}

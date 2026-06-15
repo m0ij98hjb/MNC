@@ -14,29 +14,33 @@ const Services = () => {
       description: t("servicesSection.items.construction.desc"),
       icon: <FaHardHat size={38} />,
       delay: "100",
+      slug: "contracting",
     },
     {
       title: t("servicesSection.items.architecture.title"),
       description: t("servicesSection.items.architecture.desc"),
       icon: <FaDraftingCompass size={38} />,
       delay: "200",
+      slug: "architectural-design",
     },
     {
       title: t("servicesSection.items.management.title"),
       description: t("servicesSection.items.management.desc"),
       icon: <FaProjectDiagram size={38} />,
       delay: "300",
+      slug: "project-management",
     },
     {
       title: t("servicesSection.items.interior.title"),
       description: t("servicesSection.items.interior.desc"),
       icon: <FaCouch size={38} />,
       delay: "400",
+      slug: "interior-design",
     },
   ];
 
   return (
-    <section id="services" className="py-20 bg-[#f8fafc] relative overflow-hidden">
+    <section id="services" className="py-20 bg-[var(--card-bg)] relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/architectural-layout.png')]"></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
@@ -62,7 +66,7 @@ const Services = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className="group bg-white p-8 rounded-2xl shadow-[0_20px_50px_rgba(197,160,89,0.12)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all duration-500 border border-slate-100 relative overflow-hidden flex flex-col items-center text-center -translate-y-2 hover:translate-y-0"
+              className="group bg-[var(--background)] p-8 rounded-2xl shadow-[0_20px_50px_rgba(197,160,89,0.12)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-500 border border-[var(--card-border)] relative overflow-hidden flex flex-col items-center text-center -translate-y-2 hover:translate-y-0"
               data-aos="fade-up"
               data-aos-delay={service.delay}
             >
@@ -77,15 +81,15 @@ const Services = () => {
               </div>
 
               {/* Text Content */}
-              <h3 className="text-xl font-black mb-3 text-secondary group-hover:text-black transition-colors duration-500 animate-in fade-in">
+              <h3 className="text-xl font-black mb-3 text-secondary group-hover:text-[var(--foreground)] transition-colors duration-500 animate-in fade-in">
                 {service.title}
               </h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-6 font-medium">
+              <p className="text-[var(--foreground)]/60 text-sm leading-relaxed mb-6 font-medium">
                 {service.description}
               </p>
 
               {/* Permanent Learn More Link */}
-              <Link href="/projects" className="mt-auto pt-4 flex items-center gap-2 text-secondary text-xs font-black uppercase tracking-widest transition-all duration-500 hover:gap-3">
+              <Link href={`/services/${service.slug}`} className="mt-auto pt-4 flex items-center gap-2 text-secondary text-xs font-black uppercase tracking-widest transition-all duration-500 hover:gap-3">
                 {t("servicesSection.learnMore")}
                 {lang === 'ar' || lang === 'ur' ? <ArrowRight size={14} className="rotate-180" /> : <ArrowRight size={14} />}
               </Link>

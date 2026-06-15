@@ -35,22 +35,54 @@
   --nav-bg: rgba(250,250,250,0.95);
 }
 
-.dark html,
-.dark body {
-  background: var(--background);
-  color: var(--foreground);
+/* ── LIGHT MODE (html.dark) TEXT & BG OVERRIDES ─────────────────────── */
+
+/* Non-hero sections: white text → dark */
+html.dark section:not(.image-hero) [class*="text-white"] {
+  color: #1e293b !important;
 }
 
-/* Dark mode: sections and cards */
-.dark section,
-.dark main {
-  background-color: var(--background);
+/* Non-hero sections: semi-transparent white backgrounds → subtle light */
+html.dark section:not(.image-hero) [class*="bg-white\/"] {
+  background-color: rgba(15, 23, 42, 0.05) !important;
 }
 
-/* Make all sections use the site background by default */
+/* Non-hero sections: semi-transparent black backgrounds → subtle light */
+html.dark section:not(.image-hero) [class*="bg-black\/"] {
+  background-color: rgba(15, 23, 42, 0.05) !important;
+}
+
+/* Non-hero sections: explicit bg-black → use theme background */
+html.dark section:not(.image-hero).bg-black,
+html.dark main section:not(.image-hero).bg-black {
+  background-color: var(--background) !important;
+}
+
+/* Non-hero sections: white/transparent borders → subtle dark */
+html.dark section:not(.image-hero) [class*="border-white\/"] {
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+html.dark section:not(.image-hero) .border-white {
+  border-color: rgba(15, 23, 42, 0.18) !important;
+}
+
+/* Input / form field backgrounds in light mode */
+html.dark input,
+html.dark textarea,
+html.dark select {
+  background-color: rgba(15, 23, 42, 0.05) !important;
+  border-color: rgba(15, 23, 42, 0.15) !important;
+  color: #1e293b !important;
+}
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: rgba(15, 23, 42, 0.4) !important;
+}
+
+/* Section background default — without !important so utility classes can override */
 section,
 main {
-  background-color: var(--background) !important;
+  background-color: var(--background);
 }
 
 /* Force mobile nav panel to always be solid black - overrides everything */
@@ -78,10 +110,7 @@ main {
   border-color: rgba(213,178,93,0.15) !important;
 }
 
-.dark footer {
-  background-color: #0d1526 !important;
-  border-color: rgba(213,178,93,0.15) !important;
-}
+/* Footer handled via inline conditional in Footer.js */
 
   * {
     scroll-behavior: smooth;
@@ -126,7 +155,6 @@ main {
     
   img {
     max-width: 100%;
-    height: 80px;
     display: block;
     object-fit: cover;
   }

@@ -15,36 +15,82 @@ export default function AboutUsPage() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+      <section className="image-hero relative h-screen min-h-[700px] flex items-center overflow-hidden">
+        {/* Background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
-            alt="About Us Background"
+            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=85&w=2072&auto=format&fit=crop"
+            alt="About MNC Construction"
             fill
-            className="object-cover"
+            className="object-cover object-center animate-slow-zoom"
             priority
+            unoptimized
           />
-          <div className="absolute inset-0 bg-black/50" />
+          {/* Rich multi-layer gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/45 to-transparent" />
         </div>
 
-        <div className="container relative z-10 mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center" data-aos="fade-up">
-            <h1 className="text-4xl md:text-6xl font-black text-[var(--foreground)] mb-6 font-heading">
+        {/* Top gold accent line */}
+        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-secondary to-transparent z-10" />
+
+        {/* Diagonal grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.04] z-0"
+          style={{ backgroundImage: "repeating-linear-gradient(45deg, #D5B25D 0px, #D5B25D 1px, transparent 1px, transparent 80px)" }}
+        />
+
+        {/* Content */}
+        <div className="container relative z-10 mx-auto px-6 max-w-7xl pt-24 md:pt-28">
+          <div className={isRTL ? "text-right" : "text-left"} data-aos="fade-up">
+
+            {/* Badge */}
+            <div className={`inline-flex items-center gap-2.5 bg-white/5 backdrop-blur-sm border border-secondary/30 rounded-full px-5 py-2 mb-8`}>
+              <div className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
+              <span className="text-secondary text-xs font-bold tracking-widest uppercase">
+                {t("aboutUsPage.teamBadge") || "فريق العمل"}
+              </span>
+            </div>
+
+            {/* Main title */}
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 font-heading leading-none">
               <TypewriterText
-                texts={t("aboutUsPage.titleTypewriter") || ["Get to Know Us", "MNC Contracting"]}
+                texts={t("aboutUsPage.titleTypewriter") || ["تعرف علينا", "MNC Contracting"]}
                 typingSpeed={120}
                 deletingSpeed={60}
-                pauseDuration={2000}
+                pauseDuration={2500}
                 loop={true}
-                className="text-[var(--foreground)]"
-                textClassNames={["", "text-secondary"]}
+                className="text-white"
+                textClassNames={["text-white", "text-gradient"]}
               />
             </h1>
-            <p className="text-xl text-[var(--foreground)]/80 leading-relaxed font-semibold" data-aos="fade-up" data-aos-delay="300">
+
+            {/* Subtitle */}
+            <p className="text-base md:text-xl text-white/70 leading-relaxed max-w-2xl mb-14 font-medium" data-aos="fade-up" data-aos-delay="200">
               {t("aboutUsPage.subtitle")}
             </p>
+
+            {/* Stats row */}
+            <div className="flex flex-wrap gap-x-10 gap-y-6" data-aos="fade-up" data-aos-delay="350">
+              {[
+                { value: "15+",  labelAr: "عاماً من الخبرة",    labelEn: "Years of Experience" },
+                { value: "50+",  labelAr: "مشروع منجز",          labelEn: "Completed Projects" },
+                { value: "98%",  labelAr: "رضا العملاء",          labelEn: "Client Satisfaction" },
+                { value: "300+", labelAr: "متخصص في الفريق",     labelEn: "Team Specialists" },
+              ].map((stat, i) => (
+                <div key={i} className="flex flex-col">
+                  <span className="text-3xl md:text-4xl font-black text-secondary leading-none">{stat.value}</span>
+                  <span className="text-white/55 text-xs md:text-sm font-semibold mt-1.5 uppercase tracking-wide">
+                    {isRTL ? stat.labelAr : stat.labelEn}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+
+        {/* Bottom fade into next section */}
+        <div className="absolute bottom-0 left-0 w-full h-28 bg-gradient-to-t from-black to-transparent z-10 pointer-events-none" />
       </section>
 
       {/* Main Content Section */}
@@ -244,7 +290,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-24 bg-black border-t border-white/5 relative overflow-hidden">
+      <section className="py-24 bg-[var(--background)] border-t border-white/5 relative overflow-hidden">
         {/* Glowing gold ambient light behind content */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-[#D5B25D]/10 rounded-full blur-[120px] pointer-events-none" />
         
