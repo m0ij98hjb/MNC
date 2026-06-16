@@ -196,7 +196,7 @@ export default function AboutUsPage() {
             {/* Image */}
             <div className={`relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-2xl ${isRTL ? 'order-last' : 'order-first'}`} data-aos={isRTL ? 'fade-left' : 'fade-right'}>
               <Image 
-                src="/asstes/director_ar.png" 
+                src="/asstes/director.png" 
                 alt={t("aboutUsPage.ceoSectionTitle")}
                 fill 
                 className="object-cover" 
@@ -244,7 +244,7 @@ export default function AboutUsPage() {
             <div className="group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 hover:border-[#D5B25D]/30 transition-all duration-500 bg-white/5" data-aos="fade-up" data-aos-delay="100">
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <Image
-                  src="/asstes/team1.png"
+                  src="/asstes/shorka1.png"
                   alt="MNC Team"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -267,7 +267,7 @@ export default function AboutUsPage() {
             <div className="group relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 hover:border-[#D5B25D]/30 transition-all duration-500 bg-white/5" data-aos="fade-up" data-aos-delay="200">
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <Image
-                  src="/asstes/team2.png"
+                  src="/asstes/shorka2.png"
                   alt="MNC Team"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"

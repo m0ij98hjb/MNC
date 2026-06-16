@@ -14,7 +14,7 @@ export const SERVICES_DATA = {
       "/asstes/office-projects/3.jpg",
       "/asstes/office-projects/4.jpg",
       "/asstes/office-projects/5.jpg",
-      "/asstes/office-projects/6.jpg",
+      "/asstes/office-projects/12.jpg",
     ],
     content: {
       ar: {
