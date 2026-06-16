@@ -1,52 +1,61 @@
 "use client";
 
+import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
 import { useLanguage } from "@/context/LanguageContext";
-import { BarChart3, MessageCircle, FileText, Bell } from "lucide-react";
+import { BarChart3, MessageCircle, FileText, Bell, Star } from "lucide-react";
 
 /* ─── Translations ─────────────────────────────────────────── */
 const C = {
   ar: {
-    badge: "تطبيق الجوال",
+    badge: "تطبيق الجوال الرسمي",
     title1: "حمّل تطبيق",
     title2: "MNC",
-    desc: "تابع مشاريعك، تواصل مع فريقك، واستعرض وثائقك في أي وقت ومن أي مكان.",
+    desc: "تابع مشاريعك، تواصل مع فريقنا الهندسي، واستعرض وثائقك في أي وقت ومن أي مكان.",
     soon: "قريباً",
+    stat1n: "١٢+", stat1l: "مشروع نشط",
+    stat2n: "٥٠٠+", stat2l: "عميل راضٍ",
+    stat3n: "١٥+", stat3l: "سنة خبرة",
     featuresBadge: "لماذا التطبيق؟",
     featuresTitle: "كل شيء في جيبك",
     features: [
-      { icon: BarChart3,     title: "متابعة المشاريع",  desc: "تتبّع نسب الإنجاز لحظةً بلحظة مع تقارير مرئية دقيقة." },
-      { icon: MessageCircle, title: "التواصل المباشر",  desc: "تحدّث مع فريق MNC الهندسي مباشرةً دون انتظار." },
-      { icon: FileText,      title: "عرض المستندات",    desc: "استعرض العقود والمخططات والتقارير من هاتفك فوراً." },
-      { icon: Bell,          title: "إشعارات فورية",    desc: "احصل على تنبيهات آنية لكل تحديث في مشروعك." },
+      { icon: BarChart3,     title: "متابعة المشاريع",  desc: "تتبّع نسب الإنجاز لحظةً بلحظة مع تقارير مرئية دقيقة وتحديثات آنية." },
+      { icon: MessageCircle, title: "التواصل المباشر",  desc: "تحدّث مع فريق MNC الهندسي مباشرةً في أي وقت دون انتظار." },
+      { icon: FileText,      title: "عرض المستندات",    desc: "استعرض العقود والمخططات الهندسية والتقارير من هاتفك فوراً." },
+      { icon: Bell,          title: "إشعارات فورية",    desc: "احصل على تنبيهات آنية لكل تحديث أو تغيير في مشروعك." },
     ],
     ctaBadge: "ابدأ الآن",
     ctaTitle: "جاهز لتجربة تطبيق MNC؟",
-    ctaDesc: "حمّل التطبيق الآن وابدأ إدارة مشاريعك باحترافية عالية.",
+    ctaDesc: "حمّل التطبيق الآن وابدأ إدارة مشاريعك بأسلوب احترافي جديد.",
+    ratingLabel: "٤.٩ تقييم التطبيق",
   },
   en: {
-    badge: "Mobile App",
+    badge: "Official Mobile App",
     title1: "Download",
     title2: "MNC App",
-    desc: "Track your projects, communicate with your team, and access your documents anytime, anywhere.",
+    desc: "Track your projects, communicate with our engineering team, and access documents anytime, anywhere.",
     soon: "Coming Soon",
+    stat1n: "12+", stat1l: "Active Projects",
+    stat2n: "500+", stat2l: "Happy Clients",
+    stat3n: "15+", stat3l: "Years of Experience",
     featuresBadge: "Why the App?",
     featuresTitle: "Everything in Your Pocket",
     features: [
-      { icon: BarChart3,     title: "Project Tracking",       desc: "Monitor progress in real-time with precise visual reports." },
-      { icon: MessageCircle, title: "Direct Communication",   desc: "Talk directly with the MNC engineering team without waiting." },
-      { icon: FileText,      title: "Document Viewer",        desc: "Access contracts, blueprints, and reports instantly from your phone." },
-      { icon: Bell,          title: "Instant Notifications",  desc: "Get real-time alerts for every update in your project." },
+      { icon: BarChart3,     title: "Project Tracking",      desc: "Monitor your project progress in real-time with precise visual reports." },
+      { icon: MessageCircle, title: "Direct Communication",  desc: "Talk directly with the MNC engineering team anytime without waiting." },
+      { icon: FileText,      title: "Document Viewer",       desc: "Access contracts, blueprints, and reports instantly from your phone." },
+      { icon: Bell,          title: "Instant Notifications", desc: "Get real-time alerts for every update or change in your project." },
     ],
     ctaBadge: "Get Started",
     ctaTitle: "Ready to experience MNC App?",
-    ctaDesc: "Download the app now and start managing your projects professionally.",
+    ctaDesc: "Download the app now and start managing your projects in a new professional way.",
+    ratingLabel: "4.9 App Rating",
   },
 };
 
 const FEAT_COLORS = ["#C9A34D", "#60a5fa", "#34d399", "#f472b6"];
 
-/* ─── Apple Icon ───────────────────────────────────────────── */
+/* ─── Apple Icon (white for dark bg) ──────────────────────── */
 function AppleIcon({ size = 22 }) {
   return (
     <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
@@ -55,31 +64,19 @@ function AppleIcon({ size = 22 }) {
   );
 }
 
-/* ─── Google Play Icon ─────────────────────────────────────── */
-function PlayIcon({ size = 22 }) {
+/* ─── Google Play Colorful Icon ────────────────────────────── */
+function GooglePlayColorIcon({ size = 22 }) {
   return (
-    <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
-      <path d="M3.18 23.76a2.5 2.5 0 0 1-1.18-2.2V2.44a2.5 2.5 0 0 1 1.18-2.2l11.67 11.76L3.18 23.76zm13.25-7.5L4.02 23.5l10.42-5.88 2-1.36zM21.6 10.9l-2.9-1.64-2.24 2.26 2.24 2.26 2.92-1.65c.83-.47.83-1.76-.02-2.23zm-6.19 3.14L4.02.5l12.42 7.24-1.03 6.3z" />
+    <svg viewBox="0 0 24 24" width={size} height={size}>
+      {/* Left / top-left — Cyan */}
+      <path d="M3 21.5V2.5L14.5 12Z" fill="#32BBFF" />
+      {/* Bottom — Yellow/Orange */}
+      <path d="M3 21.5L14.5 12L17.5 15L5.8 22Z" fill="#FFBC00" />
+      {/* Top — Green */}
+      <path d="M3 2.5L14.5 12L17.5 9L5.8 2Z" fill="#1BE874" />
+      {/* Right tip — Red */}
+      <path d="M17.5 9L14.5 12L17.5 15L21 13.1C21.9 12.6 21.9 11.4 21 10.9Z" fill="#FF4747" />
     </svg>
-  );
-}
-
-/* ─── Download Button ──────────────────────────────────────── */
-function DownloadBtn({ Icon, label, size = "md", gold = false }) {
-  const sizeClasses = size === "lg"
-    ? "px-8 py-4 rounded-2xl gap-4"
-    : "px-6 py-3.5 rounded-xl gap-3";
-  const base = gold
-    ? "bg-[#C9A34D] text-black hover:bg-[#d4b455] shadow-[0_4px_20px_rgba(201,163,77,0.3)] hover:shadow-[0_8px_30px_rgba(201,163,77,0.45)]"
-    : "bg-white/8 text-white border border-white/15 hover:bg-white/14 hover:border-white/25";
-  return (
-    <button className={`flex items-center ${sizeClasses} ${base} font-bold transition-all duration-300 active:scale-95`}>
-      <Icon size={size === "lg" ? 26 : 22} />
-      <div className="text-start leading-none">
-        <div className={`${size === "lg" ? "text-[10px]" : "text-[9px]"} opacity-55 uppercase tracking-widest mb-0.5`}>{label.soon}</div>
-        <div className={`${size === "lg" ? "text-base" : "text-sm"} font-black`}>{label.name}</div>
-      </div>
-    </button>
   );
 }
 
@@ -91,141 +88,227 @@ export default function AppPage() {
   const ta = isRTL ? "text-right" : "text-left";
 
   return (
-    <main className="min-h-screen bg-[#0D1B2A] font-cairo overflow-hidden" dir={isRTL ? "rtl" : "ltr"}>
+    <main className="min-h-screen bg-[#0D1B2A] font-cairo" dir={isRTL ? "rtl" : "ltr"}>
       <Navbar />
 
-      {/* ═══ HERO ════════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center pt-24 pb-16">
-        {/* Background layers */}
+      {/* ═══════════════════════════════════════════════════════
+          HERO
+      ══════════════════════════════════════════════════════════ */}
+      <section className="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
+
+        {/* ── Background decoration ── */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-[-10%] right-[-5%] w-[700px] h-[700px] rounded-full bg-[#C9A34D]/6 blur-[130px]" />
-          <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-[#0a2540]/60 blur-[100px]" />
-          <div
-            className="absolute inset-0 opacity-[0.025]"
-            style={{ backgroundImage:"linear-gradient(rgba(201,163,77,1) 1px,transparent 1px),linear-gradient(90deg,rgba(201,163,77,1) 1px,transparent 1px)", backgroundSize:"70px 70px" }}
-          />
-          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#C9A34D]/40 to-transparent" />
+          {/* Gold orb top-right */}
+          <div className="absolute -top-32 -right-32 w-[700px] h-[700px] rounded-full"
+            style={{ background: "radial-gradient(circle, rgba(201,163,77,0.08) 0%, transparent 70%)" }} />
+          {/* Blue orb bottom-left */}
+          <div className="absolute -bottom-32 -left-32 w-[600px] h-[600px] rounded-full"
+            style={{ background: "radial-gradient(circle, rgba(30,80,140,0.35) 0%, transparent 70%)" }} />
+          {/* Subtle grid */}
+          <div className="absolute inset-0 opacity-[0.022]"
+            style={{ backgroundImage: "linear-gradient(rgba(201,163,77,1) 1px,transparent 1px),linear-gradient(90deg,rgba(201,163,77,1) 1px,transparent 1px)", backgroundSize: "65px 65px" }} />
+          {/* Top border line */}
+          <div className="absolute top-0 left-0 w-full h-[2px]"
+            style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.5),transparent)" }} />
         </div>
 
         <div className="relative container mx-auto px-6 max-w-7xl">
-          {/* Always LTR so phones stay visually on the right */}
-          <div className="flex flex-col lg:flex-row items-center gap-14 lg:gap-10 xl:gap-16" style={{ direction:"ltr" }}>
+          {/* Two columns — direction always ltr so image stays right */}
+          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-12 xl:gap-20" style={{ direction: "ltr" }}>
 
-            {/* ── Text Column ── */}
-            <div className={`flex-1 w-full ${ta}`} dir={isRTL ? "rtl" : "ltr"}>
+            {/* ────────────────────────────────────────────────
+                TEXT COLUMN
+            ──────────────────────────────────────────────── */}
+            <div className={`flex-1 ${ta}`} dir={isRTL ? "rtl" : "ltr"}>
+
               {/* Badge */}
-              <div className="inline-flex items-center gap-2.5 bg-white/5 border border-[#C9A34D]/30 backdrop-blur-sm rounded-full px-5 py-2 mb-8">
+              <div className="inline-flex items-center gap-2.5 border border-[#C9A34D]/35 bg-[#C9A34D]/8 backdrop-blur-sm rounded-full px-5 py-2 mb-8">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#C9A34D] animate-pulse block" />
-                <span className="text-[#C9A34D] text-[11px] font-bold tracking-[0.18em] uppercase">{c.badge}</span>
+                <span className="text-[#C9A34D] text-[11px] font-bold tracking-[0.2em] uppercase">{c.badge}</span>
               </div>
 
-              {/* Title */}
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.08] mb-6">
-                {c.title1}{" "}
-                <span className="text-[#C9A34D] relative">
-                  {c.title2}
-                  <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-[#C9A34D] to-[#C9A34D]/30 rounded-full" />
+              {/* Headline */}
+              <h1 className="text-5xl sm:text-6xl lg:text-[4.5rem] xl:text-7xl font-black text-white leading-[1.06] mb-6">
+                {c.title1}
+                <br />
+                <span className="relative inline-block">
+                  <span className="text-[#C9A34D]">{c.title2}</span>
+                  <span
+                    className="absolute left-0 -bottom-2 w-full h-[3px] rounded-full"
+                    style={{ background: "linear-gradient(90deg,#C9A34D,rgba(201,163,77,0.2))" }}
+                  />
                 </span>
               </h1>
 
               {/* Description */}
-              <p className="text-white/55 text-lg leading-relaxed max-w-[430px] mb-10">{c.desc}</p>
+              <p className="text-white/55 text-[1.05rem] leading-relaxed max-w-[420px] mb-10">{c.desc}</p>
 
-              {/* Buttons */}
-              <div className={`flex flex-wrap gap-4 ${isRTL ? "justify-end lg:justify-start" : ""}`}>
-                <DownloadBtn Icon={AppleIcon} label={{ soon: c.soon, name: "App Store"   }} />
-                <DownloadBtn Icon={PlayIcon}  label={{ soon: c.soon, name: "Google Play" }} />
+              {/* ── Store Buttons ── */}
+              <div className={`flex flex-wrap gap-4 mb-10 ${isRTL ? "justify-end lg:justify-start" : ""}`}>
+
+                {/* App Store — official black */}
+                <button className="group flex items-center gap-3 bg-black text-white px-7 py-4 rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#111] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+                  <AppleIcon size={26} />
+                  <div className="text-start leading-none">
+                    <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
+                    <div className="text-[15px] font-black">App Store</div>
+                  </div>
+                </button>
+
+                {/* Google Play — official black + color icon */}
+                <button className="group flex items-center gap-3 bg-[#1a1a1a] text-white px-7 py-4 rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#222] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)]">
+                  <GooglePlayColorIcon size={26} />
+                  <div className="text-start leading-none">
+                    <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
+                    <div className="text-[15px] font-black">Google Play</div>
+                  </div>
+                </button>
+
               </div>
 
-              {/* Rating row */}
-              <div className={`flex items-center gap-3 mt-8 ${isRTL ? "flex-row-reverse justify-end" : ""}`}>
-                <div className="flex">
-                  {[...Array(5)].map((_,i) => (
-                    <svg key={i} viewBox="0 0 16 16" width="16" height="16" className="text-[#C9A34D]" fill="currentColor">
-                      <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z" />
-                    </svg>
+              {/* ── Stars + Rating ── */}
+              <div className={`flex items-center gap-3 mb-12 ${isRTL ? "flex-row-reverse justify-end" : ""}`}>
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={16} className="text-[#C9A34D] fill-[#C9A34D]" />
                   ))}
                 </div>
-                <span className="text-white/40 text-sm">{isAr ? "٤.٩ تقييم التطبيق" : "4.9 App Rating"}</span>
+                <span className="text-white/40 text-sm font-medium">{c.ratingLabel}</span>
               </div>
+
+              {/* ── Stats row ── */}
+              <div className={`flex gap-8 ${isRTL ? "flex-row-reverse justify-end" : ""}`}>
+                {[
+                  { n: c.stat1n, l: c.stat1l },
+                  { n: c.stat2n, l: c.stat2l },
+                  { n: c.stat3n, l: c.stat3l },
+                ].map((s, i) => (
+                  <div key={i} className={`${ta}`}>
+                    <div className="text-2xl font-black text-white">{s.n}</div>
+                    <div className="text-white/40 text-xs mt-0.5">{s.l}</div>
+                  </div>
+                ))}
+              </div>
+
             </div>
 
-            {/* ── Phone Images ── */}
-            <div className="relative flex-shrink-0 flex items-end justify-center" style={{ width:360, height:400 }}>
-              {/* Glow */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="w-[280px] h-[280px] rounded-full bg-[#C9A34D]/12 blur-3xl" />
+            {/* ────────────────────────────────────────────────
+                IMAGE COLUMN
+            ──────────────────────────────────────────────── */}
+            <div className="relative flex-shrink-0 flex items-center justify-center lg:justify-end">
+
+              {/* Background glow rings */}
+              <div className="absolute w-[420px] h-[420px] rounded-full border border-[#C9A34D]/8 pointer-events-none" />
+              <div className="absolute w-[320px] h-[320px] rounded-full border border-[#C9A34D]/12 pointer-events-none" />
+              <div className="absolute inset-0 pointer-events-none"
+                style={{ background: "radial-gradient(circle at center, rgba(201,163,77,0.13) 0%, transparent 65%)" }} />
+
+              {/* Floating card — top left */}
+              <div className="absolute -top-6 -left-8 z-20 bg-[#0a1828]/90 border border-[#C9A34D]/25 rounded-2xl px-4 py-3 backdrop-blur-md shadow-2xl hidden sm:block">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-[#C9A34D]/15 border border-[#C9A34D]/25 flex items-center justify-center flex-shrink-0">
+                    <BarChart3 size={14} className="text-[#C9A34D]" />
+                  </div>
+                  <div>
+                    <div className="text-white font-black text-sm">{isAr ? "٧٥٪ منجز" : "75% Done"}</div>
+                    <div className="text-white/40 text-[10px]">{isAr ? "مشروع BARJIS" : "BARJIS Project"}</div>
+                  </div>
+                </div>
+                <div className="mt-2.5 h-1.5 bg-white/8 rounded-full overflow-hidden">
+                  <div className="h-full w-3/4 bg-[#C9A34D] rounded-full" />
+                </div>
               </div>
 
-              {/* Android — behind, left */}
-              <div className="absolute" style={{ bottom:0, left:4, zIndex:1 }}>
-                {/* ↓ استبدل هذه الصورة بصورة جوال Android الخاصة بك */}
-                <img
-                  src="https://placehold.co/152x316/111827/C9A34D?text=Android+App&font=montserrat"
-                  alt="MNC Android App"
-                  style={{
-                    width: 152, height: 316,
-                    borderRadius: 28,
-                    boxShadow: "0 22px 70px rgba(0,0,0,0.85)",
-                    opacity: 0.92,
-                  }}
+              {/* Floating card — bottom right */}
+              <div className="absolute -bottom-4 -right-6 z-20 bg-[#0a1828]/90 border border-white/10 rounded-2xl px-4 py-3 backdrop-blur-md shadow-2xl hidden sm:block">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-green-500/15 border border-green-500/20 flex items-center justify-center flex-shrink-0">
+                    <Bell size={13} className="text-green-400" />
+                  </div>
+                  <div>
+                    <div className="text-white font-black text-sm">{isAr ? "إشعار جديد" : "New Notification"}</div>
+                    <div className="text-white/40 text-[10px]">{isAr ? "تحديث المشروع" : "Project Update"}</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* App screenshot image */}
+              <div className="relative z-10" style={{ filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.65))" }}>
+                <Image
+                  src="/asstes/Appph.png"
+                  alt="MNC App"
+                  width={480}
+                  height={500}
+                  className="w-[280px] sm:w-[360px] lg:w-[440px] xl:w-[480px] h-auto"
+                  priority
                 />
               </div>
 
-              {/* iPhone — front, right, elevated */}
-              <div className="absolute" style={{ bottom:24, right:4, zIndex:2 }}>
-                {/* ↓ استبدل هذه الصورة بصورة جوال iPhone الخاصة بك */}
-                <img
-                  src="https://placehold.co/168x346/0D1B2A/C9A34D?text=iPhone+App&font=montserrat"
-                  alt="MNC iPhone App"
-                  style={{
-                    width: 168, height: 346,
-                    borderRadius: 44,
-                    boxShadow: "0 28px 80px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.08)",
-                  }}
-                />
-              </div>
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* ═══ FEATURES ════════════════════════════════════════ */}
-      <section className="py-24 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0D1B2A] via-[#091320] to-[#0D1B2A] pointer-events-none" />
+      {/* ═══════════════════════════════════════════════════════
+          FEATURES
+      ══════════════════════════════════════════════════════════ */}
+      <section className="py-28 relative overflow-hidden">
+        {/* Separator line */}
+        <div className="absolute top-0 left-0 w-full h-[1px]"
+          style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.2),transparent)" }} />
+        {/* Background tint */}
+        <div className="absolute inset-0"
+          style={{ background: "linear-gradient(180deg,rgba(9,19,32,0.7) 0%,rgba(13,27,42,0) 100%)" }} />
+
         <div className="relative container mx-auto px-6 max-w-7xl">
 
+          {/* Section header */}
           <div className={`${ta} mb-16`}>
-            <div className="inline-flex items-center gap-2.5 bg-white/5 border border-[#C9A34D]/25 rounded-full px-5 py-2 mb-6">
+            <div className="inline-flex items-center gap-2.5 border border-[#C9A34D]/25 bg-[#C9A34D]/6 rounded-full px-5 py-2 mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C9A34D] animate-pulse block" />
-              <span className="text-[#C9A34D] text-[11px] font-bold tracking-[0.18em] uppercase">{c.featuresBadge}</span>
+              <span className="text-[#C9A34D] text-[11px] font-bold tracking-[0.2em] uppercase">{c.featuresBadge}</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-black text-white">{c.featuresTitle}</h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Cards grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {c.features.map((feat, i) => {
               const Icon = feat.icon;
               const color = FEAT_COLORS[i];
               return (
                 <div
                   key={i}
-                  className="group relative bg-white/[0.03] border border-white/[0.07] rounded-3xl p-7 hover:border-[#C9A34D]/30 hover:bg-white/[0.055] transition-all duration-400 hover:-translate-y-2"
-                  data-aos="fade-up" data-aos-delay={i * 80}
+                  className="group relative rounded-3xl p-7 transition-all duration-500 hover:-translate-y-2 cursor-default"
+                  style={{
+                    background: "rgba(255,255,255,0.025)",
+                    border: "1px solid rgba(255,255,255,0.07)",
+                  }}
+                  data-aos="fade-up"
+                  data-aos-delay={i * 80}
                 >
+                  {/* Hover glow overlay */}
                   <div
-                    className="absolute top-0 right-0 w-24 h-24 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                    style={{ background:`radial-gradient(circle at top right, ${color}18, transparent 70%)` }}
+                    className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{ background: `linear-gradient(135deg,${color}0c,transparent 60%)`, border: `1px solid ${color}28` }}
                   />
-                  <div
-                    className="rounded-2xl flex items-center justify-center mb-6"
-                    style={{ width:52, height:52, background:`${color}15`, border:`1px solid ${color}30` }}
-                  >
-                    <Icon size={24} style={{ color }} />
+
+                  {/* Number badge */}
+                  <div className="absolute top-5 right-5 text-[10px] font-black opacity-15 group-hover:opacity-40 transition-opacity duration-300"
+                    style={{ color }}>
+                    0{i + 1}
                   </div>
-                  <h3 className={`text-white font-black text-[17px] mb-3 ${ta}`}>{feat.title}</h3>
-                  <p className={`text-white/45 text-sm leading-relaxed ${ta}`}>{feat.desc}</p>
+
+                  {/* Icon */}
+                  <div
+                    className="w-13 h-13 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110"
+                    style={{ width: 52, height: 52, background: `${color}12`, border: `1px solid ${color}28` }}
+                  >
+                    <Icon size={23} style={{ color }} />
+                  </div>
+
+                  <h3 className={`text-white font-black text-[17px] mb-3 leading-snug ${ta}`}>{feat.title}</h3>
+                  <p className={`text-white/42 text-sm leading-relaxed ${ta}`}>{feat.desc}</p>
                 </div>
               );
             })}
@@ -233,27 +316,62 @@ export default function AppPage() {
         </div>
       </section>
 
-      {/* ═══ DOWNLOAD CTA ════════════════════════════════════ */}
-      <section className="py-24 px-6">
-        <div className="container mx-auto max-w-5xl">
-          <div
-            className="relative rounded-[2rem] overflow-hidden border border-[#C9A34D]/20"
-            style={{ background:"linear-gradient(135deg,#091320 0%,#0D1B2A 50%,#0f2035 100%)" }}
-          >
-            <div className="absolute top-0 right-0 w-72 h-72 bg-[#C9A34D]/10 rounded-full blur-[80px] pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-56 h-56 bg-[#0a2540]/50 rounded-full blur-[60px] pointer-events-none" />
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C9A34D]/50 to-transparent" />
+      {/* ═══════════════════════════════════════════════════════
+          DOWNLOAD CTA
+      ══════════════════════════════════════════════════════════ */}
+      <section className="py-24 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: "linear-gradient(180deg,rgba(13,27,42,0) 0%,rgba(9,19,32,0.5) 100%)" }} />
 
-            <div className="relative z-10 text-center py-20 px-8">
+        <div className="relative container mx-auto max-w-5xl">
+          <div
+            className="relative rounded-[2.5rem] overflow-hidden text-center py-20 px-8"
+            style={{
+              background: "linear-gradient(135deg,#091320 0%,#0e2038 50%,#091320 100%)",
+              border: "1px solid rgba(201,163,77,0.18)",
+              boxShadow: "0 0 80px rgba(201,163,77,0.06) inset",
+            }}
+          >
+            {/* Corner glows */}
+            <div className="absolute top-0 right-0 w-80 h-80 rounded-full pointer-events-none"
+              style={{ background: "radial-gradient(circle at top right, rgba(201,163,77,0.12), transparent 65%)" }} />
+            <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full pointer-events-none"
+              style={{ background: "radial-gradient(circle at bottom left, rgba(30,80,140,0.25), transparent 65%)" }} />
+            {/* Top line */}
+            <div className="absolute top-0 left-[15%] right-[15%] h-[1px]"
+              style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.55),transparent)" }} />
+
+            <div className="relative z-10">
+              {/* Badge */}
               <div className="inline-flex items-center gap-2.5 bg-[#C9A34D]/10 border border-[#C9A34D]/25 rounded-full px-5 py-2 mb-8">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#C9A34D] animate-pulse block" />
-                <span className="text-[#C9A34D] text-[11px] font-bold tracking-[0.18em] uppercase">{c.ctaBadge}</span>
+                <span className="text-[#C9A34D] text-[11px] font-bold tracking-[0.2em] uppercase">{c.ctaBadge}</span>
               </div>
-              <h2 className="text-4xl sm:text-5xl font-black text-white mb-5">{c.ctaTitle}</h2>
-              <p className="text-white/50 text-lg max-w-lg mx-auto mb-12 leading-relaxed">{c.ctaDesc}</p>
+
+              <h2 className="text-4xl sm:text-5xl font-black text-white mb-5 leading-tight">{c.ctaTitle}</h2>
+              <p className="text-white/48 text-lg max-w-lg mx-auto mb-14 leading-relaxed">{c.ctaDesc}</p>
+
+              {/* Buttons */}
               <div className="flex flex-wrap gap-5 justify-center">
-                <DownloadBtn Icon={AppleIcon} label={{ soon: c.soon, name: "App Store"   }} size="lg" gold />
-                <DownloadBtn Icon={PlayIcon}  label={{ soon: c.soon, name: "Google Play" }} size="lg" />
+
+                {/* App Store — gold variant for CTA */}
+                <button className="group flex items-center gap-4 bg-[#C9A34D] text-black px-9 py-5 rounded-2xl font-black transition-all duration-300 hover:bg-[#d8b560] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(201,163,77,0.35)] hover:shadow-[0_12px_40px_rgba(201,163,77,0.5)]">
+                  <AppleIcon size={28} />
+                  <div className="text-start leading-none">
+                    <div className="text-[9px] opacity-60 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
+                    <div className="text-[16px] font-black">App Store</div>
+                  </div>
+                </button>
+
+                {/* Google Play */}
+                <button className="group flex items-center gap-4 bg-black/60 text-white px-9 py-5 rounded-2xl font-black border border-white/12 transition-all duration-300 hover:bg-black/80 hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.4)]">
+                  <GooglePlayColorIcon size={28} />
+                  <div className="text-start leading-none">
+                    <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
+                    <div className="text-[16px] font-black">Google Play</div>
+                  </div>
+                </button>
+
               </div>
             </div>
           </div>
