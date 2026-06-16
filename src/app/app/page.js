@@ -217,19 +217,19 @@ export default function AppPage() {
 
                 {/* App Store — official black */}
                 <button className="group flex items-center justify-center gap-3 bg-black text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#111] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full xs:w-auto">
-                  <AppleIcon size={24} />
+                  <AppleIcon size={26} />
                   <div className="text-start leading-none">
                     <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
-                    <div className="text-[14px] sm:text-[15px] font-black">App Store</div>
+                    <div className="text-[15px] font-black">App Store</div>
                   </div>
                 </button>
 
                 {/* Google Play — official black + color icon */}
                 <button className="group flex items-center justify-center gap-3 bg-[#1a1a1a] text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#222] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full xs:w-auto">
-                  <GooglePlayColorIcon size={24} />
+                  <GooglePlayColorIcon size={26} />
                   <div className="text-start leading-none">
                     <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
-                    <div className="text-[14px] sm:text-[15px] font-black">Google Play</div>
+                    <div className="text-[15px] font-black">Google Play</div>
                   </div>
                 </button>
 
