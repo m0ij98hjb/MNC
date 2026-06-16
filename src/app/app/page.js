@@ -55,10 +55,10 @@ const C = {
 
 const FEAT_COLORS = ["#C9A34D", "#60a5fa", "#34d399", "#f472b6"];
 
-/* ─── Apple Icon (white for dark bg) ──────────────────────── */
-function AppleIcon({ size = 22 }) {
+/* ─── Apple Icon ──────────────────────────────────────────── */
+function AppleIcon({ size = 22, color = "currentColor" }) {
   return (
-    <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
+    <svg viewBox="0 0 24 24" width={size} height={size} fill={color}>
       <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
     </svg>
   );
@@ -113,13 +113,66 @@ export default function AppPage() {
         </div>
 
         <div className="relative container mx-auto px-6 max-w-7xl">
-          {/* Two columns — direction always ltr so image stays right */}
+          {/* Two columns — image on left, text on right */}
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-12 xl:gap-20" style={{ direction: "ltr" }}>
 
             {/* ────────────────────────────────────────────────
-                TEXT COLUMN
+                IMAGE COLUMN (LEFT)
             ──────────────────────────────────────────────── */}
-            <div className={`flex-1 ${ta}`} dir={isRTL ? "rtl" : "ltr"}>
+            <div className="relative flex-shrink-0 flex items-center justify-center lg:justify-start order-2 lg:order-1">
+
+              {/* Background glow rings */}
+              <div className="absolute w-[420px] h-[420px] rounded-full border border-[#C9A34D]/8 pointer-events-none" />
+              <div className="absolute w-[320px] h-[320px] rounded-full border border-[#C9A34D]/12 pointer-events-none" />
+              <div className="absolute inset-0 pointer-events-none"
+                style={{ background: "radial-gradient(circle at center, rgba(201,163,77,0.13) 0%, transparent 65%)" }} />
+
+              {/* Floating card — top right */}
+              <div className="absolute -top-6 -right-8 z-20 bg-[#0a1828]/90 border border-[#C9A34D]/25 rounded-2xl px-4 py-3 backdrop-blur-md shadow-2xl hidden sm:block">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-[#C9A34D]/15 border border-[#C9A34D]/25 flex items-center justify-center flex-shrink-0">
+                    <BarChart3 size={14} className="text-[#C9A34D]" />
+                  </div>
+                  <div>
+                    <div className="text-white font-black text-sm">{isAr ? "٧٥٪ منجز" : "75% Done"}</div>
+                    <div className="text-white/40 text-[10px]">{isAr ? "مشروع BARJIS" : "BARJIS Project"}</div>
+                  </div>
+                </div>
+                <div className="mt-2.5 h-1.5 bg-white/8 rounded-full overflow-hidden">
+                  <div className="h-full w-3/4 bg-[#C9A34D] rounded-full" />
+                </div>
+              </div>
+
+              {/* Floating card — bottom left */}
+              <div className="absolute -bottom-4 -left-6 z-20 bg-[#0a1828]/90 border border-white/10 rounded-2xl px-4 py-3 backdrop-blur-md shadow-2xl hidden sm:block">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-green-500/15 border border-green-500/20 flex items-center justify-center flex-shrink-0">
+                    <Bell size={13} className="text-green-400" />
+                  </div>
+                  <div>
+                    <div className="text-white font-black text-sm">{isAr ? "إشعار جديد" : "New Notification"}</div>
+                    <div className="text-white/40 text-[10px]">{isAr ? "تحديث المشروع" : "Project Update"}</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* App screenshot */}
+              <div className="relative z-10" style={{ filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.65))" }}>
+                <Image
+                  src="/asstes/Appph.png"
+                  alt="MNC App"
+                  width={480}
+                  height={500}
+                  className="w-[280px] sm:w-[360px] lg:w-[440px] xl:w-[480px] h-auto"
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* ────────────────────────────────────────────────
+                TEXT COLUMN (RIGHT)
+            ──────────────────────────────────────────────── */}
+            <div className={`flex-1 ${ta} order-1 lg:order-2`} dir={isRTL ? "rtl" : "ltr"}>
 
               {/* Badge */}
               <div className="inline-flex items-center gap-2.5 border border-[#C9A34D]/35 bg-[#C9A34D]/8 backdrop-blur-sm rounded-full px-5 py-2 mb-8">
@@ -192,59 +245,6 @@ export default function AppPage() {
 
             </div>
 
-            {/* ────────────────────────────────────────────────
-                IMAGE COLUMN
-            ──────────────────────────────────────────────── */}
-            <div className="relative flex-shrink-0 flex items-center justify-center lg:justify-end">
-
-              {/* Background glow rings */}
-              <div className="absolute w-[420px] h-[420px] rounded-full border border-[#C9A34D]/8 pointer-events-none" />
-              <div className="absolute w-[320px] h-[320px] rounded-full border border-[#C9A34D]/12 pointer-events-none" />
-              <div className="absolute inset-0 pointer-events-none"
-                style={{ background: "radial-gradient(circle at center, rgba(201,163,77,0.13) 0%, transparent 65%)" }} />
-
-              {/* Floating card — top left */}
-              <div className="absolute -top-6 -left-8 z-20 bg-[#0a1828]/90 border border-[#C9A34D]/25 rounded-2xl px-4 py-3 backdrop-blur-md shadow-2xl hidden sm:block">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-[#C9A34D]/15 border border-[#C9A34D]/25 flex items-center justify-center flex-shrink-0">
-                    <BarChart3 size={14} className="text-[#C9A34D]" />
-                  </div>
-                  <div>
-                    <div className="text-white font-black text-sm">{isAr ? "٧٥٪ منجز" : "75% Done"}</div>
-                    <div className="text-white/40 text-[10px]">{isAr ? "مشروع BARJIS" : "BARJIS Project"}</div>
-                  </div>
-                </div>
-                <div className="mt-2.5 h-1.5 bg-white/8 rounded-full overflow-hidden">
-                  <div className="h-full w-3/4 bg-[#C9A34D] rounded-full" />
-                </div>
-              </div>
-
-              {/* Floating card — bottom right */}
-              <div className="absolute -bottom-4 -right-6 z-20 bg-[#0a1828]/90 border border-white/10 rounded-2xl px-4 py-3 backdrop-blur-md shadow-2xl hidden sm:block">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-green-500/15 border border-green-500/20 flex items-center justify-center flex-shrink-0">
-                    <Bell size={13} className="text-green-400" />
-                  </div>
-                  <div>
-                    <div className="text-white font-black text-sm">{isAr ? "إشعار جديد" : "New Notification"}</div>
-                    <div className="text-white/40 text-[10px]">{isAr ? "تحديث المشروع" : "Project Update"}</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* App screenshot image */}
-              <div className="relative z-10" style={{ filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.65))" }}>
-                <Image
-                  src="/asstes/Appph.png"
-                  alt="MNC App"
-                  width={480}
-                  height={500}
-                  className="w-[280px] sm:w-[360px] lg:w-[440px] xl:w-[480px] h-auto"
-                  priority
-                />
-              </div>
-
-            </div>
           </div>
         </div>
       </section>
@@ -327,19 +327,29 @@ export default function AppPage() {
           <div
             className="relative rounded-[2.5rem] overflow-hidden text-center py-20 px-8"
             style={{
-              background: "linear-gradient(135deg,#091320 0%,#0e2038 50%,#091320 100%)",
-              border: "1px solid rgba(201,163,77,0.18)",
-              boxShadow: "0 0 80px rgba(201,163,77,0.06) inset",
+              background: "linear-gradient(140deg,#040d18 0%,#071626 35%,#0b2040 65%,#040d18 100%)",
+              border: "1px solid rgba(201,163,77,0.22)",
+              boxShadow: "0 0 120px rgba(201,163,77,0.08) inset, 0 40px 80px rgba(0,0,0,0.5)",
             }}
           >
-            {/* Corner glows */}
-            <div className="absolute top-0 right-0 w-80 h-80 rounded-full pointer-events-none"
-              style={{ background: "radial-gradient(circle at top right, rgba(201,163,77,0.12), transparent 65%)" }} />
-            <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full pointer-events-none"
-              style={{ background: "radial-gradient(circle at bottom left, rgba(30,80,140,0.25), transparent 65%)" }} />
-            {/* Top line */}
-            <div className="absolute top-0 left-[15%] right-[15%] h-[1px]"
-              style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.55),transparent)" }} />
+            {/* Large gold center glow */}
+            <div className="absolute inset-0 pointer-events-none"
+              style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,163,77,0.07) 0%, transparent 70%)" }} />
+            {/* Top-right corner flare */}
+            <div className="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full pointer-events-none"
+              style={{ background: "radial-gradient(circle, rgba(201,163,77,0.15) 0%, transparent 60%)" }} />
+            {/* Bottom-left blue accent */}
+            <div className="absolute -bottom-16 -left-16 w-[400px] h-[400px] rounded-full pointer-events-none"
+              style={{ background: "radial-gradient(circle, rgba(30,80,160,0.35) 0%, transparent 65%)" }} />
+            {/* Subtle dot grid */}
+            <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
+              style={{ backgroundImage: "radial-gradient(rgba(201,163,77,1) 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
+            {/* Top shimmer line */}
+            <div className="absolute top-0 left-[10%] right-[10%] h-[1px]"
+              style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.7),transparent)" }} />
+            {/* Bottom shimmer line */}
+            <div className="absolute bottom-0 left-[25%] right-[25%] h-[1px]"
+              style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.3),transparent)" }} />
 
             <div className="relative z-10">
               {/* Badge */}
@@ -356,7 +366,7 @@ export default function AppPage() {
 
                 {/* App Store — gold variant for CTA */}
                 <button className="group flex items-center gap-4 bg-[#C9A34D] text-black px-9 py-5 rounded-2xl font-black transition-all duration-300 hover:bg-[#d8b560] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(201,163,77,0.35)] hover:shadow-[0_12px_40px_rgba(201,163,77,0.5)]">
-                  <AppleIcon size={28} />
+                  <AppleIcon size={28} color="white" />
                   <div className="text-start leading-none">
                     <div className="text-[9px] opacity-60 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
                     <div className="text-[16px] font-black">App Store</div>
