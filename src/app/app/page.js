@@ -96,17 +96,17 @@ export default function AppPage() {
       ══════════════════════════════════════════════════════════ */}
       <section className="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
 
-        {/* ── Background decoration ── */}
+        {/* ── Background image ── */}
         <div className="absolute inset-0 pointer-events-none">
-          {/* Gold orb top-right */}
-          <div className="absolute -top-32 -right-32 w-[700px] h-[700px] rounded-full"
-            style={{ background: "radial-gradient(circle, rgba(201,163,77,0.08) 0%, transparent 70%)" }} />
-          {/* Blue orb bottom-left */}
-          <div className="absolute -bottom-32 -left-32 w-[600px] h-[600px] rounded-full"
-            style={{ background: "radial-gradient(circle, rgba(30,80,140,0.35) 0%, transparent 70%)" }} />
-          {/* Subtle grid */}
-          <div className="absolute inset-0 opacity-[0.022]"
-            style={{ backgroundImage: "linear-gradient(rgba(201,163,77,1) 1px,transparent 1px),linear-gradient(90deg,rgba(201,163,77,1) 1px,transparent 1px)", backgroundSize: "65px 65px" }} />
+          <Image
+            src="/asstes/hero-app.png"
+            alt=""
+            fill
+            className="object-cover object-center"
+            priority
+          />
+          {/* Dark overlay so text stays readable */}
+          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg,rgba(4,13,24,0.72) 0%,rgba(7,22,38,0.60) 50%,rgba(4,13,24,0.75) 100%)" }} />
           {/* Top border line */}
           <div className="absolute top-0 left-0 w-full h-[2px]"
             style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.5),transparent)" }} />
