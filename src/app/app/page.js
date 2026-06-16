@@ -94,7 +94,7 @@ export default function AppPage() {
       {/* ═══════════════════════════════════════════════════════
           HERO
       ══════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center pt-24 sm:pt-28 pb-16 sm:pb-20 overflow-hidden">
+      <section className="relative min-h-screen flex items-center pt-24 top-10 sm:pt-28 pb-16 sm:pb-20 overflow-hidden">
 
         {/* ── Background image ── */}
         <div className="absolute inset-0 pointer-events-none">
@@ -213,8 +213,7 @@ export default function AppPage() {
               <p className="text-white/55 text-[0.92rem] sm:text-[1.05rem] leading-relaxed sm:max-w-[420px] mb-8 sm:mb-10">{c.desc}</p>
 
               {/* ── Store Buttons ── */}
-              <div className={`flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-10 ${isRTL ? "xs:justify-end" : ""}`}>
-
+              <div className="flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-10 justify-end">
                 {/* App Store — official black */}
                 <button className="group flex items-center justify-center gap-3 bg-black text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#111] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full xs:w-auto">
                   <AppleIcon size={26} />
