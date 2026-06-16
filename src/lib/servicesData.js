@@ -22,7 +22,7 @@ export const SERVICES_DATA = {
         title: "مشاريع المقاولات",
         subtitle: "نبني بدقة — ننجز بثقة",
         description:
-          "تُعد شركة مروان أحمد ناظر للمقاولات العامة علامة متميزة في مجال تنفيذ مشاريع البناء والمقاولات في مدينة جدة والمنطقة الغربية، بخبرة هندسية تمتد لأكثر من ١٥ عاماً في تنفيذ المشاريع السكنية والتجارية والإدارية بأعلى معايير الجودة العالمية.",
+          "تُعد شركة ام ان سى للانشاءات علامة متميزة في مجال تنفيذ مشاريع البناء والمقاولات في مدينة جدة والمنطقة الغربية، بخبرة هندسية تمتد لأكثر من ١٥ عاماً في تنفيذ المشاريع السكنية والتجارية والإدارية بأعلى معايير الجودة العالمية.",
         offeringsTitle: "ما نقدمه",
         offerings: [
           "تشييد المباني السكنية: الفلل والشقق والمجمعات السكنية",
@@ -62,7 +62,7 @@ export const SERVICES_DATA = {
         title: "Contracting Projects",
         subtitle: "We build with precision — we deliver with confidence",
         description:
-          "Marwan Ahmed Nazer General Contracting Foundation is a distinguished name in construction and contracting in Jeddah and the Western Region, with over 15 years of engineering expertise in residential, commercial, and administrative projects to the highest international quality standards.",
+          "MNC General Contracting is a distinguished name in construction and contracting in Jeddah and the Western Region, with over 15 years of engineering expertise in residential, commercial, and administrative projects to the highest international quality standards.",
         offeringsTitle: "What We Offer",
         offerings: [
           "Residential buildings: villas, apartments, housing complexes",
@@ -116,7 +116,7 @@ export const SERVICES_DATA = {
         title: "التصميم المعماري",
         subtitle: "نصمم المستقبل — نُجسّد الرؤى",
         description:
-          "تقدم شركة مروان أحمد ناظر خدمات التصميم المعماري الشاملة التي تجمع بين الجمالية الحديثة والوظيفية العملية، مع مراعاة الهوية الثقافية والمناخ المحلي. فريقنا المعماري يحول أفكارك إلى تصاميم استثنائية تتجاوز التوقعات.",
+          "تقدم شركة ام ان سى للانشاءات خدمات التصميم المعماري الشاملة التي تجمع بين الجمالية الحديثة والوظيفية العملية، مع مراعاة الهوية الثقافية والمناخ المحلي. فريقنا المعماري يحول أفكارك إلى تصاميم استثنائية تتجاوز التوقعات.",
         offeringsTitle: "ما نقدمه",
         offerings: [
           "التصميم المعماري للمباني السكنية والتجارية والإدارية",
@@ -156,7 +156,7 @@ export const SERVICES_DATA = {
         title: "Architectural Design",
         subtitle: "We design the future — we realize visions",
         description:
-          "Marwan Ahmed Nazer Foundation offers comprehensive architectural design services combining modern aesthetics with practical functionality, respecting cultural identity and local climate. Our architectural team transforms your ideas into exceptional designs that exceed expectations.",
+          "MNC General Contracting offers comprehensive architectural design services combining modern aesthetics with practical functionality, respecting cultural identity and local climate. Our architectural team transforms your ideas into exceptional designs that exceed expectations.",
         offeringsTitle: "What We Offer",
         offerings: [
           "Architectural design for residential, commercial, and administrative buildings",
@@ -212,7 +212,7 @@ export const SERVICES_DATA = {
         title: "إدارة المشاريع",
         subtitle: "نُدير مشروعك — نضمن نجاحه",
         description:
-          "توفر شركة مروان أحمد ناظر خدمات إدارة المشاريع الإنشائية الشاملة، من التخطيط الأولي حتى التسليم النهائي. نضمن تنفيذ مشروعك ضمن الميزانية المحددة والجدول الزمني المتفق عليه بأعلى معايير الجودة والشفافية.",
+          "توفر شركة ام ان سى للانشاءات خدمات إدارة المشاريع الإنشائية الشاملة، من التخطيط الأولي حتى التسليم النهائي. نضمن تنفيذ مشروعك ضمن الميزانية المحددة والجدول الزمني المتفق عليه بأعلى معايير الجودة والشفافية.",
         offeringsTitle: "ما نقدمه",
         offerings: [
           "التخطيط الاستراتيجي وجدولة المشروع",
@@ -252,7 +252,7 @@ export const SERVICES_DATA = {
         title: "Project Management",
         subtitle: "We manage your project — we guarantee its success",
         description:
-          "Marwan Ahmed Nazer Foundation provides comprehensive construction project management services, from initial planning to final delivery. We ensure execution within the specified budget and agreed timeline with the highest standards of quality and transparency.",
+          "MNC General Contracting provides comprehensive construction project management services, from initial planning to final delivery. We ensure execution within the specified budget and agreed timeline with the highest standards of quality and transparency.",
         offeringsTitle: "What We Offer",
         offerings: [
           "Strategic planning and project scheduling",
@@ -306,7 +306,7 @@ export const SERVICES_DATA = {
         title: "التصميم الداخلي",
         subtitle: "نُحوّل الفراغات — نصنع التجارب",
         description:
-          "يقدم فريق التصميم الداخلي في شركة مروان أحمد ناظر حلولاً تصميمية شاملة وفريدة تحول الفضاءات الداخلية إلى بيئات جمالية وظيفية تعكس شخصيتك وتلبي احتياجاتك. من التصميم الأولي حتى التنفيذ النهائي، نحن معك في كل خطوة.",
+          "يقدم فريق التصميم الداخلي في شركة ام ان سى للانشاءات حلولاً تصميمية شاملة وفريدة تحول الفضاءات الداخلية إلى بيئات جمالية وظيفية تعكس شخصيتك وتلبي احتياجاتك. من التصميم الأولي حتى التنفيذ النهائي، نحن معك في كل خطوة.",
         offeringsTitle: "ما نقدمه",
         offerings: [
           "تصميم الفراغات الداخلية السكنية (غرف، مجالس، مطابخ، حمامات)",
@@ -346,7 +346,7 @@ export const SERVICES_DATA = {
         title: "Interior Design",
         subtitle: "We transform spaces — we create experiences",
         description:
-          "The interior design team at Marwan Ahmed Nazer Foundation provides comprehensive and unique design solutions that transform interior spaces into aesthetic and functional environments. From initial design to final execution, we are with you every step of the way.",
+          "The interior design team at MNC General Contracting provides comprehensive and unique design solutions that transform interior spaces into aesthetic and functional environments. From initial design to final execution, we are with you every step of the way.",
         offeringsTitle: "What We Offer",
         offerings: [
           "Residential interior design (rooms, lounges, kitchens, bathrooms)",

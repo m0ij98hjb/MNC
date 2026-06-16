@@ -53,15 +53,15 @@ const Hero = () => {
   }[lang] || "Free";
 
   const descText = {
-    ar: "شركة مروان أحمد ناظر للمقاولات العامة - خبرة عريقة في التصميم المعماري، إدارة المشاريع، والتنفيذ الإنشائي بأعلى معايير الجودة العالمية.",
-    en: "Marwan Ahmed Nazer General Contracting - Deep expertise in architectural design, project management, and construction execution to the highest international quality standards.",
-    de: "Marwan Ahmed Nazer General Contracting - Langjährige Erfahrung in Architekturentwurf, Projektmanagement und Bauausführung nach höchsten internationalen Qualitätsstandards.",
-    es: "Marwan Ahmed Nazer Contratación General - Amplia experiencia en diseño arquitectónico, gestión de proyectos y ejecución de construcción según los más altos estándares internacionales de calidad.",
-    fr: "Marwan Ahmed Nazer Contracting - Une solide expertise en conception architecturale, gestion de projet et exécution de travaux selon les normes de qualité internationales les plus strictes.",
-    tr: "Marwan Ahmed Nazer Genel Müteahhitlik - En yüksek uluslararası kalite standartlarında mimari tasarım, proje yönetimi ve inşaat uygulamalarında köklü uzmanlık.",
-    ur: "مروان احمد ناظر جنرل کنٹریکٹنگ - اعلیٰ ترین بین الاقوامی معیار کے مطابق تعمیراتی ڈیزائن، پروجیکٹ مینجمنٹ اور تعمیل میں وسیع تجربہ۔",
-    zh: "Marwan Ahmed Nazer 通用承包 - 在建筑设计、项目管理和施工执行方面拥有深厚专长，符合最高国际质量标准。"
-  }[lang] || "Marwan Ahmed Nazer General Contracting - Deep expertise in architectural design, project management, and construction execution to the highest international quality standards.";
+    ar: "شركة ام ان سى للانشاءات - خبرة عريقة في التصميم المعماري، إدارة المشاريع، والتنفيذ الإنشائي بأعلى معايير الجودة العالمية.",
+    en: "MNC General Contracting - Deep expertise in architectural design, project management, and construction execution to the highest international quality standards.",
+    de: "MNC General Contracting - Langjährige Erfahrung in Architekturentwurf, Projektmanagement und Bauausführung nach höchsten internationalen Qualitätsstandards.",
+    es: "MNC Contratación General - Amplia experiencia en diseño arquitectónico, gestión de proyectos y ejecución de construcción según los más altos estándares internacionales de calidad.",
+    fr: "MNC Contracting - Une solide expertise en conception architecturale, gestion de projet et exécution de travaux selon les normes de qualité internationales les plus strictes.",
+    tr: "MNC Genel Müteahhitlik - En yüksek uluslararası kalite standartlarında mimari tasarım, proje yönetimi ve inşaat uygulamalarında köklü uzmanlık.",
+    ur: "ایم این سی للانشاءات - اعلیٰ ترین بین الاقوامی معیار کے مطابق تعمیراتی ڈیزائن، پروجیکٹ مینجمنٹ اور تعمیل میں وسیع تجربہ۔",
+    zh: "MNC 通用承包 - 在建筑设计、项目管理和施工执行方面拥有深厚专长，符合最高国际质量标准。"
+  }[lang] || "MNC General Contracting - Deep expertise in architectural design, project management, and construction execution to the highest international quality standards.";
 
   const requestConsultText = {
     ar: "اطلب استشارة",

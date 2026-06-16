@@ -129,7 +129,7 @@ export const fr = {
     badge: "Vision & Expertise",
     titlePart1: "Nous ne construisons pas seulement des murs,",
     titlePart2: "Nous concevons un avenir d'excellence",
-    description: "Marwan Ahmed Nazer Contracting est l'une des entreprises leaders du Royaume, où nous combinons l'authenticité de l'ingénierie et une vision moderne. Nous nous engageons à transformer des plans muets en repères architecturaux vibrants de vie et de qualité.",
+    description: "MNC Contracting est l'une des entreprises leaders du Royaume, où nous combinons l'authenticité de l'ingénierie et une vision moderne. Nous nous engageons à transformer des plans muets en repères architecturaux vibrants de vie et de qualité.",
     highlights: ["Conceptions Architecturales Innovantes", "Gestion de Projet Professionnelle", "Exécution de la Plus Haute Qualité", "Engagement Total sur les Délais"],
     quote: "\"Notre mission est de fournir une excellence en ingénierie qui dépasse les attentes, en mettant l'accent sur la durabilité et l'innovation dans chaque détail de construction.\"",
     directorName: "Ing. Marwan Ahmed Nazer",
@@ -196,13 +196,13 @@ export const fr = {
     subtitle: "Une marque de distinction dans le domaine de la construction, du développement de projets et de la gestion à Djeddah.",
     visionHistoryTitle: "Notre Vision & Histoire",
     visionHistoryDesc: "MNC Project Development and Management est une référence dans la construction à Djeddah. En peu de temps, l'entreprise a géré et exécuté avec succès de nombreux projets, sur la base de plans d'experts.",
-    ceoQuote: "Derrière ces succès se cachent les efforts du Directeur Général, l'Ingénieur Marwan Ahmed Nazer. MNC opère sous l'égide du bureau 'Consultant Marwan Ahmed Nazer Office' et bénéficie de la confiance des clients.",
+    ceoQuote: "Derrière ces succès se cachent les efforts du Directeur Général, l'Ingénieur Marwan Ahmed Nazer. MNC opère sous l'égide du bureau 'MNC Consulting Office' et bénéficie de la confiance des clients.",
     goalTitle: "Notre Objectif Principal",
     goalDesc: "Trouver les solutions adaptées pour offrir à nos clients un travail intégré, alliant haute qualité et solide réputation.",
     projectsTitle: "Nos Projets",
     projectsDesc: "Nous avons réalisé et développé de nombreux projets d'investissement au plus haut niveau de conception et d'exécution.",
     ceoSectionTitle: "Directeur Général",
-    ceoSectionText: "MNC est une marque leader dans le secteur de la construction à Djeddah. Opérant sous la direction du bureau d'ingénierie 'Consultant Marwan Ahmed Nazer Office', elle garantit une qualité irréprochable.",
+    ceoSectionText: "MNC est une marque leader dans le secteur de la construction à Djeddah. Opérant sous la direction du bureau d'ingénierie 'MNC Consulting Office', elle garantit une qualité irréprochable.",
     teamBadge: "Notre Équipe",
     teamTitle: "Partenaires de Réussite & Créativité",
     teamDesc: "Nous sommes fiers de compter parmi nous des ingénieurs et techniciens talentueux, animés par la passion et engagés à fournir les meilleures solutions selon les normes mondiales.",
@@ -227,7 +227,7 @@ export const fr = {
     },
     locationBadge: "Notre Emplacement",
     visitTitle: "Visitez Notre Bureau",
-    mapTitle: "Cabinet de Conseil Marwan Nazer",
+    mapTitle: "MNC Cabinet de Conseil",
     mapDesc: "Quartier Al-Andalus - Rue Abdulrahman Al-Tubaishi. Villa 72 - Djeddah",
     openMaps: "Ouvrir dans Google Maps"
   },
@@ -240,10 +240,10 @@ export const fr = {
     recentTitle: "Travaux Récents 2025"
   },
   footer: {
-    brandDesc: "Marwan Ahmed Nazer Contracting — Nous bâtissons notre réputation dans le secteur de la construction avec les plus hauts standards de qualité et de professionnalisme depuis plus de 15 ans.",
+    brandDesc: "MNC Contracting — Nous bâtissons notre réputation dans le secteur de la construction avec les plus hauts standards de qualité et de professionnalisme depuis plus de 15 ans.",
     quickLinks: "Liens Rapides",
     services: "Services",
-    rightsReserved: "Marwan Nazer Construction — Tous droits réservés",
+    rightsReserved: "MNC General Contracting — Tous droits réservés",
     location: "Djeddah, Arabie Saoudite"
   },
   voice: {

@@ -129,7 +129,7 @@ export const zh = {
     badge: "愿景与经验",
     titlePart1: "我们不仅仅是建造墙壁，",
     titlePart2: "我们设计杰出的未来",
-    description: "Marwan Ahmed Nazer 通用承包是沙特王国领先的机构之一，我们将工程的真实性与现代愿景相结合。我们致力于将无声的图纸转化为充满活力和品质的建筑印记。",
+    description: "MNC 通用承包是沙特王国领先的机构之一，我们将工程的真实性与现代愿景相结合。我们致力于将无声的图纸转化为充满活力和品质的建筑印记。",
     highlights: ["创新的建筑设计", "专业的项目管理", "最高质量的执行", "完全遵守截止日期"],
     quote: "\"我们的使命是在每个施工细节中关注可持续性和创新，提供超出预期的卓越工程。\"",
     directorName: "Marwan Ahmed Nazer 工程师",
@@ -196,13 +196,13 @@ export const zh = {
     subtitle: "吉达建筑、项目开发和管理领域的杰出品牌。",
     visionHistoryTitle: "我们的愿景与历史",
     visionHistoryDesc: "MNC 项目开发与管理是吉达建筑领域的杰出品牌。在很短的时间内，它已经成功管理和执行了许多项目。这一切都基于一流专家制定的计划。",
-    ceoQuote: "所有这些成就的背后是总经理 Marwan Ahmed Nazer 工程师的辛勤付出。MNC 在 'Consultant Marwan Ahmed Nazer Office' 旗下运营，并赢得了客户的赞誉。",
+    ceoQuote: "所有这些成就的背后是总经理 Marwan Ahmed Nazer 工程师的辛勤付出。MNC 在 'MNC 咨询办公室' 旗下运营，并赢得了客户的赞誉。",
     goalTitle: "我们的核心目标",
     goalDesc: "为客户寻找合适的解决方案，以实现一体化的工作，始终兼顾高质量和良好信誉。",
     projectsTitle: "我们的项目",
     projectsDesc: "我们设计并开发了众多项目，部分处于设计或执行最高水平的在建投资项目。",
     ceoSectionTitle: "执行董事",
-    ceoSectionText: "MNC 是吉达建筑行业的领先品牌。在工程咨询、设计和项目管理领域，在 'Consultant Marwan Ahmed Nazer' 旗下运营。",
+    ceoSectionText: "MNC 是吉达建筑行业的领先品牌。在工程咨询、设计和项目管理领域，在 'MNC 咨询办公室' 旗下运营。",
     teamBadge: "我们的团队",
     teamTitle: "成功与创意的合作伙伴",
     teamDesc: "我们为拥有一支高素质的工程师和技术人员队伍而感到自豪，他们充满热情，致力于提供符合全球质量标准的最佳工程解决方案。",
@@ -227,7 +227,7 @@ export const zh = {
     },
     locationBadge: "我们的位置",
     visitTitle: "访问我们的办公室",
-    mapTitle: "Marwan Nazer 咨询办公室",
+    mapTitle: "MNC 咨询办公室",
     mapDesc: "Al-Andalus 区 - Abdulrahman Al-Tubaishi 街. 72号别墅 - 吉达",
     openMaps: "在 Google 地图中打开"
   },
@@ -240,10 +240,10 @@ export const zh = {
     recentTitle: "近期作品 2025"
   },
   footer: {
-    brandDesc: "Marwan Ahmed Nazer 通用承包 — 15 年来，我们以最高的质量和专业标准打造我们在建筑行业的品牌。",
+    brandDesc: "MNC 通用承包 — 15 年来，我们以最高的质量和专业标准打造我们在建筑行业的品牌。",
     quickLinks: "快速链接",
     services: "我们的服务",
-    rightsReserved: "Marwan Nazer Construction — 保留所有权利",
+    rightsReserved: "MNC General Contracting — 保留所有权利",
     location: "吉达，沙特阿拉伯"
   },
   voice: {

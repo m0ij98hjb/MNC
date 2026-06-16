@@ -129,7 +129,7 @@ export const tr = {
     badge: "Vizyon ve Uzmanlık",
     titlePart1: "Sadece duvarlar inşa etmiyoruz,",
     titlePart2: "Mükemmel bir gelecek tasarlıyoruz",
-    description: "Marwan Ahmed Nazer Genel Müteahhitlik, mühendislik özgünlüğünü modern vizyonla birleştirdiğimiz, Krallığın önde gelen kurumlarından biridir. Sessiz planları, yaşam ve kalite ile atan mimari izlere dönüştürmeyi taahhüt ediyoruz.",
+    description: "MNC Genel Müteahhitlik, mühendislik özgünlüğünü modern vizyonla birleştirdiğimiz, Krallığın önde gelen kurumlarından biridir. Sessiz planları, yaşam ve kalite ile atan mimari izlere dönüştürmeyi taahhüt ediyoruz.",
     highlights: ["Yenilikçi Mimari Tasarımlar", "Profesyonel Proje Yönetimi", "En Yüksek Kalitede Uygulama", "Teslim Tarihlerine Tam Bağlılık"],
     quote: "\"Misyonumuz, her inşaat detayında sürdürülebilirlik ve yeniliğe odaklanarak, beklentileri aşan bir mühendislik mükemmelliği sunmaktır.\"",
     directorName: "Müh. Marwan Ahmed Nazer",
@@ -196,13 +196,13 @@ export const tr = {
     subtitle: "Cidde'de inşaat, proje geliştirme ve yönetimi alanında seçkin bir marka.",
     visionHistoryTitle: "Vizyonumuz & Tarihçemiz",
     visionHistoryDesc: "MNC Proje Geliştirme ve Yönetimi, Cidde'de inşaat alanında öncü bir markadır. Kısa sürede birçok projeyi başarıyla tamamlamıştır. Tüm bunlar alanında deneyimli uzmanlarca hazırlanan planlar sayesinde gerçekleşmiştir.",
-    ceoQuote: "Tüm bu başarıların arkasında Genel Müdür Müh. Marwan Ahmed Nazer'in yoğun emeği vardır. MNC, 'Consultant Marwan Ahmed Nazer Office' çatısı altında hizmet vermekte ve müşterilerin beğenisini kazanmaktadır.",
+    ceoQuote: "Tüm bu başarıların arkasında Genel Müdür Müh. Marwan Ahmed Nazer'in yoğun emeği vardır. MNC, 'MNC Danışmanlık Ofisi' çatısı altında hizmet vermekte ve müşterilerin beğenisini kazanmaktadır.",
     goalTitle: "Temel Hedefimiz",
     goalDesc: "Müşterilerimiz için entegre iş çözümleri üretmek, her projede yüksek kalite ve iyi bir itibar sunmak.",
     projectsTitle: "Projelerimiz",
     projectsDesc: "Tasarım ve uygulama açısından en üst düzeyde olan birçok yatırım projesi geliştirdik ve geliştirmeye devam ediyoruz.",
     ceoSectionTitle: "Genel Müdür",
-    ceoSectionText: "MNC, Cidde'deki inşaat sektörünün lider markalarından biridir. Mühendislik danışmanlığı, mimari tasarım ve proje yönetimi alanlarında 'Consultant Marwan Ahmed Nazer' bünyesinde faaliyet göstermektedir.",
+    ceoSectionText: "MNC, Cidde'deki inşaat sektörünün lider markalarından biridir. Mühendislik danışmanlığı, mimari tasarım ve proje yönetimi alanlarında 'MNC Danışmanlık Ofisi' bünyesinde faaliyet göstermektedir.",
     teamBadge: "Ekibimiz",
     teamTitle: "Başarı & Yaratıcılık Ortakları",
     teamDesc: "Müşterilerimize küresel kalite standartlarında en iyi çözümleri sunmak için çalışan, tutku ve kararlılıkla birleşmiş yetkin mühendisler ve teknisyenlere sahip olmaktan gurur duyuyoruz.",
@@ -227,7 +227,7 @@ export const tr = {
     },
     locationBadge: "Konumumuz",
     visitTitle: "Ofisimizi Ziyaret Edin",
-    mapTitle: "Marwan Nazer Danışmanlık Ofisi",
+    mapTitle: "MNC Danışmanlık Ofisi",
     mapDesc: "Al-Andalus Bölgesi - Abdulrahman Al-Tubaishi Cad. Villa 72 - Cidde",
     openMaps: "Google Haritalar'da Aç"
   },
@@ -240,10 +240,10 @@ export const tr = {
     recentTitle: "Güncel Çalışmalar 2025"
   },
   footer: {
-    brandDesc: "Marwan Ahmed Nazer Genel Müteahhitlik — 15 yılı aşkın süredir inşaat sektöründe markamızı en yüksek kalite ve profesyonellik standartlarıyla inşa ediyoruz.",
+    brandDesc: "MNC Genel Müteahhitlik — 15 yılı aşkın süredir inşaat sektöründe markamızı en yüksek kalite ve profesyonellik standartlarıyla inşa ediyoruz.",
     quickLinks: "Hızlı Linkler",
     services: "Hizmetler",
-    rightsReserved: "Marwan Nazer Construction — Tüm hakları saklıdır",
+    rightsReserved: "MNC General Contracting — Tüm hakları saklıdır",
     location: "Cidde, Suudi Arabistan"
   },
   voice: {

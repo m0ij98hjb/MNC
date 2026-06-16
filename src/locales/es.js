@@ -129,7 +129,7 @@ export const es = {
     badge: "Visión y Experiencia",
     titlePart1: "No solo construimos paredes,",
     titlePart2: "Diseñamos un futuro excelente",
-    description: "Marwan Ahmed Nazer Contratación General es una de las instituciones líderes en el Reino, donde combinamos la autenticidad de la ingeniería con una visión moderna. Nos comprometemos a transformar planos mudos en marcas arquitectónicas que pulsen con vida y calidad.",
+    description: "MNC Contratación General es una de las instituciones líderes en el Reino, donde combinamos la autenticidad de la ingeniería con una visión moderna. Nos comprometemos a transformar planos mudos en marcas arquitectónicas que pulsen con vida y calidad.",
     highlights: ["Diseños Arquitectónicos Innovadores", "Gestión Profesional de Proyectos", "Ejecución de la Más Alta Calidad", "Compromiso Total con los Plazos"],
     quote: "\"Nuestra misión es proporcionar una excelencia en ingeniería que supere las expectativas, con un enfoque en la sostenibilidad y la innovación en cada detalle de la construcción.\"",
     directorName: "Ing. Marwan Ahmed Nazer",
@@ -196,13 +196,13 @@ export const es = {
     subtitle: "Una marca distintiva en el campo de la construcción, desarrollo de proyectos y gestión en Yeda.",
     visionHistoryTitle: "Nuestra Visión e Historia",
     visionHistoryDesc: "MNC Project Development and Management es una marca destacada en Yeda. En un corto período, ha gestionado y ejecutado con éxito numerosos proyectos, gracias a planes trazados por expertos de primer nivel.",
-    ceoQuote: "Detrás de todos estos logros estuvo el esfuerzo dedicado del Director General, Ing. Marwan Ahmed Nazer. MNC opera bajo el paraguas de 'Consultant Marwan Ahmed Nazer Office' y goza de gran aprecio por parte de los clientes.",
+    ceoQuote: "Detrás de todos estos logros estuvo el esfuerzo dedicado del Director General, Ing. Marwan Ahmed Nazer. MNC opera bajo el paraguas de 'MNC Consulting Office' y goza de gran aprecio por parte de los clientes.",
     goalTitle: "Nuestro Objetivo Principal",
     goalDesc: "Encontrar soluciones adecuadas para que nuestros clientes obtengan un trabajo integrado, considerando siempre la alta calidad y la excelente reputación.",
     projectsTitle: "Nuestros Proyectos",
     projectsDesc: "Hemos realizado y desarrollado numerosos proyectos, con inversiones activas al más alto nivel de diseño y ejecución.",
     ceoSectionTitle: "Director Ejecutivo",
-    ceoSectionText: "MNC es una marca líder en el sector de la construcción en Yeda. Opera bajo el paraguas de 'Consultant Marwan Ahmed Nazer Office for Engineering Consultancy' ofreciendo los más altos estándares de excelencia.",
+    ceoSectionText: "MNC es una marca líder en el sector de la construcción en Yeda. Opera bajo el paraguas de 'MNC Consulting Office for Engineering Consultancy' ofreciendo los más altos estándares de excelencia.",
     teamBadge: "Nuestro Equipo",
     teamTitle: "Socios de Éxito y Creatividad",
     teamDesc: "Nos enorgullecemos de contar con ingenieros y técnicos altamente capacitados, unidos por la pasión y el compromiso de ofrecer soluciones de calidad bajo estándares globales.",
@@ -227,7 +227,7 @@ export const es = {
     },
     locationBadge: "Nuestra Ubicación",
     visitTitle: "Visite Nuestra Oficina",
-    mapTitle: "Oficina de Consultoría Marwan Nazer",
+    mapTitle: "MNC Consultoría",
     mapDesc: "Distrito de Al-Andalus - Calle Abdulrahman Al-Tubaishi. Villa 72 - Yeda",
     openMaps: "Abrir en Google Maps"
   },
@@ -240,10 +240,10 @@ export const es = {
     recentTitle: "Trabajos Recientes 2025"
   },
   footer: {
-    brandDesc: "Marwan Ahmed Nazer Contratación General — Construyendo nuestra marca en la construcción con los más altos estándares de calidad y profesionalismo por más de 15 años.",
+    brandDesc: "MNC Contratación General — Construyendo nuestra marca en la construcción con los más altos estándares de calidad y profesionalismo por más de 15 años.",
     quickLinks: "Enlaces Rápidos",
     services: "Servicios",
-    rightsReserved: "Marwan Nazer Construction — Todos los derechos reservados",
+    rightsReserved: "MNC General Contracting — Todos los derechos reservados",
     location: "Yeda, Arabia Saudita"
   },
   voice: {

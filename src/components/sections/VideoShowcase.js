@@ -157,7 +157,7 @@ export default function VideoShowcase() {
               <div className={`absolute top-5 ${isRTL ? "right-5" : "left-5"} flex items-center gap-2.5 bg-black/60 backdrop-blur-md border border-[#D5B25D]/25 rounded-full px-4 py-2`}>
                 <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D] animate-pulse" />
                 <span className="text-white text-xs font-bold">
-                  {isAr ? "شركة مروان أحمد ناظر" : "Marwan Ahmed Nazer Company"}
+                  {isAr ? "شركة ام ان سى للانشاءات" : "MNC General Contracting"}
                 </span>
               </div>
             )}

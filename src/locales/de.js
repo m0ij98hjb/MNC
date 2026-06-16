@@ -129,7 +129,7 @@ export const de = {
     badge: "Vision & Expertise",
     titlePart1: "Wir bauen nicht nur Mauern,",
     titlePart2: "Wir gestalten eine hervorragende Zukunft",
-    description: "Marwan Ahmed Nazer General Contracting ist eines der führenden Unternehmen im Königreich, bei dem wir technische Authentizität mit moderner Vision verbinden. Wir verpflichten uns, stumme Pläne in architektonische Zeichen zu verwandeln, die Leben und Qualität ausstrahlen.",
+    description: "MNC General Contracting ist eines der führenden Unternehmen im Königreich, bei dem wir technische Authentizität mit moderner Vision verbinden. Wir verpflichten uns, stumme Pläne in architektonische Zeichen zu verwandeln, die Leben und Qualität ausstrahlen.",
     highlights: ["Innovative Architekturentwürfe", "Professionelles Projektmanagement", "Ausführung in Höchster Qualität", "Volles Engagement für Fristen"],
     quote: "\"Unser Ziel ist es, technische Exzellenz zu bieten, die Erwartungen übertrifft, mit Fokus auf Nachhaltigkeit und Innovation in jedem Baudetail.\"",
     directorName: "Eng. Marwan Ahmed Nazer",
@@ -196,13 +196,13 @@ export const de = {
     subtitle: "Ein unverwechselbares Zeichen im Bereich Bauwesen, Projektentwicklung und -management in Dschidda.",
     visionHistoryTitle: "Unsere Vision & Geschichte",
     visionHistoryDesc: "MNC Project Development and Management ist eine herausragende Marke im Bausektor in Dschidda. In kurzer Zeit wurden zahlreiche Projekte erfolgreich durchgeführt. All dies basierte auf Plänen, die von erfahrenen Experten entwickelt wurden.",
-    ceoQuote: "Hinter all diesen Erfolgen stand das Engagement des Geschäftsführers, Eng. Marwan Ahmed Nazer. MNC operiert unter dem Dach von 'Consultant Marwan Ahmed Nazer Office' und hat breite Anerkennung bei den Kunden gefunden.",
+    ceoQuote: "Hinter all diesen Erfolgen stand das Engagement des Geschäftsführers, Eng. Marwan Ahmed Nazer. MNC operiert unter dem Dach von 'MNC Consulting Office' und hat breite Anerkennung bei den Kunden gefunden.",
     goalTitle: "Unser Hauptziel",
     goalDesc: "Die passenden Lösungen für unsere Kunden zu finden, um ein integriertes Werk zu schaffen. Nach Abschluss der Entwürfe wird das Konzept dem Eigentümer präsentiert, um Qualität und Reputation sicherzustellen.",
     projectsTitle: "Unsere Projekte",
     projectsDesc: "Wir haben zahlreiche Projekte entwickelt, darunter laufende Investitionsprojekte auf höchstem Niveau in Design und Ausführung.",
     ceoSectionTitle: "Geschäftsführer",
-    ceoSectionText: "MNC Project Development and Management ist eine führende Marke in Dschidda. Das Unternehmen arbeitet unter dem Dach von 'Consultant Marwan Ahmed Nazer Office for Engineering Consultancy' und steht für Exzellenz und hohe Qualität.",
+    ceoSectionText: "MNC General Contracting ist eine führende Marke in Dschidda. Das Unternehmen arbeitet unter dem Dach von 'MNC Consulting Office for Engineering Consultancy' und steht für Exzellenz und hohe Qualität.",
     teamBadge: "Unser Team",
     teamTitle: "Partner für Erfolg & Kreativität",
     teamDesc: "Wir sind stolz auf unsere hochqualifizierten Ingenieure und Techniker, die mit Leidenschaft und Engagement die besten technischen Lösungen nach globalen Qualitätsstandards liefern.",
@@ -227,7 +227,7 @@ export const de = {
     },
     locationBadge: "Unser Standort",
     visitTitle: "Besuchen Sie unser Büro",
-    mapTitle: "Marwan Nazer Consulting Office",
+    mapTitle: "MNC Consulting Office",
     mapDesc: "Al-Andalus Bezirk - Abdulrahman Al-Tubaishi Str. Villa 72 - Dschidda",
     openMaps: "In Google Maps öffnen"
   },
@@ -240,10 +240,10 @@ export const de = {
     recentTitle: "Aktuelle Arbeiten 2025"
   },
   footer: {
-    brandDesc: "Marwan Ahmed Nazer General Contracting — Seit über 15 Jahren bauen wir unsere Marke im Bauwesen mit höchsten Standards an Qualität und Professionalität.",
+    brandDesc: "MNC General Contracting — Seit über 15 Jahren bauen wir unsere Marke im Bauwesen mit höchsten Standards an Qualität und Professionalität.",
     quickLinks: "Schnelllinks",
     services: "Dienstleistungen",
-    rightsReserved: "Marwan Nazer Construction — Alle Rechte vorbehalten",
+    rightsReserved: "MNC General Contracting — Alle Rechte vorbehalten",
     location: "Dschidda, Saudi-Arabien"
   },
   voice: {

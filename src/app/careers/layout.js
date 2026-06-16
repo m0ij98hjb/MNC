@@ -1,6 +1,6 @@
 export const metadata = {
   title: "وظائف – MNC",
-  description: "انضم إلى فريق شركة مروان أحمد ناظر للمقاولات. استعرض الوظائف المتاحة وقدم طلبك الآن.",
+  description: "انضم إلى فريق شركة ام ان سى للانشاءات. استعرض الوظائف المتاحة وقدم طلبك الآن.",
 };
 
 export default function CareersLayout({ children }) {
