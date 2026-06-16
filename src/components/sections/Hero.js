@@ -53,7 +53,7 @@ const Hero = () => {
   }[lang] || "Free";
 
   const descText = {
-    ar: "مؤسسة مروان أحمد ناظر للمقاولات العامة - خبرة عريقة في التصميم المعماري، إدارة المشاريع، والتنفيذ الإنشائي بأعلى معايير الجودة العالمية.",
+    ar: "شركة مروان أحمد ناظر للمقاولات العامة - خبرة عريقة في التصميم المعماري، إدارة المشاريع، والتنفيذ الإنشائي بأعلى معايير الجودة العالمية.",
     en: "Marwan Ahmed Nazer General Contracting - Deep expertise in architectural design, project management, and construction execution to the highest international quality standards.",
     de: "Marwan Ahmed Nazer General Contracting - Langjährige Erfahrung in Architekturentwurf, Projektmanagement und Bauausführung nach höchsten internationalen Qualitätsstandards.",
     es: "Marwan Ahmed Nazer Contratación General - Amplia experiencia en diseño arquitectónico, gestión de proyectos y ejecución de construcción según los más altos estándares internacionales de calidad.",

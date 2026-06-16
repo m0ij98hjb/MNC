@@ -173,7 +173,7 @@ function VideoPlayer() {
           {!started && (
             <div className="absolute top-3 left-3 flex items-center gap-2 bg-black/60 backdrop-blur-md border border-[#D5B25D]/25 rounded-full px-3 py-1.5">
               <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D] animate-pulse" />
-              <span className="text-white text-[10px] font-bold">مؤسسة مروان أحمد ناظر</span>
+              <span className="text-white text-[10px] font-bold">شركة مروان أحمد ناظر</span>
             </div>
           )}
         </div>
