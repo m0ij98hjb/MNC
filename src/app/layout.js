@@ -18,8 +18,13 @@ export const metadata = {
   title: "مروان ناظر للاستشارات الهندسية: MNC",
   description: "خدماتنا ; مشاريع مقاولات. دراسة وتنفيذ ; التصميم المعماري. الأفكار والحلول ; إدارة المشاريع. إدارة التنفيذ ; التصميم الداخلي. الديكور والتشطيب ...",
   icons: {
-    icon: "/asstes/logo13.png",
-    apple: "/asstes/logo13.png",
+    icon: [
+      { url: "/icon-new.png", type: "image/png", sizes: "any" },
+    ],
+    apple: [
+      { url: "/icon-new.png", type: "image/png", sizes: "180x180" },
+    ],
+    shortcut: "/icon-new.png",
   },
 };
 
