@@ -1,4 +1,4 @@
-xport const ar = {
+export const ar = {
   nav: {
     home: "الرئيسية",
     about: "من نحن",
