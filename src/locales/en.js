@@ -8,7 +8,7 @@ export const en = {
     profile: "Download Profile",
     costCalc: "Cost Calculator",
     careers: "Careers",
-    app: "App"
+    app: "MNC App"
   },
   hero: {
     badge: "Engineering Excellence",
