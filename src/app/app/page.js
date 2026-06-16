@@ -105,8 +105,8 @@ export default function AppPage() {
             className="object-cover object-center"
             priority
           />
-          {/* Dark overlay so text stays readable */}
-          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg,rgba(4,13,24,0.72) 0%,rgba(7,22,38,0.60) 50%,rgba(4,13,24,0.75) 100%)" }} />
+          {/* Light overlay — let the image breathe */}
+          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg,rgba(4,13,24,0.45) 0%,rgba(7,22,38,0.30) 50%,rgba(4,13,24,0.50) 100%)" }} />
           {/* Top border line */}
           <div className="absolute top-0 left-0 w-full h-[2px]"
             style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.5),transparent)" }} />
@@ -156,16 +156,32 @@ export default function AppPage() {
                 </div>
               </div>
 
-              {/* App screenshot */}
-              <div className="relative z-10" style={{ filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.65))" }}>
-                <Image
-                  src="/asstes/Appph.png"
-                  alt="MNC App"
-                  width={480}
-                  height={500}
-                  className="w-[280px] sm:w-[360px] lg:w-[440px] xl:w-[480px] h-auto"
-                  priority
-                />
+              {/* App screenshot — framed */}
+              <div className="relative z-10">
+                {/* Outer glow */}
+                <div className="absolute inset-[-18px] rounded-[2.8rem] pointer-events-none"
+                  style={{ background: "radial-gradient(ellipse at center, rgba(201,163,77,0.18) 0%, transparent 70%)" }} />
+                {/* Frame border */}
+                <div
+                  className="relative rounded-[2.4rem] p-[5px]"
+                  style={{
+                    background: "linear-gradient(145deg,rgba(201,163,77,0.55) 0%,rgba(201,163,77,0.10) 40%,rgba(255,255,255,0.06) 60%,rgba(201,163,77,0.35) 100%)",
+                    boxShadow: "0 30px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(201,163,77,0.15) inset, 0 8px 32px rgba(201,163,77,0.12)",
+                  }}
+                >
+                  {/* Inner container with rounded clip */}
+                  <div className="rounded-[2rem] overflow-hidden"
+                    style={{ boxShadow: "0 2px 20px rgba(0,0,0,0.5) inset" }}>
+                    <Image
+                      src="/asstes/Appph.png"
+                      alt="MNC App"
+                      width={480}
+                      height={500}
+                      className="w-[260px] sm:w-[330px] lg:w-[400px] xl:w-[440px] h-auto block"
+                      priority
+                    />
+                  </div>
+                </div>
               </div>
             </div>
 
