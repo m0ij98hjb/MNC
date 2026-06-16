@@ -7,7 +7,8 @@ export const ar = {
     contact: "تواصل معنا",
     profile: "البروفايل",
     costCalc: "احسب تكلفتك",
-    careers: "وظائف"
+    careers: "وظائف",
+    app: "التطبيق"
   },
   hero: {
     badge: "التميز الهندسي",

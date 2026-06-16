@@ -7,7 +7,8 @@ export const tr = {
     contact: "Bize Ulaşın",
     profile: "Profil İndir",
     costCalc: "Maliyet Hesaplayıcı",
-    careers: "Kariyer"
+    careers: "Kariyer",
+    app: "Uygulama"
   },
   hero: {
     badge: "Mühendislik Mükemmelliği",

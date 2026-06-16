@@ -7,7 +7,8 @@ export const ur = {
     contact: "ہم سے رابطہ",
     profile: "پروفائل ڈاؤنلوڈ",
     costCalc: "لاگت حساب",
-    careers: "ملازمتیں"
+    careers: "ملازمتیں",
+    app: "ایپ"
   },
   hero: {
     badge: "انجینئرنگ میں عمدگی",

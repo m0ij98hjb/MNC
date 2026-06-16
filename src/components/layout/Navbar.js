@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users } from "lucide-react";
+import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users, Smartphone } from "lucide-react";
 import { useLanguage, LANGUAGES } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { HiDocumentText } from "react-icons/hi";
@@ -45,6 +45,7 @@ const Navbar = () => {
     { name: t('nav.projects'),href: "/projects",       icon: FolderOpen },
     { name: t('nav.contact'), href: "/contact",        icon: PhoneCall },
     { name: t('nav.careers'), href: "/careers",        icon: Users },
+    { name: t('nav.app'),     href: "/app",            icon: Smartphone },
     { name: t('nav.costCalc'),href: "/cost-calculator",isSpecial: true, icon: Calculator },
   ];
 

@@ -7,7 +7,8 @@ export const zh = {
     contact: "联系我们",
     profile: "下载简介",
     costCalc: "费用计算器",
-    careers: "招聘"
+    careers: "招聘",
+    app: "应用"
   },
   hero: {
     badge: "卓越工程",

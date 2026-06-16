@@ -7,7 +7,8 @@ export const es = {
     contact: "Contáctenos",
     profile: "Descargar Perfil",
     costCalc: "Calculadora de Costos",
-    careers: "Empleos"
+    careers: "Empleos",
+    app: "App"
   },
   hero: {
     badge: "Excelencia en Ingeniería",
