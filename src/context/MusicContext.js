@@ -13,7 +13,7 @@ export function MusicProvider({ children }) {
   const hasInteractedRef = useRef(false);
 
   useEffect(() => {
-    const audio = new Audio('/assets/audio/vibehorn-cinematic-piano-background-539082.mp3');
+    const audio = new Audio('/assets/audio/hero-we-need-epic-cinematic.mp3');
     audio.loop = true;
     audio.volume = 0.35;
     musicRef.current = audio;
