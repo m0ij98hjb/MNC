@@ -177,7 +177,7 @@ export default function AppPage() {
                       alt="MNC App"
                       width={480}
                       height={500}
-                      className="w-[260px] sm:w-[330px] lg:w-[400px] xl:w-[440px] h-auto block"
+                      className="w-[280px] sm:w-[360px] lg:w-[440px] xl:w-[480px] h-auto block"
                       priority
                     />
                   </div>
