@@ -213,7 +213,7 @@ export default function AppPage() {
               <p className="text-white/55 text-[0.92rem] sm:text-[1.05rem] leading-relaxed sm:max-w-[420px] mb-8 sm:mb-10">{c.desc}</p>
 
               {/* ── Store Buttons ── */}
-              <div className="flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-10 justify-end">
+              <div className="flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-10">
                 {/* App Store — official black */}
                 <button className="group flex items-center justify-center gap-3 bg-black text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#111] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full xs:w-auto">
                   <AppleIcon size={26} />
@@ -342,29 +342,29 @@ export default function AppPage() {
           <div
             className="relative rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem] overflow-hidden text-center py-12 px-5 sm:py-16 sm:px-8 md:py-20"
             style={{
-              background: "linear-gradient(140deg,#040d18 0%,#071626 35%,#0b2040 65%,#040d18 100%)",
-              border: "1px solid rgba(201,163,77,0.22)",
-              boxShadow: "0 0 120px rgba(201,163,77,0.08) inset, 0 40px 80px rgba(0,0,0,0.5)",
+              background: "linear-gradient(135deg,#091522 0%,#0D1B2A 40%,#0f2035 70%,#091522 100%)",
+              border: "1px solid rgba(201,163,77,0.20)",
+              boxShadow: "0 0 0 1px rgba(201,163,77,0.06) inset, 0 30px 80px rgba(0,0,0,0.6)",
             }}
           >
-            {/* Large gold center glow */}
+            {/* Gold radial glow — center */}
             <div className="absolute inset-0 pointer-events-none"
-              style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,163,77,0.07) 0%, transparent 70%)" }} />
-            {/* Top-right corner flare */}
-            <div className="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full pointer-events-none"
-              style={{ background: "radial-gradient(circle, rgba(201,163,77,0.15) 0%, transparent 60%)" }} />
-            {/* Bottom-left blue accent */}
-            <div className="absolute -bottom-16 -left-16 w-[400px] h-[400px] rounded-full pointer-events-none"
-              style={{ background: "radial-gradient(circle, rgba(30,80,160,0.35) 0%, transparent 65%)" }} />
-            {/* Subtle dot grid */}
-            <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
-              style={{ backgroundImage: "radial-gradient(rgba(201,163,77,1) 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
-            {/* Top shimmer line */}
-            <div className="absolute top-0 left-[10%] right-[10%] h-[1px]"
-              style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.7),transparent)" }} />
-            {/* Bottom shimmer line */}
-            <div className="absolute bottom-0 left-[25%] right-[25%] h-[1px]"
-              style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.3),transparent)" }} />
+              style={{ background: "radial-gradient(ellipse 70% 55% at 50% 50%, rgba(201,163,77,0.10) 0%, transparent 65%)" }} />
+            {/* Top-right warm glow */}
+            <div className="absolute -top-24 -right-24 w-[480px] h-[480px] rounded-full pointer-events-none"
+              style={{ background: "radial-gradient(circle, rgba(201,163,77,0.12) 0%, transparent 55%)" }} />
+            {/* Bottom-left cool glow */}
+            <div className="absolute -bottom-20 -left-20 w-[380px] h-[380px] rounded-full pointer-events-none"
+              style={{ background: "radial-gradient(circle, rgba(13,27,42,0.9) 0%, transparent 70%)" }} />
+            {/* Fine diagonal lines */}
+            <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
+              style={{ backgroundImage: "repeating-linear-gradient(45deg,rgba(201,163,77,1) 0,rgba(201,163,77,1) 1px,transparent 1px,transparent 40px)" }} />
+            {/* Top shimmer */}
+            <div className="absolute top-0 left-[8%] right-[8%] h-[1px]"
+              style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.6),transparent)" }} />
+            {/* Bottom shimmer */}
+            <div className="absolute bottom-0 left-[20%] right-[20%] h-[1px]"
+              style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.25),transparent)" }} />
 
             <div className="relative z-10">
               {/* Badge */}
@@ -374,26 +374,26 @@ export default function AppPage() {
               </div>
 
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 sm:mb-5 leading-tight">{c.ctaTitle}</h2>
-              <p className="text-white/48 text-base sm:text-lg max-w-lg mx-auto mb-10 sm:mb-14 leading-relaxed">{c.ctaDesc}</p>
+              <p className="text-white/45 text-base sm:text-lg max-w-lg mx-auto mb-10 sm:mb-14 leading-relaxed">{c.ctaDesc}</p>
 
-              {/* Buttons */}
-              <div className="flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-5 justify-center items-center">
+              {/* Buttons — same style as hero */}
+              <div className="flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center">
 
-                {/* App Store — gold variant for CTA */}
-                <button className="group flex items-center justify-center gap-3 sm:gap-4 bg-[#C9A34D] text-black px-7 sm:px-9 py-4 sm:py-5 rounded-xl sm:rounded-2xl font-black transition-all duration-300 hover:bg-[#d8b560] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(201,163,77,0.35)] hover:shadow-[0_12px_40px_rgba(201,163,77,0.5)] w-full xs:w-auto">
-                  <AppleIcon size={24} color="white" />
+                {/* App Store */}
+                <button className="group flex items-center justify-center gap-3 bg-black text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#111] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full xs:w-auto">
+                  <AppleIcon size={26} />
                   <div className="text-start leading-none">
-                    <div className="text-[9px] opacity-60 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
-                    <div className="text-[14px] sm:text-[16px] font-black">App Store</div>
+                    <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
+                    <div className="text-[15px] font-black">App Store</div>
                   </div>
                 </button>
 
                 {/* Google Play */}
-                <button className="group flex items-center justify-center gap-3 sm:gap-4 bg-black/60 text-white px-7 sm:px-9 py-4 sm:py-5 rounded-xl sm:rounded-2xl font-black border border-white/12 transition-all duration-300 hover:bg-black/80 hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.4)] w-full xs:w-auto">
-                  <GooglePlayColorIcon size={24} />
+                <button className="group flex items-center justify-center gap-3 bg-[#1a1a1a] text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#222] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full xs:w-auto">
+                  <GooglePlayColorIcon size={26} />
                   <div className="text-start leading-none">
                     <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
-                    <div className="text-[14px] sm:text-[16px] font-black">Google Play</div>
+                    <div className="text-[15px] font-black">Google Play</div>
                   </div>
                 </button>
 
