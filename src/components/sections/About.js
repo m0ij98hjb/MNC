@@ -18,7 +18,7 @@ const About = () => {
         <div className={`flex flex-col ${lang === 'ar' || lang === 'ur' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-20`}>
 
           {/* Image Side */}
-          <div className="w-full lg:w-1/2 relative" data-aos="fade-up">
+          <div className="w-full lg:w-1/2 relative pb-16 lg:pb-0" data-aos="fade-up">
             <div className="relative z-10 group">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/3]">
                 <Image

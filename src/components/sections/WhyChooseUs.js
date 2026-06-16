@@ -88,7 +88,7 @@ const WhyChooseUs = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="relative bg-[var(--card-bg)] rounded-2xl p-5 border border-[var(--card-border)] shadow-[0_12px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_4px_18px_rgba(213,178,93,0.1)] transition-all duration-500 group -translate-y-1 hover:translate-y-0 flex flex-col justify-center items-center text-center overflow-hidden aspect-square w-full max-w-[250px] mx-auto"
+              className="relative bg-[var(--card-bg)] rounded-2xl p-5 border border-[var(--card-border)] shadow-[0_12px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_4px_18px_rgba(213,178,93,0.1)] transition-all duration-500 group -translate-y-1 hover:translate-y-0 flex flex-col justify-center items-center text-center overflow-hidden w-full max-w-[280px] sm:max-w-[250px] mx-auto min-h-[200px] sm:aspect-square"
               data-aos="fade-up"
               data-aos-delay={feature.delay}
             >

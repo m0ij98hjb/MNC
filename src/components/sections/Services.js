@@ -66,7 +66,7 @@ const Services = () => {
           {services.map((service, index) => (
             <div
               key={index}
-              className="group bg-[var(--background)] p-8 rounded-2xl shadow-[0_20px_50px_rgba(197,160,89,0.12)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-500 border border-[var(--card-border)] relative overflow-hidden flex flex-col items-center text-center -translate-y-2 hover:translate-y-0"
+              className="group bg-[var(--background)] p-5 sm:p-6 md:p-8 rounded-2xl shadow-[0_20px_50px_rgba(197,160,89,0.12)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-500 border border-[var(--card-border)] relative overflow-hidden flex flex-col items-center text-center -translate-y-2 hover:translate-y-0"
               data-aos="fade-up"
               data-aos-delay={service.delay}
             >
