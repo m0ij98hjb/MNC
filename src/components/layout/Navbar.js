@@ -43,7 +43,7 @@ const Navbar = () => {
     { name: t('nav.services'), href: "/#services",       icon: Briefcase },
     { name: t('nav.projects'), href: "/projects",        icon: FolderOpen },
     { name: t('nav.contact'),  href: "/contact",         icon: PhoneCall },
-    { name: t('nav.app'),      href: "/app",             icon: Smartphone },
+    { name: t('nav.app'),      href: "/app",             icon: Smartphone, showDesktopIcon: true },
     { name: t('nav.careers'),  href: "/careers",         icon: Users },
     { name: t('nav.costCalc'), href: "/cost-calculator", isSpecial: true, icon: Calculator },
   ];
@@ -117,7 +117,9 @@ const Navbar = () => {
                           ? "text-slate-500 hover:text-[#D5B25D]"
                           : "text-white/55 hover:text-white"
                     }`}>
-                    {link.name}
+                    {link.showDesktopIcon
+                      ? <span className="inline-flex items-center gap-1.5"><Smartphone size={12} className="opacity-75 flex-shrink-0" />{link.name}</span>
+                      : link.name}
                     {/* Underline indicator */}
                     <span className={`absolute bottom-[5px] left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${
                       isActive
