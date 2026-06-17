@@ -6,11 +6,11 @@ const MusicContext = createContext(null);
 
 export function MusicProvider({ children }) {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  const [isMusicMuted, setIsMusicMuted] = useState(false);
   const [isMusicReady, setIsMusicReady] = useState(false);
   const [musicUserPaused, setMusicUserPaused] = useState(false);
   const musicRef = useRef(null);
-  const hasInteractedRef = useRef(false);
+  // tracks whether music was playing before voice started
+  const wasMusicPlayingRef = useRef(false);
 
   useEffect(() => {
     const audio = new Audio('/assets/audio/divine-ascension.mp3');
@@ -19,31 +19,7 @@ export function MusicProvider({ children }) {
     musicRef.current = audio;
     setIsMusicReady(true);
 
-    // Try to autoplay on first user interaction
-    const startOnInteraction = () => {
-      if (!hasInteractedRef.current && musicRef.current && !musicUserPaused) {
-        hasInteractedRef.current = true;
-        musicRef.current.play().then(() => {
-          setIsMusicPlaying(true);
-        }).catch(() => {});
-      }
-      // Remove after first trigger
-      document.removeEventListener('click', startOnInteraction);
-      document.removeEventListener('touchstart', startOnInteraction);
-      document.removeEventListener('scroll', startOnInteraction);
-      document.removeEventListener('keydown', startOnInteraction);
-    };
-
-    document.addEventListener('click', startOnInteraction);
-    document.addEventListener('touchstart', startOnInteraction);
-    document.addEventListener('scroll', startOnInteraction);
-    document.addEventListener('keydown', startOnInteraction);
-
     return () => {
-      document.removeEventListener('click', startOnInteraction);
-      document.removeEventListener('touchstart', startOnInteraction);
-      document.removeEventListener('scroll', startOnInteraction);
-      document.removeEventListener('keydown', startOnInteraction);
       if (musicRef.current) {
         musicRef.current.pause();
         musicRef.current = null;
@@ -74,21 +50,24 @@ export function MusicProvider({ children }) {
     } else {
       playMusic();
       setMusicUserPaused(false);
-      hasInteractedRef.current = true;
     }
   }, [isMusicPlaying, pauseMusic, playMusic]);
 
   // Called when voice starts — pause music temporarily
   const pauseMusicForVoice = useCallback(() => {
     if (musicRef.current && isMusicPlaying) {
+      wasMusicPlayingRef.current = true;
       musicRef.current.pause();
       setIsMusicPlaying(false);
+    } else {
+      wasMusicPlayingRef.current = false;
     }
   }, [isMusicPlaying]);
 
-  // Called when voice stops — resume music if user hasn't manually paused
+  // Called when voice stops — resume only if music was playing before voice started
   const resumeMusicAfterVoice = useCallback(() => {
-    if (musicRef.current && !musicUserPaused) {
+    if (musicRef.current && wasMusicPlayingRef.current && !musicUserPaused) {
+      wasMusicPlayingRef.current = false;
       musicRef.current.play().then(() => {
         setIsMusicPlaying(true);
       }).catch(() => {});
