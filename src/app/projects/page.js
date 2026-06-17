@@ -146,7 +146,7 @@ export default function ProjectsPage() {
             src="/asstes/office-projects/BARJIS FRONT FACADE (05.08.2025).jpg"
             alt="Projects Background"
             fill
-            className="object-cover opacity-90 scale-105 animate-slow-zoom"
+            className="object-cover object-center opacity-90 scale-105 animate-slow-zoom"
             priority
             unoptimized
           />

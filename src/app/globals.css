@@ -240,6 +240,14 @@ main {
     animation: slow-zoom 25s ease-in-out infinite alternate;
   }
 
+  /* Mobile: disable hero zoom animation and reset any initial scale */
+  @media (max-width: 767px) {
+    .animate-slow-zoom {
+      animation: none !important;
+      transform: none !important;
+    }
+  }
+
   @keyframes cursor-blink {
 
     0%,
