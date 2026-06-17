@@ -390,10 +390,10 @@ const Navbar = () => {
             <button onClick={toggleTheme}
               className={`w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] border transition-colors ${isLightMode ? 'bg-slate-50 border-[#e2e8f0] hover:bg-slate-100' : 'bg-white/[0.03] border-white/8 hover:bg-white/6'}`}>
               <span className={`w-[34px] h-[34px] rounded-[10px] flex items-center justify-center text-[#D5B25D] flex-shrink-0 ${isLightMode ? 'bg-slate-100' : 'bg-white/5'}`}>
-                {theme !== 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                {isLightMode ? <Sun size={16} /> : <Moon size={16} />}
               </span>
               <span className={`text-[12px] font-semibold ${isLightMode ? 'text-[#1e293b]/70' : 'text-white/55'}`}>
-                {theme === 'dark'
+                {isLightMode
                   ? (lang === 'ar' || lang === 'ur' ? 'وضع النهار' : 'Light Mode')
                   : (lang === 'ar' || lang === 'ur' ? 'وضع الليل' : 'Dark Mode')}
               </span>
