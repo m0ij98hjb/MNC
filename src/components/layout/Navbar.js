@@ -43,8 +43,8 @@ const Navbar = () => {
     { name: t('nav.services'), href: "/#services",       icon: Briefcase },
     { name: t('nav.projects'), href: "/projects",        icon: FolderOpen },
     { name: t('nav.contact'),  href: "/contact",         icon: PhoneCall },
-    { name: t('nav.careers'),  href: "/careers",         icon: Users },
     { name: t('nav.app'),      href: "/app",             icon: Smartphone },
+    { name: t('nav.careers'),  href: "/careers",         icon: Users },
     { name: t('nav.costCalc'), href: "/cost-calculator", isSpecial: true, icon: Calculator },
   ];
 
