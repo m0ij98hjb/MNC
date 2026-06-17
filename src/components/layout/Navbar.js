@@ -169,8 +169,8 @@ const Navbar = () => {
             {/* Theme Toggle */}
             <button onClick={toggleTheme}
               className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 overflow-hidden active:scale-95">
-              <span className={`absolute transition-all duration-500 ${theme === 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
-              <span className={`absolute transition-all duration-500 ${theme === 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}><Moon size={15} /></span>
+              <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
+              <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}><Moon size={15} /></span>
             </button>
 
             {/* Language Selector */}
@@ -222,8 +222,8 @@ const Navbar = () => {
           <div className="flex items-center gap-2 lg:hidden ms-auto">
             <button onClick={toggleTheme}
               className="relative flex items-center justify-center w-8 h-8 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all duration-300 overflow-hidden">
-              <span className={`absolute transition-all duration-500 ${theme === 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
-              <span className={`absolute transition-all duration-500 ${theme === 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}><Moon size={15} /></span>
+              <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
+              <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}><Moon size={15} /></span>
             </button>
             <button
               className={`p-2 rounded-lg border border-[#D5B25D]/22 hover:bg-[#D5B25D]/10 transition-colors ${isLightMode ? 'text-slate-700' : 'text-white/80'}`}
@@ -384,7 +384,7 @@ const Navbar = () => {
             <button onClick={toggleTheme}
               className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-white/[0.03] border border-white/8 hover:bg-white/6 transition-colors">
               <span className="w-[34px] h-[34px] rounded-[10px] bg-white/5 flex items-center justify-center text-[#D5B25D] flex-shrink-0">
-                {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                {theme !== 'dark' ? <Sun size={16} /> : <Moon size={16} />}
               </span>
               <span className="text-[12px] font-semibold text-white/55">
                 {theme === 'dark'

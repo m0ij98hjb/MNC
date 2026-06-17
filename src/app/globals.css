@@ -24,17 +24,16 @@
   --nav-bg: rgba(0,0,0,0.6);
 }
 
-/* Dark Mode Variables */
+/* Light Mode Variables (html.dark = visual light) */
 .dark {
-  /* Inverted: dark mode shows light background */
-  --background: #ffffff; /* dark mode background becomes white */
-  --foreground: #0f172a; /* dark text on white */
+  --background: #f8fafc;
+  --foreground: #1e293b;
   --primary: #0f172a;
   --secondary: #D5B25D;
   --gold: #E1BF67;
-  --card-bg: #f8fafc; /* light cards in dark mode */
+  --card-bg: #ffffff;
   --card-border: rgba(15,23,42,0.05);
-  --nav-bg: rgba(250,250,250,0.95);
+  --nav-bg: rgba(255,255,255,0.97);
 }
 
 /* ── LIGHT MODE (html.dark) TEXT & BG OVERRIDES ─────────────────────── */
@@ -97,12 +96,12 @@ main {
   background: #000000 !important;
 }
 
-.dark .bg-white { background-color: var(--card-bg) !important; }
-.dark .bg-\[\#eaeaea\] { background-color: #111827 !important; }
-.dark .bg-slate-50, .dark .bg-slate-100 { background-color: #1e293b !important; }
+.dark .bg-white { background-color: var(--card-bg) !important; box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04) !important; }
+.dark .bg-\[\#eaeaea\] { background-color: #f1f5f9 !important; }
+.dark .bg-slate-50, .dark .bg-slate-100 { background-color: #f8fafc !important; }
 
 .dark .text-slate-700, .dark .text-slate-600, .dark .text-slate-800, .dark .text-primary {
-  color: #cbd5e1 !important;
+  color: #1e293b !important;
 }
 
 /* Normalize legacy slate text to foreground (white) */
