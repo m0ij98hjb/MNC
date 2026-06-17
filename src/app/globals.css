@@ -246,6 +246,19 @@ main {
       animation: none !important;
       transform: none !important;
     }
+
+    /* Mobile: hero sections fill exactly the visible viewport (100svh avoids
+       iOS Safari address-bar jump that 100vh causes). Override pixel min-height
+       constraints that can overflow small screens. */
+    section.image-hero {
+      height: 100svh !important;
+      min-height: 100svh !important;
+    }
+
+    /* Mobile: always center hero background images */
+    section.image-hero img {
+      object-position: center center !important;
+    }
   }
 
   @keyframes cursor-blink {
