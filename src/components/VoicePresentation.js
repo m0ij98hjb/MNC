@@ -7,7 +7,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useMusic } from '@/context/MusicContext';
 
 export default function VoicePresentation() {
-  const { t, isRTL } = useLanguage();
+  const { t, isRTL, lang } = useLanguage();
   const { pauseMusicForVoice, resumeMusicAfterVoice } = useMusic();
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
@@ -15,16 +15,26 @@ export default function VoicePresentation() {
   const [isMounted, setIsMounted] = useState(false);
   const audioRef = useRef(null);
 
+  // Swap audio file when language changes
   useEffect(() => {
-    setIsMounted(true);
-    audioRef.current = new Audio('/asstes/presentation.mp3');
-    audioRef.current.playbackRate = 1.1;
-    audioRef.current.onended = () => {
+    if (!isMounted) return;
+    const src = `/asstes/presentation-${lang}.mp3`;
+    if (audioRef.current) {
+      audioRef.current.pause();
       setIsPlaying(false);
-      // Resume music when voice presentation finishes
+    }
+    const audio = new Audio(src);
+    audio.playbackRate = 1.1;
+    audio.volume = volume;
+    audio.onended = () => {
+      setIsPlaying(false);
       resumeMusicAfterVoice();
     };
+    audioRef.current = audio;
+  }, [lang, isMounted]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    setIsMounted(true);
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
