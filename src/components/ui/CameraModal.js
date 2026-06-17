@@ -6,6 +6,7 @@ import {
   WifiOff, ChevronLeft, Loader2, RefreshCw,
 } from "lucide-react";
 import { projects } from "@/lib/cameraConfig";
+import { useTheme } from "@/context/ThemeContext";
 
 /* ─────────────────── MJPEG feed ─────────────────── */
 function MjpegFeed({ stream }) {
@@ -94,7 +95,7 @@ function HlsFeed({ stream }) {
   );
 }
 
-/* ─────────────────── Single camera card ─────────────────── */
+/* ─────────────────── Single camera card — always dark (video feed) ─────────────────── */
 function CameraCard({ stream }) {
   return (
     <div className="relative rounded-xl overflow-hidden border border-[#C9A34D]/20 bg-[#0D1B2A] flex flex-col" style={{ minHeight: 160 }}>
@@ -124,7 +125,7 @@ function CameraCard({ stream }) {
 }
 
 /* ─────────────────── QR Scanner view ─────────────────── */
-function QrScanView({ onResult, onBack }) {
+function QrScanView({ onResult, onBack, isLightMode }) {
   const [status,  setStatus]  = useState("idle"); // idle | loading | scanning | error
   const [errMsg,  setErrMsg]  = useState("");
   const scannerRef = useRef(null);
@@ -166,11 +167,11 @@ function QrScanView({ onResult, onBack }) {
 
   return (
     <div className="flex flex-col items-center gap-4 py-4">
-      <p className="text-white/60 text-sm text-center">
+      <p className={`text-sm text-center ${isLightMode ? 'text-slate-500' : 'text-white/60'}`}>
         وجّه الكاميرا نحو الباركود أو QR Code الخاص بالمشروع
       </p>
 
-      {/* Scanner container */}
+      {/* Scanner container — always dark (camera viewport) */}
       <div className="relative rounded-2xl overflow-hidden border-2 border-[#C9A34D]/40 w-full max-w-xs aspect-square bg-black flex items-center justify-center">
         {status === "loading" && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 z-10 bg-black/70">
@@ -184,10 +185,8 @@ function QrScanView({ onResult, onBack }) {
             <p className="text-red-400 text-sm font-bold">{errMsg}</p>
           </div>
         )}
-        {/* QR reader target */}
         <div id="mnc-qr-reader" className="w-full h-full" />
 
-        {/* Corner guides */}
         {status === "scanning" && (
           <>
             <div className="absolute top-4 left-4   w-6 h-6 border-t-2 border-l-2 border-[#C9A34D] rounded-tl pointer-events-none" />
@@ -207,39 +206,36 @@ function QrScanView({ onResult, onBack }) {
 
 /* ─────────────────── Main Modal ─────────────────── */
 export default function CameraModal({ onClose }) {
-  // view: 'entry' | 'scan' | 'cameras' | 'direct'
+  const { theme } = useTheme();
+  const isLightMode = theme === 'dark';
+
   const [view,        setView]       = useState("entry");
   const [inputId,     setInputId]    = useState("");
-  const [projectData, setProjectData] = useState(null);  // { projectName, streams }
+  const [projectData, setProjectData] = useState(null);
   const [directUrl,   setDirectUrl]  = useState("");
   const [inputErr,    setInputErr]   = useState("");
 
-  /* Lock body scroll */
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = ""; };
   }, []);
 
-  /* Close on Escape */
   useEffect(() => {
     const h = (e) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", h);
     return () => window.removeEventListener("keydown", h);
   }, [onClose]);
 
-  /* Handle a scanned or typed value */
   const resolveInput = useCallback((value) => {
     const v = value.trim();
     if (!v) { setInputErr("أدخل رقم المشروع"); return; }
 
-    // If it looks like a URL → open directly
     if (v.startsWith("http://") || v.startsWith("https://") || v.startsWith("rtsp://")) {
       setDirectUrl(v);
       setView("direct");
       return;
     }
 
-    // Otherwise look up in cameraConfig
     const found = projects.find(
       (p) => p.projectId.toUpperCase() === v.toUpperCase()
     );
@@ -263,6 +259,7 @@ export default function CameraModal({ onClose }) {
         <QrScanView
           onResult={handleScanResult}
           onBack={() => setView("entry")}
+          isLightMode={isLightMode}
         />
       );
     }
@@ -272,7 +269,7 @@ export default function CameraModal({ onClose }) {
       return (
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-white font-black text-base">{projectData.projectName}</h3>
+            <h3 className={`font-black text-base ${isLightMode ? 'text-[#1e293b]' : 'text-white'}`}>{projectData.projectName}</h3>
             <button
               onClick={() => { setView("entry"); setProjectData(null); }}
               className="flex items-center gap-1 text-[#C9A34D]/70 hover:text-[#C9A34D] text-xs transition-colors"
@@ -296,7 +293,7 @@ export default function CameraModal({ onClose }) {
       return (
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-white font-black text-sm truncate max-w-[200px]">{directUrl}</h3>
+            <h3 className={`font-black text-sm truncate max-w-[200px] ${isLightMode ? 'text-[#1e293b]' : 'text-white'}`}>{directUrl}</h3>
             <button
               onClick={() => { setView("entry"); setDirectUrl(""); }}
               className="flex items-center gap-1 text-[#C9A34D]/70 hover:text-[#C9A34D] text-xs transition-colors"
@@ -340,7 +337,11 @@ export default function CameraModal({ onClose }) {
               onKeyDown={(e) => e.key === "Enter" && resolveInput(inputId)}
               placeholder="مثال: MNC-001"
               dir="ltr"
-              className="flex-1 bg-[#0a1525] border border-[#C9A34D]/25 rounded-xl px-4 py-3 text-white placeholder-white/25 text-sm focus:outline-none focus:border-[#C9A34D]/60 transition-colors"
+              className={`flex-1 rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors ${
+                isLightMode
+                  ? 'bg-white border border-[#e2e8f0] text-[#1e293b] placeholder-slate-400 focus:border-[#C9A34D]/60'
+                  : 'bg-[#0a1525] border border-[#C9A34D]/25 text-white placeholder-white/25 focus:border-[#C9A34D]/60'
+              }`}
             />
             <button
               onClick={() => resolveInput(inputId)}
@@ -358,34 +359,42 @@ export default function CameraModal({ onClose }) {
 
         {/* Divider */}
         <div className="flex items-center gap-3">
-          <div className="flex-1 h-px bg-white/10" />
-          <span className="text-white/30 text-xs">أو</span>
-          <div className="flex-1 h-px bg-white/10" />
+          <div className={`flex-1 h-px ${isLightMode ? 'bg-slate-200' : 'bg-white/10'}`} />
+          <span className={`text-xs ${isLightMode ? 'text-slate-400' : 'text-white/30'}`}>أو</span>
+          <div className={`flex-1 h-px ${isLightMode ? 'bg-slate-200' : 'bg-white/10'}`} />
         </div>
 
         {/* QR scan button */}
         <button
           onClick={() => setView("scan")}
-          className="flex flex-col items-center gap-3 py-6 border-2 border-dashed border-[#C9A34D]/30 rounded-2xl hover:border-[#C9A34D]/60 hover:bg-[#C9A34D]/5 transition-all group"
+          className={`flex flex-col items-center gap-3 py-6 border-2 border-dashed rounded-2xl hover:border-[#C9A34D]/60 transition-all group ${
+            isLightMode
+              ? 'border-[#C9A34D]/40 hover:bg-[#C9A34D]/5'
+              : 'border-[#C9A34D]/30 hover:bg-[#C9A34D]/5'
+          }`}
         >
           <div className="w-14 h-14 rounded-2xl bg-[#C9A34D]/10 border border-[#C9A34D]/25 flex items-center justify-center group-hover:bg-[#C9A34D]/20 transition-colors">
             <QrCode size={26} className="text-[#C9A34D]" />
           </div>
           <div className="text-center">
-            <p className="text-white font-bold text-sm">مسح باركود المشروع</p>
-            <p className="text-white/35 text-xs mt-0.5">امسح الباركود أو QR Code للدخول الفوري</p>
+            <p className={`font-bold text-sm ${isLightMode ? 'text-[#1e293b]' : 'text-white'}`}>مسح باركود المشروع</p>
+            <p className={`text-xs mt-0.5 ${isLightMode ? 'text-slate-400' : 'text-white/35'}`}>امسح الباركود أو QR Code للدخول الفوري</p>
           </div>
         </button>
 
         {/* Project list hint */}
-        <div className="bg-[#0a1525] rounded-xl border border-[#C9A34D]/10 p-4">
+        <div className={`rounded-xl border p-4 ${isLightMode ? 'bg-slate-50 border-[#e2e8f0]' : 'bg-[#0a1525] border-[#C9A34D]/10'}`}>
           <p className="text-[#C9A34D] text-[11px] font-bold mb-2">المشاريع المتاحة:</p>
           <div className="flex flex-col gap-1.5">
             {projects.map((p) => (
               <button
                 key={p.projectId}
                 onClick={() => { setInputId(p.projectId); resolveInput(p.projectId); }}
-                className="flex items-center justify-between text-white/60 hover:text-white text-xs px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors text-right"
+                className={`flex items-center justify-between text-xs px-2 py-1.5 rounded-lg transition-colors text-right ${
+                  isLightMode
+                    ? 'text-slate-500 hover:text-[#1e293b] hover:bg-slate-100'
+                    : 'text-white/60 hover:text-white hover:bg-white/5'
+                }`}
               >
                 <span className="text-[#C9A34D]/60 font-mono">{p.projectId}</span>
                 <span>{p.projectName}</span>
@@ -402,29 +411,41 @@ export default function CameraModal({ onClose }) {
       className="fixed inset-0 z-[999] flex items-end sm:items-center justify-center"
       dir="rtl"
     >
-      {/* Backdrop */}
+      {/* Backdrop — always semi-dark */}
       <div
-        className="absolute inset-0 bg-black/75 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={onClose}
       />
 
       {/* Panel */}
-      <div className="relative z-10 w-full sm:max-w-lg sm:mx-4 bg-[#0D1B2A] border border-[#C9A34D]/20 rounded-t-3xl sm:rounded-3xl shadow-[0_-20px_80px_rgba(0,0,0,0.7)] flex flex-col max-h-[92dvh] sm:max-h-[88dvh]">
+      <div className={`relative z-10 w-full sm:max-w-lg sm:mx-4 rounded-t-3xl sm:rounded-3xl flex flex-col max-h-[92dvh] sm:max-h-[88dvh] ${
+        isLightMode
+          ? 'bg-white border border-[#e2e8f0] shadow-[0_-8px_40px_rgba(0,0,0,0.12)]'
+          : 'bg-[#0D1B2A] border border-[#C9A34D]/20 shadow-[0_-20px_80px_rgba(0,0,0,0.7)]'
+      }`}>
 
         {/* Header */}
-        <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-[#C9A34D]/10 shrink-0">
+        <div className={`flex items-center justify-between px-6 pt-5 pb-4 shrink-0 rounded-t-3xl sm:rounded-t-3xl ${
+          isLightMode
+            ? 'bg-[#f1f5f9] border-b border-[#e2e8f0]'
+            : 'border-b border-[#C9A34D]/10'
+        }`}>
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-[#C9A34D]/15 border border-[#C9A34D]/25 flex items-center justify-center">
               <Eye size={18} className="text-[#C9A34D]" />
             </div>
             <div>
-              <h2 className="text-white font-black text-base leading-tight">كاميرات المشروع</h2>
-              <p className="text-white/35 text-[11px]">مراقبة مباشرة من موقع البناء</p>
+              <h2 className={`font-black text-base leading-tight ${isLightMode ? 'text-[#1e293b]' : 'text-white'}`}>كاميرات المشروع</h2>
+              <p className={`text-[11px] ${isLightMode ? 'text-slate-400' : 'text-white/35'}`}>مراقبة مباشرة من موقع البناء</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all"
+            className={`w-9 h-9 rounded-xl border flex items-center justify-center transition-all ${
+              isLightMode
+                ? 'bg-slate-100 hover:bg-slate-200 border-[#e2e8f0] text-slate-500 hover:text-[#1e293b]'
+                : 'bg-white/5 hover:bg-white/10 border-white/10 text-white/60 hover:text-white'
+            }`}
           >
             <X size={18} />
           </button>
@@ -437,7 +458,7 @@ export default function CameraModal({ onClose }) {
 
         {/* Bottom drag handle (mobile) */}
         <div className="sm:hidden pb-4 flex justify-center shrink-0">
-          <div className="w-10 h-1 rounded-full bg-white/15" />
+          <div className={`w-10 h-1 rounded-full ${isLightMode ? 'bg-slate-300' : 'bg-white/15'}`} />
         </div>
       </div>
     </div>
