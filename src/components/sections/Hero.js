@@ -289,7 +289,7 @@ const Hero = () => {
         </div>
 
         {/* Sound Icon - start side middle (right for Arabic, left for other languages) */}
-        <div className={`absolute ${isRTL ? 'right-8' : 'left-8'} top-1/2 -translate-y-1/2 z-40`}>
+        <div className={`absolute ${isRTL ? 'left-8' : 'right-8'} top-1/2 -translate-y-1/2 z-40`}>
           <BackgroundMusicButton />
         </div>
 
