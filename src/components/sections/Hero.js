@@ -295,9 +295,8 @@ const Hero = () => {
 
         <div className="container mx-auto px-6 relative z-30">
             {/* Engineering Excellence - Desktop only */}
-            <div className="hidden lg:block mb-12" data-aos="fade-down" data-aos-delay="100">
-              <p className="text-sm font-semibold text-[#B8923A] tracking-widest uppercase">{lang === 'ar' ? 'التميز الهندسى' : 'Engineering Excellence'}</p>
-            </div>
+            
+            
 
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-morphism border border-secondary/30 mb-8" data-aos="fade-down" data-aos-delay="200">
               <span className="relative flex h-3 w-3">
