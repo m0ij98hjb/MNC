@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import CameraModal from "@/components/ui/CameraModal";
 import { Navigation, Pagination, Autoplay, EffectCoverflow } from "swiper/modules";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 // Import Swiper styles
 import "swiper/css";
@@ -16,6 +17,8 @@ import "swiper/css/effect-coverflow";
 
 export default function GalleryClient({ galleries }) {
   const { lang, t, isRTL } = useLanguage();
+  const { theme } = useTheme();
+  const isLightMode = theme === 'dark';
   const [cameraOpen, setCameraOpen] = useState(false);
   const [lightbox, setLightbox] = useState({
     isOpen: false,
@@ -71,7 +74,7 @@ export default function GalleryClient({ galleries }) {
             <button
               onClick={() => setCameraOpen(true)}
               title="مشاهدة كاميرات المشروع"
-              className={`absolute top-0 ${isRTL ? "left-0" : "right-0"} flex items-center gap-2 bg-[#0D1B2A] border border-[#C9A34D]/35 hover:border-[#C9A34D]/80 hover:bg-[#C9A34D]/10 text-[#C9A34D] rounded-xl px-3 py-2 text-xs font-bold transition-all duration-300 shadow-lg group`}
+              className={`absolute top-0 ${isRTL ? "left-0" : "right-0"} flex items-center gap-2 ${isLightMode ? 'bg-white border-[#C9A34D]/40 shadow-sm' : 'bg-[#0D1B2A] border-[#C9A34D]/35'} border hover:border-[#C9A34D]/80 hover:bg-[#C9A34D]/10 text-[#C9A34D] rounded-xl px-3 py-2 text-xs font-bold transition-all duration-300 shadow-lg group`}
             >
               <Eye size={15} className="group-hover:scale-110 transition-transform" />
               <span className="hidden sm:inline">كاميرات مباشرة</span>

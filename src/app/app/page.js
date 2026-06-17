@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 import { BarChart3, MessageCircle, FileText, Bell, Star } from "lucide-react";
 
 /* ─── Translations ─────────────────────────────────────────── */
@@ -83,18 +84,20 @@ function GooglePlayColorIcon({ size = 22 }) {
 /* ─── Page ─────────────────────────────────────────────────── */
 export default function AppPage() {
   const { lang, isRTL } = useLanguage();
+  const { theme } = useTheme();
+  const isLightMode = theme === 'dark';
   const isAr = lang === "ar" || lang === "ur";
   const c = C[isAr ? "ar" : "en"];
   const ta = isRTL ? "text-right" : "text-left";
 
   return (
-    <main className="min-h-screen bg-[#0D1B2A] font-cairo" dir={isRTL ? "rtl" : "ltr"}>
+    <main className={`min-h-screen font-cairo ${isLightMode ? 'bg-[#f8fafc]' : 'bg-[#0D1B2A]'}`} dir={isRTL ? "rtl" : "ltr"}>
       <Navbar />
 
       {/* ═══════════════════════════════════════════════════════
           HERO
       ══════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center pt-24 top-10 sm:pt-28 pb-16 sm:pb-20 overflow-hidden">
+      <section className="image-hero relative min-h-screen flex items-center pt-24 top-10 sm:pt-28 pb-16 sm:pb-20 overflow-hidden">
 
         {/* ── Background image ── */}
         <div className="absolute inset-0 pointer-events-none">
@@ -267,13 +270,15 @@ export default function AppPage() {
       {/* ═══════════════════════════════════════════════════════
           FEATURES
       ══════════════════════════════════════════════════════════ */}
-      <section className="py-16 sm:py-20 lg:py-28 relative overflow-hidden">
+      <section className={`py-16 sm:py-20 lg:py-28 relative overflow-hidden ${isLightMode ? 'bg-[#f0f4f8]' : ''}`}>
         {/* Separator line */}
         <div className="absolute top-0 left-0 w-full h-[1px]"
           style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.2),transparent)" }} />
-        {/* Background tint */}
-        <div className="absolute inset-0"
-          style={{ background: "linear-gradient(180deg,rgba(9,19,32,0.7) 0%,rgba(13,27,42,0) 100%)" }} />
+        {/* Background tint — dark mode only */}
+        {!isLightMode && (
+          <div className="absolute inset-0"
+            style={{ background: "linear-gradient(180deg,rgba(9,19,32,0.7) 0%,rgba(13,27,42,0) 100%)" }} />
+        )}
 
         <div className="relative container mx-auto px-6 max-w-7xl">
 
@@ -283,7 +288,7 @@ export default function AppPage() {
               <span className="w-1.5 h-1.5 rounded-full bg-[#C9A34D] animate-pulse block" />
               <span className="text-[#C9A34D] text-[11px] font-bold tracking-[0.2em] uppercase">{c.featuresBadge}</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white">{c.featuresTitle}</h2>
+            <h2 className={`text-3xl sm:text-4xl md:text-5xl font-black ${isLightMode ? 'text-[#1e293b]' : 'text-white'}`}>{c.featuresTitle}</h2>
           </div>
 
           {/* Cards grid */}
@@ -295,7 +300,11 @@ export default function AppPage() {
                 <div
                   key={i}
                   className="group relative rounded-3xl p-5 sm:p-7 transition-all duration-500 hover:-translate-y-2 cursor-default"
-                  style={{
+                  style={isLightMode ? {
+                    background: "#ffffff",
+                    border: "1px solid rgba(15,23,42,0.08)",
+                    boxShadow: "0 1px 6px rgba(0,0,0,0.06)",
+                  } : {
                     background: "rgba(255,255,255,0.025)",
                     border: "1px solid rgba(255,255,255,0.07)",
                   }}
@@ -322,8 +331,8 @@ export default function AppPage() {
                     <Icon size={23} style={{ color }} />
                   </div>
 
-                  <h3 className={`text-white font-black text-[17px] mb-3 leading-snug ${ta}`}>{feat.title}</h3>
-                  <p className={`text-white/42 text-sm leading-relaxed ${ta}`}>{feat.desc}</p>
+                  <h3 className={`font-black text-[17px] mb-3 leading-snug ${ta} ${isLightMode ? 'text-[#1e293b]' : 'text-white'}`}>{feat.title}</h3>
+                  <p className={`text-sm leading-relaxed ${ta} ${isLightMode ? 'text-slate-500' : 'text-white/42'}`}>{feat.desc}</p>
                 </div>
               );
             })}
@@ -341,7 +350,11 @@ export default function AppPage() {
         <div className="relative container mx-auto max-w-5xl">
           <div
             className="relative rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem] overflow-hidden text-center py-12 px-5 sm:py-16 sm:px-8 md:py-20"
-            style={{
+            style={isLightMode ? {
+              background: "#ffffff",
+              border: "1px solid rgba(201,163,77,0.30)",
+              boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
+            } : {
               background: "linear-gradient(135deg,#091522 0%,#0D1B2A 40%,#0f2035 70%,#091522 100%)",
               border: "1px solid rgba(201,163,77,0.20)",
               boxShadow: "0 0 0 1px rgba(201,163,77,0.06) inset, 0 30px 80px rgba(0,0,0,0.6)",
@@ -373,27 +386,27 @@ export default function AppPage() {
                 <span className="text-[#C9A34D] text-[11px] font-bold tracking-[0.2em] uppercase">{c.ctaBadge}</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 sm:mb-5 leading-tight">{c.ctaTitle}</h2>
-              <p className="text-white/45 text-base sm:text-lg max-w-lg mx-auto mb-10 sm:mb-14 leading-relaxed">{c.ctaDesc}</p>
+              <h2 className={`text-3xl sm:text-4xl md:text-5xl font-black mb-4 sm:mb-5 leading-tight ${isLightMode ? 'text-[#1e293b]' : 'text-white'}`}>{c.ctaTitle}</h2>
+              <p className={`text-base sm:text-lg max-w-lg mx-auto mb-10 sm:mb-14 leading-relaxed ${isLightMode ? 'text-slate-500' : 'text-white/45'}`}>{c.ctaDesc}</p>
 
               {/* Buttons — same style as hero */}
               <div className="flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center">
 
                 {/* App Store */}
-                <button className="group flex items-center justify-center gap-3 bg-black text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#111] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full xs:w-auto">
-                  <AppleIcon size={26} />
+                <button className={`group flex items-center justify-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.4)] w-full xs:w-auto ${isLightMode ? 'bg-slate-900 border-slate-700' : 'bg-black border-white/10 hover:bg-[#111]'}`}>
+                  <AppleIcon size={26} color="#ffffff" />
                   <div className="text-start leading-none">
-                    <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
-                    <div className="text-[15px] font-black">App Store</div>
+                    <div className="text-[9px] uppercase tracking-[0.15em] mb-0.5" style={{ color: 'rgba(255,255,255,0.5)' }}>{c.soon}</div>
+                    <div className="text-[15px] font-black" style={{ color: '#ffffff' }}>App Store</div>
                   </div>
                 </button>
 
                 {/* Google Play */}
-                <button className="group flex items-center justify-center gap-3 bg-[#1a1a1a] text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#222] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full xs:w-auto">
+                <button className={`group flex items-center justify-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.4)] w-full xs:w-auto ${isLightMode ? 'bg-slate-800 border-slate-700' : 'bg-[#1a1a1a] border-white/10 hover:bg-[#222]'}`}>
                   <GooglePlayColorIcon size={26} />
                   <div className="text-start leading-none">
-                    <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
-                    <div className="text-[15px] font-black">Google Play</div>
+                    <div className="text-[9px] uppercase tracking-[0.15em] mb-0.5" style={{ color: 'rgba(255,255,255,0.5)' }}>{c.soon}</div>
+                    <div className="text-[15px] font-black" style={{ color: '#ffffff' }}>Google Play</div>
                   </div>
                 </button>
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 import {
   Home,
   Building2,
@@ -30,7 +31,14 @@ import {
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function CostCalculatorPage() {
   const { t, lang, isRTL } = useLanguage();
+  const { theme } = useTheme();
+  const isLightMode = theme === 'dark';
   const isRtl = isRTL;
+  // Light mode helper classes
+  const cardCls = isLightMode ? 'bg-white border border-slate-200 shadow-sm' : 'bg-white/5 border border-white/10';
+  const textPri = isLightMode ? 'text-[#1e293b]' : 'text-white';
+  const textMut = isLightMode ? 'text-slate-400' : 'text-white/40';
+  const textSec = isLightMode ? 'text-slate-500' : 'text-white/60';
 
   const fmt = (n) => {
     const locale = (lang === "ar" || lang === "ur") ? "ar-SA" : "en-US";
@@ -290,13 +298,11 @@ export default function CostCalculatorPage() {
 
       {/* Hero Banner */}
       <div className="relative pt-36 sm:pt-44 md:pt-48 pb-16 sm:pb-20 md:pb-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0d1526] to-black" />
+        <div className={`absolute inset-0 ${isLightMode ? 'bg-gradient-to-br from-[#e8edf5] via-[#f0f4f8] to-[#e8edf5]' : 'bg-gradient-to-br from-black via-[#0d1526] to-black'}`} />
         <div className="absolute inset-0 opacity-10"
           style={{ backgroundImage: "radial-gradient(circle at 30% 50%, #D5B25D 0%, transparent 60%), radial-gradient(circle at 70% 30%, #B8923A 0%, transparent 50%)" }}
         />
-        {/* Glowing ambient orb behind content */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-[#D5B25D]/10 rounded-full blur-[100px] pointer-events-none" />
-        {/* Animated grid lines */}
         <div className="absolute inset-0 opacity-[0.04]"
           style={{ backgroundImage: "linear-gradient(to right, #D5B25D 1px, transparent 1px), linear-gradient(to bottom, #D5B25D 1px, transparent 1px)", backgroundSize: "60px 60px" }}
         />
@@ -307,34 +313,34 @@ export default function CostCalculatorPage() {
             </svg>
             <span className="text-[#D5B25D] text-xs font-bold tracking-widest uppercase">{t("calculator.badge")}</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4 leading-tight">
+          <h1 className={`text-4xl sm:text-5xl md:text-6xl font-black mb-4 leading-tight ${isLightMode ? 'text-[#1e293b]' : 'text-white'}`}>
             <span className="text-gradient">{t("calculator.title")}</span>
           </h1>
           <div className="w-20 h-1 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto mb-6 rounded-full" />
-          <p className="text-white/70 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className={`text-base md:text-lg max-w-2xl mx-auto leading-relaxed ${isLightMode ? 'text-slate-600' : 'text-white/70'}`}>
             {t("calculator.subtitle")}
           </p>
         </div>
       </div>
 
       {/* Steps Indicator */}
-      <div className="sticky top-[72px] lg:top-[104px] z-40 bg-black/80 backdrop-blur-xl border-b border-[#D5B25D]/10">
+      <div className={`sticky top-[72px] lg:top-[104px] z-40 backdrop-blur-xl border-b ${isLightMode ? 'bg-white/90 border-[#D5B25D]/20' : 'bg-black/80 border-[#D5B25D]/10'}`}>
         <div className="container mx-auto px-6 py-3">
           <div className="flex items-center justify-center gap-2 sm:gap-4">
             {[1, 2, 3].map((s, i) => (
               <div key={s} className="flex items-center gap-2 sm:gap-4">
                 <div className={`flex items-center gap-2 transition-all duration-300 ${step >= s ? "opacity-100" : "opacity-40"}`}>
                   <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold transition-all duration-300 ${
-                    step > s ? "bg-[#D5B25D] text-black" : step === s ? "bg-[#D5B25D]/20 border-2 border-[#D5B25D] text-[#D5B25D]" : "bg-white/5 border border-white/20 text-white/40"
+                    step > s ? "bg-[#D5B25D] text-black" : step === s ? "bg-[#D5B25D]/20 border-2 border-[#D5B25D] text-[#D5B25D]" : isLightMode ? "bg-slate-100 border border-slate-300 text-slate-400" : "bg-white/5 border border-white/20 text-white/40"
                   }`}>
                     {step > s ? <CheckCircle2 size={14} /> : s}
                   </div>
-                  <span className={`text-xs sm:text-sm font-semibold hidden sm:block ${step === s ? "text-[#D5B25D]" : "text-white/40"}`}>
+                  <span className={`text-xs sm:text-sm font-semibold hidden sm:block ${step === s ? "text-[#D5B25D]" : textMut}`}>
                     {t(`calculator.step${s}`)}
                   </span>
                 </div>
                 {i < 2 && (
-                  <div className={`w-8 sm:w-16 h-px transition-all duration-500 ${step > s + 0 ? "bg-[#D5B25D]" : "bg-white/10"}`} />
+                  <div className={`w-8 sm:w-16 h-px transition-all duration-500 ${step > s + 0 ? "bg-[#D5B25D]" : isLightMode ? "bg-slate-200" : "bg-white/10"}`} />
                 )}
               </div>
             ))}
@@ -347,7 +353,7 @@ export default function CostCalculatorPage() {
         {/* ── STEP 1: Project Type ── */}
         {step === 1 && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h2 className="text-2xl sm:text-3xl font-black text-center text-white mb-8">
+            <h2 className={`text-2xl sm:text-3xl font-black text-center mb-8 ${textPri}`}>
               {t("calculator.projectType")}
             </h2>
             {errors.type && (
@@ -361,7 +367,9 @@ export default function CostCalculatorPage() {
                   className={`group relative p-6 sm:p-8 rounded-2xl border-2 transition-all duration-300 cursor-pointer text-center flex flex-col items-center gap-3 ${
                     formData.type === key
                       ? "border-[#D5B25D] bg-[#D5B25D]/10 shadow-[0_0_30px_rgba(213,178,93,0.2)]"
-                      : "border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10"
+                      : isLightMode
+                        ? "border-slate-200 bg-white hover:border-[#D5B25D]/50 hover:bg-slate-50 shadow-sm"
+                        : "border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10"
                   }`}
                 >
                   {formData.type === key && (
@@ -376,8 +384,8 @@ export default function CostCalculatorPage() {
                     <Icon size={28} style={{ color }} />
                   </div>
                   <div>
-                    <p className="text-white font-bold text-sm sm:text-base">{t(`calculator.${key}`)}</p>
-                    <p className="text-white/40 text-xs mt-1">{t(`calculator.${key}_desc`)}</p>
+                    <p className={`font-bold text-sm sm:text-base ${textPri}`}>{t(`calculator.${key}`)}</p>
+                    <p className={`text-xs mt-1 ${textMut}`}>{t(`calculator.${key}_desc`)}</p>
                   </div>
                 </button>
               ))}
@@ -385,7 +393,7 @@ export default function CostCalculatorPage() {
             <div className="flex justify-center">
               <button
                 onClick={handleNext}
-                className="flex items-center gap-2 px-8 py-3.5 bg-[#D5B25D] hover:bg-[#E1BF67] text-black font-bold rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-[#D5B25D]/20 text-base"
+                className="flex items-center gap-2 px-8 py-3.5 bg-[#D5B25D] hover:bg-[#E1BF67] text-black font-bold rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-[#D5B25D]/20 text-base cursor-pointer"
               >
                 {isRtl && <ChevronLeft size={20} />}
                 <span>{ui.next[lang] || ui.next['en']}</span>
@@ -402,7 +410,7 @@ export default function CostCalculatorPage() {
               {/* Left Column */}
               <div className="space-y-6">
                 {/* Area */}
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <div className={`${cardCls} rounded-2xl p-6`}>
                   <label className="block text-[#D5B25D] font-bold text-sm mb-3">
                     {t("calculator.area")}
                   </label>
@@ -412,14 +420,13 @@ export default function CostCalculatorPage() {
                     value={formData.area}
                     onChange={(e) => { setFormData((p) => ({ ...p, area: e.target.value })); setErrors({}); }}
                     placeholder={t("calculator.areaPlaceholder")}
-                    className={`w-full bg-black/40 border rounded-xl px-4 py-3 text-white text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.area ? "border-red-500" : "border-white/15"}`}
+                    className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.area ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                   />
                   {errors.area && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
-                  {/* Quick presets */}
                   <div className="flex flex-wrap gap-2 mt-3">
                     {[200, 400, 600, 1000, 2000].map((v) => (
                       <button key={v} onClick={() => setFormData((p) => ({ ...p, area: String(v) }))}
-                        className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all duration-200 ${formData.area === String(v) ? "bg-[#D5B25D] text-black border-[#D5B25D]" : "border-white/15 text-white/60 hover:border-[#D5B25D]/50"}`}>
+                        className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all duration-200 ${formData.area === String(v) ? "bg-[#D5B25D] text-black border-[#D5B25D]" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/15 text-white/60 hover:border-[#D5B25D]/50"}`}>
                         {fmt(v)} {lang === "ar" || lang === "ur" ? "م²" : "m²"}
                       </button>
                     ))}
@@ -427,32 +434,32 @@ export default function CostCalculatorPage() {
                 </div>
 
                 {/* Floors */}
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <div className={`${cardCls} rounded-2xl p-6`}>
                   <label className="block text-[#D5B25D] font-bold text-sm mb-3">
                     {t("calculator.floors")}
                   </label>
                   <div className="flex items-center gap-4">
                     <button
                       onClick={() => setFormData((p) => ({ ...p, floors: String(Math.max(1, Number(p.floors) - 1)) }))}
-                      className="w-10 h-10 rounded-xl border border-white/20 flex items-center justify-center text-white hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold"
+                      className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                     >−</button>
                     <span className="text-3xl font-black text-[#D5B25D] min-w-[60px] text-center">{fmt(Number(formData.floors))}</span>
                     <button
                       onClick={() => setFormData((p) => ({ ...p, floors: String(Math.min(20, Number(p.floors) + 1)) }))}
-                      className="w-10 h-10 rounded-xl border border-white/20 flex items-center justify-center text-white hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold"
+                      className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                     >+</button>
                   </div>
                 </div>
 
                 {/* Quality */}
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <div className={`${cardCls} rounded-2xl p-6`}>
                   <label className="block text-[#D5B25D] font-bold text-sm mb-3">
                     {t("calculator.quality")}
                   </label>
                   <div className="grid grid-cols-2 gap-2">
                     {qualityOptions.map(({ key, color, label }) => (
                       <button key={key} onClick={() => setFormData((p) => ({ ...p, quality: key }))}
-                        className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#D5B25D] bg-[#D5B25D]/10" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                        className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#D5B25D] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
                         style={formData.quality === key ? { borderColor: color, color } : {}}
                       >{label}</button>
                     ))}
@@ -463,21 +470,21 @@ export default function CostCalculatorPage() {
               {/* Right Column */}
               <div className="space-y-6">
                 {/* Location */}
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <div className={`${cardCls} rounded-2xl p-6`}>
                   <label className="block text-[#D5B25D] font-bold text-sm mb-3">
                     {t("calculator.location")}
                   </label>
                   <div className="flex flex-col gap-2">
                     {locationOptions.map(({ key, label }) => (
                       <button key={key} onClick={() => setFormData((p) => ({ ...p, location: key }))}
-                        className={`w-full py-2.5 px-4 rounded-xl border text-sm font-semibold text-start transition-all duration-200 ${formData.location === key ? "border-[#D5B25D] bg-[#D5B25D]/10 text-[#D5B25D]" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                        className={`w-full py-2.5 px-4 rounded-xl border text-sm font-semibold text-start transition-all duration-200 ${formData.location === key ? "border-[#D5B25D] bg-[#D5B25D]/10 text-[#D5B25D]" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/40" : "border-white/10 text-white/60 hover:border-white/25"}`}
                       >{label}</button>
                     ))}
                   </div>
                 </div>
 
                 {/* Extras */}
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <div className={`${cardCls} rounded-2xl p-6`}>
                   <label className="block text-[#D5B25D] font-bold text-sm mb-3">
                     {t("calculator.extras")}
                   </label>
@@ -486,7 +493,7 @@ export default function CostCalculatorPage() {
                       const active = formData.extras.includes(key);
                       return (
                         <button key={key} onClick={() => toggleExtra(key)}
-                          className={`flex items-center gap-2 py-2.5 px-3 rounded-xl border text-xs font-bold transition-all duration-200 ${active ? "border-[#D5B25D] bg-[#D5B25D]/10 text-[#D5B25D]" : "border-white/10 text-white/50 hover:border-white/25"}`}
+                          className={`flex items-center gap-2 py-2.5 px-3 rounded-xl border text-xs font-bold transition-all duration-200 ${active ? "border-[#D5B25D] bg-[#D5B25D]/10 text-[#D5B25D]" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/40" : "border-white/10 text-white/50 hover:border-white/25"}`}
                         >
                           <Icon size={15} />
                           <span className="truncate">{label}</span>
@@ -502,7 +509,7 @@ export default function CostCalculatorPage() {
             {/* Navigation */}
             <div className="flex items-center justify-between">
               <button onClick={() => setStep(1)}
-                className="flex items-center gap-2 px-6 py-3 border border-white/20 text-white/70 font-bold rounded-xl hover:border-white/40 hover:text-white transition-all duration-300 text-sm">
+                className={`flex items-center gap-2 px-6 py-3 border font-bold rounded-xl transition-all duration-300 text-sm ${isLightMode ? 'border-slate-200 text-slate-500 hover:border-slate-400 hover:text-[#1e293b]' : 'border-white/20 text-white/70 hover:border-white/40 hover:text-white'}`}>
                 {isRtl ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
                 <span>{ui.back[lang] || ui.back['en']}</span>
               </button>
@@ -526,7 +533,7 @@ export default function CostCalculatorPage() {
               </div>
             </div>
             <p className="text-[#D5B25D] font-bold text-xl">{t("calculator.calculating")}</p>
-            <p className="text-white/40 text-sm mt-2">{ui.processing[lang] || ui.processing['en']}</p>
+            <p className={`text-sm mt-2 ${textMut}`}>{ui.processing[lang] || ui.processing['en']}</p>
             {/* Animated dots */}
             <div className="flex gap-2 mt-6">
               {[0, 1, 2].map((i) => (
@@ -544,10 +551,10 @@ export default function CostCalculatorPage() {
             {/* Main Cost Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {/* Min */}
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-                <p className="text-white/40 text-xs font-semibold mb-2">{t("calculator.min_cost")}</p>
-                <p className="text-2xl font-black text-white">{fmt(result.min)}</p>
-                <p className="text-white/30 text-xs mt-1">{t("calculator.currency")}</p>
+              <div className={`${cardCls} rounded-2xl p-6 text-center`}>
+                <p className={`text-xs font-semibold mb-2 ${textMut}`}>{t("calculator.min_cost")}</p>
+                <p className={`text-2xl font-black ${textPri}`}>{fmt(result.min)}</p>
+                <p className={`text-xs mt-1 ${textMut}`}>{t("calculator.currency")}</p>
               </div>
               {/* Avg — highlighted */}
               <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
@@ -558,38 +565,38 @@ export default function CostCalculatorPage() {
                 <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
               </div>
               {/* Max */}
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-                <p className="text-white/40 text-xs font-semibold mb-2">{t("calculator.max_cost")}</p>
-                <p className="text-2xl font-black text-white">{fmt(result.max)}</p>
-                <p className="text-white/30 text-xs mt-1">{t("calculator.currency")}</p>
+              <div className={`${cardCls} rounded-2xl p-6 text-center`}>
+                <p className={`text-xs font-semibold mb-2 ${textMut}`}>{t("calculator.max_cost")}</p>
+                <p className={`text-2xl font-black ${textPri}`}>{fmt(result.max)}</p>
+                <p className={`text-xs mt-1 ${textMut}`}>{t("calculator.currency")}</p>
               </div>
             </div>
 
             {/* Stats Row */}
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-5 flex items-center gap-4">
+              <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
                 <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
                   <TrendingUp size={22} className="text-[#D5B25D]" />
                 </div>
                 <div>
-                  <p className="text-white/40 text-xs">{t("calculator.cost_per_sqm")}</p>
-                  <p className="text-white font-black text-lg">{fmt(result.costPerSqm)} <span className="text-white/30 text-xs">{t("calculator.currency")}</span></p>
+                  <p className={`text-xs ${textMut}`}>{t("calculator.cost_per_sqm")}</p>
+                  <p className={`font-black text-lg ${textPri}`}>{fmt(result.costPerSqm)} <span className={`text-xs ${textMut}`}>{t("calculator.currency")}</span></p>
                 </div>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-5 flex items-center gap-4">
+              <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
                 <div className="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center">
                   <Clock size={22} className="text-blue-400" />
                 </div>
                 <div>
-                  <p className="text-white/40 text-xs">{t("calculator.timeline")}</p>
-                  <p className="text-white font-black text-lg">{fmt(result.timeline)} <span className="text-white/30 text-xs">{t("calculator.months")}</span></p>
+                  <p className={`text-xs ${textMut}`}>{t("calculator.timeline")}</p>
+                  <p className={`font-black text-lg ${textPri}`}>{fmt(result.timeline)} <span className={`text-xs ${textMut}`}>{t("calculator.months")}</span></p>
                 </div>
               </div>
             </div>
 
             {/* Cost Breakdown */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-              <h3 className="text-white font-black text-lg mb-5 flex items-center gap-2">
+            <div className={`${cardCls} rounded-2xl p-6`}>
+              <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
                 <Zap size={18} className="text-[#D5B25D]" />
                 {t("calculator.breakdown")}
               </h3>
@@ -600,10 +607,10 @@ export default function CostCalculatorPage() {
                   return (
                     <div key={key}>
                       <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-white/70 text-sm">{t(`calculator.${key}`)}</span>
-                        <span className="text-white font-bold text-sm">{fmt(value)} <span className="text-white/30 text-xs">{t("calculator.currency")}</span></span>
+                        <span className={`text-sm ${textSec}`}>{t(`calculator.${key}`)}</span>
+                        <span className={`font-bold text-sm ${textPri}`}>{fmt(value)} <span className={`text-xs ${textMut}`}>{t("calculator.currency")}</span></span>
                       </div>
-                      <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                      <div className={`h-2 rounded-full overflow-hidden ${isLightMode ? 'bg-slate-100' : 'bg-white/5'}`}>
                         <div
                           className="h-full rounded-full transition-all duration-1000"
                           style={{ width: `${pct}%`, background: breakdownColors[i] }}
@@ -615,10 +622,10 @@ export default function CostCalculatorPage() {
                 {result.breakdown.extras > 0 && (
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-white/70 text-sm">{t("calculator.extras")}</span>
-                      <span className="text-white font-bold text-sm">{fmt(result.breakdown.extras)} <span className="text-white/30 text-xs">{t("calculator.currency")}</span></span>
+                      <span className={`text-sm ${textSec}`}>{t("calculator.extras")}</span>
+                      <span className={`font-bold text-sm ${textPri}`}>{fmt(result.breakdown.extras)} <span className={`text-xs ${textMut}`}>{t("calculator.currency")}</span></span>
                     </div>
-                    <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div className={`h-2 rounded-full overflow-hidden ${isLightMode ? 'bg-slate-100' : 'bg-white/5'}`}>
                       <div className="h-full rounded-full" style={{ width: `${Math.round((result.breakdown.extras / result.avg) * 100)}%`, background: "#e879f9" }} />
                     </div>
                   </div>
@@ -634,7 +641,7 @@ export default function CostCalculatorPage() {
               </h3>
               <div className="space-y-3">
                 {result.insights.map((insight, i) => (
-                  <div key={i} className="flex gap-3 text-sm text-white/70 leading-relaxed">
+                  <div key={i} className={`flex gap-3 text-sm leading-relaxed ${textSec}`}>
                     <span>{insight}</span>
                   </div>
                 ))}
@@ -643,8 +650,8 @@ export default function CostCalculatorPage() {
 
             {/* Note */}
             <div className="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-5">
-              <p className="text-amber-400 font-bold text-sm mb-1">⚠ {t("calculator.note")}</p>
-              <p className="text-amber-300/60 text-xs leading-relaxed">{t("calculator.noteText")}</p>
+              <p className="text-amber-500 font-bold text-sm mb-1">⚠ {t("calculator.note")}</p>
+              <p className={`text-xs leading-relaxed ${isLightMode ? 'text-amber-700/70' : 'text-amber-300/60'}`}>{t("calculator.noteText")}</p>
             </div>
 
             {/* CTA Buttons */}
@@ -655,7 +662,7 @@ export default function CostCalculatorPage() {
                 {t("calculator.contact_cta")}
               </Link>
               <button onClick={reset}
-                className="flex-1 flex items-center justify-center gap-2 px-6 py-4 border-2 border-white/20 text-white font-bold rounded-xl hover:border-white/40 transition-all duration-300 text-base">
+                className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 border-2 font-bold rounded-xl transition-all duration-300 text-base ${isLightMode ? 'border-slate-200 text-slate-600 hover:border-slate-400' : 'border-white/20 text-white hover:border-white/40'}`}>
                 <RotateCcw size={18} />
                 {t("calculator.reset")}
               </button>
@@ -663,7 +670,7 @@ export default function CostCalculatorPage() {
 
             {/* Back link */}
             <div className="text-center pt-2">
-              <Link href="/" className="inline-flex items-center gap-2 text-white/40 hover:text-white/70 text-sm transition-colors">
+              <Link href="/" className={`inline-flex items-center gap-2 text-sm transition-colors ${isLightMode ? 'text-slate-400 hover:text-slate-600' : 'text-white/40 hover:text-white/70'}`}>
                 <ArrowLeft size={14} className={isRtl ? "rotate-180" : ""} />
                 <span>{ui.backToHome[lang] || ui.backToHome['en']}</span>
               </Link>

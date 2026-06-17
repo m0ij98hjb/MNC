@@ -43,14 +43,24 @@ html.dark section:not(.image-hero) [class*="text-white"] {
   color: #1e293b !important;
 }
 
-/* Non-hero sections: semi-transparent white backgrounds → subtle light */
+/* Non-hero sections: semi-transparent white backgrounds → solid white card */
 html.dark section:not(.image-hero) [class*="bg-white\/"] {
-  background-color: rgba(15, 23, 42, 0.05) !important;
+  background-color: #ffffff !important;
 }
 
-/* Non-hero sections: semi-transparent black backgrounds → subtle light */
+/* Non-hero sections: semi-transparent black backgrounds → light */
 html.dark section:not(.image-hero) [class*="bg-black\/"] {
-  background-color: rgba(15, 23, 42, 0.05) !important;
+  background-color: rgba(248, 250, 252, 0.95) !important;
+}
+
+/* Non-hero sections: explicit bg-black elements → light */
+html.dark section:not(.image-hero) .bg-black {
+  background-color: #1e293b !important;
+}
+
+/* Reset map/embed iframe filters in light mode */
+html.dark section iframe {
+  filter: none !important;
 }
 
 /* Non-hero sections: explicit bg-black → use theme background */
@@ -71,13 +81,17 @@ html.dark section:not(.image-hero) .border-white {
 html.dark input,
 html.dark textarea,
 html.dark select {
-  background-color: rgba(15, 23, 42, 0.05) !important;
+  background-color: #ffffff !important;
   border-color: rgba(15, 23, 42, 0.15) !important;
   color: #1e293b !important;
 }
 html.dark input::placeholder,
 html.dark textarea::placeholder {
   color: rgba(15, 23, 42, 0.4) !important;
+}
+html.dark option {
+  background-color: #ffffff;
+  color: #1e293b;
 }
 
 /* Section background default — without !important so utility classes can override */
