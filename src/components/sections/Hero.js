@@ -288,8 +288,8 @@ const Hero = () => {
           <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] z-20" />
         </div>
 
-        {/* Sound Icon - Right Middle */}
-        <div className="absolute right-8 top-1/2 -translate-y-1/2 z-40">
+        {/* Sound Icon - start side middle (right for Arabic, left for other languages) */}
+        <div className={`absolute ${isRTL ? 'right-8' : 'left-8'} top-1/2 -translate-y-1/2 z-40`}>
           <BackgroundMusicButton />
         </div>
 
