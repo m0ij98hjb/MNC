@@ -247,15 +247,17 @@ const Navbar = () => {
       <div
         className={`lg:hidden fixed top-0 bottom-0 w-full z-[120] transition-transform duration-500 ease-out ${isRTL ? 'right-0' : 'left-0'}`}
         style={{
-          backgroundColor: '#0a0a0a',
-          boxShadow: isRTL ? '-6px 0 50px rgba(0,0,0,1)' : '6px 0 50px rgba(0,0,0,1)',
+          backgroundColor: isLightMode ? '#ffffff' : '#0a0a0a',
+          boxShadow: isLightMode
+            ? (isRTL ? '-4px 0 24px rgba(0,0,0,0.08)' : '4px 0 24px rgba(0,0,0,0.08)')
+            : (isRTL ? '-6px 0 50px rgba(0,0,0,1)' : '6px 0 50px rgba(0,0,0,1)'),
           transform: isOpen ? 'translateX(0)' : isRTL ? 'translateX(100%)' : 'translateX(-100%)',
         }}
       >
-        <div className="flex flex-col h-full overflow-y-auto" style={{ backgroundColor: '#0a0a0a' }}>
+        <div className="flex flex-col h-full overflow-y-auto" style={{ backgroundColor: isLightMode ? '#ffffff' : '#0a0a0a' }}>
 
           {/* Panel Header */}
-          <div className="flex items-center justify-between px-5 pt-8 pb-4 border-b border-white/5 flex-shrink-0" style={{ backgroundColor: '#0a0a0a' }}>
+          <div className="flex items-center justify-between px-5 pt-8 pb-4 flex-shrink-0" style={{ backgroundColor: isLightMode ? '#ffffff' : '#0a0a0a', borderBottom: `1px solid ${isLightMode ? '#e2e8f0' : 'rgba(255,255,255,0.05)'}` }}>
             <Link href="/" onClick={() => setIsOpen(false)}>
               <Image src="/asstes/logo-navbar.png" alt="MNC Logo" width={90} height={45} className="h-9 w-auto object-contain" priority />
             </Link>
@@ -266,8 +268,8 @@ const Navbar = () => {
           </div>
 
           {/* Nav Links */}
-          <div className="px-3.5 pt-4 flex-shrink-0" style={{ backgroundColor: '#0a0a0a' }}>
-            <p className="text-[9px] text-white/20 font-medium tracking-[2.5px] uppercase px-1.5 mb-2">
+          <div className="px-3.5 pt-4 flex-shrink-0" style={{ backgroundColor: isLightMode ? '#ffffff' : '#0a0a0a' }}>
+            <p className={`text-[9px] font-medium tracking-[2.5px] uppercase px-1.5 mb-2 ${isLightMode ? 'text-slate-400' : 'text-white/20'}`}>
               {lang === 'ar' || lang === 'ur' ? 'القائمة' : 'Navigation'}
             </p>
             <div className="flex flex-col gap-0.5">
@@ -287,12 +289,14 @@ const Navbar = () => {
                 return (
                   <Link key={link.name} href={link.href} onClick={() => setIsOpen(false)}
                     className={`flex items-center gap-3 py-[11px] px-3 rounded-[12px] border transition-all duration-200 active:scale-[0.98] ${
-                      isActive ? "bg-[#D5B25D]/10 border-[#D5B25D]/20" : "border-transparent hover:bg-white/[0.04]"
+                      isActive
+                        ? "bg-[#D5B25D]/10 border-[#D5B25D]/20"
+                        : isLightMode ? "border-transparent hover:bg-slate-100" : "border-transparent hover:bg-white/[0.04]"
                     }`}>
                     <span className={`w-[34px] h-[34px] rounded-[10px] flex items-center justify-center flex-shrink-0 ${
-                      isActive ? "bg-[#D5B25D]/14 text-[#D5B25D]" : "bg-white/5 text-white/30"
+                      isActive ? "bg-[#D5B25D]/14 text-[#D5B25D]" : isLightMode ? "bg-slate-100 text-slate-400" : "bg-white/5 text-white/30"
                     }`}><LinkIcon size={15} /></span>
-                    <span className={`text-[13px] font-semibold flex-1 ${isActive ? "text-[#D5B25D]" : "text-white/65"}`}>{link.name}</span>
+                    <span className={`text-[13px] font-semibold flex-1 ${isActive ? "text-[#D5B25D]" : isLightMode ? "text-[#1e293b]" : "text-white/65"}`}>{link.name}</span>
                     {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#D5B25D] flex-shrink-0" />}
                   </Link>
                 );
@@ -301,10 +305,10 @@ const Navbar = () => {
           </div>
 
           {/* Language Selector - Mobile */}
-          <div className="px-3.5 pt-5 flex-shrink-0" style={{ backgroundColor: '#0a0a0a' }}>
+          <div className="px-3.5 pt-5 flex-shrink-0" style={{ backgroundColor: isLightMode ? '#ffffff' : '#0a0a0a' }}>
             <button
               onClick={() => setIsMobileLangOpen(!isMobileLangOpen)}
-              className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-white/[0.03] border border-white/8 hover:bg-white/6 transition-all active:scale-[0.98]"
+              className={`w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] border transition-all active:scale-[0.98] ${isLightMode ? 'bg-slate-50 border-[#e2e8f0] hover:bg-slate-100' : 'bg-white/[0.03] border-white/8 hover:bg-white/6'}`}
             >
               <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/10 flex items-center justify-center flex-shrink-0">
                 <Globe size={16} className="text-[#D5B25D]" />
@@ -312,13 +316,13 @@ const Navbar = () => {
               <div className="flex-1 text-start flex items-center gap-2">
                 <span className="text-xl">{currentLang.flag}</span>
                 <div>
-                  <p className="text-[12px] font-bold text-white leading-none">{currentLang.nativeName}</p>
-                  <p className="text-[10px] text-white/28 mt-0.5">
+                  <p className={`text-[12px] font-bold leading-none ${isLightMode ? 'text-[#1e293b]' : 'text-white'}`}>{currentLang.nativeName}</p>
+                  <p className={`text-[10px] mt-0.5 ${isLightMode ? 'text-slate-400' : 'text-white/28'}`}>
                     {lang === 'ar' || lang === 'ur' ? 'اختر اللغة' : 'Select Language'}
                   </p>
                 </div>
               </div>
-              <ChevronDown size={14} className={`text-white/28 transition-transform duration-300 ${isMobileLangOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown size={14} className={`transition-transform duration-300 ${isMobileLangOpen ? 'rotate-180' : ''} ${isLightMode ? 'text-slate-400' : 'text-white/28'}`} />
             </button>
 
             <div className={`overflow-hidden transition-all duration-300 ${isMobileLangOpen ? 'max-h-[420px] mt-2 opacity-100' : 'max-h-0 opacity-0'}`}>
@@ -330,7 +334,9 @@ const Navbar = () => {
                     className={`flex items-center gap-2.5 px-3 py-3 rounded-[12px] border transition-all duration-200 active:scale-[0.97] ${
                       lang === language.code
                         ? "bg-[#D5B25D]/10 border-[#D5B25D]/22 text-[#D5B25D]"
-                        : "border-white/6 bg-white/[0.03] text-white/55 hover:bg-white/6 hover:text-white"
+                        : isLightMode
+                          ? "border-[#e2e8f0] bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-[#1e293b]"
+                          : "border-white/6 bg-white/[0.03] text-white/55 hover:bg-white/6 hover:text-white"
                     }`}
                   >
                     <span className="text-2xl leading-none">{language.flag}</span>
@@ -348,10 +354,10 @@ const Navbar = () => {
           </div>
 
           {/* Spacer */}
-          <div className="flex-1" style={{ backgroundColor: '#0a0a0a' }} />
+          <div className="flex-1" style={{ backgroundColor: isLightMode ? '#ffffff' : '#0a0a0a' }} />
 
           {/* Panel Footer */}
-          <div className="px-3.5 pb-7 pt-4 border-t border-white/5 flex-shrink-0 space-y-2.5" style={{ backgroundColor: '#0a0a0a' }}>
+          <div className="px-3.5 pb-7 pt-4 flex-shrink-0 space-y-2.5" style={{ backgroundColor: isLightMode ? '#ffffff' : '#0a0a0a', borderTop: `1px solid ${isLightMode ? '#e2e8f0' : 'rgba(255,255,255,0.05)'}` }}>
 
             {/* Portfolio */}
             <div>
@@ -360,7 +366,7 @@ const Navbar = () => {
                 <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/14 flex items-center justify-center text-[#D5B25D] flex-shrink-0"><HiDocumentText size={18} /></span>
                 <div className="flex-1 text-start">
                   <p className="text-[12px] font-bold text-[#D5B25D] leading-none">{t('nav.profile')}</p>
-                  <p className="text-[10px] text-white/28 mt-0.5">PDF</p>
+                  <p className={`text-[10px] mt-0.5 ${isLightMode ? 'text-slate-400' : 'text-white/28'}`}>PDF</p>
                 </div>
                 <ChevronDown size={13} className={`text-[#D5B25D]/45 transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
               </button>
@@ -382,18 +388,18 @@ const Navbar = () => {
 
             {/* Theme */}
             <button onClick={toggleTheme}
-              className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-white/[0.03] border border-white/8 hover:bg-white/6 transition-colors">
-              <span className="w-[34px] h-[34px] rounded-[10px] bg-white/5 flex items-center justify-center text-[#D5B25D] flex-shrink-0">
+              className={`w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] border transition-colors ${isLightMode ? 'bg-slate-50 border-[#e2e8f0] hover:bg-slate-100' : 'bg-white/[0.03] border-white/8 hover:bg-white/6'}`}>
+              <span className={`w-[34px] h-[34px] rounded-[10px] flex items-center justify-center text-[#D5B25D] flex-shrink-0 ${isLightMode ? 'bg-slate-100' : 'bg-white/5'}`}>
                 {theme !== 'dark' ? <Sun size={16} /> : <Moon size={16} />}
               </span>
-              <span className="text-[12px] font-semibold text-white/55">
+              <span className={`text-[12px] font-semibold ${isLightMode ? 'text-[#1e293b]/70' : 'text-white/55'}`}>
                 {theme === 'dark'
                   ? (lang === 'ar' || lang === 'ur' ? 'وضع النهار' : 'Light Mode')
                   : (lang === 'ar' || lang === 'ur' ? 'وضع الليل' : 'Dark Mode')}
               </span>
             </button>
 
-            <p className="text-center text-[9px] text-white/14 font-medium uppercase tracking-[0.18em] pt-1">
+            <p className={`text-center text-[9px] font-medium uppercase tracking-[0.18em] pt-1 ${isLightMode ? 'text-slate-400/70' : 'text-white/14'}`}>
               © {new Date().getFullYear()} MNC Construction
             </p>
           </div>
