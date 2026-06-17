@@ -393,20 +393,20 @@ export default function AppPage() {
               <div className="flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center">
 
                 {/* App Store */}
-                <button className={`group flex items-center justify-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.4)] w-full xs:w-auto ${isLightMode ? 'bg-slate-900 border-slate-700' : 'bg-black border-white/10 hover:bg-[#111]'}`}>
-                  <AppleIcon size={26} color="#ffffff" />
+                <button className={`group flex items-center justify-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.15)] w-full xs:w-auto ${isLightMode ? 'bg-[#C9A34D] border-[#C9A34D]/60 hover:bg-[#b8932d]' : 'bg-black border-white/10 hover:bg-[#111]'}`}>
+                  <AppleIcon size={26} color={isLightMode ? "#0D1B2A" : "#ffffff"} />
                   <div className="text-start leading-none">
-                    <div className="text-[9px] uppercase tracking-[0.15em] mb-0.5" style={{ color: 'rgba(255,255,255,0.5)' }}>{c.soon}</div>
-                    <div className="text-[15px] font-black" style={{ color: '#ffffff' }}>App Store</div>
+                    <div className="text-[9px] uppercase tracking-[0.15em] mb-0.5" style={{ color: isLightMode ? 'rgba(15,23,42,0.55)' : 'rgba(255,255,255,0.5)' }}>{c.soon}</div>
+                    <div className="text-[15px] font-black" style={{ color: isLightMode ? '#0D1B2A' : '#ffffff' }}>App Store</div>
                   </div>
                 </button>
 
                 {/* Google Play */}
-                <button className={`group flex items-center justify-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.4)] w-full xs:w-auto ${isLightMode ? 'bg-slate-800 border-slate-700' : 'bg-[#1a1a1a] border-white/10 hover:bg-[#222]'}`}>
+                <button className={`group flex items-center justify-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.15)] w-full xs:w-auto ${isLightMode ? 'bg-[#C9A34D]/90 border-[#C9A34D]/60 hover:bg-[#C9A34D]' : 'bg-[#1a1a1a] border-white/10 hover:bg-[#222]'}`}>
                   <GooglePlayColorIcon size={26} />
                   <div className="text-start leading-none">
-                    <div className="text-[9px] uppercase tracking-[0.15em] mb-0.5" style={{ color: 'rgba(255,255,255,0.5)' }}>{c.soon}</div>
-                    <div className="text-[15px] font-black" style={{ color: '#ffffff' }}>Google Play</div>
+                    <div className="text-[9px] uppercase tracking-[0.15em] mb-0.5" style={{ color: isLightMode ? 'rgba(15,23,42,0.55)' : 'rgba(255,255,255,0.5)' }}>{c.soon}</div>
+                    <div className="text-[15px] font-black" style={{ color: isLightMode ? '#0D1B2A' : '#ffffff' }}>Google Play</div>
                   </div>
                 </button>
 

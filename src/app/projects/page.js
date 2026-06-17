@@ -155,18 +155,18 @@ export default function ProjectsPage() {
 
         <div className="container relative z-10 mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center" data-aos="fade-up">
-            <h1 className="text-3xl md:text-6xl font-black text-[var(--foreground)] mb-6 font-heading">
+            <h1 className="text-3xl md:text-6xl font-black text-white mb-6 font-heading">
               <TypewriterText
                 texts={[t('aboutUsPage.projectsTitle')]}
                 typingSpeed={120}
                 deletingSpeed={60}
                 pauseDuration={2000}
                 loop={true}
-                className="text-[var(--foreground)]"
+                className="text-white"
               />
             </h1>
             <div className="w-24 h-1 bg-secondary mx-auto mb-6"></div>
-            <p className="text-xl text-[var(--foreground)]/80 leading-relaxed font-semibold">
+            <p className="text-xl text-white/80 leading-relaxed font-semibold">
               {t('projectsSection.description')}
             </p>
           </div>

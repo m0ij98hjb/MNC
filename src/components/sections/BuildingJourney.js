@@ -130,7 +130,7 @@ function VideoPlayer() {
 
       {/* Card */}
       <div
-        className="relative rounded-[20px] overflow-hidden bg-[#060E1A] shadow-[0_20px_80px_rgba(0,0,0,0.7)] z-10 cursor-pointer group h-full flex flex-col"
+        className="relative rounded-[20px] overflow-hidden bg-[#060E1A] z-10 cursor-pointer group h-full flex flex-col"
         onClick={togglePlay}
       >
         {/* Video */}

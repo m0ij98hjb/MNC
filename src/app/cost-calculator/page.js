@@ -298,7 +298,7 @@ export default function CostCalculatorPage() {
 
       {/* Hero Banner */}
       <div className="relative pt-36 sm:pt-44 md:pt-48 pb-16 sm:pb-20 md:pb-24 overflow-hidden">
-        <div className={`absolute inset-0 ${isLightMode ? 'bg-gradient-to-br from-[#e8edf5] via-[#f0f4f8] to-[#e8edf5]' : 'bg-gradient-to-br from-black via-[#0d1526] to-black'}`} />
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0d1526] to-black" />
         <div className="absolute inset-0 opacity-10"
           style={{ backgroundImage: "radial-gradient(circle at 30% 50%, #D5B25D 0%, transparent 60%), radial-gradient(circle at 70% 30%, #B8923A 0%, transparent 50%)" }}
         />
@@ -313,11 +313,11 @@ export default function CostCalculatorPage() {
             </svg>
             <span className="text-[#D5B25D] text-xs font-bold tracking-widest uppercase">{t("calculator.badge")}</span>
           </div>
-          <h1 className={`text-4xl sm:text-5xl md:text-6xl font-black mb-4 leading-tight ${isLightMode ? 'text-[#1e293b]' : 'text-white'}`}>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black mb-4 leading-tight text-white">
             <span className="text-gradient">{t("calculator.title")}</span>
           </h1>
           <div className="w-20 h-1 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto mb-6 rounded-full" />
-          <p className={`text-base md:text-lg max-w-2xl mx-auto leading-relaxed ${isLightMode ? 'text-slate-600' : 'text-white/70'}`}>
+          <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed text-white/70">
             {t("calculator.subtitle")}
           </p>
         </div>
