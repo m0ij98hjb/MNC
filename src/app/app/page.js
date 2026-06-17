@@ -97,7 +97,7 @@ export default function AppPage() {
       {/* ═══════════════════════════════════════════════════════
           HERO
       ══════════════════════════════════════════════════════════ */}
-      <section className="image-hero relative min-h-screen flex items-center pt-24 top-10 sm:pt-28 pb-16 sm:pb-20 overflow-hidden">
+      <section className="image-hero relative min-h-screen flex items-center pt-24 sm:pt-28 pb-16 sm:pb-20 overflow-hidden">
 
         {/* ── Background image ── */}
         <div className="absolute inset-0 pointer-events-none">
@@ -122,11 +122,11 @@ export default function AppPage() {
             {/* ────────────────────────────────────────────────
                 IMAGE COLUMN (LEFT)
             ──────────────────────────────────────────────── */}
-            <div className="relative flex-shrink-0 flex items-center justify-center lg:justify-start order-2 lg:order-1">
+            <div className="relative flex-shrink-0 flex items-center justify-center lg:justify-start order-2 lg:order-1 w-full sm:w-auto">
 
-              {/* Background glow rings */}
-              <div className="absolute w-[420px] h-[420px] rounded-full border border-[#C9A34D]/8 pointer-events-none" />
-              <div className="absolute w-[320px] h-[320px] rounded-full border border-[#C9A34D]/12 pointer-events-none" />
+              {/* Background glow rings — hidden on mobile to prevent overflow */}
+              <div className="absolute w-[420px] h-[420px] rounded-full border border-[#C9A34D]/8 pointer-events-none hidden sm:block" />
+              <div className="absolute w-[320px] h-[320px] rounded-full border border-[#C9A34D]/12 pointer-events-none hidden sm:block" />
               <div className="absolute inset-0 pointer-events-none"
                 style={{ background: "radial-gradient(circle at center, rgba(201,163,77,0.13) 0%, transparent 65%)" }} />
 
@@ -180,7 +180,7 @@ export default function AppPage() {
                       alt="MNC App"
                       width={480}
                       height={500}
-                      className="w-[230px] xs:w-[260px] sm:w-[340px] lg:w-[440px] xl:w-[480px] h-auto block"
+                      className="w-[200px] xs:w-[230px] sm:w-[340px] lg:w-[440px] xl:w-[480px] h-auto block"
                       priority
                     />
                   </div>
@@ -216,9 +216,9 @@ export default function AppPage() {
               <p className="text-white/55 text-[0.92rem] sm:text-[1.05rem] leading-relaxed sm:max-w-[420px] mb-8 sm:mb-10">{c.desc}</p>
 
               {/* ── Store Buttons ── */}
-              <div className="flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-10">
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 mb-8 sm:mb-10">
                 {/* App Store — official black */}
-                <button className="group flex items-center justify-center gap-3 bg-black text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#111] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full xs:w-auto">
+                <button className="group flex items-center justify-center gap-3 bg-black text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#111] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full sm:w-auto">
                   <AppleIcon size={26} />
                   <div className="text-start leading-none">
                     <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
@@ -227,7 +227,7 @@ export default function AppPage() {
                 </button>
 
                 {/* Google Play — official black + color icon */}
-                <button className="group flex items-center justify-center gap-3 bg-[#1a1a1a] text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#222] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full xs:w-auto">
+                <button className="group flex items-center justify-center gap-3 bg-[#1a1a1a] text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#222] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full sm:w-auto">
                   <GooglePlayColorIcon size={26} />
                   <div className="text-start leading-none">
                     <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
@@ -248,7 +248,7 @@ export default function AppPage() {
               </div>
 
               {/* ── Stats row ── */}
-              <div className={`flex gap-5 sm:gap-8 ${isRTL ? "flex-row-reverse justify-end" : ""}`}>
+              <div className={`flex flex-wrap gap-4 sm:gap-8 ${isRTL ? "flex-row-reverse justify-end" : ""}`}>
                 {[
                   { n: c.stat1n, l: c.stat1l },
                   { n: c.stat2n, l: c.stat2l },

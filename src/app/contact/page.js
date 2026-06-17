@@ -38,8 +38,8 @@ export default function ContactPage() {
           style={{ backgroundImage: "repeating-linear-gradient(45deg, #D5B25D 0px, #D5B25D 1px, transparent 1px, transparent 80px)" }}
         />
 
-        <div className="container relative z-10 mx-auto px-6 max-w-7xl py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 max-w-7xl py-8 sm:py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
 
             {/* Left / Start: title & CTA */}
             <div className={isRTL ? "text-right" : "text-left"} data-aos="fade-right">
@@ -128,9 +128,9 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-24 bg-[var(--card-bg)]" id="contact">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+      <section className="py-10 sm:py-24 bg-[var(--card-bg)]" id="contact">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+          <div className="flex flex-col lg:flex-row gap-10 lg:gap-24 items-start">
 
             {/* Info Side */}
             <div className="w-full lg:w-1/2 space-y-10" data-aos="fade-right">
@@ -186,7 +186,7 @@ export default function ContactPage() {
 
             {/* Form Side */}
             <div className="lg:w-1/2 w-full" data-aos="fade-left">
-              <div className="bg-white/5 p-8 md:p-10 rounded-3xl shadow-2xl border border-white/10 relative overflow-hidden group">
+              <div className="bg-white/5 p-5 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl shadow-2xl border border-white/10 relative overflow-hidden group">
                 {/* Decorative background element */}
                 <div className="absolute -top-24 -right-24 w-48 h-48 bg-secondary/5 rounded-full blur-3xl group-hover:bg-secondary/10 transition-colors duration-700"></div>
                 
@@ -241,15 +241,15 @@ export default function ContactPage() {
       </section>
 
       {/* Map Section */}
-      <section className="py-24 bg-[var(--background)] relative overflow-hidden">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="text-center mb-16" data-aos="fade-up">
+      <section className="py-10 sm:py-24 bg-[var(--background)] relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
+          <div className="text-center mb-8 sm:mb-16" data-aos="fade-up">
             <span className="text-secondary font-bold tracking-widest text-xs mb-3 block uppercase">{t('contactPage.locationBadge')}</span>
             <h2 className="text-3xl md:text-4xl font-black text-white font-heading">{t('contactPage.visitTitle')}</h2>
             <div className="w-20 h-1.5 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto mt-6 rounded-full"></div>
           </div>
           
-          <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white/5 h-[500px] group" data-aos="zoom-in">
+          <div className="relative rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-2xl border-4 sm:border-8 border-white/5 h-[300px] sm:h-[500px] group" data-aos="zoom-in">
             <iframe 
               src="https://www.google.com/maps?q=Consultant+Marwan+Ahmed+Nazer+Engineering+Consultancy+Jeddah&output=embed" 
               width="100%" 
