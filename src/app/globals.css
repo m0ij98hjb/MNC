@@ -255,6 +255,13 @@ main {
       min-height: 100svh !important;
     }
 
+    /* CTA/secondary sections that use image-hero only for light-mode exemption
+       but should NOT be forced to full viewport height on mobile */
+    section.image-hero.no-mobile-vh {
+      min-height: 0 !important;
+      height: auto !important;
+    }
+
     /* Mobile: always center hero background images */
     section.image-hero img {
       object-position: center center !important;

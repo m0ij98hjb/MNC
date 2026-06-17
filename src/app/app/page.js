@@ -343,7 +343,7 @@ export default function AppPage() {
       {/* ═══════════════════════════════════════════════════════
           DOWNLOAD CTA
       ══════════════════════════════════════════════════════════ */}
-      <section className="image-hero py-14 sm:py-20 lg:py-24 px-4 sm:px-6 relative overflow-hidden">
+      <section className="image-hero no-mobile-vh py-10 sm:py-20 lg:py-24 px-4 sm:px-6 relative overflow-hidden">
         {/* Background: same style as cost-calculator hero — always dark in both modes */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0d1526] to-black" />
         <div className="absolute inset-0 opacity-10"
