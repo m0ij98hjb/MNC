@@ -13,11 +13,11 @@ export default function ContactPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="image-hero relative min-h-screen flex items-center overflow-hidden pt-20">
+      <section className="image-hero relative min-h-screen flex items-center overflow-hidden pt-28 lg:pt-20">
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?q=85&w=2070&auto=format&fit=crop"
+            src="/images/heroes/hero-contact.jpg"
             alt="Contact MNC"
             fill
             className="object-cover object-center"

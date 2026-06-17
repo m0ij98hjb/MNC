@@ -19,7 +19,7 @@ export default function AboutUsPage() {
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=85&w=2072&auto=format&fit=crop"
+            src="/images/heroes/hero-us.jpg"
             alt="About MNC Construction"
             fill
             className="object-cover object-center animate-slow-zoom"
