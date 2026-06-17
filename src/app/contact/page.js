@@ -13,7 +13,7 @@ export default function ContactPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="image-hero relative min-h-screen flex items-center overflow-hidden pt-28 lg:pt-20">
+      <section className="image-hero relative min-h-screen flex items-start lg:items-center overflow-hidden pt-20">
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -38,13 +38,13 @@ export default function ContactPage() {
           style={{ backgroundImage: "repeating-linear-gradient(45deg, #D5B25D 0px, #D5B25D 1px, transparent 1px, transparent 80px)" }}
         />
 
-        <div className="container relative z-10 mx-auto px-4 sm:px-6 max-w-7xl py-8 sm:py-16">
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 max-w-7xl py-6 sm:py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center">
 
             {/* Left / Start: title & CTA */}
             <div className={isRTL ? "text-right" : "text-left"} data-aos="fade-right">
               {/* Badge */}
-              <div className={`inline-flex items-center gap-2.5 bg-white/5 backdrop-blur-sm border border-secondary/30 rounded-full px-5 py-2 mb-8`}>
+              <div className={`inline-flex items-center gap-2.5 bg-white/5 backdrop-blur-sm border border-secondary/30 rounded-full px-5 py-2 mb-4 sm:mb-8`}>
                 <div className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
                 <span className="text-secondary text-xs font-bold tracking-widest uppercase">
                   {t('contactPage.typewriter')?.[0] || "تواصل معنا"}
@@ -52,13 +52,13 @@ export default function ContactPage() {
               </div>
 
               {/* Title */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 font-heading leading-tight">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 sm:mb-6 font-heading leading-tight">
                 {t('contact.ready')}
                 <br />
                 <span className="text-gradient">{t('contact.nextProject')}</span>
               </h1>
 
-              <p className="text-white/70 text-base md:text-xl leading-relaxed mb-10 max-w-lg font-medium">
+              <p className="text-white/70 text-sm sm:text-base md:text-xl leading-relaxed mb-6 sm:mb-10 max-w-lg font-medium">
                 {t('contact.desc')}
               </p>
 
@@ -71,8 +71,8 @@ export default function ContactPage() {
               </a>
             </div>
 
-            {/* Right / End: contact info cards */}
-            <div className="space-y-4" data-aos="fade-left" data-aos-delay="150">
+            {/* Right / End: contact info cards — hidden on mobile (shown in form section below) */}
+            <div className="space-y-4 hidden lg:block" data-aos="fade-left" data-aos-delay="150">
               {/* Phone */}
               <a
                 href="tel:0598242385"

@@ -247,11 +247,11 @@ main {
       transform: none !important;
     }
 
-    /* Mobile: hero sections fill exactly the visible viewport (100svh avoids
-       iOS Safari address-bar jump that 100vh causes). Override pixel min-height
-       constraints that can overflow small screens. */
+    /* Mobile: hero sections are at least the visible viewport tall.
+       height: auto lets content-heavy heroes (app, contact) grow beyond the
+       viewport instead of clipping with overflow-hidden. */
     section.image-hero {
-      height: 100svh !important;
+      height: auto !important;
       min-height: 100svh !important;
     }
 

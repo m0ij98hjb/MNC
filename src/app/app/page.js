@@ -97,7 +97,7 @@ export default function AppPage() {
       {/* ═══════════════════════════════════════════════════════
           HERO
       ══════════════════════════════════════════════════════════ */}
-      <section className="image-hero relative min-h-screen flex items-center pt-24 sm:pt-28 pb-16 sm:pb-20 overflow-hidden">
+      <section className="image-hero relative min-h-screen flex items-start lg:items-center pt-20 lg:pt-28 pb-4 sm:pb-14 lg:pb-20 overflow-hidden">
 
         {/* ── Background image ── */}
         <div className="absolute inset-0 pointer-events-none">
@@ -117,7 +117,7 @@ export default function AppPage() {
 
         <div className="relative container mx-auto px-6 max-w-7xl">
           {/* Two columns — image on left, text on right */}
-          <div className="flex flex-col lg:flex-row items-center gap-10 sm:gap-14 lg:gap-12 xl:gap-20" style={{ direction: "ltr" }}>
+          <div className="flex flex-col lg:flex-row items-center gap-4 sm:gap-10 lg:gap-12 xl:gap-20" style={{ direction: "ltr" }}>
 
             {/* ────────────────────────────────────────────────
                 IMAGE COLUMN (LEFT)
@@ -180,7 +180,7 @@ export default function AppPage() {
                       alt="MNC App"
                       width={480}
                       height={500}
-                      className="w-[200px] xs:w-[230px] sm:w-[340px] lg:w-[440px] xl:w-[480px] h-auto block"
+                      className="w-[150px] xs:w-[170px] sm:w-[300px] lg:w-[440px] xl:w-[480px] h-auto block"
                       priority
                     />
                   </div>
@@ -194,13 +194,13 @@ export default function AppPage() {
             <div className={`flex-1 ${ta} order-1 lg:order-2`} dir={isRTL ? "rtl" : "ltr"}>
 
               {/* Badge */}
-              <div className="inline-flex items-center gap-2.5 border border-[#C9A34D]/35 bg-[#C9A34D]/8 backdrop-blur-sm rounded-full px-5 py-2 mb-8">
+              <div className="inline-flex items-center gap-2.5 border border-[#C9A34D]/35 bg-[#C9A34D]/8 backdrop-blur-sm rounded-full px-5 py-2 mb-3 sm:mb-8">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#C9A34D] animate-pulse block" />
                 <span className="text-[#C9A34D] text-[11px] font-bold tracking-[0.2em] uppercase">{c.badge}</span>
               </div>
 
               {/* Headline */}
-              <h1 className="text-[2rem] xs:text-4xl sm:text-5xl lg:text-[4.5rem] xl:text-7xl font-black text-white leading-[1.06] mb-5 sm:mb-6">
+              <h1 className="text-[1.75rem] xs:text-[2rem] sm:text-5xl lg:text-[4.5rem] xl:text-7xl font-black text-white leading-[1.06] mb-2 sm:mb-5">
                 {c.title1}
                 <br />
                 <span className="relative inline-block">
@@ -213,12 +213,12 @@ export default function AppPage() {
               </h1>
 
               {/* Description */}
-              <p className="text-white/55 text-[0.92rem] sm:text-[1.05rem] leading-relaxed sm:max-w-[420px] mb-8 sm:mb-10">{c.desc}</p>
+              <p className="text-white/55 text-[0.82rem] sm:text-[1.05rem] leading-relaxed sm:max-w-[420px] mb-3 sm:mb-10">{c.desc}</p>
 
               {/* ── Store Buttons ── */}
-              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 mb-8 sm:mb-10">
+              <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-4 mb-3 sm:mb-10">
                 {/* App Store — official black */}
-                <button className="group flex items-center justify-center gap-3 bg-black text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#111] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full sm:w-auto">
+                <button className="group flex items-center justify-center gap-3 bg-black text-white px-6 sm:px-7 py-2.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#111] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full sm:w-auto">
                   <AppleIcon size={26} />
                   <div className="text-start leading-none">
                     <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
@@ -227,7 +227,7 @@ export default function AppPage() {
                 </button>
 
                 {/* Google Play — official black + color icon */}
-                <button className="group flex items-center justify-center gap-3 bg-[#1a1a1a] text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#222] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full sm:w-auto">
+                <button className="group flex items-center justify-center gap-3 bg-[#1a1a1a] text-white px-6 sm:px-7 py-2.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#222] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full sm:w-auto">
                   <GooglePlayColorIcon size={26} />
                   <div className="text-start leading-none">
                     <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
@@ -238,7 +238,7 @@ export default function AppPage() {
               </div>
 
               {/* ── Stars + Rating ── */}
-              <div className={`flex items-center gap-3 mb-8 sm:mb-12 ${isRTL ? "flex-row-reverse justify-end" : ""}`}>
+              <div className={`flex items-center gap-3 mb-2 sm:mb-12 ${isRTL ? "flex-row-reverse justify-end" : ""}`}>
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} size={14} className="text-[#C9A34D] fill-[#C9A34D]" />
