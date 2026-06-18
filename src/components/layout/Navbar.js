@@ -3,10 +3,11 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users, Smartphone } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users, Smartphone, Shield, UserCog, LogOut, LayoutDashboard } from "lucide-react";
 import { useLanguage, LANGUAGES } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
+import { useAuth } from "@/context/AuthContext";
 import { HiDocumentText } from "react-icons/hi";
 
 const Navbar = () => {
@@ -14,12 +15,17 @@ const Navbar = () => {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isMobileLangOpen, setIsMobileLangOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const { lang, setLang, t, isRTL } = useLanguage();
   const { theme, toggleTheme } = useTheme();
+  const { user, logout } = useAuth();
   const isLightMode = theme === 'dark';
+  const isAdmin = user !== null && user !== undefined;
   const langDropdownRef = useRef(null);
+  const adminDropdownRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -32,10 +38,20 @@ const Navbar = () => {
       if (langDropdownRef.current && !langDropdownRef.current.contains(e.target)) {
         setIsLangOpen(false);
       }
+      if (adminDropdownRef.current && !adminDropdownRef.current.contains(e.target)) {
+        setIsAdminOpen(false);
+      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleAdminLogout = async () => {
+    setIsAdminOpen(false);
+    setIsOpen(false);
+    await logout();
+    router.replace('/admin/login');
+  };
 
   const navLinks = [
     { name: t('nav.home'),     href: "/",                icon: Home },
@@ -138,95 +154,201 @@ const Navbar = () => {
           {/* ── Desktop Actions ── */}
           <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 flex-shrink-0">
 
-            {/* Profile / Portfolio Dropdown */}
-            <div className="relative">
-              <button onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className="flex items-center gap-1.5 group">
-                <span className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 border border-[#D5B25D]/22 text-[#D5B25D] rounded-lg transition-all duration-300 group-hover:bg-[#D5B25D]/10 group-hover:border-[#D5B25D]/40 active:scale-95">
-                  <HiDocumentText size={17} />
-                </span>
-                <span className="bg-[#D5B25D] text-black px-3 xl:px-4 py-[7px] xl:py-2 rounded-lg font-bold text-[11px] xl:text-[12px] shadow-[0_2px_12px_rgba(213,178,93,0.25)] transition-all duration-300 hover:bg-[#E1BF67] hover:shadow-[0_4px_20px_rgba(213,178,93,0.35)] active:scale-95 flex items-center gap-1.5 whitespace-nowrap">
-                  {t('nav.profile')}
-                  <ChevronDown size={11} className={`transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
-                </span>
-              </button>
-
-              <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[178px] bg-[#0b0e12] border border-[#D5B25D]/14 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
-                isProfileOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"
-              }`}>
-                <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                  className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#D5B25D] hover:bg-[#D5B25D]/8 transition-colors"
-                  onClick={() => setIsProfileOpen(false)}>
-                  {tPortfolio.ar}
-                </a>
-                <div className="h-px bg-white/[0.04] mx-3" />
-                <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                  className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#D5B25D] hover:bg-[#D5B25D]/8 transition-colors"
-                  onClick={() => setIsProfileOpen(false)}>
-                  {tPortfolio.en}
-                </a>
-              </div>
-            </div>
-
-            {/* Theme Toggle */}
-            <button onClick={toggleTheme}
-              className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 overflow-hidden active:scale-95">
-              <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
-              <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}><Moon size={15} /></span>
-            </button>
-
-            {/* Language Selector */}
-            <div className="relative" ref={langDropdownRef}>
-              <button
-                onClick={() => setIsLangOpen(!isLangOpen)}
-                className={`flex items-center gap-1.5 px-2.5 xl:px-3 py-[7px] xl:py-2 rounded-lg border border-[#D5B25D]/22 hover:border-[#D5B25D]/42 hover:bg-[#D5B25D]/7 transition-all duration-300 ${isLightMode ? 'text-slate-600' : 'text-white/65 hover:text-white'}`}
-              >
-                <span className="text-base leading-none">{currentLang.flag}</span>
-                <span className="text-[10.5px] font-bold tracking-widest uppercase">{currentLang.code.toUpperCase()}</span>
-                <Globe size={11} className="text-[#D5B25D]/45" />
-              </button>
-
-              <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[262px] bg-[#0b0e12] border border-[#D5B25D]/12 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
-                isLangOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-3 pointer-events-none"
-              }`}>
-                <div className="p-3">
-                  <p className="text-[9px] text-white/20 font-medium tracking-[2.5px] uppercase mb-2.5 px-1">
-                    {lang === 'ar' || lang === 'ur' ? 'اختر اللغة' : 'Select Language'}
-                  </p>
-                  <div className="grid grid-cols-2 gap-1.5">
-                    {LANGUAGES.map((language) => (
-                      <button
-                        key={language.code}
-                        onClick={() => { setLang(language.code); setIsLangOpen(false); }}
-                        className={`flex items-center gap-2.5 px-3 py-2.5 rounded-[10px] transition-all duration-200 text-start ${
-                          lang === language.code
-                            ? "bg-[#D5B25D]/10 border border-[#D5B25D]/22 text-[#D5B25D]"
-                            : "hover:bg-white/5 border border-transparent text-white/50 hover:text-white"
-                        }`}
-                      >
-                        <span className="text-xl leading-none">{language.flag}</span>
-                        <div>
-                          <p className="text-[11.5px] font-bold leading-tight">{language.nativeName}</p>
-                          <p className="text-[9px] opacity-40 uppercase tracking-wide">{language.dir.toUpperCase()}</p>
-                        </div>
-                        {lang === language.code && (
-                          <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#D5B25D] flex-shrink-0" />
-                        )}
-                      </button>
-                    ))}
+            {/* ── ADMIN MODE ── */}
+            {isAdmin ? (
+              <>
+                {/* Language Selector — stays visible */}
+                <div className="relative" ref={langDropdownRef}>
+                  <button
+                    onClick={() => setIsLangOpen(!isLangOpen)}
+                    className={`flex items-center gap-1.5 px-2.5 xl:px-3 py-[7px] xl:py-2 rounded-lg border border-[#D5B25D]/22 hover:border-[#D5B25D]/42 hover:bg-[#D5B25D]/7 transition-all duration-300 ${isLightMode ? 'text-slate-600' : 'text-white/65 hover:text-white'}`}
+                  >
+                    <span className="text-base leading-none">{currentLang.flag}</span>
+                    <span className="text-[10.5px] font-bold tracking-widest uppercase">{currentLang.code.toUpperCase()}</span>
+                    <Globe size={11} className="text-[#D5B25D]/45" />
+                  </button>
+                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[262px] bg-[#0b0e12] border border-[#D5B25D]/12 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
+                    isLangOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-3 pointer-events-none"
+                  }`}>
+                    <div className="p-3">
+                      <p className="text-[9px] text-white/20 font-medium tracking-[2.5px] uppercase mb-2.5 px-1">
+                        {lang === 'ar' || lang === 'ur' ? 'اختر اللغة' : 'Select Language'}
+                      </p>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        {LANGUAGES.map((language) => (
+                          <button
+                            key={language.code}
+                            onClick={() => { setLang(language.code); setIsLangOpen(false); }}
+                            className={`flex items-center gap-2.5 px-3 py-2.5 rounded-[10px] transition-all duration-200 text-start ${
+                              lang === language.code
+                                ? "bg-[#D5B25D]/10 border border-[#D5B25D]/22 text-[#D5B25D]"
+                                : "hover:bg-white/5 border border-transparent text-white/50 hover:text-white"
+                            }`}
+                          >
+                            <span className="text-xl leading-none">{language.flag}</span>
+                            <div>
+                              <p className="text-[11.5px] font-bold leading-tight">{language.nativeName}</p>
+                              <p className="text-[9px] opacity-40 uppercase tracking-wide">{language.dir.toUpperCase()}</p>
+                            </div>
+                            {lang === language.code && (
+                              <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#D5B25D] flex-shrink-0" />
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+
+                {/* Shield → /admin/dashboard */}
+                <Link
+                  href="/admin/dashboard"
+                  title={t('admin.dashboard')}
+                  className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#C9A34D]/35 text-[#C9A34D] hover:bg-[#C9A34D]/12 hover:border-[#C9A34D]/55 transition-all duration-300 active:scale-95"
+                >
+                  <Shield size={16} />
+                </Link>
+
+                {/* Admin user dropdown */}
+                <div className="relative" ref={adminDropdownRef}>
+                  <button
+                    onClick={() => setIsAdminOpen(!isAdminOpen)}
+                    className="flex items-center gap-1.5 xl:gap-2 px-2.5 xl:px-3 py-[7px] xl:py-2 rounded-lg border border-[#C9A34D]/30 hover:border-[#C9A34D]/50 hover:bg-[#C9A34D]/8 transition-all duration-300 active:scale-95"
+                  >
+                    <UserCog size={14} className="text-[#C9A34D] flex-shrink-0" />
+                    <span className="text-[11px] xl:text-[12px] font-bold text-[#C9A34D] whitespace-nowrap">
+                      {t('admin.managerTitle')}
+                    </span>
+                    <ChevronDown size={10} className={`text-[#C9A34D]/50 transition-transform duration-300 ${isAdminOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[185px] bg-[#0b0e12] border border-[#C9A34D]/15 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
+                    isAdminOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
+                  }`}>
+                    <Link
+                      href="/admin/dashboard"
+                      onClick={() => setIsAdminOpen(false)}
+                      className="flex items-center gap-2.5 w-full px-4 py-3 text-[12px] font-bold text-white/65 hover:text-white hover:bg-white/5 transition-colors"
+                    >
+                      <LayoutDashboard size={13} className="text-[#C9A34D] flex-shrink-0" />
+                      {t('admin.dashboard')}
+                    </Link>
+                    <div className="h-px bg-white/[0.05] mx-3" />
+                    <button
+                      onClick={handleAdminLogout}
+                      className="flex items-center gap-2.5 w-full px-4 py-3 text-[12px] font-bold text-red-400/60 hover:text-red-400 hover:bg-red-500/5 transition-colors"
+                    >
+                      <LogOut size={13} className="flex-shrink-0" />
+                      {t('admin.logout')}
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* ── NORMAL MODE ── */}
+
+                {/* Profile / Portfolio Dropdown */}
+                <div className="relative">
+                  <button onClick={() => setIsProfileOpen(!isProfileOpen)}
+                    className="flex items-center gap-1.5 group">
+                    <span className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 border border-[#D5B25D]/22 text-[#D5B25D] rounded-lg transition-all duration-300 group-hover:bg-[#D5B25D]/10 group-hover:border-[#D5B25D]/40 active:scale-95">
+                      <HiDocumentText size={17} />
+                    </span>
+                    <span className="bg-[#D5B25D] text-black px-3 xl:px-4 py-[7px] xl:py-2 rounded-lg font-bold text-[11px] xl:text-[12px] shadow-[0_2px_12px_rgba(213,178,93,0.25)] transition-all duration-300 hover:bg-[#E1BF67] hover:shadow-[0_4px_20px_rgba(213,178,93,0.35)] active:scale-95 flex items-center gap-1.5 whitespace-nowrap">
+                      {t('nav.profile')}
+                      <ChevronDown size={11} className={`transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
+                    </span>
+                  </button>
+
+                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[178px] bg-[#0b0e12] border border-[#D5B25D]/14 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
+                    isProfileOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"
+                  }`}>
+                    <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
+                      className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#D5B25D] hover:bg-[#D5B25D]/8 transition-colors"
+                      onClick={() => setIsProfileOpen(false)}>
+                      {tPortfolio.ar}
+                    </a>
+                    <div className="h-px bg-white/[0.04] mx-3" />
+                    <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
+                      className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#D5B25D] hover:bg-[#D5B25D]/8 transition-colors"
+                      onClick={() => setIsProfileOpen(false)}>
+                      {tPortfolio.en}
+                    </a>
+                  </div>
+                </div>
+
+                {/* Theme Toggle */}
+                <button onClick={toggleTheme}
+                  className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 overflow-hidden active:scale-95">
+                  <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
+                  <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}><Moon size={15} /></span>
+                </button>
+
+                {/* Language Selector */}
+                <div className="relative" ref={langDropdownRef}>
+                  <button
+                    onClick={() => setIsLangOpen(!isLangOpen)}
+                    className={`flex items-center gap-1.5 px-2.5 xl:px-3 py-[7px] xl:py-2 rounded-lg border border-[#D5B25D]/22 hover:border-[#D5B25D]/42 hover:bg-[#D5B25D]/7 transition-all duration-300 ${isLightMode ? 'text-slate-600' : 'text-white/65 hover:text-white'}`}
+                  >
+                    <span className="text-base leading-none">{currentLang.flag}</span>
+                    <span className="text-[10.5px] font-bold tracking-widest uppercase">{currentLang.code.toUpperCase()}</span>
+                    <Globe size={11} className="text-[#D5B25D]/45" />
+                  </button>
+
+                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[262px] bg-[#0b0e12] border border-[#D5B25D]/12 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
+                    isLangOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-3 pointer-events-none"
+                  }`}>
+                    <div className="p-3">
+                      <p className="text-[9px] text-white/20 font-medium tracking-[2.5px] uppercase mb-2.5 px-1">
+                        {lang === 'ar' || lang === 'ur' ? 'اختر اللغة' : 'Select Language'}
+                      </p>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        {LANGUAGES.map((language) => (
+                          <button
+                            key={language.code}
+                            onClick={() => { setLang(language.code); setIsLangOpen(false); }}
+                            className={`flex items-center gap-2.5 px-3 py-2.5 rounded-[10px] transition-all duration-200 text-start ${
+                              lang === language.code
+                                ? "bg-[#D5B25D]/10 border border-[#D5B25D]/22 text-[#D5B25D]"
+                                : "hover:bg-white/5 border border-transparent text-white/50 hover:text-white"
+                            }`}
+                          >
+                            <span className="text-xl leading-none">{language.flag}</span>
+                            <div>
+                              <p className="text-[11.5px] font-bold leading-tight">{language.nativeName}</p>
+                              <p className="text-[9px] opacity-40 uppercase tracking-wide">{language.dir.toUpperCase()}</p>
+                            </div>
+                            {lang === language.code && (
+                              <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#D5B25D] flex-shrink-0" />
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
 
           {/* ── Mobile Header Actions ── */}
           <div className="flex items-center gap-2 lg:hidden ms-auto">
-            <button onClick={toggleTheme}
-              className="relative flex items-center justify-center w-8 h-8 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all duration-300 overflow-hidden">
-              <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
-              <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}><Moon size={15} /></span>
-            </button>
+            {isAdmin ? (
+              /* Admin: show gold Shield instead of theme toggle */
+              <Link
+                href="/admin/dashboard"
+                className="flex items-center justify-center w-8 h-8 rounded-lg border border-[#C9A34D]/35 text-[#C9A34D] hover:bg-[#C9A34D]/12 transition-all duration-300"
+              >
+                <Shield size={16} />
+              </Link>
+            ) : (
+              <button onClick={toggleTheme}
+                className="relative flex items-center justify-center w-8 h-8 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all duration-300 overflow-hidden">
+                <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
+                <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}><Moon size={15} /></span>
+              </button>
+            )}
             <button
               className={`p-2 rounded-lg border border-[#D5B25D]/22 hover:bg-[#D5B25D]/10 transition-colors ${isLightMode ? 'text-slate-700' : 'text-white/80'}`}
               onClick={() => setIsOpen(!isOpen)}
@@ -361,45 +483,78 @@ const Navbar = () => {
           {/* Panel Footer */}
           <div className="px-3.5 pb-7 pt-4 flex-shrink-0 space-y-2.5" style={{ backgroundColor: isLightMode ? '#ffffff' : '#0a0a0a', borderTop: `1px solid ${isLightMode ? '#e2e8f0' : 'rgba(255,255,255,0.05)'}` }}>
 
-            {/* Portfolio */}
-            <div>
-              <button onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-[#D5B25D]/6 border border-[#D5B25D]/18 hover:bg-[#D5B25D]/10 transition-all active:scale-[0.98]">
-                <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/14 flex items-center justify-center text-[#D5B25D] flex-shrink-0"><HiDocumentText size={18} /></span>
-                <div className="flex-1 text-start">
-                  <p className="text-[12px] font-bold text-[#D5B25D] leading-none">{t('nav.profile')}</p>
-                  <p className={`text-[10px] mt-0.5 ${isLightMode ? 'text-slate-400' : 'text-white/28'}`}>PDF</p>
-                </div>
-                <ChevronDown size={13} className={`text-[#D5B25D]/45 transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
-              </button>
-              <div className={`overflow-hidden transition-all duration-300 ${isProfileOpen ? "max-h-28 mt-2 opacity-100" : "max-h-0 opacity-0"}`}>
-                <div className="grid grid-cols-2 gap-2">
-                  <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                    onClick={() => setIsOpen(false)}
-                    className="text-[11px] font-bold text-[#D5B25D] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
-                    {tPortfolio.ar}
-                  </a>
-                  <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                    onClick={() => setIsOpen(false)}
-                    className="text-[11px] font-bold text-[#D5B25D] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
-                    {tPortfolio.en}
-                  </a>
-                </div>
-              </div>
-            </div>
+            {isAdmin ? (
+              /* ── Admin footer: Dashboard + Logout ── */
+              <>
+                <Link
+                  href="/admin/dashboard"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-[#C9A34D]/8 border border-[#C9A34D]/20 hover:bg-[#C9A34D]/14 transition-all active:scale-[0.98]"
+                >
+                  <span className="w-[34px] h-[34px] rounded-[10px] bg-[#C9A34D]/15 flex items-center justify-center text-[#C9A34D] flex-shrink-0">
+                    <LayoutDashboard size={17} />
+                  </span>
+                  <div className="flex-1 text-start">
+                    <p className="text-[12px] font-bold text-[#C9A34D] leading-none">{t('admin.dashboard')}</p>
+                    <p className="text-[10px] mt-0.5 text-white/28">{t('admin.managerTitle')}</p>
+                  </div>
+                  <Shield size={14} className="text-[#C9A34D]/40 flex-shrink-0" />
+                </Link>
 
-            {/* Theme */}
-            <button onClick={toggleTheme}
-              className={`w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] border transition-colors ${isLightMode ? 'bg-slate-50 border-[#e2e8f0] hover:bg-slate-100' : 'bg-white/[0.03] border-white/8 hover:bg-white/6'}`}>
-              <span className={`w-[34px] h-[34px] rounded-[10px] flex items-center justify-center text-[#D5B25D] flex-shrink-0 ${isLightMode ? 'bg-slate-100' : 'bg-white/5'}`}>
-                {isLightMode ? <Sun size={16} /> : <Moon size={16} />}
-              </span>
-              <span className={`text-[12px] font-semibold ${isLightMode ? 'text-[#1e293b]/70' : 'text-white/55'}`}>
-                {isLightMode
-                  ? (lang === 'ar' || lang === 'ur' ? 'وضع النهار' : 'Light Mode')
-                  : (lang === 'ar' || lang === 'ur' ? 'وضع الليل' : 'Dark Mode')}
-              </span>
-            </button>
+                <button
+                  onClick={handleAdminLogout}
+                  className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] border border-red-500/15 bg-red-500/5 hover:bg-red-500/10 transition-all active:scale-[0.98]"
+                >
+                  <span className="w-[34px] h-[34px] rounded-[10px] bg-red-500/10 flex items-center justify-center text-red-400 flex-shrink-0">
+                    <LogOut size={16} />
+                  </span>
+                  <span className="text-[12px] font-bold text-red-400/70">{t('admin.logout')}</span>
+                </button>
+              </>
+            ) : (
+              /* ── Normal footer: Portfolio + Theme ── */
+              <>
+                {/* Portfolio */}
+                <div>
+                  <button onClick={() => setIsProfileOpen(!isProfileOpen)}
+                    className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-[#D5B25D]/6 border border-[#D5B25D]/18 hover:bg-[#D5B25D]/10 transition-all active:scale-[0.98]">
+                    <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/14 flex items-center justify-center text-[#D5B25D] flex-shrink-0"><HiDocumentText size={18} /></span>
+                    <div className="flex-1 text-start">
+                      <p className="text-[12px] font-bold text-[#D5B25D] leading-none">{t('nav.profile')}</p>
+                      <p className={`text-[10px] mt-0.5 ${isLightMode ? 'text-slate-400' : 'text-white/28'}`}>PDF</p>
+                    </div>
+                    <ChevronDown size={13} className={`text-[#D5B25D]/45 transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  <div className={`overflow-hidden transition-all duration-300 ${isProfileOpen ? "max-h-28 mt-2 opacity-100" : "max-h-0 opacity-0"}`}>
+                    <div className="grid grid-cols-2 gap-2">
+                      <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
+                        onClick={() => setIsOpen(false)}
+                        className="text-[11px] font-bold text-[#D5B25D] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
+                        {tPortfolio.ar}
+                      </a>
+                      <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
+                        onClick={() => setIsOpen(false)}
+                        className="text-[11px] font-bold text-[#D5B25D] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
+                        {tPortfolio.en}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Theme */}
+                <button onClick={toggleTheme}
+                  className={`w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] border transition-colors ${isLightMode ? 'bg-slate-50 border-[#e2e8f0] hover:bg-slate-100' : 'bg-white/[0.03] border-white/8 hover:bg-white/6'}`}>
+                  <span className={`w-[34px] h-[34px] rounded-[10px] flex items-center justify-center text-[#D5B25D] flex-shrink-0 ${isLightMode ? 'bg-slate-100' : 'bg-white/5'}`}>
+                    {isLightMode ? <Sun size={16} /> : <Moon size={16} />}
+                  </span>
+                  <span className={`text-[12px] font-semibold ${isLightMode ? 'text-[#1e293b]/70' : 'text-white/55'}`}>
+                    {isLightMode
+                      ? (lang === 'ar' || lang === 'ur' ? 'وضع النهار' : 'Light Mode')
+                      : (lang === 'ar' || lang === 'ur' ? 'وضع الليل' : 'Dark Mode')}
+                  </span>
+                </button>
+              </>
+            )}
 
             <p className={`text-center text-[9px] font-medium uppercase tracking-[0.18em] pt-1 ${isLightMode ? 'text-slate-400/70' : 'text-white/14'}`}>
               © {new Date().getFullYear()} MNC Construction
