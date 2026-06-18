@@ -51,10 +51,12 @@ export default function AdminLoginPage() {
           0%,100% { transform: translateY(0); }
           50%      { transform: translateY(-6px); }
         }
-        @keyframes gold-pulse {
-          0%,100% { box-shadow: 0 0 30px rgba(213,178,93,0.10), 0 0 0 1px rgba(213,178,93,0.18); }
-          50%      { box-shadow: 0 0 55px rgba(213,178,93,0.20), 0 0 0 1px rgba(213,178,93,0.28); }
+        @keyframes gold-glow {
+          0%,100% { box-shadow: 0 0 40px rgba(213,178,93,0.07), 0 0 0 1px rgba(213,178,93,0.14); }
+          50%      { box-shadow: 0 0 70px rgba(213,178,93,0.14), 0 0 0 1px rgba(213,178,93,0.22); }
         }
+        .login-input { transition: border-color 0.25s, background 0.25s; }
+        .login-input:focus { border-color: rgba(213,178,93,0.38) !important; background: rgba(213,178,93,0.03) !important; outline: none; }
       `}</style>
 
       {/* ── Stars ── */}
@@ -151,21 +153,23 @@ export default function AdminLoginPage() {
           </div>
         </div>
 
-        {/* ── Form card ── */}
+        {/* ── Form card — glass that blends with black bg ── */}
         <form
           onSubmit={handleSubmit}
           className="rounded-2xl p-7 sm:p-8 space-y-5"
           style={{
-            background: '#0f172a',
-            border: '1px solid rgba(213,178,93,0.18)',
-            animation: 'gold-pulse 4s ease-in-out infinite',
+            background: 'rgba(255,255,255,0.03)',
+            backdropFilter: 'blur(24px)',
+            WebkitBackdropFilter: 'blur(24px)',
+            border: '1px solid rgba(213,178,93,0.16)',
+            animation: 'gold-glow 4s ease-in-out infinite',
           }}
         >
           {/* Error */}
           {error && (
             <div
               className="rounded-xl px-4 py-3 text-sm text-center"
-              style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', color: '#f87171' }}
+              style={{ background: 'rgba(239,68,68,0.07)', border: '1px solid rgba(239,68,68,0.18)', color: '#f87171' }}
             >
               {t('admin.loginError')}
             </div>
@@ -175,15 +179,15 @@ export default function AdminLoginPage() {
           <div>
             <label
               className={`block text-[10px] font-black uppercase tracking-[2px] mb-2 ${isRTL ? 'text-right' : 'text-left'}`}
-              style={{ color: 'rgba(213,178,93,0.6)' }}
+              style={{ color: 'rgba(213,178,93,0.55)' }}
             >
               {t('admin.emailLabel')}
             </label>
             <div className="relative">
               <Mail
                 size={14}
-                className={`absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2`}
-                style={{ color: 'rgba(213,178,93,0.35)' }}
+                className={`absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2 pointer-events-none`}
+                style={{ color: 'rgba(213,178,93,0.3)' }}
               />
               <input
                 type="email"
@@ -192,14 +196,12 @@ export default function AdminLoginPage() {
                 required
                 dir="ltr"
                 placeholder="admin@mnc.com"
-                className={`w-full rounded-xl py-3.5 text-sm text-white focus:outline-none transition-all duration-250 placeholder:text-white/20
+                className={`login-input w-full rounded-xl py-3.5 text-sm text-white placeholder:text-white/15
                   ${isRTL ? 'pr-10 pl-4' : 'pl-10 pr-4'}`}
                 style={{
                   background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  border: '1px solid rgba(255,255,255,0.07)',
                 }}
-                onFocus={e => { e.target.style.borderColor = 'rgba(213,178,93,0.4)'; e.target.style.background = 'rgba(213,178,93,0.04)'; }}
-                onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.08)'; e.target.style.background = 'rgba(255,255,255,0.04)'; }}
               />
             </div>
           </div>
@@ -208,15 +210,15 @@ export default function AdminLoginPage() {
           <div>
             <label
               className={`block text-[10px] font-black uppercase tracking-[2px] mb-2 ${isRTL ? 'text-right' : 'text-left'}`}
-              style={{ color: 'rgba(213,178,93,0.6)' }}
+              style={{ color: 'rgba(213,178,93,0.55)' }}
             >
               {t('admin.passwordLabel')}
             </label>
             <div className="relative">
               <Lock
                 size={14}
-                className={`absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2`}
-                style={{ color: 'rgba(213,178,93,0.35)' }}
+                className={`absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2 pointer-events-none`}
+                style={{ color: 'rgba(213,178,93,0.3)' }}
               />
               <input
                 type={showPass ? 'text' : 'password'}
@@ -225,22 +227,20 @@ export default function AdminLoginPage() {
                 required
                 dir="ltr"
                 placeholder="••••••••"
-                className={`w-full rounded-xl py-3.5 text-sm text-white focus:outline-none transition-all duration-250 placeholder:text-white/20
+                className={`login-input w-full rounded-xl py-3.5 text-sm text-white placeholder:text-white/15
                   ${isRTL ? 'pr-10 pl-10' : 'pl-10 pr-10'}`}
                 style={{
                   background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  border: '1px solid rgba(255,255,255,0.07)',
                 }}
-                onFocus={e => { e.target.style.borderColor = 'rgba(213,178,93,0.4)'; e.target.style.background = 'rgba(213,178,93,0.04)'; }}
-                onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.08)'; e.target.style.background = 'rgba(255,255,255,0.04)'; }}
               />
               <button
                 type="button"
                 onClick={() => setShowPass(v => !v)}
-                className={`absolute ${isRTL ? 'left-3.5' : 'right-3.5'} top-1/2 -translate-y-1/2 transition-colors`}
-                style={{ color: 'rgba(255,255,255,0.2)' }}
-                onMouseEnter={e => e.currentTarget.style.color = 'rgba(213,178,93,0.7)'}
-                onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.2)'}
+                className={`absolute ${isRTL ? 'left-3.5' : 'right-3.5'} top-1/2 -translate-y-1/2 transition-colors duration-200`}
+                style={{ color: 'rgba(255,255,255,0.18)' }}
+                onMouseEnter={e => e.currentTarget.style.color = 'rgba(213,178,93,0.65)'}
+                onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.18)'}
               >
                 {showPass ? <EyeOff size={14} /> : <Eye size={14} />}
               </button>
@@ -253,13 +253,13 @@ export default function AdminLoginPage() {
             disabled={loading}
             className="w-full py-4 rounded-xl text-[13px] font-black tracking-[2.5px] uppercase flex items-center justify-center gap-2.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
             style={{
-              background: 'linear-gradient(135deg, #a8852a 0%, #D5B25D 45%, #e8c96e 60%, #D5B25D 75%, #a8852a 100%)',
+              background: 'linear-gradient(135deg,#8a6a1e 0%,#D5B25D 40%,#e8c96e 55%,#D5B25D 70%,#8a6a1e 100%)',
               color: '#000',
-              boxShadow: '0 4px 20px rgba(213,178,93,0.35)',
+              boxShadow: '0 4px 24px rgba(213,178,93,0.3)',
               marginTop: '4px',
             }}
-            onMouseEnter={e => { if (!loading) e.currentTarget.style.boxShadow = '0 6px 28px rgba(213,178,93,0.5)'; }}
-            onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 4px 20px rgba(213,178,93,0.35)'; }}
+            onMouseEnter={e => { if (!loading) e.currentTarget.style.boxShadow = '0 6px 32px rgba(213,178,93,0.5)'; }}
+            onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 4px 24px rgba(213,178,93,0.3)'; }}
           >
             {loading && <Loader2 size={15} className="animate-spin" />}
             {loading ? t('admin.loggingIn') : t('admin.loginBtn')}
