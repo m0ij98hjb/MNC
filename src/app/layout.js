@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { MusicProvider } from "@/context/MusicContext";
 import { AuthProvider } from "@/context/AuthContext";
+import AdminShortcut from "@/components/AdminShortcut";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
           <LanguageProvider>
             <MusicProvider>
               <AOSInit />
+              <AdminShortcut />
               <VoicePresentation />
               {children}
               <FloatingContact />
