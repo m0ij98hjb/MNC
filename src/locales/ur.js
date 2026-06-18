@@ -409,7 +409,8 @@ export const ur = {
     statusUnderReview: "زیر جائزہ",
     statusApproved: "منظور",
     statusRejected: "مسترد",
-    adminRole: "منتظم"
+    adminRole: "منتظم",
+    supplierDetail: "سپلائر تفصیل"
   },
   activities: {
     readyMixConcrete:   'ریڈی مکس کنکریٹ',
@@ -431,5 +432,18 @@ export const ur = {
     heavyEquipment:     'بھاری آلات',
     transportation:     'نقل و حمل',
     other:              'دیگر',
+  },
+  countries: {
+    saudiArabia: 'سعودی عرب',
+    uae:         'متحدہ عرب امارات',
+    kuwait:      'کویت',
+    qatar:       'قطر',
+    bahrain:     'بحرین',
+    oman:        'عمان',
+    egypt:       'مصر',
+    jordan:      'اردن',
+    lebanon:     'لبنان',
+    iraq:        'عراق',
+    other:       'دیگر',
   }
 };

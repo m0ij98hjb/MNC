@@ -409,7 +409,8 @@ export const en = {
     statusUnderReview: "Under Review",
     statusApproved: "Approved",
     statusRejected: "Rejected",
-    adminRole: "Admin"
+    adminRole: "Admin",
+    supplierDetail: "Supplier Detail"
   },
   activities: {
     readyMixConcrete:   'Ready Mix Concrete',
@@ -431,5 +432,18 @@ export const en = {
     heavyEquipment:     'Heavy Equipment',
     transportation:     'Transportation',
     other:              'Other',
+  },
+  countries: {
+    saudiArabia: 'Saudi Arabia',
+    uae:         'United Arab Emirates',
+    kuwait:      'Kuwait',
+    qatar:       'Qatar',
+    bahrain:     'Bahrain',
+    oman:        'Oman',
+    egypt:       'Egypt',
+    jordan:      'Jordan',
+    lebanon:     'Lebanon',
+    iraq:        'Iraq',
+    other:       'Other',
   }
 };

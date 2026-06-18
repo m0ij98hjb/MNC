@@ -409,7 +409,8 @@ export const de = {
     statusUnderReview: "In Prüfung",
     statusApproved: "Genehmigt",
     statusRejected: "Abgelehnt",
-    adminRole: "Administrator"
+    adminRole: "Administrator",
+    supplierDetail: "Lieferantendetail"
   },
   activities: {
     readyMixConcrete:   'Fertigbeton',
@@ -431,5 +432,18 @@ export const de = {
     heavyEquipment:     'Schwere Geräte',
     transportation:     'Transport',
     other:              'Sonstige',
+  },
+  countries: {
+    saudiArabia: 'Saudi-Arabien',
+    uae:         'Vereinigte Arabische Emirate',
+    kuwait:      'Kuwait',
+    qatar:       'Katar',
+    bahrain:     'Bahrain',
+    oman:        'Oman',
+    egypt:       'Ägypten',
+    jordan:      'Jordanien',
+    lebanon:     'Libanon',
+    iraq:        'Irak',
+    other:       'Andere',
   }
 };

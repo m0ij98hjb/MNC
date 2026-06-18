@@ -409,7 +409,8 @@ export const fr = {
     statusUnderReview: "En Examen",
     statusApproved: "Approuvé",
     statusRejected: "Rejeté",
-    adminRole: "Administrateur"
+    adminRole: "Administrateur",
+    supplierDetail: "Détail Fournisseur"
   },
   activities: {
     readyMixConcrete:   'Béton Prêt à l\'Emploi',
@@ -431,5 +432,18 @@ export const fr = {
     heavyEquipment:     'Équipements Lourds',
     transportation:     'Transport',
     other:              'Autre',
+  },
+  countries: {
+    saudiArabia: 'Arabie saoudite',
+    uae:         'Émirats arabes unis',
+    kuwait:      'Koweït',
+    qatar:       'Qatar',
+    bahrain:     'Bahreïn',
+    oman:        'Oman',
+    egypt:       'Égypte',
+    jordan:      'Jordanie',
+    lebanon:     'Liban',
+    iraq:        'Irak',
+    other:       'Autre',
   }
 };

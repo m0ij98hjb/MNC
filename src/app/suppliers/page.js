@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { ACTIVITY_TYPES } from '@/lib/suppliersConfig';
+import { ACTIVITY_TYPES, ACTIVITY_KEYS, COUNTRIES_KEYS } from '@/lib/suppliersConfig';
 import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/layout/Navbar';
 import {
@@ -204,7 +204,11 @@ export default function SuppliersPage() {
                     <div className="relative">
                       <select value={form.country} onChange={e => set('country', e.target.value)} className={`${inputCls(errors.country)} appearance-none cursor-pointer pe-10`}>
                         <option value=""></option>
-                        {COUNTRIES.map(c => <option key={c} value={c} className="bg-black">{c}</option>)}
+                        {COUNTRIES.map(c => (
+                          <option key={c} value={c} className="bg-black">
+                            {t('countries.' + COUNTRIES_KEYS[c])}
+                          </option>
+                        ))}
                       </select>
                       <ChevronDown size={16} className={`absolute ${isRTL ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 text-white/40 pointer-events-none`} />
                     </div>
@@ -224,7 +228,11 @@ export default function SuppliersPage() {
                   <div className="relative">
                     <select value={form.activity} onChange={e => set('activity', e.target.value)} className={`${inputCls(errors.activity)} appearance-none cursor-pointer pe-10`}>
                       <option value="">{t('suppliers.selectActivity')}</option>
-                      {ACTIVITY_TYPES.map(a => <option key={a} value={a} className="bg-black">{a}</option>)}
+                      {ACTIVITY_TYPES.map(a => (
+                          <option key={a} value={a} className="bg-black">
+                            {t('activities.' + ACTIVITY_KEYS[a])}
+                          </option>
+                        ))}
                     </select>
                     <ChevronDown size={16} className={`absolute ${isRTL ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 text-white/40 pointer-events-none`} />
                   </div>

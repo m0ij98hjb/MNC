@@ -20,6 +20,20 @@ export const ACTIVITY_TYPES = [
   'Other',
 ];
 
+export const COUNTRIES_KEYS = {
+  'Saudi Arabia':         'saudiArabia',
+  'United Arab Emirates': 'uae',
+  'Kuwait':               'kuwait',
+  'Qatar':                'qatar',
+  'Bahrain':              'bahrain',
+  'Oman':                 'oman',
+  'Egypt':                'egypt',
+  'Jordan':               'jordan',
+  'Lebanon':              'lebanon',
+  'Iraq':                 'iraq',
+  'Other':                'other',
+};
+
 export const ACTIVITY_KEYS = {
   'Ready Mix Concrete':  'readyMixConcrete',
   'Reinforcement Steel': 'reinforcementSteel',

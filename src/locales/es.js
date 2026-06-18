@@ -409,7 +409,8 @@ export const es = {
     statusUnderReview: "En Revisión",
     statusApproved: "Aprobado",
     statusRejected: "Rechazado",
-    adminRole: "Administrador"
+    adminRole: "Administrador",
+    supplierDetail: "Detalle Proveedor"
   },
   activities: {
     readyMixConcrete:   'Concreto Premezclado',
@@ -431,5 +432,18 @@ export const es = {
     heavyEquipment:     'Equipos Pesados',
     transportation:     'Transporte',
     other:              'Otro',
+  },
+  countries: {
+    saudiArabia: 'Arabia Saudita',
+    uae:         'Emiratos Árabes Unidos',
+    kuwait:      'Kuwait',
+    qatar:       'Catar',
+    bahrain:     'Baréin',
+    oman:        'Omán',
+    egypt:       'Egipto',
+    jordan:      'Jordania',
+    lebanon:     'Líbano',
+    iraq:        'Irak',
+    other:       'Otro',
   }
 };

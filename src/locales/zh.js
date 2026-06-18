@@ -409,7 +409,8 @@ export const zh = {
     statusUnderReview: "审核中",
     statusApproved: "已批准",
     statusRejected: "已拒绝",
-    adminRole: "管理员"
+    adminRole: "管理员",
+    supplierDetail: "供应商详情"
   },
   activities: {
     readyMixConcrete:   '预拌混凝土',
@@ -431,5 +432,18 @@ export const zh = {
     heavyEquipment:     '重型设备',
     transportation:     '运输',
     other:              '其他',
+  },
+  countries: {
+    saudiArabia: '沙特阿拉伯',
+    uae:         '阿联酋',
+    kuwait:      '科威特',
+    qatar:       '卡塔尔',
+    bahrain:     '巴林',
+    oman:        '阿曼',
+    egypt:       '埃及',
+    jordan:      '约旦',
+    lebanon:     '黎巴嫩',
+    iraq:        '伊拉克',
+    other:       '其他',
   }
 };

@@ -409,7 +409,8 @@ export const ar = {
     statusUnderReview: "قيد المراجعة",
     statusApproved: "معتمد",
     statusRejected: "مرفوض",
-    adminRole: "مسؤول"
+    adminRole: "مسؤول",
+    supplierDetail: "تفاصيل المورد"
   },
   activities: {
     readyMixConcrete:   'خرسانة جاهزة',
@@ -431,5 +432,18 @@ export const ar = {
     heavyEquipment:     'معدات ثقيلة',
     transportation:     'نقل وشحن',
     other:              'أخرى',
+  },
+  countries: {
+    saudiArabia: 'المملكة العربية السعودية',
+    uae:         'الإمارات العربية المتحدة',
+    kuwait:      'الكويت',
+    qatar:       'قطر',
+    bahrain:     'البحرين',
+    oman:        'عُمان',
+    egypt:       'مصر',
+    jordan:      'الأردن',
+    lebanon:     'لبنان',
+    iraq:        'العراق',
+    other:       'أخرى',
   }
 };

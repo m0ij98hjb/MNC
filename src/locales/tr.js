@@ -409,7 +409,8 @@ export const tr = {
     statusUnderReview: "İnceleniyor",
     statusApproved: "Onaylı",
     statusRejected: "Reddedildi",
-    adminRole: "Yönetici"
+    adminRole: "Yönetici",
+    supplierDetail: "Tedarikçi Detayı"
   },
   activities: {
     readyMixConcrete:   'Hazır Beton',
@@ -431,5 +432,18 @@ export const tr = {
     heavyEquipment:     'Ağır Ekipman',
     transportation:     'Nakliyat',
     other:              'Diğer',
+  },
+  countries: {
+    saudiArabia: 'Suudi Arabistan',
+    uae:         'Birleşik Arap Emirlikleri',
+    kuwait:      'Kuveyt',
+    qatar:       'Katar',
+    bahrain:     'Bahreyn',
+    oman:        'Umman',
+    egypt:       'Mısır',
+    jordan:      'Ürdün',
+    lebanon:     'Lübnan',
+    iraq:        'Irak',
+    other:       'Diğer',
   }
 };
