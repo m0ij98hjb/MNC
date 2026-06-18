@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users, Smartphone, Shield, UserCog, LogOut, LayoutDashboard } from "lucide-react";
+import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users, Smartphone, UserCircle, UserCog, LogOut, LayoutDashboard } from "lucide-react";
 import { useLanguage, LANGUAGES } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useAuth } from "@/context/AuthContext";
@@ -200,13 +200,16 @@ const Navbar = () => {
                   </div>
                 </div>
 
-                {/* Shield → /admin/dashboard */}
+                {/* UserCircle + Admin badge → /admin/dashboard */}
                 <Link
                   href="/admin/dashboard"
                   title={t('admin.dashboard')}
-                  className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#C9A34D]/35 text-[#C9A34D] hover:bg-[#C9A34D]/12 hover:border-[#C9A34D]/55 transition-all duration-300 active:scale-95"
+                  className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#C9A34D]/35 text-[#C9A34D] hover:bg-[#C9A34D]/12 hover:border-[#C9A34D]/55 transition-all duration-300 active:scale-95"
                 >
-                  <Shield size={16} />
+                  <UserCircle size={16} />
+                  <span className="absolute -top-2 -end-2 bg-[#C9A34D] text-black text-[7px] font-black leading-none px-1 py-[2px] rounded-full tracking-wide">
+                    Admin
+                  </span>
                 </Link>
 
                 {/* Admin user dropdown */}
@@ -335,12 +338,15 @@ const Navbar = () => {
           {/* ── Mobile Header Actions ── */}
           <div className="flex items-center gap-2 lg:hidden ms-auto">
             {isAdmin ? (
-              /* Admin: show gold Shield instead of theme toggle */
+              /* Admin: UserCircle + Admin badge instead of theme toggle */
               <Link
                 href="/admin/dashboard"
-                className="flex items-center justify-center w-8 h-8 rounded-lg border border-[#C9A34D]/35 text-[#C9A34D] hover:bg-[#C9A34D]/12 transition-all duration-300"
+                className="relative flex items-center justify-center w-8 h-8 rounded-lg border border-[#C9A34D]/35 text-[#C9A34D] hover:bg-[#C9A34D]/12 transition-all duration-300"
               >
-                <Shield size={16} />
+                <UserCircle size={16} />
+                <span className="absolute -top-2 -end-2 bg-[#C9A34D] text-black text-[7px] font-black leading-none px-1 py-[2px] rounded-full tracking-wide">
+                  Admin
+                </span>
               </Link>
             ) : (
               <button onClick={toggleTheme}
