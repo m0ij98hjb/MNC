@@ -400,6 +400,11 @@ export const ar = {
     notEnoughData: "لا توجد بيانات كافية بعد",
     country: "الدولة",
     website: "الموقع الإلكتروني",
-    suppliersNav: "انضم كمورد"
+    suppliersNav: "انضم كمورد",
+    statusNew: "جديد",
+    statusUnderReview: "قيد المراجعة",
+    statusApproved: "معتمد",
+    statusRejected: "مرفوض",
+    adminRole: "مسؤول"
   }
 };

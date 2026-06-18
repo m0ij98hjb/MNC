@@ -34,8 +34,12 @@ export default function ReportsPage() {
     );
   }
 
+  const STATUS_T_KEYS = {
+    new: 'admin.statusNew', under_review: 'admin.statusUnderReview',
+    approved: 'admin.statusApproved', rejected: 'admin.statusRejected',
+  };
   const statusData = Object.entries(STATUS_CONFIG).map(([key, cfg]) => ({
-    name: cfg.label,
+    name: t(STATUS_T_KEYS[key]) || cfg.label,
     value: suppliers.filter(s => s.status === key).length,
     color: cfg.color,
   })).filter(d => d.value > 0);

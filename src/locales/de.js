@@ -400,6 +400,11 @@ export const de = {
     notEnoughData: "Noch nicht genug Daten",
     country: "Land",
     website: "Webseite",
-    suppliersNav: "Als Lieferant beitreten"
+    suppliersNav: "Als Lieferant beitreten",
+    statusNew: "Neu",
+    statusUnderReview: "In Prüfung",
+    statusApproved: "Genehmigt",
+    statusRejected: "Abgelehnt",
+    adminRole: "Administrator"
   }
 };

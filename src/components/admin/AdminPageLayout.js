@@ -11,7 +11,7 @@ export default function AdminPageLayout({ children }) {
     // naturally appears on the RIGHT — no conditional rendering needed.
     <div className="min-h-screen bg-[var(--background)]" dir={isRTL ? 'rtl' : 'ltr'}>
       <Navbar />
-      <div className="flex pt-[68px] min-h-screen">
+      <div className="flex pt-[92px] min-h-screen">
         <AdminSidebar />
         <div className="flex-1 min-w-0 overflow-hidden">
           {children}

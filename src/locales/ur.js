@@ -400,6 +400,11 @@ export const ur = {
     notEnoughData: "ابھی کافی ڈیٹا نہیں",
     country: "ملک",
     website: "ویب سائٹ",
-    suppliersNav: "سپلائر کے طور پر شامل ہوں"
+    suppliersNav: "سپلائر کے طور پر شامل ہوں",
+    statusNew: "نیا",
+    statusUnderReview: "زیر جائزہ",
+    statusApproved: "منظور",
+    statusRejected: "مسترد",
+    adminRole: "منتظم"
   }
 };

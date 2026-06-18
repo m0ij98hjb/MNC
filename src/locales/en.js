@@ -400,6 +400,11 @@ export const en = {
     notEnoughData: "Not enough data yet",
     country: "Country",
     website: "Website",
-    suppliersNav: "Join as Supplier"
+    suppliersNav: "Join as Supplier",
+    statusNew: "New",
+    statusUnderReview: "Under Review",
+    statusApproved: "Approved",
+    statusRejected: "Rejected",
+    adminRole: "Admin"
   }
 };

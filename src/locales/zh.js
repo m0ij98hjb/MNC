@@ -400,6 +400,11 @@ export const zh = {
     notEnoughData: "数据不足",
     country: "国家",
     website: "网站",
-    suppliersNav: "成为供应商"
+    suppliersNav: "成为供应商",
+    statusNew: "新",
+    statusUnderReview: "审核中",
+    statusApproved: "已批准",
+    statusRejected: "已拒绝",
+    adminRole: "管理员"
   }
 };

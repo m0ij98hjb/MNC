@@ -138,21 +138,27 @@ export default function SupplierDetailPage() {
           <div className="space-y-6">
             <Card title={t('admin.currentStatus')}>
               <div className="space-y-2.5">
-                {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
-                  <div
-                    key={key}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors
-                      ${supplier.status === key ? 'bg-white/5' : 'opacity-30'}`}
-                  >
-                    <div className="w-2 h-2 rounded-full shrink-0" style={{ background: cfg.color }} />
-                    <span className="text-sm flex-1" style={{ color: supplier.status === key ? cfg.color : undefined }}>
-                      {cfg.label}
-                    </span>
-                    {supplier.status === key && (
-                      <span className="text-xs text-white/30 shrink-0">{t('admin.currentStatus')}</span>
-                    )}
-                  </div>
-                ))}
+                {Object.entries(STATUS_CONFIG).map(([key, cfg]) => {
+                  const statusLabelMap = {
+                    new: t('admin.statusNew'), under_review: t('admin.statusUnderReview'),
+                    approved: t('admin.statusApproved'), rejected: t('admin.statusRejected'),
+                  };
+                  return (
+                    <div
+                      key={key}
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors
+                        ${supplier.status === key ? 'bg-white/5' : 'opacity-30'}`}
+                    >
+                      <div className="w-2 h-2 rounded-full shrink-0" style={{ background: cfg.color }} />
+                      <span className="text-sm flex-1" style={{ color: supplier.status === key ? cfg.color : undefined }}>
+                        {statusLabelMap[key] || cfg.label}
+                      </span>
+                      {supplier.status === key && (
+                        <span className="text-xs text-white/30 shrink-0">{t('admin.currentStatus')}</span>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </Card>
 

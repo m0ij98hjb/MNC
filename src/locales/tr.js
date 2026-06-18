@@ -400,6 +400,11 @@ export const tr = {
     notEnoughData: "Henüz yeterli veri yok",
     country: "Ülke",
     website: "Web Sitesi",
-    suppliersNav: "Tedarikçi Olarak Katıl"
+    suppliersNav: "Tedarikçi Olarak Katıl",
+    statusNew: "Yeni",
+    statusUnderReview: "İnceleniyor",
+    statusApproved: "Onaylı",
+    statusRejected: "Reddedildi",
+    adminRole: "Yönetici"
   }
 };

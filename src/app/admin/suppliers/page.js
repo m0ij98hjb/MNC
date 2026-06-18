@@ -10,6 +10,12 @@ import { Search, Trash2, Eye, CheckCircle, XCircle, Clock, Loader2 } from 'lucid
 import Link from 'next/link';
 
 const STATUS_FILTER_KEYS = ['all', 'new', 'under_review', 'approved', 'rejected'];
+const STATUS_T_KEYS = {
+  new: 'admin.statusNew',
+  under_review: 'admin.statusUnderReview',
+  approved: 'admin.statusApproved',
+  rejected: 'admin.statusRejected',
+};
 
 export default function SuppliersListPage() {
   const { t, isRTL } = useLanguage();
@@ -82,7 +88,7 @@ export default function SuppliersListPage() {
                     : 'border-white/10 text-white/50 hover:text-white'
                   }`}
               >
-                {f === 'all' ? t('admin.allStatuses') : STATUS_CONFIG[f]?.label}
+                {f === 'all' ? t('admin.allStatuses') : t(STATUS_T_KEYS[f])}
               </button>
             ))}
           </div>

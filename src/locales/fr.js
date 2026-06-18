@@ -400,6 +400,11 @@ export const fr = {
     notEnoughData: "Pas assez de données",
     country: "Pays",
     website: "Site Web",
-    suppliersNav: "Devenir Fournisseur"
+    suppliersNav: "Devenir Fournisseur",
+    statusNew: "Nouveau",
+    statusUnderReview: "En Examen",
+    statusApproved: "Approuvé",
+    statusRejected: "Rejeté",
+    adminRole: "Administrateur"
   }
 };

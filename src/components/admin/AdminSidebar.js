@@ -31,7 +31,7 @@ export default function AdminSidebar() {
 
   return (
     <aside
-      className="hidden lg:flex flex-col w-56 shrink-0 sticky top-[68px] h-[calc(100vh-68px)] overflow-y-auto"
+      className="hidden lg:flex flex-col w-56 shrink-0 sticky top-[92px] h-[calc(100vh-92px)] overflow-y-auto"
       style={{
         background: 'rgba(255,255,255,0.02)',
         borderInlineEnd: '1px solid rgba(255,255,255,0.07)',
@@ -59,7 +59,7 @@ export default function AdminSidebar() {
           {t('admin.managerTitle')}
         </p>
         <span className="mt-1 text-[9px] font-semibold text-white/25 uppercase tracking-[2px]">
-          Admin
+          {t('admin.adminRole')}
         </span>
         {/* Gold underline */}
         <div className="mt-2.5 w-8 h-[1.5px] rounded-full bg-gradient-to-r from-transparent via-[#c8a96e]/50 to-transparent" />
