@@ -26,12 +26,12 @@ export default function AdminBottomNav() {
   return (
     <>
       {/* Spacer so content isn't hidden behind the bar */}
-      <div className="lg:hidden h-[62px]" aria-hidden="true" />
+      <div className="lg:hidden h-[72px]" aria-hidden="true" />
 
       <nav
         className="lg:hidden fixed bottom-0 inset-x-0 z-[95] flex"
         style={{
-          height: '62px',
+          height: '72px',
           background: 'rgba(5,5,8,0.97)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
