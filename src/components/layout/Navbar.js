@@ -4,10 +4,9 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users, Smartphone, UserCircle, LogOut } from "lucide-react";
+import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users, Smartphone } from "lucide-react";
 import { useLanguage, LANGUAGES } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
-import { useAuth } from "@/context/AuthContext";
 import { HiDocumentText } from "react-icons/hi";
 
 const Navbar = () => {
@@ -19,12 +18,6 @@ const Navbar = () => {
   const pathname = usePathname();
   const { lang, setLang, t, isRTL } = useLanguage();
   const { theme, toggleTheme } = useTheme();
-  const { user, logout } = useAuth();
-
-  const handleAdminLogout = async () => {
-    await logout();
-    setIsOpen(false);
-  };
   const isLightMode = theme === 'dark';
   const langDropdownRef = useRef(null);
 
@@ -181,25 +174,6 @@ const Navbar = () => {
               <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
               <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}><Moon size={15} /></span>
             </button>
-
-            {/* Admin user chip */}
-            {user && (
-              <div className="flex items-center gap-1 ms-1">
-                <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-[#D5B25D]/20 bg-[#D5B25D]/5">
-                  <UserCircle size={14} className="text-[#D5B25D] shrink-0" />
-                  <span className="text-[10.5px] font-bold text-[#D5B25D] whitespace-nowrap">
-                    {t('admin.managerTitle')}
-                  </span>
-                </div>
-                <button
-                  onClick={handleAdminLogout}
-                  className="flex items-center justify-center w-8 h-8 rounded-lg border border-red-500/15 text-red-400/50 hover:bg-red-500/8 hover:text-red-400 hover:border-red-500/30 transition-all duration-300"
-                  title={t('admin.logout')}
-                >
-                  <LogOut size={13} />
-                </button>
-              </div>
-            )}
 
             {/* Language Selector */}
             <div className="relative" ref={langDropdownRef}>
@@ -413,28 +387,6 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-
-            {/* Admin user - mobile */}
-            {user && (
-              <div className={`flex items-center justify-between rounded-[12px] px-3 py-3 ${isLightMode ? 'bg-amber-50 border border-amber-200/50' : 'bg-[#D5B25D]/5 border border-[#D5B25D]/12'}`}>
-                <div className="flex items-center gap-2.5">
-                  <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/10 flex items-center justify-center text-[#D5B25D] shrink-0">
-                    <UserCircle size={18} />
-                  </span>
-                  <div>
-                    <p className="text-[12px] font-bold text-[#D5B25D] leading-none">{t('admin.managerTitle')}</p>
-                    <p className={`text-[10px] mt-0.5 ${isLightMode ? 'text-slate-400' : 'text-white/25'}`}>Admin</p>
-                  </div>
-                </div>
-                <button
-                  onClick={handleAdminLogout}
-                  className="text-red-400/50 hover:text-red-400 transition-colors p-1.5"
-                  title={t('admin.logout')}
-                >
-                  <LogOut size={16} />
-                </button>
-              </div>
-            )}
 
             {/* Theme */}
             <button onClick={toggleTheme}
