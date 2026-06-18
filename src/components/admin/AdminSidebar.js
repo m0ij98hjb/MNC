@@ -58,9 +58,6 @@ export default function AdminSidebar() {
         <p className="text-[13px] font-bold text-[#c8a96e] leading-tight text-center">
           {t('admin.managerTitle')}
         </p>
-        <span className="mt-1 text-[9px] font-semibold text-white/25 uppercase tracking-[2px]">
-          {t('admin.adminRole')}
-        </span>
         {/* Gold underline */}
         <div className="mt-2.5 w-8 h-[1.5px] rounded-full bg-gradient-to-r from-transparent via-[#c8a96e]/50 to-transparent" />
       </div>
