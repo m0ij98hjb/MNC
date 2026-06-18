@@ -27,6 +27,8 @@ const Navbar = () => {
   const isAdminPage = pathname.startsWith('/admin');
   const langDropdownRef = useRef(null);
   const adminDropdownRef = useRef(null);
+  const logoTapCount = useRef(0);
+  const logoTapTimer = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -46,6 +48,18 @@ const Navbar = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleLogoTap = (e) => {
+    logoTapCount.current += 1;
+    if (logoTapTimer.current) clearTimeout(logoTapTimer.current);
+    if (logoTapCount.current >= 3) {
+      e.preventDefault();
+      logoTapCount.current = 0;
+      router.push('/admin/login');
+      return;
+    }
+    logoTapTimer.current = setTimeout(() => { logoTapCount.current = 0; }, 2000);
+  };
 
   const handleAdminLogout = async () => {
     setIsAdminOpen(false);
@@ -94,7 +108,7 @@ const Navbar = () => {
         <div className="w-full mx-auto flex items-center px-4 sm:px-6 md:px-8 lg:px-10 xl:px-14 py-3 sm:py-3.5">
 
           {/* ── Logo ── */}
-          <Link href="/" className="flex items-center flex-shrink-0 me-4 lg:me-6 xl:me-10">
+          <Link href="/" onClick={handleLogoTap} className="flex items-center flex-shrink-0 me-4 lg:me-6 xl:me-10">
             <Image
               src="/asstes/logo-navbar.png"
               alt="MNC Logo"
