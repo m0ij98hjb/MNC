@@ -100,12 +100,12 @@ export default function ReportsPage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="flex flex-col gap-6">
           <ChartCard title={t('admin.statusDist')}>
             {statusData.length === 0 ? <Empty label={t('admin.notEnoughData')} /> : (
-              <ResponsiveContainer width="100%" height={280}>
+              <ResponsiveContainer width="100%" height={320}>
                 <PieChart>
-                  <Pie data={statusData} cx="50%" cy="50%" innerRadius={70} outerRadius={110} paddingAngle={3} dataKey="value">
+                  <Pie data={statusData} cx="50%" cy="50%" innerRadius={90} outerRadius={140} paddingAngle={3} dataKey="value">
                     {statusData.map((e, i) => <Cell key={i} fill={e.color} />)}
                   </Pie>
                   <Tooltip content={<Tip />} />
@@ -117,7 +117,7 @@ export default function ReportsPage() {
 
           <ChartCard title={t('admin.monthlyReg')}>
             {monthlyData.length === 0 ? <Empty label={t('admin.notEnoughData')} /> : (
-              <ResponsiveContainer width="100%" height={280}>
+              <ResponsiveContainer width="100%" height={320}>
                 <LineChart data={monthlyData}>
                   <XAxis dataKey="month" tick={{ fill: '#ffffff40', fontSize: 11 }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: '#ffffff40', fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
@@ -130,10 +130,10 @@ export default function ReportsPage() {
 
           <ChartCard title={t('admin.byActivity')}>
             {activityData.length === 0 ? <Empty label={t('admin.notEnoughData')} /> : (
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={360}>
                 <BarChart data={activityData} layout="vertical">
                   <XAxis type="number" tick={{ fill: '#ffffff40', fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
-                  <YAxis type="category" dataKey="name" width={130} tick={{ fill: '#ffffff60', fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <YAxis type="category" dataKey="name" width={150} tick={{ fill: '#ffffff60', fontSize: 11 }} axisLine={false} tickLine={false} />
                   <Tooltip content={<Tip />} />
                   <Bar dataKey="count" radius={[0, 6, 6, 0]}>
                     {activityData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
@@ -145,7 +145,7 @@ export default function ReportsPage() {
 
           <ChartCard title={t('admin.byCity')}>
             {cityData.length === 0 ? <Empty label={t('admin.notEnoughData')} /> : (
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={320}>
                 <BarChart data={cityData}>
                   <XAxis dataKey="name" tick={{ fill: '#ffffff40', fontSize: 11 }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: '#ffffff40', fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
