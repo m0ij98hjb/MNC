@@ -6,21 +6,22 @@ import { useLanguage } from '@/context/LanguageContext';
 import { Eye, EyeOff, Lock, Mail, Loader2, ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
 
-/* Deterministic stars — same on server + client, no hydration mismatch */
-const STARS = Array.from({ length: 70 }, (_, i) => ({
-  id: i,
-  x: ((i * 37 + 13) % 97) + 1.5,
-  y: ((i * 53 + 7) % 93) + 2.5,
-  r: (i % 3) * 0.65 + 0.4,
-  opacity: ((i % 5) * 0.025 + 0.04),
-  dur: ((i % 4) * 0.7 + 2.3).toFixed(1),
-  delay: ((i % 7) * 0.35).toFixed(1),
+/* Deterministic star grid — same on server + client (no hydration mismatch) */
+const STARS = Array.from({ length: 80 }, (_, i) => ({
+  id:      i,
+  x:       ((i * 41 + 17) % 97) + 1.5,
+  y:       ((i * 59 + 11) % 93) + 2,
+  size:    (i % 4) * 0.5 + 0.6,
+  opacity: ((i % 6) * 0.015 + 0.03),
+  dur:     ((i % 5) * 0.8 + 2.2).toFixed(1),
+  delay:   ((i % 9) * 0.3).toFixed(1),
 }));
 
 export default function AdminLoginPage() {
   const { user, login, error, setError } = useAuth();
   const { t, isRTL } = useLanguage();
   const router = useRouter();
+
   const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
@@ -37,127 +38,153 @@ export default function AdminLoginPage() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden font-cairo"
-      style={{ background: '#0D1B2A' }}
+      className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
+      style={{ background: '#000000' }}
       dir={isRTL ? 'rtl' : 'ltr'}
     >
-      {/* Twinkle keyframes */}
       <style>{`
         @keyframes twinkle {
-          0%,100% { opacity: var(--star-o,0.06); }
-          50%      { opacity: calc(var(--star-o,0.06) * 4); }
+          0%,100% { opacity: var(--op); }
+          50%      { opacity: calc(var(--op) * 5); }
         }
-        @keyframes float-up {
-          0%   { transform: translateY(0px) scale(1); }
-          50%  { transform: translateY(-8px) scale(1.02); }
-          100% { transform: translateY(0px) scale(1); }
+        @keyframes logo-float {
+          0%,100% { transform: translateY(0); }
+          50%      { transform: translateY(-6px); }
+        }
+        @keyframes gold-pulse {
+          0%,100% { box-shadow: 0 0 30px rgba(213,178,93,0.10), 0 0 0 1px rgba(213,178,93,0.18); }
+          50%      { box-shadow: 0 0 55px rgba(213,178,93,0.20), 0 0 0 1px rgba(213,178,93,0.28); }
         }
       `}</style>
 
-      {/* ── Stars / Particles ── */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {/* ── Stars ── */}
+      <div className="absolute inset-0 pointer-events-none">
         {STARS.map(s => (
           <div
             key={s.id}
-            className="absolute rounded-full bg-[#C9A34D]"
+            className="absolute rounded-full"
             style={{
               left: `${s.x}%`,
               top:  `${s.y}%`,
-              width:  `${s.r * 2}px`,
-              height: `${s.r * 2}px`,
-              '--star-o': s.opacity,
+              width:  `${s.size}px`,
+              height: `${s.size}px`,
+              background: '#D5B25D',
+              '--op': s.opacity,
               animation: `twinkle ${s.dur}s ease-in-out ${s.delay}s infinite`,
             }}
           />
         ))}
       </div>
 
-      {/* ── Geometric diagonal pattern ── */}
+      {/* ── Subtle grid lines ── */}
       <div
-        className="absolute inset-0 opacity-[0.035] pointer-events-none"
-        style={{ backgroundImage: 'repeating-linear-gradient(45deg,#C9A34D 0px,#C9A34D 1px,transparent 1px,transparent 90px)' }}
+        className="absolute inset-0 pointer-events-none opacity-[0.025]"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(213,178,93,1) 1px,transparent 1px),linear-gradient(90deg,rgba(213,178,93,1) 1px,transparent 1px)',
+          backgroundSize: '80px 80px',
+        }}
       />
 
-      {/* ── Accent lines ── */}
-      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-[#C9A34D] to-transparent" />
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#C9A34D]/30 to-transparent" />
+      {/* ── Ambient radial glow ── */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: '50%', left: '50%',
+          transform: 'translate(-50%,-52%)',
+          width: '800px', height: '700px',
+          background: 'radial-gradient(ellipse,rgba(213,178,93,0.06) 0%,rgba(15,23,42,0.25) 50%,transparent 70%)',
+        }}
+      />
 
-      {/* ── Ambient glows ── */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[600px] bg-[#C9A34D]/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/4 left-1/5 w-[280px] h-[280px] bg-[#1a3a5c]/50 rounded-full blur-[90px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/5 w-[250px] h-[250px] bg-[#C9A34D]/4 rounded-full blur-[80px] pointer-events-none" />
+      {/* ── Top gold accent line ── */}
+      <div
+        className="absolute top-0 inset-x-0 h-[2px] pointer-events-none"
+        style={{ background: 'linear-gradient(90deg,transparent,rgba(213,178,93,0.5) 40%,rgba(225,191,103,0.8) 50%,rgba(213,178,93,0.5) 60%,transparent)' }}
+      />
 
-      {/* ── Content ── */}
-      <div className="relative z-10 w-full max-w-[430px] px-5 sm:px-6 py-10">
+      {/* ── Main card wrapper ── */}
+      <div className="relative z-10 w-full max-w-[420px] px-5 py-10">
 
-        {/* Logo + Title */}
-        <div className="flex flex-col items-center mb-10">
-          {/* Logo with glow halo */}
-          <div
-            className="relative mb-7"
-            style={{ animation: 'float-up 5s ease-in-out infinite' }}
-          >
-            <div className="absolute inset-0 rounded-full blur-3xl scale-125"
-              style={{ background: 'radial-gradient(ellipse,rgba(201,163,77,0.18) 0%,transparent 70%)' }}
+        {/* Logo section */}
+        <div className="flex flex-col items-center mb-8">
+          <div style={{ animation: 'logo-float 5s ease-in-out infinite' }} className="mb-6">
+            {/* Glow behind logo */}
+            <div
+              className="absolute -inset-6 rounded-full pointer-events-none"
+              style={{ background: 'radial-gradient(ellipse,rgba(213,178,93,0.12) 0%,transparent 65%)', filter: 'blur(8px)' }}
             />
             <Image
               src="/asstes/logo-navbar.png"
-              alt="MNC Logo"
-              width={300}
-              height={150}
-              className="relative h-24 sm:h-28 xl:h-32 w-auto object-contain drop-shadow-2xl"
+              alt="MNC"
+              width={280}
+              height={140}
+              className="relative h-24 sm:h-28 w-auto object-contain"
+              style={{ filter: 'drop-shadow(0 4px 24px rgba(213,178,93,0.25))' }}
               priority
             />
           </div>
 
-          {/* Badge */}
-          <div className="flex items-center gap-2 bg-[#C9A34D]/8 border border-[#C9A34D]/20 rounded-full px-4 py-1.5 mb-3">
-            <ShieldCheck size={13} className="text-[#C9A34D]" />
-            <span className="text-[11px] font-bold text-[#C9A34D] tracking-wider uppercase">
+          {/* Title badge */}
+          <div
+            className="flex items-center gap-2 rounded-full px-5 py-2 mb-2"
+            style={{ background: 'rgba(213,178,93,0.07)', border: '1px solid rgba(213,178,93,0.2)' }}
+          >
+            <ShieldCheck size={13} style={{ color: '#D5B25D' }} />
+            <span
+              className="text-[11px] font-black uppercase tracking-[2px]"
+              style={{ color: '#D5B25D' }}
+            >
               {t('admin.loginTitle')}
             </span>
           </div>
 
-          <p className="text-sm text-white/35 font-medium tracking-wide text-center">
+          <p className="text-[13px] text-white/35 text-center font-medium mt-1">
             {t('admin.loginSubtitle')}
           </p>
 
-          {/* Decorative divider */}
-          <div className="flex items-center gap-2.5 mt-5">
-            <div className="h-px w-14 bg-gradient-to-r from-transparent to-[#C9A34D]/35" />
-            <div className="flex gap-1">
-              <div className="w-1 h-1 rounded-full bg-[#C9A34D]/40" />
-              <div className="w-1.5 h-1.5 rounded-full bg-[#C9A34D]/60" />
-              <div className="w-1 h-1 rounded-full bg-[#C9A34D]/40" />
-            </div>
-            <div className="h-px w-14 bg-gradient-to-l from-transparent to-[#C9A34D]/35" />
+          {/* Gold separator */}
+          <div className="flex items-center gap-3 mt-5">
+            <div className="h-px w-12" style={{ background: 'linear-gradient(90deg,transparent,rgba(213,178,93,0.3))' }} />
+            <div className="w-1.5 h-1.5 rounded-full" style={{ background: 'rgba(213,178,93,0.5)' }} />
+            <div className="h-px w-12" style={{ background: 'linear-gradient(90deg,rgba(213,178,93,0.3),transparent)' }} />
           </div>
         </div>
 
         {/* ── Form card ── */}
         <form
           onSubmit={handleSubmit}
-          className="rounded-2xl p-7 sm:p-8 space-y-5 backdrop-blur-sm"
+          className="rounded-2xl p-7 sm:p-8 space-y-5"
           style={{
-            background: 'rgba(8,18,30,0.88)',
-            border: '1px solid rgba(201,163,77,0.22)',
-            boxShadow: '0 0 0 1px rgba(201,163,77,0.07), 0 28px 70px rgba(0,0,0,0.75), 0 0 50px rgba(201,163,77,0.07)',
+            background: '#0f172a',
+            border: '1px solid rgba(213,178,93,0.18)',
+            animation: 'gold-pulse 4s ease-in-out infinite',
           }}
         >
           {/* Error */}
           {error && (
-            <div className="bg-red-500/10 border border-red-500/22 rounded-xl px-4 py-3 text-sm text-red-400 text-center">
+            <div
+              className="rounded-xl px-4 py-3 text-sm text-center"
+              style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', color: '#f87171' }}
+            >
               {t('admin.loginError')}
             </div>
           )}
 
-          {/* Email */}
+          {/* Email field */}
           <div>
-            <label className={`block text-[11px] font-bold text-[#C9A34D]/55 mb-2 uppercase tracking-[1.5px] ${isRTL ? 'text-right' : 'text-left'}`}>
+            <label
+              className={`block text-[10px] font-black uppercase tracking-[2px] mb-2 ${isRTL ? 'text-right' : 'text-left'}`}
+              style={{ color: 'rgba(213,178,93,0.6)' }}
+            >
               {t('admin.emailLabel')}
             </label>
             <div className="relative">
-              <Mail size={14} className={`absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2 text-[#C9A34D]/40`} />
+              <Mail
+                size={14}
+                className={`absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2`}
+                style={{ color: 'rgba(213,178,93,0.35)' }}
+              />
               <input
                 type="email"
                 value={email}
@@ -165,20 +192,32 @@ export default function AdminLoginPage() {
                 required
                 dir="ltr"
                 placeholder="admin@mnc.com"
-                className={`w-full rounded-xl py-3.5 text-white text-sm placeholder:text-white/18 focus:outline-none transition-all duration-300
-                  ${isRTL ? 'pr-11 pl-4' : 'pl-11 pr-4'}
-                  bg-white/[0.04] border border-white/10 focus:border-[#C9A34D]/50 focus:bg-white/[0.07]`}
+                className={`w-full rounded-xl py-3.5 text-sm text-white focus:outline-none transition-all duration-250 placeholder:text-white/20
+                  ${isRTL ? 'pr-10 pl-4' : 'pl-10 pr-4'}`}
+                style={{
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}
+                onFocus={e => { e.target.style.borderColor = 'rgba(213,178,93,0.4)'; e.target.style.background = 'rgba(213,178,93,0.04)'; }}
+                onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.08)'; e.target.style.background = 'rgba(255,255,255,0.04)'; }}
               />
             </div>
           </div>
 
-          {/* Password */}
+          {/* Password field */}
           <div>
-            <label className={`block text-[11px] font-bold text-[#C9A34D]/55 mb-2 uppercase tracking-[1.5px] ${isRTL ? 'text-right' : 'text-left'}`}>
+            <label
+              className={`block text-[10px] font-black uppercase tracking-[2px] mb-2 ${isRTL ? 'text-right' : 'text-left'}`}
+              style={{ color: 'rgba(213,178,93,0.6)' }}
+            >
               {t('admin.passwordLabel')}
             </label>
             <div className="relative">
-              <Lock size={14} className={`absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2 text-[#C9A34D]/40`} />
+              <Lock
+                size={14}
+                className={`absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2`}
+                style={{ color: 'rgba(213,178,93,0.35)' }}
+              />
               <input
                 type={showPass ? 'text' : 'password'}
                 value={password}
@@ -186,38 +225,52 @@ export default function AdminLoginPage() {
                 required
                 dir="ltr"
                 placeholder="••••••••"
-                className={`w-full rounded-xl py-3.5 text-white text-sm placeholder:text-white/18 focus:outline-none transition-all duration-300
-                  ${isRTL ? 'pr-11 pl-11' : 'pl-11 pr-11'}
-                  bg-white/[0.04] border border-white/10 focus:border-[#C9A34D]/50 focus:bg-white/[0.07]`}
+                className={`w-full rounded-xl py-3.5 text-sm text-white focus:outline-none transition-all duration-250 placeholder:text-white/20
+                  ${isRTL ? 'pr-10 pl-10' : 'pl-10 pr-10'}`}
+                style={{
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}
+                onFocus={e => { e.target.style.borderColor = 'rgba(213,178,93,0.4)'; e.target.style.background = 'rgba(213,178,93,0.04)'; }}
+                onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.08)'; e.target.style.background = 'rgba(255,255,255,0.04)'; }}
               />
               <button
                 type="button"
                 onClick={() => setShowPass(v => !v)}
-                className={`absolute ${isRTL ? 'left-3.5' : 'right-3.5'} top-1/2 -translate-y-1/2 text-white/25 hover:text-[#C9A34D]/70 transition-colors`}
+                className={`absolute ${isRTL ? 'left-3.5' : 'right-3.5'} top-1/2 -translate-y-1/2 transition-colors`}
+                style={{ color: 'rgba(255,255,255,0.2)' }}
+                onMouseEnter={e => e.currentTarget.style.color = 'rgba(213,178,93,0.7)'}
+                onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.2)'}
               >
                 {showPass ? <EyeOff size={14} /> : <Eye size={14} />}
               </button>
             </div>
           </div>
 
-          {/* Submit */}
+          {/* Submit button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full font-black py-4 rounded-xl text-[13px] tracking-widest uppercase transition-all duration-300 flex items-center justify-center gap-2.5 mt-1 disabled:opacity-50 disabled:cursor-not-allowed hover:brightness-110 active:scale-[0.98]"
+            className="w-full py-4 rounded-xl text-[13px] font-black tracking-[2.5px] uppercase flex items-center justify-center gap-2.5 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
             style={{
-              background: 'linear-gradient(135deg,#B8923A 0%,#E8C97A 50%,#B8923A 100%)',
+              background: 'linear-gradient(135deg, #a8852a 0%, #D5B25D 45%, #e8c96e 60%, #D5B25D 75%, #a8852a 100%)',
               color: '#000',
-              boxShadow: '0 4px 24px rgba(201,163,77,0.4)',
+              boxShadow: '0 4px 20px rgba(213,178,93,0.35)',
+              marginTop: '4px',
             }}
+            onMouseEnter={e => { if (!loading) e.currentTarget.style.boxShadow = '0 6px 28px rgba(213,178,93,0.5)'; }}
+            onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 4px 20px rgba(213,178,93,0.35)'; }}
           >
-            {loading && <Loader2 size={16} className="animate-spin" />}
+            {loading && <Loader2 size={15} className="animate-spin" />}
             {loading ? t('admin.loggingIn') : t('admin.loginBtn')}
           </button>
         </form>
 
-        {/* Copyright */}
-        <p className="text-center text-white/12 text-[10px] mt-7 uppercase tracking-[3px] font-medium">
+        {/* Footer */}
+        <p
+          className="text-center text-[9.5px] font-medium mt-6 uppercase tracking-[3.5px]"
+          style={{ color: 'rgba(255,255,255,0.1)' }}
+        >
           MNC Construction © {new Date().getFullYear()}
         </p>
       </div>
