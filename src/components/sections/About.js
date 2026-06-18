@@ -22,7 +22,7 @@ const About = () => {
             <div className="relative z-10 group">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/3]">
                 <Image
-                  src="/asstes/director.png"
+                  src="/asstes/director.jpg"
                   alt={t('about.directorName')}
                   fill
                   className="object-cover"
