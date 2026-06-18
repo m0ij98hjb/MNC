@@ -82,13 +82,15 @@ const Navbar = () => {
     <>
       {/* ═══ MAIN NAVBAR ═══ */}
       <nav className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${
-        scrolled
-          ? isLightMode
-            ? "bg-white/97 backdrop-blur-2xl border-b border-slate-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.07)]"
-            : "bg-[#05090d]/95 backdrop-blur-2xl border-b border-[#D5B25D]/18 shadow-[0_8px_40px_rgba(0,0,0,0.75),0_1px_0_rgba(213,178,93,0.10)]"
-          : isLightMode
-            ? "bg-white/80 backdrop-blur-md border-b border-slate-100/70"
-            : "bg-gradient-to-b from-black/35 to-transparent backdrop-blur-sm border-b border-white/[0.04]"
+        isAdmin
+          ? "bg-[#0D1B2A] backdrop-blur-xl border-b-2 border-[#D5B25D]/38 shadow-[0_8px_40px_rgba(0,0,0,0.85),0_2px_0_rgba(213,178,93,0.12)]"
+          : scrolled
+            ? isLightMode
+              ? "bg-white/97 backdrop-blur-2xl border-b border-slate-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.07)]"
+              : "bg-[#05090d]/95 backdrop-blur-2xl border-b border-[#D5B25D]/18 shadow-[0_8px_40px_rgba(0,0,0,0.75),0_1px_0_rgba(213,178,93,0.10)]"
+            : isLightMode
+              ? "bg-white/80 backdrop-blur-md border-b border-slate-100/70"
+              : "bg-gradient-to-b from-black/35 to-transparent backdrop-blur-sm border-b border-white/[0.04]"
       }`}>
         <div className="w-full mx-auto flex items-center px-4 sm:px-6 md:px-8 lg:px-10 xl:px-14 py-3 sm:py-3.5">
 
