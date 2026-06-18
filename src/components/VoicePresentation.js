@@ -5,8 +5,10 @@ import { Mic, MicOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 import { useMusic } from '@/context/MusicContext';
+import { usePathname } from 'next/navigation';
 
 export default function VoicePresentation() {
+  const pathname = usePathname();
   const { t, isRTL, lang } = useLanguage();
   const { pauseMusicForVoice, resumeMusicAfterVoice } = useMusic();
   const [isPlaying, setIsPlaying] = useState(false);
@@ -65,6 +67,7 @@ export default function VoicePresentation() {
   };
 
   if (!isMounted) return null;
+  if (pathname.startsWith('/admin')) return null;
 
   return (
     <>

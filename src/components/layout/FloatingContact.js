@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import { Mail, ArrowUp } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import { usePathname } from "next/navigation";
 
 const FloatingContact = () => {
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const { lang, isRTL } = useLanguage();
 
@@ -28,6 +30,8 @@ const FloatingContact = () => {
       behavior: "smooth",
     });
   };
+
+  if (pathname.startsWith('/admin')) return null;
 
   return (
     <div className={`fixed bottom-6 ${isRTL ? 'left-6' : 'right-6'} flex flex-col gap-3 z-50 transition-all duration-500`}>
