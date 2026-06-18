@@ -32,7 +32,9 @@ export default function AdminBottomNav() {
         className="lg:hidden fixed bottom-0 inset-x-0 z-[95] flex"
         style={{
           height: '62px',
-          background: '#0D1B2A',
+          background: 'rgba(5,5,8,0.97)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
           borderTop: '1px solid rgba(201,163,77,0.28)',
           boxShadow: '0 -4px 24px rgba(0,0,0,0.7)',
           paddingBottom: 'env(safe-area-inset-bottom)',
