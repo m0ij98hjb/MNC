@@ -4,7 +4,6 @@ import { AOSInit } from "@/components/AOSInit";
 import VoicePresentation from "@/components/VoicePresentation";
 import Footer from "@/components/layout/Footer";
 import FloatingContact from "@/components/layout/FloatingContact";
-import BottomNav from "@/components/layout/BottomNav";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { MusicProvider } from "@/context/MusicContext";
@@ -45,7 +44,6 @@ export default function RootLayout({ children }) {
               <VoicePresentation />
               {children}
               <FloatingContact />
-              <BottomNav />
               <Footer />
             </MusicProvider>
           </LanguageProvider>
