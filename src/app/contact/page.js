@@ -1,7 +1,8 @@
 "use client";
 
 import Navbar from "@/components/layout/Navbar";
-import { Phone, Mail, MapPin, Send, ChevronDown, ArrowLeft } from "lucide-react";
+import { Phone, Mail, MapPin, Send, ChevronDown, ArrowLeft, Truck } from "lucide-react";
+import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -118,6 +119,20 @@ export default function ContactPage() {
                 <p className="text-white font-bold">{t('contact.days')}</p>
                 <p className="text-white/55 text-sm mt-1">{t('contact.time')}</p>
               </div>
+
+              {/* Supplier CTA */}
+              <Link
+                href="/suppliers"
+                className="flex items-center gap-4 bg-[#C9A34D]/10 border border-[#C9A34D]/40 hover:bg-[#C9A34D]/18 hover:border-[#C9A34D]/70 rounded-2xl p-5 transition-all duration-300 group"
+              >
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[#C9A34D]/15 border border-[#C9A34D]/30 shrink-0 group-hover:bg-[#C9A34D]/25 transition-colors">
+                  <Truck className="text-[#C9A34D]" size={22} />
+                </div>
+                <div>
+                  <p className="text-[#C9A34D] font-black text-base leading-tight">هل أنت مورد؟</p>
+                  <p className="text-white/70 text-sm mt-0.5 group-hover:text-white transition-colors">سجّل شركتك هنا ←</p>
+                </div>
+              </Link>
             </div>
 
           </div>
@@ -182,6 +197,22 @@ export default function ContactPage() {
                 <p className="text-white font-bold">{t('contact.days')}</p>
                 <p className="text-white/60 text-sm mt-1">{t('contact.time')}</p>
               </div>
+
+              {/* Supplier CTA */}
+              <Link
+                href="/suppliers"
+                className="flex items-center gap-4 bg-[#C9A34D]/10 border border-[#C9A34D]/40 hover:bg-[#C9A34D]/18 hover:border-[#C9A34D]/70 rounded-2xl p-6 transition-all duration-300 group"
+                data-aos="fade-up"
+                data-aos-delay="600"
+              >
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[#C9A34D]/15 border border-[#C9A34D]/30 shrink-0 group-hover:bg-[#C9A34D]/25 transition-colors">
+                  <Truck className="text-[#C9A34D]" size={22} />
+                </div>
+                <div>
+                  <p className="text-[#C9A34D] font-black text-base leading-tight">هل أنت مورد؟</p>
+                  <p className="text-white/70 text-sm mt-0.5 group-hover:text-white transition-colors">سجّل شركتك لدى MNC ←</p>
+                </div>
+              </Link>
             </div>
 
             {/* Form Side */}

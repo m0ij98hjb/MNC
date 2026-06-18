@@ -114,6 +114,7 @@ const Footer = () => {
       { label: t("nav.projects"), href: "/projects" },
       { label: t("nav.services"), href: "/#services" },
       { label: t("nav.contact"), href: "/contact" },
+      { label: "انضم كمورد", href: "/suppliers", gold: true },
     ],
     services: [
       { label: t("servicesSection.items.construction.title") },
@@ -188,10 +189,18 @@ const Footer = () => {
                 <li key={l.label}>
                   <Link
                     href={l.href}
-                    className="text-[var(--foreground)] text-sm hover:text-[var(--secondary)] transition-colors duration-200
-                      flex items-center gap-2 group"
+                    className={`text-sm transition-colors duration-200 flex items-center gap-2 group
+                      ${l.gold
+                        ? 'text-[#C9A34D] hover:text-[#E1BF67] font-semibold'
+                        : 'text-[var(--foreground)] hover:text-[var(--secondary)]'
+                      }`}
                   >
-                    <span className="w-1 h-1 rounded-full bg-[var(--secondary)]/40 group-hover:bg-[var(--secondary)] transition-colors" />
+                    <span className={`w-1 h-1 rounded-full transition-colors shrink-0
+                      ${l.gold
+                        ? 'bg-[#C9A34D] group-hover:bg-[#E1BF67]'
+                        : 'bg-[var(--secondary)]/40 group-hover:bg-[var(--secondary)]'
+                      }`}
+                    />
                     {l.label}
                   </Link>
                 </li>
