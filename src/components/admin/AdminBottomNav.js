@@ -58,11 +58,11 @@ export default function AdminBottomNav() {
               )}
               <Icon
                 size={active ? 20 : 18}
-                style={{ color: active ? '#C9A34D' : 'rgba(255,255,255,0.28)', transition: 'all 0.2s' }}
+                style={{ color: active ? '#C9A34D' : 'rgba(255,255,255,0.65)', transition: 'all 0.2s' }}
               />
               <span
                 className="text-[9px] font-bold leading-none truncate max-w-[56px] text-center"
-                style={{ color: active ? '#C9A34D' : 'rgba(255,255,255,0.28)' }}
+                style={{ color: active ? '#C9A34D' : 'rgba(255,255,255,0.65)' }}
               >
                 {t(labelKey)}
               </span>
@@ -75,10 +75,10 @@ export default function AdminBottomNav() {
           onClick={handleLogout}
           className="flex flex-col items-center justify-center flex-1 gap-1 transition-all duration-150 active:scale-95"
         >
-          <LogOut size={18} style={{ color: 'rgba(248,113,113,0.5)' }} />
+          <LogOut size={18} style={{ color: 'rgba(248,113,113,0.75)' }} />
           <span
             className="text-[9px] font-bold leading-none"
-            style={{ color: 'rgba(248,113,113,0.5)' }}
+            style={{ color: 'rgba(248,113,113,0.75)' }}
           >
             {t('admin.logout')}
           </span>
