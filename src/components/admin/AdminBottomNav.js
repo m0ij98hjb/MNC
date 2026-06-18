@@ -25,64 +25,69 @@ export default function AdminBottomNav() {
 
   return (
     <>
-      {/* Spacer so content isn't hidden behind the bar */}
-      <div className="lg:hidden h-[72px]" aria-hidden="true" />
+      {/* Spacer — 72px content + safe area */}
+      <div className="lg:hidden" style={{ height: 'calc(72px + env(safe-area-inset-bottom))' }} aria-hidden="true" />
 
       <nav
-        className="lg:hidden fixed bottom-0 inset-x-0 z-[95] flex"
+        className="lg:hidden fixed bottom-0 inset-x-0 z-[95]"
         style={{
-          height: '72px',
           background: 'rgba(5,5,8,0.97)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
           borderTop: '1px solid rgba(201,163,77,0.28)',
           boxShadow: '0 -4px 24px rgba(0,0,0,0.7)',
+          /* safe-area padding BELOW the 72px content row */
           paddingBottom: 'env(safe-area-inset-bottom)',
         }}
       >
-        {/* Nav links */}
-        {NAV_ITEMS.map(({ href, labelKey, icon: Icon }) => {
-          const active = pathname === href || pathname.startsWith(href + '/');
-          return (
-            <Link
-              key={href}
-              href={href}
-              className="flex flex-col items-center justify-center flex-1 gap-1 transition-all duration-150 active:scale-95 relative"
-            >
-              {/* Active top indicator */}
-              {active && (
-                <span
-                  className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-[2px] rounded-full"
-                  style={{ background: 'linear-gradient(90deg,transparent,#C9A34D,transparent)' }}
-                />
-              )}
-              <Icon
-                size={active ? 20 : 18}
-                style={{ color: active ? '#C9A34D' : 'rgba(255,255,255,0.65)', transition: 'all 0.2s' }}
-              />
-              <span
-                className="text-[9px] font-bold leading-none truncate max-w-[56px] text-center"
-                style={{ color: active ? '#C9A34D' : 'rgba(255,255,255,0.65)' }}
-              >
-                {t(labelKey)}
-              </span>
-            </Link>
-          );
-        })}
+        {/* 72px fixed-height content row */}
+        <div className="flex" style={{ height: '72px' }}>
 
-        {/* Logout button */}
-        <button
-          onClick={handleLogout}
-          className="flex flex-col items-center justify-center flex-1 gap-1 transition-all duration-150 active:scale-95"
-        >
-          <LogOut size={18} style={{ color: 'rgba(248,113,113,0.75)' }} />
-          <span
-            className="text-[9px] font-bold leading-none"
-            style={{ color: 'rgba(248,113,113,0.75)' }}
+          {/* Nav links */}
+          {NAV_ITEMS.map(({ href, labelKey, icon: Icon }) => {
+            const active = pathname === href || pathname.startsWith(href + '/');
+            return (
+              <Link
+                key={href}
+                href={href}
+                className="flex flex-col items-center justify-center flex-1 gap-1.5 transition-all duration-150 active:scale-95 relative px-1"
+              >
+                {/* Active top indicator */}
+                {active && (
+                  <span
+                    className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-[2px] rounded-full"
+                    style={{ background: 'linear-gradient(90deg,transparent,#C9A34D,transparent)' }}
+                  />
+                )}
+                <Icon
+                  size={active ? 20 : 18}
+                  style={{ color: active ? '#C9A34D' : 'rgba(255,255,255,0.65)', transition: 'all 0.2s' }}
+                />
+                <span
+                  className="text-[10px] font-bold leading-tight text-center w-full"
+                  style={{ color: active ? '#C9A34D' : 'rgba(255,255,255,0.65)' }}
+                >
+                  {t(labelKey)}
+                </span>
+              </Link>
+            );
+          })}
+
+          {/* Logout button */}
+          <button
+            onClick={handleLogout}
+            className="flex flex-col items-center justify-center flex-1 gap-1.5 transition-all duration-150 active:scale-95 px-1"
           >
-            {t('admin.logout')}
-          </span>
-        </button>
+            <LogOut size={18} style={{ color: 'rgba(248,113,113,0.75)' }} />
+            <span
+              className="text-[10px] font-bold leading-tight text-center w-full"
+              style={{ color: 'rgba(248,113,113,0.75)' }}
+            >
+              {t('admin.logout')}
+            </span>
+          </button>
+
+        </div>
       </nav>
     </>
   );
