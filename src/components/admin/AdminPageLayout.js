@@ -1,6 +1,7 @@
 'use client';
 import Navbar from '@/components/layout/Navbar';
 import AdminSidebar from '@/components/admin/AdminSidebar';
+import AdminBottomNav from '@/components/admin/AdminBottomNav';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function AdminPageLayout({ children }) {
@@ -14,6 +15,7 @@ export default function AdminPageLayout({ children }) {
           {children}
         </div>
       </div>
+      <AdminBottomNav />
     </div>
   );
 }
