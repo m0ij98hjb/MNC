@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react';
 import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { STATUS_CONFIG } from '@/lib/suppliersConfig';
+import { useLanguage } from '@/context/LanguageContext';
 import StatusBadge from '@/components/admin/StatusBadge';
+import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import {
-  ArrowLeft, CheckCircle, XCircle, Clock, Loader2, Save,
+  ArrowLeft, ArrowRight, CheckCircle, XCircle, Clock, Loader2, Save,
   Building2, User, Phone, Mail, Globe, MapPin, Calendar,
   Briefcase, FileText, Tag, Truck, MessageSquare
 } from 'lucide-react';
@@ -13,12 +15,13 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 export default function SupplierDetailPage() {
-  const { id }                      = useParams();
-  const [supplier, setSupplier]     = useState(null);
-  const [notes, setNotes]           = useState('');
-  const [saving, setSaving]         = useState(false);
-  const [actioning, setActioning]   = useState('');
-  const [saved, setSaved]           = useState(false);
+  const { id }                    = useParams();
+  const { t, isRTL }              = useLanguage();
+  const [supplier, setSupplier]   = useState(null);
+  const [notes, setNotes]         = useState('');
+  const [saving, setSaving]       = useState(false);
+  const [actioning, setActioning] = useState('');
+  const [saved, setSaved]         = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -46,11 +49,15 @@ export default function SupplierDetailPage() {
     setTimeout(() => setSaved(false), 2500);
   };
 
+  const BackIcon = isRTL ? ArrowRight : ArrowLeft;
+
   if (!supplier) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <Loader2 size={32} className="text-[#c8a96e] animate-spin" />
-      </div>
+      <AdminPageLayout>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <Loader2 size={32} className="text-[#c8a96e] animate-spin" />
+        </div>
+      </AdminPageLayout>
     );
   }
 
@@ -61,122 +68,123 @@ export default function SupplierDetailPage() {
     : '—';
 
   return (
-    <div className="p-6 lg:p-8 max-w-5xl mx-auto" dir="ltr">
-      <Link href="/admin/suppliers" className="inline-flex items-center gap-2 text-white/40 hover:text-white text-sm mb-6 transition-colors">
-        <ArrowLeft size={16} /> Back to Suppliers
-      </Link>
+    <AdminPageLayout>
+      <div className="p-6 lg:p-8 max-w-5xl mx-auto" dir={isRTL ? 'rtl' : 'ltr'}>
+        <Link href="/admin/suppliers" className="inline-flex items-center gap-2 text-white/40 hover:text-white text-sm mb-6 transition-colors">
+          <BackIcon size={16} /> {t('admin.back')}
+        </Link>
 
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
-        <div>
-          <h1 className="text-2xl font-bold text-white">{supplier.companyName}</h1>
-          <div className="flex items-center gap-3 mt-2">
-            <StatusBadge status={supplier.status} />
-            <span className="text-xs text-white/30">Submitted: {createdDate}</span>
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
+          <div>
+            <h1 className="text-2xl font-bold text-white">{supplier.companyName}</h1>
+            <div className="flex items-center gap-3 mt-2">
+              <StatusBadge status={supplier.status} />
+              <span className="text-xs text-white/30" dir="ltr">{createdDate}</span>
+            </div>
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            {supplier.status !== 'under_review' && (
+              <ActionBtn onClick={() => updateStatus('under_review')} loading={actioning === 'under_review'} icon={Clock} label={t('admin.underReviewAction')} color="yellow" />
+            )}
+            {supplier.status !== 'approved' && (
+              <ActionBtn onClick={() => updateStatus('approved')} loading={actioning === 'approved'} icon={CheckCircle} label={t('admin.approve')} color="green" />
+            )}
+            {supplier.status !== 'rejected' && (
+              <ActionBtn onClick={() => updateStatus('rejected')} loading={actioning === 'rejected'} icon={XCircle} label={t('admin.reject')} color="red" />
+            )}
           </div>
         </div>
-        <div className="flex gap-2 flex-wrap">
-          {supplier.status !== 'under_review' && (
-            <ActionBtn onClick={() => updateStatus('under_review')} loading={actioning === 'under_review'} icon={Clock} label="Under Review" color="yellow" />
-          )}
-          {supplier.status !== 'approved' && (
-            <ActionBtn onClick={() => updateStatus('approved')} loading={actioning === 'approved'} icon={CheckCircle} label="Approve" color="green" />
-          )}
-          {supplier.status !== 'rejected' && (
-            <ActionBtn onClick={() => updateStatus('rejected')} loading={actioning === 'rejected'} icon={XCircle} label="Reject" color="red" />
-          )}
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Main info */}
+          <div className="lg:col-span-2 space-y-6">
+            <Card title={t('admin.companyInfo')}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <InfoRow icon={Building2} label={t('suppliers.companyName')} value={supplier.companyName} />
+                <InfoRow icon={User}      label={t('suppliers.contactPerson')} value={supplier.contactName} />
+                <InfoRow icon={Phone}     label={t('suppliers.phone')}  value={supplier.phone} ltr />
+                <InfoRow icon={Mail}      label={t('suppliers.email')}  value={supplier.email} ltr />
+                <InfoRow icon={MapPin}    label={t('suppliers.city')}   value={supplier.city} />
+                <InfoRow icon={MapPin}    label={t('suppliers.country')} value={supplier.country} />
+                <InfoRow icon={Globe}     label={t('suppliers.website')} value={supplier.website || '—'} ltr />
+                <InfoRow icon={Calendar}  label={t('admin.submittedCol')} value={createdDate} ltr />
+              </div>
+            </Card>
+
+            <Card title={t('admin.businessActivity')}>
+              {supplier.activity ? (
+                <span className="inline-flex items-center gap-2 bg-[#c8a96e]/10 text-[#c8a96e] text-sm font-semibold px-4 py-2 rounded-xl border border-[#c8a96e]/20">
+                  <Briefcase size={14} />
+                  {supplier.activity}
+                </span>
+              ) : (
+                <p className="text-white/30 text-sm">{t('admin.notSpecified')}</p>
+              )}
+            </Card>
+
+            <Card title={t('admin.offerDetails')}>
+              <div className="space-y-5">
+                <DetailRow icon={FileText} label={t('suppliers.descriptionLabel')} value={supplier.description} multiline />
+                <DetailRow icon={Tag}      label={t('suppliers.brands')}           value={supplier.brands} />
+                <DetailRow icon={MapPin}   label={t('suppliers.coverageArea')}     value={supplier.coverageArea} />
+                <DetailRow icon={Truck}    label={t('suppliers.deliveryTime')}      value={supplier.deliveryTime} />
+                <DetailRow icon={MessageSquare} label={t('suppliers.notes')}      value={supplier.notes} multiline />
+              </div>
+            </Card>
+          </div>
+
+          {/* Side panel */}
+          <div className="space-y-6">
+            <Card title={t('admin.currentStatus')}>
+              <div className="space-y-2.5">
+                {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
+                  <div
+                    key={key}
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors
+                      ${supplier.status === key ? 'bg-white/5' : 'opacity-30'}`}
+                  >
+                    <div className="w-2 h-2 rounded-full shrink-0" style={{ background: cfg.color }} />
+                    <span className="text-sm flex-1" style={{ color: supplier.status === key ? cfg.color : undefined }}>
+                      {cfg.label}
+                    </span>
+                    {supplier.status === key && (
+                      <span className="text-xs text-white/30 shrink-0">{t('admin.currentStatus')}</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            <Card title={t('admin.adminNotesTitle')}>
+              <textarea
+                value={notes}
+                onChange={e => setNotes(e.target.value)}
+                rows={7}
+                dir={isRTL ? 'rtl' : 'ltr'}
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#c8a96e]/40 resize-none transition-colors"
+              />
+              <button
+                onClick={saveNotes}
+                disabled={saving}
+                className={`mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold border transition-colors disabled:opacity-50
+                  ${saved
+                    ? 'bg-green-500/10 border-green-500/20 text-green-400'
+                    : 'bg-[#c8a96e]/10 hover:bg-[#c8a96e]/20 border-[#c8a96e]/20 text-[#c8a96e]'
+                  }`}
+              >
+                {saving
+                  ? <><Loader2 size={15} className="animate-spin" /> {t('admin.saving')}</>
+                  : saved
+                  ? <><CheckCircle size={15} /> {t('admin.savedLabel')}</>
+                  : <><Save size={15} /> {t('admin.saveNotes')}</>
+                }
+              </button>
+            </Card>
+          </div>
         </div>
       </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main info — 2 cols */}
-        <div className="lg:col-span-2 space-y-6">
-
-          <Card title="Company Information">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <InfoRow icon={Building2} label="Company Name"   value={supplier.companyName} />
-              <InfoRow icon={User}      label="Contact Person" value={supplier.contactName} />
-              <InfoRow icon={Phone}     label="Mobile"         value={supplier.phone} ltr />
-              <InfoRow icon={Mail}      label="Email"          value={supplier.email} ltr />
-              <InfoRow icon={MapPin}    label="City"           value={supplier.city} />
-              <InfoRow icon={MapPin}    label="Country"        value={supplier.country} />
-              <InfoRow icon={Globe}     label="Website"        value={supplier.website || '—'} ltr />
-              <InfoRow icon={Calendar}  label="Submitted"      value={createdDate} />
-            </div>
-          </Card>
-
-          <Card title="Business Activity">
-            {supplier.activity ? (
-              <span className="inline-flex items-center gap-2 bg-[#c8a96e]/10 text-[#c8a96e] text-sm font-semibold px-4 py-2 rounded-xl border border-[#c8a96e]/20">
-                <Briefcase size={14} />
-                {supplier.activity}
-              </span>
-            ) : (
-              <p className="text-white/30 text-sm">Not specified</p>
-            )}
-          </Card>
-
-          <Card title="Offer Details">
-            <div className="space-y-5">
-              <DetailRow icon={FileText} label="Products & Services" value={supplier.description} multiline />
-              <DetailRow icon={Tag}      label="Brands Available"    value={supplier.brands} />
-              <DetailRow icon={MapPin}   label="Coverage Area"       value={supplier.coverageArea} />
-              <DetailRow icon={Truck}    label="Delivery Time"       value={supplier.deliveryTime} />
-              <DetailRow icon={MessageSquare} label="Additional Notes" value={supplier.notes} multiline />
-            </div>
-          </Card>
-        </div>
-
-        {/* Side panel */}
-        <div className="space-y-6">
-          <Card title="Status">
-            <div className="space-y-2.5">
-              {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
-                <div
-                  key={key}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors
-                    ${supplier.status === key ? 'bg-white/5' : 'opacity-30'}`}
-                >
-                  <div className="w-2 h-2 rounded-full shrink-0" style={{ background: cfg.color }} />
-                  <span className="text-sm" style={{ color: supplier.status === key ? cfg.color : undefined }}>
-                    {cfg.label}
-                  </span>
-                  {supplier.status === key && (
-                    <span className="ml-auto text-xs text-white/30">Current</span>
-                  )}
-                </div>
-              ))}
-            </div>
-          </Card>
-
-          <Card title="Admin Notes">
-            <textarea
-              value={notes}
-              onChange={e => setNotes(e.target.value)}
-              rows={7}
-              placeholder="Add your internal notes about this supplier..."
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#c8a96e]/40 resize-none transition-colors"
-            />
-            <button
-              onClick={saveNotes}
-              disabled={saving}
-              className={`mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold border transition-colors disabled:opacity-50
-                ${saved
-                  ? 'bg-green-500/10 border-green-500/20 text-green-400'
-                  : 'bg-[#c8a96e]/10 hover:bg-[#c8a96e]/20 border-[#c8a96e]/20 text-[#c8a96e]'
-                }`}
-            >
-              {saving
-                ? <><Loader2 size={15} className="animate-spin" /> Saving...</>
-                : saved
-                ? <><CheckCircle size={15} /> Saved</>
-                : <><Save size={15} /> Save Notes</>
-              }
-            </button>
-          </Card>
-        </div>
-      </div>
-    </div>
+    </AdminPageLayout>
   );
 }
 
@@ -220,13 +228,11 @@ function DetailRow({ icon: Icon, label, value, multiline }) {
 function ActionBtn({ onClick, loading, icon: Icon, label, color }) {
   const cls = {
     green:  'text-green-400 border-green-500/20 hover:bg-green-500/10',
-    red:    'text-red-400  border-red-500/20   hover:bg-red-500/10',
+    red:    'text-red-400   border-red-500/20   hover:bg-red-500/10',
     yellow: 'text-yellow-400 border-yellow-500/20 hover:bg-yellow-500/10',
   }[color];
   return (
-    <button
-      onClick={onClick}
-      disabled={loading}
+    <button onClick={onClick} disabled={loading}
       className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold border transition-colors disabled:opacity-50 ${cls}`}
     >
       {loading ? <Loader2 size={14} className="animate-spin" /> : <Icon size={14} />}

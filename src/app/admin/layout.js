@@ -2,7 +2,6 @@
 import { useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import AdminSidebar from '@/components/admin/AdminSidebar';
 import { Loader2 } from 'lucide-react';
 
 export default function AdminLayout({ children }) {
@@ -12,36 +11,28 @@ export default function AdminLayout({ children }) {
   const isLoginPage = pathname === '/admin/login';
 
   useEffect(() => {
-    if (user === null && !isLoginPage) {
-      router.replace('/admin/login');
-    }
+    if (user === null && !isLoginPage) router.replace('/admin/login');
+    if (user && user !== undefined && isLoginPage) router.replace('/admin/dashboard');
   }, [user, isLoginPage, router]);
 
-  // Login page: show as-is (no sidebar)
+  // Login page: fixed overlay hides the root layout's Navbar/Footer/FloatingContact
   if (isLoginPage) {
     return (
-      <div className="fixed inset-0 z-[9999] bg-[#0a0a0a] overflow-auto">
+      <div className="fixed inset-0 z-[9999] overflow-auto">
         {children}
       </div>
     );
   }
 
-  // Loading state
+  // Redirect in progress
   if (user === undefined || user === null) {
     return (
-      <div className="fixed inset-0 z-[9999] bg-[#0a0a0a] flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[var(--background)]">
         <Loader2 size={32} className="text-[#c8a96e] animate-spin" />
       </div>
     );
   }
 
-  // Authenticated admin layout
-  return (
-    <div className="fixed inset-0 z-[9999] bg-[#0d0d0d] flex overflow-hidden" dir="rtl">
-      <AdminSidebar />
-      <main className="flex-1 overflow-y-auto">
-        {children}
-      </main>
-    </div>
-  );
+  // Authenticated: each page manages its own layout via AdminPageLayout
+  return <>{children}</>;
 }

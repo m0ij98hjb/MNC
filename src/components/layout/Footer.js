@@ -114,7 +114,7 @@ const Footer = () => {
       { label: t("nav.projects"), href: "/projects" },
       { label: t("nav.services"), href: "/#services" },
       { label: t("nav.contact"), href: "/contact" },
-      { label: "انضم كمورد", href: "/suppliers", gold: true },
+      { label: t('admin.suppliersNav'), href: "/suppliers", gold: true },
     ],
     services: [
       { label: t("servicesSection.items.construction.title") },
