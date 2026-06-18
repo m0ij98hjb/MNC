@@ -337,7 +337,11 @@ export const de = {
     required: "Pflichtfeld",
     fieldsRequired: "Mit * markierte Felder sind Pflichtfelder",
     joinCTA: "Sind Sie Lieferant?",
-    joinDesc: "Registrieren Sie Ihr Unternehmen bei MNC →"
+    joinDesc: "Registrieren Sie Ihr Unternehmen bei MNC →",
+    docUpload: "Firmendokument",
+    docUploadHint: "Handelsregister, Lizenz oder offizielles Dokument — PDF oder Bild (optional)",
+    docUploading: "Wird hochgeladen...",
+    docUploaded: "Dokument hochgeladen ✓"
   },
   admin: {
     loginTitle: "Lieferantenmanagement",

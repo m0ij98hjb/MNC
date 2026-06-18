@@ -8,13 +8,34 @@ import Navbar from '@/components/layout/Navbar';
 import {
   Building2, User, Phone, Mail, MapPin, Globe, ChevronDown,
   Send, CheckCircle2, Loader2, Briefcase, FileText,
-  Clock, MessageSquare, Tag
+  Clock, MessageSquare, Tag, Upload, X,
 } from 'lucide-react';
 
 const COUNTRIES = [
   'Saudi Arabia', 'United Arab Emirates', 'Kuwait', 'Qatar', 'Bahrain',
   'Oman', 'Egypt', 'Jordan', 'Lebanon', 'Iraq', 'Other',
 ];
+
+async function uploadToCloudinary(file) {
+  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+  const preset    = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+  if (!cloudName || !preset) throw new Error('Cloudinary not configured');
+
+  const fd = new FormData();
+  fd.append('file', file);
+  fd.append('upload_preset', preset);
+
+  const res = await fetch(
+    `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`,
+    { method: 'POST', body: fd }
+  );
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err?.error?.message || `Cloudinary error ${res.status}`);
+  }
+  const data = await res.json();
+  return data.secure_url;
+}
 
 export default function SuppliersPage() {
   const { t, isRTL } = useLanguage();
@@ -24,9 +45,11 @@ export default function SuppliersPage() {
     activity: '',
     description: '', brands: '', coverageArea: '', deliveryTime: '', notes: '',
   });
-  const [errors, setErrors]         = useState({});
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted]   = useState(false);
+  const [docFile, setDocFile]         = useState(null);
+  const [isDragging, setIsDragging]   = useState(false);
+  const [errors, setErrors]           = useState({});
+  const [submitting, setSubmitting]   = useState(false);
+  const [submitted, setSubmitted]     = useState(false);
   const [submitError, setSubmitError] = useState('');
 
   const set = (key, val) => {
@@ -54,17 +77,24 @@ export default function SuppliersPage() {
     e.preventDefault();
     if (!validate()) return;
     setSubmitting(true);
+    setSubmitError('');
     try {
+      let documentUrl = '';
+      if (docFile) {
+        documentUrl = await uploadToCloudinary(docFile);
+      }
       await addDoc(collection(db, 'suppliers'), {
         ...form,
+        documentUrl,
         status:     'new',
         createdAt:  serverTimestamp(),
         adminNotes: '',
         reviewedAt: null,
       });
       setSubmitted(true);
-    } catch {
-      setSubmitError(t('suppliers.submit') + ' — Error. Please try again.');
+    } catch (err) {
+      console.error('[Suppliers form] Error:', err?.code, err?.message, err);
+      setSubmitError('Error: ' + (err?.message || 'Please try again.'));
     } finally {
       setSubmitting(false);
     }
@@ -72,6 +102,7 @@ export default function SuppliersPage() {
 
   const resetForm = () => {
     setSubmitted(false);
+    setDocFile(null);
     setForm({
       companyName:'', contactName:'', phone:'', email:'',
       city:'', country:'', website:'',
@@ -79,6 +110,19 @@ export default function SuppliersPage() {
       description:'', brands:'', coverageArea:'', deliveryTime:'', notes:'',
     });
     setErrors({});
+  };
+
+  const handleDragOver  = (e) => { e.preventDefault(); setIsDragging(true); };
+  const handleDragLeave = ()  => setIsDragging(false);
+  const handleDrop      = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files[0];
+    if (file) setDocFile(file);
+  };
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) setDocFile(file);
   };
 
   return (
@@ -137,7 +181,8 @@ export default function SuppliersPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate>
-              {/* Company Information */}
+
+              {/* 01 — Company Information */}
               <FormSection icon={Building2} title={t('suppliers.sectionCompany')} badge="01" data-aos="fade-up">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <FormField label={t('suppliers.companyName')} required error={errors.companyName}>
@@ -173,7 +218,7 @@ export default function SuppliersPage() {
                 </div>
               </FormSection>
 
-              {/* Business Activity */}
+              {/* 02 — Business Activity */}
               <FormSection icon={Briefcase} title={t('suppliers.sectionActivity')} badge="02" className="mt-8" data-aos="fade-up" data-aos-delay="100">
                 <FormField label={t('suppliers.activityType')} required error={errors.activity}>
                   <div className="relative">
@@ -186,7 +231,7 @@ export default function SuppliersPage() {
                 </FormField>
               </FormSection>
 
-              {/* Offer Details */}
+              {/* 03 — Offer Details */}
               <FormSection icon={FileText} title={t('suppliers.sectionOffer')} badge="03" className="mt-8" data-aos="fade-up" data-aos-delay="200">
                 <div className="space-y-5">
                   <FormField label={t('suppliers.descriptionLabel')} required error={errors.description}>
@@ -221,6 +266,65 @@ export default function SuppliersPage() {
                 </div>
               </FormSection>
 
+              {/* 04 — Company Document (Cloudinary) */}
+              <FormSection icon={Upload} title={`${t('suppliers.docUpload')} ${t('suppliers.websiteOptional')}`} badge="04" className="mt-8" data-aos="fade-up" data-aos-delay="300">
+                <p className="text-white/35 text-xs mb-4 leading-relaxed">
+                  {t('suppliers.docUploadHint')}
+                </p>
+
+                {docFile ? (
+                  /* File selected — show info + remove button */
+                  <div className="flex items-center gap-4 bg-secondary/8 border border-secondary/25 rounded-2xl px-5 py-4">
+                    <div className="w-10 h-10 rounded-xl bg-secondary/15 border border-secondary/25 flex items-center justify-center shrink-0">
+                      <FileText size={18} className="text-secondary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-white text-sm font-semibold truncate">{docFile.name}</p>
+                      <p className="text-secondary text-xs mt-0.5 font-bold">
+                        {t('suppliers.docUploaded')}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setDocFile(null)}
+                      className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/10 transition-colors"
+                    >
+                      <X size={15} />
+                    </button>
+                  </div>
+                ) : (
+                  /* Drop zone */
+                  <div
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                    onClick={() => document.getElementById('supplierDocInput').click()}
+                    className={`relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all duration-300
+                      ${isDragging
+                        ? 'border-secondary bg-secondary/10 scale-[1.01]'
+                        : 'border-white/12 hover:border-secondary/35 hover:bg-white/3'
+                      }`}
+                  >
+                    <input
+                      id="supplierDocInput"
+                      type="file"
+                      accept=".pdf,image/*"
+                      onChange={handleFileChange}
+                      className="hidden"
+                    />
+                    <div className="flex flex-col items-center gap-3 pointer-events-none">
+                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
+                        <Upload size={22} className="text-white/30" />
+                      </div>
+                      <p className="text-white/40 text-sm font-medium">
+                        {t('suppliers.docUploadHint')}
+                      </p>
+                      <p className="text-white/20 text-xs">PDF, JPG, PNG</p>
+                    </div>
+                  </div>
+                )}
+              </FormSection>
+
               {submitError && (
                 <div className="mt-6 bg-red-500/10 border border-red-500/20 rounded-xl px-5 py-4 text-sm text-red-400 text-center">
                   {submitError}
@@ -234,7 +338,8 @@ export default function SuppliersPage() {
                   className="inline-flex items-center gap-3 bg-[var(--secondary)] hover:bg-[#E1BF67] disabled:opacity-60 disabled:cursor-not-allowed text-black font-black px-12 py-4 rounded-full text-base transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_35px_rgba(213,178,93,0.3)]"
                 >
                   {submitting ? (
-                    <><Loader2 size={20} className="animate-spin" /> {t('suppliers.submitting')}</>
+                    <><Loader2 size={20} className="animate-spin" />
+                      {docFile ? t('suppliers.docUploading') : t('suppliers.submitting')}</>
                   ) : (
                     <><Send size={20} /> {t('suppliers.submit')}</>
                   )}

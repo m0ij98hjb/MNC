@@ -337,7 +337,11 @@ export const zh = {
     required: "必填",
     fieldsRequired: "标有*的字段为必填项",
     joinCTA: "您是供应商吗？",
-    joinDesc: "在MNC注册您的公司 →"
+    joinDesc: "在MNC注册您的公司 →",
+    docUpload: "公司文件",
+    docUploadHint: "营业执照、许可证或官方文件 — PDF或图片（可选）",
+    docUploading: "上传中...",
+    docUploaded: "文件已上传 ✓"
   },
   admin: {
     loginTitle: "供应商管理",

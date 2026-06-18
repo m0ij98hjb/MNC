@@ -337,7 +337,11 @@ export const tr = {
     required: "Gerekli",
     fieldsRequired: "* ile işaretlenen alanlar zorunludur",
     joinCTA: "Tedarikçi misiniz?",
-    joinDesc: "Şirketinizi MNC'ye kaydedin →"
+    joinDesc: "Şirketinizi MNC'ye kaydedin →",
+    docUpload: "Şirket Belgesi",
+    docUploadHint: "Ticaret sicili, lisans veya resmi belge — PDF veya resim (isteğe bağlı)",
+    docUploading: "Yükleniyor...",
+    docUploaded: "Belge yüklendi ✓"
   },
   admin: {
     loginTitle: "Tedarikçi Yönetimi",

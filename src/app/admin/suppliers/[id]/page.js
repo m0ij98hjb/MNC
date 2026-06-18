@@ -9,7 +9,7 @@ import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import {
   ArrowLeft, ArrowRight, CheckCircle, XCircle, Clock, Loader2, Save,
   Building2, User, Phone, Mail, Globe, MapPin, Calendar,
-  Briefcase, FileText, Tag, Truck, MessageSquare
+  Briefcase, FileText, Tag, Truck, MessageSquare, ExternalLink,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -131,6 +131,22 @@ export default function SupplierDetailPage() {
                 <DetailRow icon={MapPin}   label={t('suppliers.coverageArea')}     value={supplier.coverageArea} />
                 <DetailRow icon={Truck}    label={t('suppliers.deliveryTime')}      value={supplier.deliveryTime} />
                 <DetailRow icon={MessageSquare} label={t('suppliers.notes')}      value={supplier.notes} multiline />
+                {supplier.documentUrl && (
+                  <div>
+                    <span className="text-xs text-white/30 flex items-center gap-1.5 mb-1.5">
+                      <FileText size={11} /> {t('suppliers.docUpload')}
+                    </span>
+                    <a
+                      href={supplier.documentUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-[#c8a96e] hover:text-[#e8c98a] underline underline-offset-2 transition-colors"
+                    >
+                      <ExternalLink size={13} />
+                      {t('admin.viewDetails')}
+                    </a>
+                  </div>
+                )}
               </div>
             </Card>
           </div>

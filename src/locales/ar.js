@@ -337,7 +337,11 @@ export const ar = {
     required: "مطلوب",
     fieldsRequired: "الحقول المميزة بـ * إلزامية",
     joinCTA: "هل أنت مورد؟",
-    joinDesc: "سجّل شركتك لدى MNC ←"
+    joinDesc: "سجّل شركتك لدى MNC ←",
+    docUpload: "وثيقة الشركة",
+    docUploadHint: "سجل تجاري أو رخصة أو وثيقة رسمية — PDF أو صورة (اختياري)",
+    docUploading: "جاري الرفع...",
+    docUploaded: "تم رفع الوثيقة ✓"
   },
   admin: {
     loginTitle: "إدارة الموردين",

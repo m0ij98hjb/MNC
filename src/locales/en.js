@@ -337,7 +337,11 @@ export const en = {
     required: "Required",
     fieldsRequired: "Fields marked with * are required",
     joinCTA: "Are you a supplier?",
-    joinDesc: "Register your company with MNC →"
+    joinDesc: "Register your company with MNC →",
+    docUpload: "Company Document",
+    docUploadHint: "Commercial registration, license, or official document — PDF or image (optional)",
+    docUploading: "Uploading...",
+    docUploaded: "Document uploaded ✓"
   },
   admin: {
     loginTitle: "Supplier Management",

@@ -337,7 +337,11 @@ export const fr = {
     required: "Requis",
     fieldsRequired: "Les champs marqués * sont obligatoires",
     joinCTA: "Êtes-vous fournisseur?",
-    joinDesc: "Inscrivez votre entreprise chez MNC →"
+    joinDesc: "Inscrivez votre entreprise chez MNC →",
+    docUpload: "Document d'Entreprise",
+    docUploadHint: "Registre commercial, licence ou document officiel — PDF ou image (optionnel)",
+    docUploading: "Téléchargement...",
+    docUploaded: "Document téléchargé ✓"
   },
   admin: {
     loginTitle: "Gestion des Fournisseurs",

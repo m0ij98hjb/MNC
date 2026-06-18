@@ -337,7 +337,11 @@ export const ur = {
     required: "ضروری",
     fieldsRequired: "* کے ساتھ نشان زدہ فیلڈز لازمی ہیں",
     joinCTA: "کیا آپ سپلائر ہیں؟",
-    joinDesc: "MNC کے ساتھ اپنی کمپنی رجسٹر کریں ←"
+    joinDesc: "MNC کے ساتھ اپنی کمپنی رجسٹر کریں ←",
+    docUpload: "کمپنی دستاویز",
+    docUploadHint: "تجارتی رجسٹریشن، لائسنس یا سرکاری دستاویز — PDF یا تصویر (اختیاری)",
+    docUploading: "اپلوڈ ہو رہا ہے...",
+    docUploaded: "دستاویز اپلوڈ ہو گئی ✓"
   },
   admin: {
     loginTitle: "سپلائر مینجمنٹ",
