@@ -1,91 +1,50 @@
 'use client';
-import { useState, useRef } from 'react';
-import { collection, addDoc, updateDoc, doc, serverTimestamp } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '@/lib/firebase';
-import { ACTIVITY_TYPES, FILE_FIELDS } from '@/lib/suppliersConfig';
+import { useState } from 'react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import { ACTIVITY_TYPES } from '@/lib/suppliersConfig';
+import Navbar from '@/components/layout/Navbar';
 import {
-  CheckCircle2, Upload, X, Loader2, Building2,
-  User, Phone, Mail, MapPin, FileText, Image as ImageIcon
+  Building2, User, Phone, Mail, MapPin, Globe, ChevronDown,
+  Send, CheckCircle2, Loader2, Briefcase, FileText, Truck,
+  Clock, MessageSquare, Tag
 } from 'lucide-react';
 
-const CITIES = [
-  'الرياض','جدة','مكة المكرمة','المدينة المنورة','الدمام','الخبر','الظهران',
-  'الأحساء','القطيف','تبوك','بريدة','أبها','خميس مشيط','القصيم','حائل',
-  'نجران','جازان','ينبع','الطائف','أخرى'
+const COUNTRIES = [
+  'Saudi Arabia', 'United Arab Emirates', 'Kuwait', 'Qatar', 'Bahrain',
+  'Oman', 'Egypt', 'Jordan', 'Lebanon', 'Iraq', 'Other',
 ];
-
-const FIELD_ICONS = {
-  commercialRegisterFile: FileText,
-  taxCertificateFile:     FileText,
-  catalogFile:            FileText,
-  priceListFile:          FileText,
-  images:                 ImageIcon,
-};
 
 export default function SuppliersPage() {
   const [form, setForm] = useState({
-    companyName: '', contactPerson: '', phone: '', email: '',
-    city: '', activityTypes: [], description: '',
+    companyName: '', contactName: '', phone: '', email: '',
+    city: '', country: '', website: '',
+    activity: '',
+    description: '', brands: '', coverageArea: '', deliveryTime: '', notes: '',
   });
-  const [files, setFiles]         = useState({});
   const [errors, setErrors]       = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted]   = useState(false);
-  const fileInputRefs               = useRef({});
+  const [submitError, setSubmitError] = useState('');
 
   const set = (key, val) => {
     setForm(f => ({ ...f, [key]: val }));
     setErrors(e => ({ ...e, [key]: '' }));
-  };
-
-  const toggleActivity = (type) => {
-    setForm(f => ({
-      ...f,
-      activityTypes: f.activityTypes.includes(type)
-        ? f.activityTypes.filter(t => t !== type)
-        : [...f.activityTypes, type],
-    }));
-    setErrors(e => ({ ...e, activityTypes: '' }));
-  };
-
-  const handleFile = (key, selectedFiles) => {
-    const isMulti = FILE_FIELDS.find(f => f.key === key)?.multiple;
-    setFiles(prev => ({
-      ...prev,
-      [key]: isMulti ? Array.from(selectedFiles) : selectedFiles[0],
-    }));
-    setErrors(e => ({ ...e, [key]: '' }));
-  };
-
-  const removeFile = (key, idx) => {
-    setFiles(prev => {
-      const cur = prev[key];
-      if (Array.isArray(cur)) {
-        const next = cur.filter((_, i) => i !== idx);
-        return { ...prev, [key]: next.length ? next : undefined };
-      }
-      return { ...prev, [key]: undefined };
-    });
+    setSubmitError('');
   };
 
   const validate = () => {
     const e = {};
-    if (!form.companyName.trim())       e.companyName   = 'مطلوب';
-    if (!form.contactPerson.trim())     e.contactPerson = 'مطلوب';
-    if (!form.phone.trim())             e.phone         = 'مطلوب';
-    if (!form.city)                     e.city          = 'مطلوب';
-    if (!form.activityTypes.length)     e.activityTypes = 'اختر نوع نشاط واحد على الأقل';
-    if (!files.commercialRegisterFile)  e.commercialRegisterFile = 'مطلوب';
-    if (!files.taxCertificateFile)      e.taxCertificateFile     = 'مطلوب';
+    if (!form.companyName.trim()) e.companyName = 'Required';
+    if (!form.contactName.trim()) e.contactName = 'Required';
+    if (!form.phone.trim())       e.phone       = 'Required';
+    if (!form.email.trim())       e.email       = 'Required';
+    if (!form.city.trim())        e.city        = 'Required';
+    if (!form.country)            e.country     = 'Required';
+    if (!form.activity)           e.activity    = 'Required';
+    if (!form.description.trim()) e.description = 'Required';
     setErrors(e);
     return !Object.keys(e).length;
-  };
-
-  const uploadFile = async (file, path) => {
-    const storageRef = ref(storage, path);
-    await uploadBytes(storageRef, file);
-    return getDownloadURL(storageRef);
   };
 
   const handleSubmit = async (e) => {
@@ -93,264 +52,349 @@ export default function SuppliersPage() {
     if (!validate()) return;
     setSubmitting(true);
     try {
-      const docRef = await addDoc(collection(db, 'suppliers'), {
-        ...form, status: 'new', createdAt: serverTimestamp(),
-        adminNotes: '', reviewedAt: null,
+      await addDoc(collection(db, 'suppliers'), {
+        ...form,
+        status:    'new',
+        createdAt: serverTimestamp(),
+        adminNotes: '',
+        reviewedAt: null,
       });
-      const id = docRef.id;
-      const uploadedFiles = {};
-
-      for (const field of FILE_FIELDS) {
-        const f = files[field.key];
-        if (!f) continue;
-        if (Array.isArray(f)) {
-          uploadedFiles[field.key] = await Promise.all(
-            f.map((file, i) => uploadFile(file, `suppliers/${id}/${field.key}_${i}_${file.name}`))
-          );
-        } else {
-          uploadedFiles[field.key] = await uploadFile(f, `suppliers/${id}/${field.key}_${f.name}`);
-        }
-      }
-
-      await updateDoc(doc(db, 'suppliers', id), uploadedFiles);
-
       setSubmitted(true);
-    } catch (err) {
-      console.error(err);
-      setErrors({ submit: 'حدث خطأ أثناء الإرسال. يرجى المحاولة مجددًا.' });
+    } catch {
+      setSubmitError('An error occurred. Please try again.');
     } finally {
       setSubmitting(false);
     }
   };
 
-  if (submitted) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[var(--bg)] px-4">
-        <div className="text-center max-w-md">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 mb-6">
-            <CheckCircle2 size={36} className="text-green-400" />
-          </div>
-          <h2 className="text-2xl font-bold mb-3" style={{ color: 'var(--text)' }}>
-            تم استلام طلبك بنجاح!
-          </h2>
-          <p className="text-sm opacity-60 mb-8" style={{ color: 'var(--text)' }}>
-            شكرًا لتسجيل شركتك لدى MNC. سيقوم فريقنا بمراجعة بياناتك والتواصل معك خلال 3–5 أيام عمل.
-          </p>
-          <button
-            onClick={() => { setSubmitted(false); setForm({ companyName:'',contactPerson:'',phone:'',email:'',city:'',activityTypes:[],description:'' }); setFiles({}); }}
-            className="bg-[#c8a96e] text-black font-semibold px-8 py-3 rounded-xl hover:bg-[#b8995e] transition-colors"
-          >
-            تسجيل مورد آخر
-          </button>
-        </div>
-      </div>
-    );
-  }
+  const resetForm = () => {
+    setSubmitted(false);
+    setForm({
+      companyName:'', contactName:'', phone:'', email:'',
+      city:'', country:'', website:'',
+      activity:'',
+      description:'', brands:'', coverageArea:'', deliveryTime:'', notes:'',
+    });
+    setErrors({});
+  };
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] py-12 px-4" dir="rtl">
-      <div className="max-w-3xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#c8a96e]/10 border border-[#c8a96e]/20 mb-4">
-            <Building2 size={24} className="text-[#c8a96e]" />
+    <main className="min-h-screen bg-[var(--background)] text-white font-cairo">
+      <Navbar />
+
+      {/* ── Hero ── */}
+      <section className="relative pt-28 pb-20 overflow-hidden">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0a0a0a] to-[#0f172a]" />
+        {/* Gold diagonal pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{ backgroundImage: 'repeating-linear-gradient(45deg, #D5B25D 0px, #D5B25D 1px, transparent 1px, transparent 80px)' }}
+        />
+        {/* Top accent */}
+        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-secondary to-transparent" />
+        {/* Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-secondary/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative container mx-auto px-4 sm:px-6 max-w-7xl text-center">
+          <div className="inline-flex items-center gap-2.5 bg-white/5 backdrop-blur-sm border border-secondary/30 rounded-full px-5 py-2 mb-6" data-aos="fade-up">
+            <div className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
+            <span className="text-secondary text-xs font-bold tracking-widest uppercase">
+              Supplier Registration
+            </span>
           </div>
-          <h1 className="text-3xl font-bold mb-2" style={{ color: 'var(--text)' }}>
-            تسجيل مورد جديد
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6 leading-tight" data-aos="fade-up" data-aos-delay="100">
+            Supplier <span className="text-gradient">Portal</span>
           </h1>
-          <p className="text-sm opacity-50" style={{ color: 'var(--text)' }}>
-            أكمل النموذج أدناه للانضمام إلى شبكة موردي MNC للإنشاءات
+
+          <p className="text-white/60 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+            Submit your company information and service offerings for review by MNC Construction.
+            Join our trusted network of suppliers and partners.
           </p>
         </div>
+      </section>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          {/* Basic Info */}
-          <Section title="المعلومات الأساسية">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <Field label="اسم الشركة *" error={errors.companyName} icon={Building2}>
-                <input
-                  value={form.companyName}
-                  onChange={e => set('companyName', e.target.value)}
-                  placeholder="شركة المقاولات المتحدة"
-                  className={inputCls(errors.companyName)}
-                />
-              </Field>
-              <Field label="اسم المسؤول *" error={errors.contactPerson} icon={User}>
-                <input
-                  value={form.contactPerson}
-                  onChange={e => set('contactPerson', e.target.value)}
-                  placeholder="أحمد محمد"
-                  className={inputCls(errors.contactPerson)}
-                />
-              </Field>
-              <Field label="رقم الجوال *" error={errors.phone} icon={Phone}>
-                <input
-                  value={form.phone}
-                  onChange={e => set('phone', e.target.value)}
-                  placeholder="05xxxxxxxx"
-                  dir="ltr"
-                  className={inputCls(errors.phone)}
-                />
-              </Field>
-              <Field label="البريد الإلكتروني" error={errors.email} icon={Mail}>
-                <input
-                  type="email"
-                  value={form.email}
-                  onChange={e => set('email', e.target.value)}
-                  placeholder="info@company.com"
-                  dir="ltr"
-                  className={inputCls(errors.email)}
-                />
-              </Field>
-              <Field label="المدينة *" error={errors.city} icon={MapPin}>
-                <select
-                  value={form.city}
-                  onChange={e => set('city', e.target.value)}
-                  className={inputCls(errors.city)}
-                >
-                  <option value="">اختر المدينة</option>
-                  {CITIES.map(c => <option key={c} value={c}>{c}</option>)}
-                </select>
-              </Field>
+      {/* ── Form Section ── */}
+      <section className="py-16 sm:py-24 bg-[var(--card-bg)]">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+
+          {submitted ? (
+            /* ── Success ── */
+            <div className="text-center py-20" data-aos="zoom-in">
+              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-green-500/10 border-2 border-green-500/30 mb-8">
+                <CheckCircle2 size={44} className="text-green-400" />
+              </div>
+              <h2 className="text-3xl font-black text-white mb-4">
+                Registration Submitted!
+              </h2>
+              <p className="text-white/60 text-base max-w-md mx-auto leading-relaxed mb-10">
+                Thank you for registering with MNC Construction. Our team will review your
+                application and contact you within 3–5 business days.
+              </p>
+              <button
+                onClick={resetForm}
+                className="inline-flex items-center gap-3 bg-[var(--secondary)] hover:bg-[#E1BF67] text-black font-black px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(213,178,93,0.3)]"
+              >
+                Submit Another
+              </button>
             </div>
-          </Section>
+          ) : (
+            <form onSubmit={handleSubmit} noValidate>
+              {/* ── Company Information ── */}
+              <FormSection
+                icon={Building2}
+                title="Company Information"
+                badge="01"
+                data-aos="fade-up"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <FormField label="Company Name" required error={errors.companyName}>
+                    <input
+                      value={form.companyName}
+                      onChange={e => set('companyName', e.target.value)}
+                      placeholder="Your company name"
+                      className={inputCls(errors.companyName)}
+                    />
+                  </FormField>
 
-          {/* Activity Types */}
-          <Section title="نوع النشاط *" error={errors.activityTypes}>
-            <div className="flex flex-wrap gap-2">
-              {ACTIVITY_TYPES.map(type => {
-                const active = form.activityTypes.includes(type);
-                return (
-                  <button
-                    key={type}
-                    type="button"
-                    onClick={() => toggleActivity(type)}
-                    className={`px-3 py-1.5 rounded-lg text-sm border transition-all
-                      ${active
-                        ? 'bg-[#c8a96e] border-[#c8a96e] text-black font-semibold'
-                        : 'border-white/10 text-white/50 hover:border-white/30 hover:text-white/80'
-                      }`}
-                  >
-                    {type}
-                  </button>
-                );
-              })}
-            </div>
-          </Section>
+                  <FormField label="Contact Person" required error={errors.contactName}>
+                    <input
+                      value={form.contactName}
+                      onChange={e => set('contactName', e.target.value)}
+                      placeholder="Full name"
+                      className={inputCls(errors.contactName)}
+                    />
+                  </FormField>
 
-          {/* Description */}
-          <Section title="وصف النشاط">
-            <textarea
-              value={form.description}
-              onChange={e => set('description', e.target.value)}
-              rows={4}
-              placeholder="اكتب وصفًا مختصرًا عن نشاط شركتك، منتجاتك وخبرتك..."
-              className={`${inputCls()} w-full resize-none`}
-            />
-          </Section>
+                  <FormField label="Mobile Number" required error={errors.phone}>
+                    <input
+                      value={form.phone}
+                      onChange={e => set('phone', e.target.value)}
+                      placeholder="+966 5x xxx xxxx"
+                      dir="ltr"
+                      className={inputCls(errors.phone)}
+                    />
+                  </FormField>
 
-          {/* Files */}
-          <Section title="المستندات والملفات">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {FILE_FIELDS.map(field => {
-                const Icon = FIELD_ICONS[field.key] ?? FileText;
-                const val  = files[field.key];
-                const err  = errors[field.key];
-                const required = ['commercialRegisterFile','taxCertificateFile'].includes(field.key);
-                return (
-                  <div key={field.key}>
-                    <label className="block text-xs mb-1.5" style={{ color: 'var(--text)', opacity: 0.5 }}>
-                      {field.label}{required ? ' *' : ''}
-                    </label>
-                    <div
-                      className={`relative border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-colors
-                        ${err ? 'border-red-500/50 bg-red-500/5' : 'border-white/10 hover:border-[#c8a96e]/40 bg-white/[0.02]'}`}
-                      onClick={() => fileInputRefs.current[field.key]?.click()}
-                    >
-                      <input
-                        ref={el => fileInputRefs.current[field.key] = el}
-                        type="file"
-                        accept={field.accept}
-                        multiple={field.multiple}
-                        className="hidden"
-                        onChange={e => handleFile(field.key, e.target.files)}
-                      />
-                      {!val ? (
-                        <div className="flex flex-col items-center gap-1 py-2">
-                          <Upload size={20} className="text-white/20" />
-                          <span className="text-xs text-white/30">{field.accept}</span>
-                        </div>
-                      ) : (
-                        <div className="space-y-1">
-                          {(Array.isArray(val) ? val : [val]).map((f, i) => (
-                            <div key={i} className="flex items-center gap-2 text-xs bg-[#c8a96e]/10 rounded-lg px-2 py-1">
-                              <Icon size={12} className="text-[#c8a96e] shrink-0" />
-                              <span className="truncate text-white/70 flex-1 text-right">{f.name}</span>
-                              <button
-                                type="button"
-                                onClick={e => { e.stopPropagation(); removeFile(field.key, i); }}
-                                className="text-white/30 hover:text-red-400 shrink-0"
-                              >
-                                <X size={12} />
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                      )}
+                  <FormField label="Email Address" required error={errors.email}>
+                    <input
+                      type="email"
+                      value={form.email}
+                      onChange={e => set('email', e.target.value)}
+                      placeholder="email@company.com"
+                      dir="ltr"
+                      className={inputCls(errors.email)}
+                    />
+                  </FormField>
+
+                  <FormField label="City" required error={errors.city}>
+                    <input
+                      value={form.city}
+                      onChange={e => set('city', e.target.value)}
+                      placeholder="e.g. Riyadh, Jeddah"
+                      className={inputCls(errors.city)}
+                    />
+                  </FormField>
+
+                  <FormField label="Country" required error={errors.country}>
+                    <div className="relative">
+                      <select
+                        value={form.country}
+                        onChange={e => set('country', e.target.value)}
+                        className={`${inputCls(errors.country)} appearance-none cursor-pointer pe-10`}
+                      >
+                        <option value="">Select country</option>
+                        {COUNTRIES.map(c => (
+                          <option key={c} value={c} className="bg-black">{c}</option>
+                        ))}
+                      </select>
+                      <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" />
                     </div>
-                    {err && <p className="text-red-400 text-xs mt-1 text-right">{err}</p>}
-                  </div>
-                );
-              })}
-            </div>
-          </Section>
+                  </FormField>
 
-          {errors.submit && (
-            <div className="bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 text-sm text-red-400 text-center">
-              {errors.submit}
-            </div>
+                  <FormField label="Website" className="md:col-span-2">
+                    <div className="relative">
+                      <Globe size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" />
+                      <input
+                        value={form.website}
+                        onChange={e => set('website', e.target.value)}
+                        placeholder="https://www.company.com"
+                        dir="ltr"
+                        className={`${inputCls()} pl-10`}
+                      />
+                    </div>
+                  </FormField>
+                </div>
+              </FormSection>
+
+              {/* ── Business Activity ── */}
+              <FormSection
+                icon={Briefcase}
+                title="Business Activity"
+                badge="02"
+                className="mt-8"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <FormField label="Activity Type" required error={errors.activity}>
+                  <div className="relative">
+                    <select
+                      value={form.activity}
+                      onChange={e => set('activity', e.target.value)}
+                      className={`${inputCls(errors.activity)} appearance-none cursor-pointer pe-10`}
+                    >
+                      <option value="">Select your primary activity</option>
+                      {ACTIVITY_TYPES.map(a => (
+                        <option key={a} value={a} className="bg-black">{a}</option>
+                      ))}
+                    </select>
+                    <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" />
+                  </div>
+                </FormField>
+              </FormSection>
+
+              {/* ── Offer Details ── */}
+              <FormSection
+                icon={FileText}
+                title="Offer Details"
+                badge="03"
+                className="mt-8"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
+                <div className="space-y-5">
+                  <FormField label="Products & Services Description" required error={errors.description}>
+                    <textarea
+                      value={form.description}
+                      onChange={e => set('description', e.target.value)}
+                      rows={4}
+                      placeholder="Describe your products, services, and capabilities..."
+                      className={`${inputCls(errors.description)} resize-none`}
+                    />
+                  </FormField>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <FormField label="Brands Available">
+                      <div className="relative">
+                        <Tag size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" />
+                        <input
+                          value={form.brands}
+                          onChange={e => set('brands', e.target.value)}
+                          placeholder="e.g. Brand A, Brand B"
+                          className={`${inputCls()} pl-10`}
+                        />
+                      </div>
+                    </FormField>
+
+                    <FormField label="Coverage Area">
+                      <div className="relative">
+                        <MapPin size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" />
+                        <input
+                          value={form.coverageArea}
+                          onChange={e => set('coverageArea', e.target.value)}
+                          placeholder="e.g. Western Region, All KSA"
+                          className={`${inputCls()} pl-10`}
+                        />
+                      </div>
+                    </FormField>
+
+                    <FormField label="Delivery Time">
+                      <div className="relative">
+                        <Clock size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" />
+                        <input
+                          value={form.deliveryTime}
+                          onChange={e => set('deliveryTime', e.target.value)}
+                          placeholder="e.g. 2–5 business days"
+                          className={`${inputCls()} pl-10`}
+                        />
+                      </div>
+                    </FormField>
+                  </div>
+
+                  <FormField label="Additional Notes">
+                    <textarea
+                      value={form.notes}
+                      onChange={e => set('notes', e.target.value)}
+                      rows={3}
+                      placeholder="Any other information you'd like to share..."
+                      className={`${inputCls()} resize-none`}
+                    />
+                  </FormField>
+                </div>
+              </FormSection>
+
+              {/* ── Submit ── */}
+              {submitError && (
+                <div className="mt-6 bg-red-500/10 border border-red-500/20 rounded-xl px-5 py-4 text-sm text-red-400 text-center">
+                  {submitError}
+                </div>
+              )}
+
+              <div className="mt-8 text-center" data-aos="fade-up">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="inline-flex items-center gap-3 bg-[var(--secondary)] hover:bg-[#E1BF67] disabled:opacity-60 disabled:cursor-not-allowed text-black font-black px-12 py-4 rounded-full text-base transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_35px_rgba(213,178,93,0.3)] hover:shadow-[0_0_50px_rgba(213,178,93,0.45)]"
+                >
+                  {submitting ? (
+                    <><Loader2 size={20} className="animate-spin" /> Submitting...</>
+                  ) : (
+                    <><Send size={20} /> Submit Application</>
+                  )}
+                </button>
+                <p className="text-white/30 text-xs mt-4">
+                  Fields marked with * are required
+                </p>
+              </div>
+            </form>
           )}
 
-          <button
-            type="submit"
-            disabled={submitting}
-            className="w-full bg-[#c8a96e] hover:bg-[#b8995e] disabled:opacity-50 text-black font-bold py-4 rounded-xl transition-colors flex items-center justify-center gap-3 text-base"
-          >
-            {submitting ? <Loader2 size={20} className="animate-spin" /> : null}
-            {submitting ? 'جاري إرسال الطلب...' : 'إرسال طلب التسجيل'}
-          </button>
-        </form>
-      </div>
-    </div>
+        </div>
+      </section>
+    </main>
   );
 }
 
-function Section({ title, children, error }) {
-  return (
-    <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6">
-      <h3 className="text-sm font-semibold text-[#c8a96e] mb-5">{title}</h3>
-      {error && <p className="text-red-400 text-xs mb-3 -mt-2">{error}</p>}
-      {children}
-    </div>
-  );
-}
+/* ── Helpers ─────────────────────────────────────────── */
 
-function Field({ label, error, icon: Icon, children }) {
+function FormSection({ icon: Icon, title, badge, children, className = '', ...rest }) {
   return (
-    <div>
-      <label className="block text-xs mb-1.5 text-white/50">{label}</label>
-      <div className="relative">
-        {Icon && <Icon size={15} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/20 pointer-events-none" />}
-        <div className={Icon ? '[&>*]:pr-9' : ''}>
-          {children}
+    <div className={`bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 relative overflow-hidden group ${className}`} {...rest}>
+      {/* Decorative glow */}
+      <div className="absolute -top-16 -right-16 w-40 h-40 bg-secondary/5 rounded-full blur-3xl group-hover:bg-secondary/10 transition-colors duration-700 pointer-events-none" />
+
+      <div className="flex items-center gap-4 mb-6 relative z-10">
+        <div className="w-10 h-10 rounded-xl bg-secondary/10 border border-secondary/20 flex items-center justify-center shrink-0">
+          <Icon size={18} className="text-secondary" />
+        </div>
+        <div>
+          <span className="text-secondary/50 text-[10px] font-bold tracking-widest uppercase">{badge}</span>
+          <h3 className="text-white font-black text-lg leading-tight">{title}</h3>
         </div>
       </div>
-      {error && <p className="text-red-400 text-xs mt-1">{error}</p>}
+
+      <div className="relative z-10">{children}</div>
+    </div>
+  );
+}
+
+function FormField({ label, required, error, children, className = '' }) {
+  return (
+    <div className={`space-y-2 ${className}`}>
+      <label className="text-xs font-bold text-secondary/80 px-1 uppercase tracking-wider">
+        {label}{required ? ' *' : ''}
+      </label>
+      {children}
+      {error && <p className="text-red-400 text-xs px-1">{error}</p>}
     </div>
   );
 }
 
 function inputCls(error) {
-  return `w-full bg-white/5 border rounded-xl py-2.5 px-3 text-white text-sm placeholder:text-white/20 focus:outline-none transition-colors
-    ${error ? 'border-red-500/40 focus:border-red-500/60' : 'border-white/10 focus:border-[#c8a96e]/40'}`;
+  return `w-full bg-black/40 border rounded-xl px-4 py-3.5 text-sm text-white focus:bg-black/60 outline-none transition-all duration-300 shadow-sm placeholder:text-white/25
+    ${error
+      ? 'border-red-500/40 focus:border-red-500/60'
+      : 'border-white/10 focus:border-[var(--secondary)]'
+    }`;
 }
