@@ -200,18 +200,6 @@ const Navbar = () => {
                   </div>
                 </div>
 
-                {/* UserCircle + Admin badge → /admin/dashboard */}
-                <Link
-                  href="/admin/dashboard"
-                  title={t('admin.dashboard')}
-                  className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#C9A34D]/35 text-[#C9A34D] hover:bg-[#C9A34D]/12 hover:border-[#C9A34D]/55 transition-all duration-300 active:scale-95"
-                >
-                  <UserCircle size={16} />
-                  <span className="absolute -top-2 -end-2 bg-[#C9A34D] text-black text-[7px] font-black leading-none px-1 py-[2px] rounded-full tracking-wide">
-                    Admin
-                  </span>
-                </Link>
-
                 {/* Admin user dropdown */}
                 <div className="relative" ref={adminDropdownRef}>
                   <button
@@ -337,18 +325,7 @@ const Navbar = () => {
 
           {/* ── Mobile Header Actions ── */}
           <div className="flex items-center gap-2 lg:hidden ms-auto">
-            {isAdmin ? (
-              /* Admin: UserCircle + Admin badge instead of theme toggle */
-              <Link
-                href="/admin/dashboard"
-                className="relative flex items-center justify-center w-8 h-8 rounded-lg border border-[#C9A34D]/35 text-[#C9A34D] hover:bg-[#C9A34D]/12 transition-all duration-300"
-              >
-                <UserCircle size={16} />
-                <span className="absolute -top-2 -end-2 bg-[#C9A34D] text-black text-[7px] font-black leading-none px-1 py-[2px] rounded-full tracking-wide">
-                  Admin
-                </span>
-              </Link>
-            ) : (
+            {isAdmin ? null : (
               <button onClick={toggleTheme}
                 className="relative flex items-center justify-center w-8 h-8 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all duration-300 overflow-hidden">
                 <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
