@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { STATUS_CONFIG } from '@/lib/suppliersConfig';
+import { STATUS_CONFIG, ACTIVITY_KEYS } from '@/lib/suppliersConfig';
 import { useLanguage } from '@/context/LanguageContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import {
@@ -15,6 +15,7 @@ const COLORS = ['#c8a96e','#3b82f6','#10b981','#f59e0b','#ef4444','#a78bfa','#ec
 
 export default function ReportsPage() {
   const { t, isRTL } = useLanguage();
+  const getAct = (name) => name && (t('activities.' + ACTIVITY_KEYS[name]) || name);
   const [suppliers, setSuppliers] = useState(null);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export default function ReportsPage() {
   suppliers.forEach(s => { if (s.activity) actMap[s.activity] = (actMap[s.activity] ?? 0) + 1; });
   const activityData = Object.entries(actMap)
     .sort((a, b) => b[1] - a[1]).slice(0, 10)
-    .map(([name, count]) => ({ name, count }));
+    .map(([name, count]) => ({ name: getAct(name), count }));
 
   const cityMap = {};
   suppliers.forEach(s => { if (s.city) cityMap[s.city] = (cityMap[s.city] ?? 0) + 1; });

@@ -20,6 +20,28 @@ export const ACTIVITY_TYPES = [
   'Other',
 ];
 
+export const ACTIVITY_KEYS = {
+  'Ready Mix Concrete':  'readyMixConcrete',
+  'Reinforcement Steel': 'reinforcementSteel',
+  'Building Materials':  'buildingMaterials',
+  'Plumbing':            'plumbing',
+  'Electrical':          'electrical',
+  'Marble':              'marble',
+  'Ceramic':             'ceramic',
+  'Tiles':               'tiles',
+  'Wood':                'wood',
+  'Scaffolding':         'scaffolding',
+  'Gypsum':              'gypsum',
+  'Gypsum Board':        'gypsumBoard',
+  'Aluminum':            'aluminum',
+  'Glass':               'glass',
+  'Paint':               'paint',
+  'HVAC':                'hvac',
+  'Heavy Equipment':     'heavyEquipment',
+  'Transportation':      'transportation',
+  'Other':               'other',
+};
+
 export const STATUS_CONFIG = {
   new:          { label: 'New',          color: '#3b82f6', bg: 'rgba(59,130,246,0.12)'  },
   under_review: { label: 'Under Review', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)'  },

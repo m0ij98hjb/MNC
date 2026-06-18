@@ -406,5 +406,26 @@ export const es = {
     statusApproved: "Aprobado",
     statusRejected: "Rechazado",
     adminRole: "Administrador"
+  },
+  activities: {
+    readyMixConcrete:   'Concreto Premezclado',
+    reinforcementSteel: 'Acero de Refuerzo',
+    buildingMaterials:  'Materiales de Construcción',
+    plumbing:           'Plomería',
+    electrical:         'Electricidad',
+    marble:             'Mármol',
+    ceramic:            'Cerámica',
+    tiles:              'Azulejos',
+    wood:               'Madera',
+    scaffolding:        'Andamios',
+    gypsum:             'Yeso',
+    gypsumBoard:        'Panel de Yeso',
+    aluminum:           'Aluminio',
+    glass:              'Vidrio',
+    paint:              'Pintura',
+    hvac:               'HVAC',
+    heavyEquipment:     'Equipos Pesados',
+    transportation:     'Transporte',
+    other:              'Otro',
   }
 };

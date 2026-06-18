@@ -406,5 +406,26 @@ export const en = {
     statusApproved: "Approved",
     statusRejected: "Rejected",
     adminRole: "Admin"
+  },
+  activities: {
+    readyMixConcrete:   'Ready Mix Concrete',
+    reinforcementSteel: 'Reinforcement Steel',
+    buildingMaterials:  'Building Materials',
+    plumbing:           'Plumbing',
+    electrical:         'Electrical',
+    marble:             'Marble',
+    ceramic:            'Ceramic',
+    tiles:              'Tiles',
+    wood:               'Wood',
+    scaffolding:        'Scaffolding',
+    gypsum:             'Gypsum',
+    gypsumBoard:        'Gypsum Board',
+    aluminum:           'Aluminum',
+    glass:              'Glass',
+    paint:              'Paint',
+    hvac:               'HVAC',
+    heavyEquipment:     'Heavy Equipment',
+    transportation:     'Transportation',
+    other:              'Other',
   }
 };

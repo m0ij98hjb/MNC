@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { collection, onSnapshot, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { STATUS_CONFIG } from '@/lib/suppliersConfig';
+import { STATUS_CONFIG, ACTIVITY_KEYS } from '@/lib/suppliersConfig';
 import { useLanguage } from '@/context/LanguageContext';
 import StatusBadge from '@/components/admin/StatusBadge';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
@@ -19,6 +19,7 @@ const STATUS_T_KEYS = {
 
 export default function SuppliersListPage() {
   const { t, isRTL } = useLanguage();
+  const getAct = (name) => name && (t('activities.' + ACTIVITY_KEYS[name]) || name);
   const [suppliers, setSuppliers] = useState([]);
   const [filter, setFilter]       = useState('all');
   const [search, setSearch]       = useState('');
@@ -123,7 +124,7 @@ export default function SuppliersListPage() {
                         </Link>
                         <p className="text-xs text-white/30 mt-0.5">{s.contactName}</p>
                       </td>
-                      <td className="px-5 py-3.5 text-white/60 text-xs">{s.activity || '—'}</td>
+                      <td className="px-5 py-3.5 text-white/60 text-xs">{getAct(s.activity) || '—'}</td>
                       <td className="px-5 py-3.5 text-white/60">{s.city}{s.country ? `, ${s.country}` : ''}</td>
                       <td className="px-5 py-3.5 text-white/60" dir="ltr">{s.phone}</td>
                       <td className="px-5 py-3.5 text-white/40 text-xs">

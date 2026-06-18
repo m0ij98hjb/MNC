@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { STATUS_CONFIG } from '@/lib/suppliersConfig';
+import { STATUS_CONFIG, ACTIVITY_KEYS } from '@/lib/suppliersConfig';
 import { useLanguage } from '@/context/LanguageContext';
 import StatusBadge from '@/components/admin/StatusBadge';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
@@ -17,6 +17,7 @@ import { useParams } from 'next/navigation';
 export default function SupplierDetailPage() {
   const { id }                    = useParams();
   const { t, isRTL }              = useLanguage();
+  const getAct = (name) => name && (t('activities.' + ACTIVITY_KEYS[name]) || name);
   const [supplier, setSupplier]   = useState(null);
   const [notes, setNotes]         = useState('');
   const [saving, setSaving]       = useState(false);
@@ -116,7 +117,7 @@ export default function SupplierDetailPage() {
               {supplier.activity ? (
                 <span className="inline-flex items-center gap-2 bg-[#c8a96e]/10 text-[#c8a96e] text-sm font-semibold px-4 py-2 rounded-xl border border-[#c8a96e]/20">
                   <Briefcase size={14} />
-                  {supplier.activity}
+                  {getAct(supplier.activity)}
                 </span>
               ) : (
                 <p className="text-white/30 text-sm">{t('admin.notSpecified')}</p>

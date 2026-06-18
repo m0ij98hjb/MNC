@@ -406,5 +406,26 @@ export const zh = {
     statusApproved: "已批准",
     statusRejected: "已拒绝",
     adminRole: "管理员"
+  },
+  activities: {
+    readyMixConcrete:   '预拌混凝土',
+    reinforcementSteel: '钢筋',
+    buildingMaterials:  '建筑材料',
+    plumbing:           '管道',
+    electrical:         '电气',
+    marble:             '大理石',
+    ceramic:            '陶瓷',
+    tiles:              '瓷砖',
+    wood:               '木材',
+    scaffolding:        '脚手架',
+    gypsum:             '石膏',
+    gypsumBoard:        '石膏板',
+    aluminum:           '铝材',
+    glass:              '玻璃',
+    paint:              '涂料',
+    hvac:               '暖通空调',
+    heavyEquipment:     '重型设备',
+    transportation:     '运输',
+    other:              '其他',
   }
 };

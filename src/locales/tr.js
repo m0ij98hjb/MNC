@@ -406,5 +406,26 @@ export const tr = {
     statusApproved: "Onaylı",
     statusRejected: "Reddedildi",
     adminRole: "Yönetici"
+  },
+  activities: {
+    readyMixConcrete:   'Hazır Beton',
+    reinforcementSteel: 'İnşaat Demiri',
+    buildingMaterials:  'Yapı Malzemeleri',
+    plumbing:           'Tesisat',
+    electrical:         'Elektrik',
+    marble:             'Mermer',
+    ceramic:            'Seramik',
+    tiles:              'Fayans',
+    wood:               'Ahşap',
+    scaffolding:        'İskele',
+    gypsum:             'Alçı',
+    gypsumBoard:        'Alçıpan',
+    aluminum:           'Alüminyum',
+    glass:              'Cam',
+    paint:              'Boya',
+    hvac:               'İklimlendirme',
+    heavyEquipment:     'Ağır Ekipman',
+    transportation:     'Nakliyat',
+    other:              'Diğer',
   }
 };

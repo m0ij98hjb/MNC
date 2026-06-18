@@ -406,5 +406,26 @@ export const ur = {
     statusApproved: "منظور",
     statusRejected: "مسترد",
     adminRole: "منتظم"
+  },
+  activities: {
+    readyMixConcrete:   'ریڈی مکس کنکریٹ',
+    reinforcementSteel: 'ریبار اسٹیل',
+    buildingMaterials:  'تعمیراتی مواد',
+    plumbing:           'پلمبنگ',
+    electrical:         'برقیات',
+    marble:             'سنگ مرمر',
+    ceramic:            'سیرامک',
+    tiles:              'ٹائلز',
+    wood:               'لکڑی',
+    scaffolding:        'سکیفولڈنگ',
+    gypsum:             'جپسم',
+    gypsumBoard:        'جپسم بورڈ',
+    aluminum:           'ایلومینیم',
+    glass:              'شیشہ',
+    paint:              'رنگ',
+    hvac:               'ہیٹنگ کولنگ',
+    heavyEquipment:     'بھاری آلات',
+    transportation:     'نقل و حمل',
+    other:              'دیگر',
   }
 };

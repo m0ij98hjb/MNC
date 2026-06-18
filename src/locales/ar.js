@@ -406,5 +406,26 @@ export const ar = {
     statusApproved: "معتمد",
     statusRejected: "مرفوض",
     adminRole: "مسؤول"
+  },
+  activities: {
+    readyMixConcrete:   'خرسانة جاهزة',
+    reinforcementSteel: 'حديد تسليح',
+    buildingMaterials:  'مواد بناء',
+    plumbing:           'سباكة',
+    electrical:         'كهرباء',
+    marble:             'رخام',
+    ceramic:            'سيراميك',
+    tiles:              'بلاط',
+    wood:               'خشب',
+    scaffolding:        'سقالات',
+    gypsum:             'جبس',
+    gypsumBoard:        'جبس بورد',
+    aluminum:           'ألمنيوم',
+    glass:              'زجاج',
+    paint:              'دهانات',
+    hvac:               'تكييف وتهوية',
+    heavyEquipment:     'معدات ثقيلة',
+    transportation:     'نقل وشحن',
+    other:              'أخرى',
   }
 };

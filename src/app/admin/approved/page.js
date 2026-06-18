@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { ACTIVITY_TYPES } from '@/lib/suppliersConfig';
+import { ACTIVITY_TYPES, ACTIVITY_KEYS } from '@/lib/suppliersConfig';
 import { useLanguage } from '@/context/LanguageContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import { Search, Building2, Phone, MapPin, Mail, Briefcase, Eye, X } from 'lucide-react';
@@ -10,6 +10,7 @@ import Link from 'next/link';
 
 export default function ApprovedSuppliersPage() {
   const { t, isRTL } = useLanguage();
+  const getAct = (name) => name && (t('activities.' + ACTIVITY_KEYS[name]) || name);
   const [suppliers, setSuppliers]   = useState([]);
   const [search, setSearch]         = useState('');
   const [filterActivity, setFilterActivity] = useState('');
@@ -71,7 +72,7 @@ export default function ApprovedSuppliersPage() {
             className="bg-white/5 border border-white/10 rounded-xl py-2.5 px-3 text-sm text-white focus:outline-none focus:border-[#c8a96e]/40 cursor-pointer"
           >
             <option value="">{t('admin.allActivities')}</option>
-            {ACTIVITY_TYPES.map(a => <option key={a} value={a} className="bg-[#111]">{a}</option>)}
+            {ACTIVITY_TYPES.map(a => <option key={a} value={a} className="bg-[#111]">{getAct(a)}</option>)}
           </select>
           <select
             value={filterCity}
@@ -116,7 +117,7 @@ export default function ApprovedSuppliersPage() {
 
                 {s.activity && (
                   <div className="flex items-center gap-1.5 text-xs text-[#c8a96e]/70 mb-3">
-                    <Briefcase size={11} /> {s.activity}
+                    <Briefcase size={11} /> {getAct(s.activity)}
                   </div>
                 )}
 

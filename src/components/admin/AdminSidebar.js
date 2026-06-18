@@ -66,37 +66,39 @@ export default function AdminSidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-2 py-3 space-y-0.5">
-        {NAV_ITEMS.map(({ href, labelKey, icon: Icon }) => {
-          const active = pathname === href || pathname.startsWith(href + '/');
-          return (
-            <Link
-              key={href}
-              href={href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200
-                ${active
-                  ? 'bg-[#c8a96e]/10 text-[#c8a96e] font-semibold'
-                  : 'text-white/45 hover:text-white hover:bg-white/5'
-                }`}
-            >
-              <Icon size={15} className="shrink-0" />
-              <span className="flex-1">{t(labelKey)}</span>
-              {active && <ChevronIcon size={12} className="opacity-50 shrink-0" />}
-            </Link>
-          );
-        })}
-      </nav>
+      <nav className="flex-1 px-2 py-3">
+        <div className="space-y-0.5">
+          {NAV_ITEMS.map(({ href, labelKey, icon: Icon }) => {
+            const active = pathname === href || pathname.startsWith(href + '/');
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200
+                  ${active
+                    ? 'bg-[#c8a96e]/10 text-[#c8a96e] font-semibold'
+                    : 'text-white/45 hover:text-white hover:bg-white/5'
+                  }`}
+              >
+                <Icon size={15} className="shrink-0" />
+                <span className="flex-1">{t(labelKey)}</span>
+                {active && <ChevronIcon size={12} className="opacity-50 shrink-0" />}
+              </Link>
+            );
+          })}
+        </div>
 
-      {/* Logout */}
-      <div className="px-2 pb-4 pt-2 border-t border-white/[0.06]">
-        <button
-          onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] text-red-400/60 hover:text-red-400 hover:bg-red-500/6 border border-transparent hover:border-red-500/12 transition-all duration-200"
-        >
-          <LogOut size={15} className="shrink-0" />
-          <span>{t('admin.logout')}</span>
-        </button>
-      </div>
+        {/* Logout — directly below last nav item */}
+        <div className="mt-2 pt-2 border-t border-white/[0.06]">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] text-red-400/60 hover:text-red-400 hover:bg-red-500/6 border border-transparent hover:border-red-500/12 transition-all duration-200"
+          >
+            <LogOut size={15} className="shrink-0" />
+            <span>{t('admin.logout')}</span>
+          </button>
+        </div>
+      </nav>
     </aside>
   );
 }
