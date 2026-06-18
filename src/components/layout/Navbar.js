@@ -504,7 +504,7 @@ const Navbar = () => {
                     <p className="text-[12px] font-bold text-[#C9A34D] leading-none">{t('admin.dashboard')}</p>
                     <p className="text-[10px] mt-0.5 text-white/28">{t('admin.managerTitle')}</p>
                   </div>
-                  <Shield size={14} className="text-[#C9A34D]/40 flex-shrink-0" />
+                  <UserCircle size={14} className="text-[#C9A34D]/40 flex-shrink-0" />
                 </Link>
 
                 <button
