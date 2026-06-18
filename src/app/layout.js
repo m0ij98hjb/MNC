@@ -7,6 +7,7 @@ import FloatingContact from "@/components/layout/FloatingContact";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { MusicProvider } from "@/context/MusicContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ar" dir="rtl" className={`${cairo.variable}`}>
       <body className="antialiased flex flex-col min-h-screen relative">
+        <AuthProvider>
         <ThemeProvider>
           <LanguageProvider>
             <MusicProvider>
@@ -44,6 +46,7 @@ export default function RootLayout({ children }) {
             </MusicProvider>
           </LanguageProvider>
         </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );
