@@ -19,12 +19,13 @@ export const metadata = {
   description: "خدماتنا ; مشاريع مقاولات. دراسة وتنفيذ ; التصميم المعماري. الأفكار والحلول ; إدارة المشاريع. إدارة التنفيذ ; التصميم الداخلي. الديكور والتشطيب ...",
   icons: {
     icon: [
-      { url: "/icon-new.png", type: "image/png", sizes: "any" },
+      { url: "/favicon-32.png",  type: "image/png", sizes: "32x32" },
+      { url: "/favicon-512.png", type: "image/png", sizes: "512x512" },
     ],
     apple: [
-      { url: "/icon-new.png", type: "image/png", sizes: "180x180" },
+      { url: "/favicon-180.png", type: "image/png", sizes: "180x180" },
     ],
-    shortcut: "/icon-new.png",
+    shortcut: "/favicon-32.png",
   },
 };
 
