@@ -24,6 +24,7 @@ const Navbar = () => {
   const { user, logout } = useAuth();
   const isLightMode = theme === 'dark';
   const isAdmin = user !== null && user !== undefined;
+  const isAdminPage = pathname.startsWith('/admin');
   const langDropdownRef = useRef(null);
   const adminDropdownRef = useRef(null);
 
@@ -199,6 +200,37 @@ const Navbar = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Portfolio icon — only when browsing site pages (not /admin/*) */}
+                {!isAdminPage && (
+                  <div className="relative">
+                    <button onClick={() => setIsProfileOpen(!isProfileOpen)}
+                      className="flex items-center gap-1.5 group">
+                      <span className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 border border-[#D5B25D]/22 text-[#D5B25D] rounded-lg transition-all duration-300 group-hover:bg-[#D5B25D]/10 group-hover:border-[#D5B25D]/40 active:scale-95">
+                        <HiDocumentText size={17} />
+                      </span>
+                      <span className="bg-[#D5B25D] text-black px-3 xl:px-4 py-[7px] xl:py-2 rounded-lg font-bold text-[11px] xl:text-[12px] shadow-[0_2px_12px_rgba(213,178,93,0.25)] transition-all duration-300 hover:bg-[#E1BF67] hover:shadow-[0_4px_20px_rgba(213,178,93,0.35)] active:scale-95 flex items-center gap-1.5 whitespace-nowrap">
+                        {t('nav.profile')}
+                        <ChevronDown size={11} className={`transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
+                      </span>
+                    </button>
+                    <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[178px] bg-[#0b0e12] border border-[#D5B25D]/14 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
+                      isProfileOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"
+                    }`}>
+                      <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
+                        className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#D5B25D] hover:bg-[#D5B25D]/8 transition-colors"
+                        onClick={() => setIsProfileOpen(false)}>
+                        {tPortfolio.ar}
+                      </a>
+                      <div className="h-px bg-white/[0.04] mx-3" />
+                      <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
+                        className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#D5B25D] hover:bg-[#D5B25D]/8 transition-colors"
+                        onClick={() => setIsProfileOpen(false)}>
+                        {tPortfolio.en}
+                      </a>
+                    </div>
+                  </div>
+                )}
 
                 {/* Admin user dropdown */}
                 <div className="relative" ref={adminDropdownRef}>
@@ -467,8 +499,35 @@ const Navbar = () => {
           <div className="px-3.5 pb-7 pt-4 flex-shrink-0 space-y-2.5" style={{ backgroundColor: isLightMode ? '#ffffff' : '#0a0a0a', borderTop: `1px solid ${isLightMode ? '#e2e8f0' : 'rgba(255,255,255,0.05)'}` }}>
 
             {isAdmin ? (
-              /* ── Admin footer: Dashboard + Logout ── */
+              /* ── Admin footer: Portfolio (site pages only) + Dashboard + Logout ── */
               <>
+                {!isAdminPage && (
+                  <div>
+                    <button onClick={() => setIsProfileOpen(!isProfileOpen)}
+                      className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-[#D5B25D]/6 border border-[#D5B25D]/18 hover:bg-[#D5B25D]/10 transition-all active:scale-[0.98]">
+                      <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/14 flex items-center justify-center text-[#D5B25D] flex-shrink-0"><HiDocumentText size={18} /></span>
+                      <div className="flex-1 text-start">
+                        <p className="text-[12px] font-bold text-[#D5B25D] leading-none">{t('nav.profile')}</p>
+                        <p className="text-[10px] mt-0.5 text-white/28">PDF</p>
+                      </div>
+                      <ChevronDown size={13} className={`text-[#D5B25D]/45 transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
+                    </button>
+                    <div className={`overflow-hidden transition-all duration-300 ${isProfileOpen ? "max-h-28 mt-2 opacity-100" : "max-h-0 opacity-0"}`}>
+                      <div className="grid grid-cols-2 gap-2">
+                        <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
+                          onClick={() => setIsOpen(false)}
+                          className="text-[11px] font-bold text-[#D5B25D] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
+                          {tPortfolio.ar}
+                        </a>
+                        <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
+                          onClick={() => setIsOpen(false)}
+                          className="text-[11px] font-bold text-[#D5B25D] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
+                          {tPortfolio.en}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 <Link
                   href="/admin/dashboard"
                   onClick={() => setIsOpen(false)}
