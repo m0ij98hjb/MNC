@@ -6,6 +6,7 @@ export default function AdminShortcut() {
   const router = useRouter();
   useEffect(() => {
     const handler = (e) => {
+      if (window.innerWidth < 1024) return; // mobile/tablet: use logo triple-tap instead
       if (e.ctrlKey && e.shiftKey && e.key === 'A') {
         e.preventDefault();
         router.push('/admin/login');

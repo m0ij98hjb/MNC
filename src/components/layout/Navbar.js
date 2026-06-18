@@ -50,6 +50,7 @@ const Navbar = () => {
   }, []);
 
   const handleLogoTap = (e) => {
+    if (window.innerWidth >= 1024) return; // desktop: use Ctrl+Shift+A instead
     logoTapCount.current += 1;
     if (logoTapTimer.current) clearTimeout(logoTapTimer.current);
     if (logoTapCount.current >= 3) {
