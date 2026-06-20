@@ -196,7 +196,7 @@ export default function AboutUsPage() {
             {/* Image */}
             <div className={`relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-2xl ${isRTL ? 'order-last' : 'order-first'}`} data-aos={isRTL ? 'fade-left' : 'fade-right'}>
               <Image 
-                src="/asstes/director.png" 
+                src="/asstes/directort.png" 
                 alt={t("aboutUsPage.ceoSectionTitle")}
                 fill 
                 className="object-cover" 
