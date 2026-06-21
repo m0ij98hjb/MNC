@@ -4,10 +4,12 @@ export async function POST(req) {
   try {
     const { applicantName, applicantEmail, position, interviewDate, interviewTime, interviewType, interviewLocation, additionalMessage } = await req.json();
 
+    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+      return Response.json({ success: false, error: 'SMTP_USER or SMTP_PASS env vars not set' }, { status: 500 });
+    }
+
     const transporter = nodemailer.createTransport({
-      host:   process.env.SMTP_HOST   || 'smtp.gmail.com',
-      port:   Number(process.env.SMTP_PORT || 587),
-      secure: false,
+      service: 'gmail',
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -103,7 +105,12 @@ export async function POST(req) {
 
     return Response.json({ success: true });
   } catch (err) {
-    console.error('[send-interview-email]', err);
-    return Response.json({ success: false, error: err.message }, { status: 500 });
+    console.error('[send-interview-email]', err?.code, err?.message, err?.response);
+    return Response.json({
+      success: false,
+      error: err.message,
+      code: err.code,
+      response: err.response,
+    }, { status: 500 });
   }
 }
