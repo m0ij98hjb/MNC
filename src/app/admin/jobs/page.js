@@ -45,6 +45,7 @@ export default function JobsPage() {
   const [additionalMessage, setAdditionalMessage] = useState('');
   const [sending, setSending]     = useState(false);
   const [sendStatus, setSendStatus] = useState(''); // 'success' | 'error'
+  const [sendError, setSendError]   = useState('');
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'jobApplications'), snap => {
@@ -88,17 +89,20 @@ export default function JobsPage() {
     setInterviewLocation('');
     setAdditionalMessage('');
     setSendStatus('');
+    setSendError('');
   };
 
   const closeDialog = () => {
     setDialogApp(null);
     setSendStatus('');
+    setSendError('');
   };
 
   const handleSendAcceptance = async () => {
     if (!interviewDate || !interviewTime) return;
     setSending(true);
     setSendStatus('');
+    setSendError('');
     try {
       const res = await fetch('/api/send-interview-email', {
         method: 'POST',
@@ -115,7 +119,7 @@ export default function JobsPage() {
         }),
       });
       const data = await res.json();
-      if (!data.success) throw new Error(data.error);
+      if (!data.success) throw new Error(data.error || data.code || 'Unknown error');
 
       await updateDoc(doc(db, 'jobApplications', dialogApp.id), {
         status: 'interview_scheduled',
@@ -125,8 +129,9 @@ export default function JobsPage() {
 
       setSendStatus('success');
       setTimeout(() => closeDialog(), 2000);
-    } catch {
+    } catch (err) {
       setSendStatus('error');
+      setSendError(err.message || 'Unknown error');
     } finally {
       setSending(false);
     }
@@ -312,7 +317,10 @@ export default function JobsPage() {
                 <p className="text-green-400 text-sm font-semibold text-center">{t('admin.emailSentSuccess')}</p>
               )}
               {sendStatus === 'error' && (
-                <p className="text-red-400 text-sm font-semibold text-center">{t('admin.emailSentError')}</p>
+                <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3">
+                  <p className="text-red-400 text-sm font-semibold text-center mb-1">{t('admin.emailSentError')}</p>
+                  {sendError && <p className="text-red-300/70 text-xs text-center break-all">{sendError}</p>}
+                </div>
               )}
             </div>
 
