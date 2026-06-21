@@ -6,25 +6,36 @@ import { STATUS_CONFIG, ACTIVITY_KEYS } from '@/lib/suppliersConfig';
 import { useLanguage } from '@/context/LanguageContext';
 import StatusBadge from '@/components/admin/StatusBadge';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
-import { Search, Trash2, Eye, CheckCircle, XCircle, Clock, Loader2 } from 'lucide-react';
+import {
+  Search, Trash2, Eye, CheckCircle, XCircle, Clock,
+  Loader2, X, Mail, Phone, Building2, MapPin, Send, Briefcase,
+} from 'lucide-react';
 import Link from 'next/link';
 
 const STATUS_FILTER_KEYS = ['all', 'new', 'under_review', 'approved', 'rejected'];
 const STATUS_T_KEYS = {
-  new: 'admin.statusNew',
+  new:          'admin.statusNew',
   under_review: 'admin.statusUnderReview',
-  approved: 'admin.statusApproved',
-  rejected: 'admin.statusRejected',
+  approved:     'admin.statusApproved',
+  rejected:     'admin.statusRejected',
 };
 
 export default function SuppliersListPage() {
   const { t, isRTL } = useLanguage();
   const getAct = (name) => name && (t('activities.' + ACTIVITY_KEYS[name]) || name);
+
   const [suppliers, setSuppliers] = useState([]);
   const [filter, setFilter]       = useState('all');
   const [search, setSearch]       = useState('');
   const [loading, setLoading]     = useState(true);
   const [actionId, setActionId]   = useState(null);
+
+  // Accept dialog
+  const [dialogSupplier, setDialogSupplier]     = useState(null);
+  const [additionalMessage, setAdditionalMessage] = useState('');
+  const [sending, setSending]                   = useState(false);
+  const [sendStatus, setSendStatus]             = useState('');
+  const [sendError, setSendError]               = useState('');
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'suppliers'), snap => {
@@ -58,6 +69,54 @@ export default function SuppliersListPage() {
   const deleteSupplier = async (id, name) => {
     if (!confirm(`${t('admin.delete')} "${name}"?`)) return;
     await deleteDoc(doc(db, 'suppliers', id));
+  };
+
+  const openAcceptDialog = (supplier) => {
+    setDialogSupplier(supplier);
+    setAdditionalMessage('');
+    setSendStatus('');
+    setSendError('');
+  };
+
+  const closeDialog = () => {
+    setDialogSupplier(null);
+    setSendStatus('');
+    setSendError('');
+  };
+
+  const handleSendAcceptance = async () => {
+    setSending(true);
+    setSendStatus('');
+    setSendError('');
+    try {
+      const res = await fetch('/api/send-supplier-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          supplierName:      dialogSupplier.companyName,
+          contactName:       dialogSupplier.contactName,
+          supplierEmail:     dialogSupplier.email,
+          activity:          getAct(dialogSupplier.activity) || dialogSupplier.activity,
+          additionalMessage,
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || data.code || 'Unknown error');
+
+      await updateDoc(doc(db, 'suppliers', dialogSupplier.id), {
+        status: 'approved',
+        reviewedAt: new Date(),
+        approvalEmailSentAt: new Date(),
+      });
+
+      setSendStatus('success');
+      setTimeout(() => closeDialog(), 2000);
+    } catch (err) {
+      setSendStatus('error');
+      setSendError(err.message || 'Unknown error');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -141,8 +200,15 @@ export default function SuppliersListPage() {
                             <Eye size={15} />
                           </Link>
                           {s.status !== 'approved' && (
-                            <button onClick={() => updateStatus(s.id, 'approved')} disabled={actionId === s.id + 'approved'} className="p-1.5 rounded-lg text-white/40 hover:text-green-400 hover:bg-green-500/10 transition-colors disabled:opacity-40" title={t('admin.approve')}>
-                              {actionId === s.id + 'approved' ? <Loader2 size={15} className="animate-spin" /> : <CheckCircle size={15} />}
+                            <button
+                              onClick={() => openAcceptDialog(s)}
+                              disabled={actionId === s.id + 'approved'}
+                              className="p-1.5 rounded-lg text-white/40 hover:text-green-400 hover:bg-green-500/10 transition-colors disabled:opacity-40"
+                              title={t('admin.approve')}
+                            >
+                              {actionId === s.id + 'approved'
+                                ? <Loader2 size={15} className="animate-spin" />
+                                : <CheckCircle size={15} />}
                             </button>
                           )}
                           {s.status !== 'rejected' && (
@@ -168,6 +234,100 @@ export default function SuppliersListPage() {
           )}
         </div>
       </div>
+
+      {/* ===== APPROVAL DIALOG ===== */}
+      {dialogSupplier && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.78)', backdropFilter: 'blur(8px)' }}>
+          <div className="w-full max-w-lg bg-[#111118] border border-white/10 rounded-2xl overflow-hidden shadow-2xl" dir={isRTL ? 'rtl' : 'ltr'}>
+
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]" style={{ background: 'linear-gradient(135deg,rgba(184,146,58,0.1),rgba(0,0,0,0))' }}>
+              <div>
+                <h2 className="text-white font-bold text-base">إرسال رسالة قبول المورد</h2>
+                <p className="text-white/40 text-xs mt-0.5">{dialogSupplier.companyName} — {dialogSupplier.contactName}</p>
+              </div>
+              <button onClick={closeDialog} className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/8 transition-all">
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Supplier info */}
+            <div className="px-6 py-4 grid grid-cols-2 gap-3 border-b border-white/[0.05]">
+              <div className="flex items-center gap-2 text-xs text-white/45">
+                <Building2 size={12} className="text-[#c8a96e] shrink-0" />
+                {dialogSupplier.companyName}
+              </div>
+              <div className="flex items-center gap-2 text-xs text-white/45">
+                <Mail size={12} className="text-[#c8a96e] shrink-0" />
+                {dialogSupplier.email || <span className="text-red-400/70">لا يوجد إيميل</span>}
+              </div>
+              <div className="flex items-center gap-2 text-xs text-white/45">
+                <Phone size={12} className="text-[#c8a96e] shrink-0" />
+                {dialogSupplier.phone}
+              </div>
+              <div className="flex items-center gap-2 text-xs text-white/45">
+                <MapPin size={12} className="text-[#c8a96e] shrink-0" />
+                {dialogSupplier.city}{dialogSupplier.country ? `, ${dialogSupplier.country}` : ''}
+              </div>
+            </div>
+
+            {/* Email preview notice */}
+            <div className="px-6 pt-5 pb-2">
+              <div className="flex items-start gap-3 bg-[#c8a96e]/8 border border-[#c8a96e]/20 rounded-xl px-4 py-3">
+                <Mail size={14} className="text-[#c8a96e] mt-0.5 shrink-0" />
+                <p className="text-white/60 text-xs leading-relaxed">
+                  سيتم إرسال رسالة قبول احترافية تتضمن تهنئة المورد وتوضيح خطوات استكمال الإجراءات والزيارة للفرع.
+                  يمكنك إضافة ملاحظة خاصة أدناه.
+                </p>
+              </div>
+            </div>
+
+            {/* Form */}
+            <div className="px-6 py-4 space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest block">
+                  ملاحظة إضافية للمورد <span className="text-white/25 normal-case font-normal">(اختياري)</span>
+                </label>
+                <textarea
+                  rows={3}
+                  value={additionalMessage}
+                  onChange={e => setAdditionalMessage(e.target.value)}
+                  placeholder="مثال: يرجى التواصل خلال أسبوع من تاريخ هذه الرسالة..."
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-all resize-none"
+                />
+              </div>
+
+              {sendStatus === 'success' && (
+                <p className="text-green-400 text-sm font-semibold text-center">تم الإرسال بنجاح ✓</p>
+              )}
+              {sendStatus === 'error' && (
+                <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3">
+                  <p className="text-red-400 text-sm font-semibold text-center mb-1">فشل الإرسال</p>
+                  {sendError && <p className="text-red-300/70 text-xs text-center break-all">{sendError}</p>}
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            <div className="px-6 py-4 border-t border-white/[0.07] flex gap-3">
+              <button
+                onClick={closeDialog}
+                className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-semibold hover:text-white hover:border-white/20 transition-all"
+              >
+                إلغاء
+              </button>
+              <button
+                onClick={handleSendAcceptance}
+                disabled={sending || !dialogSupplier.email}
+                className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black text-sm font-black flex items-center justify-center gap-2 hover:from-[#D5B25D] hover:to-[#c8a96e] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {sending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
+                إرسال رسالة القبول
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminPageLayout>
   );
 }
