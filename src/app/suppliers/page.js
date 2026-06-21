@@ -8,7 +8,7 @@ import Navbar from '@/components/layout/Navbar';
 import {
   Building2, User, Phone, Mail, MapPin, Globe, ChevronDown,
   Send, CheckCircle2, Loader2, Briefcase, FileText,
-  Clock, MessageSquare, Tag, Upload, X,
+  Clock, MessageSquare, Tag, Upload, X, DollarSign, PackageCheck,
 } from 'lucide-react';
 
 const COUNTRIES = [
@@ -43,7 +43,8 @@ export default function SuppliersPage() {
     companyName: '', contactName: '', phone: '', email: '',
     city: '', country: '', website: '',
     activity: '',
-    description: '', brands: '', coverageArea: '', deliveryTime: '', notes: '',
+    description: '', brands: '', coverageArea: '', deliveryTime: '',
+    priceLevel: '', supplyCapacity: '', notes: '',
   });
   const [docFile, setDocFile]         = useState(null);
   const [isDragging, setIsDragging]   = useState(false);
@@ -107,7 +108,8 @@ export default function SuppliersPage() {
       companyName:'', contactName:'', phone:'', email:'',
       city:'', country:'', website:'',
       activity:'',
-      description:'', brands:'', coverageArea:'', deliveryTime:'', notes:'',
+      description:'', brands:'', coverageArea:'', deliveryTime:'',
+      priceLevel:'', supplyCapacity:'', notes:'',
     });
     setErrors({});
   };
@@ -262,6 +264,27 @@ export default function SuppliersPage() {
                       <div className="relative">
                         <Clock size={15} className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 text-white/30 pointer-events-none`} />
                         <input value={form.deliveryTime} onChange={e => set('deliveryTime', e.target.value)} className={`${inputCls()} ${isRTL ? 'pr-10' : 'pl-10'}`} />
+                      </div>
+                    </FormField>
+                    <FormField label={t('suppliers.priceLevel')}>
+                      <div className="relative">
+                        <DollarSign size={15} className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 text-white/30 pointer-events-none`} />
+                        <select value={form.priceLevel} onChange={e => set('priceLevel', e.target.value)}
+                          className={`${inputCls()} ${isRTL ? 'pr-10' : 'pl-10'} appearance-none cursor-pointer`}>
+                          <option value="" className="bg-[#0a0a14]">--</option>
+                          <option value="low"  className="bg-[#0a0a14]">{t('suppliers.priceLow')}</option>
+                          <option value="mid"  className="bg-[#0a0a14]">{t('suppliers.priceMid')}</option>
+                          <option value="high" className="bg-[#0a0a14]">{t('suppliers.priceHigh')}</option>
+                        </select>
+                        <ChevronDown size={13} className={`absolute ${isRTL ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 text-white/30 pointer-events-none`} />
+                      </div>
+                    </FormField>
+                    <FormField label={t('suppliers.supplyCapacity')}>
+                      <div className="relative">
+                        <PackageCheck size={15} className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 text-white/30 pointer-events-none`} />
+                        <input value={form.supplyCapacity} onChange={e => set('supplyCapacity', e.target.value)}
+                          placeholder={t('suppliers.supplyCapacityPlaceholder')}
+                          className={`${inputCls()} ${isRTL ? 'pr-10' : 'pl-10'}`} />
                       </div>
                     </FormField>
                   </div>
