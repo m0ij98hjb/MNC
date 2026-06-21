@@ -17,6 +17,7 @@ import { BsTwitterX } from "react-icons/bs";
 
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
+import { usePathname } from "next/navigation";
 
 const SocialIcon = ({ name }) => {
   const common = "w-4 h-4";
@@ -93,7 +94,10 @@ const SocialIcon = ({ name }) => {
 const Footer = () => {
   const { lang, t, isRTL } = useLanguage();
   const { theme } = useTheme();
+  const pathname = usePathname();
   const isLightMode = theme === 'dark';
+
+  if (pathname.startsWith('/admin')) return null;
 
   const socialBtnStyle = {
     width: "45px",
