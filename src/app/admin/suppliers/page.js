@@ -208,13 +208,13 @@ export default function SuppliersListPage() {
                 <thead>
                   <tr className="border-b border-white/[0.07]">
                     {[
-                      t('admin.actionsCol'),
-                      t('admin.statusCol'),
-                      t('admin.submittedCol'),
-                      t('admin.phoneCol'),
-                      t('admin.cityCol'),
-                      t('admin.activityCol'),
                       t('admin.companyNameCol'),
+                      t('admin.activityCol'),
+                      t('admin.cityCol'),
+                      t('admin.phoneCol'),
+                      t('admin.submittedCol'),
+                      t('admin.statusCol'),
+                      t('admin.actionsCol'),
                     ].map(h => (
                       <th key={h} className="text-start text-xs text-white/30 font-medium px-5 py-3.5 whitespace-nowrap">{h}</th>
                     ))}
@@ -225,45 +225,7 @@ export default function SuppliersListPage() {
                     const sc = scoreSupplier(s);
                     return (
                       <tr key={s.id} className={`hover:bg-white/[0.02] transition-colors ${agentOn && sc.isBestMatch ? 'bg-purple-500/[0.025]' : ''}`}>
-                        {/* Actions — LEFT in RTL */}
-                        <td className="px-5 py-3.5">
-                          <div className="flex items-center gap-1.5">
-                            <Link href={`/admin/suppliers/${s.id}`} className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors" title={t('admin.viewDetails')}>
-                              <Eye size={15} />
-                            </Link>
-                            {s.status !== 'approved' && (
-                              <button onClick={() => openAcceptDialog(s)} className="p-1.5 rounded-lg text-white/40 hover:text-green-400 hover:bg-green-500/10 transition-colors" title={t('admin.approve')}>
-                                {actionId === s.id + 'approved' ? <Loader2 size={15} className="animate-spin" /> : <CheckCircle size={15} />}
-                              </button>
-                            )}
-                            {s.status !== 'rejected' && (
-                              <button onClick={() => updateStatus(s.id, 'rejected')} disabled={actionId === s.id + 'rejected'} className="p-1.5 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-500/10 transition-colors disabled:opacity-40" title={t('admin.reject')}>
-                                {actionId === s.id + 'rejected' ? <Loader2 size={15} className="animate-spin" /> : <XCircle size={15} />}
-                              </button>
-                            )}
-                            {s.status !== 'under_review' && (
-                              <button onClick={() => updateStatus(s.id, 'under_review')} disabled={actionId === s.id + 'under_review'} className="p-1.5 rounded-lg text-white/40 hover:text-yellow-400 hover:bg-yellow-500/10 transition-colors disabled:opacity-40" title={t('admin.underReviewAction')}>
-                                {actionId === s.id + 'under_review' ? <Loader2 size={15} className="animate-spin" /> : <Clock size={15} />}
-                              </button>
-                            )}
-                            <button onClick={() => deleteSupplier(s.id, s.companyName)} className="p-1.5 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-500/10 transition-colors" title={t('admin.delete')}>
-                              <Trash2 size={15} />
-                            </button>
-                          </div>
-                        </td>
-                        {/* Status */}
-                        <td className="px-5 py-3.5"><StatusBadge status={s.status} /></td>
-                        {/* Date */}
-                        <td className="px-5 py-3.5 text-white/40 text-xs" dir="ltr">
-                          {s.createdAt?.seconds ? new Date(s.createdAt.seconds * 1000).toLocaleDateString('en-GB') : '—'}
-                        </td>
-                        {/* Phone */}
-                        <td className="px-5 py-3.5 text-white/60" dir="ltr">{s.phone}</td>
-                        {/* City */}
-                        <td className="px-5 py-3.5 text-white/60">{s.city}{s.country ? `, ${s.country}` : ''}</td>
-                        {/* Activity */}
-                        <td className="px-5 py-3.5 text-white/60 text-xs">{getAct(s.activity) || '—'}</td>
-                        {/* Company — RIGHT in RTL */}
+                        {/* Company — first col = RIGHT in RTL */}
                         <td className="px-5 py-3.5">
                           <div className="flex items-center gap-2">
                             {agentOn && sc.isBestMatch && (
@@ -293,6 +255,44 @@ export default function SuppliersListPage() {
                                 </div>
                               )}
                             </div>
+                          </div>
+                        </td>
+                        {/* Activity */}
+                        <td className="px-5 py-3.5 text-white/60 text-xs">{getAct(s.activity) || '—'}</td>
+                        {/* City */}
+                        <td className="px-5 py-3.5 text-white/60">{s.city}{s.country ? `, ${s.country}` : ''}</td>
+                        {/* Phone */}
+                        <td className="px-5 py-3.5 text-white/60" dir="ltr">{s.phone}</td>
+                        {/* Date */}
+                        <td className="px-5 py-3.5 text-white/40 text-xs" dir="ltr">
+                          {s.createdAt?.seconds ? new Date(s.createdAt.seconds * 1000).toLocaleDateString('en-GB') : '—'}
+                        </td>
+                        {/* Status */}
+                        <td className="px-5 py-3.5"><StatusBadge status={s.status} /></td>
+                        {/* Actions — last col = LEFT in RTL */}
+                        <td className="px-5 py-3.5">
+                          <div className="flex items-center gap-1.5">
+                            <Link href={`/admin/suppliers/${s.id}`} className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors" title={t('admin.viewDetails')}>
+                              <Eye size={15} />
+                            </Link>
+                            {s.status !== 'approved' && (
+                              <button onClick={() => openAcceptDialog(s)} className="p-1.5 rounded-lg text-white/40 hover:text-green-400 hover:bg-green-500/10 transition-colors" title={t('admin.approve')}>
+                                {actionId === s.id + 'approved' ? <Loader2 size={15} className="animate-spin" /> : <CheckCircle size={15} />}
+                              </button>
+                            )}
+                            {s.status !== 'rejected' && (
+                              <button onClick={() => updateStatus(s.id, 'rejected')} disabled={actionId === s.id + 'rejected'} className="p-1.5 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-500/10 transition-colors disabled:opacity-40" title={t('admin.reject')}>
+                                {actionId === s.id + 'rejected' ? <Loader2 size={15} className="animate-spin" /> : <XCircle size={15} />}
+                              </button>
+                            )}
+                            {s.status !== 'under_review' && (
+                              <button onClick={() => updateStatus(s.id, 'under_review')} disabled={actionId === s.id + 'under_review'} className="p-1.5 rounded-lg text-white/40 hover:text-yellow-400 hover:bg-yellow-500/10 transition-colors disabled:opacity-40" title={t('admin.underReviewAction')}>
+                                {actionId === s.id + 'under_review' ? <Loader2 size={15} className="animate-spin" /> : <Clock size={15} />}
+                              </button>
+                            )}
+                            <button onClick={() => deleteSupplier(s.id, s.companyName)} className="p-1.5 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-500/10 transition-colors" title={t('admin.delete')}>
+                              <Trash2 size={15} />
+                            </button>
                           </div>
                         </td>
                       </tr>
