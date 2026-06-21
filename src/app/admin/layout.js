@@ -2,6 +2,7 @@
 import { useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { NotificationsProvider } from '@/context/NotificationsContext';
 import { Loader2 } from 'lucide-react';
 
 export default function AdminLayout({ children }) {
@@ -34,5 +35,5 @@ export default function AdminLayout({ children }) {
   }
 
   // Authenticated: each page manages its own layout via AdminPageLayout
-  return <>{children}</>;
+  return <NotificationsProvider>{children}</NotificationsProvider>;
 }

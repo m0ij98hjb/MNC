@@ -3,9 +3,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
-import { Shield, LogOut, LayoutDashboard, ChevronDown, Globe } from 'lucide-react';
+import { Shield, LogOut, LayoutDashboard, ChevronDown, Globe, Bell, Briefcase, Building2 } from 'lucide-react';
 import { useLanguage, LANGUAGES } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
+import { useNotifications } from '@/context/NotificationsContext';
 
 const PAGE_TITLE_KEYS = {
   '/admin/dashboard': 'admin.dashboard',
@@ -20,15 +21,20 @@ export default function AdminNavbar() {
   const { t, lang, setLang, isRTL } = useLanguage();
   const { logout } = useAuth();
 
-  const [isLangOpen, setIsLangOpen] = useState(false);
-  const [isUserOpen, setIsUserOpen] = useState(false);
+  const [isLangOpen, setIsLangOpen]   = useState(false);
+  const [isUserOpen, setIsUserOpen]   = useState(false);
+  const [isBellOpen, setIsBellOpen]   = useState(false);
   const langRef = useRef(null);
   const userRef = useRef(null);
+  const bellRef = useRef(null);
+
+  const { allNew, unreadCount, markSeen } = useNotifications() ?? { allNew: [], unreadCount: 0, markSeen: () => {} };
 
   useEffect(() => {
     const handler = (e) => {
       if (langRef.current && !langRef.current.contains(e.target)) setIsLangOpen(false);
       if (userRef.current && !userRef.current.contains(e.target)) setIsUserOpen(false);
+      if (bellRef.current && !bellRef.current.contains(e.target)) setIsBellOpen(false);
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
@@ -135,6 +141,89 @@ export default function AdminNavbar() {
                   ))}
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* ── Bell Notifications ── */}
+          <div className="relative" ref={bellRef}>
+            <button
+              onClick={() => setIsBellOpen(v => !v)}
+              className="relative flex items-center justify-center w-9 h-9 rounded-lg border border-[#C9A34D]/22 text-white/50 hover:text-white hover:bg-white/6 hover:border-white/20 transition-all duration-250 active:scale-95 flex-shrink-0"
+            >
+              <Bell size={16} />
+              {unreadCount > 0 && (
+                <span className="absolute -top-1.5 -end-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[10px] font-black flex items-center justify-center leading-none shadow-lg shadow-red-500/40">
+                  {unreadCount > 99 ? '99+' : unreadCount}
+                </span>
+              )}
+            </button>
+
+            {/* Bell dropdown */}
+            <div
+              className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[320px] rounded-2xl overflow-hidden z-50 transition-all duration-250 ${
+                isBellOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
+              }`}
+              style={{ background: '#0b1320', border: '1px solid rgba(201,163,77,0.14)', boxShadow: '0 20px 60px rgba(0,0,0,0.88)' }}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.07]">
+                <p className="text-white text-xs font-bold">الإشعارات</p>
+                {unreadCount > 0 && (
+                  <span className="text-[10px] font-bold text-red-400 bg-red-500/10 rounded-full px-2 py-0.5">
+                    {unreadCount} جديد
+                  </span>
+                )}
+              </div>
+
+              {/* List */}
+              <div className="max-h-[360px] overflow-y-auto divide-y divide-white/[0.05]">
+                {allNew.length === 0 ? (
+                  <div className="text-center py-8">
+                    <Bell size={22} className="text-white/10 mx-auto mb-2" />
+                    <p className="text-white/25 text-xs">لا توجد إشعارات جديدة</p>
+                  </div>
+                ) : allNew.map(n => (
+                  <Link
+                    key={n.id}
+                    href={n.type === 'supplier' ? `/admin/suppliers/${n.id}` : '/admin/jobs'}
+                    onClick={() => { markSeen(n.id); setIsBellOpen(false); }}
+                    className="flex items-start gap-3 px-4 py-3 hover:bg-white/[0.04] transition-colors"
+                  >
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${n.type === 'supplier' ? 'bg-blue-500/12 border border-blue-500/25' : 'bg-[#c8a96e]/12 border border-[#c8a96e]/25'}`}>
+                      {n.type === 'supplier'
+                        ? <Building2 size={13} className="text-blue-400" />
+                        : <Briefcase size={13} className="text-[#c8a96e]" />}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-white text-xs font-semibold truncate">
+                        {n.type === 'supplier' ? n.companyName : n.fullName}
+                      </p>
+                      <p className="text-white/40 text-[11px] mt-0.5 truncate">
+                        {n.type === 'supplier' ? `طلب مورد جديد · ${n.activity || ''}` : `طلب وظيفة · ${n.position || ''}`}
+                      </p>
+                      <p className="text-white/20 text-[10px] mt-0.5" dir="ltr">
+                        {n.createdAt?.seconds ? new Date(n.createdAt.seconds * 1000).toLocaleDateString('en-GB') : ''}
+                      </p>
+                    </div>
+                    <span className="w-2 h-2 rounded-full bg-red-400 shrink-0 mt-1.5" />
+                  </Link>
+                ))}
+              </div>
+
+              {/* Footer */}
+              {allNew.length > 0 && (
+                <div className="border-t border-white/[0.06] px-4 py-2.5 flex gap-2">
+                  <Link href="/admin/suppliers" onClick={() => setIsBellOpen(false)}
+                    className="flex-1 text-center text-[11px] text-blue-400/70 hover:text-blue-400 transition-colors font-semibold">
+                    الموردون
+                  </Link>
+                  <div className="w-px bg-white/10" />
+                  <Link href="/admin/jobs" onClick={() => setIsBellOpen(false)}
+                    className="flex-1 text-center text-[11px] text-[#c8a96e]/70 hover:text-[#c8a96e] transition-colors font-semibold">
+                    الوظائف
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
 

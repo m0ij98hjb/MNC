@@ -5,6 +5,7 @@ import { db } from '@/lib/firebase';
 import { useLanguage } from '@/context/LanguageContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import Link from 'next/link';
+import { useNotifications } from '@/context/NotificationsContext';
 import {
   Search, Trash2, CheckCircle, XCircle, Loader2,
   X, Phone, Mail, Briefcase, FileText, Clock,
@@ -55,6 +56,7 @@ function scoreApp(app) {
 /* ─── Main page ─── */
 export default function JobsPage() {
   const { t, isRTL } = useLanguage();
+  const { markSeen } = useNotifications() ?? { markSeen: () => {} };
   const [apps, setApps]           = useState([]);
   const [filter, setFilter]       = useState('all');
   const [search, setSearch]       = useState('');
@@ -64,6 +66,7 @@ export default function JobsPage() {
 
   /* View dialog */
   const [viewApp, setViewApp]     = useState(null);
+  const openViewApp = (app) => { setViewApp(app); markSeen(app.id); };
 
   /* Accept dialog */
   const [dialogApp, setDialogApp]                   = useState(null);
@@ -267,7 +270,7 @@ export default function JobsPage() {
                         <td className="px-4 py-3.5">
                           <div className="flex items-center gap-1">
                             {/* View */}
-                            <button onClick={() => setViewApp(app)}
+                            <button onClick={() => openViewApp(app)}
                               className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/8 transition-all" title="عرض التفاصيل">
                               <Eye size={14} />
                             </button>

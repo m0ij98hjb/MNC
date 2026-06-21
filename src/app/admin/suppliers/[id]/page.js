@@ -13,10 +13,12 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import { useNotifications } from '@/context/NotificationsContext';
 
 export default function SupplierDetailPage() {
   const { id }                    = useParams();
   const { t, isRTL }              = useLanguage();
+  const { markSeen }              = useNotifications() ?? { markSeen: () => {} };
   const getAct = (name) => name && (t('activities.' + ACTIVITY_KEYS[name]) || name);
   const [supplier, setSupplier]   = useState(null);
   const [notes, setNotes]         = useState('');
@@ -26,6 +28,7 @@ export default function SupplierDetailPage() {
 
   useEffect(() => {
     if (!id) return;
+    markSeen(id);
     const unsub = onSnapshot(doc(db, 'suppliers', id), snap => {
       if (snap.exists()) {
         const data = { id: snap.id, ...snap.data() };
