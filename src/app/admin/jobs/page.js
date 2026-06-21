@@ -9,7 +9,7 @@ import {
   Search, Trash2, CheckCircle, XCircle, Loader2,
   X, Phone, Mail, Briefcase, FileText, Clock,
   Send, ChevronDown, Eye, MapPin, Sparkles, Download,
-  Star, Users, CalendarCheck,
+  Star, CalendarCheck, Calendar,
 } from 'lucide-react';
 
 /* ─── Status config ─── */
