@@ -13,7 +13,7 @@ export function MusicProvider({ children }) {
   const wasMusicPlayingRef = useRef(false);
 
   useEffect(() => {
-    const audio = new Audio('/assets/audio/divine-ascension.mp3');
+    const audio = new Audio('/assets/audio/divine-music.mp3');
     audio.loop = true;
     audio.volume = 0.35;
     musicRef.current = audio;
