@@ -10,6 +10,7 @@ import {
 import { useLanguage, LANGUAGES } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import { useNotifications } from '@/context/NotificationsContext';
+import { useDirectorPhoto } from '@/hooks/useDirectorPhoto';
 
 /* Page titles always in Arabic regardless of app language */
 const PAGE_TITLES_AR = {
@@ -47,6 +48,7 @@ export default function AdminNavbar() {
   const bellRef = useRef(null);
 
   const { allNotifications = [], unreadCount = 0, markBellOpened } = useNotifications() ?? {};
+  const directorPhoto = useDirectorPhoto();
 
   useEffect(() => {
     const handler = (e) => {
@@ -134,7 +136,8 @@ export default function AdminNavbar() {
                 style={{ boxShadow: '0 0 0 1.5px rgba(201,163,77,0.45)' }}
               >
                 <Image
-                  src="/asstes/directort.png"
+                  src={directorPhoto}
+                  unoptimized={directorPhoto.startsWith('http')}
                   alt="Director"
                   fill
                   sizes="28px"
@@ -170,7 +173,8 @@ export default function AdminNavbar() {
                   style={{ boxShadow: '0 0 0 1.5px rgba(201,163,77,0.4)' }}
                 >
                   <Image
-                    src="/asstes/directort.png"
+                    src={directorPhoto}
+                  unoptimized={directorPhoto.startsWith('http')}
                     alt="Director"
                     fill
                     sizes="36px"
