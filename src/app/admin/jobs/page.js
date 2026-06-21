@@ -48,8 +48,7 @@ function scoreApp(app) {
   const cityScore = CLOSE_CITIES.some(c  => cityLower.includes(c.toLowerCase())) ? 50
                   : MEDIUM_CITIES.some(c => cityLower.includes(c.toLowerCase())) ? 25
                   : cityLower.length > 1 ? 5 : 0;
-  return { expScore, cityScore, total: expScore + cityScore,
-           isBestMatch: expScore >= 35 && cityScore >= 50 };
+  return { expScore, cityScore, total: expScore + cityScore };
 }
 
 /* ─── Main page ─── */
@@ -88,7 +87,7 @@ export default function JobsPage() {
     return unsub;
   }, []);
 
-  const visible = useMemo(() => {
+  const { visible, bestIds } = useMemo(() => {
     let list = apps.filter(a => {
       const matchStatus = filter === 'all' || a.status === filter;
       const q = search.toLowerCase();
@@ -100,10 +99,16 @@ export default function JobsPage() {
         a.phone?.includes(q);
       return matchStatus && matchSearch;
     });
-    if (agentOn) {
-      list = [...list].sort((a, b) => scoreApp(b).total - scoreApp(a).total);
-    }
-    return list;
+
+    if (!agentOn) return { visible: list, bestIds: new Set() };
+
+    const scored  = list.map(a => ({ id: a.id, total: scoreApp(a).total }));
+    const maxTotal = scored.reduce((m, s) => Math.max(m, s.total), 0);
+    const bestIds = new Set(
+      maxTotal > 0 ? scored.filter(s => s.total === maxTotal).map(s => s.id) : []
+    );
+    const sorted = [...list].sort((a, b) => scoreApp(b).total - scoreApp(a).total);
+    return { visible: sorted, bestIds };
   }, [apps, filter, search, agentOn]);
 
   const rejectApp = async (id) => {
@@ -159,7 +164,7 @@ export default function JobsPage() {
   /* stats */
   const totalPending  = apps.filter(a => a.status === 'pending').length;
   const totalAccepted = apps.filter(a => a.status === 'interview_scheduled').length;
-  const bestMatches   = apps.filter(a => scoreApp(a).isBestMatch).length;
+  const bestMatches   = bestIds.size;
 
   return (
     <AdminPageLayout>
@@ -244,10 +249,10 @@ export default function JobsPage() {
                   {visible.map(app => {
                     const sc = scoreApp(app);
                     return (
-                      <tr key={app.id} className={`hover:bg-white/[0.02] transition-colors ${agentOn && sc.isBestMatch ? 'bg-purple-500/[0.03]' : ''}`}>
+                      <tr key={app.id} className={`hover:bg-white/[0.02] transition-colors ${agentOn && bestIds.has(app.id) ? 'bg-purple-500/[0.03]' : ''}`}>
                         <td className="px-4 py-3.5">
                           <div className="flex items-center gap-2">
-                            {agentOn && sc.isBestMatch && (
+                            {agentOn && bestIds.has(app.id) && (
                               <span className="text-[10px] font-black text-purple-300 bg-purple-500/15 border border-purple-500/25 rounded-full px-1.5 py-0.5 flex items-center gap-0.5 shrink-0">
                                 <Star size={8} className="fill-purple-300" /> أفضل
                               </span>
@@ -362,7 +367,7 @@ export default function JobsPage() {
                     <div className="flex items-center gap-2 mb-3">
                       <Sparkles size={13} className="text-purple-400" />
                       <span className="text-purple-300 text-xs font-bold">تقييم الذكاء الاصطناعي</span>
-                      {sc.isBestMatch && <span className="text-[10px] font-black text-purple-300 bg-purple-500/20 rounded-full px-2 py-0.5">⭐ أفضل مرشح</span>}
+                      {bestIds.has(viewApp.id) && <span className="text-[10px] font-black text-purple-300 bg-purple-500/20 rounded-full px-2 py-0.5">⭐ أفضل مرشح</span>}
                     </div>
                     <div className="grid grid-cols-3 gap-2 text-center">
                       <div>
