@@ -19,14 +19,11 @@ export function MusicProvider({ children }) {
     musicRef.current = audio;
     setIsMusicReady(true);
 
-    const removeListeners = () => {
+    const onFirstInteraction = () => {
       window.removeEventListener('click', onFirstInteraction);
       window.removeEventListener('touchstart', onFirstInteraction);
+      window.removeEventListener('touchend', onFirstInteraction);
       window.removeEventListener('keydown', onFirstInteraction);
-    };
-
-    const onFirstInteraction = () => {
-      removeListeners();
       if (!musicRef.current || musicUserPausedRef.current) return;
       musicRef.current.play().then(() => setIsMusicPlaying(true)).catch(() => {});
     };
@@ -35,11 +32,16 @@ export function MusicProvider({ children }) {
       setIsMusicPlaying(true);
     }).catch(() => {
       window.addEventListener('click', onFirstInteraction);
-      window.addEventListener('touchstart', onFirstInteraction);
+      window.addEventListener('touchstart', onFirstInteraction, { passive: true });
+      window.addEventListener('touchend', onFirstInteraction, { passive: true });
       window.addEventListener('keydown', onFirstInteraction);
     });
 
     return () => {
+      window.removeEventListener('click', onFirstInteraction);
+      window.removeEventListener('touchstart', onFirstInteraction);
+      window.removeEventListener('touchend', onFirstInteraction);
+      window.removeEventListener('keydown', onFirstInteraction);
       if (musicRef.current) {
         musicRef.current.pause();
         musicRef.current = null;
