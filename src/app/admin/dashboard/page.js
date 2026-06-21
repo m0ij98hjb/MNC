@@ -11,10 +11,10 @@ import StatusBadge from '@/components/admin/StatusBadge';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import Link from 'next/link';
 
-const JOB_STATUS_CFG = {
-  pending:             { color: '#3b82f6', label: 'جديد' },
-  interview_scheduled: { color: '#f59e0b', label: 'مقابلة محددة' },
-  rejected:            { color: '#ef4444', label: 'مرفوض' },
+const JOB_STATUS_COLORS = {
+  pending:             '#3b82f6',
+  interview_scheduled: '#f59e0b',
+  rejected:            '#ef4444',
 };
 
 function StatCard({ label, value, icon: Icon, color, bg, href }) {
@@ -78,9 +78,9 @@ export default function DashboardPage() {
         <div className="mb-2">
           <div className="flex items-center gap-2 mb-3">
             <Building2 size={14} className="text-blue-400" />
-            <span className="text-xs font-bold text-white/40 uppercase tracking-widest">إحصائيات الموردين</span>
+            <span className="text-xs font-bold text-white/40 uppercase tracking-widest">{t('admin.suppliersStats')}</span>
             <Link href="/admin/suppliers" className="ms-auto text-xs text-[#c8a96e] hover:underline flex items-center gap-1">
-              عرض الكل <ArrowIcon size={11} />
+              {t('admin.viewAll')} <ArrowIcon size={11} />
             </Link>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-7">
@@ -96,16 +96,16 @@ export default function DashboardPage() {
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-3">
             <Briefcase size={14} className="text-[#c8a96e]" />
-            <span className="text-xs font-bold text-white/40 uppercase tracking-widest">إحصائيات الوظائف</span>
+            <span className="text-xs font-bold text-white/40 uppercase tracking-widest">{t('admin.jobsStats')}</span>
             <Link href="/admin/jobs" className="ms-auto text-xs text-[#c8a96e] hover:underline flex items-center gap-1">
-              عرض الكل <ArrowIcon size={11} />
+              {t('admin.viewAll')} <ArrowIcon size={11} />
             </Link>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            <StatCard label="إجمالي الطلبات"   value={jobCounts.total}                icon={Users}        color="#a78bfa" bg="rgba(167,139,250,0.12)" href="/admin/jobs" />
-            <StatCard label="طلبات جديدة"       value={jobCounts.pending}              icon={TrendingUp}   color="#3b82f6" bg="rgba(59,130,246,0.12)"  href="/admin/jobs" />
-            <StatCard label="مقابلات محددة"     value={jobCounts.interview_scheduled}  icon={CalendarCheck} color="#f59e0b" bg="rgba(245,158,11,0.12)"  href="/admin/jobs/approved" />
-            <StatCard label="مرفوضة"            value={jobCounts.rejected}             icon={XCircle}      color="#ef4444" bg="rgba(239,68,68,0.12)"   href="/admin/jobs" />
+            <StatCard label={t('admin.totalApps')}          value={jobCounts.total}               icon={Users}         color="#a78bfa" bg="rgba(167,139,250,0.12)" href="/admin/jobs" />
+            <StatCard label={t('admin.newApps')}            value={jobCounts.pending}             icon={TrendingUp}    color="#3b82f6" bg="rgba(59,130,246,0.12)"  href="/admin/jobs" />
+            <StatCard label={t('admin.scheduledInterviews')} value={jobCounts.interview_scheduled} icon={CalendarCheck} color="#f59e0b" bg="rgba(245,158,11,0.12)"  href="/admin/jobs/approved" />
+            <StatCard label={t('admin.rejectedLabel')}      value={jobCounts.rejected}            icon={XCircle}       color="#ef4444" bg="rgba(239,68,68,0.12)"   href="/admin/jobs" />
           </div>
         </div>
 
@@ -119,7 +119,7 @@ export default function DashboardPage() {
                 <div className="w-7 h-7 rounded-lg bg-blue-500/12 border border-blue-500/20 flex items-center justify-center">
                   <Building2 size={13} className="text-blue-400" />
                 </div>
-                <h2 className="text-sm font-semibold text-white">آخر طلبات الموردين</h2>
+                <h2 className="text-sm font-semibold text-white">{t('admin.latestSuppliers')}</h2>
               </div>
               <Link href="/admin/suppliers" className="flex items-center gap-1 text-xs text-[#c8a96e] hover:underline">
                 {t('admin.viewAll')} <ArrowIcon size={11} />
@@ -156,7 +156,7 @@ export default function DashboardPage() {
                 <div className="w-7 h-7 rounded-lg bg-[#c8a96e]/12 border border-[#c8a96e]/20 flex items-center justify-center">
                   <Briefcase size={13} className="text-[#c8a96e]" />
                 </div>
-                <h2 className="text-sm font-semibold text-white">آخر طلبات التوظيف</h2>
+                <h2 className="text-sm font-semibold text-white">{t('admin.latestJobs')}</h2>
               </div>
               <Link href="/admin/jobs" className="flex items-center gap-1 text-xs text-[#c8a96e] hover:underline">
                 {t('admin.viewAll')} <ArrowIcon size={11} />
@@ -166,12 +166,15 @@ export default function DashboardPage() {
               {recentJobs.length === 0 ? (
                 <p className="text-center text-white/25 text-sm py-8">{t('admin.noJobs')}</p>
               ) : recentJobs.map(j => {
-                const jCfg = JOB_STATUS_CFG[j.status] || JOB_STATUS_CFG.pending;
+                const jobColor = JOB_STATUS_COLORS[j.status] || JOB_STATUS_COLORS.pending;
+                const jobLabel = j.status === 'interview_scheduled' ? t('admin.statusInterviewBadge')
+                               : j.status === 'rejected'            ? t('admin.statusRejectedBadge')
+                               :                                      t('admin.statusPendingBadge');
                 return (
                   <Link
                     key={j.id}
                     href="/admin/jobs"
-                                        className="flex items-center justify-between px-5 py-3 hover:bg-white/[0.03] transition-colors group"
+                    className="flex items-center justify-between px-5 py-3 hover:bg-white/[0.03] transition-colors group"
                   >
                     <div className="min-w-0 flex-1">
                       <p className="text-sm text-white font-medium truncate group-hover:text-[#c8a96e] transition-colors">{j.fullName}</p>
@@ -179,8 +182,8 @@ export default function DashboardPage() {
                     </div>
                     <div className="flex items-center gap-2.5 shrink-0 ms-3">
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold"
-                        style={{ color: jCfg.color, background: `${jCfg.color}18`, border: `1px solid ${jCfg.color}30` }}>
-                        {jCfg.label}
+                        style={{ color: jobColor, background: `${jobColor}18`, border: `1px solid ${jobColor}30` }}>
+                        {jobLabel}
                       </span>
                       <span className="text-[10px] text-white/20 hidden sm:block" dir="ltr">
                         {j.createdAt?.seconds ? new Date(j.createdAt.seconds * 1000).toLocaleDateString('en-GB') : ''}

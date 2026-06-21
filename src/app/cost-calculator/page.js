@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
+import { useSiteContent } from "@/hooks/useSiteContent";
 import {
   Home,
   Building2,
@@ -32,6 +33,7 @@ import {
 export default function CostCalculatorPage() {
   const { t, lang, isRTL } = useLanguage();
   const { theme } = useTheme();
+  const { data: calcCms } = useSiteContent('calculator');
   const isLightMode = theme === 'dark';
   const isRtl = isRTL;
   // Light mode helper classes
@@ -112,7 +114,7 @@ export default function CostCalculatorPage() {
   };
 
   const calculateProjectCost = ({ type, area, floors, quality, location, extras }) => {
-    const BASE_RATES = {
+    const BASE_RATES = calcCms?.rates || {
       residential: { economic: 1800, standard: 2500, premium: 3800, ultra: 6000 },
       commercial:  { economic: 2200, standard: 3200, premium: 5000, ultra: 8000 },
       industrial:  { economic: 1500, standard: 2000, premium: 3000, ultra: 5000 },

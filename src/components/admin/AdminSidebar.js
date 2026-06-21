@@ -11,12 +11,13 @@ import { doc, setDoc } from 'firebase/firestore';
 import { storage, db } from '@/lib/firebase';
 import {
   LayoutDashboard, Users, CheckCircle, BarChart2,
-  ChevronRight, ChevronLeft, LogOut, Briefcase,
+  ChevronRight, ChevronLeft, LogOut, Briefcase, PenSquare,
   Camera, X, Loader2,
 } from 'lucide-react';
 
 const NAV_ITEMS = [
   { href: '/admin/dashboard', labelKey: 'admin.dashboard',     icon: LayoutDashboard },
+  { href: '/admin/content',   label: 'إدارة المحتوى',         icon: PenSquare },
   { href: '/admin/suppliers', labelKey: 'admin.suppliersMenu', icon: Users },
   { href: '/admin/jobs',      labelKey: 'admin.jobsMenu',      icon: Briefcase },
   { href: '/admin/approved',  labelKey: 'admin.approvedMenu',  icon: CheckCircle },
@@ -106,8 +107,9 @@ export default function AdminSidebar() {
         {/* Navigation */}
         <nav className="flex-1 px-2 py-3">
           <div className="space-y-0.5">
-            {NAV_ITEMS.map(({ href, labelKey, icon: Icon }) => {
+            {NAV_ITEMS.map(({ href, labelKey, label, icon: Icon }) => {
               const active = pathname === href || pathname.startsWith(href + '/');
+              const text   = label ?? t(labelKey);
               return (
                 <Link
                   key={href}
@@ -119,7 +121,7 @@ export default function AdminSidebar() {
                     }`}
                 >
                   <Icon size={15} className="shrink-0" />
-                  <span className="flex-1">{t(labelKey)}</span>
+                  <span className="flex-1">{text}</span>
                   {active && <ChevronIcon size={12} className="opacity-50 shrink-0" />}
                 </Link>
               );

@@ -158,7 +158,7 @@ export default function SuppliersListPage() {
           <Link href="/admin/suppliers/best"
             className="px-3 py-1.5 bg-purple-500/10 border border-purple-500/25 rounded-xl text-purple-300 text-xs font-bold flex items-center gap-1.5 hover:bg-purple-500/18 hover:border-purple-500/40 transition-all">
             <Star size={11} className="fill-purple-300" />
-            أفضل الموردين
+            {t('admin.bestSuppliersBtn')}
           </Link>
         </div>
 
@@ -180,7 +180,7 @@ export default function SuppliersListPage() {
             <button onClick={() => setAgentOn(v => !v)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border transition-all ${agentOn ? 'bg-purple-500/15 text-purple-300 border-purple-500/35' : 'text-white/40 border-white/10 hover:text-purple-300/70'}`}>
               <Sparkles size={12} />
-              الترتيب الذكي
+              {agentOn ? t('admin.agentOnLabel') : t('admin.agentOffLabel')}
             </button>
           </div>
         </div>
@@ -235,7 +235,7 @@ export default function SuppliersListPage() {
                           <div className="flex items-center gap-2">
                             {agentOn && bestIds.has(s.id) && (
                               <span className="text-[10px] font-black text-purple-300 bg-purple-500/15 border border-purple-500/25 rounded-full px-1.5 py-0.5 flex items-center gap-0.5 shrink-0">
-                                <Star size={8} className="fill-purple-300" /> أفضل
+                                <Star size={8} className="fill-purple-300" /> {t('admin.bestBadge')}
                               </span>
                             )}
                             <div>

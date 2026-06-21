@@ -26,17 +26,10 @@ const PINK   = '#ec4899';
 
 const CHART_COLORS = [GOLD, BLUE, GREEN, AMBER, RED, PURPLE, TEAL, PINK, '#f97316', '#06b6d4'];
 
-const SUP_STATUS_CFG = {
-  new:          { label: 'جديد',           color: BLUE   },
-  under_review: { label: 'قيد المراجعة',   color: AMBER  },
-  approved:     { label: 'مقبول',          color: GREEN  },
-  rejected:     { label: 'مرفوض',          color: RED    },
-};
-const JOB_STATUS_CFG = {
-  pending:             { label: 'جديد',             color: BLUE  },
-  interview_scheduled: { label: 'مقابلة محددة',     color: AMBER },
-  rejected:            { label: 'مرفوض',            color: RED   },
-};
+const SUP_STATUS_COLORS = { new: BLUE, under_review: AMBER, approved: GREEN, rejected: RED };
+const SUP_STATUS_TKEYS  = { new: 'admin.statusNew', under_review: 'admin.statusUnderReview', approved: 'admin.statusApproved', rejected: 'admin.statusRejected' };
+const JOB_STATUS_COLORS = { pending: BLUE, interview_scheduled: AMBER, rejected: RED };
+const JOB_STATUS_TKEYS  = { pending: 'admin.statusPending', interview_scheduled: 'admin.statusInterviewScheduled', rejected: 'admin.statusRejected' };
 const EXP_ORDER = ['أقل من سنة','1 – 3 سنوات','3 – 5 سنوات','5 – 10 سنوات','أكثر من 10 سنوات'];
 
 function toMonthKey(ts) {
@@ -79,8 +72,8 @@ function ChartCard({ title, subtitle, children, className = '' }) {
     </div>
   );
 }
-function Empty() {
-  return <div className="flex items-center justify-center h-[200px] text-white/15 text-sm">لا توجد بيانات كافية</div>;
+function Empty({ msg = '—' }) {
+  return <div className="flex items-center justify-center h-[200px] text-white/15 text-sm">{msg}</div>;
 }
 
 /* ─── Stat card ─── */
@@ -123,7 +116,7 @@ function RankBar({ items, colorFn }) {
 }
 
 /* ─── Donut chart with center label ─── */
-function DonutChart({ data, total }) {
+function DonutChart({ data, total, totalLabel = 'Total' }) {
   return (
     <div className="relative">
       <ResponsiveContainer width="100%" height={220}>
@@ -137,7 +130,7 @@ function DonutChart({ data, total }) {
       </ResponsiveContainer>
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
         <span className="text-2xl font-black text-white">{total}</span>
-        <span className="text-[10px] text-white/30 mt-0.5">الإجمالي</span>
+        <span className="text-[10px] text-white/30 mt-0.5">{totalLabel}</span>
       </div>
     </div>
   );
@@ -145,12 +138,12 @@ function DonutChart({ data, total }) {
 
 /* ══════════════════════════════════════════════════════ */
 export default function ReportsPage() {
-  const { t, isRTL } = useLanguage();
+  const { t, isRTL, lang } = useLanguage();
   const getAct = (name) => name && (t('activities.' + ACTIVITY_KEYS[name]) || name);
 
   const [suppliers, setSuppliers] = useState(null);
   const [jobs, setJobs]           = useState(null);
-  const [tab, setTab]             = useState('overview'); // overview | suppliers | jobs
+  const [tab, setTab]             = useState('overview');
 
   useEffect(() => {
     const u1 = onSnapshot(collection(db, 'suppliers'),       snap => setSuppliers(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
@@ -158,18 +151,21 @@ export default function ReportsPage() {
     return () => { u1(); u2(); };
   }, []);
 
+  /* marker changes when translations update (translations updates async after lang) */
+  const _tmarker = t('admin.statusNew');
+
   /* ── derived data ── */
   const data = useMemo(() => {
     if (!suppliers || !jobs) return null;
 
     /* Supplier status donut */
-    const supStatusData = Object.entries(SUP_STATUS_CFG).map(([k, c]) => ({
-      name: c.label, value: suppliers.filter(s => s.status === k).length, color: c.color,
+    const supStatusData = Object.entries(SUP_STATUS_TKEYS).map(([k, tk]) => ({
+      name: t(tk), value: suppliers.filter(s => s.status === k).length, color: SUP_STATUS_COLORS[k],
     })).filter(d => d.value > 0);
 
     /* Job status donut */
-    const jobStatusData = Object.entries(JOB_STATUS_CFG).map(([k, c]) => ({
-      name: c.label, value: jobs.filter(j => j.status === k).length, color: c.color,
+    const jobStatusData = Object.entries(JOB_STATUS_TKEYS).map(([k, tk]) => ({
+      name: t(tk), value: jobs.filter(j => j.status === k).length, color: JOB_STATUS_COLORS[k],
     })).filter(d => d.value > 0);
 
     /* Monthly combined */
@@ -178,10 +174,13 @@ export default function ReportsPage() {
       ...jobs.map(j => toMonthKey(j.createdAt)),
     ].filter(Boolean))].sort((a, b) => toMonthSort(a) - toMonthSort(b));
 
+    const supKey = t('admin.suppliersTab');
+    const jobKey = t('admin.jobsTab');
+
     const monthlyCombo = allMonths.map(month => ({
       month,
-      موردون: suppliers.filter(s => toMonthKey(s.createdAt) === month).length,
-      وظائف:  jobs.filter(j => toMonthKey(j.createdAt) === month).length,
+      [supKey]: suppliers.filter(s => toMonthKey(s.createdAt) === month).length,
+      [jobKey]:  jobs.filter(j => toMonthKey(j.createdAt) === month).length,
     }));
 
     /* Supplier monthly */
@@ -213,7 +212,7 @@ export default function ReportsPage() {
       .map(([name, count]) => ({ name, count }));
 
     /* Job experience */
-    const expData = EXP_ORDER.map((label, i) => ({
+    const expData = EXP_ORDER.map((label) => ({
       name: label, count: jobs.filter(j => j.experience === label).length,
     })).filter(d => d.count > 0);
 
@@ -224,11 +223,11 @@ export default function ReportsPage() {
       .map(([name, count]) => ({ name, count }));
 
     return {
-      supStatusData, jobStatusData,
+      supStatusData, jobStatusData, supKey, jobKey,
       monthlyCombo, monthlySuppliers, monthlyJobs,
       activityData, supCityData, positionData, expData, jobCityData,
     };
-  }, [suppliers, jobs]);
+  }, [suppliers, jobs, _tmarker]);
 
   if (!data) {
     return (
@@ -247,9 +246,9 @@ export default function ReportsPage() {
   const approvalRate = S.length ? Math.round((approvedSup / S.length) * 100) : 0;
 
   const TABS = [
-    { id: 'overview',   label: 'نظرة عامة' },
-    { id: 'suppliers',  label: 'الموردون' },
-    { id: 'jobs',       label: 'الوظائف' },
+    { id: 'overview',   label: t('admin.overviewTab') },
+    { id: 'suppliers',  label: t('admin.suppliersTab') },
+    { id: 'jobs',       label: t('admin.jobsTab') },
   ];
 
   return (
@@ -259,9 +258,9 @@ export default function ReportsPage() {
         {/* ── Header ── */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-7">
           <div>
-            <h1 className="text-2xl font-bold text-white">التقارير والإحصائيات</h1>
+            <h1 className="text-2xl font-bold text-white">{t('admin.reportsTitle')}</h1>
             <p className="text-sm text-white/35 mt-1">
-              {S.length} مورد · {J.length} طلب توظيف
+              {S.length} {t('admin.suppliersTab')} · {J.length} {t('admin.totalJobsKPI')}
             </p>
           </div>
           {/* Tabs */}
@@ -284,14 +283,14 @@ export default function ReportsPage() {
           <div className="space-y-5">
             {/* KPIs */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              <KPI label="إجمالي الموردين"    value={S.length}       sub={`${approvalRate}% معدل قبول`} icon={Building2}   color={GOLD}   bg={`${GOLD}18`}   />
-              <KPI label="موردون مقبولون"     value={approvedSup}    sub="جاهزون للتعاون"              icon={CheckCircle} color={GREEN}  bg={`${GREEN}18`}  />
-              <KPI label="إجمالي الوظائف"    value={J.length}       sub="طلب تقديم"                   icon={Briefcase}   color={BLUE}   bg={`${BLUE}18`}   />
-              <KPI label="مقابلات محددة"      value={interviewJ}     sub="في انتظار المقابلة"          icon={Calendar}    color={AMBER}  bg={`${AMBER}18`}  />
+              <KPI label={t('admin.total')}              value={S.length}    sub={`${approvalRate}% ${t('admin.approvalRateKPI')}`} icon={Building2}   color={GOLD}   bg={`${GOLD}18`}   />
+              <KPI label={t('admin.approvedSuppliersKPI')} value={approvedSup} sub={t('admin.readyToCollab')}                       icon={CheckCircle} color={GREEN}  bg={`${GREEN}18`}  />
+              <KPI label={t('admin.totalJobsKPI')}       value={J.length}    sub={t('admin.jobAppUnit')}                           icon={Briefcase}   color={BLUE}   bg={`${BLUE}18`}   />
+              <KPI label={t('admin.scheduledInterviews')} value={interviewJ}  sub={t('admin.awaitingInterview')}                    icon={Calendar}    color={AMBER}  bg={`${AMBER}18`}  />
             </div>
 
             {/* Combined monthly trend */}
-            <ChartCard title="الحركة الشهرية" subtitle="مقارنة طلبات الموردين والتوظيف">
+            <ChartCard title={t('admin.monthlyActivity')} subtitle={t('admin.monthlyCompSub')}>
               {data.monthlyCombo.length === 0 ? <Empty /> : (
                 <ResponsiveContainer width="100%" height={280}>
                   <AreaChart data={data.monthlyCombo} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -310,8 +309,8 @@ export default function ReportsPage() {
                     <YAxis tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10 }} axisLine={false} tickLine={false} allowDecimals={false} />
                     <Tooltip content={<Tip />} />
                     <Legend wrapperStyle={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', paddingTop: 12 }} />
-                    <Area type="monotone" dataKey="موردون" stroke={GOLD} strokeWidth={2.5} fill="url(#gradGold)" dot={false} activeDot={{ r: 5, fill: GOLD }} />
-                    <Area type="monotone" dataKey="وظائف"  stroke={BLUE} strokeWidth={2.5} fill="url(#gradBlue)" dot={false} activeDot={{ r: 5, fill: BLUE }} />
+                    <Area type="monotone" dataKey={data.supKey} stroke={GOLD} strokeWidth={2.5} fill="url(#gradGold)" dot={false} activeDot={{ r: 5, fill: GOLD }} />
+                    <Area type="monotone" dataKey={data.jobKey}  stroke={BLUE} strokeWidth={2.5} fill="url(#gradBlue)" dot={false} activeDot={{ r: 5, fill: BLUE }} />
                   </AreaChart>
                 </ResponsiveContainer>
               )}
@@ -319,10 +318,10 @@ export default function ReportsPage() {
 
             {/* Side-by-side donuts */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <ChartCard title="توزيع حالات الموردين">
-                {data.supStatusData.length === 0 ? <Empty /> : (
+              <ChartCard title={t('admin.statusDistTitle')}>
+                {data.supStatusData.length === 0 ? <Empty msg={t('admin.reportNoData')} /> : (
                   <>
-                    <DonutChart data={data.supStatusData} total={S.length} />
+                    <DonutChart data={data.supStatusData} total={S.length} totalLabel={t('admin.totalScoreLabel')} />
                     <div className="flex flex-wrap gap-x-4 gap-y-1.5 mt-2">
                       {data.supStatusData.map((d, i) => (
                         <div key={i} className="flex items-center gap-1.5">
@@ -335,10 +334,10 @@ export default function ReportsPage() {
                 )}
               </ChartCard>
 
-              <ChartCard title="توزيع حالات الوظائف">
-                {data.jobStatusData.length === 0 ? <Empty /> : (
+              <ChartCard title={`${t('admin.jobsTab')} — ${t('admin.statusDistTitle')}`}>
+                {data.jobStatusData.length === 0 ? <Empty msg={t('admin.reportNoData')} /> : (
                   <>
-                    <DonutChart data={data.jobStatusData} total={J.length} />
+                    <DonutChart data={data.jobStatusData} total={J.length} totalLabel={t('admin.totalScoreLabel')} />
                     <div className="flex flex-wrap gap-x-4 gap-y-1.5 mt-2">
                       {data.jobStatusData.map((d, i) => (
                         <div key={i} className="flex items-center gap-1.5">
@@ -359,15 +358,15 @@ export default function ReportsPage() {
           <div className="space-y-5">
             {/* Supplier KPIs */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              <KPI label="الإجمالي"         value={S.length}                                              icon={Building2}   color={GOLD}   bg={`${GOLD}18`}   />
-              <KPI label="جديد"             value={S.filter(s=>s.status==='new').length}                  icon={TrendingUp}  color={BLUE}   bg={`${BLUE}18`}   />
-              <KPI label="مقبول"            value={approvedSup}                                           icon={CheckCircle} color={GREEN}  bg={`${GREEN}18`}  />
-              <KPI label="قيد المراجعة"     value={S.filter(s=>s.status==='under_review').length}         icon={Clock}       color={AMBER}  bg={`${AMBER}18`}  />
+              <KPI label={t('admin.total')}            value={S.length}                                     icon={Building2}   color={GOLD}   bg={`${GOLD}18`}   />
+              <KPI label={t('admin.new')}              value={S.filter(s=>s.status==='new').length}         icon={TrendingUp}  color={BLUE}   bg={`${BLUE}18`}   />
+              <KPI label={t('admin.approved')}         value={approvedSup}                                  icon={CheckCircle} color={GREEN}  bg={`${GREEN}18`}  />
+              <KPI label={t('admin.underReview')}      value={S.filter(s=>s.status==='under_review').length} icon={Clock}      color={AMBER}  bg={`${AMBER}18`}  />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
               {/* Monthly suppliers */}
-              <ChartCard title="التسجيل الشهري" subtitle="عدد الموردين الجدد كل شهر">
+              <ChartCard title={t('admin.monthlySupTitle')} subtitle={t('admin.newSupPerMonth')}>
                 {data.monthlySuppliers.length === 0 ? <Empty /> : (
                   <ResponsiveContainer width="100%" height={240}>
                     <AreaChart data={data.monthlySuppliers} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -388,10 +387,10 @@ export default function ReportsPage() {
               </ChartCard>
 
               {/* Status donut */}
-              <ChartCard title="توزيع الحالات">
-                {data.supStatusData.length === 0 ? <Empty /> : (
+              <ChartCard title={t('admin.statusDistTitle')}>
+                {data.supStatusData.length === 0 ? <Empty msg={t('admin.reportNoData')} /> : (
                   <>
-                    <DonutChart data={data.supStatusData} total={S.length} />
+                    <DonutChart data={data.supStatusData} total={S.length} totalLabel={t('admin.totalScoreLabel')} />
                     <div className="flex flex-wrap gap-x-4 gap-y-1.5 mt-1">
                       {data.supStatusData.map((d, i) => (
                         <div key={i} className="flex items-center gap-1.5">
@@ -407,14 +406,14 @@ export default function ReportsPage() {
 
             {/* Activity + City rank bars */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-              <ChartCard title="أبرز المجالات" subtitle="توزيع موردين حسب النشاط">
-                {data.activityData.length === 0 ? <Empty /> : (
+              <ChartCard title={t('admin.topActivitiesTitle')} subtitle={t('admin.activitiesBySup')}>
+                {data.activityData.length === 0 ? <Empty msg={t('admin.reportNoData')} /> : (
                   <RankBar items={data.activityData} colorFn={i => CHART_COLORS[i % CHART_COLORS.length]} />
                 )}
               </ChartCard>
 
-              <ChartCard title="أبرز المدن" subtitle="توزيع موردين حسب المدينة">
-                {data.supCityData.length === 0 ? <Empty /> : (
+              <ChartCard title={t('admin.topCitiesTitle')} subtitle={t('admin.citiesBySup')}>
+                {data.supCityData.length === 0 ? <Empty msg={t('admin.reportNoData')} /> : (
                   <RankBar items={data.supCityData} colorFn={i => CHART_COLORS[(i + 2) % CHART_COLORS.length]} />
                 )}
               </ChartCard>
@@ -422,7 +421,7 @@ export default function ReportsPage() {
 
             {/* Horizontal bar — activities */}
             {data.activityData.length > 0 && (
-              <ChartCard title="المجالات بالتفصيل">
+              <ChartCard title={t('admin.activitiesDetailTitle')}>
                 <ResponsiveContainer width="100%" height={Math.max(220, data.activityData.length * 36)}>
                   <BarChart data={data.activityData} layout="vertical" margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
                     <XAxis type="number" tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10 }} axisLine={false} tickLine={false} allowDecimals={false} />
@@ -443,15 +442,15 @@ export default function ReportsPage() {
           <div className="space-y-5">
             {/* Jobs KPIs */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              <KPI label="الإجمالي"         value={J.length}                                                   icon={Briefcase}   color={BLUE}   bg={`${BLUE}18`}   />
-              <KPI label="جديد"             value={J.filter(j=>j.status==='pending').length}                   icon={TrendingUp}  color={GOLD}   bg={`${GOLD}18`}   />
-              <KPI label="مقابلات محددة"    value={interviewJ}                                                 icon={Calendar}    color={AMBER}  bg={`${AMBER}18`}  />
-              <KPI label="مرفوض"            value={J.filter(j=>j.status==='rejected').length}                  icon={XCircle}     color={RED}    bg={`${RED}18`}    />
+              <KPI label={t('admin.totalJobsKPI')}         value={J.length}                                    icon={Briefcase}   color={BLUE}   bg={`${BLUE}18`}   />
+              <KPI label={t('admin.new')}                  value={J.filter(j=>j.status==='pending').length}    icon={TrendingUp}  color={GOLD}   bg={`${GOLD}18`}   />
+              <KPI label={t('admin.scheduledInterviews')}  value={interviewJ}                                  icon={Calendar}    color={AMBER}  bg={`${AMBER}18`}  />
+              <KPI label={t('admin.rejected')}             value={J.filter(j=>j.status==='rejected').length}   icon={XCircle}     color={RED}    bg={`${RED}18`}    />
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
               {/* Monthly jobs */}
-              <ChartCard title="الطلبات الشهرية" subtitle="عدد طلبات التوظيف كل شهر">
+              <ChartCard title={t('admin.monthlyJobTitle')} subtitle={t('admin.jobsPerMonthSub')}>
                 {data.monthlyJobs.length === 0 ? <Empty /> : (
                   <ResponsiveContainer width="100%" height={240}>
                     <AreaChart data={data.monthlyJobs} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -472,10 +471,10 @@ export default function ReportsPage() {
               </ChartCard>
 
               {/* Job status donut */}
-              <ChartCard title="توزيع الحالات">
-                {data.jobStatusData.length === 0 ? <Empty /> : (
+              <ChartCard title={t('admin.statusDistTitle')}>
+                {data.jobStatusData.length === 0 ? <Empty msg={t('admin.reportNoData')} /> : (
                   <>
-                    <DonutChart data={data.jobStatusData} total={J.length} />
+                    <DonutChart data={data.jobStatusData} total={J.length} totalLabel={t('admin.totalScoreLabel')} />
                     <div className="flex flex-wrap gap-x-4 gap-y-1.5 mt-1">
                       {data.jobStatusData.map((d, i) => (
                         <div key={i} className="flex items-center gap-1.5">
@@ -491,7 +490,7 @@ export default function ReportsPage() {
 
             {/* Experience levels bar */}
             {data.expData.length > 0 && (
-              <ChartCard title="توزيع سنوات الخبرة" subtitle="عدد المتقدمين حسب مستوى الخبرة">
+              <ChartCard title={t('admin.expDistTitle')} subtitle={t('admin.expByApplicantSub')}>
                 <ResponsiveContainer width="100%" height={220}>
                   <BarChart data={data.expData} margin={{ top: 5, right: 20, left: -20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
@@ -508,14 +507,14 @@ export default function ReportsPage() {
 
             {/* Positions + Cities rank bars */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-              <ChartCard title="أبرز الوظائف المطلوبة" subtitle="المسميات الوظيفية الأكثر تقديماً">
-                {data.positionData.length === 0 ? <Empty /> : (
+              <ChartCard title={t('admin.topPositionsTitle')} subtitle={t('admin.positionsByApplicantSub')}>
+                {data.positionData.length === 0 ? <Empty msg={t('admin.reportNoData')} /> : (
                   <RankBar items={data.positionData} colorFn={i => CHART_COLORS[i % CHART_COLORS.length]} />
                 )}
               </ChartCard>
 
-              <ChartCard title="مدن المتقدمين" subtitle="توزيع طلبات التوظيف حسب المدينة">
-                {data.jobCityData.length === 0 ? <Empty /> : (
+              <ChartCard title={t('admin.applicantsCitiesTitle')} subtitle={t('admin.citiesByApplicantSub')}>
+                {data.jobCityData.length === 0 ? <Empty msg={t('admin.reportNoData')} /> : (
                   <RankBar items={data.jobCityData} colorFn={i => CHART_COLORS[(i + 3) % CHART_COLORS.length]} />
                 )}
               </ChartCard>

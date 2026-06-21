@@ -176,7 +176,7 @@ export default function JobsPage() {
           <Link href="/admin/jobs/approved"
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#c8a96e]/10 border border-[#c8a96e]/25 text-[#c8a96e] text-xs font-bold hover:bg-[#c8a96e]/18 transition-all">
             <CalendarCheck size={14} />
-            المقبولون ({totalAccepted})
+            {t('admin.acceptedCount')} ({totalAccepted})
           </Link>
         </div>
 
@@ -184,17 +184,17 @@ export default function JobsPage() {
         <div className="grid grid-cols-3 gap-3 mb-6">
           <div className="bg-white/[0.02] border border-white/[0.07] rounded-xl p-4 text-center">
             <p className="text-2xl font-black" style={{ color: '#3b82f6' }}>{totalPending}</p>
-            <p className="text-white/35 text-[11px] mt-1">طلبات جديدة</p>
+            <p className="text-white/35 text-[11px] mt-1">{t('admin.newApps')}</p>
           </div>
           <div className="bg-white/[0.02] border border-white/[0.07] rounded-xl p-4 text-center">
             <p className="text-2xl font-black" style={{ color: '#f59e0b' }}>{totalAccepted}</p>
-            <p className="text-white/35 text-[11px] mt-1">مقبولون</p>
+            <p className="text-white/35 text-[11px] mt-1">{t('admin.acceptedCount')}</p>
           </div>
           <Link href="/admin/jobs/best"
             className="bg-white/[0.02] border border-[#c8a96e]/25 rounded-xl p-4 text-center hover:bg-[#c8a96e]/8 hover:border-[#c8a96e]/45 transition-all group">
             <p className="text-2xl font-black" style={{ color: '#c8a96e' }}>{bestMatches || apps.length}</p>
             <p className="text-white/35 text-[11px] mt-1 flex items-center justify-center gap-1 group-hover:text-[#c8a96e]/70 transition-colors">
-              <Star size={11} className="text-[#c8a96e]" /> أفضل مرشح
+              <Star size={11} className="text-[#c8a96e]" /> {t('admin.bestMatchLabel')}
             </p>
           </Link>
         </div>
@@ -218,7 +218,7 @@ export default function JobsPage() {
             <button onClick={() => setAgentOn(v => !v)}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold border transition-all ${agentOn ? 'bg-purple-500/15 text-purple-300 border-purple-500/35' : 'text-white/40 border-white/8 hover:text-purple-300/70'}`}>
               <Sparkles size={12} />
-              الترتيب الذكي
+              {agentOn ? t('admin.agentOnLabel') : t('admin.agentOffLabel')}
             </button>
           </div>
         </div>
@@ -245,7 +245,7 @@ export default function JobsPage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-white/[0.06]">
-                    {['المتقدم', 'الوظيفة', 'الخبرة', 'المدينة', 'التاريخ', 'الحالة', 'الإجراءات'].map(h => (
+                    {[t('admin.applicantName'), t('admin.positionApplied'), t('admin.experienceYears'), t('admin.cityColLabel'), t('admin.submittedCol'), t('admin.statusCol'), t('admin.actionsCol')].map(h => (
                       <th key={h} className="px-4 py-3 text-white/35 font-semibold text-xs text-start">{h}</th>
                     ))}
                   </tr>
@@ -259,7 +259,7 @@ export default function JobsPage() {
                           <div className="flex items-center gap-2">
                             {agentOn && bestIds.has(app.id) && (
                               <span className="text-[10px] font-black text-purple-300 bg-purple-500/15 border border-purple-500/25 rounded-full px-1.5 py-0.5 flex items-center gap-0.5 shrink-0">
-                                <Star size={8} className="fill-purple-300" /> أفضل
+                                <Star size={8} className="fill-purple-300" /> {t('admin.bestBadge')}
                               </span>
                             )}
                             <div>
@@ -347,12 +347,12 @@ export default function JobsPage() {
             <div className="px-6 py-5 space-y-4 max-h-[70vh] overflow-y-auto">
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { icon: <Mail size={12} />,     label: 'البريد الإلكتروني', value: viewApp.email },
-                  { icon: <Phone size={12} />,    label: 'رقم الهاتف',       value: viewApp.phone },
-                  { icon: <MapPin size={12} />,   label: 'المدينة',          value: viewApp.city || '—' },
-                  { icon: <Clock size={12} />,    label: 'سنوات الخبرة',    value: viewApp.experience || '—' },
-                  { icon: <Briefcase size={12} />,label: 'الوظيفة',          value: viewApp.position },
-                  { icon: <Calendar size={12} />, label: 'تاريخ التقديم',   value: viewApp.createdAt?.seconds ? new Date(viewApp.createdAt.seconds * 1000).toLocaleDateString('ar-SA') : '—' },
+                  { icon: <Mail size={12} />,     label: t('admin.emailLabel'),       value: viewApp.email },
+                  { icon: <Phone size={12} />,    label: t('admin.phoneCol'),         value: viewApp.phone },
+                  { icon: <MapPin size={12} />,   label: t('admin.cityColLabel'),     value: viewApp.city || '—' },
+                  { icon: <Clock size={12} />,    label: t('admin.experienceYears'),  value: viewApp.experience || '—' },
+                  { icon: <Briefcase size={12} />,label: t('admin.positionApplied'),  value: viewApp.position },
+                  { icon: <Calendar size={12} />, label: t('admin.submittedCol'),     value: viewApp.createdAt?.seconds ? new Date(viewApp.createdAt.seconds * 1000).toLocaleDateString('en-GB') : '—' },
                 ].map(row => (
                   <div key={row.label} className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3">
                     <div className="flex items-center gap-1.5 text-[#c8a96e] mb-1.5">
@@ -371,21 +371,21 @@ export default function JobsPage() {
                   <div className="bg-purple-500/8 border border-purple-500/20 rounded-xl p-4">
                     <div className="flex items-center gap-2 mb-3">
                       <Sparkles size={13} className="text-purple-400" />
-                      <span className="text-purple-300 text-xs font-bold">تقييم الذكاء الاصطناعي</span>
-                      {bestIds.has(viewApp.id) && <span className="text-[10px] font-black text-purple-300 bg-purple-500/20 rounded-full px-2 py-0.5">⭐ أفضل مرشح</span>}
+                      <span className="text-purple-300 text-xs font-bold">{t('admin.aiScoreTitle')}</span>
+                      {bestIds.has(viewApp.id) && <span className="text-[10px] font-black text-purple-300 bg-purple-500/20 rounded-full px-2 py-0.5">⭐ {t('admin.bestMatchBadge')}</span>}
                     </div>
                     <div className="grid grid-cols-3 gap-2 text-center">
                       <div>
                         <p className="text-purple-300 font-black text-lg">{sc.expScore}</p>
-                        <p className="text-white/30 text-[10px]">درجة الخبرة</p>
+                        <p className="text-white/30 text-[10px]">{t('admin.expScoreLabel')}</p>
                       </div>
                       <div>
                         <p className="text-purple-300 font-black text-lg">{sc.cityScore}</p>
-                        <p className="text-white/30 text-[10px]">درجة المدينة</p>
+                        <p className="text-white/30 text-[10px]">{t('admin.locScoreLabel')}</p>
                       </div>
                       <div>
                         <p className="text-[#c8a96e] font-black text-lg">{sc.total}</p>
-                        <p className="text-white/30 text-[10px]">الإجمالي</p>
+                        <p className="text-white/30 text-[10px]">{t('admin.totalScoreLabel')}</p>
                       </div>
                     </div>
                   </div>
@@ -395,7 +395,7 @@ export default function JobsPage() {
               {/* Cover letter */}
               {viewApp.coverLetter && (
                 <div className="space-y-2">
-                  <p className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest">رسالة التقديم</p>
+                  <p className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest">{t('admin.coverLetterAdmin')}</p>
                   <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-4">
                     <p className="text-white/65 text-xs leading-relaxed whitespace-pre-wrap">{viewApp.coverLetter}</p>
                   </div>
@@ -407,7 +407,7 @@ export default function JobsPage() {
                 <a href={viewApp.cvUrl} target="_blank" rel="noreferrer" download
                   className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#c8a96e]/10 border border-[#c8a96e]/25 text-[#c8a96e] text-sm font-bold hover:bg-[#c8a96e]/18 transition-all">
                   <Download size={15} />
-                  تحميل السيرة الذاتية
+                  {t('admin.downloadCV')}
                 </a>
               )}
             </div>
@@ -416,13 +416,13 @@ export default function JobsPage() {
             <div className="px-6 py-4 border-t border-white/[0.07] flex gap-3">
               <button onClick={closeViewDialog}
                 className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-semibold hover:text-white hover:border-white/20 transition-all">
-                إغلاق
+                {t('admin.back')}
               </button>
               {viewApp.status !== 'interview_scheduled' && viewApp.status !== 'rejected' && (
                 <button onClick={() => { closeViewDialog(); openDialog(viewApp); }}
                   className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black text-sm font-black flex items-center justify-center gap-2 hover:opacity-90 transition-all">
                   <CheckCircle size={15} />
-                  جدولة مقابلة
+                  {t('admin.scheduleInterview')}
                 </button>
               )}
             </div>

@@ -1,13 +1,27 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import { Phone, Mail, MapPin, Send, ChevronDown, ArrowLeft, Truck } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 export default function ContactPage() {
   const { t, lang, isRTL } = useLanguage();
+  const { data: cms } = useSiteContent('contact');
+
+  const phone1   = cms?.phone1    || '0598242385';
+  const phone2   = cms?.phone2    || '0505649859';
+  const email    = cms?.email     || '1@marwannazer.com';
+  const whatsapp = cms?.whatsapp  || '966598242385';
+  const addrAr   = cms?.address_ar || t('contactPage.address');
+  const addrEn   = cms?.address_en || 'Jeddah, Saudi Arabia';
+  const daysAr   = cms?.days_ar   || t('contact.days');
+  const hoursAr  = cms?.hours_ar  || t('contact.time');
+  const daysEn   = cms?.days_en   || '';
+  const hoursEn  = cms?.hours_en  || '';
 
   return (
     <main className="min-h-screen bg-[var(--background)] font-cairo text-white">
@@ -76,7 +90,7 @@ export default function ContactPage() {
             <div className="space-y-4 hidden lg:block" data-aos="fade-left" data-aos-delay="150">
               {/* Phone */}
               <a
-                href="tel:0598242385"
+                href={`tel:${phone1}`}
                 className="flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 hover:border-secondary/40 hover:bg-white/8 transition-all duration-300 group"
               >
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-secondary/10 border border-secondary/20 shrink-0 group-hover:bg-secondary/20 transition-colors">
@@ -84,13 +98,13 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-secondary text-[10px] font-bold uppercase tracking-widest mb-1">{t('contact.phone')}</p>
-                  <p className="text-white font-bold text-base">0598242385 – 0505649859</p>
+                  <p className="text-white font-bold text-base">{phone1}{phone2 && ` – ${phone2}`}</p>
                 </div>
               </a>
 
               {/* Email */}
               <a
-                href="mailto:1@marwannazer.com"
+                href={`mailto:${email}`}
                 className="flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 hover:border-secondary/40 hover:bg-white/8 transition-all duration-300 group"
               >
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-secondary/10 border border-secondary/20 shrink-0 group-hover:bg-secondary/20 transition-colors">
@@ -98,7 +112,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-secondary text-[10px] font-bold uppercase tracking-widest mb-1">{t('contact.email')}</p>
-                  <p className="text-white font-bold text-base">1@marwannazer.com</p>
+                  <p className="text-white font-bold text-base">{email}</p>
                 </div>
               </a>
 
@@ -109,15 +123,15 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-secondary text-[10px] font-bold uppercase tracking-widest mb-1">{t('contact.location')}</p>
-                  <p className="text-white font-semibold text-sm leading-relaxed max-w-xs">{t('contactPage.address')}</p>
+                  <p className="text-white font-semibold text-sm leading-relaxed max-w-xs">{isRTL ? addrAr : (addrEn || addrAr)}</p>
                 </div>
               </div>
 
               {/* Hours */}
               <div className="bg-gradient-to-r from-secondary/12 to-secondary/5 border border-secondary/25 rounded-2xl p-5">
                 <p className="text-secondary text-[10px] font-bold uppercase tracking-widest mb-2">{t('contact.hours')}</p>
-                <p className="text-white font-bold">{t('contact.days')}</p>
-                <p className="text-white/55 text-sm mt-1">{t('contact.time')}</p>
+                <p className="text-white font-bold">{isRTL ? daysAr : (daysEn || daysAr)}</p>
+                <p className="text-white/55 text-sm mt-1">{isRTL ? hoursAr : (hoursEn || hoursAr)}</p>
               </div>
 
               {/* Supplier CTA */}

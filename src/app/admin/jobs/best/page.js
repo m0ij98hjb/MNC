@@ -7,7 +7,7 @@ import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import Link from 'next/link';
 import {
   ArrowLeft, ArrowRight, Star, Trophy, Medal, Award,
-  MapPin, Briefcase, Phone, Mail, Download, Sparkles,
+  MapPin, Briefcase, Download, Sparkles,
   Clock, TrendingUp,
 } from 'lucide-react';
 
@@ -30,14 +30,13 @@ function scoreApp(app) {
   return { expScore, cityScore, total: expScore + cityScore };
 }
 
-const RANK_CFG = [
-  { icon: Trophy, color: '#f59e0b', bg: 'rgba(245,158,11,0.12)', border: 'rgba(245,158,11,0.3)',  label: 'الأول',  ring: '#f59e0b' },
-  { icon: Medal,  color: '#94a3b8', bg: 'rgba(148,163,184,0.10)', border: 'rgba(148,163,184,0.25)', label: 'الثاني', ring: '#94a3b8' },
-  { icon: Award,  color: '#c8a96e', bg: 'rgba(200,169,110,0.10)', border: 'rgba(200,169,110,0.25)', label: 'الثالث', ring: '#c8a96e' },
-];
+const RANK_COLORS = ['#f59e0b', '#94a3b8', '#c8a96e'];
+const RANK_ICONS  = [Trophy, Medal, Award];
+const RANK_BG     = ['rgba(245,158,11,0.12)', 'rgba(148,163,184,0.10)', 'rgba(200,169,110,0.10)'];
+const RANK_BORDER = ['rgba(245,158,11,0.3)', 'rgba(148,163,184,0.25)', 'rgba(200,169,110,0.25)'];
 
 export default function BestJobsPage() {
-  const { isRTL } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const BackIcon = isRTL ? ArrowRight : ArrowLeft;
 
   const [apps, setApps] = useState(null);
@@ -57,6 +56,8 @@ export default function BestJobsPage() {
   }, [apps]);
 
   const maxScore = ranked[0]?._sc.total ?? 0;
+
+  const rankLabels = [t('admin.rankFirst'), t('admin.rankSecond'), t('admin.rankThird')];
 
   if (!apps) {
     return (
@@ -83,39 +84,36 @@ export default function BestJobsPage() {
           <div>
             <div className="flex items-center gap-2">
               <Sparkles size={16} className="text-purple-400" />
-              <h1 className="text-xl font-bold text-white">أفضل المرشحين للوظائف</h1>
+              <h1 className="text-xl font-bold text-white">{t('admin.bestJobsPageTitle')}</h1>
             </div>
-            <p className="text-xs text-white/35 mt-0.5">مرتبون حسب تقييم الأيجنت · {ranked.length} مرشح</p>
+            <p className="text-xs text-white/35 mt-0.5">{t('admin.bestJobsPageSub')} · {ranked.length}</p>
           </div>
         </div>
 
         {ranked.length === 0 ? (
-          <div className="text-center py-20 text-white/20">لا توجد طلبات بعد</div>
+          <div className="text-center py-20 text-white/20">{t('admin.noApplicationsYet')}</div>
         ) : (
           <>
             {/* ── Podium top 3 ── */}
             {top3.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                 {top3.map((app, i) => {
-                  const cfg = RANK_CFG[i];
-                  const RankIcon = cfg.icon;
-                  const pct = maxScore > 0 ? Math.round((app._sc.total / maxScore) * 100) : 0;
+                  const color    = RANK_COLORS[i];
+                  const RankIcon = RANK_ICONS[i];
                   return (
                     <div key={app.id}
                       className={`rounded-2xl p-5 relative overflow-hidden ${i === 0 ? 'sm:order-2' : i === 1 ? 'sm:order-1' : 'sm:order-3'}`}
-                      style={{ background: cfg.bg, border: `1px solid ${cfg.border}` }}>
-                      {/* Rank badge */}
+                      style={{ background: RANK_BG[i], border: `1px solid ${RANK_BORDER[i]}` }}>
                       <div className="flex items-center justify-between mb-4">
-                        <span className="text-xs font-bold" style={{ color: cfg.color }}>{cfg.label}</span>
-                        <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: cfg.bg, border: `1.5px solid ${cfg.border}` }}>
-                          <RankIcon size={15} style={{ color: cfg.color }} />
+                        <span className="text-xs font-bold" style={{ color }}>{rankLabels[i]}</span>
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: RANK_BG[i], border: `1.5px solid ${RANK_BORDER[i]}` }}>
+                          <RankIcon size={15} style={{ color }} />
                         </div>
                       </div>
 
-                      {/* Avatar circle */}
                       <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3"
-                        style={{ background: `${cfg.color}18`, border: `2px solid ${cfg.ring}50` }}>
-                        <span className="text-xl font-black" style={{ color: cfg.color }}>
+                        style={{ background: `${color}18`, border: `2px solid ${color}50` }}>
+                        <span className="text-xl font-black" style={{ color }}>
                           {(app.fullName || '?')[0]}
                         </span>
                       </div>
@@ -136,22 +134,20 @@ export default function BestJobsPage() {
                         )}
                       </div>
 
-                      {/* Score bar */}
                       <div className="mt-4">
                         <div className="flex justify-between text-[10px] mb-1">
-                          <span className="text-white/30">التقييم</span>
-                          <span className="font-black" style={{ color: cfg.color }}>{app._sc.total} / 125</span>
+                          <span className="text-white/30">{t('admin.scoreLabel')}</span>
+                          <span className="font-black" style={{ color }}>{app._sc.total} / 125</span>
                         </div>
                         <div className="h-1.5 rounded-full bg-white/8 overflow-hidden">
                           <div className="h-full rounded-full transition-all duration-700"
-                            style={{ width: `${(app._sc.total / 125) * 100}%`, background: cfg.color }} />
+                            style={{ width: `${(app._sc.total / 125) * 100}%`, background: color }} />
                         </div>
                       </div>
 
-                      {/* Glow effect for rank 1 */}
                       {i === 0 && (
                         <div className="absolute -bottom-6 -end-6 w-24 h-24 rounded-full opacity-20 blur-2xl pointer-events-none"
-                          style={{ background: cfg.color }} />
+                          style={{ background: color }} />
                       )}
                     </div>
                   );
@@ -164,7 +160,7 @@ export default function BestJobsPage() {
               <div className="px-5 py-3.5 border-b border-white/[0.06]">
                 <h2 className="text-sm font-semibold text-white flex items-center gap-2">
                   <TrendingUp size={14} className="text-purple-400" />
-                  الترتيب الكامل
+                  {t('admin.fullRankingTitle')}
                 </h2>
               </div>
 
@@ -172,11 +168,11 @@ export default function BestJobsPage() {
                 {ranked.map((app, i) => {
                   const isTop = app._sc.total === maxScore;
                   const pct   = maxScore > 0 ? (app._sc.total / 125) * 100 : 0;
+                  const color = RANK_COLORS[i] ?? '#a78bfa';
                   return (
                     <div key={app.id}
                       className={`flex items-center gap-4 px-5 py-3.5 ${isTop ? 'bg-amber-500/[0.04]' : 'hover:bg-white/[0.02]'} transition-colors`}>
 
-                      {/* Rank number */}
                       <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-black shrink-0 ${
                         i === 0 ? 'bg-amber-500/20 text-amber-400' :
                         i === 1 ? 'bg-slate-500/20 text-slate-400' :
@@ -186,56 +182,47 @@ export default function BestJobsPage() {
                         {i + 1}
                       </div>
 
-                      {/* Name + details */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <p className="text-sm font-semibold text-white truncate">{app.fullName}</p>
                           {isTop && (
                             <span className="text-[9px] font-black text-amber-400 bg-amber-500/15 border border-amber-500/25 rounded-full px-1.5 py-0.5 shrink-0 flex items-center gap-0.5">
-                              <Star size={7} className="fill-amber-400" /> أفضل
+                              <Star size={7} className="fill-amber-400" /> {t('admin.bestBadge')}
                             </span>
                           )}
                         </div>
                         <div className="flex items-center gap-3 mt-0.5">
-                          {app.position && <span className="text-[11px] text-white/35 flex items-center gap-1"><Briefcase size={9}/>{app.position}</span>}
-                          {app.city     && <span className="text-[11px] text-white/35 flex items-center gap-1"><MapPin size={9}/>{app.city}</span>}
+                          {app.position   && <span className="text-[11px] text-white/35 flex items-center gap-1"><Briefcase size={9}/>{app.position}</span>}
+                          {app.city       && <span className="text-[11px] text-white/35 flex items-center gap-1"><MapPin size={9}/>{app.city}</span>}
                           {app.experience && <span className="text-[11px] text-white/35 flex items-center gap-1"><Clock size={9}/>{app.experience}</span>}
                         </div>
                       </div>
 
-                      {/* Score breakdown */}
                       <div className="hidden sm:flex items-center gap-3 shrink-0">
                         <div className="text-center">
-                          <p className="text-[10px] text-white/25">خبرة</p>
+                          <p className="text-[10px] text-white/25">{t('admin.expScoreLabel')}</p>
                           <p className="text-xs font-bold text-purple-300">{app._sc.expScore}</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-[10px] text-white/25">موقع</p>
+                          <p className="text-[10px] text-white/25">{t('admin.locScoreLabel')}</p>
                           <p className="text-xs font-bold text-purple-300">{app._sc.cityScore}</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-[10px] text-white/25">الإجمالي</p>
-                          <p className="text-sm font-black" style={{ color: i === 0 ? '#f59e0b' : i === 1 ? '#94a3b8' : i === 2 ? '#c8a96e' : '#a78bfa' }}>
-                            {app._sc.total}
-                          </p>
+                          <p className="text-[10px] text-white/25">{t('admin.totalScoreLabel')}</p>
+                          <p className="text-sm font-black" style={{ color }}>{app._sc.total}</p>
                         </div>
                       </div>
 
-                      {/* Progress bar */}
                       <div className="hidden md:block w-24 shrink-0">
                         <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
-                          <div className="h-full rounded-full"
-                            style={{
-                              width: `${pct}%`,
-                              background: i === 0 ? '#f59e0b' : i === 1 ? '#94a3b8' : i === 2 ? '#c8a96e' : '#a78bfa'
-                            }} />
+                          <div className="h-full rounded-full" style={{ width: `${pct}%`, background: color }} />
                         </div>
                       </div>
 
-                      {/* CV button */}
                       {app.cvUrl && (
                         <a href={app.cvUrl} target="_blank" rel="noopener noreferrer"
-                          className="flex items-center justify-center w-8 h-8 rounded-lg border border-[#c8a96e]/25 text-[#c8a96e]/60 hover:text-[#c8a96e] hover:border-[#c8a96e]/50 hover:bg-[#c8a96e]/8 transition-all shrink-0">
+                          className="flex items-center justify-center w-8 h-8 rounded-lg border border-[#c8a96e]/25 text-[#c8a96e]/60 hover:text-[#c8a96e] hover:border-[#c8a96e]/50 hover:bg-[#c8a96e]/8 transition-all shrink-0"
+                          title={t('admin.downloadCV')}>
                           <Download size={13} />
                         </a>
                       )}
