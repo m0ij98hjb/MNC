@@ -182,16 +182,21 @@ export default function JobsPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-3 mb-6">
-          {[
-            { label: 'طلبات جديدة', value: totalPending, color: '#3b82f6' },
-            { label: 'مقبولون',     value: totalAccepted, color: '#f59e0b' },
-            { label: 'أفضل مرشح',  value: bestMatches,   color: '#c8a96e', icon: <Star size={11} /> },
-          ].map(s => (
-            <div key={s.label} className="bg-white/[0.02] border border-white/[0.07] rounded-xl p-4 text-center">
-              <p className="text-2xl font-black" style={{ color: s.color }}>{s.value}</p>
-              <p className="text-white/35 text-[11px] mt-1 flex items-center justify-center gap-1">{s.icon}{s.label}</p>
-            </div>
-          ))}
+          <div className="bg-white/[0.02] border border-white/[0.07] rounded-xl p-4 text-center">
+            <p className="text-2xl font-black" style={{ color: '#3b82f6' }}>{totalPending}</p>
+            <p className="text-white/35 text-[11px] mt-1">طلبات جديدة</p>
+          </div>
+          <div className="bg-white/[0.02] border border-white/[0.07] rounded-xl p-4 text-center">
+            <p className="text-2xl font-black" style={{ color: '#f59e0b' }}>{totalAccepted}</p>
+            <p className="text-white/35 text-[11px] mt-1">مقبولون</p>
+          </div>
+          <Link href="/admin/jobs/best"
+            className="bg-white/[0.02] border border-[#c8a96e]/25 rounded-xl p-4 text-center hover:bg-[#c8a96e]/8 hover:border-[#c8a96e]/45 transition-all group">
+            <p className="text-2xl font-black" style={{ color: '#c8a96e' }}>{bestMatches || apps.length}</p>
+            <p className="text-white/35 text-[11px] mt-1 flex items-center justify-center gap-1 group-hover:text-[#c8a96e]/70 transition-colors">
+              <Star size={11} className="text-[#c8a96e]" /> أفضل مرشح
+            </p>
+          </Link>
         </div>
 
         {/* Filters + Agent toggle */}

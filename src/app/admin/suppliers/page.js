@@ -75,7 +75,7 @@ export default function SuppliersListPage() {
     return unsub;
   }, []);
 
-  const visible = useMemo(() => {
+  const { visible, bestIds } = useMemo(() => {
     let list = suppliers.filter(s => {
       const matchStatus = filter === 'all' || s.status === filter;
       const q = search.toLowerCase();
@@ -87,10 +87,16 @@ export default function SuppliersListPage() {
         s.activity?.toLowerCase().includes(q);
       return matchStatus && matchSearch;
     });
-    if (agentOn) {
-      list = [...list].sort((a, b) => scoreSupplier(b).total - scoreSupplier(a).total);
-    }
-    return list;
+
+    if (!agentOn) return { visible: list, bestIds: new Set() };
+
+    const scored   = list.map(s => ({ id: s.id, total: scoreSupplier(s).total }));
+    const maxTotal = scored.reduce((m, s) => Math.max(m, s.total), 0);
+    const bestIds  = new Set(
+      maxTotal > 0 ? scored.filter(s => s.total === maxTotal).map(s => s.id) : []
+    );
+    const sorted = [...list].sort((a, b) => scoreSupplier(b).total - scoreSupplier(a).total);
+    return { visible: sorted, bestIds };
   }, [suppliers, filter, search, agentOn]);
 
   const updateStatus = async (id, status) => {
@@ -140,7 +146,7 @@ export default function SuppliersListPage() {
   };
 
   /* stats */
-  const bestMatches = suppliers.filter(s => scoreSupplier(s).isBestMatch).length;
+  const bestMatches = bestIds.size || suppliers.length;
 
   return (
     <AdminPageLayout>
@@ -149,12 +155,11 @@ export default function SuppliersListPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-white">{t('admin.suppliersMenu')}</h1>
-          {agentOn && (
-            <div className="px-3 py-1.5 bg-purple-500/10 border border-purple-500/25 rounded-xl text-purple-300 text-xs font-bold flex items-center gap-1.5">
-              <Star size={11} className="fill-purple-300" />
-              {bestMatches} أفضل مورد
-            </div>
-          )}
+          <Link href="/admin/suppliers/best"
+            className="px-3 py-1.5 bg-purple-500/10 border border-purple-500/25 rounded-xl text-purple-300 text-xs font-bold flex items-center gap-1.5 hover:bg-purple-500/18 hover:border-purple-500/40 transition-all">
+            <Star size={11} className="fill-purple-300" />
+            أفضل الموردين
+          </Link>
         </div>
 
         {/* Filters + Agent */}
@@ -224,11 +229,11 @@ export default function SuppliersListPage() {
                   {visible.map(s => {
                     const sc = scoreSupplier(s);
                     return (
-                      <tr key={s.id} className={`hover:bg-white/[0.02] transition-colors ${agentOn && sc.isBestMatch ? 'bg-purple-500/[0.025]' : ''}`}>
+                      <tr key={s.id} className={`hover:bg-white/[0.02] transition-colors ${agentOn && bestIds.has(s.id) ? 'bg-purple-500/[0.025]' : ''}`}>
                         {/* Company — first col = RIGHT in RTL */}
                         <td className="px-5 py-3.5">
                           <div className="flex items-center gap-2">
-                            {agentOn && sc.isBestMatch && (
+                            {agentOn && bestIds.has(s.id) && (
                               <span className="text-[10px] font-black text-purple-300 bg-purple-500/15 border border-purple-500/25 rounded-full px-1.5 py-0.5 flex items-center gap-0.5 shrink-0">
                                 <Star size={8} className="fill-purple-300" /> أفضل
                               </span>
