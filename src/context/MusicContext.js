@@ -9,8 +9,8 @@ export function MusicProvider({ children }) {
   const [isMusicReady, setIsMusicReady] = useState(false);
   const [musicUserPaused, setMusicUserPaused] = useState(false);
   const musicRef = useRef(null);
-  // tracks whether music was playing before voice started
   const wasMusicPlayingRef = useRef(false);
+  const musicUserPausedRef = useRef(false);
 
   useEffect(() => {
     const audio = new Audio('/assets/audio/divine-music.mp3');
@@ -19,19 +19,21 @@ export function MusicProvider({ children }) {
     musicRef.current = audio;
     setIsMusicReady(true);
 
+    const removeListeners = () => {
+      window.removeEventListener('click', onFirstInteraction);
+      window.removeEventListener('touchstart', onFirstInteraction);
+      window.removeEventListener('keydown', onFirstInteraction);
+    };
+
+    const onFirstInteraction = () => {
+      removeListeners();
+      if (!musicRef.current || musicUserPausedRef.current) return;
+      musicRef.current.play().then(() => setIsMusicPlaying(true)).catch(() => {});
+    };
+
     audio.play().then(() => {
       setIsMusicPlaying(true);
     }).catch(() => {
-      // Browser blocked autoplay — play on first user interaction
-      const onFirstInteraction = () => {
-        if (!musicRef.current) return;
-        musicRef.current.play().then(() => {
-          setIsMusicPlaying(true);
-        }).catch(() => {});
-        window.removeEventListener('click', onFirstInteraction);
-        window.removeEventListener('touchstart', onFirstInteraction);
-        window.removeEventListener('keydown', onFirstInteraction);
-      };
       window.addEventListener('click', onFirstInteraction);
       window.addEventListener('touchstart', onFirstInteraction);
       window.addEventListener('keydown', onFirstInteraction);
@@ -64,9 +66,11 @@ export function MusicProvider({ children }) {
   const toggleMusic = useCallback(() => {
     if (isMusicPlaying) {
       pauseMusic();
+      musicUserPausedRef.current = true;
       setMusicUserPaused(true);
     } else {
       playMusic();
+      musicUserPausedRef.current = false;
       setMusicUserPaused(false);
     }
   }, [isMusicPlaying, pauseMusic, playMusic]);
