@@ -3,11 +3,12 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
-import { LayoutDashboard, Users, CheckCircle, BarChart2, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, CheckCircle, BarChart2, LogOut, Briefcase } from 'lucide-react';
 
 const NAV_ITEMS = [
   { href: '/admin/dashboard', labelKey: 'admin.dashboard',     icon: LayoutDashboard },
   { href: '/admin/suppliers', labelKey: 'admin.suppliersMenu', icon: Users },
+  { href: '/admin/jobs',      labelKey: 'admin.jobsMenu',      icon: Briefcase },
   { href: '/admin/approved',  labelKey: 'admin.approvedMenu',  icon: CheckCircle },
   { href: '/admin/reports',   labelKey: 'admin.reportsMenu',   icon: BarChart2 },
 ];

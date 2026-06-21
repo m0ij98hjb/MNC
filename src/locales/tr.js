@@ -281,7 +281,16 @@ export const tr = {
       { key: "supervisor", title: "Şantiye Şefi",          dept: "Saha Uygulaması",     desc: "İnşaat çalışmalarının planlara uygun şekilde yürütülmesini takip ve kontrol etmek." },
       { key: "qty",        title: "Metraj Uzmanı",         dept: "Metraj & Maliyetler", desc: "Metraj listeleri hazırlamak, maliyetleri hesaplamak ve kaynakları denetlemek." },
       { key: "autocad",    title: "AutoCAD Tasarımcısı",   dept: "Teknik Çizim",        desc: "En son yazılımları kullanarak mühendislik planlarını profesyonelce çizmek ve düzenlemek." },
-      { key: "sales",      title: "Satış Müdürü",          dept: "Satış & İş",          desc: "İş geliştirmek, müşteri ilişkilerini yönetmek ve büyüme hedeflerine ulaşmak." }
+      { key: "sales",      title: "Satış Müdürü",          dept: "Satış & İş",          desc: "İş geliştirmek, müşteri ilişkilerini yönetmek ve büyüme hedeflerine ulaşmak." },
+      { key: "mech",       title: "Makine Mühendisi",       dept: "Makine Mühendisliği", desc: "İklimlendirme, sıhhi tesisat ve drenaj sistemlerini tasarlamak ve denetlemek." },
+      { key: "elec",       title: "Elektrik Mühendisi",     dept: "Elektrik Mühendisliği", desc: "İnşaat projelerinde elektrik sistemleri, aydınlatma ve güç çözümleri tasarlamak ve uygulamak." }
+    ],
+    trainingBadge: "Staj Programı",
+    trainingTitle: "Pratik Staj Fırsatları",
+    trainingDesc: "Mezunlar ve mühendislik öğrencileri için mükemmel bir eğitim ortamı sunuyoruz",
+    trainingPositions: [
+      { key: "intern_eng",    title: "Mühendislik Stajyeri", dept: "Pratik Eğitim", desc: "Mezunlar ve mühendislik öğrencileri için profesyonel bir ekiple çalışma programı." },
+      { key: "intern_design", title: "Tasarım Stajyeri",     dept: "Pratik Eğitim", desc: "Tasarım öğrencilerinin gerçek projelerde uzman gözetiminde eğitim alması fırsatı." }
     ],
     formBadge: "Başvuru Gönder",
     formTitle: "İş Başvuru Formu",

@@ -281,7 +281,16 @@ export const zh = {
       { key: "supervisor", title: "Site Supervisor",         dept: "Field Execution",      desc: "Follow up and monitor construction work execution ensuring conformity with drawings." },
       { key: "qty",        title: "Quantity Surveyor",       dept: "Quantities & Costs",   desc: "Prepare quantity schedules, calculate costs and oversee materials and resources." },
       { key: "autocad",    title: "AutoCAD Designer",        dept: "Engineering Drafting", desc: "Draw and modify engineering plans professionally using the latest software." },
-      { key: "sales",      title: "Sales Manager",           dept: "Sales & Business",     desc: "Develop business, manage client relationships, and achieve organizational growth targets." }
+      { key: "sales",      title: "销售经理",                  dept: "销售与业务",            desc: "发展业务、管理客户关系并实现组织增长目标。" },
+      { key: "mech",       title: "机械工程师",                dept: "机械工程",              desc: "设计和监督建筑项目中的暖通空调、管道和排水系统。" },
+      { key: "elec",       title: "电气工程师",                dept: "电气工程",              desc: "设计和实施建筑项目中的电气系统、照明和电力解决方案。" }
+    ],
+    trainingBadge: "培训计划",
+    trainingTitle: "实践培训机会",
+    trainingDesc: "我们为毕业生和工程专业学生提供卓越的培训环境，获得真实的实践经验",
+    trainingPositions: [
+      { key: "intern_eng",    title: "工程实习生", dept: "实践培训", desc: "为毕业生和工程专业学生提供与专业团队合作的培训计划。" },
+      { key: "intern_design", title: "设计实习生", dept: "实践培训", desc: "为建筑和室内设计专业学生提供在真实项目中培训的机会。" }
     ],
     formBadge: "Submit Application",
     formTitle: "Job Application Form",

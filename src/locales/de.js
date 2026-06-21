@@ -281,7 +281,16 @@ export const de = {
       { key: "supervisor", title: "Bauleiter vor Ort",         dept: "Ausführung vor Ort",   desc: "Überwachung und Kontrolle der Bauausführung gemäß den Plänen." },
       { key: "qty",        title: "Kostenplaner",              dept: "Mengen & Kosten",      desc: "Massenermittlungen erstellen, Kosten berechnen und Materialien überwachen." },
       { key: "autocad",    title: "AutoCAD-Designer",          dept: "Technisches Zeichnen", desc: "Ingenieurpläne professionell mit modernster Software zeichnen und bearbeiten." },
-      { key: "sales",      title: "Vertriebsleiter",           dept: "Vertrieb & Geschäft",  desc: "Geschäfte entwickeln, Kundenbeziehungen pflegen und Wachstumsziele erreichen." }
+      { key: "sales",      title: "Vertriebsleiter",           dept: "Vertrieb & Geschäft",  desc: "Geschäfte entwickeln, Kundenbeziehungen pflegen und Wachstumsziele erreichen." },
+      { key: "mech",       title: "Maschinenbauingenieur",     dept: "Maschinenbau",         desc: "Planung und Überwachung von HLK-, Sanitär- und Entwässerungssystemen." },
+      { key: "elec",       title: "Elektroingenieur",          dept: "Elektrotechnik",       desc: "Entwurf und Implementierung von Elektrosystemen, Beleuchtung und Energielösungen." }
+    ],
+    trainingBadge: "Ausbildungsprogramm",
+    trainingTitle: "Praktische Ausbildungsmöglichkeiten",
+    trainingDesc: "Wir bieten ein hervorragendes Ausbildungsumfeld für Absolventen und Ingenieurstudenten",
+    trainingPositions: [
+      { key: "intern_eng",    title: "Ingenieurpraktikant",  dept: "Praktische Ausbildung", desc: "Ausbildungsprogramm für Absolventen und Ingenieurstudenten." },
+      { key: "intern_design", title: "Designpraktikant",     dept: "Praktische Ausbildung", desc: "Möglichkeit für Designstudenten, an echten Projekten zu lernen." }
     ],
     formBadge: "Bewerbung einreichen",
     formTitle: "Bewerbungsformular",

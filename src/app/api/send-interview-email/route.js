@@ -1,0 +1,109 @@
+import nodemailer from 'nodemailer';
+
+export async function POST(req) {
+  try {
+    const { applicantName, applicantEmail, position, interviewDate, interviewTime, interviewType, interviewLocation, additionalMessage } = await req.json();
+
+    const transporter = nodemailer.createTransport({
+      host:   process.env.SMTP_HOST   || 'smtp.gmail.com',
+      port:   Number(process.env.SMTP_PORT || 587),
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+
+    const typeLabel = { in_person: 'حضوري', video: 'مكالمة فيديو', phone: 'مكالمة هاتفية' }[interviewType] || interviewType;
+
+    const html = `
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#0a0a0f;font-family:'Segoe UI',Arial,sans-serif;direction:rtl;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0f;padding:40px 20px;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="background:#111118;border-radius:20px;overflow:hidden;border:1px solid rgba(200,169,110,0.2);">
+        <!-- Header -->
+        <tr>
+          <td style="background:linear-gradient(135deg,#1a1408,#0a0a0f);padding:40px;text-align:center;border-bottom:1px solid rgba(200,169,110,0.15);">
+            <div style="width:64px;height:64px;background:rgba(184,146,58,0.15);border:1px solid rgba(184,146,58,0.4);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;">
+              <span style="font-size:28px;">🏗️</span>
+            </div>
+            <h1 style="color:#c8a96e;margin:0;font-size:22px;font-weight:900;letter-spacing:1px;">شركة MNC للإنشاءات</h1>
+            <p style="color:rgba(255,255,255,0.4);margin:8px 0 0;font-size:13px;">MNC Construction</p>
+          </td>
+        </tr>
+        <!-- Body -->
+        <tr>
+          <td style="padding:40px;">
+            <h2 style="color:#fff;font-size:20px;font-weight:800;margin:0 0 8px;">مبروك! تم قبول طلبك ✨</h2>
+            <p style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.8;margin:0 0 28px;">
+              عزيزي/عزيزتي <strong style="color:#c8a96e;">${applicantName}</strong>،<br/>
+              يسعدنا إخبارك أنه تم مراجعة طلب التوظيف المقدم لوظيفة
+              <strong style="color:#c8a96e;">${position}</strong>
+              وتم قبولك للمرحلة التالية.
+            </p>
+
+            <!-- Interview Details Card -->
+            <div style="background:rgba(184,146,58,0.06);border:1px solid rgba(184,146,58,0.2);border-radius:16px;padding:24px;margin-bottom:28px;">
+              <h3 style="color:#c8a96e;font-size:15px;font-weight:800;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(184,146,58,0.15);">
+                📅 تفاصيل المقابلة
+              </h3>
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding:8px 0;color:rgba(255,255,255,0.5);font-size:13px;width:140px;">📆 التاريخ</td>
+                  <td style="padding:8px 0;color:#fff;font-size:14px;font-weight:700;">${interviewDate}</td>
+                </tr>
+                <tr>
+                  <td style="padding:8px 0;color:rgba(255,255,255,0.5);font-size:13px;">🕐 الوقت</td>
+                  <td style="padding:8px 0;color:#fff;font-size:14px;font-weight:700;">${interviewTime}</td>
+                </tr>
+                <tr>
+                  <td style="padding:8px 0;color:rgba(255,255,255,0.5);font-size:13px;">📋 نوع المقابلة</td>
+                  <td style="padding:8px 0;color:#fff;font-size:14px;font-weight:700;">${typeLabel}</td>
+                </tr>
+                ${interviewLocation ? `
+                <tr>
+                  <td style="padding:8px 0;color:rgba(255,255,255,0.5);font-size:13px;">📍 الموقع / الرابط</td>
+                  <td style="padding:8px 0;color:#c8a96e;font-size:14px;font-weight:700;">${interviewLocation}</td>
+                </tr>` : ''}
+              </table>
+            </div>
+
+            ${additionalMessage ? `
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px;margin-bottom:28px;">
+              <p style="color:rgba(255,255,255,0.5);font-size:12px;font-weight:700;uppercase;letter-spacing:1px;margin:0 0 8px;">رسالة من فريق الموارد البشرية</p>
+              <p style="color:rgba(255,255,255,0.75);font-size:14px;line-height:1.8;margin:0;">${additionalMessage}</p>
+            </div>` : ''}
+
+            <p style="color:rgba(255,255,255,0.5);font-size:13px;line-height:1.8;margin:0;">
+              نرجو التأكد من الحضور في الموعد المحدد. إذا كانت لديك أي استفسارات، يرجى التواصل معنا عبر الرد على هذا البريد الإلكتروني.
+            </p>
+          </td>
+        </tr>
+        <!-- Footer -->
+        <tr>
+          <td style="background:rgba(0,0,0,0.3);padding:24px 40px;text-align:center;border-top:1px solid rgba(255,255,255,0.05);">
+            <p style="color:rgba(255,255,255,0.25);font-size:12px;margin:0;">شركة MNC للإنشاءات — جدة، المملكة العربية السعودية</p>
+          </td>
+        </tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+
+    await transporter.sendMail({
+      from: `"MNC للإنشاءات" <${process.env.SMTP_USER}>`,
+      to:      applicantEmail,
+      subject: `دعوة مقابلة — ${position} | MNC Construction`,
+      html,
+    });
+
+    return Response.json({ success: true });
+  } catch (err) {
+    console.error('[send-interview-email]', err);
+    return Response.json({ success: false, error: err.message }, { status: 500 });
+  }
+}

@@ -281,7 +281,16 @@ export const es = {
       { key: "supervisor", title: "Supervisor de Obra",       dept: "Ejecución en Campo",    desc: "Supervisar la ejecución de obras de construcción conforme a los planos." },
       { key: "qty",        title: "Medidor de Cantidades",    dept: "Cantidades y Costos",   desc: "Elaborar cómputos métricos, calcular costos y supervisar materiales." },
       { key: "autocad",    title: "Diseñador AutoCAD",        dept: "Dibujo de Ingeniería",  desc: "Dibujar y modificar planos de ingeniería con el último software." },
-      { key: "sales",      title: "Gerente de Ventas",        dept: "Ventas y Negocios",     desc: "Desarrollar negocios, gestionar relaciones con clientes y alcanzar objetivos de crecimiento." }
+      { key: "sales",      title: "Gerente de Ventas",        dept: "Ventas y Negocios",     desc: "Desarrollar negocios, gestionar relaciones con clientes y alcanzar objetivos de crecimiento." },
+      { key: "mech",       title: "Ingeniero Mecánico",        dept: "Ingeniería Mecánica",   desc: "Diseñar y supervisar sistemas de HVAC, plomería y drenaje en proyectos de construcción." },
+      { key: "elec",       title: "Ingeniero Eléctrico",       dept: "Ingeniería Eléctrica",  desc: "Diseñar e implementar sistemas eléctricos, iluminación y soluciones de energía." }
+    ],
+    trainingBadge: "Programa de Prácticas",
+    trainingTitle: "Oportunidades de Prácticas",
+    trainingDesc: "Ofrecemos un excelente entorno de formación para graduados y estudiantes de ingeniería",
+    trainingPositions: [
+      { key: "intern_eng",    title: "Pasante de Ingeniería", dept: "Prácticas", desc: "Programa de prácticas para trabajar con un equipo profesional especializado." },
+      { key: "intern_design", title: "Pasante de Diseño",     dept: "Prácticas", desc: "Oportunidad para estudiantes de diseño de capacitarse en proyectos reales." }
     ],
     formBadge: "Enviar Solicitud",
     formTitle: "Formulario de Solicitud de Empleo",

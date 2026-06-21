@@ -5,13 +5,14 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import {
   LayoutDashboard, Users, CheckCircle, BarChart2,
-  ChevronRight, ChevronLeft, LogOut
+  ChevronRight, ChevronLeft, LogOut, Briefcase
 } from 'lucide-react';
 import Image from 'next/image';
 
 const NAV_ITEMS = [
   { href: '/admin/dashboard', labelKey: 'admin.dashboard',     icon: LayoutDashboard },
   { href: '/admin/suppliers', labelKey: 'admin.suppliersMenu', icon: Users },
+  { href: '/admin/jobs',      labelKey: 'admin.jobsMenu',      icon: Briefcase },
   { href: '/admin/approved',  labelKey: 'admin.approvedMenu',  icon: CheckCircle },
   { href: '/admin/reports',   labelKey: 'admin.reportsMenu',   icon: BarChart2 },
 ];

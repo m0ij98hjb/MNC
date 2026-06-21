@@ -281,7 +281,16 @@ export const fr = {
       { key: "supervisor", title: "Superviseur de Chantier",  dept: "Exécution sur Terrain", desc: "Surveiller et contrôler l'exécution des travaux de construction conformément aux plans." },
       { key: "qty",        title: "Métreur",                  dept: "Quantités & Coûts",     desc: "Préparer les métrés, calculer les coûts et superviser les matériaux et ressources." },
       { key: "autocad",    title: "Dessinateur AutoCAD",      dept: "Dessin Technique",      desc: "Dessiner et modifier des plans d'ingénierie professionnellement avec les derniers logiciels." },
-      { key: "sales",      title: "Directeur Commercial",     dept: "Ventes & Affaires",     desc: "Développer les affaires, gérer les relations clients et atteindre les objectifs de croissance." }
+      { key: "sales",      title: "Directeur Commercial",     dept: "Ventes & Affaires",     desc: "Développer les affaires, gérer les relations clients et atteindre les objectifs de croissance." },
+      { key: "mech",       title: "Ingénieur Mécanique",       dept: "Génie Mécanique",       desc: "Concevoir et superviser les systèmes CVC, plomberie et drainage dans les projets de construction." },
+      { key: "elec",       title: "Ingénieur Électricien",     dept: "Génie Électrique",      desc: "Concevoir et mettre en œuvre les systèmes électriques, d'éclairage et d'alimentation." }
+    ],
+    trainingBadge: "Programme de Formation",
+    trainingTitle: "Opportunités de Stage Pratique",
+    trainingDesc: "Nous offrons un environnement de formation exceptionnel aux diplômés et étudiants en ingénierie",
+    trainingPositions: [
+      { key: "intern_eng",    title: "Stagiaire Ingénierie", dept: "Formation Pratique", desc: "Programme de formation pour travailler avec une équipe professionnelle spécialisée." },
+      { key: "intern_design", title: "Stagiaire Design",     dept: "Formation Pratique", desc: "Opportunité pour les étudiants en design de se former sur de vrais projets." }
     ],
     formBadge: "Soumettre une Candidature",
     formTitle: "Formulaire de Candidature",
