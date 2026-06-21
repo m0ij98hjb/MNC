@@ -34,6 +34,7 @@ export default function CareersPage() {
   const [fullName, setFullName]                 = useState("");
   const [phone, setPhone]                       = useState("");
   const [email, setEmail]                       = useState("");
+  const [city, setCity]                         = useState("");
   const [coverLetter, setCoverLetter]           = useState("");
   const [cvFile, setCvFile]                     = useState(null);
   const [isDragging, setIsDragging]             = useState(false);
@@ -81,6 +82,7 @@ export default function CareersPage() {
         fullName,
         phone,
         email,
+        city,
         position: selectedPosition,
         experience,
         coverLetter,
@@ -106,6 +108,7 @@ export default function CareersPage() {
     setFullName("");
     setPhone("");
     setEmail("");
+    setCity("");
     setCoverLetter("");
     setCvFile(null);
     setSubmitError("");
@@ -331,12 +334,20 @@ export default function CareersPage() {
                   </div>
                 </div>
 
-                {/* Email */}
-                <div className="space-y-2">
-                  <label className="text-[#B8923A] text-[11px] font-black uppercase tracking-widest block">{t("careers.email")}</label>
-                  <input type="email" required value={email} onChange={e => setEmail(e.target.value)}
-                    placeholder={t("careers.emailPlaceholder")}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/25 focus:border-[#B8923A]/60 focus:bg-black/60 outline-none transition-all duration-300" />
+                {/* Email + City */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="space-y-2">
+                    <label className="text-[#B8923A] text-[11px] font-black uppercase tracking-widest block">{t("careers.email")}</label>
+                    <input type="email" required value={email} onChange={e => setEmail(e.target.value)}
+                      placeholder={t("careers.emailPlaceholder")}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/25 focus:border-[#B8923A]/60 focus:bg-black/60 outline-none transition-all duration-300" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[#B8923A] text-[11px] font-black uppercase tracking-widest block">{t("careers.city")}</label>
+                    <input type="text" required value={city} onChange={e => setCity(e.target.value)}
+                      placeholder={t("careers.cityPlaceholder")}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/25 focus:border-[#B8923A]/60 focus:bg-black/60 outline-none transition-all duration-300" />
+                  </div>
                 </div>
 
                 {/* Position + Experience */}

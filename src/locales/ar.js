@@ -313,7 +313,9 @@ export const ar = {
     expOptions: ["أقل من سنة", "1 – 3 سنوات", "3 – 5 سنوات", "5 – 10 سنوات", "أكثر من 10 سنوات"],
     namePlaceholder: "أدخل اسمك الكامل",
     emailPlaceholder: "example@email.com",
-    phonePlaceholder: "05xxxxxxxx"
+    phonePlaceholder: "05xxxxxxxx",
+    city: "المدينة",
+    cityPlaceholder: "مثال: جدة"
   }
 ,
   suppliers: {
