@@ -5,7 +5,6 @@ import { db } from '@/lib/firebase';
 import { useLanguage } from '@/context/LanguageContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import Link from 'next/link';
-import { useNotifications } from '@/context/NotificationsContext';
 import {
   Search, Trash2, CheckCircle, XCircle, Loader2,
   X, Phone, Mail, Briefcase, FileText, Clock,
@@ -56,7 +55,6 @@ function scoreApp(app) {
 /* ─── Main page ─── */
 export default function JobsPage() {
   const { t, isRTL } = useLanguage();
-  const { markSeen } = useNotifications() ?? { markSeen: () => {} };
   const [apps, setApps]           = useState([]);
   const [filter, setFilter]       = useState('all');
   const [search, setSearch]       = useState('');
@@ -66,7 +64,7 @@ export default function JobsPage() {
 
   /* View dialog */
   const [viewApp, setViewApp]     = useState(null);
-  const openViewApp = (app) => { setViewApp(app); markSeen(app.id); };
+  const openViewApp = (app) => setViewApp(app);
 
   /* Accept dialog */
   const [dialogApp, setDialogApp]                   = useState(null);

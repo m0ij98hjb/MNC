@@ -28,7 +28,7 @@ export default function AdminNavbar() {
   const userRef = useRef(null);
   const bellRef = useRef(null);
 
-  const { allNew, unreadCount, markSeen } = useNotifications() ?? { allNew: [], unreadCount: 0, markSeen: () => {} };
+  const { allNotifications = [], unreadCount = 0, markBellOpened } = useNotifications() ?? {};
 
   useEffect(() => {
     const handler = (e) => {
@@ -147,7 +147,11 @@ export default function AdminNavbar() {
           {/* ── Bell Notifications ── */}
           <div className="relative" ref={bellRef}>
             <button
-              onClick={() => setIsBellOpen(v => !v)}
+              onClick={() => {
+                const opening = !isBellOpen;
+                setIsBellOpen(opening);
+                if (opening && markBellOpened) markBellOpened();
+              }}
               className="relative flex items-center justify-center w-9 h-9 rounded-lg border border-[#C9A34D]/22 text-white/50 hover:text-white hover:bg-white/6 hover:border-white/20 transition-all duration-250 active:scale-95 flex-shrink-0"
             >
               <Bell size={16} />
@@ -177,16 +181,16 @@ export default function AdminNavbar() {
 
               {/* List */}
               <div className="max-h-[360px] overflow-y-auto divide-y divide-white/[0.05]">
-                {allNew.length === 0 ? (
+                {allNotifications.length === 0 ? (
                   <div className="text-center py-8">
                     <Bell size={22} className="text-white/10 mx-auto mb-2" />
                     <p className="text-white/25 text-xs">لا توجد إشعارات جديدة</p>
                   </div>
-                ) : allNew.map(n => (
+                ) : allNotifications.map(n => (
                   <Link
                     key={n.id}
                     href={n.type === 'supplier' ? `/admin/suppliers/${n.id}` : '/admin/jobs'}
-                    onClick={() => { markSeen(n.id); setIsBellOpen(false); }}
+                    onClick={() => setIsBellOpen(false)}
                     className="flex items-start gap-3 px-4 py-3 hover:bg-white/[0.04] transition-colors"
                   >
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${n.type === 'supplier' ? 'bg-blue-500/12 border border-blue-500/25' : 'bg-[#c8a96e]/12 border border-[#c8a96e]/25'}`}>
@@ -211,7 +215,7 @@ export default function AdminNavbar() {
               </div>
 
               {/* Footer */}
-              {allNew.length > 0 && (
+              {allNotifications.length > 0 && (
                 <div className="border-t border-white/[0.06] px-4 py-2.5 flex gap-2">
                   <Link href="/admin/suppliers" onClick={() => setIsBellOpen(false)}
                     className="flex-1 text-center text-[11px] text-blue-400/70 hover:text-blue-400 transition-colors font-semibold">

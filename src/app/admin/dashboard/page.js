@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useLanguage } from '@/context/LanguageContext';
-import { useNotifications } from '@/context/NotificationsContext';
 import {
   Users, Clock, CheckCircle, XCircle, TrendingUp,
   Briefcase, Building2, ArrowLeft, ArrowRight, CalendarCheck,
@@ -35,7 +34,6 @@ function StatCard({ label, value, icon: Icon, color, bg, href }) {
 
 export default function DashboardPage() {
   const { t, isRTL } = useLanguage();
-  const { markSeen } = useNotifications() ?? { markSeen: () => {} };
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   const [supplierCounts, setSupplierCounts] = useState({ total: 0, new: 0, under_review: 0, approved: 0, rejected: 0 });
@@ -134,8 +132,7 @@ export default function DashboardPage() {
                 <Link
                   key={s.id}
                   href={`/admin/suppliers/${s.id}`}
-                  onClick={() => markSeen(s.id)}
-                  className="flex items-center justify-between px-5 py-3 hover:bg-white/[0.03] transition-colors group"
+                                    className="flex items-center justify-between px-5 py-3 hover:bg-white/[0.03] transition-colors group"
                 >
                   <div className="min-w-0 flex-1">
                     <p className="text-sm text-white font-medium truncate group-hover:text-[#c8a96e] transition-colors">{s.companyName}</p>
@@ -174,8 +171,7 @@ export default function DashboardPage() {
                   <Link
                     key={j.id}
                     href="/admin/jobs"
-                    onClick={() => markSeen(j.id)}
-                    className="flex items-center justify-between px-5 py-3 hover:bg-white/[0.03] transition-colors group"
+                                        className="flex items-center justify-between px-5 py-3 hover:bg-white/[0.03] transition-colors group"
                   >
                     <div className="min-w-0 flex-1">
                       <p className="text-sm text-white font-medium truncate group-hover:text-[#c8a96e] transition-colors">{j.fullName}</p>

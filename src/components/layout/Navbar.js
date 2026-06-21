@@ -4,10 +4,11 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users, Smartphone, UserCircle, UserCog, LogOut, LayoutDashboard } from "lucide-react";
+import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users, Smartphone, UserCircle, UserCog, LogOut, LayoutDashboard, Bell, Building2 } from "lucide-react";
 import { useLanguage, LANGUAGES } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useAuth } from "@/context/AuthContext";
+import { useNotifications } from "@/context/NotificationsContext";
 import { HiDocumentText } from "react-icons/hi";
 
 const Navbar = () => {
@@ -16,17 +17,21 @@ const Navbar = () => {
   const [isMobileLangOpen, setIsMobileLangOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [isBellOpen, setIsBellOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const { lang, setLang, t, isRTL } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const { user, logout } = useAuth();
+  const notif = useNotifications();
+  const { allNotifications = [], unreadCount = 0, markBellOpened } = notif ?? {};
   const isLightMode = theme === 'dark';
   const isAdmin = user !== null && user !== undefined;
   const isAdminPage = pathname.startsWith('/admin');
   const langDropdownRef = useRef(null);
   const adminDropdownRef = useRef(null);
+  const bellDropdownRef = useRef(null);
   const logoTapCount = useRef(0);
   const logoTapTimer = useRef(null);
 
@@ -43,6 +48,9 @@ const Navbar = () => {
       }
       if (adminDropdownRef.current && !adminDropdownRef.current.contains(e.target)) {
         setIsAdminOpen(false);
+      }
+      if (bellDropdownRef.current && !bellDropdownRef.current.contains(e.target)) {
+        setIsBellOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -215,6 +223,87 @@ const Navbar = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Bell Notifications — admin pages only */}
+                {isAdminPage && notif && (
+                  <div className="relative" ref={bellDropdownRef}>
+                    <button
+                      onClick={() => {
+                        const opening = !isBellOpen;
+                        setIsBellOpen(opening);
+                        if (opening && markBellOpened) markBellOpened();
+                      }}
+                      className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D]/70 hover:text-[#D5B25D] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 active:scale-95"
+                    >
+                      <Bell size={15} />
+                      {unreadCount > 0 && (
+                        <span className="absolute -top-1.5 -end-1.5 min-w-[17px] h-[17px] px-0.5 rounded-full bg-red-500 text-white text-[9px] font-black flex items-center justify-center leading-none shadow-lg shadow-red-500/40">
+                          {unreadCount > 99 ? '99+' : unreadCount}
+                        </span>
+                      )}
+                    </button>
+
+                    {/* Bell dropdown */}
+                    <div
+                      className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[300px] rounded-2xl overflow-hidden z-50 transition-all duration-250 ${
+                        isBellOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
+                      }`}
+                      style={{ background: '#0b1320', border: '1px solid rgba(201,163,77,0.14)', boxShadow: '0 20px 60px rgba(0,0,0,0.88)' }}
+                    >
+                      <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.07]">
+                        <p className="text-white text-xs font-bold">الإشعارات</p>
+                        {unreadCount > 0 && (
+                          <span className="text-[10px] font-bold text-red-400 bg-red-500/10 rounded-full px-2 py-0.5">
+                            {unreadCount} جديد
+                          </span>
+                        )}
+                      </div>
+                      <div className="max-h-[340px] overflow-y-auto divide-y divide-white/[0.05]">
+                        {allNotifications.length === 0 ? (
+                          <div className="text-center py-8">
+                            <Bell size={20} className="text-white/10 mx-auto mb-2" />
+                            <p className="text-white/25 text-xs">لا توجد إشعارات جديدة</p>
+                          </div>
+                        ) : allNotifications.map(n => (
+                          <Link
+                            key={n.id}
+                            href={n.type === 'supplier' ? `/admin/suppliers/${n.id}` : '/admin/jobs'}
+                            onClick={() => setIsBellOpen(false)}
+                            className="flex items-start gap-3 px-4 py-3 hover:bg-white/[0.04] transition-colors"
+                          >
+                            <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${n.type === 'supplier' ? 'bg-blue-500/12 border border-blue-500/25' : 'bg-[#c8a96e]/12 border border-[#c8a96e]/25'}`}>
+                              {n.type === 'supplier'
+                                ? <Building2 size={12} className="text-blue-400" />
+                                : <Briefcase size={12} className="text-[#c8a96e]" />}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-white text-xs font-semibold truncate">
+                                {n.type === 'supplier' ? n.companyName : n.fullName}
+                              </p>
+                              <p className="text-white/40 text-[11px] mt-0.5 truncate">
+                                {n.type === 'supplier' ? `طلب مورد جديد · ${n.activity || ''}` : `طلب وظيفة · ${n.position || ''}`}
+                              </p>
+                            </div>
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#c8a96e]/60 shrink-0 mt-1.5" />
+                          </Link>
+                        ))}
+                      </div>
+                      {allNotifications.length > 0 && (
+                        <div className="border-t border-white/[0.06] px-4 py-2.5 flex gap-2">
+                          <Link href="/admin/suppliers" onClick={() => setIsBellOpen(false)}
+                            className="flex-1 text-center text-[11px] text-blue-400/70 hover:text-blue-400 transition-colors font-semibold">
+                            الموردون
+                          </Link>
+                          <div className="w-px bg-white/10" />
+                          <Link href="/admin/jobs" onClick={() => setIsBellOpen(false)}
+                            className="flex-1 text-center text-[11px] text-[#c8a96e]/70 hover:text-[#c8a96e] transition-colors font-semibold">
+                            الوظائف
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
 
                 {/* Portfolio icon — only when browsing site pages (not /admin/*) */}
                 {!isAdminPage && (
