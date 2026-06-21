@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { MusicProvider } from "@/context/MusicContext";
 import { AuthProvider } from "@/context/AuthContext";
 import AdminShortcut from "@/components/AdminShortcut";
+import MusicTapOverlay from "@/components/ui/MusicTapOverlay";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -41,6 +42,7 @@ export default function RootLayout({ children }) {
             <MusicProvider>
               <AOSInit />
               <AdminShortcut />
+              <MusicTapOverlay />
               <VoicePresentation />
               {children}
               <FloatingContact />

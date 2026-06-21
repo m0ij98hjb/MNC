@@ -8,6 +8,7 @@ export function MusicProvider({ children }) {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [isMusicReady, setIsMusicReady] = useState(false);
   const [musicUserPaused, setMusicUserPaused] = useState(false);
+  const [needsInteraction, setNeedsInteraction] = useState(false);
   const musicRef = useRef(null);
   const wasMusicPlayingRef = useRef(false);
   const musicUserPausedRef = useRef(false);
@@ -24,6 +25,7 @@ export function MusicProvider({ children }) {
       window.removeEventListener('touchstart', onFirstInteraction);
       window.removeEventListener('touchend', onFirstInteraction);
       window.removeEventListener('keydown', onFirstInteraction);
+      setNeedsInteraction(false);
       if (!musicRef.current || musicUserPausedRef.current) return;
       musicRef.current.play().then(() => setIsMusicPlaying(true)).catch(() => {});
     };
@@ -31,6 +33,7 @@ export function MusicProvider({ children }) {
     audio.play().then(() => {
       setIsMusicPlaying(true);
     }).catch(() => {
+      setNeedsInteraction(true);
       window.addEventListener('click', onFirstInteraction);
       window.addEventListener('touchstart', onFirstInteraction, { passive: true });
       window.addEventListener('touchend', onFirstInteraction, { passive: true });
@@ -102,6 +105,7 @@ export function MusicProvider({ children }) {
     <MusicContext.Provider value={{
       isMusicPlaying,
       isMusicReady,
+      needsInteraction,
       toggleMusic,
       playMusic,
       pauseMusic,
