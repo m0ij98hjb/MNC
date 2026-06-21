@@ -159,7 +159,7 @@ export default function AdminNavbar() {
                 style={{ boxShadow: '0 0 0 1.5px rgba(201,163,77,0.45)' }}
               >
                 <Image
-                  src="/asstes/director.jpg"
+                  src="/asstes/directort.png"
                   alt="Director"
                   fill
                   sizes="32px"
@@ -190,7 +190,7 @@ export default function AdminNavbar() {
                   className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0"
                   style={{ boxShadow: '0 0 0 1.5px rgba(201,163,77,0.4)' }}
                 >
-                  <Image src="/asstes/director.jpg" alt="Director" fill sizes="40px" className="object-cover object-top" />
+                  <Image src="/asstes/directort.png" alt="Director" fill sizes="40px" className="object-cover object-top" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-[12px] font-bold text-white leading-none truncate">{t('admin.managerTitle')}</p>

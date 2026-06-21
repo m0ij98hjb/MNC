@@ -47,7 +47,7 @@ export default function AdminSidebar() {
             style={{ boxShadow: 'inset 0 0 0 2px rgba(200,169,110,0.25)' }}
           />
           <Image
-            src="/asstes/director.jpg"
+            src="/asstes/directort.png"
             alt="Director"
             fill
             sizes="72px"
