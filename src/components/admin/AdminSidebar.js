@@ -57,7 +57,7 @@ export default function AdminSidebar() {
         </div>
         {/* Name + role */}
         <p className="text-[13px] font-bold text-[#c8a96e] leading-tight text-center">
-          {t('admin.managerTitle')}
+          م. مروان أحمد ناظر
         </p>
         {/* Gold underline */}
         <div className="mt-2.5 w-8 h-[1.5px] rounded-full bg-gradient-to-r from-transparent via-[#c8a96e]/50 to-transparent" />
