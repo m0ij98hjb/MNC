@@ -19,6 +19,24 @@ export function MusicProvider({ children }) {
     musicRef.current = audio;
     setIsMusicReady(true);
 
+    audio.play().then(() => {
+      setIsMusicPlaying(true);
+    }).catch(() => {
+      // Browser blocked autoplay — play on first user interaction
+      const onFirstInteraction = () => {
+        if (!musicRef.current) return;
+        musicRef.current.play().then(() => {
+          setIsMusicPlaying(true);
+        }).catch(() => {});
+        window.removeEventListener('click', onFirstInteraction);
+        window.removeEventListener('touchstart', onFirstInteraction);
+        window.removeEventListener('keydown', onFirstInteraction);
+      };
+      window.addEventListener('click', onFirstInteraction);
+      window.addEventListener('touchstart', onFirstInteraction);
+      window.addEventListener('keydown', onFirstInteraction);
+    });
+
     return () => {
       if (musicRef.current) {
         musicRef.current.pause();
