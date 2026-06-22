@@ -18,6 +18,9 @@ export async function POST(req) {
 
     const typeLabel = { in_person: 'حضوري', video: 'مكالمة فيديو', phone: 'مكالمة هاتفية' }[interviewType] || interviewType;
 
+    const { protocol, host } = new URL(req.url);
+    const baseUrl = `${protocol}//${host}`;
+
     const html = `
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
@@ -29,8 +32,8 @@ export async function POST(req) {
         <!-- Header -->
         <tr>
           <td style="background:linear-gradient(135deg,#1a1408,#0a0a0f);padding:40px;text-align:center;border-bottom:1px solid rgba(200,169,110,0.15);">
-            <div style="width:64px;height:64px;background:rgba(184,146,58,0.15);border:1px solid rgba(184,146,58,0.4);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;">
-              <span style="font-size:28px;">🏗️</span>
+            <div style="display:inline-block;background:#ffffff;border-radius:14px;padding:10px 18px;margin-bottom:18px;">
+              <img src="${baseUrl}/asstes/logo-navbar.png" alt="MNC" width="160" style="display:block;max-height:60px;width:auto;" />
             </div>
             <h1 style="color:#c8a96e;margin:0;font-size:22px;font-weight:900;letter-spacing:1px;">شركة MNC للإنشاءات</h1>
             <p style="color:rgba(255,255,255,0.4);margin:8px 0 0;font-size:13px;">MNC Construction</p>
