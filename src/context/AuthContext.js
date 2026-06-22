@@ -3,6 +3,8 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 
+const SUPER_ADMIN_EMAILS = ['mm5329844@gmail.com'];
+
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
@@ -25,8 +27,10 @@ export function AuthProvider({ children }) {
 
   const logout = () => signOut(auth);
 
+  const isSuperAdmin = user ? SUPER_ADMIN_EMAILS.includes(user.email) : false;
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, error, setError }}>
+    <AuthContext.Provider value={{ user, login, logout, error, setError, isSuperAdmin }}>
       {children}
     </AuthContext.Provider>
   );

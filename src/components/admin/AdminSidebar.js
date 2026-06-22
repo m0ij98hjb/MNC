@@ -17,7 +17,7 @@ import {
 
 const NAV_ITEMS = [
   { href: '/admin/dashboard', labelKey: 'admin.dashboard',     icon: LayoutDashboard },
-  { href: '/admin/content',   label: 'إدارة المحتوى',         icon: PenSquare },
+  { href: '/admin/content',   label: 'إدارة المحتوى',         icon: PenSquare, superAdminOnly: true },
   { href: '/admin/suppliers', labelKey: 'admin.suppliersMenu', icon: Users },
   { href: '/admin/jobs',      labelKey: 'admin.jobsMenu',      icon: Briefcase },
   { href: '/admin/approved',  labelKey: 'admin.approvedMenu',  icon: CheckCircle },
@@ -28,7 +28,7 @@ export default function AdminSidebar() {
   const pathname      = usePathname();
   const router        = useRouter();
   const { t, isRTL } = useLanguage();
-  const { logout }    = useAuth();
+  const { logout, isSuperAdmin } = useAuth();
   const directorPhoto = useDirectorPhoto();
 
   const [isModalOpen,  setIsModalOpen]  = useState(false);
@@ -71,34 +71,53 @@ export default function AdminSidebar() {
       >
         {/* Director profile */}
         <div className="flex flex-col items-center px-4 pt-5 pb-4 border-b border-white/[0.06]">
-          {/* Photo — click to open modal */}
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="relative w-[72px] h-[72px] rounded-full overflow-hidden mb-3 group focus:outline-none"
-            style={{ boxShadow: '0 0 0 2px rgba(200,169,110,0.35), 0 4px 20px rgba(0,0,0,0.5)' }}
-            title="تغيير الصورة"
-          >
+          {/* Photo — click to open modal (director only) */}
+          {isSuperAdmin ? (
             <div
-              className="absolute inset-0 rounded-full z-10"
-              style={{ boxShadow: 'inset 0 0 0 2px rgba(200,169,110,0.25)' }}
-            />
-            <Image
-              src={directorPhoto}
-              alt="Director"
-              fill
-              sizes="72px"
-              className="object-cover object-top"
-              unoptimized={directorPhoto.startsWith('http')}
-            />
-            {/* Camera hover overlay */}
-            <div className="absolute inset-0 rounded-full bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center z-20">
-              <Camera size={18} className="text-white" />
+              className="relative w-[72px] h-[72px] rounded-full overflow-hidden mb-3"
+              style={{ boxShadow: '0 0 0 2px rgba(200,169,110,0.35), 0 4px 20px rgba(0,0,0,0.5)' }}
+            >
+              <div
+                className="absolute inset-0 rounded-full z-10"
+                style={{ boxShadow: 'inset 0 0 0 2px rgba(200,169,110,0.25)' }}
+              />
+              <Image
+                src="/asstes/super-admin.jpg"
+                alt="Super Admin"
+                fill
+                sizes="72px"
+                className="object-cover object-top"
+              />
             </div>
-          </button>
+          ) : (
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="relative w-[72px] h-[72px] rounded-full overflow-hidden mb-3 group focus:outline-none"
+              style={{ boxShadow: '0 0 0 2px rgba(200,169,110,0.35), 0 4px 20px rgba(0,0,0,0.5)' }}
+              title="تغيير الصورة"
+            >
+              <div
+                className="absolute inset-0 rounded-full z-10"
+                style={{ boxShadow: 'inset 0 0 0 2px rgba(200,169,110,0.25)' }}
+              />
+              <Image
+                src={directorPhoto}
+                alt="Director"
+                fill
+                sizes="72px"
+                className="object-cover object-top"
+                unoptimized={directorPhoto.startsWith('http')}
+              />
+              {/* Camera hover overlay */}
+              <div className="absolute inset-0 rounded-full bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center z-20">
+                <Camera size={18} className="text-white" />
+              </div>
+            </button>
+          )}
 
           {/* Name */}
           <p className="text-[13px] font-bold text-[#c8a96e] leading-tight text-center">
-            م. مروان أحمد ناظر
+            {isSuperAdmin ? 'م. محمد مصطفى' : 'م. مروان أحمد ناظر'}
           </p>
           {/* Gold underline */}
           <div className="mt-2.5 w-8 h-[1.5px] rounded-full bg-gradient-to-r from-transparent via-[#c8a96e]/50 to-transparent" />
@@ -107,7 +126,7 @@ export default function AdminSidebar() {
         {/* Navigation */}
         <nav className="flex-1 px-2 py-3">
           <div className="space-y-0.5">
-            {NAV_ITEMS.map(({ href, labelKey, label, icon: Icon }) => {
+            {NAV_ITEMS.filter(item => !item.superAdminOnly || isSuperAdmin).map(({ href, labelKey, label, icon: Icon }) => {
               const active = pathname === href || pathname.startsWith(href + '/');
               const text   = label ?? t(labelKey);
               return (

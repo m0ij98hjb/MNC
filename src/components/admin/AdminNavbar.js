@@ -38,7 +38,7 @@ export default function AdminNavbar() {
   const pathname = usePathname();
   const router   = useRouter();
   const { lang, setLang, t } = useLanguage();
-  const { logout } = useAuth();
+  const { logout, isSuperAdmin } = useAuth();
 
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isUserOpen, setIsUserOpen] = useState(false);
@@ -49,6 +49,8 @@ export default function AdminNavbar() {
 
   const { allNotifications = [], unreadCount = 0, markBellOpened } = useNotifications() ?? {};
   const directorPhoto = useDirectorPhoto();
+  const displayPhoto = isSuperAdmin ? '/asstes/super-admin.jpg' : directorPhoto;
+  const displayName  = isSuperAdmin ? 'م. محمد مصطفى' : 'مدير الشركة';
 
   useEffect(() => {
     const handler = (e) => {
@@ -106,7 +108,7 @@ export default function AdminNavbar() {
             className="text-[7.5px] font-black tracking-[5px] uppercase leading-none select-none"
             style={{ color: 'rgba(201,163,77,0.28)' }}
           >
-            ADMIN PANEL
+            {isSuperAdmin ? 'SUPER ADMIN' : 'ADMIN PANEL'}
           </p>
           <p
             className="text-[13px] sm:text-[14px] font-bold leading-tight truncate max-w-full"
@@ -136,16 +138,16 @@ export default function AdminNavbar() {
                 style={{ boxShadow: '0 0 0 1.5px rgba(201,163,77,0.45)' }}
               >
                 <Image
-                  src={directorPhoto}
-                  unoptimized={directorPhoto.startsWith('http')}
-                  alt="Director"
+                  src={displayPhoto}
+                  unoptimized={displayPhoto.startsWith('http')}
+                  alt="Admin"
                   fill
                   sizes="28px"
                   className="object-cover object-top"
                 />
               </div>
               <span className="hidden sm:block text-[11px] font-bold text-[#C9A34D] whitespace-nowrap leading-none">
-                مدير الشركة
+                {displayName}
               </span>
               <ChevronDown
                 size={10}
@@ -173,17 +175,19 @@ export default function AdminNavbar() {
                   style={{ boxShadow: '0 0 0 1.5px rgba(201,163,77,0.4)' }}
                 >
                   <Image
-                    src={directorPhoto}
-                  unoptimized={directorPhoto.startsWith('http')}
-                    alt="Director"
+                    src={displayPhoto}
+                    unoptimized={displayPhoto.startsWith('http')}
+                    alt="Admin"
                     fill
                     sizes="36px"
                     className="object-cover object-top"
                   />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[12px] font-bold text-white leading-none">مدير الشركة</p>
-                  <p className="text-[9px] text-[#C9A34D]/50 mt-0.5 uppercase tracking-widest">ADMIN</p>
+                  <p className="text-[12px] font-bold text-white leading-none">{displayName}</p>
+                  <p className="text-[9px] text-[#C9A34D]/50 mt-0.5 uppercase tracking-widest">
+                    {isSuperAdmin ? 'SUPER ADMIN' : 'ADMIN'}
+                  </p>
                 </div>
               </div>
               <Link

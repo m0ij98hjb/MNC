@@ -1,6 +1,8 @@
 'use client';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 import dynamic from 'next/dynamic';
 
 const HomeTab       = dynamic(() => import('@/components/admin/content/HomeTab'),       { ssr: false });
@@ -28,6 +30,16 @@ const TABS = [
 export default function ContentPage() {
   const [active, setActive] = useState('home');
   const ActiveTab = TABS.find(t => t.id === active)?.component ?? HomeTab;
+  const { isSuperAdmin, user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user !== undefined && !isSuperAdmin) {
+      router.replace('/admin/dashboard');
+    }
+  }, [user, isSuperAdmin, router]);
+
+  if (!isSuperAdmin) return null;
 
   return (
     <AdminPageLayout>
