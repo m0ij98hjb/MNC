@@ -6,10 +6,9 @@ import { useLanguage } from '@/context/LanguageContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import Link from 'next/link';
 import {
-  Search, Trash2, CheckCircle, XCircle, Loader2,
-  X, Phone, Mail, Briefcase, FileText, Clock,
-  Send, ChevronDown, Eye, MapPin, Sparkles, Download,
-  Star, CalendarCheck, Calendar,
+  Search, Trash2, XCircle, Loader2,
+  FileText, Eye, Sparkles,
+  Star, CalendarCheck,
 } from 'lucide-react';
 
 /* ─── Status config ─── */
@@ -54,27 +53,12 @@ function scoreApp(app) {
 /* ─── Main page ─── */
 export default function JobsPage() {
   const { t, isRTL } = useLanguage();
-  const [apps, setApps]           = useState([]);
-  const [filter, setFilter]       = useState('all');
-  const [search, setSearch]       = useState('');
-  const [loading, setLoading]     = useState(true);
-  const [actionId, setActionId]   = useState(null);
-  const [agentOn, setAgentOn]     = useState(false);
-
-  /* View dialog */
-  const [viewApp, setViewApp]     = useState(null);
-  const openViewApp = (app) => setViewApp(app);
-
-  /* Accept dialog */
-  const [dialogApp, setDialogApp]                   = useState(null);
-  const [interviewDate, setInterviewDate]           = useState('');
-  const [interviewTime, setInterviewTime]           = useState('');
-  const [interviewType, setInterviewType]           = useState('in_person');
-  const [interviewLocation, setInterviewLocation]   = useState('');
-  const [additionalMessage, setAdditionalMessage]   = useState('');
-  const [sending, setSending]     = useState(false);
-  const [sendStatus, setSendStatus] = useState('');
-  const [sendError, setSendError]   = useState('');
+  const [apps, setApps]         = useState([]);
+  const [filter, setFilter]     = useState('all');
+  const [search, setSearch]     = useState('');
+  const [loading, setLoading]   = useState(true);
+  const [actionId, setActionId] = useState(null);
+  const [agentOn, setAgentOn]   = useState(false);
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'jobApplications'), snap => {
@@ -102,9 +86,9 @@ export default function JobsPage() {
 
     if (!agentOn) return { visible: list, bestIds: new Set() };
 
-    const scored  = list.map(a => ({ id: a.id, total: scoreApp(a).total }));
+    const scored   = list.map(a => ({ id: a.id, total: scoreApp(a).total }));
     const maxTotal = scored.reduce((m, s) => Math.max(m, s.total), 0);
-    const bestIds = new Set(
+    const bestIds  = new Set(
       maxTotal > 0 ? scored.filter(s => s.total === maxTotal).map(s => s.id) : []
     );
     const sorted = [...list].sort((a, b) => scoreApp(b).total - scoreApp(a).total);
@@ -121,44 +105,6 @@ export default function JobsPage() {
   const deleteApp = async (id) => {
     if (!confirm(t('admin.deleteJobConfirm'))) return;
     await deleteDoc(doc(db, 'jobApplications', id));
-  };
-
-  const openDialog = (app) => {
-    setDialogApp(app);
-    setInterviewDate(''); setInterviewTime('');
-    setInterviewType('in_person'); setInterviewLocation('');
-    setAdditionalMessage(''); setSendStatus(''); setSendError('');
-  };
-
-  const closeDialog   = () => { setDialogApp(null); setSendStatus(''); setSendError(''); };
-  const closeViewDialog = () => setViewApp(null);
-
-  const handleSendAcceptance = async () => {
-    if (!interviewDate || !interviewTime) return;
-    setSending(true); setSendStatus(''); setSendError('');
-    try {
-      const res  = await fetch('/api/send-interview-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          applicantName: dialogApp.fullName, applicantEmail: dialogApp.email,
-          position: dialogApp.position, interviewDate, interviewTime,
-          interviewType, interviewLocation, additionalMessage,
-        }),
-      });
-      const data = await res.json();
-      if (!data.success) throw new Error(data.error || data.code || 'Unknown error');
-      await updateDoc(doc(db, 'jobApplications', dialogApp.id), {
-        status: 'interview_scheduled', reviewedAt: new Date(),
-        interviewDetails: { interviewDate, interviewTime, interviewType, interviewLocation, additionalMessage, sentAt: new Date() },
-      });
-      setSendStatus('success');
-      setTimeout(() => closeDialog(), 2000);
-    } catch (err) {
-      setSendStatus('error'); setSendError(err.message || 'Unknown error');
-    } finally {
-      setSending(false);
-    }
   };
 
   /* stats */
@@ -251,268 +197,64 @@ export default function JobsPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/[0.04]">
-                  {visible.map(app => {
-                    const sc = scoreApp(app);
-                    return (
-                      <tr key={app.id} className={`hover:bg-white/[0.02] transition-colors ${agentOn && bestIds.has(app.id) ? 'bg-purple-500/[0.03]' : ''}`}>
-                        <td className="px-4 py-3.5">
-                          <div className="flex items-center gap-2">
-                            {agentOn && bestIds.has(app.id) && (
-                              <span className="text-[10px] font-black text-purple-300 bg-purple-500/15 border border-purple-500/25 rounded-full px-1.5 py-0.5 flex items-center gap-0.5 shrink-0">
-                                <Star size={8} className="fill-purple-300" /> {t('admin.bestBadge')}
-                              </span>
-                            )}
-                            <div>
-                              <p className="font-semibold text-white">{app.fullName}</p>
-                              <p className="text-white/35 text-xs mt-0.5">{app.phone}</p>
-                            </div>
+                  {visible.map(app => (
+                    <tr key={app.id} className={`hover:bg-white/[0.02] transition-colors ${agentOn && bestIds.has(app.id) ? 'bg-purple-500/[0.03]' : ''}`}>
+                      <td className="px-4 py-3.5">
+                        <div className="flex items-center gap-2">
+                          {agentOn && bestIds.has(app.id) && (
+                            <span className="text-[10px] font-black text-purple-300 bg-purple-500/15 border border-purple-500/25 rounded-full px-1.5 py-0.5 flex items-center gap-0.5 shrink-0">
+                              <Star size={8} className="fill-purple-300" /> {t('admin.bestBadge')}
+                            </span>
+                          )}
+                          <div>
+                            <p className="font-semibold text-white">{app.fullName}</p>
+                            <p className="text-white/35 text-xs mt-0.5">{app.phone}</p>
                           </div>
-                        </td>
-                        <td className="px-4 py-3.5 text-white/75 text-xs max-w-[140px] truncate">{app.position}</td>
-                        <td className="px-4 py-3.5 text-white/50 text-xs">{app.experience || '—'}</td>
-                        <td className="px-4 py-3.5 text-white/50 text-xs">{app.city || '—'}</td>
-                        <td className="px-4 py-3.5 text-white/35 text-xs" dir="ltr">
-                          {app.createdAt?.seconds ? new Date(app.createdAt.seconds * 1000).toLocaleDateString('en-GB') : '—'}
-                        </td>
-                        <td className="px-4 py-3.5"><StatusChip status={app.status} t={t} /></td>
-                        <td className="px-4 py-3.5">
-                          <div className="flex items-center gap-1">
-                            {/* View */}
-                            <button onClick={() => openViewApp(app)}
-                              className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/8 transition-all" title="عرض التفاصيل">
-                              <Eye size={14} />
+                        </div>
+                      </td>
+                      <td className="px-4 py-3.5 text-white/75 text-xs max-w-[140px] truncate">{app.position}</td>
+                      <td className="px-4 py-3.5 text-white/50 text-xs">{app.experience || '—'}</td>
+                      <td className="px-4 py-3.5 text-white/50 text-xs">{app.city || '—'}</td>
+                      <td className="px-4 py-3.5 text-white/35 text-xs" dir="ltr">
+                        {app.createdAt?.seconds ? new Date(app.createdAt.seconds * 1000).toLocaleDateString('en-GB') : '—'}
+                      </td>
+                      <td className="px-4 py-3.5"><StatusChip status={app.status} t={t} /></td>
+                      <td className="px-4 py-3.5">
+                        <div className="flex items-center gap-1">
+                          {/* View — links to detail page */}
+                          <Link href={`/admin/jobs/${app.id}`}
+                            className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/8 transition-all" title="عرض التفاصيل">
+                            <Eye size={14} />
+                          </Link>
+                          {/* CV */}
+                          {app.cvUrl && (
+                            <a href={app.cvUrl} target="_blank" rel="noreferrer"
+                              className="p-1.5 rounded-lg text-white/30 hover:text-[#c8a96e] hover:bg-[#c8a96e]/8 transition-all" title={t('admin.viewCV')}>
+                              <FileText size={14} />
+                            </a>
+                          )}
+                          {/* Reject */}
+                          {app.status !== 'rejected' && (
+                            <button onClick={() => rejectApp(app.id)}
+                              className="p-1.5 rounded-lg text-red-400/60 hover:text-red-400 hover:bg-red-500/8 transition-all" title={t('admin.reject')}>
+                              {actionId === app.id + 'reject' ? <Loader2 size={14} className="animate-spin" /> : <XCircle size={14} />}
                             </button>
-                            {/* CV */}
-                            {app.cvUrl && (
-                              <a href={app.cvUrl} target="_blank" rel="noreferrer"
-                                className="p-1.5 rounded-lg text-white/30 hover:text-[#c8a96e] hover:bg-[#c8a96e]/8 transition-all" title={t('admin.viewCV')}>
-                                <FileText size={14} />
-                              </a>
-                            )}
-                            {/* Accept */}
-                            {app.status !== 'interview_scheduled' && app.status !== 'rejected' && (
-                              <button onClick={() => openDialog(app)}
-                                className="p-1.5 rounded-lg text-green-400/60 hover:text-green-400 hover:bg-green-500/8 transition-all" title={t('admin.scheduleInterview')}>
-                                <CheckCircle size={14} />
-                              </button>
-                            )}
-                            {/* Reject */}
-                            {app.status !== 'rejected' && (
-                              <button onClick={() => rejectApp(app.id)}
-                                className="p-1.5 rounded-lg text-red-400/60 hover:text-red-400 hover:bg-red-500/8 transition-all" title={t('admin.reject')}>
-                                {actionId === app.id + 'reject' ? <Loader2 size={14} className="animate-spin" /> : <XCircle size={14} />}
-                              </button>
-                            )}
-                            {/* Delete */}
-                            <button onClick={() => deleteApp(app.id)}
-                              className="p-1.5 rounded-lg text-white/20 hover:text-red-400 hover:bg-red-500/8 transition-all" title={t('admin.delete')}>
-                              <Trash2 size={14} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                          )}
+                          {/* Delete */}
+                          <button onClick={() => deleteApp(app.id)}
+                            className="p-1.5 rounded-lg text-white/20 hover:text-red-400 hover:bg-red-500/8 transition-all" title={t('admin.delete')}>
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
           </div>
         )}
       </div>
-
-      {/* ══════════════════════════════════════════
-          VIEW DIALOG — applicant full details
-      ══════════════════════════════════════════ */}
-      {viewApp && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(8px)' }}>
-          <div className="w-full max-w-lg bg-[#111118] border border-white/10 rounded-2xl overflow-hidden shadow-2xl" dir={isRTL ? 'rtl' : 'ltr'}>
-
-            {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07] bg-[#0d0d14]">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#c8a96e]/12 border border-[#c8a96e]/25 flex items-center justify-center">
-                  <span className="text-[#c8a96e] font-black text-sm">{viewApp.fullName?.[0]?.toUpperCase()}</span>
-                </div>
-                <div>
-                  <h2 className="text-white font-bold text-sm">{viewApp.fullName}</h2>
-                  <p className="text-white/40 text-xs">{viewApp.position}</p>
-                </div>
-              </div>
-              <button onClick={closeViewDialog} className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/8 transition-all">
-                <X size={18} />
-              </button>
-            </div>
-
-            {/* Info grid */}
-            <div className="px-6 py-5 space-y-4 max-h-[70vh] overflow-y-auto">
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { icon: <Mail size={12} />,     label: t('admin.emailLabel'),       value: viewApp.email },
-                  { icon: <Phone size={12} />,    label: t('admin.phoneCol'),         value: viewApp.phone },
-                  { icon: <MapPin size={12} />,   label: t('admin.cityColLabel'),     value: viewApp.city || '—' },
-                  { icon: <Clock size={12} />,    label: t('admin.experienceYears'),  value: viewApp.experience || '—' },
-                  { icon: <Briefcase size={12} />,label: t('admin.positionApplied'),  value: viewApp.position },
-                  { icon: <Calendar size={12} />, label: t('admin.submittedCol'),     value: viewApp.createdAt?.seconds ? new Date(viewApp.createdAt.seconds * 1000).toLocaleDateString('en-GB') : '—' },
-                ].map(row => (
-                  <div key={row.label} className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3">
-                    <div className="flex items-center gap-1.5 text-[#c8a96e] mb-1.5">
-                      {row.icon}
-                      <span className="text-[10px] font-bold text-white/35">{row.label}</span>
-                    </div>
-                    <p className="text-white text-xs font-semibold leading-relaxed">{row.value}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Smart score */}
-              {(() => {
-                const sc = scoreApp(viewApp);
-                return (
-                  <div className="bg-purple-500/8 border border-purple-500/20 rounded-xl p-4">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Sparkles size={13} className="text-purple-400" />
-                      <span className="text-purple-300 text-xs font-bold">{t('admin.aiScoreTitle')}</span>
-                      {bestIds.has(viewApp.id) && <span className="text-[10px] font-black text-purple-300 bg-purple-500/20 rounded-full px-2 py-0.5">⭐ {t('admin.bestMatchBadge')}</span>}
-                    </div>
-                    <div className="grid grid-cols-3 gap-2 text-center">
-                      <div>
-                        <p className="text-purple-300 font-black text-lg">{sc.expScore}</p>
-                        <p className="text-white/30 text-[10px]">{t('admin.expScoreLabel')}</p>
-                      </div>
-                      <div>
-                        <p className="text-purple-300 font-black text-lg">{sc.cityScore}</p>
-                        <p className="text-white/30 text-[10px]">{t('admin.locScoreLabel')}</p>
-                      </div>
-                      <div>
-                        <p className="text-[#c8a96e] font-black text-lg">{sc.total}</p>
-                        <p className="text-white/30 text-[10px]">{t('admin.totalScoreLabel')}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })()}
-
-              {/* Cover letter */}
-              {viewApp.coverLetter && (
-                <div className="space-y-2">
-                  <p className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest">{t('admin.coverLetterAdmin')}</p>
-                  <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-4">
-                    <p className="text-white/65 text-xs leading-relaxed whitespace-pre-wrap">{viewApp.coverLetter}</p>
-                  </div>
-                </div>
-              )}
-
-              {/* CV button */}
-              {viewApp.cvUrl && (
-                <a href={viewApp.cvUrl} target="_blank" rel="noreferrer" download
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#c8a96e]/10 border border-[#c8a96e]/25 text-[#c8a96e] text-sm font-bold hover:bg-[#c8a96e]/18 transition-all">
-                  <Download size={15} />
-                  {t('admin.downloadCV')}
-                </a>
-              )}
-            </div>
-
-            {/* Footer */}
-            <div className="px-6 py-4 border-t border-white/[0.07] flex gap-3">
-              <button onClick={closeViewDialog}
-                className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-semibold hover:text-white hover:border-white/20 transition-all">
-                {t('admin.back')}
-              </button>
-              {viewApp.status !== 'interview_scheduled' && viewApp.status !== 'rejected' && (
-                <button onClick={() => { closeViewDialog(); openDialog(viewApp); }}
-                  className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black text-sm font-black flex items-center justify-center gap-2 hover:opacity-90 transition-all">
-                  <CheckCircle size={15} />
-                  {t('admin.scheduleInterview')}
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ══════════════════════════════════════════
-          ACCEPT / INTERVIEW DIALOG
-      ══════════════════════════════════════════ */}
-      {dialogApp && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(6px)' }}>
-          <div className="w-full max-w-lg bg-[#111118] border border-white/10 rounded-2xl overflow-hidden shadow-2xl" dir={isRTL ? 'rtl' : 'ltr'}>
-            <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07] bg-[#0d0d14]">
-              <div>
-                <h2 className="text-white font-bold text-base">{t('admin.scheduleInterview')}</h2>
-                <p className="text-white/40 text-xs mt-0.5">{dialogApp.fullName} — {dialogApp.position}</p>
-              </div>
-              <button onClick={closeDialog} className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/8 transition-all">
-                <X size={18} />
-              </button>
-            </div>
-
-            <div className="px-6 py-4 grid grid-cols-2 gap-3 border-b border-white/[0.05]">
-              <div className="flex items-center gap-2 text-xs text-white/45"><Mail size={12} className="text-[#c8a96e]" />{dialogApp.email}</div>
-              <div className="flex items-center gap-2 text-xs text-white/45"><Phone size={12} className="text-[#c8a96e]" />{dialogApp.phone}</div>
-              <div className="flex items-center gap-2 text-xs text-white/45"><Briefcase size={12} className="text-[#c8a96e]" />{dialogApp.position}</div>
-              <div className="flex items-center gap-2 text-xs text-white/45"><Clock size={12} className="text-[#c8a96e]" />{dialogApp.experience || '—'}</div>
-            </div>
-
-            <div className="px-6 py-5 space-y-4 max-h-[60vh] overflow-y-auto">
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1.5">
-                  <label className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest block">{t('admin.interviewDate')} *</label>
-                  <input type="date" required value={interviewDate} onChange={e => setInterviewDate(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#c8a96e]/50 outline-none transition-all" />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest block">{t('admin.interviewTime')} *</label>
-                  <input type="time" required value={interviewTime} onChange={e => setInterviewTime(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#c8a96e]/50 outline-none transition-all" />
-                </div>
-              </div>
-              <div className="space-y-1.5">
-                <label className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest block">{t('admin.interviewType')}</label>
-                <div className="relative">
-                  <select value={interviewType} onChange={e => setInterviewType(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#c8a96e]/50 outline-none transition-all appearance-none cursor-pointer">
-                    <option value="in_person" className="bg-[#111]">{t('admin.inPerson')}</option>
-                    <option value="video"     className="bg-[#111]">{t('admin.videoCall')}</option>
-                    <option value="phone"     className="bg-[#111]">{t('admin.phoneCall')}</option>
-                  </select>
-                  <ChevronDown size={13} className={`absolute ${isRTL ? 'left-3' : 'right-3'} top-1/2 -translate-y-1/2 text-white/30 pointer-events-none`} />
-                </div>
-              </div>
-              <div className="space-y-1.5">
-                <label className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest block">{t('admin.interviewLocation')}</label>
-                <input type="text" value={interviewLocation} onChange={e => setInterviewLocation(e.target.value)}
-                  placeholder={interviewType === 'in_person' ? 'مقر الشركة — جدة' : interviewType === 'video' ? 'رابط Google Meet / Zoom' : 'رقم للتواصل'}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-all" />
-              </div>
-              <div className="space-y-1.5">
-                <label className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest block">{t('admin.additionalMessage')}</label>
-                <textarea rows={3} value={additionalMessage} onChange={e => setAdditionalMessage(e.target.value)}
-                  placeholder="أي تعليمات إضافية للمتقدم..."
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-all resize-none" />
-              </div>
-              {sendStatus === 'success' && <p className="text-green-400 text-sm font-semibold text-center">{t('admin.emailSentSuccess')}</p>}
-              {sendStatus === 'error' && (
-                <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3">
-                  <p className="text-red-400 text-sm font-semibold text-center mb-1">{t('admin.emailSentError')}</p>
-                  {sendError && <p className="text-red-300/70 text-xs text-center break-all">{sendError}</p>}
-                </div>
-              )}
-            </div>
-
-            <div className="px-6 py-4 border-t border-white/[0.07] flex gap-3">
-              <button onClick={closeDialog}
-                className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-semibold hover:text-white hover:border-white/20 transition-all">
-                {t('admin.back')}
-              </button>
-              <button onClick={handleSendAcceptance} disabled={sending || !interviewDate || !interviewTime}
-                className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black text-sm font-black flex items-center justify-center gap-2 hover:from-[#D5B25D] hover:to-[#c8a96e] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
-                {sending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
-                {t('admin.sendAcceptance')}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </AdminPageLayout>
   );
 }
