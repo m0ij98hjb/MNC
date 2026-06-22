@@ -23,7 +23,7 @@ const Navbar = () => {
   const router = useRouter();
   const { lang, setLang, t, isRTL } = useLanguage();
   const { theme, toggleTheme } = useTheme();
-  const { user, logout } = useAuth();
+  const { user, logout, isSuperAdmin } = useAuth();
   const notif = useNotifications();
   const { allNotifications = [], unreadCount = 0, markBellOpened } = notif ?? {};
   const isLightMode = theme === 'dark';
@@ -344,7 +344,7 @@ const Navbar = () => {
                   >
                     <UserCog size={14} className="text-[#C9A34D] flex-shrink-0" />
                     <span className="text-[11px] xl:text-[12px] font-bold text-[#C9A34D] whitespace-nowrap">
-                      {t('admin.managerTitle')}
+                      {isSuperAdmin ? 'SUPER ADMIN' : t('admin.managerTitle')}
                     </span>
                     <ChevronDown size={10} className={`text-[#C9A34D]/50 transition-transform duration-300 ${isAdminOpen ? 'rotate-180' : ''}`} />
                   </button>
@@ -642,7 +642,7 @@ const Navbar = () => {
                   </span>
                   <div className="flex-1 text-start">
                     <p className="text-[12px] font-bold text-[#C9A34D] leading-none">{t('admin.dashboard')}</p>
-                    <p className="text-[10px] mt-0.5 text-white/28">{t('admin.managerTitle')}</p>
+                    <p className="text-[10px] mt-0.5 text-white/28">{isSuperAdmin ? 'SUPER ADMIN' : t('admin.managerTitle')}</p>
                   </div>
                   <UserCircle size={14} className="text-[#C9A34D]/40 flex-shrink-0" />
                 </Link>
