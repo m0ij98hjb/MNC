@@ -6,9 +6,24 @@ import TypewriterText from "@/components/TypewriterText";
 import { ArrowRight, ArrowLeft, CheckCircle2, Users, Building2, Target } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import { useLanguage } from "@/context/LanguageContext";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 export default function AboutUsPage() {
   const { lang, t, isRTL } = useLanguage();
+  const { data: aboutCms } = useSiteContent('about');
+  const directorImage = aboutCms?.director_image || '/asstes/directort.png';
+  const heroStats = aboutCms?.stats?.length
+    ? aboutCms.stats.map(s => ({
+        value: s.value,
+        labelAr: s.label_ar,
+        labelEn: s.label_en,
+      }))
+    : [
+        { value: "15+",  labelAr: "عاماً من الخبرة",    labelEn: "Years of Experience" },
+        { value: "50+",  labelAr: "مشروع منجز",          labelEn: "Completed Projects" },
+        { value: "98%",  labelAr: "رضا العملاء",          labelEn: "Client Satisfaction" },
+        { value: "300+", labelAr: "متخصص في الفريق",     labelEn: "Team Specialists" },
+      ];
 
   return (
     <main className="min-h-screen bg-[var(--background)] font-cairo text-white" dir={isRTL ? "rtl" : "ltr"}>
@@ -72,12 +87,7 @@ export default function AboutUsPage() {
 
             {/* Stats row */}
             <div className="flex flex-wrap gap-x-10 gap-y-6" data-aos="fade-up" data-aos-delay="350">
-              {[
-                { value: "15+",  labelAr: "عاماً من الخبرة",    labelEn: "Years of Experience" },
-                { value: "50+",  labelAr: "مشروع منجز",          labelEn: "Completed Projects" },
-                { value: "98%",  labelAr: "رضا العملاء",          labelEn: "Client Satisfaction" },
-                { value: "300+", labelAr: "متخصص في الفريق",     labelEn: "Team Specialists" },
-              ].map((stat, i) => (
+              {heroStats.map((stat, i) => (
                 <div key={i} className="flex flex-col">
                   <span className="text-3xl md:text-4xl font-black text-secondary leading-none">{stat.value}</span>
                   <span className="text-white/55 text-xs md:text-sm font-semibold mt-1.5 uppercase tracking-wide">
@@ -195,11 +205,12 @@ export default function AboutUsPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Image */}
             <div className={`relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-2xl ${isRTL ? 'order-last' : 'order-first'}`} data-aos={isRTL ? 'fade-left' : 'fade-right'}>
-              <Image 
-                src="/asstes/directort.png" 
+              <Image
+                src={directorImage}
                 alt={t("aboutUsPage.ceoSectionTitle")}
-                fill 
-                className="object-cover" 
+                fill
+                className="object-cover"
+                unoptimized={directorImage.startsWith('http')}
               />
             </div>
 

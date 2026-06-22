@@ -1,8 +1,19 @@
 "use client";
 
 import { Phone, Mail, MapPin, Send } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const Contact = () => {
+  const { lang } = useLanguage();
+  const isRTL = lang === 'ar' || lang === 'ur';
+  const { data: cms } = useSiteContent('contact');
+
+  const phone1   = cms?.phone1    || '0598242385';
+  const phone2   = cms?.phone2    || '0505649859';
+  const email    = cms?.email     || '1@marwannazer.com';
+  const address  = isRTL ? (cms?.address_ar || 'جدة، المملكة العربية السعودية') : (cms?.address_en || 'Jeddah, Saudi Arabia');
+
   return (
     <section id="contact" className="py-24 bg-[var(--card-bg)] overflow-hidden font-cairo">
       <div className="container mx-auto px-6 max-w-6xl">
@@ -28,7 +39,7 @@ const Contact = () => {
                 </div>
                 <div className="text-center lg:text-right">
                   <p className="text-[var(--foreground)] text-[10px] md:text-xs mb-0.5">اتصل بنا</p>
-                  <p className="text-base md:text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors line-clamp-1">0598242385 - 0505649859</p>
+                  <p className="text-base md:text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors line-clamp-1">{phone1}{phone2 && ` - ${phone2}`}</p>
                 </div>
               </div>
 
@@ -38,7 +49,7 @@ const Contact = () => {
                 </div>
                 <div className="text-center lg:text-right">
                   <p className="text-[var(--foreground)] text-[10px] md:text-xs mb-0.5">البريد الإلكتروني</p>
-                  <p className="text-base md:text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors">1@marwannazer.com</p>
+                  <p className="text-base md:text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors">{email}</p>
                 </div>
               </div>
 
@@ -48,7 +59,7 @@ const Contact = () => {
                 </div>
                 <div className="text-center lg:text-right">
                   <p className="text-[var(--foreground)] text-[10px] md:text-xs mb-0.5">الموقع</p>
-                  <p className="text-base md:text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors text-xs md:text-sm">حي الأندلس – شارع عبدالرحمن الطبيشي. فيلا 72 – جدة</p>
+                  <p className="text-base md:text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors text-xs md:text-sm">{address}</p>
                 </div>
               </div>
             </div>

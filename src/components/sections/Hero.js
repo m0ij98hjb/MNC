@@ -11,6 +11,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import BackgroundMusicButton from "@/components/ui/BackgroundMusicButton";
 import CounterStat from "@/components/ui/CounterStat";
 import { siteStats, getStatLabel } from "@/lib/siteConfig";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 // Import Swiper styles
 import "swiper/css";
@@ -19,6 +20,10 @@ import "swiper/css/effect-fade";
 const Hero = () => {
   const { t, lang } = useLanguage();
   const isRTL = lang === 'ar' || lang === 'ur';
+  const { data: homeCms } = useSiteContent('home');
+  const statProjects    = homeCms?.stat_projects    ?? siteStats.projects.value;
+  const statSatisfaction = homeCms?.stat_satisfaction ?? siteStats.satisfaction.value;
+  const statDesigns     = homeCms?.stat_designs     ?? siteStats.designs.value;
 
   const heroImages = [
     "/hero.png",
@@ -52,7 +57,7 @@ const Hero = () => {
     fr: "Gratuit", de: "Kostenlos", tr: "Ücretsiz", ur: "مفت"
   }[lang] || "Free";
 
-  const descText = {
+  const descFallback = {
     ar: "شركة ام ان سى للانشاءات - خبرة عريقة في التصميم المعماري، إدارة المشاريع، والتنفيذ الإنشائي بأعلى معايير الجودة العالمية.",
     en: "MNC General Contracting - Deep expertise in architectural design, project management, and construction execution to the highest international quality standards.",
     de: "MNC General Contracting - Langjährige Erfahrung in Architekturentwurf, Projektmanagement und Bauausführung nach höchsten internationalen Qualitätsstandards.",
@@ -62,6 +67,11 @@ const Hero = () => {
     ur: "ایم این سی للانشاءات - اعلیٰ ترین بین الاقوامی معیار کے مطابق تعمیراتی ڈیزائن، پروجیکٹ مینجمنٹ اور تعمیل میں وسیع تجربہ۔",
     zh: "MNC 通用承包 - 在建筑设计、项目管理和施工执行方面拥有深厚专长，符合最高国际质量标准。"
   }[lang] || "MNC General Contracting - Deep expertise in architectural design, project management, and construction execution to the highest international quality standards.";
+  const descText = isRTL
+    ? (homeCms?.hero_sub_ar || descFallback)
+    : lang === 'en'
+      ? (homeCms?.hero_sub_en || descFallback)
+      : descFallback;
 
   const requestConsultText = {
     ar: "اطلب استشارة",
@@ -228,15 +238,15 @@ const Hero = () => {
             data-aos-delay="520"
           >
             <div className="flex flex-col items-center text-center">
-              <div className="text-2xl font-black text-white leading-none">+{siteStats.projects.value}</div>
+              <div className="text-2xl font-black text-white leading-none">+{statProjects}</div>
               <span className="text-[10px] sm:text-xs text-white/60 mt-1.5 font-medium">{getStatLabel('projects', lang)}</span>
             </div>
             <div className="flex flex-col items-center text-center border-x border-white/10">
-              <div className="text-2xl font-black text-white leading-none">{siteStats.satisfaction.value}%</div>
+              <div className="text-2xl font-black text-white leading-none">{statSatisfaction}%</div>
               <span className="text-[10px] sm:text-xs text-white/60 mt-1.5 font-medium">{getStatLabel('satisfaction', lang)}</span>
             </div>
             <div className="flex flex-col items-center text-center">
-              <div className="text-2xl font-black text-white leading-none">+{siteStats.designs.value}</div>
+              <div className="text-2xl font-black text-white leading-none">+{statDesigns}</div>
               <span className="text-[10px] sm:text-xs text-white/60 mt-1.5 font-medium">{getStatLabel('designs', lang)}</span>
             </div>
           </div>
@@ -357,22 +367,22 @@ const Hero = () => {
               data-aos="fade-up" 
               data-aos-delay="900"
             >
-              <CounterStat 
-                value={siteStats.projects.value}
+              <CounterStat
+                value={statProjects}
                 label={getStatLabel('projects', lang)}
                 suffix="+"
                 aosDeley="900"
               />
               <div className="w-px h-10 bg-white/20" />
-              <CounterStat 
-                value={siteStats.satisfaction.value}
+              <CounterStat
+                value={statSatisfaction}
                 label={getStatLabel('satisfaction', lang)}
                 suffix="%"
                 aosDeley="950"
               />
               <div className="w-px h-10 bg-white/20" />
-              <CounterStat 
-                value={siteStats.designs.value}
+              <CounterStat
+                value={statDesigns}
                 label={getStatLabel('designs', lang)}
                 suffix="+"
                 aosDeley="1000"

@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { BarChart3, MessageCircle, FileText, Bell, Star } from "lucide-react";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 /* ─── Translations ─────────────────────────────────────────── */
 const C = {
@@ -85,10 +86,30 @@ function GooglePlayColorIcon({ size = 22 }) {
 export default function AppPage() {
   const { lang, isRTL } = useLanguage();
   const { theme } = useTheme();
+  const { data: appCms } = useSiteContent('app');
   const isLightMode = theme === 'dark';
   const isAr = lang === "ar" || lang === "ur";
   const c = C[isAr ? "ar" : "en"];
   const ta = isRTL ? "text-right" : "text-left";
+
+  const heroTitle = isAr ? (appCms?.hero_title_ar || c.title1) : (appCms?.hero_title_en || c.title1);
+  const heroDesc  = isAr ? (appCms?.hero_desc_ar  || c.desc)   : (appCms?.hero_desc_en  || c.desc);
+
+  const stats = [
+    { n: appCms?.stat1_value ?? c.stat1n, l: isAr ? (appCms?.stat1_label_ar ?? c.stat1l) : (appCms?.stat1_label_en ?? c.stat1l) },
+    { n: appCms?.stat2_value ?? c.stat2n, l: isAr ? (appCms?.stat2_label_ar ?? c.stat2l) : (appCms?.stat2_label_en ?? c.stat2l) },
+    { n: appCms?.stat3_value ?? c.stat3n, l: isAr ? (appCms?.stat3_label_ar ?? c.stat3l) : (appCms?.stat3_label_en ?? c.stat3l) },
+  ];
+
+  const FEAT_ICONS = [BarChart3, MessageCircle, FileText, Bell];
+  const features = [1, 2, 3, 4].map((n, i) => ({
+    icon: FEAT_ICONS[i],
+    title: isAr ? (appCms?.[`feat${n}_title_ar`] || c.features[i].title) : (appCms?.[`feat${n}_title_en`] || c.features[i].title),
+    desc:  isAr ? (appCms?.[`feat${n}_desc_ar`]  || c.features[i].desc)  : (appCms?.[`feat${n}_desc_en`]  || c.features[i].desc),
+  }));
+
+  const appstoreUrl    = appCms?.appstore_url    || null;
+  const googleplayUrl  = appCms?.googleplay_url  || null;
 
   return (
     <main className={`min-h-screen font-cairo ${isLightMode ? 'bg-[#f8fafc]' : 'bg-[#0D1B2A]'}`} dir={isRTL ? "rtl" : "ltr"}>
@@ -201,7 +222,7 @@ export default function AppPage() {
 
               {/* Headline */}
               <h1 className="text-[1.75rem] xs:text-[2rem] sm:text-5xl lg:text-[4.5rem] xl:text-7xl font-black text-white leading-[1.06] mb-2 sm:mb-5">
-                {c.title1}
+                {heroTitle}
                 <br />
                 <span className="relative inline-block">
                   <span className="text-[#C9A34D]">{c.title2}</span>
@@ -213,28 +234,47 @@ export default function AppPage() {
               </h1>
 
               {/* Description */}
-              <p className="text-white/55 text-[0.82rem] sm:text-[1.05rem] leading-relaxed sm:max-w-[420px] mb-3 sm:mb-10">{c.desc}</p>
+              <p className="text-white/55 text-[0.82rem] sm:text-[1.05rem] leading-relaxed sm:max-w-[420px] mb-3 sm:mb-10">{heroDesc}</p>
 
               {/* ── Store Buttons ── */}
               <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-4 mb-3 sm:mb-10">
-                {/* App Store — official black */}
-                <button className="group flex items-center justify-center gap-3 bg-black text-white px-6 sm:px-7 py-2.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#111] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full sm:w-auto">
-                  <AppleIcon size={26} />
-                  <div className="text-start leading-none">
-                    <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
-                    <div className="text-[15px] font-black">App Store</div>
-                  </div>
-                </button>
+                {/* App Store */}
+                {appstoreUrl ? (
+                  <a href={appstoreUrl} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-center gap-3 bg-black text-white px-6 sm:px-7 py-2.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#111] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full sm:w-auto">
+                    <AppleIcon size={26} />
+                    <div className="text-start leading-none">
+                      <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">Download on the</div>
+                      <div className="text-[15px] font-black">App Store</div>
+                    </div>
+                  </a>
+                ) : (
+                  <button className="group flex items-center justify-center gap-3 bg-black text-white px-6 sm:px-7 py-2.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#111] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full sm:w-auto">
+                    <AppleIcon size={26} />
+                    <div className="text-start leading-none">
+                      <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
+                      <div className="text-[15px] font-black">App Store</div>
+                    </div>
+                  </button>
+                )}
 
-                {/* Google Play — official black + color icon */}
-                <button className="group flex items-center justify-center gap-3 bg-[#1a1a1a] text-white px-6 sm:px-7 py-2.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#222] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full sm:w-auto">
-                  <GooglePlayColorIcon size={26} />
-                  <div className="text-start leading-none">
-                    <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
-                    <div className="text-[15px] font-black">Google Play</div>
-                  </div>
-                </button>
-
+                {/* Google Play */}
+                {googleplayUrl ? (
+                  <a href={googleplayUrl} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-center gap-3 bg-[#1a1a1a] text-white px-6 sm:px-7 py-2.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#222] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full sm:w-auto">
+                    <GooglePlayColorIcon size={26} />
+                    <div className="text-start leading-none">
+                      <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">Get it on</div>
+                      <div className="text-[15px] font-black">Google Play</div>
+                    </div>
+                  </a>
+                ) : (
+                  <button className="group flex items-center justify-center gap-3 bg-[#1a1a1a] text-white px-6 sm:px-7 py-2.5 sm:py-4 rounded-xl sm:rounded-2xl border border-white/10 transition-all duration-300 hover:bg-[#222] hover:scale-[1.03] active:scale-[0.97] shadow-[0_8px_30px_rgba(0,0,0,0.5)] w-full sm:w-auto">
+                    <GooglePlayColorIcon size={26} />
+                    <div className="text-start leading-none">
+                      <div className="text-[9px] text-white/45 uppercase tracking-[0.15em] mb-0.5">{c.soon}</div>
+                      <div className="text-[15px] font-black">Google Play</div>
+                    </div>
+                  </button>
+                )}
               </div>
 
               {/* ── Stars + Rating ── */}
@@ -249,11 +289,7 @@ export default function AppPage() {
 
               {/* ── Stats row ── */}
               <div className={`flex flex-wrap gap-4 sm:gap-8 ${isRTL ? "flex-row-reverse justify-end" : ""}`}>
-                {[
-                  { n: c.stat1n, l: c.stat1l },
-                  { n: c.stat2n, l: c.stat2l },
-                  { n: c.stat3n, l: c.stat3l },
-                ].map((s, i) => (
+                {stats.map((s, i) => (
                   <div key={i} className={`${ta}`}>
                     <div className="text-xl sm:text-2xl font-black text-white">{s.n}</div>
                     <div className="text-white/40 text-[10px] sm:text-xs mt-0.5">{s.l}</div>
@@ -293,7 +329,7 @@ export default function AppPage() {
 
           {/* Cards grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {c.features.map((feat, i) => {
+            {features.map((feat, i) => {
               const Icon = feat.icon;
               const color = FEAT_COLORS[i];
               return (

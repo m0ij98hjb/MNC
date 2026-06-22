@@ -3,11 +3,19 @@
 import Image from "next/image";
 import { CheckCircle2, Quote } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const About = () => {
   const { lang, t } = useLanguage();
+  const isRTL = lang === 'ar' || lang === 'ur';
+  const { data: aboutCms } = useSiteContent('about');
 
   const highlights = t('about.highlights') || [];
+  const directorImage = aboutCms?.director_image || '/asstes/directort.png';
+  const directorName  = aboutCms?.director_name  || t('about.directorName');
+  const directorTitle = isRTL
+    ? (aboutCms?.director_pos_ar || t('about.directorTitle'))
+    : (aboutCms?.director_pos_en || t('about.directorTitle'));
 
   return (
     <section id="about" className="py-20 bg-[var(--card-bg)] relative overflow-x-hidden">
@@ -22,11 +30,12 @@ const About = () => {
             <div className="relative z-10 group">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/3]">
                 <Image
-                  src="/asstes/directort.png"
-                  alt={t('about.directorName')}
+                  src={directorImage}
+                  alt={directorName}
                   fill
                   className="object-cover"
                   style={{ objectPosition: 'center 2%' }}
+                  unoptimized={directorImage.startsWith('http')}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
@@ -48,10 +57,10 @@ const About = () => {
             {/* Director Title Card */}
             <div className={`absolute -bottom-10 ${lang === 'ar' || lang === 'ur' ? 'left-2 md:left-6 lg:-left-10' : 'right-2 md:right-6 lg:-right-10'} bg-white  backdrop-blur-md p-4 md:p-5 rounded-xl border border-[rgba(255,255,255,0.08)] shadow-2xl z-20`} data-aos="fade-up" data-aos-delay="500">
               <h4 className="text-secondary font-bold text-base md:text-lg mb-0.5">
-                {t('about.directorName')}
+                {directorName}
               </h4>
               <p className="text-black text-[8px] md:text-[10px] uppercase tracking-widest font-bold">
-                {t('about.directorTitle')}
+                {directorTitle}
               </p>
             </div>
           </div>
