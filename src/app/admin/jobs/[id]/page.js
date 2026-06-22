@@ -5,7 +5,7 @@ import { db } from '@/lib/firebase';
 import { useLanguage } from '@/context/LanguageContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import {
-  ArrowLeft, ArrowRight, XCircle, Loader2,
+  ArrowLeft, ArrowRight, XCircle, CheckCircle, Loader2,
   User, Phone, Mail, MapPin, Calendar,
   Briefcase, FileText, Clock, Download,
   CalendarCheck, Sparkles, Send, ChevronDown,
@@ -37,6 +37,7 @@ function scoreApp(app) {
 /* ─── Status config ─── */
 const STATUS_CONFIG = {
   pending:             { color: '#3b82f6', labelAr: 'قيد المراجعة' },
+  accepted:            { color: '#22c55e', labelAr: 'مقبول' },
   interview_scheduled: { color: '#f59e0b', labelAr: 'تم تحديد موعد مقابلة' },
   rejected:            { color: '#ef4444', labelAr: 'مرفوض' },
 };
@@ -69,6 +70,12 @@ export default function JobDetailPage() {
     });
     return unsub;
   }, [id]);
+
+  const acceptApp = async () => {
+    setActioning('accept');
+    await updateDoc(doc(db, 'jobApplications', id), { status: 'accepted', reviewedAt: new Date() });
+    setActioning('');
+  };
 
   const rejectApp = async () => {
     if (!confirm('هل أنت متأكد من رفض هذا المتقدم؟')) return;
@@ -164,6 +171,16 @@ export default function JobDetailPage() {
             </div>
           </div>
           <div className="flex gap-2 flex-wrap">
+            {app.status !== 'accepted' && app.status !== 'interview_scheduled' && app.status !== 'rejected' && (
+              <button
+                onClick={acceptApp}
+                disabled={actioning === 'accept'}
+                className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold border transition-colors disabled:opacity-50 text-green-400 border-green-500/20 hover:bg-green-500/10"
+              >
+                {actioning === 'accept' ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle size={14} />}
+                قبول
+              </button>
+            )}
             {app.status !== 'rejected' && (
               <button
                 onClick={rejectApp}
@@ -238,8 +255,8 @@ export default function JobDetailPage() {
                 ))}
               </div>
 
-              {/* Schedule interview — only for pending */}
-              {app.status === 'pending' && (
+              {/* Schedule interview — only when accepted */}
+              {app.status === 'accepted' && (
                 <div className="mt-4">
                   <button
                     onClick={() => { setShowInterviewForm(v => !v); setSendStatus(''); setSendError(''); }}

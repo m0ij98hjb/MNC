@@ -70,7 +70,8 @@ export default function AdminNavbar() {
 
   const pageTitle =
     PAGE_TITLES_AR[pathname] ??
-    (pathname.startsWith('/admin/suppliers/') ? 'تفاصيل المورد' : 'لوحة التحكم');
+    (pathname.startsWith('/admin/suppliers/') ? 'تفاصيل المورد' :
+     pathname.startsWith('/admin/jobs/')      ? 'تفاصيل الوظيفة' : 'لوحة التحكم');
 
   const currentLang = LANGUAGES.find(l => l.code === lang) || LANGUAGES[0];
 
