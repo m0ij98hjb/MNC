@@ -6,10 +6,18 @@ import "aos/dist/aos.css";
 
 export const AOSInit = () => {
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
     AOS.init({
-      duration: 1000,
-      once: true,
-      easing: "ease-out-quad",
+      duration:  750,
+      once:      true,
+      easing:    "ease-out-cubic",
+      offset:    70,
+      delay:     0,
+      throttleDelay: 99,
+      disable:   prefersReducedMotion,
     });
   }, []);
 

@@ -292,3 +292,13 @@ main {
   [data-aos].aos-animate {
     pointer-events: auto;
   }
+
+  /* Accessibility: disable all AOS animations for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    [data-aos] {
+      transition: none !important;
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }

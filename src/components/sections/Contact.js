@@ -20,7 +20,7 @@ const Contact = () => {
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
           
           {/* Info Side (Right in RTL) */}
-          <div className="w-full lg:w-1/2 space-y-8 md:space-y-10" data-aos="fade-up">
+          <div className="w-full lg:w-1/2 space-y-8 md:space-y-10" data-aos="fade-right" data-aos-delay="50">
             <div>
               <span className="text-secondary font-bold tracking-widest text-xs mb-3 block text-center lg:text-right">تواصل معنا</span>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 leading-tight text-[var(--foreground)] text-center lg:text-right">
@@ -33,7 +33,7 @@ const Contact = () => {
             </div>
 
             <div className="space-y-4 md:space-y-6">
-              <div className="flex items-center gap-4 md:gap-5 group cursor-default justify-center lg:justify-start rtl:lg:justify-end">
+              <div className="flex items-center gap-4 md:gap-5 group cursor-default justify-center lg:justify-start rtl:lg:justify-end" data-aos="fade-up" data-aos-delay="150">
                 <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center border border-[rgba(15,23,42,0.06)] bg-[var(--card-bg)] group-hover:border-[var(--secondary)] transition-all duration-300 shadow-sm shrink-0">
                   <Phone className="text-secondary" size={18} md:size={20} />
                 </div>
@@ -43,7 +43,7 @@ const Contact = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 md:gap-5 group cursor-default justify-center lg:justify-start rtl:lg:justify-end">
+              <div className="flex items-center gap-4 md:gap-5 group cursor-default justify-center lg:justify-start rtl:lg:justify-end" data-aos="fade-up" data-aos-delay="250">
                 <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center border border-slate-300 bg-white group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
                   <Mail className="text-secondary" size={18} md:size={20} />
                 </div>
@@ -53,7 +53,7 @@ const Contact = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 md:gap-5 group cursor-default justify-center lg:justify-start rtl:lg:justify-end">
+              <div className="flex items-center gap-4 md:gap-5 group cursor-default justify-center lg:justify-start rtl:lg:justify-end" data-aos="fade-up" data-aos-delay="350">
                 <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center border border-slate-300 bg-white group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
                   <MapPin className="text-secondary" size={18} md:size={20} />
                 </div>
@@ -66,7 +66,7 @@ const Contact = () => {
           </div>
 
           {/* Form Side (Left in RTL) */}
-          <div className="lg:w-1/2 w-full" data-aos="fade-up">
+          <div className="lg:w-1/2 w-full" data-aos="fade-left" data-aos-delay="100">
             <div className="bg-[var(--background)] p-6 sm:p-8 md:p-10 rounded-2xl border border-[rgba(15,23,42,0.2)] shadow-2xl">
               <form className="space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

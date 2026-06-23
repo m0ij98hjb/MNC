@@ -121,11 +121,13 @@ export default function ServicePageClient({ slug }) {
             <div className="w-20 h-1 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto rounded-full" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4" data-aos="fade-up" data-aos-delay="100">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {content.offerings.map((item, i) => (
               <div
                 key={i}
                 className="flex items-start gap-4 bg-[var(--background)] p-5 rounded-2xl border border-[var(--card-border)] hover:border-[#D5B25D]/30 transition-all duration-300 group"
+                data-aos="fade-up"
+                data-aos-delay={i * 70}
               >
                 <div className="w-8 h-8 rounded-lg bg-[#D5B25D]/10 border border-[#D5B25D]/20 flex items-center justify-center shrink-0 group-hover:bg-[#D5B25D]/20 transition-colors mt-0.5">
                   <CheckCircle2 className="text-[#D5B25D]" size={16} />

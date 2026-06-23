@@ -72,10 +72,12 @@ const Services = () => {
             >
               {/* Permanent Top Border */}
               <div className="absolute top-0 left-0 w-full h-1.5 bg-secondary/80"></div>
-              
+
               {/* Icon Container */}
-              <div className="w-24 h-24 bg-secondary rounded-2xl flex items-center justify-center mb-8 relative z-10 group-hover:bg-secondary/10 transition-all duration-500 shadow-sm">
-                <div className="text-white group-hover:text-secondary transition-colors duration-500">
+              <div className="w-24 h-24 rounded-2xl flex items-center justify-center mb-8 relative z-10 transition-all duration-500 group-hover:scale-105"
+                style={{ background: "rgba(213,178,93,0.1)", border: "1px solid rgba(213,178,93,0.25)" }}
+              >
+                <div className="text-secondary group-hover:text-secondary/90 transition-colors duration-300">
                   {service.icon}
                 </div>
               </div>

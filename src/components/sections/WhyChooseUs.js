@@ -8,28 +8,28 @@ const WhyChooseUs = () => {
 
   const features = [
     {
-      icon: <ShieldCheck size={28} />,
+      icon: ShieldCheck,
       title: t('features.precision.title'),
       desc: t('features.precision.desc'),
       delay: "100",
       num: "01",
     },
     {
-      icon: <Lightbulb size={28} />,
+      icon: Lightbulb,
       title: t('features.innovation.title'),
       desc: t('features.innovation.desc'),
       delay: "200",
       num: "02",
     },
     {
-      icon: <Users size={28} />,
+      icon: Users,
       title: t('features.management.title'),
       desc: t('features.management.desc'),
       delay: "300",
       num: "03",
     },
     {
-      icon: <Clock size={28} />,
+      icon: Clock,
       title: t('features.deadlines.title'),
       desc: t('features.deadlines.desc'),
       delay: "400",
@@ -38,87 +38,104 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="py-24 bg-[var(--background)] relative overflow-hidden">
-      {/* Subtle decorative elements */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-secondary/[0.03] rounded-full blur-3xl -translate-y-1/3 translate-x-1/3"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/[0.03] rounded-full blur-3xl translate-y-1/3 -translate-x-1/3"></div>
+    <section className="py-28 bg-[var(--background)] relative overflow-hidden">
+
+      {/* Background ambiance */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#D5B25D]/[0.04] rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D5B25D]/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D5B25D]/10 to-transparent" />
+      </div>
 
       <div className="container mx-auto px-6 relative z-10">
+
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-          <div className="flex items-center gap-3 mb-4 justify-center">
-            <span className="h-px w-8 bg-secondary"></span>
-            <span className="text-secondary font-bold tracking-widest uppercase text-xs">
-              {
-                {
-                  ar: "مميزاتنا",
-                  en: "Our Strengths",
-                  zh: "我们的优势",
-                  es: "Nuestras fortalezas",
-                  fr: "Nos atouts",
-                  de: "Unsere Stärken",
-                  tr: "Güçlü Yönlerimiz",
-                  ur: "ہماری خصوصیات"
-                }[lang] || "Our Strengths"
-              }
+        <div className="text-center max-w-2xl mx-auto mb-20" data-aos="fade-up">
+          <div className="inline-flex items-center gap-3 mb-5">
+            <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#D5B25D]" />
+            <span className="text-[#D5B25D] font-bold tracking-[0.2em] uppercase text-[11px]">
+              {{
+                ar: "مميزاتنا", en: "Our Strengths", zh: "我们的优势",
+                es: "Nuestras fortalezas", fr: "Nos atouts", de: "Unsere Stärken",
+                tr: "Güçlü Yönlerimiz", ur: "ہماری خصوصیات",
+              }[lang] || "Our Strengths"}
             </span>
-            <span className="h-px w-8 bg-secondary"></span>
+            <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#D5B25D]" />
           </div>
-          <h2 className="text-3xl md:text-5xl font-black text-[var(--foreground)] mb-6 leading-tight">
-            {
-              {
-                ar: <>لماذا تختار <span className="text-secondary">MNC</span>؟</>,
-                en: <>Why Choose <span className="text-secondary">MNC</span>?</>,
-                zh: <>为什么选择 <span className="text-secondary">MNC</span>？</>,
-                es: <>¿Por qué elegir <span className="text-secondary">MNC</span>?</>,
-                fr: <>Pourquoi choisir <span className="text-secondary">MNC</span> ?</>,
-                de: <>Warum <span className="text-secondary">MNC</span> wählen?</>,
-                tr: <>Neden <span className="text-secondary">MNC</span>?</>,
-                ur: <>کیوں منتخب کریں <span className="text-secondary">MNC</span>؟</>
-              }[lang] || <>Why Choose <span className="text-secondary">MNC</span>?</>
-            }
+
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-5 leading-tight">
+            {{
+              ar: <>لماذا تختار <span className="text-[#D5B25D]">MNC</span>؟</>,
+              en: <>Why Choose <span className="text-[#D5B25D]">MNC</span>?</>,
+              zh: <>为什么选择 <span className="text-[#D5B25D]">MNC</span>？</>,
+              es: <>¿Por qué elegir <span className="text-[#D5B25D]">MNC</span>?</>,
+              fr: <>Pourquoi choisir <span className="text-[#D5B25D]">MNC</span> ?</>,
+              de: <>Warum <span className="text-[#D5B25D]">MNC</span> wählen?</>,
+              tr: <>Neden <span className="text-[#D5B25D]">MNC</span>?</>,
+              ur: <>کیوں منتخب کریں <span className="text-[#D5B25D]">MNC</span>؟</>,
+            }[lang] || <>Why Choose <span className="text-[#D5B25D]">MNC</span>?</>}
           </h2>
-          <p className="text-[var(--foreground)] text-lg font-medium">
+
+          <p className="text-white/45 text-base leading-relaxed">
             {t('features.subtitle')}
           </p>
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-6xl mx-auto">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="relative bg-[var(--card-bg)] rounded-2xl p-5 border border-[var(--card-border)] shadow-[0_12px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_4px_18px_rgba(213,178,93,0.1)] transition-all duration-500 group -translate-y-1 hover:translate-y-0 flex flex-col justify-center items-center text-center overflow-hidden w-full max-w-[280px] sm:max-w-[250px] mx-auto min-h-[200px] sm:aspect-square"
-              data-aos="fade-up"
-              data-aos-delay={feature.delay}
-            >
-              {/* Hover gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-b from-secondary/5 to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-500 rounded-2xl"></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <div
+                key={index}
+                className="group relative rounded-2xl p-6 flex flex-col gap-5 overflow-hidden transition-all duration-500 cursor-default"
+                style={{
+                  background: "rgba(255,255,255,0.025)",
+                  border: "1px solid rgba(213,178,93,0.1)",
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = "rgba(213,178,93,0.05)";
+                  e.currentTarget.style.border = "1px solid rgba(213,178,93,0.25)";
+                  e.currentTarget.style.boxShadow = "0 0 40px rgba(213,178,93,0.08), 0 20px 60px rgba(0,0,0,0.4)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.025)";
+                  e.currentTarget.style.border = "1px solid rgba(213,178,93,0.1)";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
+                data-aos="fade-up"
+                data-aos-delay={feature.delay}
+              >
+                {/* Top accent line */}
+                <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-[#D5B25D]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              {/* Number watermark */}
-              <span className={`absolute top-3 ${isRTL ? 'left-4' : 'right-4'} text-4xl font-black text-secondary/10 group-hover:text-[var(--foreground)]/10 transition-colors duration-500 select-none`}>
-                {feature.num}
-              </span>
+                {/* Number watermark */}
+                <span className={`absolute top-4 ${isRTL ? 'left-5' : 'right-5'} text-5xl font-black text-white/[0.04] group-hover:text-[#D5B25D]/[0.07] transition-colors duration-500 select-none leading-none`}>
+                  {feature.num}
+                </span>
 
-              {/* Icon */}
-              <div className="relative z-10 w-12 h-12 bg-secondary text-white rounded-2xl flex items-center justify-center mb-4 transition-all duration-500 group-hover:bg-secondary/10 group-hover:text-secondary group-hover:rounded-xl">
-                {feature.icon}
+                {/* Icon */}
+                <div className="relative w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 shrink-0"
+                  style={{ background: "rgba(213,178,93,0.1)", border: "1px solid rgba(213,178,93,0.2)" }}
+                >
+                  <Icon size={22} className="text-[#D5B25D] transition-transform duration-500 group-hover:scale-110" />
+                </div>
+
+                {/* Text */}
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-white font-bold text-base leading-snug group-hover:text-[#D5B25D] transition-colors duration-300">
+                    {feature.title}
+                  </h3>
+                  <p className="text-white/40 text-sm leading-relaxed group-hover:text-white/55 transition-colors duration-300">
+                    {feature.desc}
+                  </p>
+                </div>
+
+                {/* Bottom accent */}
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D5B25D]/0 to-transparent group-hover:via-[#D5B25D]/20 transition-all duration-500" />
               </div>
-
-              {/* Title */}
-              <h3 className="relative z-10 text-lg font-bold text-secondary mb-2 group-hover:text-[var(--foreground)] transition-colors duration-300">
-                {feature.title}
-              </h3>
-
-              {/* Description */}
-              <p className="relative z-10 text-[var(--foreground)]/70 leading-relaxed text-sm font-medium">
-                {feature.desc}
-              </p>
-
-              {/* Bottom accent line */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-1/2 h-[3px] bg-secondary group-hover:w-0 transition-all duration-500 rounded-full"></div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
