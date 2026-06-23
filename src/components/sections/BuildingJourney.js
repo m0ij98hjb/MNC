@@ -287,20 +287,20 @@ export default function BuildingJourney() {
         </motion.div>
 
         {/* ── Main row: Video (left) + Stages (right) ── */}
-        <div className={`flex flex-col lg:flex-row gap-10 lg:gap-14 items-stretch ${isRTL ? "lg:flex-row-reverse" : ""}`}>
+        <div className={`flex flex-col lg:flex-row gap-10 lg:gap-14 items-start ${isRTL ? "lg:flex-row-reverse" : ""}`}>
 
-          {/* Video — left */}
+          {/* Video — sticky so it doesn't move while stages animate */}
           <motion.div
             initial={{ opacity: 0, x: isRTL ? 50 : -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:w-[50%] min-h-[320px] sm:min-h-[400px] lg:min-h-[520px]"
+            className="lg:w-[50%] w-full min-h-[320px] sm:min-h-[400px] lg:min-h-[520px] lg:sticky lg:top-28 lg:self-start"
           >
             <VideoPlayer />
           </motion.div>
 
           {/* Stages — right */}
-          <div className="lg:w-[50%] flex flex-col gap-3 justify-center">
+          <div className="lg:w-[50%] flex flex-col gap-3">
             {STAGES.map((stage, i) => {
               const { Icon }   = stage;
               const isActive   = activeStage === i;
