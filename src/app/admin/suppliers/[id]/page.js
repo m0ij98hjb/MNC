@@ -80,12 +80,17 @@ export default function SupplierDetailPage() {
       const data = await res.json();
       if (!data.success) throw new Error(data.error || data.code || 'Unknown error');
       setVisitStatus('success');
-      setTimeout(() => { setVisitFormOpen(false); setVisitStatus(''); setVisitDate(''); setVisitTime(''); setVisitNote(''); }, 2500);
     } catch (err) {
       setVisitStatus('error');
     } finally {
       setVisitSending(false);
     }
+  };
+
+  const closeVisitDialog = () => {
+    setVisitStatus('');
+    setVisitFormOpen(false);
+    setVisitDate(''); setVisitTime(''); setVisitNote('');
   };
 
   const BackIcon = isRTL ? ArrowRight : ArrowLeft;
@@ -255,9 +260,6 @@ export default function SupplierDetailPage() {
                         />
                       </div>
 
-                      {visitStatus === 'success' && (
-                        <p className="text-green-400 text-xs font-semibold text-center">تم إرسال الدعوة بنجاح ✓</p>
-                      )}
                       {visitStatus === 'error' && (
                         <p className="text-red-400 text-xs font-semibold text-center">حدث خطأ أثناء الإرسال، حاول مجدداً</p>
                       )}
@@ -304,6 +306,65 @@ export default function SupplierDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Success Dialog */}
+      {visitStatus === 'success' && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-md" onClick={closeVisitDialog} />
+
+          <div className="relative z-10 w-full max-w-sm" dir="rtl">
+            {/* Glow */}
+            <div className="absolute -inset-px rounded-3xl bg-gradient-to-b from-[#c8a96e]/40 to-transparent blur-xl pointer-events-none" />
+
+            <div className="relative rounded-3xl border border-[#c8a96e]/20 bg-[#0e0d0a] overflow-hidden shadow-2xl">
+
+              {/* Top bar */}
+              <div className="h-1 w-full bg-gradient-to-r from-transparent via-[#c8a96e] to-transparent" />
+
+              <div className="p-8 flex flex-col items-center text-center gap-6">
+
+                {/* Icon */}
+                <div className="relative">
+                  <div className="absolute inset-0 rounded-full bg-green-500/20 blur-xl scale-150" />
+                  <div className="relative w-20 h-20 rounded-full bg-gradient-to-br from-green-500/20 to-green-500/5 border border-green-500/30 flex items-center justify-center">
+                    <CheckCircle size={36} className="text-green-400" />
+                  </div>
+                </div>
+
+                {/* Text */}
+                <div className="space-y-2">
+                  <p className="text-white font-black text-xl tracking-tight">تم الإرسال بنجاح</p>
+                  <p className="text-white/40 text-sm leading-relaxed">
+                    تم إرسال دعوة الزيارة بنجاح إلى<br />
+                    <span className="text-[#c8a96e] font-semibold">{supplier.companyName}</span>
+                  </p>
+                </div>
+
+                {/* Details strip */}
+                <div className="w-full bg-white/[0.03] border border-white/[0.07] rounded-2xl divide-y divide-white/[0.06]">
+                  <div className="flex items-center justify-between px-4 py-3">
+                    <span className="text-white/35 text-xs">تاريخ الزيارة</span>
+                    <span className="text-white text-xs font-bold" dir="ltr">{visitDate}</span>
+                  </div>
+                  <div className="flex items-center justify-between px-4 py-3">
+                    <span className="text-white/35 text-xs">الوقت</span>
+                    <span className="text-white text-xs font-bold" dir="ltr">{visitTime}</span>
+                  </div>
+                </div>
+
+                {/* Button */}
+                <button
+                  onClick={closeVisitDialog}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black font-black text-sm tracking-wide hover:opacity-90 transition-opacity"
+                >
+                  تم
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminPageLayout>
   );
 }
