@@ -121,7 +121,7 @@ export default function VideoShowcase() {
             {/* Video element */}
             <video
               ref={videoRef}
-              src="/assets/video/enhanced_company_video.mp4"
+              src="/assets/video/MNC-videos.mp4"
               className="w-full aspect-video object-cover block"
               muted
               playsInline

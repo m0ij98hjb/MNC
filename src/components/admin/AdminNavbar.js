@@ -22,6 +22,7 @@ const PAGE_TITLES_AR = {
   '/admin/jobs/approved':  'المقبولون للمقابلة',
   '/admin/jobs/best':      'أفضل المرشحين',
   '/admin/reports':        'التقارير والإحصائيات',
+  '/admin/cameras':        'إدارة الكاميرات',
 };
 
 /* Thin gold vertical divider */

@@ -18,6 +18,7 @@ import {
 const NAV_ITEMS = [
   { href: '/admin/dashboard', labelKey: 'admin.dashboard',     icon: LayoutDashboard },
   { href: '/admin/content',   label: 'إدارة المحتوى',         icon: PenSquare, superAdminOnly: true },
+  { href: '/admin/cameras',   label: 'إدارة الكاميرات',       icon: Camera,    superAdminOnly: true },
   { href: '/admin/suppliers', labelKey: 'admin.suppliersMenu', icon: Users },
   { href: '/admin/jobs',      labelKey: 'admin.jobsMenu',      icon: Briefcase },
   { href: '/admin/approved',  labelKey: 'admin.approvedMenu',  icon: CheckCircle },
