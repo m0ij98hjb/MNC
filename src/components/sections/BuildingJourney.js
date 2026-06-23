@@ -294,7 +294,7 @@ export default function BuildingJourney() {
             initial={{ opacity: 0, x: isRTL ? 50 : -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:w-[50%] w-full min-h-[320px] sm:min-h-[400px] lg:min-h-[520px] lg:sticky lg:top-28 lg:self-start"
+            className="lg:w-[50%] w-full min-h-[320px] sm:min-h-[400px] lg:h-[580px] lg:sticky lg:top-28 lg:self-start"
           >
             <VideoPlayer />
           </motion.div>
