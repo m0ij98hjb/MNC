@@ -74,7 +74,7 @@ export default function GalleryClient({ galleries }) {
             <button
               onClick={() => setCameraOpen(true)}
               title="مشاهدة كاميرات المشروع"
-              className={`absolute top-0 ${isRTL ? "left-0" : "right-0"} flex items-center gap-2 ${isLightMode ? 'bg-white border-[#C9A34D]/40 shadow-sm text-[#0D1B2A]' : 'bg-[#0D1B2A] border-[#C9A34D]/35 text-[#C9A34D]'} border hover:border-[#C9A34D]/80 hover:bg-[#C9A34D]/10 rounded-xl px-3 py-2 text-xs font-bold transition-all duration-300 shadow-lg group`}
+              className={`absolute top-0 ${isRTL ? "left-0" : "right-0"} flex items-center gap-2 bg-black/70 backdrop-blur-md border border-[#C9A34D]/30 text-[#C9A34D] hover:border-[#C9A34D]/65 hover:bg-[#C9A34D]/10 rounded-xl px-3 py-2 text-xs font-bold transition-all duration-300 shadow-lg group`}
             >
               <Eye size={15} className="group-hover:scale-110 transition-transform" />
               <span className="hidden sm:inline">كاميرات مباشرة</span>
