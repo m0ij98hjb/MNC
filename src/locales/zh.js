@@ -283,7 +283,12 @@ export const zh = {
       { key: "autocad",    title: "AutoCAD Designer",        dept: "Engineering Drafting", desc: "Draw and modify engineering plans professionally using the latest software." },
       { key: "sales",      title: "销售经理",                  dept: "销售与业务",            desc: "发展业务、管理客户关系并实现组织增长目标。" },
       { key: "mech",       title: "机械工程师",                dept: "机械工程",              desc: "设计和监督建筑项目中的暖通空调、管道和排水系统。" },
-      { key: "elec",       title: "电气工程师",                dept: "电气工程",              desc: "设计和实施建筑项目中的电气系统、照明和电力解决方案。" }
+      { key: "elec",       title: "电气工程师",                dept: "电气工程",              desc: "设计和实施建筑项目中的电气系统、照明和电力解决方案。" },
+      { key: "safety",     title: "安全工程师",                dept: "健康与安全",            desc: "执行职业安全标准，制定应急计划，确保施工现场安全工作环境。" },
+      { key: "decor",      title: "室内装饰师",                dept: "装饰与装修",            desc: "以最高质量和创意标准设计并实施室内装饰和装修工程。" },
+      { key: "secretary",  title: "行政秘书",                  dept: "行政管理",              desc: "为管理团队安排预约、管理往来函件、档案和日常行政事务。" },
+      { key: "doccontrol", title: "文件控制员",                dept: "文件管理",              desc: "管理、控制和归档工程及组织项目文件，确保易于访问和定期更新。" },
+      { key: "contracts",  title: "合同专员",                  dept: "合同与采购",            desc: "起草和审查商业及建设合同，确保符合法律法规要求。" }
     ],
     trainingBadge: "培训计划",
     trainingTitle: "实践培训机会",

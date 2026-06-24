@@ -283,7 +283,12 @@ export const es = {
       { key: "autocad",    title: "Diseñador AutoCAD",        dept: "Dibujo de Ingeniería",  desc: "Dibujar y modificar planos de ingeniería con el último software." },
       { key: "sales",      title: "Gerente de Ventas",        dept: "Ventas y Negocios",     desc: "Desarrollar negocios, gestionar relaciones con clientes y alcanzar objetivos de crecimiento." },
       { key: "mech",       title: "Ingeniero Mecánico",        dept: "Ingeniería Mecánica",   desc: "Diseñar y supervisar sistemas de HVAC, plomería y drenaje en proyectos de construcción." },
-      { key: "elec",       title: "Ingeniero Eléctrico",       dept: "Ingeniería Eléctrica",  desc: "Diseñar e implementar sistemas eléctricos, iluminación y soluciones de energía." }
+      { key: "elec",       title: "Ingeniero Eléctrico",       dept: "Ingeniería Eléctrica",    desc: "Diseñar e implementar sistemas eléctricos, iluminación y soluciones de energía." },
+      { key: "safety",     title: "Ingeniero de Seguridad",    dept: "Salud y Seguridad",       desc: "Aplicar normas de seguridad laboral, preparar planes de emergencia y garantizar un entorno de trabajo seguro en las obras." },
+      { key: "decor",      title: "Decorador de Interiores",   dept: "Decoración y Acabados",   desc: "Diseñar y ejecutar trabajos de decoración y acabados interiores con los más altos estándares de calidad y creatividad." },
+      { key: "secretary",  title: "Secretario Administrativo", dept: "Administración",          desc: "Organizar citas, gestionar correspondencia, archivos y tareas administrativas diarias para apoyar al equipo ejecutivo." },
+      { key: "doccontrol", title: "Controlador de Documentos", dept: "Gestión Documental",      desc: "Gestionar, controlar y archivar documentos de proyectos de ingeniería y organizacionales, garantizando su fácil acceso y actualización." },
+      { key: "contracts",  title: "Especialista en Contratos", dept: "Contratos y Compras",     desc: "Redactar y revisar contratos comerciales y de construcción garantizando el cumplimiento de requisitos legales y normativos." }
     ],
     trainingBadge: "Programa de Prácticas",
     trainingTitle: "Oportunidades de Prácticas",

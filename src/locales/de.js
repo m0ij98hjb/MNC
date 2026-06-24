@@ -283,7 +283,12 @@ export const de = {
       { key: "autocad",    title: "AutoCAD-Designer",          dept: "Technisches Zeichnen", desc: "Ingenieurpläne professionell mit modernster Software zeichnen und bearbeiten." },
       { key: "sales",      title: "Vertriebsleiter",           dept: "Vertrieb & Geschäft",  desc: "Geschäfte entwickeln, Kundenbeziehungen pflegen und Wachstumsziele erreichen." },
       { key: "mech",       title: "Maschinenbauingenieur",     dept: "Maschinenbau",         desc: "Planung und Überwachung von HLK-, Sanitär- und Entwässerungssystemen." },
-      { key: "elec",       title: "Elektroingenieur",          dept: "Elektrotechnik",       desc: "Entwurf und Implementierung von Elektrosystemen, Beleuchtung und Energielösungen." }
+      { key: "elec",       title: "Elektroingenieur",          dept: "Elektrotechnik",            desc: "Entwurf und Implementierung von Elektrosystemen, Beleuchtung und Energielösungen." },
+      { key: "safety",     title: "Sicherheitsingenieur",       dept: "Gesundheit & Sicherheit",   desc: "Arbeitssicherheitsstandards anwenden, Notfallpläne erstellen und eine sichere Arbeitsumgebung auf Baustellen gewährleisten." },
+      { key: "decor",      title: "Innendekorateur",            dept: "Dekoration & Ausbau",       desc: "Innendekorations- und Ausbauarbeiten in höchster Qualität und Kreativität gestalten und umsetzen." },
+      { key: "secretary",  title: "Verwaltungssekretär",        dept: "Verwaltung",                desc: "Termine organisieren, Korrespondenz, Dateien und tägliche Verwaltungsaufgaben zur Unterstützung des Führungsteams verwalten." },
+      { key: "doccontrol", title: "Dokumentenverwalter",        dept: "Dokumentenverwaltung",      desc: "Ingenieur- und Organisationsdokumente verwalten, kontrollieren und archivieren, um einfachen Zugang sicherzustellen." },
+      { key: "contracts",  title: "Vertragsspezialist",         dept: "Verträge & Beschaffung",    desc: "Handels- und Bauverträge ausarbeiten und überprüfen, um die Einhaltung rechtlicher Anforderungen zu gewährleisten." }
     ],
     trainingBadge: "Ausbildungsprogramm",
     trainingTitle: "Praktische Ausbildungsmöglichkeiten",

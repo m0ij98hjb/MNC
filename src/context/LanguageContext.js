@@ -9,6 +9,7 @@ import { fr } from '../locales/fr';
 import { de } from '../locales/de';
 import { tr } from '../locales/tr';
 import { ur } from '../locales/ur';
+import { ru } from '../locales/ru';
 
 const LanguageContext = createContext();
 
@@ -22,9 +23,10 @@ export const LANGUAGES = [
   { code: 'de', name: 'German',     nativeName: 'Deutsch',   flag: '🇩🇪', dir: 'ltr' },
   { code: 'tr', name: 'Turkish',    nativeName: 'Türkçe',    flag: '🇹🇷', dir: 'ltr' },
   { code: 'ur', name: 'Urdu',       nativeName: 'اردو',      flag: '🇵🇰', dir: 'rtl' },
+  { code: 'ru', name: 'Russian',    nativeName: 'Русский',   flag: '🇷🇺', dir: 'ltr' },
 ];
 
-const localesMap = { ar, en, zh, es, fr, de, tr, ur };
+const localesMap = { ar, en, zh, es, fr, de, tr, ur, ru };
 
 // Languages that use RTL direction
 const RTL_LANGS = ['ar', 'ur'];

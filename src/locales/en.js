@@ -283,7 +283,12 @@ export const en = {
       { key: "autocad",    title: "AutoCAD Designer",        dept: "Engineering Drafting",  desc: "Draw and modify engineering plans professionally using the latest software." },
       { key: "sales",      title: "Sales Manager",           dept: "Sales & Business",      desc: "Develop business, manage client relationships, and achieve organizational growth targets." },
       { key: "mech",       title: "Mechanical Engineer",      dept: "Mechanical Engineering", desc: "Design and review HVAC, plumbing, and drainage systems and supervise their field execution." },
-      { key: "elec",       title: "Electrical Engineer",      dept: "Electrical Engineering", desc: "Design and implement electrical systems, lighting, and power solutions in construction projects." }
+      { key: "elec",       title: "Electrical Engineer",      dept: "Electrical Engineering",  desc: "Design and implement electrical systems, lighting, and power solutions in construction projects." },
+      { key: "safety",     title: "Safety Engineer",          dept: "Health & Safety",          desc: "Apply occupational safety standards, prepare emergency plans, and ensure a safe work environment on construction sites." },
+      { key: "decor",      title: "Interior Decorator",       dept: "Decor & Finishing",        desc: "Design and execute interior decoration and finishing works to the highest standards of quality and creativity." },
+      { key: "secretary",  title: "Administrative Secretary", dept: "Administration",           desc: "Organize appointments, manage correspondence, files, and daily administrative tasks to support the executive team." },
+      { key: "doccontrol", title: "Document Controller",      dept: "Document Management",      desc: "Manage, control, and archive engineering and organizational project documents, ensuring easy access and regular updates." },
+      { key: "contracts",  title: "Contract Specialist",      dept: "Contracts & Procurement",  desc: "Draft and review commercial and construction contracts, ensuring compliance with legal and regulatory requirements." }
     ],
     trainingBadge: "Training Program",
     trainingTitle: "Practical Training Opportunities",

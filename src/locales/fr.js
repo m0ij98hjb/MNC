@@ -283,7 +283,12 @@ export const fr = {
       { key: "autocad",    title: "Dessinateur AutoCAD",      dept: "Dessin Technique",      desc: "Dessiner et modifier des plans d'ingénierie professionnellement avec les derniers logiciels." },
       { key: "sales",      title: "Directeur Commercial",     dept: "Ventes & Affaires",     desc: "Développer les affaires, gérer les relations clients et atteindre les objectifs de croissance." },
       { key: "mech",       title: "Ingénieur Mécanique",       dept: "Génie Mécanique",       desc: "Concevoir et superviser les systèmes CVC, plomberie et drainage dans les projets de construction." },
-      { key: "elec",       title: "Ingénieur Électricien",     dept: "Génie Électrique",      desc: "Concevoir et mettre en œuvre les systèmes électriques, d'éclairage et d'alimentation." }
+      { key: "elec",       title: "Ingénieur Électricien",     dept: "Génie Électrique",        desc: "Concevoir et mettre en œuvre les systèmes électriques, d'éclairage et d'alimentation." },
+      { key: "safety",     title: "Ingénieur HSE",             dept: "Santé & Sécurité",        desc: "Appliquer les normes de sécurité professionnelle, préparer les plans d'urgence et assurer un environnement de travail sûr sur les chantiers." },
+      { key: "decor",      title: "Décorateur d'Intérieur",    dept: "Décoration & Finitions",  desc: "Concevoir et réaliser des travaux de décoration et de finition intérieure aux plus hauts standards de qualité et de créativité." },
+      { key: "secretary",  title: "Secrétaire Administratif",  dept: "Administration",          desc: "Organiser les rendez-vous, gérer la correspondance, les fichiers et les tâches administratives quotidiennes pour soutenir l'équipe dirigeante." },
+      { key: "doccontrol", title: "Contrôleur de Documents",   dept: "Gestion Documentaire",    desc: "Gérer, contrôler et archiver les documents de projets d'ingénierie et organisationnels, en assurant leur accessibilité et leur mise à jour." },
+      { key: "contracts",  title: "Spécialiste en Contrats",   dept: "Contrats & Marchés",      desc: "Rédiger et réviser les contrats commerciaux et de construction en veillant à la conformité aux exigences légales et réglementaires." }
     ],
     trainingBadge: "Programme de Formation",
     trainingTitle: "Opportunités de Stage Pratique",

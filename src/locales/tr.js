@@ -283,7 +283,12 @@ export const tr = {
       { key: "autocad",    title: "AutoCAD Tasarımcısı",   dept: "Teknik Çizim",        desc: "En son yazılımları kullanarak mühendislik planlarını profesyonelce çizmek ve düzenlemek." },
       { key: "sales",      title: "Satış Müdürü",          dept: "Satış & İş",          desc: "İş geliştirmek, müşteri ilişkilerini yönetmek ve büyüme hedeflerine ulaşmak." },
       { key: "mech",       title: "Makine Mühendisi",       dept: "Makine Mühendisliği", desc: "İklimlendirme, sıhhi tesisat ve drenaj sistemlerini tasarlamak ve denetlemek." },
-      { key: "elec",       title: "Elektrik Mühendisi",     dept: "Elektrik Mühendisliği", desc: "İnşaat projelerinde elektrik sistemleri, aydınlatma ve güç çözümleri tasarlamak ve uygulamak." }
+      { key: "elec",       title: "Elektrik Mühendisi",        dept: "Elektrik Mühendisliği",     desc: "İnşaat projelerinde elektrik sistemleri, aydınlatma ve güç çözümleri tasarlamak ve uygulamak." },
+      { key: "safety",     title: "İş Güvenliği Mühendisi",    dept: "Sağlık & Güvenlik",         desc: "İş güvenliği standartlarını uygulamak, acil durum planları hazırlamak ve şantiyelerde güvenli çalışma ortamı sağlamak." },
+      { key: "decor",      title: "İç Dekoratör",              dept: "Dekorasyon & Bitişler",     desc: "En yüksek kalite ve yaratıcılık standartlarında iç dekorasyon ve bitirme işleri tasarlamak ve uygulamak." },
+      { key: "secretary",  title: "İdari Sekreter",            dept: "İdare",                     desc: "Yönetici ekibini desteklemek için randevuları düzenlemek, yazışmaları, dosyaları ve günlük idari görevleri yönetmek." },
+      { key: "doccontrol", title: "Doküman Kontrolcüsü",       dept: "Doküman Yönetimi",          desc: "Mühendislik ve organizasyonel proje belgelerini yönetmek, kontrol etmek ve arşivlemek, erişilebilirliklerini sağlamak." },
+      { key: "contracts",  title: "Sözleşme Uzmanı",           dept: "Sözleşmeler & Satın Alma",  desc: "Yasal gerekliliklere uyumu sağlayarak ticari ve inşaat sözleşmelerini hazırlamak ve gözden geçirmek." }
     ],
     trainingBadge: "Staj Programı",
     trainingTitle: "Pratik Staj Fırsatları",
