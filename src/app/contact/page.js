@@ -162,7 +162,7 @@ export default function ContactPage() {
                 </div>
               </a>
 
-              {/* Location */}
+              {/* Location — Branch 1 */}
               <div className="flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 hover:border-secondary/40 hover:bg-white/8 transition-all duration-300 group cursor-default">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-secondary/10 border border-secondary/20 shrink-0 group-hover:bg-secondary/20 transition-colors">
                   <MapPin className="text-secondary" size={22} />
@@ -170,6 +170,17 @@ export default function ContactPage() {
                 <div>
                   <p className="text-secondary text-[10px] font-bold uppercase tracking-widest mb-1">{t('contact.location')}</p>
                   <p className="text-white font-semibold text-sm leading-relaxed max-w-xs">{isRTL ? addrAr : (addrEn || addrAr)}</p>
+                </div>
+              </div>
+
+              {/* Location — Branch 2 */}
+              <div className="flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 hover:border-secondary/40 hover:bg-white/8 transition-all duration-300 group cursor-default">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-secondary/10 border border-secondary/20 shrink-0 group-hover:bg-secondary/20 transition-colors">
+                  <MapPin className="text-secondary" size={22} />
+                </div>
+                <div>
+                  <p className="text-secondary text-[10px] font-bold uppercase tracking-widest mb-1">{t('contact.location')}</p>
+                  <p className="text-white font-semibold text-sm leading-relaxed max-w-xs">طريق أنس بن مالك - شارع أبها، الرياض</p>
                 </div>
               </div>
 
@@ -248,6 +259,16 @@ export default function ContactPage() {
                   <div>
                     <p className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider mb-1">{t('contact.location')}</p>
                     <p className="text-base font-bold text-white group-hover:text-[var(--secondary)] transition-colors leading-relaxed font-sans max-w-sm">{t('contactPage.address')}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-5 group cursor-default" data-aos="fade-up" data-aos-delay="450">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#D5B25D]/30 bg-[#D5B25D]/10 group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
+                    <MapPin className="text-secondary" size={20} />
+                  </div>
+                  <div>
+                    <p className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider mb-1">{t('contact.location')}</p>
+                    <p className="text-base font-bold text-white group-hover:text-[var(--secondary)] transition-colors leading-relaxed font-sans max-w-sm">طريق أنس بن مالك - شارع أبها، الرياض</p>
                   </div>
                 </div>
               </div>
