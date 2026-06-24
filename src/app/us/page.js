@@ -15,13 +15,12 @@ export default function AboutUsPage() {
   const directorImage = aboutCms?.director_image || '/asstes/director.png';
   const RIYADH_BASE = '/asstes/Photos%20of%20the%20Riyadh/';
   const riyadhPhotos = [
-    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM.jpeg`,      alt: 'فرع الرياض - MNC' },
     { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(1).jpeg`, alt: 'فرع الرياض - مبنى المقر' },
     { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(3).jpeg`, alt: 'فرع الرياض - الداخل' },
     { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(4).jpeg`, alt: 'فرع الرياض - قاعة الاجتماعات' },
     { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(5).jpeg`, alt: 'فرع الرياض - المكاتب' },
-    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.24%20PM.jpeg`,       alt: 'فرع الرياض - الواجهة' },
     { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(6).jpeg`, alt: 'فرع الرياض - الاستقبال' },
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.24%20PM.jpeg`,       alt: 'فرع الرياض - الواجهة' },
   ];
 
   const [lightboxIndex, setLightboxIndex] = useState(null);
