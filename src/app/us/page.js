@@ -366,42 +366,14 @@ export default function AboutUsPage() {
           {/* ── Photo Grid ── */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
 
-            {/* Photo 1 — Featured full-width (full image visible, controlled height) */}
-            <div
-              className="col-span-2 sm:col-span-3 group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/8 hover:border-[#D5B25D]/40 transition-all duration-500 shadow-2xl bg-black/30 cursor-zoom-in h-[280px] sm:h-[400px]"
-              data-aos="fade-up"
-              onClick={() => setLightboxIndex(0)}
-            >
-              <img
-                src={riyadhPhotos[0].src}
-                alt={riyadhPhotos[0].alt}
-                className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.04]"
-              />
-              {/* Bottom gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-              {/* Hover gold top line */}
-              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D5B25D] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              {/* Zoom icon */}
-              <div className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'} w-9 h-9 rounded-full bg-black/60 backdrop-blur-sm border border-white/15 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`}>
-                <ZoomIn size={15} className="text-[#D5B25D]" />
-              </div>
-              {/* Label */}
-              <div className={`absolute bottom-5 ${isRTL ? 'right-6' : 'left-6'} flex items-center gap-2 pointer-events-none`}>
-                <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D] animate-pulse" />
-                <span className="text-[#D5B25D] text-[11px] font-black uppercase tracking-[3px] drop-shadow-lg">
-                  MNC · {isRTL ? 'فرع الرياض' : 'Riyadh Branch'}
-                </span>
-              </div>
-            </div>
-
-            {/* Photos 2 – 7 */}
-            {riyadhPhotos.slice(1).map((photo, i) => (
+            {/* Photos 1 – 7 */}
+            {riyadhPhotos.map((photo, i) => (
               <div
                 key={i}
                 className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/8 hover:border-[#D5B25D]/40 transition-all duration-500 shadow-xl bg-white/[0.02] cursor-zoom-in aspect-[4/3]"
                 data-aos="fade-up"
                 data-aos-delay={`${(i % 3) * 80}`}
-                onClick={() => setLightboxIndex(i + 1)}
+                onClick={() => setLightboxIndex(i)}
               >
                 <Image
                   src={photo.src}
