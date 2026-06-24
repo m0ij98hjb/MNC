@@ -366,8 +366,8 @@ export default function AboutUsPage() {
           {/* ── Photo Grid ── */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
 
-            {/* Photos 1 – 7 */}
-            {riyadhPhotos.map((photo, i) => (
+            {/* Photos — 6 cards, 3×2 grid */}
+            {riyadhPhotos.slice(0, 6).map((photo, i) => (
               <div
                 key={i}
                 className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/8 hover:border-[#D5B25D]/40 transition-all duration-500 shadow-xl bg-white/[0.02] cursor-zoom-in aspect-[4/3]"
