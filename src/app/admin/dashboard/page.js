@@ -6,6 +6,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import {
   Users, Clock, CheckCircle, XCircle, TrendingUp,
   Briefcase, Building2, ArrowLeft, ArrowRight, CalendarCheck,
+  MessageSquare,
 } from 'lucide-react';
 import StatusBadge from '@/components/admin/StatusBadge';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
@@ -36,10 +37,12 @@ export default function DashboardPage() {
   const { t, isRTL } = useLanguage();
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
-  const [supplierCounts, setSupplierCounts] = useState({ total: 0, new: 0, under_review: 0, approved: 0, rejected: 0 });
-  const [jobCounts, setJobCounts]           = useState({ total: 0, pending: 0, interview_scheduled: 0, rejected: 0 });
+  const [supplierCounts, setSupplierCounts]   = useState({ total: 0, new: 0, under_review: 0, approved: 0, rejected: 0 });
+  const [jobCounts, setJobCounts]             = useState({ total: 0, pending: 0, interview_scheduled: 0, rejected: 0 });
+  const [msgCounts, setMsgCounts]             = useState({ total: 0, new: 0, replied: 0, closed: 0 });
   const [recentSuppliers, setRecentSuppliers] = useState([]);
   const [recentJobs, setRecentJobs]           = useState([]);
+  const [recentMessages, setRecentMessages]   = useState([]);
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'suppliers'), snap => {
@@ -62,6 +65,22 @@ export default function DashboardPage() {
       setJobCounts(c);
       setRecentJobs(
         [...docs].sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0)).slice(0, 6)
+      );
+    });
+    return unsub;
+  }, []);
+
+  useEffect(() => {
+    const unsub = onSnapshot(collection(db, 'contacts'), snap => {
+      const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      const c = { total: docs.length, new: 0, replied: 0, closed: 0 };
+      docs.forEach(d => {
+        const s = d.status || 'new';
+        if (c[s] !== undefined) c[s]++;
+      });
+      setMsgCounts(c);
+      setRecentMessages(
+        [...docs].sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0)).slice(0, 5)
       );
     });
     return unsub;
@@ -93,7 +112,7 @@ export default function DashboardPage() {
         </div>
 
         {/* ── Jobs Stats ── */}
-        <div className="mb-8">
+        <div className="mb-6">
           <div className="flex items-center gap-2 mb-3">
             <Briefcase size={14} className="text-[#c8a96e]" />
             <span className="text-xs font-bold text-white/40 uppercase tracking-widest">{t('admin.jobsStats')}</span>
@@ -102,15 +121,32 @@ export default function DashboardPage() {
             </Link>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            <StatCard label={t('admin.totalApps')}          value={jobCounts.total}               icon={Users}         color="#a78bfa" bg="rgba(167,139,250,0.12)" href="/admin/jobs" />
-            <StatCard label={t('admin.newApps')}            value={jobCounts.pending}             icon={TrendingUp}    color="#3b82f6" bg="rgba(59,130,246,0.12)"  href="/admin/jobs" />
+            <StatCard label={t('admin.totalApps')}           value={jobCounts.total}               icon={Users}         color="#a78bfa" bg="rgba(167,139,250,0.12)" href="/admin/jobs" />
+            <StatCard label={t('admin.newApps')}             value={jobCounts.pending}             icon={TrendingUp}    color="#3b82f6" bg="rgba(59,130,246,0.12)"  href="/admin/jobs" />
             <StatCard label={t('admin.scheduledInterviews')} value={jobCounts.interview_scheduled} icon={CalendarCheck} color="#f59e0b" bg="rgba(245,158,11,0.12)"  href="/admin/jobs/approved" />
-            <StatCard label={t('admin.rejectedLabel')}      value={jobCounts.rejected}            icon={XCircle}       color="#ef4444" bg="rgba(239,68,68,0.12)"   href="/admin/jobs" />
+            <StatCard label={t('admin.rejectedLabel')}       value={jobCounts.rejected}            icon={XCircle}       color="#ef4444" bg="rgba(239,68,68,0.12)"   href="/admin/jobs" />
           </div>
         </div>
 
-        {/* ── Recent records — two halves ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {/* ── Messages Stats ── */}
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-3">
+            <MessageSquare size={14} className="text-green-400" />
+            <span className="text-xs font-bold text-white/40 uppercase tracking-widest">رسائل العملاء</span>
+            <Link href="/admin/messages" className="ms-auto text-xs text-[#c8a96e] hover:underline flex items-center gap-1">
+              {t('admin.viewAll')} <ArrowIcon size={11} />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <StatCard label="إجمالي الرسائل" value={msgCounts.total}   icon={MessageSquare} color="#a78bfa" bg="rgba(167,139,250,0.12)" href="/admin/messages" />
+            <StatCard label="رسائل جديدة"    value={msgCounts.new}     icon={TrendingUp}    color="#3b82f6" bg="rgba(59,130,246,0.12)"  href="/admin/messages" />
+            <StatCard label="تم الرد"        value={msgCounts.replied} icon={CheckCircle}   color="#10b981" bg="rgba(16,185,129,0.12)"  href="/admin/messages" />
+            <StatCard label="مغلقة"          value={msgCounts.closed}  icon={XCircle}       color="#6b7280" bg="rgba(107,114,128,0.12)" href="/admin/messages" />
+          </div>
+        </div>
+
+        {/* ── Recent records — three columns ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
           {/* Suppliers */}
           <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">
@@ -187,6 +223,59 @@ export default function DashboardPage() {
                       </span>
                       <span className="text-[10px] text-white/20 hidden sm:block" dir="ltr">
                         {j.createdAt?.seconds ? new Date(j.createdAt.seconds * 1000).toLocaleDateString('en-GB') : ''}
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Messages */}
+          <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.07]">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-lg bg-green-500/12 border border-green-500/20 flex items-center justify-center">
+                  <MessageSquare size={13} className="text-green-400" />
+                </div>
+                <h2 className="text-sm font-semibold text-white">آخر الرسائل</h2>
+              </div>
+              <Link href="/admin/messages" className="flex items-center gap-1 text-xs text-[#c8a96e] hover:underline">
+                {t('admin.viewAll')} <ArrowIcon size={11} />
+              </Link>
+            </div>
+            <div className="divide-y divide-white/[0.05]">
+              {recentMessages.length === 0 ? (
+                <p className="text-center text-white/25 text-sm py-8">لا توجد رسائل</p>
+              ) : recentMessages.map(m => {
+                const status = m.status || 'new';
+                const msgColor = status === 'replied' ? '#10b981'
+                               : status === 'closed'  ? '#6b7280'
+                               : status === 'under_review' ? '#f59e0b'
+                               : '#3b82f6';
+                const msgLabel = status === 'replied'      ? 'تم الرد'
+                               : status === 'closed'       ? 'مغلقة'
+                               : status === 'under_review' ? 'قيد المراجعة'
+                               : 'جديدة';
+                return (
+                  <Link
+                    key={m.id}
+                    href="/admin/messages"
+                    className="flex items-center justify-between px-5 py-3 hover:bg-white/[0.03] transition-colors group"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm text-white font-medium truncate group-hover:text-[#c8a96e] transition-colors">
+                        {m.fullName || m.name || '—'}
+                      </p>
+                      <p className="text-xs text-white/30 mt-0.5 truncate">{m.email || m.phone || '—'}</p>
+                    </div>
+                    <div className="flex items-center gap-2.5 shrink-0 ms-3">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold"
+                        style={{ color: msgColor, background: `${msgColor}18`, border: `1px solid ${msgColor}30` }}>
+                        {msgLabel}
+                      </span>
+                      <span className="text-[10px] text-white/20 hidden sm:block" dir="ltr">
+                        {m.createdAt?.seconds ? new Date(m.createdAt.seconds * 1000).toLocaleDateString('en-GB') : ''}
                       </span>
                     </div>
                   </Link>

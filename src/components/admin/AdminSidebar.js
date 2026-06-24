@@ -12,15 +12,16 @@ import { storage, db } from '@/lib/firebase';
 import {
   LayoutDashboard, Users, CheckCircle, BarChart2,
   ChevronRight, ChevronLeft, LogOut, Briefcase, PenSquare,
-  Camera, X, Loader2,
+  Camera, X, Loader2, MessageSquare,
 } from 'lucide-react';
 
 const NAV_ITEMS = [
   { href: '/admin/dashboard', labelKey: 'admin.dashboard',     icon: LayoutDashboard },
-  { href: '/admin/content',   label: 'إدارة المحتوى',         icon: PenSquare, superAdminOnly: true },
-  { href: '/admin/cameras',   label: 'إدارة الكاميرات',       icon: Camera,    superAdminOnly: true },
+  { href: '/admin/content',   label: 'إدارة المحتوى',         icon: PenSquare,     superAdminOnly: true },
+  { href: '/admin/cameras',   label: 'إدارة الكاميرات',       icon: Camera,        superAdminOnly: true },
   { href: '/admin/suppliers', labelKey: 'admin.suppliersMenu', icon: Users },
   { href: '/admin/jobs',      labelKey: 'admin.jobsMenu',      icon: Briefcase },
+  { href: '/admin/messages',  label: 'رسائل العملاء',         icon: MessageSquare },
   { href: '/admin/approved',  labelKey: 'admin.approvedMenu',  icon: CheckCircle },
   { href: '/admin/reports',   labelKey: 'admin.reportsMenu',   icon: BarChart2 },
 ];

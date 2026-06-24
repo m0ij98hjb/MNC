@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
 import {
   LogOut, LayoutDashboard, ChevronDown, Globe,
-  Bell, Briefcase, Building2, ExternalLink,
+  Bell, Briefcase, Building2, ExternalLink, MessageSquare,
 } from 'lucide-react';
 import { useLanguage, LANGUAGES } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
@@ -21,6 +21,7 @@ const PAGE_TITLES_AR = {
   '/admin/jobs':           'طلبات التوظيف',
   '/admin/jobs/approved':  'المقبولون للمقابلة',
   '/admin/jobs/best':      'أفضل المرشحين',
+  '/admin/messages':       'رسائل العملاء',
   '/admin/reports':        'التقارير والإحصائيات',
   '/admin/cameras':        'إدارة الكاميرات',
 };
@@ -262,35 +263,42 @@ export default function AdminNavbar() {
                     <Bell size={20} className="text-white/10 mx-auto mb-2" />
                     <p className="text-white/25 text-xs">لا توجد إشعارات جديدة</p>
                   </div>
-                ) : allNotifications.map(n => (
-                  <Link
-                    key={n.id}
-                    href={n.type === 'supplier' ? `/admin/suppliers/${n.id}` : '/admin/jobs'}
-                    onClick={() => setIsBellOpen(false)}
-                    className="flex items-start gap-3 px-4 py-3 hover:bg-white/[0.04] transition-colors"
-                  >
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                      n.type === 'supplier'
-                        ? 'bg-blue-500/12 border border-blue-500/25'
-                        : 'bg-[#c8a96e]/12 border border-[#c8a96e]/25'
-                    }`}>
-                      {n.type === 'supplier'
-                        ? <Building2 size={12} className="text-blue-400" />
-                        : <Briefcase size={12} className="text-[#c8a96e]" />}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-white text-xs font-semibold truncate">
-                        {n.type === 'supplier' ? n.companyName : n.fullName}
-                      </p>
-                      <p className="text-white/40 text-[11px] mt-0.5 truncate">
-                        {n.type === 'supplier'
-                          ? `طلب مورد · ${n.activity || ''}`
-                          : `طلب وظيفة · ${n.position || ''}`}
-                      </p>
-                    </div>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#c8a96e]/50 shrink-0 mt-2" />
-                  </Link>
-                ))}
+                ) : allNotifications.map(n => {
+                  const isSupplier = n.type === 'supplier';
+                  const isContact  = n.type === 'contact';
+                  const href       = isSupplier ? `/admin/suppliers/${n.id}`
+                                   : isContact  ? '/admin/messages'
+                                   :              '/admin/jobs';
+                  return (
+                    <Link
+                      key={n.id}
+                      href={href}
+                      onClick={() => setIsBellOpen(false)}
+                      className="flex items-start gap-3 px-4 py-3 hover:bg-white/[0.04] transition-colors"
+                    >
+                      <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
+                        isSupplier ? 'bg-blue-500/12 border border-blue-500/25'
+                        : isContact ? 'bg-green-500/12 border border-green-500/25'
+                        :             'bg-[#c8a96e]/12 border border-[#c8a96e]/25'
+                      }`}>
+                        {isSupplier ? <Building2 size={12} className="text-blue-400" />
+                        : isContact ? <MessageSquare size={12} className="text-green-400" />
+                        :             <Briefcase size={12} className="text-[#c8a96e]" />}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-white text-xs font-semibold truncate">
+                          {isSupplier ? n.companyName : (n.fullName || n.name || 'عميل')}
+                        </p>
+                        <p className="text-white/40 text-[11px] mt-0.5 truncate">
+                          {isSupplier ? `طلب مورد · ${n.activity || ''}`
+                          : isContact ? `رسالة عميل · ${n.subject || ''}`
+                          :             `طلب وظيفة · ${n.position || ''}`}
+                        </p>
+                      </div>
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#c8a96e]/50 shrink-0 mt-2" />
+                    </Link>
+                  );
+                })}
               </div>
               {allNotifications.length > 0 && (
                 <div className="border-t border-white/[0.06] px-4 py-2.5 flex gap-2">
@@ -308,6 +316,14 @@ export default function AdminNavbar() {
                     className="flex-1 text-center text-[11px] text-[#c8a96e]/70 hover:text-[#c8a96e] transition-colors font-semibold"
                   >
                     الوظائف
+                  </Link>
+                  <div className="w-px bg-white/10" />
+                  <Link
+                    href="/admin/messages"
+                    onClick={() => setIsBellOpen(false)}
+                    className="flex-1 text-center text-[11px] text-green-400/70 hover:text-green-400 transition-colors font-semibold"
+                  >
+                    الرسائل
                   </Link>
                 </div>
               )}

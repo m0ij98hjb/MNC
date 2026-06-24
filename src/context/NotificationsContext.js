@@ -15,6 +15,7 @@ const NotificationsContext = createContext(null);
 export function NotificationsProvider({ children }) {
   const [suppliers, setSuppliers] = useState([]);
   const [jobs, setJobs]           = useState([]);
+  const [contacts, setContacts]   = useState([]);
   const [bellOpenedAt, setBellOpenedAt] = useState(0);
 
   useEffect(() => {
@@ -45,6 +46,18 @@ export function NotificationsProvider({ children }) {
     return unsub;
   }, []);
 
+  useEffect(() => {
+    const unsub = onSnapshot(collection(db, 'contacts'), snap => {
+      setContacts(
+        snap.docs
+          .map(d => ({ id: d.id, type: 'contact', ...d.data() }))
+          .filter(d => (d.status || 'new') === 'new')
+          .sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0))
+      );
+    });
+    return unsub;
+  }, []);
+
   // Mark all as seen by saving current timestamp — badge goes to 0
   const markBellOpened = useCallback(() => {
     const now = Date.now();
@@ -52,7 +65,7 @@ export function NotificationsProvider({ children }) {
     setBellOpenedAt(now);
   }, []);
 
-  const allNotifications = [...suppliers, ...jobs]
+  const allNotifications = [...suppliers, ...jobs, ...contacts]
     .sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0));
 
   // Unread = created AFTER last bell open

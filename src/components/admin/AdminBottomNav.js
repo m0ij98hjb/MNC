@@ -3,12 +3,13 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
-import { LayoutDashboard, Users, CheckCircle, BarChart2, LogOut, Briefcase } from 'lucide-react';
+import { LayoutDashboard, Users, CheckCircle, BarChart2, LogOut, Briefcase, MessageSquare } from 'lucide-react';
 
 const NAV_ITEMS = [
   { href: '/admin/dashboard', labelKey: 'admin.dashboard',     icon: LayoutDashboard },
   { href: '/admin/suppliers', labelKey: 'admin.suppliersMenu', icon: Users },
   { href: '/admin/jobs',      labelKey: 'admin.jobsMenu',      icon: Briefcase },
+  { href: '/admin/messages',  label:    'رسائل العملاء',       icon: MessageSquare },
   { href: '/admin/approved',  labelKey: 'admin.approvedMenu',  icon: CheckCircle },
   { href: '/admin/reports',   labelKey: 'admin.reportsMenu',   icon: BarChart2 },
 ];
@@ -45,8 +46,9 @@ export default function AdminBottomNav() {
         <div className="flex" style={{ height: '72px' }}>
 
           {/* Nav links */}
-          {NAV_ITEMS.map(({ href, labelKey, icon: Icon }) => {
-            const active = pathname === href || pathname.startsWith(href + '/');
+          {NAV_ITEMS.map(({ href, labelKey, label, icon: Icon }) => {
+            const active    = pathname === href || pathname.startsWith(href + '/');
+            const navLabel  = label ?? t(labelKey);
             return (
               <Link
                 key={href}
@@ -68,7 +70,7 @@ export default function AdminBottomNav() {
                   className="text-[10px] font-bold leading-tight text-center w-full"
                   style={{ color: active ? '#C9A34D' : 'rgba(255,255,255,0.65)' }}
                 >
-                  {t(labelKey)}
+                  {navLabel}
                 </span>
               </Link>
             );

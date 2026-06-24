@@ -15,10 +15,12 @@ export default function ContactPage() {
   const { data: cms } = useSiteContent('contact');
 
   /* ── Contact form state ── */
-  const [formName, setFormName]       = useState("");
-  const [formPhone, setFormPhone]     = useState("");
-  const [formService, setFormService] = useState("construction");
-  const [formMessage, setFormMessage] = useState("");
+  const [formName, setFormName]         = useState("");
+  const [formEmail, setFormEmail]       = useState("");
+  const [formPhone, setFormPhone]       = useState("");
+  const [formCompany, setFormCompany]   = useState("");
+  const [formService, setFormService]   = useState("construction");
+  const [formMessage, setFormMessage]   = useState("");
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [formSubmitted, setFormSubmitted]   = useState(false);
   const [formError, setFormError]           = useState("");
@@ -34,13 +36,17 @@ export default function ContactPage() {
     setFormError("");
     try {
       await addDoc(collection(db, "contacts"), {
-        name: formName.trim(),
-        phone: formPhone.trim(),
-        service: formService,
-        message: formMessage.trim(),
+        fullName:   formName.trim(),
+        email:      formEmail.trim(),
+        phone:      formPhone.trim(),
+        company:    formCompany.trim(),
+        subject:    formService,
+        message:    formMessage.trim(),
         lang,
-        status: "new",
-        createdAt: serverTimestamp(),
+        status:     "new",
+        adminReply: "",
+        createdAt:  serverTimestamp(),
+        updatedAt:  null,
       });
       setFormSubmitted(true);
     } catch (err) {
@@ -52,7 +58,8 @@ export default function ContactPage() {
 
   const handleContactReset = () => {
     setFormSubmitted(false);
-    setFormName(""); setFormPhone(""); setFormService("construction"); setFormMessage(""); setFormError("");
+    setFormName(""); setFormEmail(""); setFormPhone(""); setFormCompany("");
+    setFormService("construction"); setFormMessage(""); setFormError("");
   };
 
   const addrAr   = cms?.address_ar || t('contactPage.address');
@@ -315,6 +322,26 @@ export default function ContactPage() {
                           onChange={e => setFormPhone(e.target.value)}
                           className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm"
                           placeholder="05xxxxxxxx"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{lang === 'ar' ? 'البريد الإلكتروني' : 'Email'}</label>
+                        <input
+                          type="email"
+                          value={formEmail}
+                          onChange={e => setFormEmail(e.target.value)}
+                          className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm"
+                          placeholder="example@email.com"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{lang === 'ar' ? 'الشركة / المؤسسة (اختياري)' : 'Company (Optional)'}</label>
+                        <input
+                          type="text"
+                          value={formCompany}
+                          onChange={e => setFormCompany(e.target.value)}
+                          className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm"
+                          placeholder={lang === 'ar' ? 'اسم شركتك أو مؤسستك' : 'Your company name'}
                         />
                       </div>
                     </div>
