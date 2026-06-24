@@ -1,9 +1,10 @@
 "use client";
 
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import TypewriterText from "@/components/TypewriterText";
-import { ArrowRight, ArrowLeft, CheckCircle2, Users, Building2, Target } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle2, Users, Building2, Target, X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import { useLanguage } from "@/context/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
@@ -22,6 +23,29 @@ export default function AboutUsPage() {
     { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(6).jpeg`, alt: 'فرع الرياض - الاستقبال' },
     { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.24%20PM.jpeg`,       alt: 'فرع الرياض - الواجهة' },
   ];
+
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  const closeLightbox = useCallback(() => setLightboxIndex(null), []);
+  const prevPhoto = useCallback(() =>
+    setLightboxIndex(i => (i - 1 + riyadhPhotos.length) % riyadhPhotos.length), []);
+  const nextPhoto = useCallback(() =>
+    setLightboxIndex(i => (i + 1) % riyadhPhotos.length), []);
+
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const handler = (e) => {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft')  isRTL ? nextPhoto() : prevPhoto();
+      if (e.key === 'ArrowRight') isRTL ? prevPhoto() : nextPhoto();
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handler);
+    return () => {
+      window.removeEventListener('keydown', handler);
+      document.body.style.overflow = '';
+    };
+  }, [lightboxIndex, closeLightbox, prevPhoto, nextPhoto, isRTL]);
 
   const heroStats = aboutCms?.stats?.length
     ? aboutCms.stats.map(s => ({
@@ -342,27 +366,30 @@ export default function AboutUsPage() {
           {/* ── Photo Grid ── */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
 
-            {/* Photo 1 — Featured full-width hero */}
+            {/* Photo 1 — Featured full-width (shows full image, no crop) */}
             <div
-              className="col-span-2 sm:col-span-3 group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/8 hover:border-[#D5B25D]/40 transition-all duration-500 shadow-2xl bg-white/[0.02] cursor-pointer"
-              style={{ height: 'clamp(200px, 30vw, 400px)' }}
+              className="col-span-2 sm:col-span-3 group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/8 hover:border-[#D5B25D]/40 transition-all duration-500 shadow-2xl bg-black/20 cursor-zoom-in"
               data-aos="fade-up"
+              onClick={() => setLightboxIndex(0)}
             >
-              <Image
+              {/* img tag so the image shows at its natural height (no crop) */}
+              <img
                 src={riyadhPhotos[0].src}
                 alt={riyadhPhotos[0].alt}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                unoptimized
+                className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.03]"
               />
-              {/* Subtle gradient overlay always visible */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
+              {/* Bottom gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
               {/* Hover gold top line */}
-              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D5B25D] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D5B25D] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              {/* Zoom icon */}
+              <div className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'} w-9 h-9 rounded-full bg-black/60 backdrop-blur-sm border border-white/15 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`}>
+                <ZoomIn size={15} className="text-[#D5B25D]" />
+              </div>
               {/* Label */}
-              <div className={`absolute bottom-5 ${isRTL ? 'right-6' : 'left-6'} flex items-center gap-2`}>
+              <div className={`absolute bottom-5 ${isRTL ? 'right-6' : 'left-6'} flex items-center gap-2 pointer-events-none`}>
                 <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D] animate-pulse" />
-                <span className="text-[#D5B25D] text-[11px] font-black uppercase tracking-[3px]">
+                <span className="text-[#D5B25D] text-[11px] font-black uppercase tracking-[3px] drop-shadow-lg">
                   MNC · {isRTL ? 'فرع الرياض' : 'Riyadh Branch'}
                 </span>
               </div>
@@ -372,9 +399,10 @@ export default function AboutUsPage() {
             {riyadhPhotos.slice(1).map((photo, i) => (
               <div
                 key={i}
-                className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/8 hover:border-[#D5B25D]/40 transition-all duration-500 shadow-xl bg-white/[0.02] cursor-pointer aspect-[4/3]"
+                className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/8 hover:border-[#D5B25D]/40 transition-all duration-500 shadow-xl bg-white/[0.02] cursor-zoom-in aspect-[4/3]"
                 data-aos="fade-up"
                 data-aos-delay={`${(i % 3) * 80}`}
+                onClick={() => setLightboxIndex(i + 1)}
               >
                 <Image
                   src={photo.src}
@@ -385,21 +413,21 @@ export default function AboutUsPage() {
                 />
 
                 {/* Hover gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                 {/* Hover gold top accent */}
-                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D5B25D] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D5B25D] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                {/* Zoom icon */}
+                <div className={`absolute top-3 ${isRTL ? 'left-3' : 'right-3'} w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`}>
+                  <ZoomIn size={13} className="text-[#D5B25D]" />
+                </div>
 
                 {/* Hover label */}
-                <div className={`absolute bottom-4 ${isRTL ? 'right-4' : 'left-4'} translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400`}>
+                <div className={`absolute bottom-4 ${isRTL ? 'right-4' : 'left-4'} translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none`}>
                   <span className="text-[#D5B25D] text-[10px] font-bold uppercase tracking-widest bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-[#D5B25D]/20">
                     {isRTL ? 'فرع الرياض' : 'Riyadh Branch'}
                   </span>
-                </div>
-
-                {/* Corner gold shine on hover */}
-                <div className={`absolute top-3 ${isRTL ? 'left-3' : 'right-3'} w-6 h-6 rounded-full border border-[#D5B25D]/0 group-hover:border-[#D5B25D]/50 transition-all duration-500 flex items-center justify-center`}>
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D]/0 group-hover:bg-[#D5B25D] transition-all duration-500" />
                 </div>
               </div>
             ))}
@@ -440,6 +468,83 @@ export default function AboutUsPage() {
           </Link>
         </div>
       </section>
+      {/* ══════════════════════════════════════
+          Photo Lightbox Modal
+      ══════════════════════════════════════ */}
+      {lightboxIndex !== null && (
+        <div
+          className="fixed inset-0 z-[400] flex items-center justify-center"
+          style={{ background: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(16px)' }}
+          onClick={closeLightbox}
+        >
+          {/* Close button */}
+          <button
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center text-white/60 hover:text-white bg-white/8 hover:bg-white/15 border border-white/10 hover:border-white/20 transition-all duration-200"
+            aria-label="Close"
+          >
+            <X size={18} />
+          </button>
+
+          {/* Counter */}
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/40 text-xs font-bold tracking-widest select-none">
+            {lightboxIndex + 1} / {riyadhPhotos.length}
+          </div>
+
+          {/* Prev arrow */}
+          <button
+            onClick={(e) => { e.stopPropagation(); isRTL ? nextPhoto() : prevPhoto(); }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center text-white/60 hover:text-white bg-white/8 hover:bg-white/15 border border-white/10 hover:border-[#D5B25D]/40 transition-all duration-200 z-10"
+            aria-label="Previous"
+          >
+            <ChevronLeft size={22} />
+          </button>
+
+          {/* Next arrow */}
+          <button
+            onClick={(e) => { e.stopPropagation(); isRTL ? prevPhoto() : nextPhoto(); }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center text-white/60 hover:text-white bg-white/8 hover:bg-white/15 border border-white/10 hover:border-[#D5B25D]/40 transition-all duration-200 z-10"
+            aria-label="Next"
+          >
+            <ChevronRight size={22} />
+          </button>
+
+          {/* Image */}
+          <div
+            className="relative mx-14 my-12 max-w-[88vw] max-h-[88vh] flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={riyadhPhotos[lightboxIndex].src}
+              alt={riyadhPhotos[lightboxIndex].alt}
+              className="max-w-full max-h-[88vh] w-auto h-auto rounded-2xl shadow-[0_24px_80px_rgba(0,0,0,0.8)] border border-white/8 object-contain"
+              style={{ display: 'block' }}
+            />
+            {/* Gold bottom label */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/70 backdrop-blur-md px-4 py-2 rounded-full border border-[#D5B25D]/20 whitespace-nowrap">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D]" />
+              <span className="text-[#D5B25D] text-[11px] font-bold uppercase tracking-[3px]">
+                MNC · {isRTL ? 'فرع الرياض' : 'Riyadh Branch'}
+              </span>
+            </div>
+          </div>
+
+          {/* Thumbnail strip */}
+          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 px-4 max-w-[90vw] overflow-x-auto pb-1">
+            {riyadhPhotos.map((p, i) => (
+              <button
+                key={i}
+                onClick={(e) => { e.stopPropagation(); setLightboxIndex(i); }}
+                className="shrink-0 w-12 h-12 rounded-lg overflow-hidden border-2 transition-all duration-200"
+                style={{ borderColor: i === lightboxIndex ? '#D5B25D' : 'rgba(255,255,255,0.1)' }}
+              >
+                <img src={p.src} alt="" className="w-full h-full object-cover" />
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
     </main>
   );
 }
