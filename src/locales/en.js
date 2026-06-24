@@ -133,7 +133,7 @@ export const en = {
     highlights: ["Innovative Architectural Designs", "Professional Project Management", "Highest Quality Execution", "Full Commitment to Deadlines"],
     quote: "\"Our mission is to provide engineering excellence that exceeds expectations, with a focus on sustainability and innovation in every construction detail.\"",
     directorName: "Eng. Marwan Ahmed Nazer",
-    directorTitle: "CEO of MNC Company",
+    directorTitle: "Chairman of MNC Board of Directors",
     experienceBadge: "Years of Experience"
   },
   servicesSection: {
@@ -201,7 +201,7 @@ export const en = {
     goalDesc: "Finding appropriate solutions for our clients to achieve integrated work. After final designs for any project are completed, the execution concept is presented to the owner... we deliver the project integrated, taking into account quality and a good reputation.",
     projectsTitle: "Our Projects",
     projectsDesc: "We have executed and developed numerous projects, and there are investment projects currently in progress that are at the highest level in terms of design or execution.",
-    ceoSectionTitle: "Executive Director",
+    ceoSectionTitle: "Chairman of MNC Board of Directors",
     ceoSectionText: "MNC General Contracting is a distinctive mark in the construction field in Jeddah. In a short period, it has successfully managed and executed numerous projects. All this was based on a plan developed by distinguished and experienced experts in this important field. Behind all these achievements was the dedicated effort of the General Manager, Eng. Marwan Ahmed Nazer, as the owner of this entity. MNC operates under the umbrella of 'MNC Consulting Office for Engineering Consultancy, Designs, Surveying, and Project Management' and has received praise from all clients.",
     teamBadge: "Our Team",
     teamTitle: "Partners of Success & Creativity",

@@ -133,7 +133,7 @@ export const es = {
     highlights: ["Diseños Arquitectónicos Innovadores", "Gestión Profesional de Proyectos", "Ejecución de la Más Alta Calidad", "Compromiso Total con los Plazos"],
     quote: "\"Nuestra misión es proporcionar una excelencia en ingeniería que supere las expectativas, con un enfoque en la sostenibilidad y la innovación en cada detalle de la construcción.\"",
     directorName: "Ing. Marwan Ahmed Nazer",
-    directorTitle: "CEO de la Compañía MNC",
+    directorTitle: "Presidente del Consejo de Administración de MNC",
     experienceBadge: "Años de Experiencia"
   },
   servicesSection: {
@@ -201,7 +201,7 @@ export const es = {
     goalDesc: "Encontrar soluciones adecuadas para que nuestros clientes obtengan un trabajo integrado, considerando siempre la alta calidad y la excelente reputación.",
     projectsTitle: "Nuestros Proyectos",
     projectsDesc: "Hemos realizado y desarrollado numerosos proyectos, con inversiones activas al más alto nivel de diseño y ejecución.",
-    ceoSectionTitle: "Director Ejecutivo",
+    ceoSectionTitle: "Presidente del Consejo de Administración de MNC",
     ceoSectionText: "MNC es una marca líder en el sector de la construcción en Yeda. Opera bajo el paraguas de 'MNC Consulting Office for Engineering Consultancy' ofreciendo los más altos estándares de excelencia.",
     teamBadge: "Nuestro Equipo",
     teamTitle: "Socios de Éxito y Creatividad",

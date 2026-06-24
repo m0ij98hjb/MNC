@@ -201,7 +201,7 @@ export const zh = {
     goalDesc: "为客户寻找合适的解决方案，以实现一体化的工作，始终兼顾高质量和良好信誉。",
     projectsTitle: "我们的项目",
     projectsDesc: "我们设计并开发了众多项目，部分处于设计或执行最高水平的在建投资项目。",
-    ceoSectionTitle: "执行董事",
+    ceoSectionTitle: "MNC董事会主席",
     ceoSectionText: "MNC 是吉达建筑行业的领先品牌。在工程咨询、设计和项目管理领域，在 'MNC 咨询办公室' 旗下运营。",
     teamBadge: "我们的团队",
     teamTitle: "成功与创意的合作伙伴",

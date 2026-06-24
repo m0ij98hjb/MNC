@@ -133,7 +133,7 @@ export const tr = {
     highlights: ["Yenilikçi Mimari Tasarımlar", "Profesyonel Proje Yönetimi", "En Yüksek Kalitede Uygulama", "Teslim Tarihlerine Tam Bağlılık"],
     quote: "\"Misyonumuz, her inşaat detayında sürdürülebilirlik ve yeniliğe odaklanarak, beklentileri aşan bir mühendislik mükemmelliği sunmaktır.\"",
     directorName: "Müh. Marwan Ahmed Nazer",
-    directorTitle: "MNC Firması CEO'su",
+    directorTitle: "MNC Yönetim Kurulu Başkanı",
     experienceBadge: "Yıllık Deneyim"
   },
   servicesSection: {
@@ -201,7 +201,7 @@ export const tr = {
     goalDesc: "Müşterilerimiz için entegre iş çözümleri üretmek, her projede yüksek kalite ve iyi bir itibar sunmak.",
     projectsTitle: "Projelerimiz",
     projectsDesc: "Tasarım ve uygulama açısından en üst düzeyde olan birçok yatırım projesi geliştirdik ve geliştirmeye devam ediyoruz.",
-    ceoSectionTitle: "Genel Müdür",
+    ceoSectionTitle: "MNC Yönetim Kurulu Başkanı",
     ceoSectionText: "MNC, Cidde'deki inşaat sektörünün lider markalarından biridir. Mühendislik danışmanlığı, mimari tasarım ve proje yönetimi alanlarında 'MNC Danışmanlık Ofisi' bünyesinde faaliyet göstermektedir.",
     teamBadge: "Ekibimiz",
     teamTitle: "Başarı & Yaratıcılık Ortakları",

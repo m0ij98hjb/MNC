@@ -133,7 +133,7 @@ export const de = {
     highlights: ["Innovative Architekturentwürfe", "Professionelles Projektmanagement", "Ausführung in Höchster Qualität", "Volles Engagement für Fristen"],
     quote: "\"Unser Ziel ist es, technische Exzellenz zu bieten, die Erwartungen übertrifft, mit Fokus auf Nachhaltigkeit und Innovation in jedem Baudetail.\"",
     directorName: "Eng. Marwan Ahmed Nazer",
-    directorTitle: "CEO der MNC Company",
+    directorTitle: "Vorsitzender des MNC-Verwaltungsrats",
     experienceBadge: "Jahre Erfahrung"
   },
   servicesSection: {
@@ -201,7 +201,7 @@ export const de = {
     goalDesc: "Die passenden Lösungen für unsere Kunden zu finden, um ein integriertes Werk zu schaffen. Nach Abschluss der Entwürfe wird das Konzept dem Eigentümer präsentiert, um Qualität und Reputation sicherzustellen.",
     projectsTitle: "Unsere Projekte",
     projectsDesc: "Wir haben zahlreiche Projekte entwickelt, darunter laufende Investitionsprojekte auf höchstem Niveau in Design und Ausführung.",
-    ceoSectionTitle: "Geschäftsführer",
+    ceoSectionTitle: "Vorsitzender des MNC-Verwaltungsrats",
     ceoSectionText: "MNC General Contracting ist eine führende Marke in Dschidda. Das Unternehmen arbeitet unter dem Dach von 'MNC Consulting Office for Engineering Consultancy' und steht für Exzellenz und hohe Qualität.",
     teamBadge: "Unser Team",
     teamTitle: "Partner für Erfolg & Kreativität",

@@ -133,7 +133,7 @@ export const fr = {
     highlights: ["Conceptions Architecturales Innovantes", "Gestion de Projet Professionnelle", "Exécution de la Plus Haute Qualité", "Engagement Total sur les Délais"],
     quote: "\"Notre mission est de fournir une excellence en ingénierie qui dépasse les attentes, en mettant l'accent sur la durabilité et l'innovation dans chaque détail de construction.\"",
     directorName: "Ing. Marwan Ahmed Nazer",
-    directorTitle: "CEO de l'entreprise MNC",
+    directorTitle: "Président du Conseil d'Administration de MNC",
     experienceBadge: "Années d'Expérience"
   },
   servicesSection: {
@@ -201,7 +201,7 @@ export const fr = {
     goalDesc: "Trouver les solutions adaptées pour offrir à nos clients un travail intégré, alliant haute qualité et solide réputation.",
     projectsTitle: "Nos Projets",
     projectsDesc: "Nous avons réalisé et développé de nombreux projets d'investissement au plus haut niveau de conception et d'exécution.",
-    ceoSectionTitle: "Directeur Général",
+    ceoSectionTitle: "Président du Conseil d'Administration de MNC",
     ceoSectionText: "MNC est une marque leader dans le secteur de la construction à Djeddah. Opérant sous la direction du bureau d'ingénierie 'MNC Consulting Office', elle garantit une qualité irréprochable.",
     teamBadge: "Notre Équipe",
     teamTitle: "Partenaires de Réussite & Créativité",
