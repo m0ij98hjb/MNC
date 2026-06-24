@@ -7,59 +7,101 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useMusic } from '@/context/MusicContext';
 import { usePathname } from 'next/navigation';
 
+// Languages that have a pre-recorded MP3 file in /public/asstes/
+const MP3_LANGS = new Set(['ar', 'en', 'de', 'es', 'fr', 'tr', 'ur', 'zh']);
+
+// BCP-47 tags used by SpeechSynthesis for languages without an MP3
+const LANG_BCP47 = {
+  ru: 'ru-RU',
+};
+
 export default function VoicePresentation() {
-  const pathname = usePathname();
+  const pathname  = usePathname();
   const { t, isRTL, lang } = useLanguage();
   const { pauseMusicForVoice, resumeMusicAfterVoice } = useMusic();
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(1);
+
+  const [isPlaying, setIsPlaying]           = useState(false);
+  const [volume, setVolume]                 = useState(1);
   const [showVolumeControl, setShowVolumeControl] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  const audioRef = useRef(null);
+  const [isMounted, setIsMounted]           = useState(false);
 
-  // Swap audio file when language changes
-  useEffect(() => {
-    if (!isMounted) return;
-    const src = `/asstes/presentation-${lang}.mp3`;
-    if (audioRef.current) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    }
-    const audio = new Audio(src);
-    audio.playbackRate = 1.1;
-    audio.volume = volume;
-    audio.onended = () => {
-      setIsPlaying(false);
-      resumeMusicAfterVoice();
-    };
-    audioRef.current = audio;
-  }, [lang, isMounted]); // eslint-disable-line react-hooks/exhaustive-deps
+  const audioRef = useRef(null);   // for MP3-based langs
+  const uttRef   = useRef(null);   // for TTS-based langs
 
+  const usesTTS = !MP3_LANGS.has(lang);
+
+  /* ── mount / unmount ── */
   useEffect(() => {
     setIsMounted(true);
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
+      audioRef.current?.pause();
+      window.speechSynthesis?.cancel();
     };
   }, [resumeMusicAfterVoice]);
 
+  /* ── rebuild audio when language changes (MP3 path) ── */
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume;
+    if (!isMounted) return;
+
+    // Stop whatever is playing
+    audioRef.current?.pause();
+    window.speechSynthesis?.cancel();
+    setIsPlaying(false);
+
+    if (MP3_LANGS.has(lang)) {
+      const audio = new Audio(`/asstes/presentation-${lang}.mp3`);
+      audio.playbackRate = 1.1;
+      audio.volume = volume;
+      audio.onended = () => { setIsPlaying(false); resumeMusicAfterVoice(); };
+      audioRef.current = audio;
     }
+  }, [lang, isMounted]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  /* ── sync volume to audio element ── */
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = volume;
   }, [volume]);
 
+  /* ── play / pause handler ── */
   const handlePlayPause = () => {
+    if (usesTTS) {
+      /* ── TTS path (e.g. Russian) ── */
+      if (!window.speechSynthesis) return;
+
+      if (isPlaying) {
+        window.speechSynthesis.cancel();
+        setIsPlaying(false);
+        resumeMusicAfterVoice();
+        return;
+      }
+
+      const text = t('voice.text');
+      if (!text || text === 'voice.text') return;
+
+      window.speechSynthesis.cancel();
+      const utt   = new SpeechSynthesisUtterance(text);
+      utt.lang    = LANG_BCP47[lang] || 'en-US';
+      utt.rate    = 0.92;
+      utt.pitch   = 1;
+      utt.volume  = volume;
+      utt.onend   = () => { setIsPlaying(false); resumeMusicAfterVoice(); };
+      utt.onerror = () => { setIsPlaying(false); resumeMusicAfterVoice(); };
+      uttRef.current = utt;
+
+      pauseMusicForVoice();
+      window.speechSynthesis.speak(utt);
+      setIsPlaying(true);
+      return;
+    }
+
+    /* ── MP3 path ── */
     if (!audioRef.current) return;
 
     if (isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
-      // Resume music when voice stops
       resumeMusicAfterVoice();
     } else {
-      // Pause music when voice starts
       pauseMusicForVoice();
       audioRef.current.play().catch(console.error);
       setIsPlaying(true);
