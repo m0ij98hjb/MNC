@@ -366,17 +366,16 @@ export default function AboutUsPage() {
           {/* ── Photo Grid ── */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
 
-            {/* Photo 1 — Featured full-width (shows full image, no crop) */}
+            {/* Photo 1 — Featured full-width (full image visible, controlled height) */}
             <div
-              className="col-span-2 sm:col-span-3 group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/8 hover:border-[#D5B25D]/40 transition-all duration-500 shadow-2xl bg-black/20 cursor-zoom-in"
+              className="col-span-2 sm:col-span-3 group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/8 hover:border-[#D5B25D]/40 transition-all duration-500 shadow-2xl bg-black/30 cursor-zoom-in h-[280px] sm:h-[400px]"
               data-aos="fade-up"
               onClick={() => setLightboxIndex(0)}
             >
-              {/* img tag so the image shows at its natural height (no crop) */}
               <img
                 src={riyadhPhotos[0].src}
                 alt={riyadhPhotos[0].alt}
-                className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.03]"
+                className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.04]"
               />
               {/* Bottom gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
