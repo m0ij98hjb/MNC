@@ -12,6 +12,17 @@ export default function AboutUsPage() {
   const { lang, t, isRTL } = useLanguage();
   const { data: aboutCms } = useSiteContent('about');
   const directorImage = aboutCms?.director_image || '/asstes/director.png';
+  const RIYADH_BASE = '/asstes/Photos%20of%20the%20Riyadh/';
+  const riyadhPhotos = [
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM.jpeg`,      alt: 'فرع الرياض - MNC' },
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(1).jpeg`, alt: 'فرع الرياض - مبنى المقر' },
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(3).jpeg`, alt: 'فرع الرياض - الداخل' },
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(4).jpeg`, alt: 'فرع الرياض - قاعة الاجتماعات' },
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(5).jpeg`, alt: 'فرع الرياض - المكاتب' },
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(6).jpeg`, alt: 'فرع الرياض - الاستقبال' },
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.24%20PM.jpeg`,       alt: 'فرع الرياض - الواجهة' },
+  ];
+
   const heroStats = aboutCms?.stats?.length
     ? aboutCms.stats.map(s => ({
         value: s.value,
@@ -297,6 +308,115 @@ export default function AboutUsPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+          Riyadh Branch Gallery Section
+      ══════════════════════════════════════ */}
+      <section className="py-24 bg-[var(--background)] border-t border-white/5 relative overflow-hidden">
+        {/* Gold ambient glow */}
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[400px] h-[400px] bg-[#D5B25D]/5 rounded-full blur-[130px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[250px] h-[250px] bg-[#D5B25D]/4 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="container mx-auto px-6 max-w-7xl relative z-10">
+
+          {/* ── Section Header ── */}
+          <div className="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#D5B25D]" />
+              <span className="text-[#D5B25D] font-bold tracking-[4px] uppercase text-[11px]">
+                {isRTL ? 'فرع الرياض' : 'Riyadh Branch'}
+              </span>
+              <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#D5B25D]" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-white font-heading mb-4 leading-tight">
+              {isRTL ? 'صور الفرع' : 'Branch Gallery'}
+            </h2>
+            <p className="text-white/50 text-sm md:text-base leading-relaxed">
+              {isRTL ? 'طريق أنس بن مالك — شارع أبها، الرياض' : 'Anas Ibn Malik Rd — Abha St, Riyadh'}
+            </p>
+            <div className="w-20 h-[3px] bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto mt-8 rounded-full" />
+          </div>
+
+          {/* ── Photo Grid ── */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
+
+            {/* Photo 1 — Featured full-width hero */}
+            <div
+              className="col-span-2 sm:col-span-3 group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/8 hover:border-[#D5B25D]/40 transition-all duration-500 shadow-2xl bg-white/[0.02] cursor-pointer"
+              style={{ height: 'clamp(200px, 30vw, 400px)' }}
+              data-aos="fade-up"
+            >
+              <Image
+                src={riyadhPhotos[0].src}
+                alt={riyadhPhotos[0].alt}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                unoptimized
+              />
+              {/* Subtle gradient overlay always visible */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
+              {/* Hover gold top line */}
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D5B25D] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* Label */}
+              <div className={`absolute bottom-5 ${isRTL ? 'right-6' : 'left-6'} flex items-center gap-2`}>
+                <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D] animate-pulse" />
+                <span className="text-[#D5B25D] text-[11px] font-black uppercase tracking-[3px]">
+                  MNC · {isRTL ? 'فرع الرياض' : 'Riyadh Branch'}
+                </span>
+              </div>
+            </div>
+
+            {/* Photos 2 – 7 */}
+            {riyadhPhotos.slice(1).map((photo, i) => (
+              <div
+                key={i}
+                className="group relative rounded-2xl sm:rounded-3xl overflow-hidden border border-white/8 hover:border-[#D5B25D]/40 transition-all duration-500 shadow-xl bg-white/[0.02] cursor-pointer aspect-[4/3]"
+                data-aos="fade-up"
+                data-aos-delay={`${(i % 3) * 80}`}
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  unoptimized
+                />
+
+                {/* Hover gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {/* Hover gold top accent */}
+                <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#D5B25D] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                {/* Hover label */}
+                <div className={`absolute bottom-4 ${isRTL ? 'right-4' : 'left-4'} translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400`}>
+                  <span className="text-[#D5B25D] text-[10px] font-bold uppercase tracking-widest bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-[#D5B25D]/20">
+                    {isRTL ? 'فرع الرياض' : 'Riyadh Branch'}
+                  </span>
+                </div>
+
+                {/* Corner gold shine on hover */}
+                <div className={`absolute top-3 ${isRTL ? 'left-3' : 'right-3'} w-6 h-6 rounded-full border border-[#D5B25D]/0 group-hover:border-[#D5B25D]/50 transition-all duration-500 flex items-center justify-center`}>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D]/0 group-hover:bg-[#D5B25D] transition-all duration-500" />
+                </div>
+              </div>
+            ))}
+
+          </div>
+
+          {/* ── Bottom gold divider ── */}
+          <div className="flex items-center gap-4 mt-16" data-aos="fade-up">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+            <div className="flex items-center gap-2 px-4">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D]/40" />
+              <div className="w-2 h-2 rounded-full bg-[#D5B25D]/70" />
+              <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D]/40" />
+            </div>
+            <div className="flex-1 h-px bg-gradient-to-l from-transparent via-white/10 to-transparent" />
+          </div>
+
         </div>
       </section>
 
