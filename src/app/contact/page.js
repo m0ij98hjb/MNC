@@ -414,9 +414,9 @@ export default function ContactPage() {
             <div className={`absolute top-8 ${isRTL ? 'right-8' : 'left-8'} bg-black/80 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/10 max-w-xs hidden md:block`}>
               <h3 className="font-bold text-white mb-2">{t('contactPage.mapTitle')}</h3>
               <p className="text-white/70 text-sm leading-relaxed mb-4">{t('contactPage.mapDesc')}</p>
-              <a 
-                href="https://maps.google.com/maps?q=Consultant+Marwan+Ahmed+Nazer+Engineering+Consultancy+Jeddah" 
-                target="_blank" 
+              <a
+                href="https://maps.google.com/maps?q=Consultant+Marwan+Ahmed+Nazer+Engineering+Consultancy+Jeddah"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block bg-secondary text-black font-bold text-xs px-4 py-2 rounded-lg hover:bg-[#E1BF67] transition-colors"
               >
@@ -424,6 +424,35 @@ export default function ContactPage() {
               </a>
             </div>
           </div>
+
+          {/* Branch 2 Map — طريق أنس بن مالك */}
+          <div className="relative rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-2xl border-4 sm:border-8 border-white/5 h-[300px] sm:h-[500px] group mt-8 sm:mt-12" data-aos="zoom-in" data-aos-delay="100">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3621.9048988452964!2d46.5940801!3d24.798709799999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2ee583ee25a0dd%3A0xbe2c635af60f9b5b!2z2KfZhNiv2YfYp9mFIHwgQUxEQUhBTQ!5e0!3m2!1sar!2ssa!4v1782308577309!5m2!1sar!2ssa"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="grayscale-[0.6] contrast-[1.2] invert-[0.9] hue-rotate-[180deg] hover:grayscale-0 hover:invert-0 hover:hue-rotate-0 transition-all duration-700"
+            ></iframe>
+
+            {/* Floating Info Card on Map */}
+            <div className={`absolute top-8 ${isRTL ? 'right-8' : 'left-8'} bg-black/80 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/10 max-w-xs hidden md:block`}>
+              <h3 className="font-bold text-white mb-2">طريق أنس بن مالك - شارع أبها</h3>
+              <p className="text-white/70 text-sm leading-relaxed mb-4">الرياض، المملكة العربية السعودية</p>
+              <a
+                href="https://www.google.com/maps?q=24.7987098,46.5940801"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-secondary text-black font-bold text-xs px-4 py-2 rounded-lg hover:bg-[#E1BF67] transition-colors"
+              >
+                {t('contactPage.openMaps')}
+              </a>
+            </div>
+          </div>
+
         </div>
       </section>
 
