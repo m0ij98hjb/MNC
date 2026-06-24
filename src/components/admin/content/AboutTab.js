@@ -5,14 +5,14 @@ import { loadSiteContent, saveSiteContent } from '@/lib/siteContent';
 import { Field, TextArea, Section, SaveBtn, ImageUpload, Grid2, TabLoading } from './Shared';
 
 const DEF = {
-  about_ar: 'شركة MNC للمقاولات، رائدة في تقديم حلول البناء والتشييد بالمملكة العربية السعودية منذ أكثر من 15 عامًا.',
-  about_en: 'MNC Contracting Company, a leader in construction solutions in Saudi Arabia for over 15 years.',
+  about_ar: 'شركة MNC للمقاولات، رائدة في تقديم حلول البناء والتشييد بالمملكة العربية السعودية منذ أكثر من 38 عامًا.',
+  about_en: 'MNC Contracting Company, a leader in construction solutions in Saudi Arabia for over 38 years.',
   director_name: 'م. مروان أحمد ناظر',
   director_pos_ar: 'المدير العام',
   director_pos_en: 'General Manager',
   director_image: '',
   stats: [
-    { value: '15+', label_ar: 'سنة خبرة',     label_en: 'Years of Experience' },
+    { value: '38+', label_ar: 'سنة خبرة',     label_en: 'Years of Experience' },
     { value: '230+', label_ar: 'مشروع منجز',   label_en: 'Completed Projects' },
     { value: '99%', label_ar: 'رضى العملاء',   label_en: 'Client Satisfaction' },
     { value: '300+', label_ar: 'عضو في الفريق', label_en: 'Team Members' },

@@ -58,7 +58,7 @@ export const de = {
   },
   calculator: {
     title: "Berechnen Sie Ihre Projektkosten",
-    subtitle: "Ein präzises Schätzwerkzeug basierend auf echten saudischen Marktdaten und MNCs über 15-jähriger Projekterfahrung",
+    subtitle: "Ein präzises Schätzwerkzeug basierend auf echten saudischen Marktdaten und MNCs über 38-jähriger Projekterfahrung",
     badge: "Basierend auf zertifizierten Ingenieurstandards",
     step1: "Projekttyp",
     step2: "Spezifikationen",
@@ -240,7 +240,7 @@ export const de = {
     recentTitle: "Aktuelle Arbeiten 2025"
   },
   footer: {
-    brandDesc: "MNC General Contracting — Seit über 15 Jahren bauen wir unsere Marke im Bauwesen mit höchsten Standards an Qualität und Professionalität.",
+    brandDesc: "MNC General Contracting — Seit über 38 Jahren bauen wir unsere Marke im Bauwesen mit höchsten Standards an Qualität und Professionalität.",
     quickLinks: "Schnelllinks",
     services: "Dienstleistungen",
     rightsReserved: "MNC General Contracting — Alle Rechte vorbehalten",
@@ -288,7 +288,8 @@ export const de = {
       { key: "decor",      title: "Innendekorateur",            dept: "Dekoration & Ausbau",       desc: "Innendekorations- und Ausbauarbeiten in höchster Qualität und Kreativität gestalten und umsetzen." },
       { key: "secretary",  title: "Verwaltungssekretär",        dept: "Verwaltung",                desc: "Termine organisieren, Korrespondenz, Dateien und tägliche Verwaltungsaufgaben zur Unterstützung des Führungsteams verwalten." },
       { key: "doccontrol", title: "Dokumentenverwalter",        dept: "Dokumentenverwaltung",      desc: "Ingenieur- und Organisationsdokumente verwalten, kontrollieren und archivieren, um einfachen Zugang sicherzustellen." },
-      { key: "contracts",  title: "Vertragsspezialist",         dept: "Verträge & Beschaffung",    desc: "Handels- und Bauverträge ausarbeiten und überprüfen, um die Einhaltung rechtlicher Anforderungen zu gewährleisten." }
+      { key: "contracts",  title: "Vertragsspezialist",         dept: "Verträge & Beschaffung",    desc: "Handels- und Bauverträge ausarbeiten und überprüfen, um die Einhaltung rechtlicher Anforderungen zu gewährleisten." },
+      { key: "it",         title: "IT-Ingenieur",           dept: "Informationstechnologie (IT)", desc: "Verwaltung der IT-Infrastruktur des Unternehmens, Pflege der Website und der digitalen Plattformen, Überwachung der Netzwerksicherheit und Bereitstellung von technischem Support." }
     ],
     trainingBadge: "Ausbildungsprogramm",
     trainingTitle: "Praktische Ausbildungsmöglichkeiten",
@@ -318,7 +319,29 @@ export const de = {
     expOptions: ["Weniger als 1 Jahr", "1 – 3 Jahre", "3 – 5 Jahre", "5 – 10 Jahre", "Mehr als 10 Jahre"],
     namePlaceholder: "Vollständigen Namen eingeben",
     emailPlaceholder: "beispiel@email.com",
-    phonePlaceholder: "+966xxxxxxxxx"
+    phonePlaceholder: "+966xxxxxxxxx",
+    city: "Stadt",
+    cityPlaceholder: "z. B. Dschidda",
+    nationality: "Staatsangehörigkeit",
+    nationalityPlaceholder: "Staatsangehörigkeit eingeben",
+    country: "Wohnsitzland",
+    countryPlaceholder: "z. B. Saudi-Arabien",
+    jobType: "Art der Stelle",
+    chooseJobType: "Art der Stelle auswählen",
+    department: "Abteilung",
+    chooseDepartment: "Abteilung auswählen",
+    trade: "Gewerk",
+    chooseTrade: "Gewerk auswählen",
+    availPosBadge: "Jetzt einstellen",
+    availPosTitle: "Verfügbare Stellen",
+    availPosSubtitle: "Alle offenen Stellen ansehen und direkt bewerben",
+    formalStaffTab: "Fachpersonal",
+    formalStaffSub: "Verwaltung & Ingenieurwesen",
+    skilledWorkersTab: "Facharbeiter",
+    skilledWorkersSub: "Handwerker & Techniker",
+    expRequired: "Erfahrung",
+    allPositions: "Alle",
+    viewAll: "Alle anzeigen"
   }
 ,
   suppliers: {

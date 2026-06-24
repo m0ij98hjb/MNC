@@ -58,7 +58,7 @@ export const zh = {
   },
   calculator: {
     title: "计算您的项目费用",
-    subtitle: "基于沙特市场真实数据和MNC超过15年项目经验构建的精准估算工具",
+    subtitle: "基于沙特市场真实数据和MNC超过38年项目经验构建的精准估算工具",
     badge: "基于认证工程标准",
     step1: "项目类型",
     step2: "规格",
@@ -240,7 +240,7 @@ export const zh = {
     recentTitle: "近期作品 2025"
   },
   footer: {
-    brandDesc: "MNC 通用承包 — 15 年来，我们以最高的质量和专业标准打造我们在建筑行业的品牌。",
+    brandDesc: "MNC 通用承包 — 38 年来，我们以最高的质量和专业标准打造我们在建筑行业的品牌。",
     quickLinks: "快速链接",
     services: "我们的服务",
     rightsReserved: "MNC General Contracting — 保留所有权利",
@@ -288,7 +288,8 @@ export const zh = {
       { key: "decor",      title: "室内装饰师",                dept: "装饰与装修",            desc: "以最高质量和创意标准设计并实施室内装饰和装修工程。" },
       { key: "secretary",  title: "行政秘书",                  dept: "行政管理",              desc: "为管理团队安排预约、管理往来函件、档案和日常行政事务。" },
       { key: "doccontrol", title: "文件控制员",                dept: "文件管理",              desc: "管理、控制和归档工程及组织项目文件，确保易于访问和定期更新。" },
-      { key: "contracts",  title: "合同专员",                  dept: "合同与采购",            desc: "起草和审查商业及建设合同，确保符合法律法规要求。" }
+      { key: "contracts",  title: "合同专员",                  dept: "合同与采购",            desc: "起草和审查商业及建设合同，确保符合法律法规要求。" },
+      { key: "it",         title: "IT工程师",                dept: "信息技术 (IT)",           desc: "管理公司IT基础设施，维护公司网站和数字平台，监控网络安全，并提供技术支持。" }
     ],
     trainingBadge: "培训计划",
     trainingTitle: "实践培训机会",
@@ -318,7 +319,29 @@ export const zh = {
     expOptions: ["Less than 1 year", "1 – 3 years", "3 – 5 years", "5 – 10 years", "More than 10 years"],
     namePlaceholder: "Enter your full name",
     emailPlaceholder: "example@email.com",
-    phonePlaceholder: "05xxxxxxxx"
+    phonePlaceholder: "05xxxxxxxx",
+    city: "城市",
+    cityPlaceholder: "例如：吉达",
+    nationality: "国籍",
+    nationalityPlaceholder: "输入您的国籍",
+    country: "居住国家",
+    countryPlaceholder: "例如：沙特阿拉伯",
+    jobType: "工作类型",
+    chooseJobType: "选择工作类型",
+    department: "部门",
+    chooseDepartment: "选择部门",
+    trade: "工种 / 职业",
+    chooseTrade: "选择工种",
+    availPosBadge: "正在招聘",
+    availPosTitle: "开放职位",
+    availPosSubtitle: "浏览所有开放职位，直接提交申请",
+    formalStaffTab: "正式员工",
+    formalStaffSub: "行政与工程",
+    skilledWorkersTab: "技术工人",
+    skilledWorkersSub: "工匠与技术人员",
+    expRequired: "经验",
+    allPositions: "全部",
+    viewAll: "查看全部"
   }
 ,
   suppliers: {

@@ -58,7 +58,7 @@ export const en = {
   },
   calculator: {
     title: "Calculate Your Project Cost",
-    subtitle: "A precision-engineered estimator built on real Saudi market data and MNC's 15+ years of project expertise",
+    subtitle: "A precision-engineered estimator built on real Saudi market data and MNC's 38+ years of project expertise",
     badge: "Engineering Precision",
     step1: "Project Type",
     step2: "Specifications",
@@ -240,7 +240,7 @@ export const en = {
     recentTitle: "Recent Work 2025"
   },
   footer: {
-    brandDesc: "MNC General Contracting — Building our mark in construction with the highest standards of quality and professionalism for over 15 years.",
+    brandDesc: "MNC General Contracting — Building our mark in construction with the highest standards of quality and professionalism for over 38 years.",
     quickLinks: "Quick Links",
     services: "Services",
     rightsReserved: "MNC General Contracting — All Rights Reserved",
@@ -288,7 +288,8 @@ export const en = {
       { key: "decor",      title: "Interior Decorator",       dept: "Decor & Finishing",        desc: "Design and execute interior decoration and finishing works to the highest standards of quality and creativity." },
       { key: "secretary",  title: "Administrative Secretary", dept: "Administration",           desc: "Organize appointments, manage correspondence, files, and daily administrative tasks to support the executive team." },
       { key: "doccontrol", title: "Document Controller",      dept: "Document Management",      desc: "Manage, control, and archive engineering and organizational project documents, ensuring easy access and regular updates." },
-      { key: "contracts",  title: "Contract Specialist",      dept: "Contracts & Procurement",  desc: "Draft and review commercial and construction contracts, ensuring compliance with legal and regulatory requirements." }
+      { key: "contracts",  title: "Contract Specialist",      dept: "Contracts & Procurement",  desc: "Draft and review commercial and construction contracts, ensuring compliance with legal and regulatory requirements." },
+      { key: "it",         title: "IT Engineer",            dept: "Information Technology (IT)", desc: "Manage company IT infrastructure, maintain company website and digital platforms, monitor network security, and provide technical support." }
     ],
     trainingBadge: "Training Program",
     trainingTitle: "Practical Training Opportunities",
@@ -320,7 +321,27 @@ export const en = {
     emailPlaceholder: "example@email.com",
     phonePlaceholder: "05xxxxxxxx",
     city: "City",
-    cityPlaceholder: "e.g. Jeddah"
+    cityPlaceholder: "e.g. Jeddah",
+    nationality: "Nationality",
+    nationalityPlaceholder: "Enter your nationality",
+    country: "Country of Residence",
+    countryPlaceholder: "e.g. Saudi Arabia",
+    jobType: "Job Type",
+    chooseJobType: "Select Job Type",
+    department: "Department",
+    chooseDepartment: "Select Department",
+    trade: "Trade",
+    chooseTrade: "Select Trade",
+    availPosBadge: "Hiring Now",
+    availPosTitle: "Available Positions",
+    availPosSubtitle: "Browse all open roles and apply directly — we review every application",
+    formalStaffTab: "Formal Staff",
+    formalStaffSub: "Administrative & Engineering",
+    skilledWorkersTab: "Skilled Workers",
+    skilledWorkersSub: "Craftsmen & Technicians",
+    expRequired: "Experience",
+    allPositions: "All",
+    viewAll: "View All"
   }
 ,
   suppliers: {

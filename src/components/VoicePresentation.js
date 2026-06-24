@@ -37,7 +37,7 @@ export default function VoicePresentation() {
       audioRef.current?.pause();
       window.speechSynthesis?.cancel();
     };
-  }, [resumeMusicAfterVoice]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   /* ── rebuild audio when language changes (MP3 path) ── */
   useEffect(() => {

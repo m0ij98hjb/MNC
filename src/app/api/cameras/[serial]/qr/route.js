@@ -10,7 +10,8 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://mnc-construction.c
 
 export async function POST(_, { params }) {
   try {
-    const camera = await getCameraBySerial(params.serial);
+    const { serial } = await params;
+    const camera = await getCameraBySerial(serial);
     if (!camera) {
       return NextResponse.json({ error: 'Camera not found' }, { status: 404 });
     }

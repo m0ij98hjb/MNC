@@ -20,7 +20,8 @@ import { getCameraBySerial } from '@/lib/camerasFirestore';
 
 export async function GET(_, { params }) {
   try {
-    const camera = await getCameraBySerial(params.serial);
+    const { serial } = await params;
+    const camera = await getCameraBySerial(serial);
     if (!camera) {
       return NextResponse.json({ error: 'Camera not found' }, { status: 404 });
     }

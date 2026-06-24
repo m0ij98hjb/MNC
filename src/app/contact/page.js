@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 import Navbar from "@/components/layout/Navbar";
-import { Phone, Mail, MapPin, Send, ChevronDown, ArrowLeft, Truck } from "lucide-react";
+import { Phone, Mail, MapPin, Send, ChevronDown, ArrowLeft, Truck, CheckCircle2, Loader2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
@@ -12,10 +14,47 @@ export default function ContactPage() {
   const { t, lang, isRTL } = useLanguage();
   const { data: cms } = useSiteContent('contact');
 
+  /* ── Contact form state ── */
+  const [formName, setFormName]       = useState("");
+  const [formPhone, setFormPhone]     = useState("");
+  const [formService, setFormService] = useState("construction");
+  const [formMessage, setFormMessage] = useState("");
+  const [formSubmitting, setFormSubmitting] = useState(false);
+  const [formSubmitted, setFormSubmitted]   = useState(false);
+  const [formError, setFormError]           = useState("");
+
   const phone1   = cms?.phone1    || '0598242385';
   const phone2   = cms?.phone2    || '0505649859';
   const email    = cms?.email     || '1@marwannazer.com';
   const whatsapp = cms?.whatsapp  || '966598242385';
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    if (!formName.trim() || !formPhone.trim() || !formMessage.trim()) return;
+    setFormSubmitting(true);
+    setFormError("");
+    try {
+      await addDoc(collection(db, "contacts"), {
+        name: formName.trim(),
+        phone: formPhone.trim(),
+        service: formService,
+        message: formMessage.trim(),
+        lang,
+        status: "new",
+        createdAt: serverTimestamp(),
+      });
+      setFormSubmitted(true);
+    } catch (err) {
+      setFormError(err?.message || "Error. Please try again.");
+    } finally {
+      setFormSubmitting(false);
+    }
+  };
+
+  const handleContactReset = () => {
+    setFormSubmitted(false);
+    setFormName(""); setFormPhone(""); setFormService("construction"); setFormMessage(""); setFormError("");
+  };
+
   const addrAr   = cms?.address_ar || t('contactPage.address');
   const addrEn   = cms?.address_en || 'Jeddah, Saudi Arabia';
   const daysAr   = cms?.days_ar   || t('contact.days');
@@ -234,50 +273,88 @@ export default function ContactPage() {
               <div className="bg-white/5 p-5 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl shadow-2xl border border-white/10 relative overflow-hidden group">
                 {/* Decorative background element */}
                 <div className="absolute -top-24 -right-24 w-48 h-48 bg-secondary/5 rounded-full blur-3xl group-hover:bg-secondary/10 transition-colors duration-700"></div>
-                
-                <form className="space-y-6 relative z-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t('contact.form.name')}</label>
-                      <input 
-                        type="text" 
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm" 
-                        placeholder={t('contactPage.formNamePlaceholder')}
-                      />
+
+                {formSubmitted ? (
+                  <div className="relative z-10 text-center py-8 flex flex-col items-center gap-5">
+                    <div className="w-20 h-20 rounded-full bg-[var(--secondary)]/10 border border-[var(--secondary)]/30 flex items-center justify-center">
+                      <CheckCircle2 size={40} className="text-[var(--secondary)]" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-black text-white mb-2">{lang === "ar" ? "تم الإرسال بنجاح!" : "Message Sent!"}</h3>
+                      <p className="text-white/60 text-sm leading-relaxed">
+                        {lang === "ar" ? "شكراً لتواصلك معنا. سيتم الرد عليك قريباً." : "Thank you for reaching out. We will get back to you shortly."}
+                      </p>
+                    </div>
+                    <button
+                      onClick={handleContactReset}
+                      className="px-8 py-3 rounded-xl bg-[var(--secondary)] text-black font-black text-sm hover:bg-[#E1BF67] transition-all duration-300"
+                    >
+                      {lang === "ar" ? "إرسال رسالة أخرى" : "Send Another Message"}
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleContactSubmit} className="space-y-6 relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t('contact.form.name')}</label>
+                        <input
+                          type="text"
+                          required
+                          value={formName}
+                          onChange={e => setFormName(e.target.value)}
+                          className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm"
+                          placeholder={t('contactPage.formNamePlaceholder')}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t('contact.form.phone')}</label>
+                        <input
+                          type="tel"
+                          required
+                          value={formPhone}
+                          onChange={e => setFormPhone(e.target.value)}
+                          className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm"
+                          placeholder="05xxxxxxxx"
+                        />
+                      </div>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t('contact.form.phone')}</label>
-                      <input 
-                        type="tel" 
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm" 
-                        placeholder="05xxxxxxxx"
-                      />
+                      <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t('contact.form.service')}</label>
+                      <div className="relative">
+                        <select
+                          value={formService}
+                          onChange={e => setFormService(e.target.value)}
+                          className={`w-full bg-black/40 border border-white/10 rounded-xl ${isRTL ? 'pe-4 ps-10' : 'ps-4 pe-10'} py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm appearance-none cursor-pointer`}>
+                          <option value="construction" className="bg-black text-white">{t('contactPage.formServiceOptions.construction')}</option>
+                          <option value="architecture" className="bg-black text-white">{t('contactPage.formServiceOptions.architecture')}</option>
+                          <option value="management" className="bg-black text-white">{t('contactPage.formServiceOptions.management')}</option>
+                          <option value="other" className="bg-black text-white">{t('contactPage.formServiceOptions.other')}</option>
+                        </select>
+                        <ChevronDown className={`absolute ${isRTL ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 text-white/50 pointer-events-none`} size={16} />
+                      </div>
                     </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t('contact.form.service')}</label>
-                    <div className="relative">
-                      <select className={`w-full bg-black/40 border border-white/10 rounded-xl ${isRTL ? 'pe-4 ps-10' : 'ps-4 pe-10'} py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm appearance-none cursor-pointer`}>
-                        <option value="construction" className="bg-black text-white">{t('contactPage.formServiceOptions.construction')}</option>
-                        <option value="architecture" className="bg-black text-white">{t('contactPage.formServiceOptions.architecture')}</option>
-                        <option value="management" className="bg-black text-white">{t('contactPage.formServiceOptions.management')}</option>
-                        <option value="other" className="bg-black text-white">{t('contactPage.formServiceOptions.other')}</option>
-                      </select>
-                      <ChevronDown className={`absolute ${isRTL ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 text-white/50 pointer-events-none`} size={16} />
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t('contact.form.message')}</label>
+                      <textarea
+                        rows="4"
+                        required
+                        value={formMessage}
+                        onChange={e => setFormMessage(e.target.value)}
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm resize-none"
+                        placeholder={t('contactPage.formMessagePlaceholder')}
+                      ></textarea>
                     </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t('contact.form.message')}</label>
-                    <textarea 
-                      rows="4" 
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm resize-none" 
-                      placeholder={t('contactPage.formMessagePlaceholder')}
-                    ></textarea>
-                  </div>
-                  <button type="button" className="w-full mt-4 bg-[var(--secondary)] hover:bg-[#E1BF67] text-black font-black py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 text-sm shadow-xl shadow-secondary/20 transform hover:-translate-y-1 active:scale-95 cursor-pointer">
-                    {t('contact.form.submit')} <Send size={18} />
-                  </button>
-                </form>
+                    {formError && <p className="text-red-400 text-sm text-center">{formError}</p>}
+                    <button
+                      type="submit"
+                      disabled={formSubmitting}
+                      className="w-full mt-4 bg-[var(--secondary)] hover:bg-[#E1BF67] disabled:opacity-60 disabled:cursor-not-allowed text-black font-black py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 text-sm shadow-xl shadow-secondary/20 transform hover:-translate-y-1 active:scale-95 cursor-pointer"
+                    >
+                      {formSubmitting ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
+                      {formSubmitting ? (lang === "ar" ? "جاري الإرسال..." : "Sending...") : t('contact.form.submit')}
+                    </button>
+                  </form>
+                )}
               </div>
             </div>
 

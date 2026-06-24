@@ -58,7 +58,7 @@ export const fr = {
   },
   calculator: {
     title: "Calculez le Coût de Votre Projet",
-    subtitle: "Un outil d'estimation précis basé sur les données réelles du marché saoudien et plus de 15 ans d'expertise MNC",
+    subtitle: "Un outil d'estimation précis basé sur les données réelles du marché saoudien et plus de 38 ans d'expertise MNC",
     badge: "Basé sur des Normes d'Ingénierie Certifiées",
     step1: "Type de Projet",
     step2: "Spécifications",
@@ -240,7 +240,7 @@ export const fr = {
     recentTitle: "Travaux Récents 2025"
   },
   footer: {
-    brandDesc: "MNC Contracting — Nous bâtissons notre réputation dans le secteur de la construction avec les plus hauts standards de qualité et de professionnalisme depuis plus de 15 ans.",
+    brandDesc: "MNC Contracting — Nous bâtissons notre réputation dans le secteur de la construction avec les plus hauts standards de qualité et de professionnalisme depuis plus de 38 ans.",
     quickLinks: "Liens Rapides",
     services: "Services",
     rightsReserved: "MNC General Contracting — Tous droits réservés",
@@ -288,7 +288,8 @@ export const fr = {
       { key: "decor",      title: "Décorateur d'Intérieur",    dept: "Décoration & Finitions",  desc: "Concevoir et réaliser des travaux de décoration et de finition intérieure aux plus hauts standards de qualité et de créativité." },
       { key: "secretary",  title: "Secrétaire Administratif",  dept: "Administration",          desc: "Organiser les rendez-vous, gérer la correspondance, les fichiers et les tâches administratives quotidiennes pour soutenir l'équipe dirigeante." },
       { key: "doccontrol", title: "Contrôleur de Documents",   dept: "Gestion Documentaire",    desc: "Gérer, contrôler et archiver les documents de projets d'ingénierie et organisationnels, en assurant leur accessibilité et leur mise à jour." },
-      { key: "contracts",  title: "Spécialiste en Contrats",   dept: "Contrats & Marchés",      desc: "Rédiger et réviser les contrats commerciaux et de construction en veillant à la conformité aux exigences légales et réglementaires." }
+      { key: "contracts",  title: "Spécialiste en Contrats",   dept: "Contrats & Marchés",      desc: "Rédiger et réviser les contrats commerciaux et de construction en veillant à la conformité aux exigences légales et réglementaires." },
+      { key: "it",         title: "Ingénieur TI",           dept: "Technologies de l'Information (TI)", desc: "Gérer l'infrastructure informatique de l'entreprise, maintenir le site Web et les plateformes numériques, surveiller la sécurité du réseau et fournir un support technique." }
     ],
     trainingBadge: "Programme de Formation",
     trainingTitle: "Opportunités de Stage Pratique",
@@ -318,7 +319,29 @@ export const fr = {
     expOptions: ["Moins d'1 an", "1 – 3 ans", "3 – 5 ans", "5 – 10 ans", "Plus de 10 ans"],
     namePlaceholder: "Entrez votre nom complet",
     emailPlaceholder: "exemple@email.com",
-    phonePlaceholder: "+966xxxxxxxxx"
+    phonePlaceholder: "+966xxxxxxxxx",
+    city: "Ville",
+    cityPlaceholder: "Ex. Djeddah",
+    nationality: "Nationalité",
+    nationalityPlaceholder: "Entrez votre nationalité",
+    country: "Pays de Résidence",
+    countryPlaceholder: "Ex. Arabie Saoudite",
+    jobType: "Type d'Emploi",
+    chooseJobType: "Sélectionner le Type d'Emploi",
+    department: "Département",
+    chooseDepartment: "Sélectionner le Département",
+    trade: "Métier / Spécialité",
+    chooseTrade: "Sélectionner le Métier",
+    availPosBadge: "Recrutement en cours",
+    availPosTitle: "Postes Disponibles",
+    availPosSubtitle: "Parcourez tous les postes ouverts et postulez directement",
+    formalStaffTab: "Personnel Formel",
+    formalStaffSub: "Administratif & Ingénierie",
+    skilledWorkersTab: "Ouvriers Qualifiés",
+    skilledWorkersSub: "Artisans & Techniciens",
+    expRequired: "Expérience",
+    allPositions: "Tous",
+    viewAll: "Voir tout"
   }
 ,
   suppliers: {

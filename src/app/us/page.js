@@ -11,7 +11,7 @@ import { useSiteContent } from "@/hooks/useSiteContent";
 export default function AboutUsPage() {
   const { lang, t, isRTL } = useLanguage();
   const { data: aboutCms } = useSiteContent('about');
-  const directorImage = aboutCms?.director_image || '/asstes/directort.png';
+  const directorImage = aboutCms?.director_image || '/asstes/director.png';
   const heroStats = aboutCms?.stats?.length
     ? aboutCms.stats.map(s => ({
         value: s.value,

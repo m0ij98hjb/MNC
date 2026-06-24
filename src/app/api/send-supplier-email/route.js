@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { join } from 'path';
 
 export async function POST(req) {
   try {
@@ -16,8 +17,7 @@ export async function POST(req) {
       },
     });
 
-    const { protocol, host } = new URL(req.url);
-    const baseUrl = `${protocol}//${host}`;
+    const logoPath = join(process.cwd(), 'public', 'asstes', 'logo-navbar.png');
 
     const html = `
 <!DOCTYPE html>
@@ -32,7 +32,7 @@ export async function POST(req) {
         <tr>
           <td style="background:linear-gradient(135deg,#1a1408,#0d0d14);padding:44px 40px;text-align:center;border-bottom:1px solid rgba(200,169,110,0.15);">
             <div style="display:inline-block;background:#ffffff;border-radius:14px;padding:10px 18px;margin-bottom:18px;">
-              <img src="${baseUrl}/asstes/logo-navbar.png" alt="MNC" width="160" style="display:block;max-height:60px;width:auto;" />
+              <img src="cid:mnc-logo" alt="MNC" width="160" style="display:block;max-height:60px;width:auto;" />
             </div>
             <h1 style="color:#c8a96e;margin:0;font-size:24px;font-weight:900;letter-spacing:1px;">MNC Construction</h1>
             <p style="color:rgba(255,255,255,0.35);margin:6px 0 0;font-size:13px;letter-spacing:0.5px;">شركة MNC للإنشاءات</p>
@@ -132,6 +132,11 @@ export async function POST(req) {
       to: supplierEmail,
       subject: `تهانينا — تمت الموافقة على طلبكم | MNC Construction`,
       html,
+      attachments: [{
+        filename: 'logo.png',
+        path:     logoPath,
+        cid:      'mnc-logo',
+      }],
     });
 
     return Response.json({ success: true });

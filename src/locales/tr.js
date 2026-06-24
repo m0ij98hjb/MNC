@@ -58,7 +58,7 @@ export const tr = {
   },
   calculator: {
     title: "Proje Maliyetinizi Hesaplayın",
-    subtitle: "Gerçek Suudi piyasa verilerine ve MNC'nin 15+ yıllık proje uzmanlığına dayanan hassas tahmin aracı",
+    subtitle: "Gerçek Suudi piyasa verilerine ve MNC'nin 38+ yıllık proje uzmanlığına dayanan hassas tahmin aracı",
     badge: "Sertifikalı Mühendislik Standartlarına Dayalı",
     step1: "Proje Türü",
     step2: "Özellikler",
@@ -240,7 +240,7 @@ export const tr = {
     recentTitle: "Güncel Çalışmalar 2025"
   },
   footer: {
-    brandDesc: "MNC Genel Müteahhitlik — 15 yılı aşkın süredir inşaat sektöründe markamızı en yüksek kalite ve profesyonellik standartlarıyla inşa ediyoruz.",
+    brandDesc: "MNC Genel Müteahhitlik — 38 yılı aşkın süredir inşaat sektöründe markamızı en yüksek kalite ve profesyonellik standartlarıyla inşa ediyoruz.",
     quickLinks: "Hızlı Linkler",
     services: "Hizmetler",
     rightsReserved: "MNC General Contracting — Tüm hakları saklıdır",
@@ -288,7 +288,8 @@ export const tr = {
       { key: "decor",      title: "İç Dekoratör",              dept: "Dekorasyon & Bitişler",     desc: "En yüksek kalite ve yaratıcılık standartlarında iç dekorasyon ve bitirme işleri tasarlamak ve uygulamak." },
       { key: "secretary",  title: "İdari Sekreter",            dept: "İdare",                     desc: "Yönetici ekibini desteklemek için randevuları düzenlemek, yazışmaları, dosyaları ve günlük idari görevleri yönetmek." },
       { key: "doccontrol", title: "Doküman Kontrolcüsü",       dept: "Doküman Yönetimi",          desc: "Mühendislik ve organizasyonel proje belgelerini yönetmek, kontrol etmek ve arşivlemek, erişilebilirliklerini sağlamak." },
-      { key: "contracts",  title: "Sözleşme Uzmanı",           dept: "Sözleşmeler & Satın Alma",  desc: "Yasal gerekliliklere uyumu sağlayarak ticari ve inşaat sözleşmelerini hazırlamak ve gözden geçirmek." }
+      { key: "contracts",  title: "Sözleşme Uzmanı",           dept: "Sözleşmeler & Satın Alma",  desc: "Yasal gerekliliklere uyumu sağlayarak ticari ve inşaat sözleşmelerini hazırlamak ve gözden geçirmek." },
+      { key: "it",         title: "IT Mühendisi",           dept: "Bilgi Teknolojisi (BT)",  desc: "Şirket BT altyapısını yönetmek, şirket web sitesini ve dijital platformlarını sürdürmek, ağ güvenliğini izlemek ve çalışanlara teknik destek sağlamak." }
     ],
     trainingBadge: "Staj Programı",
     trainingTitle: "Pratik Staj Fırsatları",
@@ -318,7 +319,29 @@ export const tr = {
     expOptions: ["1 yıldan az", "1 – 3 yıl", "3 – 5 yıl", "5 – 10 yıl", "10 yıldan fazla"],
     namePlaceholder: "Tam adınızı girin",
     emailPlaceholder: "ornek@email.com",
-    phonePlaceholder: "+966xxxxxxxxx"
+    phonePlaceholder: "+966xxxxxxxxx",
+    city: "Şehir",
+    cityPlaceholder: "Örn. Cidde",
+    nationality: "Uyruk",
+    nationalityPlaceholder: "Uyruğunuzu girin",
+    country: "İkamet Ülkesi",
+    countryPlaceholder: "Örn. Suudi Arabistan",
+    jobType: "İş Türü",
+    chooseJobType: "İş Türünü Seçin",
+    department: "Departman",
+    chooseDepartment: "Departman Seçin",
+    trade: "Meslek / Branş",
+    chooseTrade: "Meslek Seçin",
+    availPosBadge: "Aktif İşe Alım",
+    availPosTitle: "Müvcut Pozisyonlar",
+    availPosSubtitle: "Tüm açık pozisyonlara göz atın ve doğrudan başvurun",
+    formalStaffTab: "Resmi Personel",
+    formalStaffSub: "İdari ve Mühendislik",
+    skilledWorkersTab: "Nitelikli İşçiler",
+    skilledWorkersSub: "Usta ve Teknisyenler",
+    expRequired: "Deneyim",
+    allPositions: "Tümü",
+    viewAll: "Hepsini Gör"
   }
 ,
   suppliers: {

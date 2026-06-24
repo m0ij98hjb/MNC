@@ -98,8 +98,8 @@ export default function VideoShowcase() {
           </h2>
           <p className="text-white/40 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
             {isAr
-              ? "خبرة تمتد لأكثر من ١٥ عاماً في تشييد المباني وصناعة الأحلام"
-              : "Over 15 years of expertise in construction and making dreams real"}
+              ? "خبرة تمتد لأكثر من ٣٨ عاماً في تشييد المباني وصناعة الأحلام"
+              : "Over 38 years of expertise in construction and making dreams real"}
           </p>
         </motion.div>
 
@@ -242,7 +242,7 @@ export default function VideoShowcase() {
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8"
         >
           {[
-            { value: "15+",  labelAr: "عاماً من الخبرة",   labelEn: "Years of Experience" },
+            { value: "38+",  labelAr: "عاماً من الخبرة",   labelEn: "Years of Experience" },
             { value: "50+",  labelAr: "مشروع منجز",         labelEn: "Completed Projects" },
             { value: "98%",  labelAr: "رضا العملاء",         labelEn: "Client Satisfaction" },
             { value: "300+", labelAr: "متخصص في الفريق",    labelEn: "Team Specialists" },

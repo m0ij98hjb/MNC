@@ -5,7 +5,8 @@ import {
 
 export async function GET(_, { params }) {
   try {
-    const camera = await getCameraBySerial(params.serial);
+    const { serial } = await params;
+    const camera = await getCameraBySerial(serial);
     if (!camera) {
       return NextResponse.json({ error: 'Camera not found' }, { status: 404 });
     }
@@ -17,7 +18,8 @@ export async function GET(_, { params }) {
 
 export async function PUT(request, { params }) {
   try {
-    const camera = await getCameraBySerial(params.serial);
+    const { serial } = await params;
+    const camera = await getCameraBySerial(serial);
     if (!camera) {
       return NextResponse.json({ error: 'Camera not found' }, { status: 404 });
     }
@@ -41,7 +43,8 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(_, { params }) {
   try {
-    const camera = await getCameraBySerial(params.serial);
+    const { serial } = await params;
+    const camera = await getCameraBySerial(serial);
     if (!camera) {
       return NextResponse.json({ error: 'Camera not found' }, { status: 404 });
     }

@@ -7,7 +7,7 @@ import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import {
   ArrowLeft, ArrowRight, XCircle, CheckCircle, Loader2,
   User, Phone, Mail, MapPin, Calendar,
-  Briefcase, FileText, Clock, Download,
+  Briefcase, FileText, Clock, Download, Building2,
   CalendarCheck, Sparkles, Send, ChevronDown,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -205,6 +205,10 @@ export default function JobDetailPage() {
                 <InfoRow icon={Mail}      label={t('admin.emailLabel')}      value={app.email}    ltr />
                 <InfoRow icon={Phone}     label={t('admin.phoneCol')}        value={app.phone}    ltr />
                 <InfoRow icon={MapPin}    label={t('admin.cityColLabel')}    value={app.city || '—'} />
+                {app.nationality && <InfoRow icon={User}  label="الجنسية"   value={app.nationality} />}
+                {app.country     && <InfoRow icon={MapPin} label="بلد الإقامة" value={app.country} />}
+                {app.jobType     && <InfoRow icon={Briefcase} label="نوع الوظيفة" value={app.jobType === 'formal' ? 'وظائف إدارية وهندسية' : 'وظائف المعلمين والفنيين'} />}
+                {app.department  && <InfoRow icon={Building2} label="القسم"      value={app.department} />}
                 <InfoRow icon={Clock}     label={t('admin.experienceYears')} value={app.experience || '—'} />
                 <InfoRow icon={Briefcase} label={t('admin.positionApplied')} value={app.position} />
                 <InfoRow icon={Calendar}  label={t('admin.submittedCol')}    value={submittedDate} ltr />
