@@ -249,7 +249,8 @@ export const fr = {
   voice: {
     stop: "Arrêter la présentation",
     play: "Lire la présentation",
-    intro: "Présentation de l'entreprise"
+    intro: "Présentation de l'entreprise",
+    text: "MNC Entreprise Générale — une marque distinctive dans l'excellence de la construction en Arabie Saoudite. Nous combinons tradition d'ingénierie et vision moderne, transformant les plans en repères architecturaux de qualité et de vie. Nos services intégrés couvrent la construction, la conception architecturale, la gestion de projets et le design d'intérieur. Sous la direction de l'ingénieur Marwan Ahmed Nazer, nous avons accompli des réalisations remarquables depuis plus de quinze ans. Contactez-nous aujourd'hui pour une consultation professionnelle gratuite."
   },
   careers: {
     heroBadge: "Opportunités de Carrière",

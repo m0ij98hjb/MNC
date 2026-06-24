@@ -249,7 +249,8 @@ export const es = {
   voice: {
     stop: "Detener presentación",
     play: "Reproducir presentación",
-    intro: "Presentación de la empresa"
+    intro: "Presentación de la empresa",
+    text: "MNC Contratación General — una marca distintiva en la excelencia de la construcción en Arabia Saudita. Combinamos tradición de ingeniería con visión moderna, transformando planos en hitos arquitectónicos llenos de calidad y vida. Nuestros servicios integrados abarcan construcción, diseño arquitectónico, gestión de proyectos y diseño de interiores. Bajo el liderazgo del ingeniero Marwan Ahmed Nazer, hemos logrado hitos notables durante más de quince años. Contáctenos hoy para una consulta profesional gratuita."
   },
   careers: {
     heroBadge: "Oportunidades de Empleo",

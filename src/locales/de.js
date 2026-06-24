@@ -249,7 +249,8 @@ export const de = {
   voice: {
     stop: "Präsentation stoppen",
     play: "Präsentation abspielen",
-    intro: "Firmenpräsentation"
+    intro: "Firmenpräsentation",
+    text: "MNC Generalunternehmen — ein herausragendes Zeichen in der Bauexzellenz Saudi-Arabiens. Wir verbinden Ingenieurstradition mit moderner Vision und verwandeln Pläne in architektonische Wahrzeichen voller Qualität und Leben. Unsere integrierten Leistungen umfassen Bauwesen, Architekturdesign, Projektmanagement und Innenarchitektur. Unter der Leitung von Ingenieur Marwan Ahmed Nazer haben wir seit über fünfzehn Jahren herausragende Erfolge erzielt. Kontaktieren Sie uns noch heute für eine kostenlose professionelle Beratung."
   },
   careers: {
     heroBadge: "Karrieremöglichkeiten",
