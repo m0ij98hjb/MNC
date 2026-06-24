@@ -249,8 +249,7 @@ export const tr = {
   voice: {
     stop: "Sunumu durdur",
     play: "Sunumu oynat",
-    intro: "Şirket Tanıtımı",
-    text: "MNC Genel Müteahhitlik — Suudi Arabistan'da inşaat mükemmeliyetinde seçkin bir marka. Mühendislik geleneğini modern vizyonla birleştiriyor, planları kalite ve yaşamla dolu mimari yapıtlara dönüştürüyoruz. Entegre hizmetlerimiz inşaat, mimari tasarım, proje yönetimi ve iç mimarlığı kapsamaktadır. Mühendis Marwan Ahmed Nazer'in liderliğinde on beş yılı aşkın sürede olağanüstü başarılara imza attık. Ücretsiz profesyonel danışmanlık için bugün bizimle iletişime geçin."
+    intro: "Şirket Tanıtımı"
   },
   careers: {
     heroBadge: "Kariyer Fırsatları",

@@ -1,88 +1,70 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Mic, MicOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 import { useMusic } from '@/context/MusicContext';
 import { usePathname } from 'next/navigation';
 
-// BCP-47 tags for SpeechSynthesis per language code
-const LANG_BCP47 = {
-  ar: 'ar-SA',
-  en: 'en-US',
-  zh: 'zh-CN',
-  es: 'es-ES',
-  fr: 'fr-FR',
-  de: 'de-DE',
-  tr: 'tr-TR',
-  ur: 'ur-PK',
-  ru: 'ru-RU',
-};
-
 export default function VoicePresentation() {
   const pathname = usePathname();
   const { t, isRTL, lang } = useLanguage();
   const { pauseMusicForVoice, resumeMusicAfterVoice } = useMusic();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(1);
+  const [showVolumeControl, setShowVolumeControl] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const uttRef = useRef(null);
+  const audioRef = useRef(null);
+
+  // Swap audio file when language changes
+  useEffect(() => {
+    if (!isMounted) return;
+    const src = `/asstes/presentation-${lang}.mp3`;
+    if (audioRef.current) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    }
+    const audio = new Audio(src);
+    audio.playbackRate = 1.1;
+    audio.volume = volume;
+    audio.onended = () => {
+      setIsPlaying(false);
+      resumeMusicAfterVoice();
+    };
+    audioRef.current = audio;
+  }, [lang, isMounted]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setIsMounted(true);
     return () => {
-      if (typeof window !== 'undefined' && window.speechSynthesis) {
-        window.speechSynthesis.cancel();
+      if (audioRef.current) {
+        audioRef.current.pause();
       }
     };
   }, [resumeMusicAfterVoice]);
 
-  // Stop speech when language changes
   useEffect(() => {
-    if (!isMounted) return;
-    if (window.speechSynthesis?.speaking) {
-      window.speechSynthesis.cancel();
-      setIsPlaying(false);
-      resumeMusicAfterVoice();
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
     }
-  }, [lang]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [volume]);
 
-  const handlePlayPause = useCallback(() => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) return;
+  const handlePlayPause = () => {
+    if (!audioRef.current) return;
 
     if (isPlaying) {
-      window.speechSynthesis.cancel();
+      audioRef.current.pause();
       setIsPlaying(false);
+      // Resume music when voice stops
       resumeMusicAfterVoice();
-      return;
+    } else {
+      // Pause music when voice starts
+      pauseMusicForVoice();
+      audioRef.current.play().catch(console.error);
+      setIsPlaying(true);
     }
-
-    const text = t('voice.text');
-    if (!text || text === 'voice.text') return;
-
-    window.speechSynthesis.cancel();
-
-    const utt = new SpeechSynthesisUtterance(text);
-    utt.lang = LANG_BCP47[lang] || 'ar-SA';
-    utt.rate = 0.92;
-    utt.pitch = 1;
-    utt.volume = 1;
-
-    utt.onend = () => {
-      setIsPlaying(false);
-      resumeMusicAfterVoice();
-    };
-
-    utt.onerror = () => {
-      setIsPlaying(false);
-      resumeMusicAfterVoice();
-    };
-
-    uttRef.current = utt;
-    pauseMusicForVoice();
-    window.speechSynthesis.speak(utt);
-    setIsPlaying(true);
-  }, [isPlaying, lang, t, pauseMusicForVoice, resumeMusicAfterVoice]);
+  };
 
   if (!isMounted) return null;
   if (pathname.startsWith('/admin')) return null;
@@ -95,9 +77,36 @@ export default function VoicePresentation() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.2, ease: 'easeOut' }}
       >
+        {/* التحكم في مستوى الصوت */}
+        <AnimatePresence>
+          {showVolumeControl && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              className="flex flex-col items-center gap-2 bg-[var(--card-bg)]/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-[rgba(213,178,93,0.2)]"
+            >
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={volume * 100}
+                onChange={(e) => setVolume(e.target.value / 100)}
+                className="w-20 h-1 transform -rotate-90 origin-left accent-[#D5B25D]"
+                style={{ transformOrigin: 'left center' }}
+              />
+              <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                {Math.round(volume * 100)}%
+              </span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* زر التشغيل الرئيسي */}
         <motion.button
           onClick={handlePlayPause}
+          onMouseEnter={() => setShowVolumeControl(true)}
+          onMouseLeave={() => setShowVolumeControl(false)}
           whileTap={{ scale: 0.95 }}
           transition={{ type: 'spring', stiffness: 400, damping: 20, mass: 0.5 }}
           className="relative p-5 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center cursor-pointer bg-[var(--secondary)] text-[var(--foreground)] shadow-[0_0_20px_rgba(213,178,93,0.4)]"
@@ -128,11 +137,6 @@ export default function VoicePresentation() {
               </motion.div>
             )}
           </AnimatePresence>
-
-          {/* نبضة الصوت أثناء التشغيل */}
-          {isPlaying && (
-            <span className="absolute inset-0 rounded-full animate-ping bg-[var(--secondary)] opacity-25 pointer-events-none" />
-          )}
         </motion.button>
 
         {/* نص معلوماتي */}

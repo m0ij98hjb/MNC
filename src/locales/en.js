@@ -249,8 +249,7 @@ export const en = {
   voice: {
     stop: "Stop Presentation",
     play: "Play Presentation",
-    intro: "Company Presentation",
-    text: "MNC General Contracting — a distinctive mark in construction excellence across Saudi Arabia. We combine engineering tradition with modern vision, transforming plans into architectural landmarks that pulse with quality and life. Our integrated services span construction, architectural design, project management, and interior design. Under the leadership of Engineer Marwan Ahmed Nazer, we have achieved remarkable milestones over fifteen years. Contact us today for a free professional consultation."
+    intro: "Company Presentation"
   },
   careers: {
     heroBadge: "Career Opportunities",
