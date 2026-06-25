@@ -7,6 +7,7 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import GalleryClient from "./GalleryClient";
 import BuildingJourney from "@/components/sections/BuildingJourney";
+import CameraTeaser from "@/components/sections/CameraTeaser";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function ProjectsPage() {
@@ -172,6 +173,9 @@ export default function ProjectsPage() {
           </div>
         </div>
       </section>
+
+      {/* Camera Teaser */}
+      <CameraTeaser />
 
       {/* Video + Construction Journey */}
       <BuildingJourney />

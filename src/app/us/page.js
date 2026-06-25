@@ -12,7 +12,7 @@ import { useSiteContent } from "@/hooks/useSiteContent";
 export default function AboutUsPage() {
   const { lang, t, isRTL } = useLanguage();
   const { data: aboutCms } = useSiteContent('about');
-  const directorImage = aboutCms?.director_image || '/asstes/director.png';
+  const directorImage = aboutCms?.director_image || '/asstes/directort.png';
   const RIYADH_BASE = '/asstes/Photos%20of%20the%20Riyadh/';
   const riyadhPhotos = [
     { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(1).jpeg`, alt: 'فرع الرياض - مبنى المقر' },

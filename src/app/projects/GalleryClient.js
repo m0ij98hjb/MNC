@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
-import { ZoomIn, X, ChevronLeft, ChevronRight, Eye } from "lucide-react";
+import { ZoomIn, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import CameraModal from "@/components/ui/CameraModal";
 import { Navigation, Pagination, Autoplay, EffectCoverflow } from "swiper/modules";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
@@ -19,7 +18,6 @@ export default function GalleryClient({ galleries }) {
   const { lang, t, isRTL } = useLanguage();
   const { theme } = useTheme();
   const isLightMode = theme === 'dark';
-  const [cameraOpen, setCameraOpen] = useState(false);
   const [lightbox, setLightbox] = useState({
     isOpen: false,
     images: [],
@@ -70,16 +68,6 @@ export default function GalleryClient({ galleries }) {
       {galleries.map((gallery) => (
         <div key={gallery.id} className="space-y-12" data-aos="fade-up">
           <div className="text-center relative">
-            {/* Eye icon — top corner */}
-            <button
-              onClick={() => setCameraOpen(true)}
-              title="مشاهدة كاميرات المشروع"
-              className={`absolute top-0 ${isRTL ? "left-0" : "right-0"} flex items-center gap-2 bg-black/70 backdrop-blur-md border border-[#C9A34D]/30 text-[#C9A34D] hover:border-[#C9A34D]/65 hover:bg-[#C9A34D]/10 rounded-xl px-3 py-2 text-xs font-bold transition-all duration-300 shadow-lg group`}
-            >
-              <Eye size={15} className="group-hover:scale-110 transition-transform" />
-              <span className="hidden sm:inline">كاميرات مباشرة</span>
-            </button>
-
             <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] font-heading mb-4 relative inline-block">
               {gallery.title}
               <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-secondary rounded-full"></div>
@@ -282,10 +270,6 @@ export default function GalleryClient({ galleries }) {
           )}
         </div>
       ))}
-
-      {cameraOpen && (
-        <CameraModal onClose={() => setCameraOpen(false)} />
-      )}
 
       {lightbox.isOpen && (
         <div
