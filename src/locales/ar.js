@@ -233,7 +233,12 @@
     visitTitle: "تفضل بزيارة مقرنا",
     mapTitle: "مكتب MNC للاستشارات الهندسية",
     mapDesc: "حي الأندلس – شارع عبدالرحمن الطبيشي. فيلا 72 – جدة",
-    openMaps: "فتح في خرائط Google"
+    openMaps: "فتح في خرائط Google",
+    mapControls: {
+      map: "الخريطة",
+      satellite: "الأقمار الصناعية",
+      hybrid: "الهجين"
+    }
   },
   gallery: {
     clickEnlarge: "اضغط على الصورة لتكبيرها ومرر لتصفح باقي الصور",

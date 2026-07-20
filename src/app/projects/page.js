@@ -6,12 +6,15 @@ import TypewriterText from "@/components/TypewriterText";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import GalleryClient from "./GalleryClient";
+import ProjectDirectory from "./ProjectDirectory";
 import BuildingJourney from "@/components/sections/BuildingJourney";
 import CameraTeaser from "@/components/sections/CameraTeaser";
 import { useLanguage } from "@/context/LanguageContext";
+import { PROJECTS, CATEGORIES, getStats } from "@/data/projects";
 
 export default function ProjectsPage() {
   const { lang, t, isRTL } = useLanguage();
+  const stats = getStats();
 
   const galleries = [
     {
@@ -92,47 +95,6 @@ export default function ProjectsPage() {
         "/asstes/office-projects/60.jpg",
         "/asstes/office-projects/61.jpg",
       ]
-    },
-    {
-      id: "interior",
-      title: t("gallery.recentTitle"),
-      description: t("gallery.clickEnlarge"),
-      images: [
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (1).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (2).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (3).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (4).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (5).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (6).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (7).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (8).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (9).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (10).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48 (11).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.48.jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.49 (1).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.49 (2).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.49 (3).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.49 (4).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.49 (5).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 02.52.49.jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 09.08.25.jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 09.08.26 (1).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 09.08.26.jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 09.08.27.jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-29 at 09.08.28.jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 03.35.41 (1).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 03.35.41 (2).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 03.35.41.jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 03.35.42 (1).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 03.35.42 (2).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 03.35.42 (3).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 03.35.42.jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 05.15.23 (1).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 05.15.23 (2).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 05.15.23 (3).jpeg",
-        "/asstes/office-projects/projects-ph/WhatsApp Image 2025-12-30 at 05.15.23.jpeg",
-      ]
     }
   ];
 
@@ -180,10 +142,31 @@ export default function ProjectsPage() {
       {/* Video + Construction Journey */}
       <BuildingJourney />
 
-      {/* Galleries Section */}
-      <section className="py-24 bg-[var(--card-bg)] text-[var(--foreground)]">
+      {/* Original Swiper Galleries Section */}
+      <section className="py-24 bg-[var(--card-bg)] text-[var(--foreground)] border-b border-white/5">
         <div className="container mx-auto px-6 max-w-7xl space-y-32">
           <GalleryClient galleries={galleries} />
+        </div>
+      </section>
+
+      {/* Advanced Categorized Project Directory Section */}
+      <section className="py-24 bg-black/40 text-[var(--foreground)]">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="space-y-12">
+            <div className="text-center" data-aos="fade-up">
+              <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] font-heading mb-4 relative inline-block">
+                {lang === "ar" ? "استكشف مشاريعنا" : "Explore Our Projects"}
+                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-secondary rounded-full"></div>
+              </h2>
+              <p className="text-[var(--foreground)]/70 font-medium mt-6 text-sm max-w-xl mx-auto leading-relaxed">
+                {lang === "ar" 
+                  ? "تصفح مشاريع MNC Construction المصنفة حسب نوع المشروع، المدينة، سنة التنفيذ، وحالة المشروع، مع معرض صور احترافي لكل مشروع." 
+                  : "Browse MNC Construction projects categorized by type, city, year, and status, with a professional photo gallery for each project."}
+              </p>
+            </div>
+            
+            <ProjectDirectory projects={PROJECTS} categories={CATEGORIES} />
+          </div>
         </div>
       </section>
 

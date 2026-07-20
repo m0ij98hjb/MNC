@@ -13,16 +13,27 @@ export default function AdminLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
   const isLoginPage = pathname === '/admin/login';
-
+  const isSupervisorOnly = purchRole === ROLES.SITE_SUPERVISOR;
   // A purchasing "site_engineer" account has no business in the admin shell —
   // it only ever uses the public /purchase-request portal.
+  // A "site_supervisor" also should be sent to the purchase request portal.
   const isEngineerOnly = purchRole === ROLES.SITE_ENGINEER;
 
   useEffect(() => {
-    if (user === null && !isLoginPage) router.replace('/admin/login');
-    if (user && user !== undefined && isLoginPage && !purchRoleLoading && !isEngineerOnly) router.replace('/admin/dashboard');
-    if (user && user !== undefined && !isLoginPage && !purchRoleLoading && isEngineerOnly) router.replace('/purchase-request');
-  }, [user, isLoginPage, router, purchRoleLoading, isEngineerOnly]);
+    if (user === null && !isLoginPage) {
+      router.replace('/admin/login');
+      return;
+    }
+    // If authenticated and not on login page, redirect based on role
+    if (user && !isLoginPage && !purchRoleLoading) {
+      if (!isEngineerOnly && !isSupervisorOnly) {
+        router.replace('/admin/dashboard');
+      } else {
+        router.replace('/purchase-request');
+      }
+      return;
+    }
+  }, [user, isLoginPage, router, purchRoleLoading, isEngineerOnly, isSupervisorOnly]);
 
   // Login page: fixed overlay hides the root layout's Navbar/Footer/FloatingContact
   if (isLoginPage) {
@@ -33,13 +44,9 @@ export default function AdminLayout({ children }) {
     );
   }
 
-  // Redirect in progress
-  if (user === undefined || user === null || purchRoleLoading || isEngineerOnly) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[var(--background)]">
-        <Loader2 size={32} className="text-[#c8a96e] animate-spin" />
-      </div>
-    );
+  // Redirect in progress – hide UI for loading or role-based redirect
+  if (user === undefined || user === null || purchRoleLoading || isEngineerOnly || isSupervisorOnly) {
+    return null;
   }
 
   // Authenticated: each page manages its own layout via AdminPageLayout

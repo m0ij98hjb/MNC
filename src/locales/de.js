@@ -233,7 +233,12 @@ export const de = {
     visitTitle: "Besuchen Sie unser Büro",
     mapTitle: "MNC Consulting Office",
     mapDesc: "Al-Andalus Bezirk - Abdulrahman Al-Tubaishi Str. Villa 72 - Dschidda",
-    openMaps: "In Google Maps öffnen"
+    openMaps: "In Google Maps öffnen",
+    mapControls: {
+      map: "Karte",
+      satellite: "Satellit",
+      hybrid: "Hybrid"
+    }
   },
   gallery: {
     clickEnlarge: "Klicken Sie auf das Bild zum Vergrößern und wischen Sie, um weitere Bilder zu sehen",

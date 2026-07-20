@@ -233,7 +233,12 @@ export const fr = {
     visitTitle: "Visitez Notre Bureau",
     mapTitle: "MNC Cabinet de Conseil",
     mapDesc: "Quartier Al-Andalus - Rue Abdulrahman Al-Tubaishi. Villa 72 - Djeddah",
-    openMaps: "Ouvrir dans Google Maps"
+    openMaps: "Ouvrir dans Google Maps",
+    mapControls: {
+      map: "Carte",
+      satellite: "Satellite",
+      hybrid: "Hybride"
+    }
   },
   gallery: {
     clickEnlarge: "Cliquez sur l'image pour l'agrandir et faites défiler pour voir les autres",

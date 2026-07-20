@@ -22,7 +22,7 @@ const About = () => {
     : (aboutCms?.ceo_pos_en || 'CEO of MNC Company');
 
   return (
-    <section id="about" className="py-20 bg-[var(--card-bg)] relative overflow-x-hidden">
+    <section id="about" className="py-20 bg-(--card-bg) relative overflow-x-hidden">
       {/* Background Decor */}
       <div className={`absolute top-0 ${isRTL ? 'right-0' : 'left-0'} w-1/3 h-full bg-slate-50/50 ${isRTL ? '-skew-x-12 translate-x-1/2' : 'skew-x-12 -translate-x-1/2'} -z-10 hidden sm:block`}></div>
 
@@ -33,13 +33,13 @@ const About = () => {
 
           {/* Eyebrow */}
           <div className={`inline-flex items-center gap-3 mb-5 ${isRTL ? 'flex-row' : 'flex-row-reverse'}`}>
-            <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#D5B25D]" />
-            <span className="text-[#D5B25D] font-bold tracking-[0.2em] uppercase text-[11px]">
+            <span className="h-px w-10 bg-linear-to-l from-transparent to-secondary" />
+            <span className="text-secondary font-bold tracking-[0.2em] uppercase text-[11px]">
               {{ ar: "قيادة وخبرة", en: "Leadership & Expertise", zh: "领导力与专长",
                  es: "Liderazgo y experiencia", fr: "Leadership et expertise",
                  de: "Führung & Expertise", tr: "Liderlik & Uzmanlık", ur: "قیادت اور مہارت" }[lang] || "Leadership & Expertise"}
             </span>
-            <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#D5B25D]" />
+            <span className="h-px w-10 bg-linear-to-r from-transparent to-secondary" />
           </div>
 
           {/* Title */}
@@ -54,7 +54,7 @@ const About = () => {
           </h2>
 
           {/* Gold underline */}
-          <div className={`h-1 w-16 rounded-full bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] ${isRTL ? 'mr-0' : 'ml-0'}`} data-aos="fade-up" data-aos-delay="150" />
+          <div className={`h-1 w-16 rounded-full bg-linear-to-r from-secondary to-gold ${isRTL ? 'mr-0' : 'ml-0'}`} data-aos="fade-up" data-aos-delay="150" />
 
           {/* Description */}
           <p className="mt-6 text-white text-base md:text-lg leading-relaxed max-w-2xl" data-aos="fade-up" data-aos-delay="200">
@@ -76,7 +76,7 @@ const About = () => {
           {/* Chairman Card */}
           <div className="w-full sm:w-1/2 lg:w-2/5 relative pb-14" data-aos="fade-up">
             <div className="relative z-10 group">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/3]">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-4/3">
                 <Image
                   src={directorImage}
                   alt={directorName}
@@ -85,7 +85,7 @@ const About = () => {
                   style={{ objectPosition: 'center 2%' }}
                   unoptimized={directorImage.startsWith('http')}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-linear-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
 
               {/* Decorative Frame */}
@@ -102,7 +102,7 @@ const About = () => {
           {/* CEO Card */}
           <div className="w-full sm:w-1/2 lg:w-2/5 relative pb-14" data-aos="fade-up" data-aos-delay="150">
             <div className="relative z-10 group">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/3]">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-4/3">
                 <Image
                   src={ceoImage}
                   alt={ceoName}
@@ -111,7 +111,7 @@ const About = () => {
                   style={{ objectPosition: 'center 2%' }}
                   unoptimized={ceoImage.startsWith('http')}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-linear-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
 
               {/* Decorative Frame (mirrored) */}

@@ -12,6 +12,7 @@ import StatusBadge from '@/components/admin/StatusBadge';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import PurchasingDashboardWidget from '@/components/purchasing/PurchasingDashboardWidget';
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
 
 const JOB_STATUS_COLORS = {
   pending:             '#3b82f6',
@@ -36,6 +37,8 @@ function StatCard({ label, value, icon: Icon, color, bg, href }) {
 
 export default function DashboardPage() {
   const { t, isRTL } = useLanguage();
+  const { isSuperAdmin, user } = useAuth();
+  const isPurchasingOnlyUser = user?.email?.trim().toLowerCase() === 'engineer.tester@mnc.com';
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   const [supplierCounts, setSupplierCounts]   = useState({ total: 0, new: 0, under_review: 0, approved: 0, rejected: 0 });
@@ -46,6 +49,7 @@ export default function DashboardPage() {
   const [recentMessages, setRecentMessages]   = useState([]);
 
   useEffect(() => {
+    if (isPurchasingOnlyUser) return;
     const unsub = onSnapshot(collection(db, 'suppliers'), snap => {
       const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
       const c = { total: docs.length, new: 0, under_review: 0, approved: 0, rejected: 0 };
@@ -56,9 +60,10 @@ export default function DashboardPage() {
       );
     });
     return unsub;
-  }, []);
+  }, [isPurchasingOnlyUser]);
 
   useEffect(() => {
+    if (isPurchasingOnlyUser) return;
     const unsub = onSnapshot(collection(db, 'jobApplications'), snap => {
       const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
       const c = { total: docs.length, pending: 0, interview_scheduled: 0, rejected: 0 };
@@ -69,9 +74,10 @@ export default function DashboardPage() {
       );
     });
     return unsub;
-  }, []);
+  }, [isPurchasingOnlyUser]);
 
   useEffect(() => {
+    if (isPurchasingOnlyUser) return;
     const unsub = onSnapshot(collection(db, 'contacts'), snap => {
       const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
       const c = { total: docs.length, new: 0, replied: 0, closed: 0 };
@@ -85,7 +91,7 @@ export default function DashboardPage() {
       );
     });
     return unsub;
-  }, []);
+  }, [isPurchasingOnlyUser]);
 
   return (
     <AdminPageLayout>
@@ -95,6 +101,9 @@ export default function DashboardPage() {
         </div>
 
         {/* ── Suppliers Stats ── */}
+        {!isPurchasingOnlyUser && (
+          <>
+            {/* ── Suppliers Stats ── */}
         <div className="mb-2">
           <div className="flex items-center gap-2 mb-3">
             <Building2 size={14} className="text-blue-400" />
@@ -284,9 +293,9 @@ export default function DashboardPage() {
               })}
             </div>
           </div>
-
         </div>
-
+        </>
+        )}
         <PurchasingDashboardWidget />
 
       </div>

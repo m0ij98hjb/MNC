@@ -353,7 +353,7 @@ export default function PurchaseRequestPage() {
   return (
     <main className="min-h-screen bg-black">
       <Navbar />
-      <section className="py-16 px-6" dir={isRTL ? 'rtl' : 'ltr'}>
+      <section className="pt-36 lg:pt-40 pb-16 px-6" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <span className="text-[#c8a96e] font-bold tracking-widest text-xs mb-2 block">{t('purchasing.portalBadge')}</span>

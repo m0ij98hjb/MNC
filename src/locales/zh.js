@@ -233,7 +233,12 @@ export const zh = {
     visitTitle: "访问我们的办公室",
     mapTitle: "MNC 咨询办公室",
     mapDesc: "Al-Andalus 区 - Abdulrahman Al-Tubaishi 街. 72号别墅 - 吉达",
-    openMaps: "在 Google 地图中打开"
+    openMaps: "在 Google 地图中打开",
+    mapControls: {
+      map: "地图",
+      satellite: "卫星",
+      hybrid: "混合"
+    }
   },
   gallery: {
     clickEnlarge: "点击图片放大，滑动浏览其他图片",

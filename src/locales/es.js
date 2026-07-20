@@ -233,7 +233,12 @@ export const es = {
     visitTitle: "Visite Nuestra Oficina",
     mapTitle: "MNC Consultoría",
     mapDesc: "Distrito de Al-Andalus - Calle Abdulrahman Al-Tubaishi. Villa 72 - Yeda",
-    openMaps: "Abrir en Google Maps"
+    openMaps: "Abrir en Google Maps",
+    mapControls: {
+      map: "Mapa",
+      satellite: "Satélite",
+      hybrid: "Híbrido"
+    }
   },
   gallery: {
     clickEnlarge: "Haga clic en la imagen para ampliar y deslice para ver el resto",

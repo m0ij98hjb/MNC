@@ -7,6 +7,8 @@ import {
   LogOut, LayoutDashboard, ChevronDown, Globe,
   Bell, Briefcase, Building2, ExternalLink, MessageSquare,
 } from 'lucide-react';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 import { useLanguage, LANGUAGES } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import { useNotifications } from '@/context/NotificationsContext';
@@ -40,7 +42,7 @@ export default function AdminNavbar() {
   const pathname = usePathname();
   const router   = useRouter();
   const { lang, setLang, t } = useLanguage();
-  const { logout, isSuperAdmin } = useAuth();
+  const { logout, isSuperAdmin, user } = useAuth();
 
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isUserOpen, setIsUserOpen] = useState(false);
@@ -51,8 +53,33 @@ export default function AdminNavbar() {
 
   const { allNotifications = [], unreadCount = 0, markBellOpened } = useNotifications() ?? {};
   const directorPhoto = useDirectorPhoto();
-  const displayPhoto = isSuperAdmin ? '/asstes/super-admin.jpg' : directorPhoto;
-  const displayName  = isSuperAdmin ? 'م. محمد مصطفى' : 'مدير الشركة';
+  const isPurchasingOnlyUser = user?.email?.trim().toLowerCase() === 'engineer.tester@mnc.com';
+
+  // Fetch the current user's profile from adminUsers collection
+  const [adminProfile, setAdminProfile] = useState(null);
+  useEffect(() => {
+    if (!user || isSuperAdmin) return;
+    const unsub = onSnapshot(doc(db, 'adminUsers', user.uid), snap => {
+      setAdminProfile(snap.exists() ? snap.data() : null);
+    });
+    return unsub;
+  }, [user, isSuperAdmin]);
+
+  const displayPhoto = isSuperAdmin
+    ? '/asstes/super-admin.jpg'
+    : (isPurchasingOnlyUser ? '/asstes/purchasing-manager.png' : directorPhoto);
+
+  // Build display name: super admin → fixed name; others → from adminUsers or Firebase displayName
+  const displayName = isSuperAdmin
+    ? 'م. محمد مصطفى'
+    : (adminProfile?.name || user?.displayName || 'مدير الشركة');
+
+  // Role label under the avatar
+  const roleLabel = isSuperAdmin
+    ? 'SUPER ADMIN'
+    : isPurchasingOnlyUser
+    ? 'PURCHASING MANAGER'
+    : (adminProfile?.jobTitle || 'ADMIN');
 
   useEffect(() => {
     const handler = (e) => {
@@ -111,7 +138,7 @@ export default function AdminNavbar() {
             className="text-[7.5px] font-black tracking-[5px] uppercase leading-none select-none"
             style={{ color: 'rgba(201,163,77,0.28)' }}
           >
-            {isSuperAdmin ? 'SUPER ADMIN' : 'ADMIN PANEL'}
+            {isPurchasingOnlyUser ? 'PURCHASING MANAGER' : isSuperAdmin ? 'SUPER ADMIN' : (adminProfile?.jobTitle?.toUpperCase() || 'ADMIN PANEL')}
           </p>
           <p
             className="text-[13px] sm:text-[14px] font-bold leading-tight truncate max-w-full"
@@ -138,7 +165,10 @@ export default function AdminNavbar() {
             >
               <div
                 className="relative w-7 h-7 rounded-full overflow-hidden flex-shrink-0"
-                style={{ boxShadow: '0 0 0 1.5px rgba(201,163,77,0.45)' }}
+                style={{ 
+                  boxShadow: '0 0 0 1.5px rgba(201,163,77,0.45)',
+                  backgroundColor: isPurchasingOnlyUser ? '#ffffff' : 'transparent'
+                }}
               >
                 <Image
                   src={displayPhoto}
@@ -146,7 +176,7 @@ export default function AdminNavbar() {
                   alt="Admin"
                   fill
                   sizes="28px"
-                  className="object-cover object-top"
+                  className={isPurchasingOnlyUser ? "object-contain p-1" : "object-cover object-top"}
                 />
               </div>
               <span className="hidden sm:block text-[11px] font-bold text-[#C9A34D] whitespace-nowrap leading-none">
@@ -175,7 +205,10 @@ export default function AdminNavbar() {
               >
                 <div
                   className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0"
-                  style={{ boxShadow: '0 0 0 1.5px rgba(201,163,77,0.4)' }}
+                  style={{ 
+                    boxShadow: '0 0 0 1.5px rgba(201,163,77,0.4)',
+                    backgroundColor: isPurchasingOnlyUser ? '#ffffff' : 'transparent'
+                  }}
                 >
                   <Image
                     src={displayPhoto}
@@ -183,13 +216,13 @@ export default function AdminNavbar() {
                     alt="Admin"
                     fill
                     sizes="36px"
-                    className="object-cover object-top"
+                    className={isPurchasingOnlyUser ? "object-contain p-1.5" : "object-cover object-top"}
                   />
                 </div>
                 <div className="min-w-0">
                   <p className="text-[12px] font-bold text-white leading-none">{displayName}</p>
                   <p className="text-[9px] text-[#C9A34D]/50 mt-0.5 uppercase tracking-widest">
-                    {isSuperAdmin ? 'SUPER ADMIN' : 'ADMIN'}
+                    {roleLabel}
                   </p>
                 </div>
               </div>

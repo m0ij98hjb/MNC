@@ -233,7 +233,12 @@ export const tr = {
     visitTitle: "Ofisimizi Ziyaret Edin",
     mapTitle: "MNC Danışmanlık Ofisi",
     mapDesc: "Al-Andalus Bölgesi - Abdulrahman Al-Tubaishi Cad. Villa 72 - Cidde",
-    openMaps: "Google Haritalar'da Aç"
+    openMaps: "Google Haritalar'da Aç",
+    mapControls: {
+      map: "Harita",
+      satellite: "Uydu",
+      hybrid: "Hibrit"
+    }
   },
   gallery: {
     clickEnlarge: "Büyütmek için resme tıklayın ve diğerlerine göz atmak için kaydırın",

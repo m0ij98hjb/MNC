@@ -87,6 +87,8 @@ export default function GalleryClient({ galleries }) {
                 centeredSlides={true}
                 slidesPerView={"auto"}
                 loop={true}
+                loopedSlides={5}
+                loopPreventsSliding={false}
                 coverflowEffect={{
                   rotate: 30,
                   stretch: 0,
@@ -161,7 +163,7 @@ export default function GalleryClient({ galleries }) {
             </div>
           ) : gallery.id === "interior" ? (
             <div className="pb-12 relative px-4 md:px-24 group">
-              {/* Custom Navigation Buttons - Corrected RTL/LTR logic */}
+              {/* Custom Navigation Buttons */}
               <button className={`swiper-prev-${gallery.id} absolute ${isRTL ? 'right-0 md:right-4' : 'left-0 md:left-4'} top-1/2 -translate-y-1/2 z-20 w-12 h-12 md:w-16 md:h-16 flex items-center justify-center bg-[var(--card-bg)]/10 backdrop-blur-md border border-[rgba(255,255,255,0.2)] text-[var(--secondary)] rounded-2xl hover:bg-[var(--secondary)] hover:text-[var(--foreground)] transition-all duration-300 shadow-xl opacity-0 group-hover:opacity-100 hidden md:flex`}>
                 {isRTL ? <ChevronRight size={32} /> : <ChevronLeft size={32} />}
               </button>

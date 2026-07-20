@@ -233,7 +233,12 @@
     visitTitle: "Visit Our Office",
     mapTitle: "MNC Consulting Office",
     mapDesc: "Al-Andalus District - Abdulrahman Al-Tubaishi St. Villa 72 - Jeddah",
-    openMaps: "Open in Google Maps"
+    openMaps: "Open in Google Maps",
+    mapControls: {
+      map: "Map",
+      satellite: "Satellite",
+      hybrid: "Hybrid"
+    }
   },
   gallery: {
     clickEnlarge: "Click on the image to enlarge and scroll to browse the rest of the images",

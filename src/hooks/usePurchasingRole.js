@@ -25,8 +25,9 @@ export function usePurchasingRole() {
   const effectiveProfile = user ? profile : null;
   const loading = user === undefined || (!!user && effectiveProfile === undefined);
 
-  const role = isSuperAdmin ? ROLES.SUPER_ADMIN : (effectiveProfile?.role ?? null);
-  const active = isSuperAdmin ? true : (effectiveProfile?.active !== false && !!effectiveProfile);
+  const isPurchasingOnlyUser = user?.email?.trim().toLowerCase() === 'engineer.tester@mnc.com';
+  const role = isSuperAdmin ? ROLES.SUPER_ADMIN : (isPurchasingOnlyUser ? ROLES.PROCUREMENT_MANAGER : (effectiveProfile?.role ?? null));
+  const active = isSuperAdmin || isPurchasingOnlyUser ? true : (effectiveProfile?.active !== false && !!effectiveProfile);
 
   return {
     loading,

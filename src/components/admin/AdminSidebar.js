@@ -13,13 +13,14 @@ import { storage, db } from '@/lib/firebase';
 import {
   LayoutDashboard, Users, CheckCircle, BarChart2,
   ChevronRight, ChevronLeft, LogOut, Briefcase, PenSquare,
-  Camera, X, Loader2, MessageSquare, ShoppingCart,
+  Camera, X, Loader2, MessageSquare, ShoppingCart, UserCog,
 } from 'lucide-react';
 
 const NAV_ITEMS = [
   { href: '/admin/dashboard', labelKey: 'admin.dashboard',     icon: LayoutDashboard },
   { href: '/admin/content',   label: 'إدارة المحتوى',         icon: PenSquare,     superAdminOnly: true },
   { href: '/admin/cameras',   label: 'إدارة الكاميرات',       icon: Camera,        superAdminOnly: true },
+  { href: '/admin/users',     label: 'إدارة المستخدمين',     icon: UserCog,       superAdminOnly: true },
   { href: '/admin/suppliers', labelKey: 'admin.suppliersMenu', icon: Users },
   { href: '/admin/jobs',      labelKey: 'admin.jobsMenu',      icon: Briefcase },
   { href: '/admin/messages',  label: 'رسائل العملاء',         icon: MessageSquare },
@@ -32,8 +33,9 @@ export default function AdminSidebar() {
   const pathname      = usePathname();
   const router        = useRouter();
   const { t, isRTL } = useLanguage();
-  const { logout, isSuperAdmin } = useAuth();
+  const { logout, isSuperAdmin, user } = useAuth();
   const { canAccessAdminModule: canAccessPurchasing } = usePurchasingRole();
+  const isPurchasingOnlyUser = user?.email?.trim().toLowerCase() === 'engineer.tester@mnc.com';
   const directorPhoto = useDirectorPhoto();
 
   const [isModalOpen,  setIsModalOpen]  = useState(false);
@@ -77,21 +79,24 @@ export default function AdminSidebar() {
         {/* Director profile */}
         <div className="flex flex-col items-center px-4 pt-5 pb-4 border-b border-white/[0.06]">
           {/* Photo — click to open modal (director only) */}
-          {isSuperAdmin ? (
+          {isSuperAdmin || isPurchasingOnlyUser ? (
             <div
               className="relative w-[72px] h-[72px] rounded-full overflow-hidden mb-3"
-              style={{ boxShadow: '0 0 0 2px rgba(200,169,110,0.35), 0 4px 20px rgba(0,0,0,0.5)' }}
+              style={{ 
+                boxShadow: '0 0 0 2px rgba(200,169,110,0.35), 0 4px 20px rgba(0,0,0,0.5)',
+                backgroundColor: isPurchasingOnlyUser ? '#ffffff' : 'transparent'
+              }}
             >
               <div
                 className="absolute inset-0 rounded-full z-10"
                 style={{ boxShadow: 'inset 0 0 0 2px rgba(200,169,110,0.25)' }}
               />
               <Image
-                src="/asstes/super-admin.jpg"
-                alt="Super Admin"
+                src={isPurchasingOnlyUser ? '/asstes/purchasing-manager.png' : '/asstes/super-admin.jpg'}
+                alt={isPurchasingOnlyUser ? 'Purchasing Manager' : 'Super Admin'}
                 fill
                 sizes="72px"
-                className="object-cover object-top"
+                className={isPurchasingOnlyUser ? "object-contain p-3" : "object-cover object-top"}
               />
             </div>
           ) : (
@@ -122,7 +127,7 @@ export default function AdminSidebar() {
 
           {/* Name */}
           <p className="text-[13px] font-bold text-[#c8a96e] leading-tight text-center">
-            {isSuperAdmin ? 'م. محمد مصطفى' : 'م. مروان أحمد ناظر'}
+            {isPurchasingOnlyUser ? 'مدير المشتريات' : isSuperAdmin ? 'م. محمد مصطفى' : 'م. مروان أحمد ناظر'}
           </p>
           {/* Gold underline */}
           <div className="mt-2.5 w-8 h-[1.5px] rounded-full bg-gradient-to-r from-transparent via-[#c8a96e]/50 to-transparent" />
@@ -131,10 +136,14 @@ export default function AdminSidebar() {
         {/* Navigation */}
         <nav className="flex-1 px-2 py-3">
           <div className="space-y-0.5">
-            {NAV_ITEMS.filter(item =>
-              (!item.superAdminOnly || isSuperAdmin) &&
-              (!item.purchasingModule || canAccessPurchasing)
-            ).map(({ href, labelKey, label, icon: Icon }) => {
+            {NAV_ITEMS.filter(item => {
+              // Hide everything except the dashboard and purchasing for this specific user
+              if (isPurchasingOnlyUser) {
+                return item.href === '/admin/dashboard' || item.href === '/admin/purchasing';
+              }
+              // Normal logic for everyone else
+              return (!item.superAdminOnly || isSuperAdmin) && (!item.purchasingModule || canAccessPurchasing);
+            }).map(({ href, labelKey, label, icon: Icon }) => {
               const active = pathname === href || pathname.startsWith(href + '/');
               const text   = label ?? t(labelKey);
               return (

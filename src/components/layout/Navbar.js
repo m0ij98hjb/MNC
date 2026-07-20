@@ -10,6 +10,10 @@ import { useTheme } from "@/context/ThemeContext";
 import { useAuth } from "@/context/AuthContext";
 import { useNotifications } from "@/context/NotificationsContext";
 import { HiDocumentText } from "react-icons/hi";
+import { usePurchasingRole } from "@/hooks/usePurchasingRole";
+import { ROLES } from "@/lib/purchasingConfig";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +28,51 @@ const Navbar = () => {
   const { lang, setLang, t, isRTL } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const { user, logout, isSuperAdmin } = useAuth();
+  const { role: purchRole, profile: purchProfile } = usePurchasingRole();
+
+  // Fetch name from adminUsers collection for non-super-admin users
+  const [adminProfile, setAdminProfile] = useState(null);
+  useEffect(() => {
+    if (!user || isSuperAdmin) { setAdminProfile(null); return; }
+    const unsub = onSnapshot(doc(db, 'adminUsers', user.uid), snap => {
+      setAdminProfile(snap.exists() ? snap.data() : null);
+    });
+    return unsub;
+  }, [user, isSuperAdmin]);
+
+  // Display name priority:
+  // 1. adminUsers.name (from super admin's form)
+  // 2. purchasingUsers.name (from purchasing users collection)
+  // 3. Firebase Auth displayName
+  // 4. Fallback: "مدير الشركة"
+  const adminDisplayName = isSuperAdmin
+    ? 'SUPER ADMIN'
+    : (adminProfile?.name || purchProfile?.name || user?.displayName || t('admin.managerTitle'));
+
+  const portalTooltips = {
+    ar: "بوابة الموظفين",
+    en: "Staff Portal",
+    es: "Portal del personal",
+    fr: "Portail du personnel",
+    de: "Mitarbeiterportal",
+    tr: "Personel Portalı",
+    ur: "اسٹاف پورٹل",
+    zh: "员工门户",
+    ru: "Портал сотрудников"
+  };
+  const portalTooltipText = portalTooltips[lang] || portalTooltips['en'];
+
+  const handlePortalClick = () => {
+    if (!user) {
+      router.push('/admin/login');
+    } else {
+      if (isSuperAdmin || purchRole === ROLES.SUPER_ADMIN || purchRole === ROLES.PROCUREMENT_MANAGER) {
+        router.push('/admin/dashboard');
+      } else {
+        router.push('/purchase-request');
+      }
+    }
+  };
   const notif = useNotifications();
   const { allNotifications = [], unreadCount = 0, markBellOpened } = notif ?? {};
   const isLightMode = theme === 'dark';
@@ -336,6 +385,20 @@ const Navbar = () => {
                   </div>
                 )}
 
+                {/* Staff Portal Icon */}
+                <div className="relative group flex items-center justify-center">
+                  <button
+                    id="staff-portal-btn-admin"
+                    onClick={handlePortalClick}
+                    className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D]/70 hover:text-[#D5B25D] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 active:scale-95"
+                  >
+                    <Briefcase size={15} />
+                  </button>
+                  <div className={`absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 whitespace-nowrap bg-[#0b0e12]/95 border border-[#D5B25D]/30 text-[#D5B25D] text-[10.5px] font-black py-1.5 px-3 rounded-lg shadow-lg`}>
+                    {portalTooltipText}
+                  </div>
+                </div>
+
                 {/* Admin user dropdown */}
                 <div className="relative" ref={adminDropdownRef}>
                   <button
@@ -344,7 +407,7 @@ const Navbar = () => {
                   >
                     <UserCog size={14} className="text-[#C9A34D] flex-shrink-0" />
                     <span className="text-[11px] xl:text-[12px] font-bold text-[#C9A34D] whitespace-nowrap">
-                      {isSuperAdmin ? 'SUPER ADMIN' : t('admin.managerTitle')}
+                      {adminDisplayName}
                     </span>
                     <ChevronDown size={10} className={`text-[#C9A34D]/50 transition-transform duration-300 ${isAdminOpen ? 'rotate-180' : ''}`} />
                   </button>
@@ -402,6 +465,20 @@ const Navbar = () => {
                       onClick={() => setIsProfileOpen(false)}>
                       {tPortfolio.en}
                     </a>
+                  </div>
+                </div>
+
+                {/* Staff Portal Icon */}
+                <div className="relative group flex items-center justify-center">
+                  <button
+                    id="staff-portal-btn"
+                    onClick={handlePortalClick}
+                    className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D]/70 hover:text-[#D5B25D] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 active:scale-95"
+                  >
+                    <Briefcase size={15} />
+                  </button>
+                  <div className={`absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 whitespace-nowrap bg-[#0b0e12]/95 border border-[#D5B25D]/30 text-[#D5B25D] text-[10.5px] font-black py-1.5 px-3 rounded-lg shadow-lg`}>
+                    {portalTooltipText}
                   </div>
                 </div>
 
@@ -544,6 +621,19 @@ const Navbar = () => {
                   </Link>
                 );
               })}
+              {/* Staff Portal Link - Mobile */}
+              <button
+                id="staff-portal-btn-mobile"
+                onClick={() => { setIsOpen(false); handlePortalClick(); }}
+                className="flex items-center gap-3 py-[11px] px-3 rounded-[12px] border border-transparent hover:bg-white/[0.04] transition-all duration-200 active:scale-[0.98] w-full text-start"
+              >
+                <span className={`w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/14 text-[#D5B25D] flex items-center justify-center flex-shrink-0`}>
+                  <Briefcase size={15} />
+                </span>
+                <span className={`text-[13px] font-semibold flex-1 ${isLightMode ? "text-[#1e293b]" : "text-white/65"}`}>
+                  {portalTooltipText}
+                </span>
+              </button>
             </div>
           </div>
 

@@ -1,0 +1,486 @@
+'use client';
+import { useEffect, useState } from 'react';
+import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import { useAuth } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
+import AdminPageLayout from '@/components/admin/AdminPageLayout';
+import { createAdminUser, updateAdminUserPermissions } from '@/lib/adminUserCreation';
+import { useRouter } from 'next/navigation';
+import {
+  Users, Plus, X, Loader2, Power, ShieldCheck, ShieldOff,
+  Building2, Briefcase, MessageSquare, ShoppingCart, BarChart2,
+  Check, User, Phone, Mail, Lock, Edit2,
+} from 'lucide-react';
+
+/* ─── Permission definitions ─── */
+const PERMISSIONS = [
+  {
+    id: 'purchasing_module',
+    label: 'إدارة المشتريات',
+    desc: 'طلب مواد وتتبع طلبات الشراء',
+    icon: ShoppingCart,
+    color: '#c8a96e',
+  },
+  {
+    id: 'suppliers_module',
+    label: 'إدارة الموردين',
+    desc: 'عرض وإدارة سجلات الموردين',
+    icon: Building2,
+    color: '#a78bfa',
+  },
+  {
+    id: 'jobs_module',
+    label: 'إدارة التوظيف',
+    desc: 'عرض وإدارة طلبات التوظيف',
+    icon: Briefcase,
+    color: '#3b82f6',
+  },
+  {
+    id: 'messages_module',
+    label: 'رسائل العملاء',
+    desc: 'عرض والرد على رسائل العملاء',
+    icon: MessageSquare,
+    color: '#10b981',
+  },
+  {
+    id: 'reports_module',
+    label: 'التقارير والإحصائيات',
+    desc: 'عرض التقارير التحليلية',
+    icon: BarChart2,
+    color: '#f59e0b',
+  },
+];
+
+const inputCls = 'w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-all';
+const labelCls = 'text-[#c8a96e] text-[10px] font-black uppercase tracking-widest block mb-1.5';
+
+/* ─── Add / Edit User Modal ─── */
+function UserModal({ onClose, currentUid, editUser = null }) {
+  const [form, setForm] = useState(editUser
+    ? { name: editUser.name, phone: editUser.phone || '', jobTitle: editUser.jobTitle || '', department: editUser.department || '' }
+    : { name: '', email: '', password: '', phone: '', jobTitle: '', department: '' }
+  );
+  const [permissions, setPermissions] = useState(editUser?.permissions ?? []);
+  const [purchasingRole, setPurchasingRole] = useState(editUser?.purchasingRole ?? 'site_supervisor');
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+  const set = (f, v) => setForm(x => ({ ...x, [f]: v }));
+
+  const togglePerm = (id) => setPermissions(prev =>
+    prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]
+  );
+
+  const submit = async () => {
+    setError('');
+    if (!editUser) {
+      if (!form.name.trim() || !form.email.trim()) {
+        setError('الاسم والإيميل مطلوبان.'); return;
+      }
+      if ((form.password || '').length < 6) {
+        setError('كلمة المرور يجب أن تكون 6 أحرف على الأقل.'); return;
+      }
+    }
+
+    setSaving(true);
+    try {
+      if (editUser) {
+        await updateAdminUserPermissions(editUser.id, {
+          ...form,
+          permissions,
+          purchasingRole: permissions.includes('purchasing_module') ? purchasingRole : null,
+        });
+      } else {
+        await createAdminUser({
+          ...form,
+          permissions,
+          purchasingRole: permissions.includes('purchasing_module') ? purchasingRole : null,
+          createdByUid: currentUid,
+        });
+      }
+      onClose();
+    } catch (e) {
+      setError(e.message || 'حدث خطأ أثناء الحفظ.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+      style={{ background: 'rgba(0,0,0,0.82)', backdropFilter: 'blur(10px)' }}
+    >
+      <div
+        className="w-full max-w-xl bg-[#0d1117] border border-white/10 rounded-2xl overflow-hidden shadow-2xl max-h-[92vh] overflow-y-auto"
+        dir="rtl"
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-[#c8a96e]/15 flex items-center justify-center">
+              {editUser ? <Edit2 size={14} className="text-[#c8a96e]" /> : <Plus size={14} className="text-[#c8a96e]" />}
+            </div>
+            <h2 className="text-white font-bold text-base">
+              {editUser ? 'تعديل بيانات المستخدم' : 'إضافة مستخدم جديد'}
+            </h2>
+          </div>
+          <button onClick={onClose} className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/8 transition-colors">
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="px-6 py-5 space-y-5">
+          {error && (
+            <div className="rounded-xl px-4 py-3 text-sm bg-red-500/10 border border-red-500/25 text-red-400">
+              {error}
+            </div>
+          )}
+
+          {/* Basic Info */}
+          <div>
+            <p className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3">البيانات الأساسية</p>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="col-span-2">
+                <label className={labelCls}><User size={10} className="inline me-1" />الاسم الكامل</label>
+                <input className={inputCls} value={form.name} onChange={e => set('name', e.target.value)} placeholder="أدخل الاسم الكامل" />
+              </div>
+              {!editUser && (
+                <>
+                  <div>
+                    <label className={labelCls}><Mail size={10} className="inline me-1" />البريد الإلكتروني</label>
+                    <input type="email" dir="ltr" className={inputCls} value={form.email} onChange={e => set('email', e.target.value)} placeholder="user@mnc.com" />
+                  </div>
+                  <div>
+                    <label className={labelCls}><Lock size={10} className="inline me-1" />كلمة المرور المبدئية</label>
+                    <input type="password" dir="ltr" className={inputCls} value={form.password} onChange={e => set('password', e.target.value)} placeholder="6 أحرف على الأقل" />
+                  </div>
+                </>
+              )}
+              <div>
+                <label className={labelCls}><Phone size={10} className="inline me-1" />رقم الجوال</label>
+                <input dir="ltr" className={inputCls} value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="+966 5xx xxx xxx" />
+              </div>
+              <div>
+                <label className={labelCls}>المسمى الوظيفي</label>
+                <input className={inputCls} value={form.jobTitle} onChange={e => set('jobTitle', e.target.value)} placeholder="مشرف / مهندس / ..." />
+              </div>
+              <div className="col-span-2">
+                <label className={labelCls}>القسم</label>
+                <input className={inputCls} value={form.department} onChange={e => set('department', e.target.value)} placeholder="الإنشاءات / المشاريع / المشتريات / ..." />
+              </div>
+            </div>
+          </div>
+
+          {/* Permissions */}
+          <div>
+            <p className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3">الصلاحيات والوصول</p>
+            <div className="space-y-2">
+              {PERMISSIONS.map(({ id, label, desc, icon: Icon, color }) => {
+                const checked = permissions.includes(id);
+                return (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => togglePerm(id)}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border text-start transition-all duration-200 ${
+                      checked
+                        ? 'border-[#c8a96e]/40 bg-[#c8a96e]/8'
+                        : 'border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.04]'
+                    }`}
+                  >
+                    <div
+                      className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all"
+                      style={{ background: checked ? `${color}22` : 'rgba(255,255,255,0.05)' }}
+                    >
+                      <Icon size={15} style={{ color: checked ? color : 'rgba(255,255,255,0.3)' }} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className={`text-sm font-semibold leading-tight ${checked ? 'text-white' : 'text-white/50'}`}>{label}</p>
+                      <p className="text-[11px] text-white/25 mt-0.5">{desc}</p>
+                    </div>
+                    <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+                      checked ? 'border-[#c8a96e] bg-[#c8a96e]' : 'border-white/20'
+                    }`}>
+                      {checked && <Check size={11} className="text-black" strokeWidth={3} />}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {permissions.includes('purchasing_module') && (
+            <div className="rounded-xl bg-[#c8a96e]/8 border border-[#c8a96e]/20 px-4 py-3 space-y-3">
+              <p className="text-[10px] font-black text-[#c8a96e] uppercase tracking-widest">نوع صلاحية المشتريات</p>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPurchasingRole('site_supervisor')}
+                  className={`flex flex-col items-start gap-1 px-3 py-3 rounded-xl border text-start transition-all ${
+                    purchasingRole === 'site_supervisor'
+                      ? 'border-[#c8a96e]/50 bg-[#c8a96e]/12'
+                      : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.04]'
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5">
+                    <div className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
+                      purchasingRole === 'site_supervisor' ? 'border-[#c8a96e]' : 'border-white/25'
+                    }`}>
+                      {purchasingRole === 'site_supervisor' && <div className="w-1.5 h-1.5 rounded-full bg-[#c8a96e]" />}
+                    </div>
+                    <span className={`text-xs font-bold ${
+                      purchasingRole === 'site_supervisor' ? 'text-[#c8a96e]' : 'text-white/50'
+                    }`}>طالب مشتريات</span>
+                  </div>
+                  <p className="text-[10px] text-white/30 leading-relaxed pe-1">
+                    يملأ فورم طلب الشراء ويرسله للمراجعة
+                  </p>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPurchasingRole('procurement_manager')}
+                  className={`flex flex-col items-start gap-1 px-3 py-3 rounded-xl border text-start transition-all ${
+                    purchasingRole === 'procurement_manager'
+                      ? 'border-[#c8a96e]/50 bg-[#c8a96e]/12'
+                      : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.04]'
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5">
+                    <div className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
+                      purchasingRole === 'procurement_manager' ? 'border-[#c8a96e]' : 'border-white/25'
+                    }`}>
+                      {purchasingRole === 'procurement_manager' && <div className="w-1.5 h-1.5 rounded-full bg-[#c8a96e]" />}
+                    </div>
+                    <span className={`text-xs font-bold ${
+                      purchasingRole === 'procurement_manager' ? 'text-[#c8a96e]' : 'text-white/50'
+                    }`}>مدير المشتريات</span>
+                  </div>
+                  <p className="text-[10px] text-white/30 leading-relaxed pe-1">
+                    يراجع ويعتمد طلبات الشراء من الداشبورد
+                  </p>
+                </button>
+              </div>
+              <p className="text-[10px] text-white/25">
+                {purchasingRole === 'site_supervisor'
+                  ? '✓ سيدخل على بوابة /purchase-request لتقديم الطلبات'
+                  : '✓ سيدخل على لوحة /admin/purchasing لمراجعة واعتماد الطلبات'}
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="px-6 py-4 border-t border-white/[0.07] flex gap-3">
+          <button
+            onClick={onClose}
+            className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-semibold hover:text-white hover:border-white/25 transition-all"
+          >
+            إلغاء
+          </button>
+          <button
+            onClick={submit}
+            disabled={saving}
+            className="flex-1 py-2.5 rounded-xl text-black text-sm font-black flex items-center justify-center gap-2 disabled:opacity-60 transition-all"
+            style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)' }}
+          >
+            {saving ? <Loader2 size={15} className="animate-spin" /> : (editUser ? 'حفظ التعديلات' : 'إنشاء الحساب')}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Permission Badges ─── */
+function PermBadge({ id }) {
+  const perm = PERMISSIONS.find(p => p.id === id);
+  if (!perm) return null;
+  const Icon = perm.icon;
+  return (
+    <span
+      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold"
+      style={{ color: perm.color, background: `${perm.color}18`, border: `1px solid ${perm.color}28` }}
+    >
+      <Icon size={9} />
+      {perm.label}
+    </span>
+  );
+}
+
+/* ─── Main Page Content ─── */
+function UsersContent() {
+  const { user } = useAuth();
+  const { isRTL } = useLanguage();
+  const [users, setUsers] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [editUser, setEditUser] = useState(null);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const unsub = onSnapshot(collection(db, 'adminUsers'), snap =>
+      setUsers(snap.docs.map(d => ({ id: d.id, ...d.data() })))
+    );
+    return unsub;
+  }, []);
+
+  const toggleActive = async (u) => {
+    setError('');
+    try {
+      await updateAdminUserPermissions(u.id, { active: !u.active });
+    } catch (e) {
+      setError(e.message || 'حدث خطأ.');
+    }
+  };
+
+  const openEdit = (u) => { setEditUser(u); setShowModal(true); };
+  const closeModal = () => { setShowModal(false); setEditUser(null); };
+
+  return (
+    <div className="p-6 lg:p-8 max-w-7xl mx-auto" dir={isRTL ? 'rtl' : 'ltr'}>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-7">
+        <div>
+          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+            <Users size={20} className="text-[#c8a96e]" />
+            إدارة المستخدمين
+          </h1>
+          <p className="text-sm text-white/30 mt-1">إضافة وإدارة حسابات موظفي النظام وصلاحياتهم</p>
+        </div>
+        <button
+          onClick={() => { setEditUser(null); setShowModal(true); }}
+          className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-black shadow-lg transition-all hover:scale-105"
+          style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)' }}
+        >
+          <Plus size={14} /> إضافة مستخدم
+        </button>
+      </div>
+
+      {error && (
+        <div className="rounded-xl px-4 py-3 text-sm bg-red-500/10 border border-red-500/25 text-red-400 mb-5">
+          {error}
+        </div>
+      )}
+
+      {/* Table */}
+      <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">
+        {users === null ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 size={28} className="text-[#c8a96e] animate-spin" />
+          </div>
+        ) : users.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20 gap-3">
+            <Users size={40} className="text-white/10" />
+            <p className="text-white/30 text-sm">لا يوجد مستخدمون بعد. أضف أول موظف!</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-white/[0.07]">
+                  {['الاسم', 'البريد الإلكتروني', 'القسم', 'الصلاحيات', 'الحالة', 'الإجراءات'].map(h => (
+                    <th key={h} className="text-start text-xs text-white/30 font-medium px-5 py-3.5 whitespace-nowrap">
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/[0.04]">
+                {users.map(u => (
+                  <tr key={u.id} className="hover:bg-white/[0.02] transition-colors">
+                    <td className="px-5 py-4">
+                      <div>
+                        <p className="text-white font-semibold text-sm">{u.name}</p>
+                        {u.jobTitle && <p className="text-white/35 text-xs mt-0.5">{u.jobTitle}</p>}
+                      </div>
+                    </td>
+                    <td className="px-5 py-4 text-white/50 text-xs" dir="ltr">{u.email}</td>
+                    <td className="px-5 py-4 text-white/50 text-xs">{u.department || '—'}</td>
+                    <td className="px-5 py-4">
+                      <div className="flex flex-wrap gap-1">
+                        {(u.permissions || []).length === 0
+                          ? <span className="text-white/20 text-xs">بدون صلاحيات</span>
+                          : (u.permissions || []).map(p => <PermBadge key={p} id={p} />)
+                        }
+                      </div>
+                    </td>
+                    <td className="px-5 py-4">
+                      <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold ${
+                        u.active !== false
+                          ? 'text-green-400 bg-green-500/12 border border-green-500/20'
+                          : 'text-red-400 bg-red-500/12 border border-red-500/20'
+                      }`}>
+                        {u.active !== false
+                          ? <><ShieldCheck size={9} /> مفعّل</>
+                          : <><ShieldOff size={9} /> معطّل</>
+                        }
+                      </span>
+                    </td>
+                    <td className="px-5 py-4">
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => openEdit(u)}
+                          className="p-1.5 rounded-lg text-white/40 hover:text-[#c8a96e] hover:bg-[#c8a96e]/10 transition-all"
+                          title="تعديل"
+                        >
+                          <Edit2 size={13} />
+                        </button>
+                        <button
+                          onClick={() => toggleActive(u)}
+                          className={`p-1.5 rounded-lg transition-all ${
+                            u.active !== false
+                              ? 'text-white/40 hover:text-red-400 hover:bg-red-500/10'
+                              : 'text-white/40 hover:text-green-400 hover:bg-green-500/10'
+                          }`}
+                          title={u.active !== false ? 'تعطيل الحساب' : 'تفعيل الحساب'}
+                        >
+                          <Power size={13} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {showModal && (
+        <UserModal
+          onClose={closeModal}
+          currentUid={user?.uid}
+          editUser={editUser}
+        />
+      )}
+    </div>
+  );
+}
+
+/* ─── Page ─── */
+export default function AdminUsersPage() {
+  const { isSuperAdmin, user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user !== undefined && user !== null && !isSuperAdmin) {
+      router.replace('/admin/dashboard');
+    }
+  }, [user, isSuperAdmin, router]);
+
+  if (!isSuperAdmin) {
+    return (
+      <AdminPageLayout>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <Loader2 size={28} className="animate-spin text-[#c8a96e]" />
+        </div>
+      </AdminPageLayout>
+    );
+  }
+
+  return (
+    <AdminPageLayout>
+      <UsersContent />
+    </AdminPageLayout>
+  );
+}

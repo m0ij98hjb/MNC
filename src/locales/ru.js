@@ -233,7 +233,12 @@ export const ru = {
     visitTitle: "Посетите наш офис",
     mapTitle: "Консалтинговый офис MNC",
     mapDesc: "Район Аль-Андалус — ул. Абдурахман Аль-Тубайши, вилла 72 — Джидда",
-    openMaps: "Открыть в Google Maps"
+    openMaps: "Открыть в Google Maps",
+    mapControls: {
+      map: "Карта",
+      satellite: "Спутник",
+      hybrid: "Гибрид"
+    }
   },
   gallery: {
     clickEnlarge: "Нажмите на изображение для увеличения и прокрутите для просмотра остальных изображений",
