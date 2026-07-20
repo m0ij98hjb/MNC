@@ -10,6 +10,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Internal tooling worktrees (not part of the app; may belong to other
+    // concurrent sessions) — never part of this project's own source.
+    ".claude/**",
   ]),
 ]);
 

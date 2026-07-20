@@ -1,6 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useSyncExternalStore } from "react";
+
+const noopSubscribe = () => () => {};
+const getServerDir = () => false;
 
 /**
  * TypewriterText
@@ -38,8 +41,6 @@ export default function TypewriterText({
 }) {
   const [displayText, setDisplayText] = useState("");
   const [activeTextIndex, setActiveTextIndex] = useState(0);
-  // Start as false on SSR, update after client mount to avoid hydration mismatch.
-  const [isRTL, setIsRTL] = useState(false);
 
   // Refs avoid stale-closure issues inside setTimeout callbacks.
   const stateRef = useRef({
@@ -49,10 +50,13 @@ export default function TypewriterText({
   });
   const timeoutRef = useRef(null);
 
-  // Detect page direction after mount (client-side only).
-  useEffect(() => {
-    setIsRTL(document.dir === "rtl");
-  }, []);
+  // SSR-safe page direction read (false on server/initial hydration, then the
+  // real value) — no effect/state pair needed for a value this simple.
+  const isRTL = useSyncExternalStore(
+    noopSubscribe,
+    () => document.dir === "rtl",
+    getServerDir
+  );
 
   // ------------------------------------------------------------------
   // Core typing engine
@@ -62,7 +66,6 @@ export default function TypewriterText({
 
     // Reset whenever the text array or timing props change.
     stateRef.current = { textIndex: 0, isDeleting: false, currentText: "" };
-    setDisplayText("");
     clearTimeout(timeoutRef.current);
 
     const tick = () => {
@@ -111,8 +114,15 @@ export default function TypewriterText({
       }
     };
 
-    // Kick off after one typing-speed delay.
-    timeoutRef.current = setTimeout(tick, typingSpeed);
+    // Clear the displayed text, then kick off after one typing-speed delay.
+    // Deferred into the timeout callback (rather than set synchronously in
+    // the effect body) so the visual reset happens as a reaction to the
+    // scheduled timer firing, not as a direct effect-body state update.
+    timeoutRef.current = setTimeout(() => {
+      if (!active) return;
+      setDisplayText("");
+      tick();
+    }, typingSpeed);
 
     // Cleanup: flag + clear any pending timeout.
     return () => {

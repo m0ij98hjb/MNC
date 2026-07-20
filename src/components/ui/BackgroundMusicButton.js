@@ -1,16 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMusic } from '@/context/MusicContext';
+import useHasMounted from '@/hooks/useHasMounted';
+
+// Randomized equalizer-bar animation config — generated once when this
+// module is first evaluated (not during any component render), so it's
+// stable for the page's lifetime without ever calling Math.random() as
+// part of a render pass.
+const BAR_CONFIG = [0, 1, 2, 3, 4].map(() => ({
+  peak1: 8 + Math.random() * 6,
+  peak2: 10 + Math.random() * 4,
+  duration: 0.8 + Math.random() * 0.4,
+}));
 
 export default function BackgroundMusicButton() {
   const { isMusicPlaying, toggleMusic, isMusicReady } = useMusic();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const isMounted = useHasMounted();
 
   if (!isMounted || !isMusicReady) return null;
 
@@ -141,16 +147,16 @@ export default function BackgroundMusicButton() {
       <AnimatePresence>
         {isMusicPlaying && (
           <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 flex items-end gap-[2px]">
-            {[0, 1, 2, 3, 4].map((i) => (
+            {BAR_CONFIG.map((cfg, i) => (
               <motion.div
                 key={i}
                 className="w-[2px] rounded-full bg-[#D5B25D]"
                 initial={{ height: 2 }}
                 animate={{
-                  height: [3, 8 + Math.random() * 6, 4, 10 + Math.random() * 4, 3],
+                  height: [3, cfg.peak1, 4, cfg.peak2, 3],
                 }}
                 transition={{
-                  duration: 0.8 + Math.random() * 0.4,
+                  duration: cfg.duration,
                   repeat: Infinity,
                   ease: 'easeInOut',
                   delay: i * 0.1,

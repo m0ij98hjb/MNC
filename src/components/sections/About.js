@@ -15,7 +15,7 @@ const About = () => {
     ? (aboutCms?.director_pos_ar || t('about.directorTitle'))
     : (aboutCms?.director_pos_en || t('about.directorTitle'));
 
-  const ceoImage = aboutCms?.ceo_image || '/asstes/director.png';
+  const ceoImage = aboutCms?.ceo_image || '/asstes/directorr.png';
   const ceoName  = aboutCms?.ceo_name  || 'م. أوبي ناظر';
   const ceoTitle = isRTL
     ? (aboutCms?.ceo_pos_ar || 'المدير التنفيذي لشركة MNC')
@@ -57,16 +57,16 @@ const About = () => {
           <div className={`h-1 w-16 rounded-full bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] ${isRTL ? 'mr-0' : 'ml-0'}`} data-aos="fade-up" data-aos-delay="150" />
 
           {/* Description */}
-          <p className="mt-6 text-white/50 text-base md:text-lg leading-relaxed max-w-2xl" data-aos="fade-up" data-aos-delay="200">
-            {{ ar: "نؤمن بأن الهندسة رسالة قبل أن تكون مهنة، وخلف كل مشروع ناجح قيادة بخبرة تتجاوز ثلاثة عقود تحوّل الرؤية إلى واقع.",
-               en: "We believe engineering is a calling before a profession — behind every successful project stands leadership with over three decades of experience turning vision into reality.",
-               zh: "我们相信工程是一种使命，每个成功项目背后都有超过三十年经验的领导力。",
-               fr: "Nous croyons que l'ingénierie est une vocation — derrière chaque projet réussi se trouve un leadership fort de plus de trois décennies d'expérience.",
-               es: "Creemos que la ingeniería es una vocación — detrás de cada proyecto exitoso hay un liderazgo con más de tres décadas de experiencia.",
-               de: "Wir glauben, dass Ingenieurwesen eine Berufung ist — hinter jedem erfolgreichen Projekt steht eine Führung mit über drei Jahrzehnten Erfahrung.",
-               tr: "Mühendisliğin bir meslek olmadan önce bir misyon olduğuna inanıyoruz — her başarılı projenin arkasında otuz yılı aşkın deneyime sahip bir liderlik vardır.",
-               ur: "ہمارا ماننا ہے کہ انجینئرنگ ایک پیشے سے پہلے ایک مشن ہے — ہر کامیاب منصوبے کے پیچھے تین دہائیوں سے زائد تجربے کی قیادت ہوتی ہے۔"
-            }[lang] || "We believe engineering is a calling before a profession — behind every successful project stands leadership with over three decades of experience."}
+          <p className="mt-6 text-white text-base md:text-lg leading-relaxed max-w-2xl" data-aos="fade-up" data-aos-delay="200">
+            {{ ar: "نؤمن بأن الهندسة رسالة قبل أن تكون مهنة، وخلف كل مشروع ناجح قيادة راسخة منذ عام 1986 — بخبرة تمتد لأكثر من ثلاثة عقود تحوّل الرؤية إلى واقع وتصنع الفارق في كل تفصيلة.",
+               en: "We believe engineering is a calling before a profession — behind every successful project stands leadership rooted since 1986, with over three decades of experience turning vision into reality.",
+               zh: "我们相信工程是一种使命——自1986年以来，每个成功项目背后都有深厚的领导力，三十余年经验将愿景变为现实。",
+               fr: "Nous croyons que l'ingénierie est une vocation — derrière chaque projet réussi se trouve un leadership ancré depuis 1986, fort de plus de trois décennies d'expérience.",
+               es: "Creemos que la ingeniería es una vocación — detrás de cada proyecto exitoso hay un liderazgo consolidado desde 1986, con más de tres décadas de experiencia.",
+               de: "Wir glauben, dass Ingenieurwesen eine Berufung ist — hinter jedem erfolgreichen Projekt steht eine seit 1986 verwurzelte Führung mit über drei Jahrzehnten Erfahrung.",
+               tr: "Mühendisliğin bir meslek olmadan önce bir misyon olduğuna inanıyoruz — her başarılı projenin arkasında 1986'dan bu yana köklü, otuz yılı aşkın deneyime sahip bir liderlik vardır.",
+               ur: "ہمارا ماننا ہے کہ انجینئرنگ ایک پیشے سے پہلے ایک مشن ہے — ہر کامیاب منصوبے کے پیچھے 1986 سے قائم قیادت ہے جو تین دہائیوں سے زائد تجربے کے ساتھ وژن کو حقیقت میں بدلتی ہے۔"
+            }[lang] || "We believe engineering is a calling before a profession — behind every successful project stands leadership rooted since 1986, with over three decades of experience."}
           </p>
         </div>
 
@@ -86,16 +86,6 @@ const About = () => {
                   unoptimized={directorImage.startsWith('http')}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-
-              {/* Badge */}
-              <div className={`absolute -bottom-4 ${isRTL ? '-right-2 md:-right-6' : '-left-2 md:-left-6'} md:-bottom-6 bg-white p-4 md:p-6 rounded-2xl shadow-2xl border border-[rgba(15,23,42,0.06)] z-20`} data-aos="zoom-in" data-aos-delay="300">
-                <div className="flex flex-col">
-                  <span className="text-secondary font-black text-xl md:text-2xl leading-none">38+</span>
-                  <span className="text-black text-[8px] md:text-[10px] uppercase tracking-tighter font-bold mt-1">
-                    {t('about.experienceBadge')}
-                  </span>
-                </div>
               </div>
 
               {/* Decorative Frame */}

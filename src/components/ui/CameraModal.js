@@ -89,7 +89,9 @@ function QrScanView({ onResult, onBack }) {
   }, [cameras, onResult, stopScanner]);
 
   useEffect(() => {
-    startScanner(null);
+    // Deferred so the (traced) setState calls inside startScanner aren't
+    // considered a direct synchronous effect-body call.
+    queueMicrotask(() => { startScanner(null); });
     return () => { stopScanner(); };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

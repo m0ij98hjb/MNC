@@ -18,10 +18,14 @@ function MjpegPlayer({ url, onError }) {
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    setFailed(false);
-    setStamp(Date.now());
+    let disposed = false;
+    queueMicrotask(() => {
+      if (disposed) return;
+      setFailed(false);
+      setStamp(Date.now());
+    });
     const iv = setInterval(() => setStamp(Date.now()), 5000);
-    return () => clearInterval(iv);
+    return () => { disposed = true; clearInterval(iv); };
   }, [url]);
 
   const src = url + (url.includes("?") ? "&" : "?") + "_t=" + stamp;
@@ -100,9 +104,11 @@ export default function CameraPreview({ projectCode }) {
 
   useEffect(() => {
     if (!projectCode) {
-      setPhase("idle");
-      setCameras([]);
-      setStreamData(null);
+      queueMicrotask(() => {
+        setPhase("idle");
+        setCameras([]);
+        setStreamData(null);
+      });
       return;
     }
 
@@ -160,7 +166,7 @@ export default function CameraPreview({ projectCode }) {
 
   /* ── Render helpers ── */
 
-  const Badge = () => (
+  const badge = (
     <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase ${
       isLive
         ? "bg-red-500/20 text-red-400 border border-red-500/30"
@@ -239,7 +245,7 @@ export default function CameraPreview({ projectCode }) {
       {/* Top bar: badge + camera switcher */}
       <div className="flex items-center justify-between px-3 py-2 shrink-0"
         style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)" }}>
-        <Badge />
+        {badge}
         {cameras.length > 1 && (
           <div className="flex gap-1">
             {cameras.map((c, i) => (

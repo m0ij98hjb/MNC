@@ -19,7 +19,7 @@ export function NotificationsProvider({ children }) {
   const [bellOpenedAt, setBellOpenedAt] = useState(0);
 
   useEffect(() => {
-    setBellOpenedAt(getBellTime());
+    queueMicrotask(() => setBellOpenedAt(getBellTime()));
   }, []);
 
   useEffect(() => {

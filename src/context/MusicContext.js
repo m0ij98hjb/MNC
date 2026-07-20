@@ -17,7 +17,8 @@ export function MusicProvider({ children }) {
     audio.loop = true;
     audio.volume = 0.35;
     musicRef.current = audio;
-    setIsMusicReady(true);
+    // Deferred so the "ready" flag isn't set synchronously in the effect body.
+    queueMicrotask(() => setIsMusicReady(true));
 
     const onFirstInteraction = () => {
       window.removeEventListener('click', onFirstInteraction);

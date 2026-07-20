@@ -74,9 +74,18 @@ export default function MessagesPage() {
     return unsub;
   }, []);
 
+  /* Current time for the date filters — refreshed periodically via a timer
+     callback rather than calling Date.now() directly during render. */
+  const [now, setNow] = useState(0);
+  useEffect(() => {
+    const update = () => setNow(Date.now());
+    queueMicrotask(update);
+    const iv = setInterval(update, 60000);
+    return () => clearInterval(iv);
+  }, []);
+
   /* Filtered list */
   const visible = useMemo(() => {
-    const now    = Date.now();
     const dayMs  = 86400000;
     const weekMs = 7 * dayMs;
     const monMs  = 30 * dayMs;
@@ -98,7 +107,7 @@ export default function MessagesPage() {
       }
       return true;
     });
-  }, [messages, filter, search, dateFilter]);
+  }, [messages, filter, search, dateFilter, now]);
 
   /* Stats */
   const counts = useMemo(() => {

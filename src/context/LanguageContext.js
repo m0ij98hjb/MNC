@@ -33,13 +33,20 @@ const RTL_LANGS = ['ar', 'ur'];
 
 export const LanguageProvider = ({ children }) => {
   const [lang, setLangState] = useState('ar');
-  const [translations, setTranslations] = useState(ar);
+  // Pure lookup derived from `lang` — no need for its own state/effect.
+  const translations = localesMap[lang] || en;
 
   useEffect(() => {
-    const savedLang = localStorage.getItem('mnc_lang');
-    if (savedLang && localesMap[savedLang]) {
-      setLangState(savedLang);
-    }
+    // Deferred into a microtask (not called synchronously in the effect
+    // body) — still runs once right after mount, still avoids any SSR/
+    // hydration mismatch since `lang` starts at 'ar' on both server and
+    // the initial client render either way.
+    queueMicrotask(() => {
+      const savedLang = localStorage.getItem('mnc_lang');
+      if (savedLang && localesMap[savedLang]) {
+        setLangState(savedLang);
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -47,7 +54,6 @@ export const LanguageProvider = ({ children }) => {
     document.documentElement.lang = lang;
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
     localStorage.setItem('mnc_lang', lang);
-    setTranslations(localesMap[lang] || en);
   }, [lang]);
 
   const setLang = (code) => {

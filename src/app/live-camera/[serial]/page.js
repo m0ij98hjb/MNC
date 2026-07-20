@@ -25,10 +25,14 @@ function MjpegPlayer({ url, onError }) {
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    setFailed(false);
-    setStamp(Date.now());
+    let disposed = false;
+    queueMicrotask(() => {
+      if (disposed) return;
+      setFailed(false);
+      setStamp(Date.now());
+    });
     const iv = setInterval(() => setStamp(Date.now()), 5000);
-    return () => clearInterval(iv);
+    return () => { disposed = true; clearInterval(iv); };
   }, [url]);
 
   const src = url + (url.includes("?") ? "&" : "?") + "_t=" + stamp;
@@ -168,7 +172,7 @@ export default function LiveCameraPage() {
     setLoading(false);
   }, [serial]);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => { queueMicrotask(() => { load(); }); }, [load]);
 
   const refresh = () => { setRefreshKey(k => k + 1); setLastRefresh(new Date()); setStreamErr(false); };
 

@@ -27,9 +27,9 @@ export default function AboutUsPage() {
 
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
   const prevPhoto = useCallback(() =>
-    setLightboxIndex(i => (i - 1 + riyadhPhotos.length) % riyadhPhotos.length), []);
+    setLightboxIndex(i => (i - 1 + riyadhPhotos.length) % riyadhPhotos.length), [riyadhPhotos.length]);
   const nextPhoto = useCallback(() =>
-    setLightboxIndex(i => (i + 1) % riyadhPhotos.length), []);
+    setLightboxIndex(i => (i + 1) % riyadhPhotos.length), [riyadhPhotos.length]);
 
   useEffect(() => {
     if (lightboxIndex === null) return;
@@ -160,7 +160,7 @@ export default function AboutUsPage() {
               {/* CEO Quote - Premium Gold Glass Card */}
               <div className={`bg-white/5 backdrop-blur-md p-6 rounded-2xl ${isRTL ? 'border-r-4 border-r-[#D5B25D]' : 'border-l-4 border-l-[#D5B25D]'} border-t border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.4)] relative overflow-hidden`} data-aos="fade-up" data-aos-delay="100">
                 <div className={`absolute -top-6 ${isRTL ? '-left-6' : '-right-6'} opacity-10 text-white select-none pointer-events-none text-9xl font-serif`}>
-                  "
+                  &ldquo;
                 </div>
                 <p className="text-base sm:text-lg leading-relaxed text-white/90 font-medium relative z-10">
                   {t("aboutUsPage.ceoQuote")}

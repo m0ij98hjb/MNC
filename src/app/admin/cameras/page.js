@@ -106,6 +106,27 @@ function QrModal({ camera, onClose, onRegenerate }) {
   );
 }
 
+/* ─────────────── Shared form field (declared outside so it isn't recreated every render) ─────────────── */
+function FormField({ icon: Icon, label, name, type = "text", placeholder, readOnly, value, onChange }) {
+  const dir = (name === "serialNumber" || name === "externalIp" || name === "domain" || name === "streamUrl") ? "ltr" : "rtl";
+  return (
+    <div>
+      <label className="flex items-center gap-1.5 text-[10px] font-bold text-white/30 mb-1.5 uppercase tracking-wider">
+        <Icon size={10} className="text-[#C9A34D]/50" /> {label}
+      </label>
+      <input
+        type={type}
+        value={value || ""}
+        onChange={onChange}
+        placeholder={placeholder}
+        readOnly={readOnly}
+        dir={dir}
+        className={`w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#C9A34D]/40 transition-colors ${readOnly ? 'opacity-50 cursor-not-allowed' : ''}`}
+      />
+    </div>
+  );
+}
+
 /* ─────────────── Add / Edit Form Modal ─────────────── */
 function CameraFormModal({ mode, initial, onClose, onSaved }) {
   const [form,    setForm   ] = useState({ ...EMPTY_FORM, ...initial });
@@ -157,23 +178,6 @@ function CameraFormModal({ mode, initial, onClose, onSaved }) {
     setLoading(false);
   };
 
-  const Field = ({ icon: Icon, label, name, type = "text", placeholder, readOnly }) => (
-    <div>
-      <label className="flex items-center gap-1.5 text-[10px] font-bold text-white/30 mb-1.5 uppercase tracking-wider">
-        <Icon size={10} className="text-[#C9A34D]/50" /> {label}
-      </label>
-      <input
-        type={type}
-        value={form[name] || ""}
-        onChange={e => set(name, e.target.value)}
-        placeholder={placeholder}
-        readOnly={readOnly}
-        dir={name === "serialNumber" || name === "externalIp" || name === "domain" || name === "streamUrl" ? "ltr" : "rtl"}
-        className={`w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#C9A34D]/40 transition-colors ${readOnly ? 'opacity-50 cursor-not-allowed' : ''}`}
-      />
-    </div>
-  );
-
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center" dir="rtl">
       <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={onClose} />
@@ -202,10 +206,10 @@ function CameraFormModal({ mode, initial, onClose, onSaved }) {
           <div className="space-y-3.5">
             <p className="text-[#C9A34D]/60 text-[10px] font-black uppercase tracking-widest border-b border-[#C9A34D]/10 pb-2">معلومات المشروع</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              <Field icon={Hash}    label="الرقم التسلسلي *"  name="serialNumber"    placeholder="MNC-CAM-004" readOnly={mode === "edit"} />
-              <Field icon={Monitor} label="اسم الكاميرا *"     name="cameraName"     placeholder="كاميرا المدخل الرئيسي" />
-              <Field icon={Camera}  label="اسم المشروع *"     name="projectName"    placeholder="مشروع فندقي — جدة" />
-              <Field icon={MapPin}  label="موقع المشروع"      name="projectLocation" placeholder="جدة، المملكة العربية السعودية" />
+              <FormField icon={Hash}    label="الرقم التسلسلي *"  name="serialNumber"    placeholder="MNC-CAM-004" readOnly={mode === "edit"} value={form.serialNumber} onChange={e => set("serialNumber", e.target.value)} />
+              <FormField icon={Monitor} label="اسم الكاميرا *"     name="cameraName"     placeholder="كاميرا المدخل الرئيسي" value={form.cameraName} onChange={e => set("cameraName", e.target.value)} />
+              <FormField icon={Camera}  label="اسم المشروع *"     name="projectName"    placeholder="مشروع فندقي — جدة" value={form.projectName} onChange={e => set("projectName", e.target.value)} />
+              <FormField icon={MapPin}  label="موقع المشروع"      name="projectLocation" placeholder="جدة، المملكة العربية السعودية" value={form.projectLocation} onChange={e => set("projectLocation", e.target.value)} />
             </div>
             <div className="grid grid-cols-2 gap-3.5">
               <div>
@@ -237,12 +241,12 @@ function CameraFormModal({ mode, initial, onClose, onSaved }) {
           <div className="space-y-3.5">
             <p className="text-[#C9A34D]/60 text-[10px] font-black uppercase tracking-widest border-b border-[#C9A34D]/10 pb-2">بيانات الاتصال (سرية — لا تظهر في الواجهة)</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              <Field icon={Globe} label="IP الخارجي"   name="externalIp"  placeholder="192.168.1.100" />
-              <Field icon={Globe} label="النطاق (Domain)" name="domain"  placeholder="cam1.mnc-project.com" />
-              <Field icon={User}  label="اسم المستخدم"  name="username"   placeholder="admin" />
-              <Field icon={Lock}  label="كلمة المرور"   name="password"   type="password" placeholder="••••••••" />
+              <FormField icon={Globe} label="IP الخارجي"   name="externalIp"  placeholder="192.168.1.100" value={form.externalIp} onChange={e => set("externalIp", e.target.value)} />
+              <FormField icon={Globe} label="النطاق (Domain)" name="domain"  placeholder="cam1.mnc-project.com" value={form.domain} onChange={e => set("domain", e.target.value)} />
+              <FormField icon={User}  label="اسم المستخدم"  name="username"   placeholder="admin" value={form.username} onChange={e => set("username", e.target.value)} />
+              <FormField icon={Lock}  label="كلمة المرور"   name="password"   type="password" placeholder="••••••••" value={form.password} onChange={e => set("password", e.target.value)} />
             </div>
-            <Field icon={Link2}  label="رابط البث (Stream URL)" name="streamUrl" placeholder="http://192.168.1.100/stream1  أو  http://server/hls/live.m3u8" />
+            <FormField icon={Link2}  label="رابط البث (Stream URL)" name="streamUrl" placeholder="http://192.168.1.100/stream1  أو  http://server/hls/live.m3u8" value={form.streamUrl} onChange={e => set("streamUrl", e.target.value)} />
           </div>
 
           {err && (
@@ -441,7 +445,7 @@ export default function AdminCamerasPage() {
 
   useEffect(() => {
     if (!isSuperAdmin) { router.replace("/admin/dashboard"); return; }
-    fetchCameras();
+    queueMicrotask(() => { fetchCameras(); });
   }, [isSuperAdmin, fetchCameras, router]);
 
   const handleSeed = async () => {
@@ -578,9 +582,9 @@ export default function AdminCamerasPage() {
         <div className="mt-8 p-5 rounded-2xl border border-[#C9A34D]/10 bg-[#C9A34D]/[0.03]">
           <p className="text-[#C9A34D]/70 text-xs font-bold mb-2">📋 كيفية إضافة بيانات كاميرات حقيقية لاحقاً</p>
           <ol className="text-white/30 text-xs space-y-1 list-decimal list-inside">
-            <li>افتح الكاميرا المطلوبة واضغط "تعديل"</li>
+            <li>افتح الكاميرا المطلوبة واضغط &quot;تعديل&quot;</li>
             <li>أدخل: IP الخارجي، النطاق، اسم المستخدم، كلمة المرور، رابط البث</li>
-            <li>غيّر الحالة إلى "متصلة" بعد التحقق من الاتصال</li>
+            <li>غيّر الحالة إلى &quot;متصلة&quot; بعد التحقق من الاتصال</li>
             <li>احفظ → لا يلزم تغيير أي كود في الواجهة</li>
           </ol>
         </div>

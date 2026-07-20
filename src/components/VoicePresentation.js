@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 import { useMusic } from '@/context/MusicContext';
 import { usePathname } from 'next/navigation';
+import useHasMounted from '@/hooks/useHasMounted';
 
 // Languages that have a pre-recorded MP3 file in /public/asstes/
 const MP3_LANGS = new Set(['ar', 'en', 'de', 'es', 'fr', 'tr', 'ur', 'zh']);
@@ -23,21 +24,20 @@ export default function VoicePresentation() {
   const [isPlaying, setIsPlaying]           = useState(false);
   const [volume, setVolume]                 = useState(1);
   const [showVolumeControl, setShowVolumeControl] = useState(false);
-  const [isMounted, setIsMounted]           = useState(false);
+  const isMounted = useHasMounted();
 
   const audioRef = useRef(null);   // for MP3-based langs
   const uttRef   = useRef(null);   // for TTS-based langs
 
   const usesTTS = !MP3_LANGS.has(lang);
 
-  /* ── mount / unmount ── */
+  /* ── unmount cleanup ── */
   useEffect(() => {
-    setIsMounted(true);
     return () => {
       audioRef.current?.pause();
       window.speechSynthesis?.cancel();
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   /* ── rebuild audio when language changes (MP3 path) ── */
   useEffect(() => {
@@ -46,7 +46,9 @@ export default function VoicePresentation() {
     // Stop whatever is playing
     audioRef.current?.pause();
     window.speechSynthesis?.cancel();
-    setIsPlaying(false);
+    // Deferred: reflects React state to match the external audio system we
+    // just stopped, without calling setState synchronously in the effect body.
+    queueMicrotask(() => setIsPlaying(false));
 
     if (MP3_LANGS.has(lang)) {
       const audio = new Audio(`/asstes/presentation-${lang}.mp3`);

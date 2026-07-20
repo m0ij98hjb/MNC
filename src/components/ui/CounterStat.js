@@ -18,6 +18,7 @@ export default function CounterStat({ value, label, suffix = '+', displayValue =
 
   // Intersection Observer for when element enters viewport
   useEffect(() => {
+    const node = ref.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated) {
@@ -29,12 +30,12 @@ export default function CounterStat({ value, label, suffix = '+', displayValue =
       { threshold: 0.3, rootMargin: '0px' }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    if (node) {
+      observer.observe(node);
     }
 
     return () => {
-      if (ref.current) observer.unobserve(ref.current);
+      if (node) observer.unobserve(node);
     };
   }, [hasAnimated]);
 

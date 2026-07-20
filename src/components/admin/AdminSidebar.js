@@ -6,13 +6,14 @@ import { useState, useRef } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import { useDirectorPhoto } from '@/hooks/useDirectorPhoto';
+import { usePurchasingRole } from '@/hooks/usePurchasingRole';
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 import { storage, db } from '@/lib/firebase';
 import {
   LayoutDashboard, Users, CheckCircle, BarChart2,
   ChevronRight, ChevronLeft, LogOut, Briefcase, PenSquare,
-  Camera, X, Loader2, MessageSquare,
+  Camera, X, Loader2, MessageSquare, ShoppingCart,
 } from 'lucide-react';
 
 const NAV_ITEMS = [
@@ -23,6 +24,7 @@ const NAV_ITEMS = [
   { href: '/admin/jobs',      labelKey: 'admin.jobsMenu',      icon: Briefcase },
   { href: '/admin/messages',  label: 'رسائل العملاء',         icon: MessageSquare },
   { href: '/admin/approved',  labelKey: 'admin.approvedMenu',  icon: CheckCircle },
+  { href: '/admin/purchasing', labelKey: 'admin.purchasingMenu', icon: ShoppingCart, purchasingModule: true },
   { href: '/admin/reports',   labelKey: 'admin.reportsMenu',   icon: BarChart2 },
 ];
 
@@ -31,6 +33,7 @@ export default function AdminSidebar() {
   const router        = useRouter();
   const { t, isRTL } = useLanguage();
   const { logout, isSuperAdmin } = useAuth();
+  const { canAccessAdminModule: canAccessPurchasing } = usePurchasingRole();
   const directorPhoto = useDirectorPhoto();
 
   const [isModalOpen,  setIsModalOpen]  = useState(false);
@@ -128,7 +131,10 @@ export default function AdminSidebar() {
         {/* Navigation */}
         <nav className="flex-1 px-2 py-3">
           <div className="space-y-0.5">
-            {NAV_ITEMS.filter(item => !item.superAdminOnly || isSuperAdmin).map(({ href, labelKey, label, icon: Icon }) => {
+            {NAV_ITEMS.filter(item =>
+              (!item.superAdminOnly || isSuperAdmin) &&
+              (!item.purchasingModule || canAccessPurchasing)
+            ).map(({ href, labelKey, label, icon: Icon }) => {
               const active = pathname === href || pathname.startsWith(href + '/');
               const text   = label ?? t(labelKey);
               return (

@@ -9,10 +9,15 @@ export function ThemeProvider({ children }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem("mnc-theme") || "light";
-    setTheme(saved);
-    document.documentElement.classList.toggle("dark", saved === "dark");
+    // Both state updates are deferred together (not called synchronously in
+    // the effect body) so they still land in the same commit — avoids any
+    // one-frame flash of the default theme before the saved one applies.
+    queueMicrotask(() => {
+      const saved = localStorage.getItem("mnc-theme") || "light";
+      setTheme(saved);
+      document.documentElement.classList.toggle("dark", saved === "dark");
+      setMounted(true);
+    });
   }, []);
 
   const toggleTheme = () => {

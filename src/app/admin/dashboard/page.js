@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import StatusBadge from '@/components/admin/StatusBadge';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
+import PurchasingDashboardWidget from '@/components/purchasing/PurchasingDashboardWidget';
 import Link from 'next/link';
 
 const JOB_STATUS_COLORS = {
@@ -285,6 +286,9 @@ export default function DashboardPage() {
           </div>
 
         </div>
+
+        <PurchasingDashboardWidget />
+
       </div>
     </AdminPageLayout>
   );
