@@ -98,8 +98,8 @@ export default function VideoShowcase() {
           </h2>
           <p className="text-white/40 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
             {isAr
-              ? "خبرة تمتد لأكثر من ٣٨ عاماً في تشييد المباني وصناعة الأحلام"
-              : "Over 38 years of expertise in construction and making dreams real"}
+              ? "خبرة منذ عام 1986 في تشييد المباني وصناعة الأحلام"
+              : "Expertise since 1986 in construction and making dreams real"}
           </p>
         </motion.div>
 

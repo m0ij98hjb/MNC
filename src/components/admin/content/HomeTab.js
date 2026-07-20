@@ -7,8 +7,8 @@ import { Field, TextArea, Section, SaveBtn, ImageUpload, Grid2, TabLoading } fro
 const DEF = {
   hero_title_ar: 'نبني المستقبل بجودة استثنائية',
   hero_title_en: 'We Build the Future with Exceptional Quality',
-  hero_sub_ar: 'خبرة تمتد لأكثر من 38 عامًا في المقاولات والتصميم المعماري',
-  hero_sub_en: 'Over 38 years of expertise in contracting and architectural design',
+  hero_sub_ar: 'خبرة تمتد منذ عام 1986 في المقاولات والتصميم المعماري',
+  hero_sub_en: 'Expertise since 1986 in contracting and architectural design',
   hero_image: '',
   stat_projects: 230,
   stat_satisfaction: 99,
