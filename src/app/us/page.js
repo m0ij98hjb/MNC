@@ -53,7 +53,7 @@ export default function AboutUsPage() {
         labelEn: s.label_en,
       }))
     : [
-        { value: "15+",  labelAr: "عاماً من الخبرة",    labelEn: "Years of Experience" },
+        { value: "38+",  labelAr: "عاماً من الخبرة",    labelEn: "Years of Experience" },
         { value: "50+",  labelAr: "مشروع منجز",          labelEn: "Completed Projects" },
         { value: "98%",  labelAr: "رضا العملاء",          labelEn: "Client Satisfaction" },
         { value: "300+", labelAr: "متخصص في الفريق",     labelEn: "Team Specialists" },
