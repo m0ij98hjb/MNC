@@ -21,10 +21,10 @@ export const ROLES = {
 };
 
 export const ROLE_LABEL_KEYS = {
-  [ROLES.SUPER_ADMIN]:         'purchasing.roleSuperAdmin',
-  [ROLES.SITE_SUPERVISOR]:     'purchasing.roleSiteSupervisor',
-  [ROLES.SITE_ENGINEER]:       'purchasing.roleSiteEngineer',
-  [ROLES.PROCUREMENT_MANAGER]: 'purchasing.roleProcurementManager',
+  [ROLES.SUPER_ADMIN]:         'roleSuperAdmin',
+  [ROLES.SITE_SUPERVISOR]:     'roleSiteSupervisor',
+  [ROLES.SITE_ENGINEER]:       'roleSiteEngineer',
+  [ROLES.PROCUREMENT_MANAGER]: 'roleProcurementManager',
 };
 
 export const ALL_ROLES = Object.values(ROLES);

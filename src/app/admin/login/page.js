@@ -1,8 +1,9 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
+import { useRoleAccess } from '@/hooks/useRoleAccess';
 import { Eye, EyeOff, Lock, Mail, Loader2, ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
 
@@ -20,6 +21,7 @@ const STARS = Array.from({ length: 80 }, (_, i) => ({
 export default function AdminLoginPage() {
   const { user, login, error, setError } = useAuth();
   const { t, isRTL } = useLanguage();
+  const { getDashboard, loading: roleLoading } = useRoleAccess();
   const router = useRouter();
 
   const [email, setEmail]       = useState('');
@@ -27,7 +29,15 @@ export default function AdminLoginPage() {
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading]   = useState(false);
 
-  if (user) { router.replace('/admin/dashboard'); return null; }
+  // Redirect based on role after login
+  useEffect(() => {
+    if (user && !roleLoading) {
+      const dashboard = getDashboard();
+      router.replace(dashboard);
+    }
+  }, [user, roleLoading, router, getDashboard]);
+
+  if (user) { return null; }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

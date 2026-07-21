@@ -11,7 +11,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useNotifications } from "@/context/NotificationsContext";
 import { HiDocumentText } from "react-icons/hi";
 import { usePurchasingRole } from "@/hooks/usePurchasingRole";
-import { ROLES } from "@/lib/purchasingConfig";
+import { ROLES, ROLE_LABEL_KEYS } from "@/lib/purchasingConfig";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
@@ -48,6 +48,12 @@ const Navbar = () => {
   const adminDisplayName = isSuperAdmin
     ? 'SUPER ADMIN'
     : (adminProfile?.name || purchProfile?.name || user?.displayName || t('admin.managerTitle'));
+
+  const adminJobTitle = isSuperAdmin
+    ? 'SUPER ADMIN'
+    : (purchRole && ROLE_LABEL_KEYS[purchRole])
+      ? t(ROLE_LABEL_KEYS[purchRole])
+      : adminProfile?.jobTitle || t('admin.managerTitle');
 
   const portalTooltips = {
     ar: "بوابة الموظفين",
@@ -732,7 +738,7 @@ const Navbar = () => {
                   </span>
                   <div className="flex-1 text-start">
                     <p className="text-[12px] font-bold text-[#C9A34D] leading-none">{t('admin.dashboard')}</p>
-                    <p className="text-[10px] mt-0.5 text-white/28">{isSuperAdmin ? 'SUPER ADMIN' : t('admin.managerTitle')}</p>
+                    <p className="text-[10px] mt-0.5 text-white/28">{adminJobTitle}</p>
                   </div>
                   <UserCircle size={14} className="text-[#C9A34D]/40 flex-shrink-0" />
                 </Link>

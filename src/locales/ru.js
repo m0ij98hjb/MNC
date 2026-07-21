@@ -811,6 +811,7 @@ export const ru = {
     roleEngineeringManager: "Директор по инжинирингу",
     roleProjectManager: "Руководитель проекта",
     roleSiteEngineer: "Инженер объекта",
+    roleSiteSupervisor: "Начальник Участка",
     roleProcurementOfficer: "Специалист по закупкам",
     roleProcurementManager: "Менеджер по закупкам",
     roleAccountant: "Бухгалтер",

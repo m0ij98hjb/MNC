@@ -7,7 +7,7 @@ import { Field, Section, SaveBtn, Grid2, TabLoading } from './Shared';
 const DEF = {
   phone1: '0598242385',
   phone2: '0505649859',
-  email: '1@marwannazer.com',
+  email: 'info@mnc.com',
   address_ar: 'جدة، المملكة العربية السعودية',
   address_en: 'Jeddah, Saudi Arabia',
   hours_ar: '8 صباحاً – 10 مساءً',

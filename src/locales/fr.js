@@ -475,6 +475,9 @@ export const fr = {
     activitiesDetailTitle: "Détail activités", monthlySupTitle: "Inscriptions mensuelles", newSupPerMonth: "Nouveaux fournisseurs/mois",
     statusDistTitle: "Répartition statuts", approvedSuppliersKPI: "Fournisseurs approuvés", readyToCollab: "Prêts à collaborer",
     totalJobsKPI: "Total candidatures", jobAppUnit: "candidatures", awaitingInterview: "En attente", approvalRateKPI: "Taux d'approbation", reportNoData: "Pas assez de données",
+    roleDataEntry: "Opérateur de Saisie de Données",
+    roleInventoryClerk: "Employé d'Inventaire",
+    roleSiteSupervisor: "Superviseur de Chantier",
     expDistTitle: "Répartition expérience", expByApplicantSub: "Candidats par expérience", topPositionsTitle: "Postes recherchés", positionsByApplicantSub: "Postes les plus demandés",
     applicantsCitiesTitle: "Villes candidats", citiesByApplicantSub: "Candidatures par ville", monthlyJobTitle: "Candidatures mensuelles", jobsPerMonthSub: "Candidatures par mois"
   },

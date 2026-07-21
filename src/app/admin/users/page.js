@@ -6,6 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import { createAdminUser, updateAdminUserPermissions } from '@/lib/adminUserCreation';
+import { ROLES, ROLE_LABELS } from '@/lib/roleBasedAccess';
 import { useRouter } from 'next/navigation';
 import {
   Users, Plus, X, Loader2, Power, ShieldCheck, ShieldOff,
@@ -52,7 +53,13 @@ const PERMISSIONS = [
   },
 ];
 
-const inputCls = 'w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-all';
+/* ─── Role definitions ─── */
+const ROLE_OPTIONS = Object.entries(ROLE_LABELS).map(([key, label]) => ({
+  value: key,
+  label: label,
+}));
+
+const inputCls = 'w-full bg-black border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-all';
 const labelCls = 'text-[#c8a96e] text-[10px] font-black uppercase tracking-widest block mb-1.5';
 
 /* ─── Add / Edit User Modal ─── */
@@ -61,6 +68,7 @@ function UserModal({ onClose, currentUid, editUser = null }) {
     ? { name: editUser.name, phone: editUser.phone || '', jobTitle: editUser.jobTitle || '', department: editUser.department || '' }
     : { name: '', email: '', password: '', phone: '', jobTitle: '', department: '' }
   );
+  const [role, setRole] = useState(editUser?.role || ROLES.PROJECT_MANAGER);
   const [permissions, setPermissions] = useState(editUser?.permissions ?? []);
   const [purchasingRole, setPurchasingRole] = useState(editUser?.purchasingRole ?? 'site_supervisor');
   const [saving, setSaving] = useState(false);
@@ -87,12 +95,14 @@ function UserModal({ onClose, currentUid, editUser = null }) {
       if (editUser) {
         await updateAdminUserPermissions(editUser.id, {
           ...form,
+          role,
           permissions,
           purchasingRole: permissions.includes('purchasing_module') ? purchasingRole : null,
         });
       } else {
         await createAdminUser({
           ...form,
+          role,
           permissions,
           purchasingRole: permissions.includes('purchasing_module') ? purchasingRole : null,
           createdByUid: currentUid,
@@ -172,6 +182,25 @@ function UserModal({ onClose, currentUid, editUser = null }) {
             </div>
           </div>
 
+          {/* Role Selection */}
+          <div>
+            <p className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3">الوظيفة والدور</p>
+            <div>
+              <label className={labelCls}>الوظيفة</label>
+              <select
+                className={inputCls}
+                value={role}
+                onChange={e => setRole(e.target.value)}
+              >
+                {ROLE_OPTIONS.map(({ value, label }) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
           {/* Permissions */}
           <div>
             <p className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3">الصلاحيات والوصول</p>
@@ -209,65 +238,6 @@ function UserModal({ onClose, currentUid, editUser = null }) {
               })}
             </div>
           </div>
-
-          {permissions.includes('purchasing_module') && (
-            <div className="rounded-xl bg-[#c8a96e]/8 border border-[#c8a96e]/20 px-4 py-3 space-y-3">
-              <p className="text-[10px] font-black text-[#c8a96e] uppercase tracking-widest">نوع صلاحية المشتريات</p>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setPurchasingRole('site_supervisor')}
-                  className={`flex flex-col items-start gap-1 px-3 py-3 rounded-xl border text-start transition-all ${
-                    purchasingRole === 'site_supervisor'
-                      ? 'border-[#c8a96e]/50 bg-[#c8a96e]/12'
-                      : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.04]'
-                  }`}
-                >
-                  <div className="flex items-center gap-1.5">
-                    <div className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
-                      purchasingRole === 'site_supervisor' ? 'border-[#c8a96e]' : 'border-white/25'
-                    }`}>
-                      {purchasingRole === 'site_supervisor' && <div className="w-1.5 h-1.5 rounded-full bg-[#c8a96e]" />}
-                    </div>
-                    <span className={`text-xs font-bold ${
-                      purchasingRole === 'site_supervisor' ? 'text-[#c8a96e]' : 'text-white/50'
-                    }`}>طالب مشتريات</span>
-                  </div>
-                  <p className="text-[10px] text-white/30 leading-relaxed pe-1">
-                    يملأ فورم طلب الشراء ويرسله للمراجعة
-                  </p>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPurchasingRole('procurement_manager')}
-                  className={`flex flex-col items-start gap-1 px-3 py-3 rounded-xl border text-start transition-all ${
-                    purchasingRole === 'procurement_manager'
-                      ? 'border-[#c8a96e]/50 bg-[#c8a96e]/12'
-                      : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.04]'
-                  }`}
-                >
-                  <div className="flex items-center gap-1.5">
-                    <div className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
-                      purchasingRole === 'procurement_manager' ? 'border-[#c8a96e]' : 'border-white/25'
-                    }`}>
-                      {purchasingRole === 'procurement_manager' && <div className="w-1.5 h-1.5 rounded-full bg-[#c8a96e]" />}
-                    </div>
-                    <span className={`text-xs font-bold ${
-                      purchasingRole === 'procurement_manager' ? 'text-[#c8a96e]' : 'text-white/50'
-                    }`}>مدير المشتريات</span>
-                  </div>
-                  <p className="text-[10px] text-white/30 leading-relaxed pe-1">
-                    يراجع ويعتمد طلبات الشراء من الداشبورد
-                  </p>
-                </button>
-              </div>
-              <p className="text-[10px] text-white/25">
-                {purchasingRole === 'site_supervisor'
-                  ? '✓ سيدخل على بوابة /purchase-request لتقديم الطلبات'
-                  : '✓ سيدخل على لوحة /admin/purchasing لمراجعة واعتماد الطلبات'}
-              </p>
-            </div>
-          )}
         </div>
 
         {/* Footer */}
@@ -345,7 +315,7 @@ function UsersContent() {
             <Users size={20} className="text-[#c8a96e]" />
             إدارة المستخدمين
           </h1>
-          <p className="text-sm text-white/30 mt-1">إضافة وإدارة حسابات موظفي النظام وصلاحياتهم</p>
+          <p className="text-sm text-white/30 mt-1">إضافة وإدارة حسابات موظفي النظام وتحديد وظائفهم وصلاحياتهم</p>
         </div>
         <button
           onClick={() => { setEditUser(null); setShowModal(true); }}
@@ -378,7 +348,7 @@ function UsersContent() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-white/[0.07]">
-                  {['الاسم', 'البريد الإلكتروني', 'القسم', 'الصلاحيات', 'الحالة', 'الإجراءات'].map(h => (
+                  {['الاسم', 'البريد الإلكتروني', 'الوظيفة', 'القسم', 'الحالة', 'الإجراءات'].map(h => (
                     <th key={h} className="text-start text-xs text-white/30 font-medium px-5 py-3.5 whitespace-nowrap">
                       {h}
                     </th>
@@ -395,15 +365,12 @@ function UsersContent() {
                       </div>
                     </td>
                     <td className="px-5 py-4 text-white/50 text-xs" dir="ltr">{u.email}</td>
-                    <td className="px-5 py-4 text-white/50 text-xs">{u.department || '—'}</td>
                     <td className="px-5 py-4">
-                      <div className="flex flex-wrap gap-1">
-                        {(u.permissions || []).length === 0
-                          ? <span className="text-white/20 text-xs">بدون صلاحيات</span>
-                          : (u.permissions || []).map(p => <PermBadge key={p} id={p} />)
-                        }
-                      </div>
+                      <span className="text-[#c8a96e] text-xs font-medium">
+                        {ROLE_LABELS[u.role] || u.role || '—'}
+                      </span>
                     </td>
+                    <td className="px-5 py-4 text-white/50 text-xs">{u.department || '—'}</td>
                     <td className="px-5 py-4">
                       <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold ${
                         u.active !== false

@@ -1,4 +1,4 @@
-﻿export const en = {
+export const en = {
   nav: {
     home: "Home",
     about: "About Us",
@@ -811,6 +811,7 @@
     roleEngineeringManager: "Engineering Manager",
     roleProjectManager: "Project Manager",
     roleSiteEngineer: "Site Engineer",
+    roleSiteSupervisor: "Site Supervisor",
     roleProcurementOfficer: "Procurement Officer",
     roleProcurementManager: "Procurement Manager",
     roleAccountant: "Accountant",

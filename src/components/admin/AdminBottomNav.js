@@ -3,34 +3,39 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
-import { LayoutDashboard, Users, CheckCircle, BarChart2, LogOut, Briefcase, MessageSquare, ShoppingCart, PenSquare, Camera, UserCog } from 'lucide-react';
-import { usePurchasingRole } from '@/hooks/usePurchasingRole';
+import { useRoleAccess } from '@/hooks/useRoleAccess';
+import { LayoutDashboard, Users, CheckCircle, BarChart2, LogOut, Briefcase, MessageSquare, ShoppingCart, PenSquare, Camera, UserCog, Award, Settings } from 'lucide-react';
 
-const NAV_ITEMS = [
-  { href: '/admin/dashboard', labelKey: 'admin.dashboard',     icon: LayoutDashboard },
-  { href: '/admin/content',   label: 'إدارة المحتوى',         icon: PenSquare,     superAdminOnly: true },
-  { href: '/admin/cameras',   label: 'إدارة الكاميرات',       icon: Camera,        superAdminOnly: true },
-  { href: '/admin/users',     label: 'إدارة المستخدمين',     icon: UserCog,       superAdminOnly: true },
-  { href: '/admin/suppliers', labelKey: 'admin.suppliersMenu', icon: Users },
-  { href: '/admin/jobs',      labelKey: 'admin.jobsMenu',      icon: Briefcase },
-  { href: '/admin/messages',  label:    'رسائل العملاء',       icon: MessageSquare },
-  { href: '/admin/approved',  labelKey: 'admin.approvedMenu',  icon: CheckCircle },
-  { href: '/admin/purchasing', labelKey: 'admin.purchasingMenu', icon: ShoppingCart, purchasingModule: true },
-  { href: '/admin/reports',   labelKey: 'admin.reportsMenu',   icon: BarChart2 },
-];
+// Icon mapping
+const ICON_MAP = {
+  LayoutDashboard,
+  Users,
+  CheckCircle,
+  BarChart2,
+  Briefcase,
+  PenSquare,
+  Camera,
+  UserCog,
+  MessageSquare,
+  ShoppingCart,
+  Award,
+  Settings,
+};
 
 export default function AdminBottomNav() {
   const pathname = usePathname();
   const router   = useRouter();
   const { t }    = useLanguage();
-  const { logout, isSuperAdmin, user } = useAuth();
-  const { canAccessAdminModule: canAccessPurchasing } = usePurchasingRole();
-  const isPurchasingOnlyUser = user?.email?.trim().toLowerCase() === 'engineer.tester@mnc.com';
+  const { logout } = useAuth();
+  const { getNavigation } = useRoleAccess();
 
   const handleLogout = async () => {
     await logout();
     router.replace('/admin/login');
   };
+  
+  // Get navigation items based on user role
+  const navigationItems = getNavigation();
 
   return (
     <>
@@ -53,14 +58,9 @@ export default function AdminBottomNav() {
         <div className="flex" style={{ height: '72px' }}>
 
           {/* Nav links */}
-          {NAV_ITEMS.filter(item => {
-            if (isPurchasingOnlyUser) {
-              return item.href === '/admin/dashboard' || item.href === '/admin/purchasing';
-            }
-            return (!item.superAdminOnly || isSuperAdmin) && (!item.purchasingModule || canAccessPurchasing);
-          }).map(({ href, labelKey, label, icon: Icon }) => {
+          {navigationItems.map(({ href, label, icon: iconName }) => {
+            const Icon = ICON_MAP[iconName];
             const active    = pathname === href || pathname.startsWith(href + '/');
-            const navLabel  = label ?? t(labelKey);
             return (
               <Link
                 key={href}
@@ -74,15 +74,17 @@ export default function AdminBottomNav() {
                     style={{ background: 'linear-gradient(90deg,transparent,#C9A34D,transparent)' }}
                   />
                 )}
-                <Icon
-                  size={active ? 20 : 18}
-                  style={{ color: active ? '#C9A34D' : 'rgba(255,255,255,0.65)', transition: 'all 0.2s' }}
-                />
+                {Icon && (
+                  <Icon
+                    size={active ? 20 : 18}
+                    style={{ color: active ? '#C9A34D' : 'rgba(255,255,255,0.65)', transition: 'all 0.2s' }}
+                  />
+                )}
                 <span
                   className="text-[10px] font-bold leading-tight text-center w-full"
                   style={{ color: active ? '#C9A34D' : 'rgba(255,255,255,0.65)' }}
                 >
-                  {navLabel}
+                  {label}
                 </span>
               </Link>
             );

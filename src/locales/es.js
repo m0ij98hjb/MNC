@@ -720,6 +720,7 @@ export const es = {
     roleEngineeringManager: "Gerente de Ingeniería",
     roleProjectManager: "Gerente de Proyecto",
     roleSiteEngineer: "Ingeniero de Sitio",
+    roleSiteSupervisor: "Supervisor de Sitio",
     roleProcurementOfficer: "Oficial de Compras",
     roleProcurementManager: "Gerente de Compras",
     roleAccountant: "Contador",

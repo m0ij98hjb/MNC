@@ -720,6 +720,7 @@ export const zh = {
     roleEngineeringManager: "工程部经理",
     roleProjectManager: "项目经理",
     roleSiteEngineer: "现场工程师",
+    roleSiteSupervisor: "现场主管",
     roleProcurementOfficer: "采购专员",
     roleProcurementManager: "采购经理",
     roleAccountant: "会计",

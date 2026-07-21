@@ -720,6 +720,7 @@ export const de = {
     roleEngineeringManager: "Leiter Technik",
     roleProjectManager: "Projektleiter",
     roleSiteEngineer: "Bauingenieur vor Ort",
+    roleSiteSupervisor: "Bauleiter",
     roleProcurementOfficer: "Einkaufssachbearbeiter",
     roleProcurementManager: "Einkaufsleiter",
     roleAccountant: "Buchhalter",

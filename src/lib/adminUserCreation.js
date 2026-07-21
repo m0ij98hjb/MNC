@@ -21,13 +21,14 @@ function getFirebaseConfig() {
  * @param {string} params.phone
  * @param {string} params.jobTitle
  * @param {string} params.department
+ * @param {string} params.role  Main role (e.g., 'procurement_manager', 'hr_manager')
  * @param {string[]} params.permissions  e.g. ['purchasing_module','suppliers_module']
  * @param {string|null} params.purchasingRole  role inside purchasing module (or null)
  * @param {string|null} params.createdByUid
  */
 export async function createAdminUser({
   name, email, password, phone = '', jobTitle = '', department = '',
-  permissions = [], purchasingRole = null, createdByUid = null,
+  role = null, permissions = [], purchasingRole = null, createdByUid = null,
 }) {
   const secondaryApp = getApps().some(a => a.name === SECONDARY_APP_NAME)
     ? getApp(SECONDARY_APP_NAME)
@@ -46,6 +47,7 @@ export async function createAdminUser({
       phone,
       jobTitle,
       department,
+      role,                      // Main role for RBAC
       permissions,                // ['purchasing_module', 'suppliers_module', ...]
       purchasingRole: purchasingRole || null,
       active: true,
@@ -82,8 +84,9 @@ export async function createAdminUser({
  * Updates an existing user's permissions and purchasing role in Firestore.
  * (Cannot change password/email from client without re-auth — those require Firebase Admin SDK)
  */
-export async function updateAdminUserPermissions(uid, { permissions, purchasingRole, active, name, phone, jobTitle, department }) {
+export async function updateAdminUserPermissions(uid, { role, permissions, purchasingRole, active, name, phone, jobTitle, department }) {
   const updates = {};
+  if (role !== undefined) updates.role = role;
   if (permissions !== undefined) updates.permissions = permissions;
   if (purchasingRole !== undefined) updates.purchasingRole = purchasingRole;
   if (active !== undefined) updates.active = active;

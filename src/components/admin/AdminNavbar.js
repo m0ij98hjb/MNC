@@ -13,6 +13,7 @@ import { useLanguage, LANGUAGES } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import { useNotifications } from '@/context/NotificationsContext';
 import { useDirectorPhoto } from '@/hooks/useDirectorPhoto';
+import { useRoleAccess } from '@/hooks/useRoleAccess';
 
 /* Page titles always in Arabic regardless of app language */
 const PAGE_TITLES_AR = {
@@ -43,6 +44,7 @@ export default function AdminNavbar() {
   const router   = useRouter();
   const { lang, setLang, t } = useLanguage();
   const { logout, isSuperAdmin, user } = useAuth();
+  const { getRoleLabel, getDashboard, profile } = useRoleAccess();
 
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isUserOpen, setIsUserOpen] = useState(false);
@@ -53,33 +55,14 @@ export default function AdminNavbar() {
 
   const { allNotifications = [], unreadCount = 0, markBellOpened } = useNotifications() ?? {};
   const directorPhoto = useDirectorPhoto();
-  const isPurchasingOnlyUser = user?.email?.trim().toLowerCase() === 'engineer.tester@mnc.com';
-
-  // Fetch the current user's profile from adminUsers collection
-  const [adminProfile, setAdminProfile] = useState(null);
-  useEffect(() => {
-    if (!user || isSuperAdmin) return;
-    const unsub = onSnapshot(doc(db, 'adminUsers', user.uid), snap => {
-      setAdminProfile(snap.exists() ? snap.data() : null);
-    });
-    return unsub;
-  }, [user, isSuperAdmin]);
 
   const displayPhoto = isSuperAdmin
     ? '/asstes/super-admin.jpg'
-    : (isPurchasingOnlyUser ? '/asstes/purchasing-manager.png' : directorPhoto);
+    : directorPhoto;
 
-  // Build display name: super admin → fixed name; others → from adminUsers or Firebase displayName
-  const displayName = isSuperAdmin
-    ? 'م. محمد مصطفى'
-    : (adminProfile?.name || user?.displayName || 'مدير الشركة');
-
-  // Role label under the avatar
-  const roleLabel = isSuperAdmin
-    ? 'SUPER ADMIN'
-    : isPurchasingOnlyUser
-    ? 'PURCHASING MANAGER'
-    : (adminProfile?.jobTitle || 'ADMIN');
+  // Display role label instead of user name
+  const roleLabel = getRoleLabel();
+  const displayName = roleLabel;
 
   useEffect(() => {
     const handler = (e) => {
@@ -138,7 +121,7 @@ export default function AdminNavbar() {
             className="text-[7.5px] font-black tracking-[5px] uppercase leading-none select-none"
             style={{ color: 'rgba(201,163,77,0.28)' }}
           >
-            {isPurchasingOnlyUser ? 'PURCHASING MANAGER' : isSuperAdmin ? 'SUPER ADMIN' : (adminProfile?.jobTitle?.toUpperCase() || 'ADMIN PANEL')}
+            {roleLabel?.toUpperCase() || 'ADMIN PANEL'}
           </p>
           <p
             className="text-[13px] sm:text-[14px] font-bold leading-tight truncate max-w-full"
@@ -167,7 +150,7 @@ export default function AdminNavbar() {
                 className="relative w-7 h-7 rounded-full overflow-hidden flex-shrink-0"
                 style={{ 
                   boxShadow: '0 0 0 1.5px rgba(201,163,77,0.45)',
-                  backgroundColor: isPurchasingOnlyUser ? '#ffffff' : 'transparent'
+                  backgroundColor: 'transparent'
                 }}
               >
                 <Image
@@ -176,7 +159,7 @@ export default function AdminNavbar() {
                   alt="Admin"
                   fill
                   sizes="28px"
-                  className={isPurchasingOnlyUser ? "object-contain p-1" : "object-cover object-top"}
+                  className="object-cover object-top"
                 />
               </div>
               <span className="hidden sm:block text-[11px] font-bold text-[#C9A34D] whitespace-nowrap leading-none">
@@ -195,19 +178,19 @@ export default function AdminNavbar() {
               }`}
               style={{
                 background: '#0a0e17',
-                border: '1px solid rgba(201,163,77,0.16)',
-                boxShadow: '0 20px 60px rgba(0,0,0,0.9)',
+                border: '2px solid rgba(201,163,77,0.4)',
+                boxShadow: '0 25px 70px rgba(0,0,0,0.9), 0 0 0 1px rgba(201,163,77,0.2)',
               }}
             >
               <div
                 className="flex items-center gap-3 px-4 py-3.5"
-                style={{ borderBottom: '1px solid rgba(201,163,77,0.10)' }}
+                style={{ borderBottom: '2px solid rgba(201,163,77,0.3)' }}
               >
                 <div
                   className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0"
                   style={{ 
-                    boxShadow: '0 0 0 1.5px rgba(201,163,77,0.4)',
-                    backgroundColor: isPurchasingOnlyUser ? '#ffffff' : 'transparent'
+                    boxShadow: '0 0 0 3px rgba(201,163,77,0.6), 0 6px 16px rgba(0,0,0,0.5)',
+                    backgroundColor: 'transparent'
                   }}
                 >
                   <Image
@@ -216,30 +199,30 @@ export default function AdminNavbar() {
                     alt="Admin"
                     fill
                     sizes="36px"
-                    className={isPurchasingOnlyUser ? "object-contain p-1.5" : "object-cover object-top"}
+                    className="object-cover object-top"
                   />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[12px] font-bold text-white leading-none">{displayName}</p>
-                  <p className="text-[9px] text-[#C9A34D]/50 mt-0.5 uppercase tracking-widest">
+                  <p className="text-[13px] font-bold text-white leading-none">{displayName}</p>
+                  <p className="text-[10px] text-[#C9A34D] mt-0.5 uppercase tracking-widest font-semibold">
                     {roleLabel}
                   </p>
                 </div>
               </div>
               <Link
-                href="/admin/dashboard"
+                href={getDashboard()}
                 onClick={() => setIsUserOpen(false)}
-                className="flex items-center gap-2.5 w-full px-4 py-3 text-[12px] font-semibold text-white/55 hover:text-white hover:bg-white/5 transition-colors"
+                className="flex items-center gap-2.5 w-full px-4 py-3 text-[13px] font-semibold text-white/70 hover:text-white hover:bg-[#c8a96e]/15 transition-colors"
               >
-                <LayoutDashboard size={13} className="text-[#C9A34D] flex-shrink-0" />
-                لوحة التحكم
+                <LayoutDashboard size={14} className="text-[#C9A34D] flex-shrink-0" />
+                {roleLabel}
               </Link>
-              <div className="h-px mx-3 bg-white/[0.05]" />
+              <div className="h-px mx-3 bg-white/[0.12]" />
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2.5 w-full px-4 py-3 text-[12px] font-semibold text-red-400/60 hover:text-red-400 hover:bg-red-500/5 transition-colors"
+                className="flex items-center gap-2.5 w-full px-4 py-3 text-[13px] font-semibold text-red-400/80 hover:text-red-400 hover:bg-red-500/15 transition-colors"
               >
-                <LogOut size={13} className="flex-shrink-0" />
+                <LogOut size={14} className="flex-shrink-0" />
                 {t('admin.logout')}
               </button>
             </div>
@@ -278,19 +261,19 @@ export default function AdminNavbar() {
               }`}
               style={{
                 background: '#0a0e17',
-                border: '1px solid rgba(201,163,77,0.14)',
-                boxShadow: '0 20px 60px rgba(0,0,0,0.9)',
+                border: '2px solid rgba(201,163,77,0.4)',
+                boxShadow: '0 25px 70px rgba(0,0,0,0.9), 0 0 0 1px rgba(201,163,77,0.2)',
               }}
             >
-              <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.07]">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.15]">
                 <p className="text-white text-xs font-bold">الإشعارات</p>
                 {unreadCount > 0 && (
-                  <span className="text-[10px] font-bold text-red-400 bg-red-500/10 rounded-full px-2 py-0.5">
+                  <span className="text-[10px] font-bold text-red-400 bg-red-500/15 rounded-full px-2 py-0.5 border border-red-500/30">
                     {unreadCount} جديد
                   </span>
                 )}
               </div>
-              <div className="max-h-[340px] overflow-y-auto divide-y divide-white/[0.05]">
+              <div className="max-h-[340px] overflow-y-auto divide-y divide-white/[0.12]">
                 {allNotifications.length === 0 ? (
                   <div className="text-center py-8">
                     <Bell size={20} className="text-white/10 mx-auto mb-2" />
@@ -307,54 +290,54 @@ export default function AdminNavbar() {
                       key={n.id}
                       href={href}
                       onClick={() => setIsBellOpen(false)}
-                      className="flex items-start gap-3 px-4 py-3 hover:bg-white/[0.04] transition-colors"
+                      className="flex items-start gap-3 px-4 py-3 hover:bg-white/[0.08] transition-colors"
                     >
-                      <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                        isSupplier ? 'bg-blue-500/12 border border-blue-500/25'
-                        : isContact ? 'bg-green-500/12 border border-green-500/25'
-                        :             'bg-[#c8a96e]/12 border border-[#c8a96e]/25'
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
+                        isSupplier ? 'bg-blue-500/20 border border-blue-500/40'
+                        : isContact ? 'bg-green-500/20 border border-green-500/40'
+                        :             'bg-[#c8a96e]/20 border border-[#c8a96e]/40'
                       }`}>
-                        {isSupplier ? <Building2 size={12} className="text-blue-400" />
-                        : isContact ? <MessageSquare size={12} className="text-green-400" />
-                        :             <Briefcase size={12} className="text-[#c8a96e]" />}
+                        {isSupplier ? <Building2 size={13} className="text-blue-400" />
+                        : isContact ? <MessageSquare size={13} className="text-green-400" />
+                        :             <Briefcase size={13} className="text-[#c8a96e]" />}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-white text-xs font-semibold truncate">
                           {isSupplier ? n.companyName : (n.fullName || n.name || 'عميل')}
                         </p>
-                        <p className="text-white/40 text-[11px] mt-0.5 truncate">
+                        <p className="text-white/60 text-[11px] mt-0.5 truncate">
                           {isSupplier ? `طلب مورد · ${n.activity || ''}`
                           : isContact ? `رسالة عميل · ${n.subject || ''}`
                           :             `طلب وظيفة · ${n.position || ''}`}
                         </p>
                       </div>
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#c8a96e]/50 shrink-0 mt-2" />
+                      <span className="w-2 h-2 rounded-full bg-[#c8a96e] shrink-0 mt-2" />
                     </Link>
                   );
                 })}
               </div>
               {allNotifications.length > 0 && (
-                <div className="border-t border-white/[0.06] px-4 py-2.5 flex gap-2">
+                <div className="border-t border-white/[0.15] px-4 py-2.5 flex gap-2">
                   <Link
                     href="/admin/suppliers"
                     onClick={() => setIsBellOpen(false)}
-                    className="flex-1 text-center text-[11px] text-blue-400/70 hover:text-blue-400 transition-colors font-semibold"
+                    className="flex-1 text-center text-[11px] text-blue-400 hover:text-blue-300 transition-colors font-semibold"
                   >
                     الموردون
                   </Link>
-                  <div className="w-px bg-white/10" />
+                  <div className="w-px bg-white/20" />
                   <Link
                     href="/admin/jobs"
                     onClick={() => setIsBellOpen(false)}
-                    className="flex-1 text-center text-[11px] text-[#c8a96e]/70 hover:text-[#c8a96e] transition-colors font-semibold"
+                    className="flex-1 text-center text-[11px] text-[#c8a96e] hover:text-[#d4b47a] transition-colors font-semibold"
                   >
                     الوظائف
                   </Link>
-                  <div className="w-px bg-white/10" />
+                  <div className="w-px bg-white/20" />
                   <Link
                     href="/admin/messages"
                     onClick={() => setIsBellOpen(false)}
-                    className="flex-1 text-center text-[11px] text-green-400/70 hover:text-green-400 transition-colors font-semibold"
+                    className="flex-1 text-center text-[11px] text-green-400 hover:text-green-300 transition-colors font-semibold"
                   >
                     الرسائل
                   </Link>
@@ -388,8 +371,8 @@ export default function AdminNavbar() {
               }`}
               style={{
                 background: '#0a0e17',
-                border: '1px solid rgba(201,163,77,0.14)',
-                boxShadow: '0 20px 60px rgba(0,0,0,0.88)',
+                border: '2px solid rgba(201,163,77,0.4)',
+                boxShadow: '0 25px 70px rgba(0,0,0,0.9), 0 0 0 1px rgba(201,163,77,0.2)',
               }}
             >
               <div className="p-2.5">
@@ -400,14 +383,14 @@ export default function AdminNavbar() {
                       onClick={() => { setLang(language.code); setIsLangOpen(false); }}
                       className={`flex items-center gap-2 px-2.5 py-2 rounded-xl text-start transition-all duration-200 ${
                         lang === language.code
-                          ? 'bg-[#C9A34D]/12 border border-[#C9A34D]/22 text-[#C9A34D]'
-                          : 'border border-transparent text-white/40 hover:bg-white/5 hover:text-white/80'
+                          ? 'bg-[#C9A34D]/20 border border-[#C9A34D]/40 text-[#C9A34D]'
+                          : 'border border-transparent text-white/60 hover:bg-white/10 hover:text-white'
                       }`}
                     >
                       <span className="text-lg leading-none">{language.flag}</span>
                       <div>
                         <p className="text-[11px] font-bold leading-tight">{language.nativeName}</p>
-                        <p className="text-[8.5px] opacity-40 uppercase tracking-wide">{language.dir.toUpperCase()}</p>
+                        <p className="text-[8.5px] opacity-60 uppercase tracking-wide">{language.dir.toUpperCase()}</p>
                       </div>
                       {lang === language.code && (
                         <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#C9A34D] flex-shrink-0" />

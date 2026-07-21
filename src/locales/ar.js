@@ -1,4 +1,4 @@
-﻿export const ar = {
+export const ar = {
   nav: {
     home: "الرئيسية",
     about: "من نحن",
@@ -817,6 +817,7 @@
     roleEngineeringManager: "مدير الإدارة الهندسية",
     roleProjectManager: "مدير المشروع",
     roleSiteEngineer: "مهندس الموقع",
+    roleSiteSupervisor: "طالب مشتريات",
     roleProcurementOfficer: "موظف المشتريات",
     roleProcurementManager: "مدير المشتريات",
     roleAccountant: "محاسب",

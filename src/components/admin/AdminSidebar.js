@@ -6,7 +6,7 @@ import { useState, useRef } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import { useDirectorPhoto } from '@/hooks/useDirectorPhoto';
-import { usePurchasingRole } from '@/hooks/usePurchasingRole';
+import { useRoleAccess } from '@/hooks/useRoleAccess';
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 import { storage, db } from '@/lib/firebase';
@@ -14,28 +14,31 @@ import {
   LayoutDashboard, Users, CheckCircle, BarChart2,
   ChevronRight, ChevronLeft, LogOut, Briefcase, PenSquare,
   Camera, X, Loader2, MessageSquare, ShoppingCart, UserCog,
+  Award, Settings,
 } from 'lucide-react';
 
-const NAV_ITEMS = [
-  { href: '/admin/dashboard', labelKey: 'admin.dashboard',     icon: LayoutDashboard },
-  { href: '/admin/content',   label: 'إدارة المحتوى',         icon: PenSquare,     superAdminOnly: true },
-  { href: '/admin/cameras',   label: 'إدارة الكاميرات',       icon: Camera,        superAdminOnly: true },
-  { href: '/admin/users',     label: 'إدارة المستخدمين',     icon: UserCog,       superAdminOnly: true },
-  { href: '/admin/suppliers', labelKey: 'admin.suppliersMenu', icon: Users },
-  { href: '/admin/jobs',      labelKey: 'admin.jobsMenu',      icon: Briefcase },
-  { href: '/admin/messages',  label: 'رسائل العملاء',         icon: MessageSquare },
-  { href: '/admin/approved',  labelKey: 'admin.approvedMenu',  icon: CheckCircle },
-  { href: '/admin/purchasing', labelKey: 'admin.purchasingMenu', icon: ShoppingCart, purchasingModule: true },
-  { href: '/admin/reports',   labelKey: 'admin.reportsMenu',   icon: BarChart2 },
-];
+// Icon mapping
+const ICON_MAP = {
+  LayoutDashboard,
+  Users,
+  CheckCircle,
+  BarChart2,
+  Briefcase,
+  PenSquare,
+  Camera,
+  UserCog,
+  MessageSquare,
+  ShoppingCart,
+  Award,
+  Settings,
+};
 
 export default function AdminSidebar() {
   const pathname      = usePathname();
   const router        = useRouter();
   const { t, isRTL } = useLanguage();
   const { logout, isSuperAdmin, user } = useAuth();
-  const { canAccessAdminModule: canAccessPurchasing } = usePurchasingRole();
-  const isPurchasingOnlyUser = user?.email?.trim().toLowerCase() === 'engineer.tester@mnc.com';
+  const { getNavigation, getRoleLabel, profile } = useRoleAccess();
   const directorPhoto = useDirectorPhoto();
 
   const [isModalOpen,  setIsModalOpen]  = useState(false);
@@ -43,6 +46,10 @@ export default function AdminSidebar() {
   const fileInputRef = useRef(null);
 
   const ChevronIcon = isRTL ? ChevronLeft : ChevronRight;
+  
+  // Get navigation items based on user role
+  const navigationItems = getNavigation();
+  const roleLabel = getRoleLabel();
 
   const handleLogout = async () => {
     await logout();
@@ -79,12 +86,12 @@ export default function AdminSidebar() {
         {/* Director profile */}
         <div className="flex flex-col items-center px-4 pt-5 pb-4 border-b border-white/[0.06]">
           {/* Photo — click to open modal (director only) */}
-          {isSuperAdmin || isPurchasingOnlyUser ? (
+          {isSuperAdmin ? (
             <div
               className="relative w-[72px] h-[72px] rounded-full overflow-hidden mb-3"
               style={{ 
                 boxShadow: '0 0 0 2px rgba(200,169,110,0.35), 0 4px 20px rgba(0,0,0,0.5)',
-                backgroundColor: isPurchasingOnlyUser ? '#ffffff' : 'transparent'
+                backgroundColor: 'transparent'
               }}
             >
               <div
@@ -92,11 +99,11 @@ export default function AdminSidebar() {
                 style={{ boxShadow: 'inset 0 0 0 2px rgba(200,169,110,0.25)' }}
               />
               <Image
-                src={isPurchasingOnlyUser ? '/asstes/purchasing-manager.png' : '/asstes/super-admin.jpg'}
-                alt={isPurchasingOnlyUser ? 'Purchasing Manager' : 'Super Admin'}
+                src="/asstes/super-admin.jpg"
+                alt="Super Admin"
                 fill
                 sizes="72px"
-                className={isPurchasingOnlyUser ? "object-contain p-3" : "object-cover object-top"}
+                className="object-cover object-top"
               />
             </div>
           ) : (
@@ -125,9 +132,9 @@ export default function AdminSidebar() {
             </button>
           )}
 
-          {/* Name */}
+          {/* Role Label */}
           <p className="text-[13px] font-bold text-[#c8a96e] leading-tight text-center">
-            {isPurchasingOnlyUser ? 'مدير المشتريات' : isSuperAdmin ? 'م. محمد مصطفى' : 'م. مروان أحمد ناظر'}
+            {roleLabel}
           </p>
           {/* Gold underline */}
           <div className="mt-2.5 w-8 h-[1.5px] rounded-full bg-gradient-to-r from-transparent via-[#c8a96e]/50 to-transparent" />
@@ -136,16 +143,9 @@ export default function AdminSidebar() {
         {/* Navigation */}
         <nav className="flex-1 px-2 py-3">
           <div className="space-y-0.5">
-            {NAV_ITEMS.filter(item => {
-              // Hide everything except the dashboard and purchasing for this specific user
-              if (isPurchasingOnlyUser) {
-                return item.href === '/admin/dashboard' || item.href === '/admin/purchasing';
-              }
-              // Normal logic for everyone else
-              return (!item.superAdminOnly || isSuperAdmin) && (!item.purchasingModule || canAccessPurchasing);
-            }).map(({ href, labelKey, label, icon: Icon }) => {
+            {navigationItems.map(({ href, label, icon: iconName }) => {
+              const Icon = ICON_MAP[iconName];
               const active = pathname === href || pathname.startsWith(href + '/');
-              const text   = label ?? t(labelKey);
               return (
                 <Link
                   key={href}
@@ -156,8 +156,8 @@ export default function AdminSidebar() {
                       : 'text-white/45 hover:text-white hover:bg-white/5'
                     }`}
                 >
-                  <Icon size={15} className="shrink-0" />
-                  <span className="flex-1">{text}</span>
+                  {Icon && <Icon size={15} className="shrink-0" />}
+                  <span className="flex-1">{label}</span>
                   {active && <ChevronIcon size={12} className="opacity-50 shrink-0" />}
                 </Link>
               );
@@ -216,7 +216,7 @@ export default function AdminSidebar() {
 
             {/* Name */}
             <p className="text-[13px] font-bold text-[#c8a96e] text-center leading-snug">
-              م. مروان أحمد ناظر
+              {profile?.name || roleLabel}
             </p>
 
             {/* Hidden file input */}
