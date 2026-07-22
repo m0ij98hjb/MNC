@@ -1,17 +1,18 @@
 'use client';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
-import { createAdminUser, updateAdminUserPermissions } from '@/lib/adminUserCreation';
+import { createAdminUser, updateAdminUserPermissions, deleteAdminUser } from '@/lib/adminUserCreation';
 import { ROLES, ROLE_LABELS } from '@/lib/roleBasedAccess';
 import { useRouter } from 'next/navigation';
 import {
   Users, Plus, X, Loader2, Power, ShieldCheck, ShieldOff,
   Building2, Briefcase, MessageSquare, ShoppingCart, BarChart2,
-  Check, User, Phone, Mail, Lock, Edit2,
+  Check, User, Phone, Mail, Lock, Edit2, Trash2,
 } from 'lucide-react';
 
 /* ─── Permission definitions ─── */
@@ -285,13 +286,53 @@ function UsersContent() {
   const [users, setUsers] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [editUser, setEditUser] = useState(null);
+  const [deleteTarget, setDeleteTarget] = useState(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, 'adminUsers'), snap =>
-      setUsers(snap.docs.map(d => ({ id: d.id, ...d.data() })))
-    );
-    return unsub;
+    let adminDocs = [];
+    let purchDocs = [];
+
+    const mergeUsers = () => {
+      const adminMap = new Map();
+      adminDocs.forEach(d => adminMap.set(d.id, d));
+
+      purchDocs.forEach(p => {
+        if (!adminMap.has(p.id)) {
+          // User exists in purchasingUsers but not in adminUsers
+          adminMap.set(p.id, {
+            id: p.id,
+            name: p.name || 'مستخدم مشتريات',
+            email: p.email || '',
+            role: 'user',
+            permissions: ['purchasing_module'],
+            purchasingRole: p.role || 'site_supervisor',
+            active: p.active !== false,
+            createdAt: p.createdAt,
+            phone: p.phone || '',
+            department: p.department || '',
+            jobTitle: p.jobTitle || '',
+          });
+        }
+      });
+
+      setUsers(Array.from(adminMap.values()));
+    };
+
+    const unsub1 = onSnapshot(collection(db, 'adminUsers'), snap => {
+      adminDocs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      mergeUsers();
+    });
+
+    const unsub2 = onSnapshot(collection(db, 'purchasingUsers'), snap => {
+      purchDocs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      mergeUsers();
+    });
+
+    return () => {
+      unsub1();
+      unsub2();
+    };
   }, []);
 
   const toggleActive = async (u) => {
@@ -359,9 +400,26 @@ function UsersContent() {
                 {users.map(u => (
                   <tr key={u.id} className="hover:bg-white/[0.02] transition-colors">
                     <td className="px-5 py-4">
-                      <div>
-                        <p className="text-white font-semibold text-sm">{u.name}</p>
-                        {u.jobTitle && <p className="text-white/35 text-xs mt-0.5">{u.jobTitle}</p>}
+                      <div className="flex items-center gap-3">
+                        <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0 border border-white/10">
+                          <Image
+                            src={
+                              u.role === 'super_admin'
+                                ? '/asstes/super-admin.jpg'
+                                : u.role === 'company_manager'
+                                ? '/asstes/directort.png'
+                                : (u.photoURL || '/asstes/ph dashborad.png')
+                            }
+                            alt={u.name || 'User'}
+                            fill
+                            sizes="32px"
+                            className="object-cover object-top"
+                          />
+                        </div>
+                        <div>
+                          <p className="text-white font-semibold text-sm">{u.name}</p>
+                          {u.jobTitle && <p className="text-white/35 text-xs mt-0.5">{u.jobTitle}</p>}
+                        </div>
                       </div>
                     </td>
                     <td className="px-5 py-4 text-white/50 text-xs" dir="ltr">{u.email}</td>
@@ -403,6 +461,15 @@ function UsersContent() {
                         >
                           <Power size={13} />
                         </button>
+                        {u.id !== user?.uid && (
+                          <button
+                            onClick={() => setDeleteTarget(u)}
+                            className="p-1.5 rounded-lg text-white/40 hover:text-red-500 hover:bg-red-500/10 transition-all"
+                            title="حذف المستخدم"
+                          >
+                            <Trash2 size={13} />
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -419,6 +486,51 @@ function UsersContent() {
           currentUid={user?.uid}
           editUser={editUser}
         />
+      )}
+
+      {/* ─── Delete Confirmation Modal ─── */}
+      {deleteTarget && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+          style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(8px)' }}
+        >
+          <div className="w-full max-w-md bg-[#0d1117] border border-white/10 rounded-2xl p-6 shadow-2xl" dir="rtl">
+            <div className="flex items-center gap-3 text-red-500 mb-4">
+              <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center">
+                <Trash2 size={20} />
+              </div>
+              <h3 className="text-white font-bold text-lg">حذف المستخدم</h3>
+            </div>
+            <p className="text-white/60 text-sm mb-6 leading-relaxed text-right">
+              هل أنت متأكد من حذف المستخدم <strong className="text-white">"{deleteTarget.name}"</strong>؟
+              <br />
+              سيتم إزالة حساب الموظف وصلاحياته بالكامل من النظام. لا يمكن التراجع عن هذا الإجراء.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setDeleteTarget(null)}
+                className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-semibold hover:text-white hover:border-white/25 transition-all"
+              >
+                إلغاء
+              </button>
+              <button
+                onClick={async () => {
+                  const targetId = deleteTarget.id;
+                  setDeleteTarget(null);
+                  setError('');
+                  try {
+                    await deleteAdminUser(targetId);
+                  } catch (e) {
+                    setError(e.message || 'حدث خطأ أثناء حذف المستخدم.');
+                  }
+                }}
+                className="flex-1 py-2.5 rounded-xl bg-red-500 text-white text-sm font-bold hover:bg-red-600 transition-all"
+              >
+                تأكيد الحذف
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

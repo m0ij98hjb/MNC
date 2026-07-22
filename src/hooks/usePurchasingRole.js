@@ -13,21 +13,35 @@ import { ROLES, ADMIN_MODULE_ROLES } from '@/lib/purchasingConfig';
 export function usePurchasingRole() {
   const { user, isSuperAdmin } = useAuth();
   const [profile, setProfile] = useState(undefined); // undefined = loading
+  const [adminUserRole, setAdminUserRole] = useState(undefined);
 
   useEffect(() => {
-    if (!user) return; // no subscription needed — resolved via render-time fallback below
-    const unsub = onSnapshot(doc(db, 'purchasingUsers', user.uid), snap => {
+    if (!user) return;
+    const unsub1 = onSnapshot(doc(db, 'purchasingUsers', user.uid), snap => {
       setProfile(snap.exists() ? { id: snap.id, ...snap.data() } : null);
     });
-    return unsub;
+    const unsub2 = onSnapshot(doc(db, 'adminUsers', user.uid), snap => {
+      setAdminUserRole(snap.exists() ? snap.data().role : null);
+    });
+    return () => {
+      unsub1();
+      unsub2();
+    };
   }, [user]);
 
   const effectiveProfile = user ? profile : null;
-  const loading = user === undefined || (!!user && effectiveProfile === undefined);
+  const loading = user === undefined || (!!user && profile === undefined && adminUserRole === undefined);
 
   const isPurchasingOnlyUser = user?.email?.trim().toLowerCase() === 'engineer.tester@mnc.com';
-  const role = isSuperAdmin ? ROLES.SUPER_ADMIN : (isPurchasingOnlyUser ? ROLES.PROCUREMENT_MANAGER : (effectiveProfile?.role ?? null));
-  const active = isSuperAdmin || isPurchasingOnlyUser ? true : (effectiveProfile?.active !== false && !!effectiveProfile);
+  const isCompanyManager = adminUserRole === 'company_manager';
+
+  const role = isSuperAdmin
+    ? ROLES.SUPER_ADMIN
+    : (isPurchasingOnlyUser || isCompanyManager)
+    ? ROLES.PROCUREMENT_MANAGER
+    : (effectiveProfile?.role ?? null);
+
+  const active = isSuperAdmin || isPurchasingOnlyUser || isCompanyManager ? true : (effectiveProfile?.active !== false && !!effectiveProfile);
 
   return {
     loading,

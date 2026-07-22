@@ -50,6 +50,7 @@ export async function createAdminUser({
       role,                      // Main role for RBAC
       permissions,                // ['purchasing_module', 'suppliers_module', ...]
       purchasingRole: purchasingRole || null,
+      photoURL: role === 'company_manager' ? '/asstes/directort.png' : (role === 'super_admin' ? '/asstes/super-admin.jpg' : '/asstes/ph dashborad.png'),
       active: true,
       createdAt: serverTimestamp(),
       createdBy: createdByUid,
@@ -129,3 +130,13 @@ export async function updateAdminUserPermissions(uid, { role, permissions, purch
     }
   }
 }
+
+/**
+ * Deletes a user document from adminUsers and purchasingUsers collections in Firestore.
+ */
+export async function deleteAdminUser(uid) {
+  const { deleteDoc, doc: firestoreDoc } = await import('firebase/firestore');
+  await deleteDoc(firestoreDoc(db, 'adminUsers', uid));
+  await deleteDoc(firestoreDoc(db, 'purchasingUsers', uid)).catch(() => {});
+}
+

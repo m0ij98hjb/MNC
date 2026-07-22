@@ -38,7 +38,7 @@ export default function AdminSidebar() {
   const router        = useRouter();
   const { t, isRTL } = useLanguage();
   const { logout, isSuperAdmin, user } = useAuth();
-  const { getNavigation, getRoleLabel, profile } = useRoleAccess();
+  const { getNavigation, getRoleLabel, profile, role } = useRoleAccess();
   const directorPhoto = useDirectorPhoto();
 
   const [isModalOpen,  setIsModalOpen]  = useState(false);
@@ -86,7 +86,7 @@ export default function AdminSidebar() {
         {/* Director profile */}
         <div className="flex flex-col items-center px-4 pt-5 pb-4 border-b border-white/[0.06]">
           {/* Photo — click to open modal (director only) */}
-          {isSuperAdmin ? (
+          {isSuperAdmin || role === 'super_admin' ? (
             <div
               className="relative w-[72px] h-[72px] rounded-full overflow-hidden mb-3"
               style={{ 
@@ -106,7 +106,7 @@ export default function AdminSidebar() {
                 className="object-cover object-top"
               />
             </div>
-          ) : (
+          ) : role === 'company_manager' ? (
             <button
               onClick={() => setIsModalOpen(true)}
               className="relative w-[72px] h-[72px] rounded-full overflow-hidden mb-3 group focus:outline-none"
@@ -130,6 +130,26 @@ export default function AdminSidebar() {
                 <Camera size={18} className="text-white" />
               </div>
             </button>
+          ) : (
+            <div
+              className="relative w-[72px] h-[72px] rounded-full overflow-hidden mb-3"
+              style={{ 
+                boxShadow: '0 0 0 2px rgba(200,169,110,0.35), 0 4px 20px rgba(0,0,0,0.5)',
+                backgroundColor: 'transparent'
+              }}
+            >
+              <div
+                className="absolute inset-0 rounded-full z-10"
+                style={{ boxShadow: 'inset 0 0 0 2px rgba(200,169,110,0.25)' }}
+              />
+              <Image
+                src={profile?.photoURL || "/asstes/ph dashborad.png"}
+                alt="User Profile"
+                fill
+                sizes="72px"
+                className="object-cover object-top"
+              />
+            </div>
           )}
 
           {/* Role Label */}

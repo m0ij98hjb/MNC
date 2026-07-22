@@ -28,7 +28,7 @@ export default function PurchasingNotificationBell() {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className={`absolute z-50 top-full mt-2 ${isRTL ? 'start-0' : 'end-0'} w-80 max-h-96 overflow-y-auto bg-[#111118] border border-white/10 rounded-2xl shadow-2xl`}>
+          <div className={`absolute z-50 top-full mt-2 ${isRTL ? 'left-0' : 'right-0'} w-80 max-w-[calc(100vw-2rem)] max-h-96 overflow-y-auto bg-[#111118] border border-white/10 rounded-2xl shadow-2xl`}>
             <div className="px-4 py-3 border-b border-white/[0.07]"><p className="text-sm font-bold text-white">{t('purchasing.notificationsTitle')}</p></div>
             {notifications.length === 0 ? (
               <p className="text-center text-white/25 text-xs py-8">{t('purchasing.noNotificationsYet')}</p>

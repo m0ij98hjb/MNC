@@ -58,9 +58,6 @@ export const ROLE_DASHBOARDS = {
 export const ROLE_NAVIGATION = {
   [ROLES.COMPANY_MANAGER]: [
     { href: '/admin/dashboard', label: 'لوحة التحكم', icon: 'LayoutDashboard' },
-    { href: '/admin/content', label: 'إدارة المحتوى', icon: 'PenSquare' },
-    { href: '/admin/cameras', label: 'إدارة الكاميرات', icon: 'Camera' },
-    { href: '/admin/users', label: 'إدارة المستخدمين', icon: 'UserCog' },
     { href: '/admin/suppliers', label: 'الموردون', icon: 'Users' },
     { href: '/admin/jobs', label: 'طلبات التوظيف', icon: 'Briefcase' },
     { href: '/admin/messages', label: 'رسائل العملاء', icon: 'MessageSquare' },
@@ -150,9 +147,6 @@ export const ROLE_NAVIGATION = {
 export const ROLE_ALLOWED_ROUTES = {
   [ROLES.COMPANY_MANAGER]: [
     '/admin/dashboard',
-    '/admin/content',
-    '/admin/cameras',
-    '/admin/users',
     '/admin/suppliers',
     '/admin/suppliers/*',
     '/admin/jobs',

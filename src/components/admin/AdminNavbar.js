@@ -44,7 +44,7 @@ export default function AdminNavbar() {
   const router   = useRouter();
   const { lang, setLang, t } = useLanguage();
   const { logout, isSuperAdmin, user } = useAuth();
-  const { getRoleLabel, getDashboard, profile } = useRoleAccess();
+  const { getRoleLabel, getDashboard, profile, role } = useRoleAccess();
 
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isUserOpen, setIsUserOpen] = useState(false);
@@ -56,9 +56,11 @@ export default function AdminNavbar() {
   const { allNotifications = [], unreadCount = 0, markBellOpened } = useNotifications() ?? {};
   const directorPhoto = useDirectorPhoto();
 
-  const displayPhoto = isSuperAdmin
+  const displayPhoto = (isSuperAdmin || role === 'super_admin')
     ? '/asstes/super-admin.jpg'
-    : directorPhoto;
+    : role === 'company_manager'
+    ? directorPhoto
+    : (profile?.photoURL || '/asstes/ph dashborad.png');
 
   // Display role label instead of user name
   const roleLabel = getRoleLabel();
