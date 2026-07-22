@@ -11,7 +11,7 @@ const Contact = () => {
 
   const phone1   = cms?.phone1    || '0598242385';
   const phone2   = cms?.phone2    || '0505649859';
-  const email    = cms?.email     || '1@marwannazer.com';
+  const email    = cms?.email     || 'info@mnc.com';
   const address  = isRTL ? (cms?.address_ar || 'جدة، المملكة العربية السعودية') : (cms?.address_en || 'Jeddah, Saudi Arabia');
 
   return (

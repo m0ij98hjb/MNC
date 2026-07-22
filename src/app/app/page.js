@@ -39,7 +39,7 @@ const C = {
     soon: "Coming Soon",
     stat1n: "12+", stat1l: "Active Projects",
     stat2n: "500+", stat2l: "Happy Clients",
-    stat3n: "15+", stat3l: "Years of Experience",
+    stat3n: "38+", stat3l: "Years of Experience",
     featuresBadge: "Why the App?",
     featuresTitle: "Everything in Your Pocket",
     features: [

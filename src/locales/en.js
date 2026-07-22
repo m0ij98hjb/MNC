@@ -58,7 +58,7 @@ export const en = {
   },
   calculator: {
     title: "Calculate Your Project Cost",
-    subtitle: "A precision-engineered estimator built on real Saudi market data and MNC's 15+ years of project expertise",
+    subtitle: "A precision-engineered estimator built on real Saudi market data and MNC's 38+ years of project expertise",
     badge: "Engineering Precision",
     step1: "Project Type",
     step2: "Specifications",

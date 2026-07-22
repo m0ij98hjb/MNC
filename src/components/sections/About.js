@@ -43,7 +43,7 @@ const About = () => {
               {/* Floating Badge */}
               <div className={`absolute -bottom-4 ${lang === 'ar' || lang === 'ur' ? '-right-2' : '-left-2'} md:-bottom-6 ${lang === 'ar' || lang === 'ur' ? 'md:-right-6 lg:-right-10' : 'md:-left-6 lg:-left-10'} bg-white p-4 md:p-6 rounded-2xl shadow-2xl border border-[rgba(15,23,42,0.06)] z-20`} data-aos="zoom-in" data-aos-delay="400">
                 <div className="flex flex-col">
-                  <span className="text-secondary font-black text-xl md:text-2xl leading-none">15+</span>
+                  <span className="text-secondary font-black text-xl md:text-2xl leading-none">38</span>
                   <span className="text-black text-[8px] md:text-[10px] uppercase tracking-tighter font-bold mt-1">
                     {t('about.experienceBadge')}
                   </span>

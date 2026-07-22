@@ -58,7 +58,7 @@ export const tr = {
   },
   calculator: {
     title: "Proje Maliyetinizi Hesaplayın",
-    subtitle: "Gerçek Suudi piyasa verilerine ve MNC'nin 15+ yıllık proje uzmanlığına dayanan hassas tahmin aracı",
+    subtitle: "Gerçek Suudi piyasa verilerine ve MNC'nin 38+ yıllık proje uzmanlığına dayanan hassas tahmin aracı",
     badge: "Sertifikalı Mühendislik Standartlarına Dayalı",
     step1: "Proje Türü",
     step2: "Özellikler",

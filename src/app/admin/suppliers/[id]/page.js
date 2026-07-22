@@ -9,7 +9,7 @@ import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import {
   ArrowLeft, ArrowRight, CheckCircle, XCircle, Clock, Loader2, Save,
   Building2, User, Phone, Mail, Globe, MapPin, Calendar,
-  Briefcase, FileText, Tag, Truck, MessageSquare, ExternalLink,
+  Briefcase, FileText, Tag, Truck, MessageSquare, ExternalLink, Send,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -25,6 +25,14 @@ export default function SupplierDetailPage() {
   const [saving, setSaving]       = useState(false);
   const [actioning, setActioning] = useState('');
   const [saved, setSaved]         = useState(false);
+
+  /* Visit request form state */
+  const [visitFormOpen, setVisitFormOpen] = useState(false);
+  const [visitDate, setVisitDate]         = useState('');
+  const [visitTime, setVisitTime]         = useState('');
+  const [visitNote, setVisitNote]         = useState('');
+  const [visitSending, setVisitSending]   = useState(false);
+  const [visitStatus, setVisitStatus]     = useState('');
 
   useEffect(() => {
     if (!id) return;
@@ -50,6 +58,34 @@ export default function SupplierDetailPage() {
     setSaving(false);
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
+  };
+
+  const handleSendVisit = async () => {
+    if (!visitDate || !visitTime) return;
+    setVisitSending(true);
+    setVisitStatus('');
+    try {
+      const res = await fetch('/api/send-supplier-visit-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          supplierName: supplier.companyName,
+          contactName: supplier.contactName,
+          supplierEmail: supplier.email,
+          visitDate,
+          visitTime,
+          additionalMessage: visitNote,
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || data.code || 'Unknown error');
+      setVisitStatus('success');
+      setTimeout(() => { setVisitFormOpen(false); setVisitStatus(''); setVisitDate(''); setVisitTime(''); setVisitNote(''); }, 2500);
+    } catch (err) {
+      setVisitStatus('error');
+    } finally {
+      setVisitSending(false);
+    }
   };
 
   const BackIcon = isRTL ? ArrowRight : ArrowLeft;
@@ -179,6 +215,65 @@ export default function SupplierDetailPage() {
                   );
                 })}
               </div>
+
+              {/* Visit request — only for approved suppliers */}
+              {supplier.status === 'approved' && (
+                <div className="mt-4">
+                  <button
+                    onClick={() => { setVisitFormOpen(v => !v); setVisitStatus(''); }}
+                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#c8a96e]/10 hover:bg-[#c8a96e]/20 border border-[#c8a96e]/20 text-[#c8a96e] text-sm font-semibold transition-colors"
+                  >
+                    <MapPin size={14} />
+                    إرسال طلب زيارة للمورد
+                  </button>
+
+                  {visitFormOpen && (
+                    <div className="mt-3 space-y-3 border-t border-white/[0.07] pt-4">
+                      <div className="space-y-1.5">
+                        <label className="text-xs text-[#c8a96e] block">تاريخ الزيارة *</label>
+                        <input
+                          type="date" required value={visitDate}
+                          onChange={e => setVisitDate(e.target.value)}
+                          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#c8a96e]/50 outline-none transition-colors"
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-xs text-[#c8a96e] block">وقت الزيارة *</label>
+                        <input
+                          type="time" required value={visitTime}
+                          onChange={e => setVisitTime(e.target.value)}
+                          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#c8a96e]/50 outline-none transition-colors"
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-xs text-[#c8a96e] block">ملاحظات إضافية</label>
+                        <textarea
+                          rows={3} value={visitNote}
+                          onChange={e => setVisitNote(e.target.value)}
+                          placeholder="أي تعليمات أو ملاحظات للمورد..."
+                          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder:text-white/20 focus:border-[#c8a96e]/50 outline-none transition-colors resize-none"
+                        />
+                      </div>
+
+                      {visitStatus === 'success' && (
+                        <p className="text-green-400 text-xs font-semibold text-center">تم إرسال الدعوة بنجاح ✓</p>
+                      )}
+                      {visitStatus === 'error' && (
+                        <p className="text-red-400 text-xs font-semibold text-center">حدث خطأ أثناء الإرسال، حاول مجدداً</p>
+                      )}
+
+                      <button
+                        onClick={handleSendVisit}
+                        disabled={visitSending || !visitDate || !visitTime}
+                        className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black text-sm font-black transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
+                      >
+                        {visitSending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
+                        إرسال الدعوة
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </Card>
 
             <Card title={t('admin.adminNotesTitle')}>

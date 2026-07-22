@@ -137,7 +137,7 @@ function VideoPlayer() {
         <div className="relative flex-1 min-h-0">
           <video
             ref={videoRef}
-            src="/assets/video/enhanced_company_video.mp4"
+            src="/assets/video/MNC-videos.mp4"
             className="w-full h-full object-cover block"
             playsInline
             onTimeUpdate={handleTimeUpdate}

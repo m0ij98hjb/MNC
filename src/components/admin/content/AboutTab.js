@@ -12,7 +12,7 @@ const DEF = {
   director_pos_en: 'General Manager',
   director_image: '',
   stats: [
-    { value: '15+', label_ar: 'سنة خبرة',     label_en: 'Years of Experience' },
+    { value: '38+', label_ar: 'سنة خبرة',     label_en: 'Years of Experience' },
     { value: '230+', label_ar: 'مشروع منجز',   label_en: 'Completed Projects' },
     { value: '99%', label_ar: 'رضى العملاء',   label_en: 'Client Satisfaction' },
     { value: '300+', label_ar: 'عضو في الفريق', label_en: 'Team Members' },
@@ -81,7 +81,7 @@ export default function AboutTab() {
       <Section title="الإحصائيات" icon={BarChart2}>
         {form.stats.map((s, i) => (
           <div key={i} className="grid grid-cols-3 gap-2">
-            <Field label={i === 0 ? 'القيمة' : ''} value={s.value} onChange={v => setStat(i, 'value', v)} placeholder="15+" />
+            <Field label={i === 0 ? 'القيمة' : ''} value={s.value} onChange={v => setStat(i, 'value', v)} placeholder="38+" />
             <Field label={i === 0 ? 'التسمية (عربي)' : ''} value={s.label_ar} onChange={v => setStat(i, 'label_ar', v)} />
             <Field label={i === 0 ? 'التسمية (EN)' : ''} value={s.label_en} onChange={v => setStat(i, 'label_en', v)} />
           </div>

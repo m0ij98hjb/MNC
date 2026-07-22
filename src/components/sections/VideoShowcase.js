@@ -121,7 +121,7 @@ export default function VideoShowcase() {
             {/* Video element */}
             <video
               ref={videoRef}
-              src="/assets/video/enhanced_company_video.mp4"
+              src="/assets/video/MNC-videos.mp4"
               className="w-full aspect-video object-cover block"
               muted
               playsInline
@@ -242,7 +242,7 @@ export default function VideoShowcase() {
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8"
         >
           {[
-            { value: "15+",  labelAr: "عاماً من الخبرة",   labelEn: "Years of Experience" },
+            { value: "38+",  labelAr: "عاماً من الخبرة",   labelEn: "Years of Experience" },
             { value: "50+",  labelAr: "مشروع منجز",         labelEn: "Completed Projects" },
             { value: "98%",  labelAr: "رضا العملاء",         labelEn: "Client Satisfaction" },
             { value: "300+", labelAr: "متخصص في الفريق",    labelEn: "Team Specialists" },
