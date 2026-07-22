@@ -299,6 +299,60 @@ main {
       transition: none !important;
       animation: none !important;
       opacity: 1 !important;
-      transform: none !important;
-    }
   }
+}
+
+/* ── Multilingual Navbar Sizing & Spacing Optimizations ────────────────── */
+
+@media (min-width: 1024px) {
+  /* 1. Responsive Navbar Container Padding */
+  .nav-container-responsive {
+    padding-left: clamp(12px, 1.8vw, 56px) !important;
+    padding-right: clamp(12px, 1.8vw, 56px) !important;
+  }
+
+  /* 2. Responsive Logo Margins */
+  .nav-logo-responsive {
+    margin-inline-end: clamp(8px, 1.5vw, 40px) !important;
+  }
+
+  /* 3. Responsive Nav links */
+  .nav-link-responsive {
+    font-size: clamp(10px, 0.85vw, 13px) !important;
+    padding-left: clamp(4px, 0.75vw, 16px) !important;
+    padding-right: clamp(4px, 0.75vw, 16px) !important;
+  }
+
+  /* 4. Responsive Special (Cost Calculator) Link */
+  .nav-link-special-responsive {
+    font-size: clamp(9.5px, 0.8vw, 12px) !important;
+    padding-left: clamp(6px, 0.8vw, 16px) !important;
+    padding-right: clamp(6px, 0.8vw, 16px) !important;
+    margin-left: clamp(4px, 0.5vw, 8px) !important;
+    margin-right: clamp(4px, 0.5vw, 8px) !important;
+  }
+
+  /* 5. Responsive Separator Margin */
+  .nav-separator-responsive {
+    margin-left: clamp(4px, 0.6vw, 12px) !important;
+    margin-right: clamp(4px, 0.6vw, 12px) !important;
+  }
+
+  /* 6. Responsive Actions Gap */
+  .nav-actions-responsive {
+    gap: clamp(4px, 0.5vw, 8px) !important;
+  }
+
+  /* 7. Responsive Individual Actions Buttons */
+  .nav-action-btn-responsive {
+    font-size: clamp(9.5px, 0.8vw, 12px) !important;
+    padding-left: clamp(6px, 0.8vw, 12px) !important;
+    padding-right: clamp(6px, 0.8vw, 12px) !important;
+  }
+
+  /* 8. Responsive Action Icon Buttons */
+  .nav-action-icon-btn-responsive {
+    width: clamp(28px, 2.2vw, 36px) !important;
+    height: clamp(28px, 2.2vw, 36px) !important;
+  }
+}
