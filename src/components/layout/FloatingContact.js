@@ -5,6 +5,7 @@ import { Mail, ArrowUp } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import { usePathname } from "next/navigation";
+import { COMPANY } from "@/config/company";
 
 const FloatingContact = () => {
   const pathname = usePathname();
@@ -62,7 +63,7 @@ const FloatingContact = () => {
 
       {/* Email - Hidden on mobile until scroll */}
       <Link
-        href="mailto:info@mnc.com"
+        href={`mailto:${COMPANY.email}`}
         className={`md:flex w-12 h-12 bg-secondary text-white rounded-full items-center justify-center shadow-lg hover:bg-gold transition-colors hover:-translate-y-1 duration-300 ${
           isVisible ? "flex opacity-100 translate-y-0" : "hidden opacity-0 translate-y-10 pointer-events-none"
         }`}

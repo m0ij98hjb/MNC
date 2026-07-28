@@ -10,13 +10,15 @@ import Image from "next/image";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { useLanguage } from "@/context/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { COMPANY } from "@/config/company";
 
 /* ── Reusable Map Toggle (Segmented Control) ── */
 function MapToggle({ mode, onChange }) {
+  const { t } = useLanguage();
   const options = [
-    { key: "map",       label: "Map",       icon: <MapIcon size={13} /> },
-    { key: "satellite", label: "Satellite", icon: <Satellite size={13} /> },
-    { key: "hybrid",    label: "Hybrid",    icon: <Layers size={13} /> },
+    { key: "map",       label: t("contactPage.mapControls.map"),       icon: <MapIcon size={13} /> },
+    { key: "satellite", label: t("contactPage.mapControls.satellite"), icon: <Satellite size={13} /> },
+    { key: "hybrid",    label: t("contactPage.mapControls.hybrid"),    icon: <Layers size={13} /> },
   ];
 
   return (
@@ -265,7 +267,7 @@ export default function ContactPage() {
 
   const phone1   = cms?.phone1   || "0598242385";
   const phone2   = cms?.phone2   || "0505649859";
-  const email    = cms?.email    || "info@mnc.com";
+  const email    = cms?.email    || COMPANY.email;
   const whatsapp = cms?.whatsapp || "966598242385";
 
   const handleContactSubmit = async (e) => {
@@ -301,12 +303,9 @@ export default function ContactPage() {
     setFormService("construction"); setFormMessage(""); setFormError("");
   };
 
-  const addrAr  = cms?.address_ar || t("contactPage.address");
-  const addrEn  = cms?.address_en || "Jeddah, Saudi Arabia";
-  const daysAr  = cms?.days_ar   || t("contact.days");
-  const hoursAr = cms?.hours_ar  || t("contact.time");
-  const daysEn  = cms?.days_en   || "";
-  const hoursEn = cms?.hours_en  || "";
+  const address = (isRTL ? cms?.address_ar : cms?.address_en) || t("contactPage.address");
+  const days    = (isRTL ? cms?.days_ar    : cms?.days_en)    || t("contact.days");
+  const hours   = (isRTL ? cms?.hours_ar   : cms?.hours_en)   || t("contact.time");
 
   return (
     <main className="min-h-screen bg-[var(--background)] font-cairo text-white">
@@ -365,7 +364,7 @@ export default function ContactPage() {
                 href="#contact"
                 className="inline-flex items-center gap-3 bg-gradient-to-r from-secondary to-[#E1BF67] text-black font-black px-8 py-4 rounded-full text-base transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(213,178,93,0.35)] hover:shadow-[0_0_45px_rgba(213,178,93,0.5)] cursor-pointer"
               >
-                {isRTL ? t("aboutUsPage.ctaBtn") || "ابدأ المشروع" : "Start a Project"}
+                {t("contactPage.startProjectCta")}
                 {isRTL ? <ArrowLeft size={20} /> : <ArrowLeft size={20} className="rotate-180" />}
               </a>
             </div>
@@ -407,7 +406,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-secondary text-[10px] font-bold uppercase tracking-widest mb-1">{t("contact.location")}</p>
-                  <p className="text-white font-semibold text-sm leading-relaxed max-w-xs">{isRTL ? addrAr : (addrEn || addrAr)}</p>
+                  <p className="text-white font-semibold text-sm leading-relaxed max-w-xs">{address}</p>
                 </div>
               </div>
 
@@ -418,15 +417,15 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-secondary text-[10px] font-bold uppercase tracking-widest mb-1">{t("contact.location")}</p>
-                  <p className="text-white font-semibold text-sm leading-relaxed max-w-xs">طريق أنس بن مالك - شارع أبها، الرياض</p>
+                  <p className="text-white font-semibold text-sm leading-relaxed max-w-xs">{t("contactPage.riyadhAddress")}</p>
                 </div>
               </div>
 
               {/* Hours */}
               <div className="bg-gradient-to-r from-secondary/12 to-secondary/5 border border-secondary/25 rounded-2xl p-5">
                 <p className="text-secondary text-[10px] font-bold uppercase tracking-widest mb-2">{t("contact.hours")}</p>
-                <p className="text-white font-bold">{isRTL ? daysAr : (daysEn || daysAr)}</p>
-                <p className="text-white/55 text-sm mt-1">{isRTL ? hoursAr : (hoursEn || hoursAr)}</p>
+                <p className="text-white font-bold">{days}</p>
+                <p className="text-white/55 text-sm mt-1">{hours}</p>
               </div>
 
               {/* Supplier CTA */}
@@ -438,8 +437,8 @@ export default function ContactPage() {
                   <Truck className="text-[#C9A34D]" size={22} />
                 </div>
                 <div>
-                  <p className="text-[#C9A34D] font-black text-base leading-tight">هل أنت مورد؟</p>
-                  <p className="text-white/70 text-sm mt-0.5 group-hover:text-white transition-colors">سجّل شركتك هنا ←</p>
+                  <p className="text-[#C9A34D] font-black text-base leading-tight">{t("suppliers.joinCTA")}</p>
+                  <p className="text-white/70 text-sm mt-0.5 group-hover:text-white transition-colors">{t("suppliers.joinDesc")}</p>
                 </div>
               </Link>
             </div>
@@ -480,13 +479,13 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <a href="mailto:info@mnc.com" className="flex items-center gap-5 group cursor-pointer" data-aos="fade-up" data-aos-delay="300">
+                <a href={`mailto:${email}`} className="flex items-center gap-5 group cursor-pointer" data-aos="fade-up" data-aos-delay="300">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#D5B25D]/30 bg-[#D5B25D]/10 group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
                     <Mail className="text-secondary" size={20} />
                   </div>
                   <div>
                     <p className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider mb-1">{t("contact.email")}</p>
-                    <p className="text-lg font-bold text-white group-hover:text-[var(--secondary)] transition-colors">info@mnc.com</p>
+                    <p className="text-lg font-bold text-white group-hover:text-[var(--secondary)] transition-colors">{email}</p>
                   </div>
                 </a>
 
@@ -508,7 +507,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider mb-1">{t("contact.location")}</p>
-                    <p className="text-base font-bold text-white group-hover:text-[var(--secondary)] transition-colors leading-relaxed font-sans max-w-sm">طريق أنس بن مالك - شارع أبها، الرياض</p>
+                    <p className="text-base font-bold text-white group-hover:text-[var(--secondary)] transition-colors leading-relaxed font-sans max-w-sm">{t("contactPage.riyadhAddress")}</p>
                   </div>
                 </div>
               </div>
@@ -530,8 +529,8 @@ export default function ContactPage() {
                   <Truck className="text-[#C9A34D]" size={22} />
                 </div>
                 <div>
-                  <p className="text-[#C9A34D] font-black text-base leading-tight">هل أنت مورد؟</p>
-                  <p className="text-white/70 text-sm mt-0.5 group-hover:text-white transition-colors">سجّل شركتك لدى MNC ←</p>
+                  <p className="text-[#C9A34D] font-black text-base leading-tight">{t("suppliers.joinCTA")}</p>
+                  <p className="text-white/70 text-sm mt-0.5 group-hover:text-white transition-colors">{t("suppliers.joinDesc")}</p>
                 </div>
               </Link>
             </div>
@@ -548,16 +547,16 @@ export default function ContactPage() {
                       <CheckCircle2 size={40} className="text-[var(--secondary)]" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-black text-white mb-2">{lang === "ar" ? "تم الإرسال بنجاح!" : "Message Sent!"}</h3>
+                      <h3 className="text-xl font-black text-white mb-2">{t("contactPage.messageSentTitle")}</h3>
                       <p className="text-white/60 text-sm leading-relaxed">
-                        {lang === "ar" ? "شكراً لتواصلك معنا. سيتم الرد عليك قريباً." : "Thank you for reaching out. We will get back to you shortly."}
+                        {t("contactPage.messageSentDesc")}
                       </p>
                     </div>
                     <button
                       onClick={handleContactReset}
                       className="px-8 py-3 rounded-xl bg-[var(--secondary)] text-black font-black text-sm hover:bg-[#E1BF67] transition-all duration-300"
                     >
-                      {lang === "ar" ? "إرسال رسالة أخرى" : "Send Another Message"}
+                      {t("contactPage.sendAnother")}
                     </button>
                   </div>
                 ) : (
@@ -586,7 +585,7 @@ export default function ContactPage() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{lang === "ar" ? "البريد الإلكتروني" : "Email"}</label>
+                        <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t("contactPage.formEmailLabel")}</label>
                         <input
                           type="email"
                           value={formEmail}
@@ -596,13 +595,13 @@ export default function ContactPage() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{lang === "ar" ? "الشركة / المؤسسة (اختياري)" : "Company (Optional)"}</label>
+                        <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t("contactPage.formCompanyLabel")}</label>
                         <input
                           type="text"
                           value={formCompany}
                           onChange={(e) => setFormCompany(e.target.value)}
                           className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300 shadow-sm"
-                          placeholder={lang === "ar" ? "اسم شركتك أو مؤسستك" : "Your company name"}
+                          placeholder={t("contactPage.formCompanyPlaceholder")}
                         />
                       </div>
                     </div>
@@ -640,7 +639,7 @@ export default function ContactPage() {
                       className="w-full mt-4 bg-[var(--secondary)] hover:bg-[#E1BF67] disabled:opacity-60 disabled:cursor-not-allowed text-black font-black py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 text-sm shadow-xl shadow-secondary/20 transform hover:-translate-y-1 active:scale-95 cursor-pointer"
                     >
                       {formSubmitting ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
-                      {formSubmitting ? (lang === "ar" ? "جاري الإرسال..." : "Sending...") : t("contact.form.submit")}
+                      {formSubmitting ? t("contactPage.sending") : t("contact.form.submit")}
                     </button>
                   </form>
                 )}
@@ -676,11 +675,11 @@ export default function ContactPage() {
                 <div className="flex items-center gap-2 bg-secondary/15 border border-secondary/30 rounded-full px-4 py-1.5">
                   <MapPin size={13} className="text-secondary" />
                   <span className="text-secondary text-xs font-bold tracking-wide">
-                    {isRTL ? "فرع الرياض" : "Riyadh Branch"}
+                    {t("contactPage.riyadhBranch")}
                   </span>
                 </div>
                 <span className="text-white/40 text-xs">
-                  {isRTL ? "طريق أنس بن مالك - شارع أبها" : "Anas Ibn Malik Rd — Abha St"}
+                  {t("contactPage.riyadhAddressStreetOnly")}
                 </span>
               </div>
 
@@ -693,8 +692,8 @@ export default function ContactPage() {
                 mapCenter={riyadhCenter}
                 mapOptions={riyadhMapOptions}
                 iframeSrc={riyadhIframeSrc}
-                infoTitle={isRTL ? "فرع الرياض" : "Riyadh Branch"}
-                infoDesc={isRTL ? "طريق أنس بن مالك - شارع أبها، الرياض، المملكة العربية السعودية" : "Anas Ibn Malik Rd — Abha St, Riyadh, Saudi Arabia"}
+                infoTitle={t("contactPage.riyadhBranch")}
+                infoDesc={t("contactPage.riyadhInfoDesc")}
                 mapsHref="https://www.google.com/maps?q=24.7987098,46.5940801"
                 openMapsLabel={t("contactPage.openMaps")}
                 isRTL={isRTL}
@@ -708,11 +707,11 @@ export default function ContactPage() {
                 <div className="flex items-center gap-2 bg-secondary/15 border border-secondary/30 rounded-full px-4 py-1.5">
                   <MapPin size={13} className="text-secondary" />
                   <span className="text-secondary text-xs font-bold tracking-wide">
-                    {isRTL ? "فرع جدة" : "Jeddah Branch"}
+                    {t("contactPage.jeddahBranch")}
                   </span>
                 </div>
                 <span className="text-white/40 text-xs">
-                  {isRTL ? "حي الأندلس – شارع عبدالرحمن الطبيشي. فيلا 72" : "Al-Andalus District — Abdulrahman Al-Tubaishi St. Villa 72"}
+                  {t("contactPage.jeddahAddressShort")}
                 </span>
               </div>
 
@@ -725,8 +724,8 @@ export default function ContactPage() {
                 mapCenter={jeddahCenter}
                 mapOptions={jeddahMapOptions}
                 iframeSrc={jeddahIframeSrc}
-                infoTitle={isRTL ? "فرع جدة — حي الأندلس" : "Jeddah Branch — Al-Andalus"}
-                infoDesc={isRTL ? "حي الأندلس – شارع عبدالرحمن الطبيشي. فيلا 72 – جدة 21451" : "Al-Andalus District — Abdulrahman Al-Tubaishi St. Villa 72 — Jeddah 21451"}
+                infoTitle={t("contactPage.jeddahBranchAndalus")}
+                infoDesc={t("contactPage.jeddahInfoDesc")}
                 mapsHref="https://www.google.com/maps?q=حي+الأندلس+شارع+عبدالرحمن+الطبيشي+جدة"
                 openMapsLabel={t("contactPage.openMaps")}
                 isRTL={isRTL}

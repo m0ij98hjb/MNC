@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Phone, Mail, MapPin, Send, ClipboardList, ArrowLeft, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { COMPANY } from "@/config/company";
 
 const Contact = () => {
   const { lang, t } = useLanguage();
@@ -12,8 +13,8 @@ const Contact = () => {
 
   const phone1   = cms?.phone1    || '0598242385';
   const phone2   = cms?.phone2    || '0505649859';
-  const email    = cms?.email     || 'info@mnc.com';
-  const address  = isRTL ? (cms?.address_ar || 'جدة، المملكة العربية السعودية') : (cms?.address_en || 'Jeddah, Saudi Arabia');
+  const email    = cms?.email     || COMPANY.email;
+  const address  = (isRTL ? cms?.address_ar : cms?.address_en) || t('footer.location');
 
   return (
     <section id="contact" className="py-24 bg-[var(--card-bg)] overflow-hidden font-cairo">
@@ -23,13 +24,13 @@ const Contact = () => {
           {/* Info Side (Right in RTL) */}
           <div className="w-full lg:w-1/2 space-y-8 md:space-y-10" data-aos="fade-right" data-aos-delay="50">
             <div>
-              <span className="text-secondary font-bold tracking-widest text-xs mb-3 block text-center lg:text-right">تواصل معنا</span>
+              <span className="text-secondary font-bold tracking-widest text-xs mb-3 block text-center lg:text-right">{t('contact.title')}</span>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 leading-tight text-[var(--foreground)] text-center lg:text-right">
-                هل أنت جاهز لبدء <br />
-                <span className="text-secondary">مشروعك القادم؟</span>
+                {t('contact.ready')} <br />
+                <span className="text-secondary">{t('contact.nextProject')}</span>
               </h2>
               <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-md mx-auto lg:mx-0 text-center lg:text-right">
-                فريقنا الهندسي مستعد لمناقشة تطلعاتكم وتحويلها إلى واقع ملموس. تواصل معنا اليوم للحصول على استشارة مهنية.
+                {t('contact.desc')}
               </p>
             </div>
 
@@ -39,7 +40,7 @@ const Contact = () => {
                   <Phone className="text-secondary" size={18} md:size={20} />
                 </div>
                 <div className="text-center lg:text-right">
-                  <p className="text-[var(--foreground)] text-[10px] md:text-xs mb-0.5">اتصل بنا</p>
+                  <p className="text-[var(--foreground)] text-[10px] md:text-xs mb-0.5">{t('contact.phone')}</p>
                   <p className="text-base md:text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors line-clamp-1">{phone1}{phone2 && ` - ${phone2}`}</p>
                 </div>
               </div>
@@ -49,7 +50,7 @@ const Contact = () => {
                   <Mail className="text-secondary" size={18} md:size={20} />
                 </div>
                 <div className="text-center lg:text-right">
-                  <p className="text-[var(--foreground)] text-[10px] md:text-xs mb-0.5">البريد الإلكتروني</p>
+                  <p className="text-[var(--foreground)] text-[10px] md:text-xs mb-0.5">{t('contact.email')}</p>
                   <p className="text-base md:text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors">{email}</p>
                 </div>
               </div>
@@ -59,7 +60,7 @@ const Contact = () => {
                   <MapPin className="text-secondary" size={18} md:size={20} />
                 </div>
                 <div className="text-center lg:text-right">
-                  <p className="text-[var(--foreground)] text-[10px] md:text-xs mb-0.5">الموقع</p>
+                  <p className="text-[var(--foreground)] text-[10px] md:text-xs mb-0.5">{t('contact.location')}</p>
                   <p className="text-base md:text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors text-xs md:text-sm">{address}</p>
                 </div>
               </div>
@@ -92,41 +93,41 @@ const Contact = () => {
               <form className="space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-300 px-1">الاسم الكامل</label>
-                    <input 
-                      type="text" 
-                      className="w-full bg-[var(--card-bg)] border border-[rgba(15,23,42,0.12)] rounded-lg px-4 py-3 text-sm text-[var(--foreground)] focus:border-[var(--secondary)] outline-none transition-colors" 
-                      placeholder="أدخل اسمك هنا"
+                    <label className="text-xs font-semibold text-slate-300 px-1">{t('contact.form.name')}</label>
+                    <input
+                      type="text"
+                      className="w-full bg-[var(--card-bg)] border border-[rgba(15,23,42,0.12)] rounded-lg px-4 py-3 text-sm text-[var(--foreground)] focus:border-[var(--secondary)] outline-none transition-colors"
+                      placeholder={t('contactPage.formNamePlaceholder')}
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-300 px-1">رقم الجوال</label>
-                    <input 
-                      type="tel" 
-                      className="w-full bg-[var(--card-bg)] border border-[rgba(15,23,42,0.12)] rounded-lg px-4 py-3 text-sm text-[var(--foreground)] focus:border-[var(--secondary)] outline-none transition-colors" 
-                      placeholder="05xxxxxxxx"
+                    <label className="text-xs font-semibold text-slate-300 px-1">{t('contact.form.phone')}</label>
+                    <input
+                      type="tel"
+                      className="w-full bg-[var(--card-bg)] border border-[rgba(15,23,42,0.12)] rounded-lg px-4 py-3 text-sm text-[var(--foreground)] focus:border-[var(--secondary)] outline-none transition-colors"
+                      placeholder={t('careers.phonePlaceholder')}
                     />
                   </div>
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-300 px-1">نوع الخدمة</label>
+                  <label className="text-xs font-semibold text-slate-300 px-1">{t('contact.form.service')}</label>
                   <select className="w-full bg-[var(--card-bg)] border border-[rgba(15,23,42,0.12)] rounded-lg px-4 py-3 text-sm text-[var(--foreground)] focus:border-[var(--secondary)] outline-none transition-colors appearance-none">
-                    <option className="bg-slate-800">مشاريع مقاولات</option>
-                    <option className="bg-slate-800">تصميم معماري</option>
-                    <option className="bg-slate-800">إدارة مشاريع</option>
-                    <option className="bg-slate-800">أخرى</option>
+                    <option className="bg-slate-800">{t('contactPage.formServiceOptions.construction')}</option>
+                    <option className="bg-slate-800">{t('contactPage.formServiceOptions.architecture')}</option>
+                    <option className="bg-slate-800">{t('contactPage.formServiceOptions.management')}</option>
+                    <option className="bg-slate-800">{t('contactPage.formServiceOptions.other')}</option>
                   </select>
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-300 px-1">تفاصيل الرسالة</label>
-                  <textarea 
-                    rows="4" 
-                    className="w-full bg-[var(--card-bg)] border border-[rgba(15,23,42,0.12)] rounded-lg px-4 py-3 text-sm text-[var(--foreground)] focus:border-[var(--secondary)] outline-none transition-colors resize-none" 
-                    placeholder="كيف يمكننا مساعدتك؟"
+                  <label className="text-xs font-semibold text-slate-300 px-1">{t('contact.form.message')}</label>
+                  <textarea
+                    rows="4"
+                    className="w-full bg-[var(--card-bg)] border border-[rgba(15,23,42,0.12)] rounded-lg px-4 py-3 text-sm text-[var(--foreground)] focus:border-[var(--secondary)] outline-none transition-colors resize-none"
+                    placeholder={t('contactPage.formMessagePlaceholder')}
                   ></textarea>
                 </div>
                  <button type="button" className="w-full mt-2 bg-[var(--secondary)] hover:bg-[var(--gold)] text-[var(--foreground)] font-bold py-3.5 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm shadow-lg">
-                   إرسال الرسالة <Send size={16} />
+                   {t('contact.form.submit')} <Send size={16} />
                 </button>
               </form>
             </div>
