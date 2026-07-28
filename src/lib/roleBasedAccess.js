@@ -87,6 +87,10 @@ export const NAV_LABELS_MULTILANG = {
     ar: 'إدارة المحتوى', en: 'Content Management', hi: 'सामग्री प्रबंधन', ru: 'Управление контентом',
     de: 'Content-Management', fr: 'Gestion du contenu', es: 'Gestión de contenido', tr: 'İçerik Yönetimi', ur: 'مواد کا انتظام', zh: '内容管理'
   },
+  '/admin/media': {
+    ar: 'مكتبة الوسائط', en: 'Media Library', hi: 'मीडिया लाइब्रेरी', ru: 'Медиатека',
+    de: 'Medienbibliothek', fr: 'Bibliothèque média', es: 'Biblioteca multimedia', tr: 'Medya Kütüphanesi', ur: 'میڈیا لائبریری', zh: '媒体库'
+  },
   '/admin/cameras': {
     ar: 'إدارة الكاميرات', en: 'Camera Management', hi: 'कैमरा प्रबंधन', ru: 'Управление камерами',
     de: 'Kameraverwaltung', fr: 'Gestion des caméras', es: 'Gestión de cámaras', tr: 'Kamera Yönetimi', ur: 'کیمروں کا انتظام', zh: '摄像头管理'
@@ -250,6 +254,7 @@ export const ROLE_NAVIGATION = {
   [ROLES.SUPER_ADMIN]: [
     { href: '/admin/dashboard', label: 'لوحة التحكم', icon: 'LayoutDashboard' },
     { href: '/admin/content', label: 'إدارة المحتوى', icon: 'PenSquare' },
+    { href: '/admin/media', label: 'مكتبة الوسائط', icon: 'ImageIcon' },
     { href: '/admin/cameras', label: 'إدارة الكاميرات', icon: 'Camera' },
     { href: '/admin/users', label: 'إدارة المستخدمين', icon: 'UserCog' },
     { href: '/admin/suppliers', label: 'الموردون', icon: 'Users' },

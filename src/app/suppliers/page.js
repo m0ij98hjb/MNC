@@ -5,6 +5,7 @@ import { db } from '@/lib/firebase';
 import { ACTIVITY_TYPES, ACTIVITY_KEYS, COUNTRIES_KEYS } from '@/lib/suppliersConfig';
 import { useLanguage } from '@/context/LanguageContext';
 import Navbar from '@/components/layout/Navbar';
+import { uploadAsset } from '@/lib/cloudinary';
 import {
   Building2, User, Phone, Mail, MapPin, Globe, ChevronDown,
   Send, CheckCircle2, Loader2, Briefcase, FileText,
@@ -17,24 +18,11 @@ const COUNTRIES = [
 ];
 
 async function uploadToCloudinary(file) {
-  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-  const preset    = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
-  if (!cloudName || !preset) throw new Error('Cloudinary not configured');
-
-  const fd = new FormData();
-  fd.append('file', file);
-  fd.append('upload_preset', preset);
-
-  const res = await fetch(
-    `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`,
-    { method: 'POST', body: fd }
-  );
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err?.error?.message || `Cloudinary error ${res.status}`);
-  }
-  const data = await res.json();
-  return data.secure_url;
+  const { url } = await uploadAsset(file, {
+    resourceType: 'auto',
+    preset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
+  });
+  return url;
 }
 
 export default function SuppliersPage() {

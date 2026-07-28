@@ -185,6 +185,26 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
+    // ══════════════════════════════════════════════════════════════
+    // Phase 1 CMS — Projects module + Media Library (additive; does not
+    // touch any rule above). Mirrors the super-admin-only write model
+    // already used elsewhere in this file (e.g. purchIsSuperAdmin()),
+    // kept as its own function to stay fully independent/removable.
+    // ══════════════════════════════════════════════════════════════
+    function cmsIsSuperAdmin() {
+      return request.auth != null && request.auth.token.email == 'mm5329844@gmail.com';
+    }
+
+    match /projects/{projectId} {
+      allow read: if resource.data.draft == false && resource.data.archived == false;
+      allow read: if cmsIsSuperAdmin();
+      allow create, update, delete: if cmsIsSuperAdmin();
+    }
+
+    match /mediaLibrary/{assetId} {
+      allow read, write: if cmsIsSuperAdmin();
+    }
+
     // Deny everything else by default
     match /{document=**} {
       allow read, write: if false;

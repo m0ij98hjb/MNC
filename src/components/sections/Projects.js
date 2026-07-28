@@ -2,106 +2,30 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Plus } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useFeaturedProjects } from "@/hooks/useProjects";
+import { getLocalizedText } from "@/lib/i18nHelpers";
+import { getCategoryLabel, PROJECT_CATEGORY_IDS } from "@/lib/projectCategories";
 
 const Projects = () => {
   const { t, lang } = useLanguage();
   const [filter, setFilter] = useState("all");
   const [selectedImage, setSelectedImage] = useState(null);
+  const { projects: featured } = useFeaturedProjects(12);
 
-  const projects = [
-    {
-      id: 1,
-      title: t("projectsSection.items.barjisFacade"),
-      category: "barjis",
-      image: "/asstes/office-projects/BARJIS FRONT FACADE (05.08.2025).jpg",
-      location: t("projectsSection.categories.barjis")
-    },
-    {
-      id: 2,
-      title: t("projectsSection.items.barjisCourt"),
-      category: "barjis",
-      image: "/asstes/office-projects/BARJIS - INNER COURT (05.24.2025).jpg",
-      location: t("projectsSection.categories.barjis")
-    },
-    {
-      id: 3,
-      title: t("projectsSection.items.barjisRoof"),
-      category: "barjis",
-      image: "/asstes/office-projects/BARJIS - ROOF (05.24.2025).jpg",
-      location: t("projectsSection.categories.barjis")
-    },
-    {
-      id: 4,
-      title: t("projectsSection.items.barjisBasement"),
-      category: "barjis",
-      image: "/asstes/office-projects/28.jpg",
-      location: t("projectsSection.categories.barjis")
-    },
-    {
-      id: 5,
-      title: t("projectsSection.items.villa1"),
-      category: "residential",
-      image: "/asstes/office-projects/1.jpg",
-      location: "MNC"
-    },
-    {
-      id: 6,
-      title: t("projectsSection.items.villa2"),
-      category: "residential",
-      image: "/asstes/office-projects/2.jpg",
-      location: "MNC"
-    },
-    {
-      id: 7,
-      title: t("projectsSection.items.villa3"),
-      category: "residential",
-      image: "/asstes/office-projects/3.jpg",
-      location: "MNC"
-    },
-    {
-      id: 8,
-      title: t("projectsSection.items.villa4"),
-      category: "residential",
-      image: "/asstes/office-projects/4.jpg",
-      location: "MNC"
-    },
-    {
-      id: 9,
-      title: t("projectsSection.items.interior1"),
-      category: "recent",
-      image: "/asstes/office-projects/40.jpg",
-      location: "MNC"
-    },
-    {
-      id: 10,
-      title: t("projectsSection.items.interior2"),
-      category: "recent",
-      image: "/asstes/office-projects/41.jpg",
-      location: "MNC"
-    },
-    {
-      id: 11,
-      title: t("projectsSection.items.interior3"),
-      category: "recent",
-      image: "/asstes/office-projects/43.jpg",
-      location: "MNC"
-    },
-    {
-      id: 12,
-      title: t("projectsSection.items.interior4"),
-      category: "recent",
-      image: "/asstes/office-projects/10.jpg",
-      location: "MNC"
-    }
-  ];
+  const projects = featured.map((p) => ({
+    id: p.slug,
+    title: getLocalizedText(p, "name", lang),
+    category: p.category,
+    image: p.coverImage,
+    location: getLocalizedText(p, "location", lang),
+  }));
 
   const categories = [
-    { key: "all", label: t("projectsSection.categories.all") },
-    { key: "barjis", label: t("projectsSection.categories.barjis") },
-    { key: "residential", label: t("projectsSection.categories.residential") },
-    { key: "recent", label: t("projectsSection.categories.recent") },
+    { key: "all", label: getCategoryLabel("all", lang) },
+    ...PROJECT_CATEGORY_IDS
+      .filter((id) => projects.some((p) => p.category === id))
+      .map((id) => ({ key: id, label: getCategoryLabel(id, lang) })),
   ];
 
   const filteredProjects = filter === "all" ? projects : projects.filter(p => p.category === filter);

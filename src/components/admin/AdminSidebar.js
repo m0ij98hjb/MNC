@@ -14,7 +14,7 @@ import {
   LayoutDashboard, Users, CheckCircle, BarChart2,
   ChevronRight, ChevronLeft, LogOut, Briefcase, PenSquare,
   Camera, X, Loader2, MessageSquare, ShoppingCart, UserCog,
-  Award, Settings,
+  Award, Settings, Image as ImageIcon,
 } from 'lucide-react';
 
 // Icon mapping
@@ -31,6 +31,7 @@ const ICON_MAP = {
   ShoppingCart,
   Award,
   Settings,
+  ImageIcon,
 };
 
 export default function AdminSidebar() {

@@ -13,20 +13,16 @@ import {
   HardHat,
 } from "lucide-react";
 import { DEPARTMENTS, TRADES } from "@/lib/recruitmentConfig";
+import { uploadAsset } from "@/lib/cloudinary";
 
 const BENEFIT_ICONS = [Award, TrendingUp, Users, Building2];
 
 async function uploadToCloudinary(file) {
-  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-  const preset    = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
-  if (!cloudName || !preset) throw new Error("Cloudinary not configured");
-  const fd = new FormData();
-  fd.append("file", file);
-  fd.append("upload_preset", preset);
-  const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, { method: "POST", body: fd });
-  if (!res.ok) throw new Error("CV upload failed");
-  const data = await res.json();
-  return data.secure_url;
+  const { url } = await uploadAsset(file, {
+    resourceType: "auto",
+    preset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
+  });
+  return url;
 }
 
 export default function CareersPage() {
