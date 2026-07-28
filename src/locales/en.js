@@ -413,7 +413,8 @@ export const en = {
   voice: {
     stop: "Stop Presentation",
     play: "Play Presentation",
-    intro: "Company Presentation"
+    intro: "Company Presentation",
+    text: "MNC General Contracting is a leading engineering brand in construction, founded in Jeddah, Saudi Arabia, building our mark in the industry for over 38 years. We provide architectural design, project management, and construction services with the highest standards of quality and professionalism. Contact us today for a professional consultation."
   },
   careers: {
     heroBadge: "Career Opportunities",
@@ -1512,21 +1513,4 @@ export const en = {
     purchaseRequestFallback: "Purchase Request",
     itemsUnitLabel: "items",
   },
-  camera: {
-    unavailable: "Camera stream unavailable",
-    invalidOrNotFound: "Invalid project code or camera not found",
-    connectionError: "Error connecting to camera",
-    live: "LIVE",
-    offline: "OFFLINE",
-    liveAlt: "Live Camera Stream",
-    streamTitle: "Live Camera Stream",
-    rtspRequiresVlc: "RTSP stream requires a supported player (like VLC)",
-    openLink: "Open Stream Link",
-    enterProjectCode: "Enter project code",
-    toViewCamera: "to view live construction feed",
-    verifying: "Verifying project code...",
-    streamLoadFailed: "Failed to load stream",
-    retry: "Retry",
-    cameraNameFallback: "Site Live Camera",
-  }
 };

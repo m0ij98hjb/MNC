@@ -413,7 +413,8 @@ export const fr = {
   voice: {
     stop: "Arrêter la présentation",
     play: "Lire la présentation",
-    intro: "Présentation de l'entreprise"
+    intro: "Présentation de l'entreprise",
+    text: "MNC Contracting est une marque d'ingénierie de premier plan dans le secteur de la construction, fondée à Djeddah, en Arabie saoudite, bâtissant notre réputation dans ce domaine depuis plus de 38 ans. Nous proposons des services de conception architecturale, de gestion de projets et de construction avec les plus hauts standards de qualité et de professionnalisme. Contactez-nous dès aujourd'hui pour une consultation professionnelle."
   },
   careers: {
     heroBadge: "Opportunités de Carrière",

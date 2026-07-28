@@ -1513,21 +1513,4 @@ export const hi = {
     purchaseRequestFallback: "खरीद अनुरोध",
     itemsUnitLabel: "वस्तु",
   },
-  camera: {
-    unavailable: "कैमरा स्ट्रीम अनुपलब्ध है",
-    invalidOrNotFound: "अमान्य प्रोजेक्ट कोड या कैमरा नहीं मिला",
-    connectionError: "कैमरा कनेक्ट करने में त्रुटि हुई",
-    live: "लाइव",
-    offline: "ऑफ़लाइन",
-    liveAlt: "लाइव कैमरा वीडियो",
-    streamTitle: "कैमरा लाइव स्ट्रीम",
-    rtspRequiresVlc: "RTSP स्ट्रीम देखने के लिए समर्थित प्लेयर (जैसे VLC) की आवश्यकता होती है",
-    openLink: "स्ट्रीम लिंक खोलें",
-    enterProjectCode: "प्रोजेक्ट कोड दर्ज करें",
-    toViewCamera: "लाइव निर्माण फ़ीड देखने के लिए",
-    verifying: "प्रोजेक्ट कोड की पुष्टि की जा रही है...",
-    streamLoadFailed: "स्ट्रीम लोड करने में विफल",
-    retry: "पुनः प्रयास करें",
-    cameraNameFallback: "साइट लाइव कैमरा",
-  }
 };

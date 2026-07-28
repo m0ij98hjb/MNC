@@ -413,7 +413,8 @@ export const zh = {
   voice: {
     stop: "停止介绍",
     play: "播放介绍",
-    intro: "公司介绍"
+    intro: "公司介绍",
+    text: "MNC 通用承包是建筑行业的领先工程品牌，创立于沙特阿拉伯吉达，38 年来我们始终致力于在这一领域打造我们的品牌。我们提供建筑设计、项目管理和施工服务，秉持最高的质量和专业标准。立即联系我们，获取专业咨询。"
   },
   careers: {
     heroBadge: "Career Opportunities",

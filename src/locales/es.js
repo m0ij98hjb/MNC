@@ -413,7 +413,8 @@ export const es = {
   voice: {
     stop: "Detener presentación",
     play: "Reproducir presentación",
-    intro: "Presentación de la empresa"
+    intro: "Presentación de la empresa",
+    text: "MNC Contratación General es una marca de ingeniería líder en el sector de la construcción, fundada en Yeda, Arabia Saudita, construyendo nuestra marca en la industria durante más de 38 años. Ofrecemos diseño arquitectónico, gestión de proyectos y servicios de construcción con los más altos estándares de calidad y profesionalismo. Contáctenos hoy para una consulta profesional."
   },
   careers: {
     heroBadge: "Oportunidades de Empleo",

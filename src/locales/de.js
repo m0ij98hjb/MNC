@@ -413,7 +413,8 @@ export const de = {
   voice: {
     stop: "Präsentation stoppen",
     play: "Präsentation abspielen",
-    intro: "Firmenpräsentation"
+    intro: "Firmenpräsentation",
+    text: "MNC General Contracting ist eine führende Ingenieurmarke im Bauwesen mit Sitz in Jeddah, Saudi-Arabien, und baut seit über 38 Jahren unsere Marke in der Branche auf. Wir bieten architektonische Planung, Projektmanagement und Bauleistungen mit höchsten Standards an Qualität und Professionalität. Kontaktieren Sie uns noch heute für eine professionelle Beratung."
   },
   careers: {
     heroBadge: "Karrieremöglichkeiten",

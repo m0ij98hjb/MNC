@@ -413,7 +413,8 @@ export const tr = {
   voice: {
     stop: "Sunumu durdur",
     play: "Sunumu oynat",
-    intro: "Şirket Tanıtımı"
+    intro: "Şirket Tanıtımı",
+    text: "MNC Genel Müteahhitlik, Suudi Arabistan'ın Cidde şehrinde kurulmuş, inşaat sektöründe öncü bir mühendislik markasıdır ve 38 yılı aşkın süredir markamızı bu alanda inşa ediyoruz. Mimari tasarım, proje yönetimi ve inşaat hizmetlerini en yüksek kalite ve profesyonellik standartlarıyla sunuyoruz. Profesyonel bir danışma için bugün bizimle iletişime geçin."
   },
   careers: {
     heroBadge: "Kariyer Fırsatları",
