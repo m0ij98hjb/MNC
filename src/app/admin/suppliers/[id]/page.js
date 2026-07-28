@@ -17,7 +17,7 @@ import { useNotifications } from '@/context/NotificationsContext';
 
 export default function SupplierDetailPage() {
   const { id }                    = useParams();
-  const { t, isRTL }              = useLanguage();
+  const { t, isRTL, lang }        = useLanguage();
   const notif                      = useNotifications();
   const getAct = (name) => name && (t('activities.' + ACTIVITY_KEYS[name]) || name);
   const [supplier, setSupplier]   = useState(null);
@@ -75,6 +75,7 @@ export default function SupplierDetailPage() {
           visitDate,
           visitTime,
           additionalMessage: visitNote,
+          lang,
         }),
       });
       const data = await res.json();
@@ -229,13 +230,13 @@ export default function SupplierDetailPage() {
                     className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#c8a96e]/10 hover:bg-[#c8a96e]/20 border border-[#c8a96e]/20 text-[#c8a96e] text-sm font-semibold transition-colors"
                   >
                     <MapPin size={14} />
-                    إرسال طلب زيارة للمورد
+                    {t('admin.visitRequestBtn')}
                   </button>
 
                   {visitFormOpen && (
                     <div className="mt-3 space-y-3 border-t border-white/[0.07] pt-4">
                       <div className="space-y-1.5">
-                        <label className="text-xs text-[#c8a96e] block">تاريخ الزيارة *</label>
+                        <label className="text-xs text-[#c8a96e] block">{t('admin.visitDateLabel')}</label>
                         <input
                           type="date" required value={visitDate}
                           onChange={e => setVisitDate(e.target.value)}
@@ -243,7 +244,7 @@ export default function SupplierDetailPage() {
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs text-[#c8a96e] block">وقت الزيارة *</label>
+                        <label className="text-xs text-[#c8a96e] block">{t('admin.visitTimeLabel')}</label>
                         <input
                           type="time" required value={visitTime}
                           onChange={e => setVisitTime(e.target.value)}
@@ -251,17 +252,17 @@ export default function SupplierDetailPage() {
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs text-[#c8a96e] block">ملاحظات إضافية</label>
+                        <label className="text-xs text-[#c8a96e] block">{t('admin.visitNotesLabel')}</label>
                         <textarea
                           rows={3} value={visitNote}
                           onChange={e => setVisitNote(e.target.value)}
-                          placeholder="أي تعليمات أو ملاحظات للمورد..."
+                          placeholder={t('admin.visitNotesPlaceholder')}
                           className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder:text-white/20 focus:border-[#c8a96e]/50 outline-none transition-colors resize-none"
                         />
                       </div>
 
                       {visitStatus === 'error' && (
-                        <p className="text-red-400 text-xs font-semibold text-center">حدث خطأ أثناء الإرسال، حاول مجدداً</p>
+                        <p className="text-red-400 text-xs font-semibold text-center">{t('admin.visitSendError')}</p>
                       )}
 
                       <button
@@ -270,7 +271,7 @@ export default function SupplierDetailPage() {
                         className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black text-sm font-black transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
                       >
                         {visitSending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
-                        إرسال الدعوة
+                        {t('admin.visitSendBtn')}
                       </button>
                     </div>
                   )}
@@ -333,9 +334,9 @@ export default function SupplierDetailPage() {
 
                 {/* Text */}
                 <div className="space-y-2">
-                  <p className="text-white font-black text-xl tracking-tight">تم الإرسال بنجاح</p>
+                  <p className="text-white font-black text-xl tracking-tight">{t('admin.visitSuccessTitle')}</p>
                   <p className="text-white/40 text-sm leading-relaxed">
-                    تم إرسال دعوة الزيارة بنجاح إلى<br />
+                    {t('admin.visitSuccessSub')}<br />
                     <span className="text-[#c8a96e] font-semibold">{supplier.companyName}</span>
                   </p>
                 </div>
@@ -343,11 +344,11 @@ export default function SupplierDetailPage() {
                 {/* Details strip */}
                 <div className="w-full bg-white/[0.03] border border-white/[0.07] rounded-2xl divide-y divide-white/[0.06]">
                   <div className="flex items-center justify-between px-4 py-3">
-                    <span className="text-white/35 text-xs">تاريخ الزيارة</span>
+                    <span className="text-white/35 text-xs">{t('admin.visitDateLabel')}</span>
                     <span className="text-white text-xs font-bold" dir="ltr">{visitDate}</span>
                   </div>
                   <div className="flex items-center justify-between px-4 py-3">
-                    <span className="text-white/35 text-xs">الوقت</span>
+                    <span className="text-white/35 text-xs">{t('admin.timeLabel')}</span>
                     <span className="text-white text-xs font-bold" dir="ltr">{visitTime}</span>
                   </div>
                 </div>
@@ -357,7 +358,7 @@ export default function SupplierDetailPage() {
                   onClick={closeVisitDialog}
                   className="w-full py-3 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black font-black text-sm tracking-wide hover:opacity-90 transition-opacity"
                 >
-                  تم
+                  {t('admin.jobDoneBtn')}
                 </button>
 
               </div>

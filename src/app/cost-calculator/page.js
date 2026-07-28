@@ -6,11 +6,19 @@ import Navbar from "@/components/layout/Navbar";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { PRICING } from "@/lib/calculator/pricing";
+import { hasEngineeringEngine, hasCommercialEngine, hasHotelEngine, hasIndustrialEngine } from "@/lib/calculator/multipliers";
+import { calculateEngineeringCost } from "@/lib/calculator/engine";
+import { calculateCommercialCost } from "@/lib/calculator/commercialEngine";
+import { calculateHotelCost } from "@/lib/calculator/hotelEngine";
+import { calculateIndustrialCost } from "@/lib/calculator/industrialEngine";
+import { validateEngineeringInputs, validateCommercialInputs, validateHotelInputs, validateIndustrialInputs } from "@/lib/calculator/validation";
 import {
   Home,
+  Building,
   Building2,
   Factory,
-  Wrench,
+  Hotel,
   ChevronRight,
   ChevronLeft,
   Sparkles,
@@ -90,8 +98,8 @@ export default function CostCalculatorPage() {
     if (location === "mecca") {
       list.push(t("calculator.insights.mecca"));
     }
-    if (type === "renovation") {
-      list.push(t("calculator.insights.renovation"));
+    if (type === "hotel") {
+      list.push(t("calculator.insights.hotel"));
     }
 
     // Format the range insight template
@@ -114,12 +122,7 @@ export default function CostCalculatorPage() {
   };
 
   const calculateProjectCost = ({ type, area, floors, quality, location, extras }) => {
-    const BASE_RATES = calcCms?.rates || {
-      residential: { economic: 1800, standard: 2500, premium: 3800, ultra: 6000 },
-      commercial:  { economic: 2200, standard: 3200, premium: 5000, ultra: 8000 },
-      industrial:  { economic: 1500, standard: 2000, premium: 3000, ultra: 5000 },
-      renovation:  { economic: 800,  standard: 1400, premium: 2200, ultra: 3500 },
-    };
+    const BASE_RATES = calcCms?.rates || PRICING;
 
     const LOCATION_MULTIPLIER = {
       jeddah: 1.0,
@@ -146,8 +149,8 @@ export default function CostCalculatorPage() {
     let extrasTotal = 0;
     extras.forEach((ex) => { extrasTotal += EXTRAS_COST[ex] || 0; });
 
-    const structurePct = type === "renovation" ? 0.30 : 0.40;
-    const finishingPct = type === "renovation" ? 0.45 : 0.30;
+    const structurePct = 0.40;
+    const finishingPct = 0.30;
     const mepPct = 0.20;
     const externalPct = 0.07;
     const contingencyPct = 0.03;
@@ -169,6 +172,7 @@ export default function CostCalculatorPage() {
     const insights = generateInsights({ type, area: totalArea, quality, location, extras, costPerSqm: baseRate * locationMult });
 
     return {
+      kind: "legacy",
       min: Math.round(min),
       max: Math.round(max),
       avg: Math.round(total),
@@ -189,21 +193,126 @@ export default function CostCalculatorPage() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     type: "",
+    // legacy (area × floors) flow — hotel / commercial / industrial
     area: "",
     floors: "1",
-    quality: "standard",
     location: "jeddah",
     extras: [],
+    // shared
+    quality: "standard",
+    // engineering (weighted-area) flow — residential buildings / villas
+    basementArea: "",
+    groundFloorArea: "",
+    typicalFloorArea: "",
+    floorsCount: "1",
+    penthouseArea: "",
+    waterTankArea: "",
+    septicTankArea: "",
+    fenceLength: "",
+    // commercial / hotel / industrial (weighted-area, dynamic) flow
+    basementsCount: "0",
+    basementAreas: [],
+    mezzanineArea: "",
+    floorAreas: [],
+    hotelRating: "",
+    firstFloorArea: "",
   });
   const [result, setResult] = useState(null);
   const [calculating, setCalculating] = useState(false);
   const [errors, setErrors] = useState({});
 
+  const isEngineeringFlow = hasEngineeringEngine(formData.type);
+  const isCommercialFlow = hasCommercialEngine(formData.type);
+  const isHotelFlow = hasHotelEngine(formData.type);
+  const isIndustrialFlow = hasIndustrialEngine(formData.type);
+  const isResidentialSubtype = (type) => type === "residential_building" || type === "villa";
+  const isCommercialSubtype = (type) => type === "commercial_residential" || type === "commercial_administrative";
+  const isIndustrialSubtype = (type) => type === "factory" || type === "warehouse";
+  const [residentialOpen, setResidentialOpen] = useState(false);
+  const [commercialOpen, setCommercialOpen] = useState(false);
+  const [industrialOpen, setIndustrialOpen] = useState(false);
+
+  const hotelRatingOptions = [
+    { key: "3_star", label: t("calculator.hotel_3_star") },
+    { key: "4_star", label: t("calculator.hotel_4_star") },
+    { key: "5_star", label: t("calculator.hotel_5_star") },
+  ];
+
   const projectTypes = [
-    { key: "residential", icon: Home, color: "#D5B25D" },
+    { key: "residential", icon: Building, color: "#D5B25D" },
+    { key: "hotel",       icon: Hotel, color: "#f472b6" },
     { key: "commercial",  icon: Building2, color: "#60a5fa" },
     { key: "industrial",  icon: Factory, color: "#34d399" },
-    { key: "renovation",  icon: Wrench, color: "#f472b6" },
+  ];
+
+  const residentialSubtypes = [
+    { key: "residential_building", icon: Building, color: "#D5B25D" },
+    { key: "villa",                icon: Home, color: "#c9975a" },
+  ];
+
+  const commercialSubtypes = [
+    { key: "commercial_residential",    icon: Building2,    color: "#60a5fa" },
+    { key: "commercial_administrative", icon: SquareStack,  color: "#38bdf8" },
+  ];
+
+  const industrialSubtypes = [
+    { key: "factory",   icon: Factory,     color: "#34d399" },
+    { key: "warehouse", icon: SquareStack, color: "#2dd4bf" },
+  ];
+
+  const MAX_COMMERCIAL_BASEMENTS = 4;
+  const MAX_COMMERCIAL_FLOORS = 30;
+
+  const setBasementsCount = (count) => {
+    const n = Math.max(0, Math.min(MAX_COMMERCIAL_BASEMENTS, count));
+    setFormData((p) => ({
+      ...p,
+      basementsCount: String(n),
+      basementAreas: Array.from({ length: n }, (_, i) => p.basementAreas[i] ?? ""),
+    }));
+    setErrors({});
+  };
+
+  const setCommercialFloorsCount = (count) => {
+    const n = Math.max(1, Math.min(MAX_COMMERCIAL_FLOORS, count));
+    setFormData((p) => ({
+      ...p,
+      floorsCount: String(n),
+      floorAreas: Array.from({ length: n }, (_, i) => p.floorAreas[i] ?? ""),
+    }));
+    setErrors({});
+  };
+
+  const updateBasementArea = (index, value) => {
+    setFormData((p) => {
+      const arr = [...p.basementAreas];
+      arr[index] = value;
+      return { ...p, basementAreas: arr };
+    });
+    setErrors({});
+  };
+
+  const updateFloorArea = (index, value) => {
+    setFormData((p) => {
+      const arr = [...p.floorAreas];
+      arr[index] = value;
+      return { ...p, floorAreas: arr };
+    });
+    setErrors({});
+  };
+
+  const basementAreaLabel = (i) =>
+    (t("calculator.engineering.basementAreaTemplate") || "Basement {n} Area").replace("{n}", i + 1);
+  const floorAreaLabel = (i) =>
+    (t("calculator.engineering.floorAreaTemplate") || "Floor {n} Area").replace("{n}", i + 1);
+
+  const engineeringAreaFields = [
+    { key: "basementArea",     label: t("calculator.engineering.basementArea") },
+    { key: "groundFloorArea",  label: t("calculator.engineering.groundFloorArea") },
+    { key: "typicalFloorArea", label: t("calculator.engineering.typicalFloorArea") },
+    { key: "penthouseArea",    label: t("calculator.engineering.penthouseArea") },
+    { key: "waterTankArea",    label: t("calculator.engineering.waterTankArea") },
+    { key: "septicTankArea",   label: t("calculator.engineering.septicTankArea") },
   ];
 
   const qualityOptions = [
@@ -212,6 +321,9 @@ export default function CostCalculatorPage() {
     { key: "premium",  color: "#f59e0b", label: t("calculator.premium") },
     { key: "ultra",    color: "#a855f7", label: t("calculator.ultra") },
   ];
+
+  // Industrial (factory/warehouse) only offers two tiers — no premium/ultra.
+  const industrialQualityOptions = qualityOptions.filter((q) => q.key === "economic" || q.key === "standard");
 
   const locationOptions = [
     { key: "jeddah", label: t("calculator.jeddah") },
@@ -240,6 +352,70 @@ export default function CostCalculatorPage() {
   };
 
   const validateStep2 = () => {
+    if (isIndustrialFlow) {
+      const { valid, errors: e } = validateIndustrialInputs({
+        category: formData.type,
+        quality: formData.quality,
+        groundFloorArea: formData.groundFloorArea,
+        mezzanineArea: formData.mezzanineArea,
+        firstFloorArea: formData.firstFloorArea,
+      });
+      if (!valid) { setErrors(e); return false; }
+      setErrors({});
+      return true;
+    }
+
+    if (isHotelFlow) {
+      const { valid, errors: e } = validateHotelInputs({
+        rating: formData.hotelRating,
+        basementsCount: formData.basementsCount,
+        basementAreas: formData.basementAreas,
+        groundFloorArea: formData.groundFloorArea,
+        mezzanineArea: formData.mezzanineArea,
+        floorsCount: formData.floorsCount,
+        floorAreas: formData.floorAreas,
+        penthouseArea: formData.penthouseArea,
+      });
+      if (!valid) { setErrors(e); return false; }
+      setErrors({});
+      return true;
+    }
+
+    if (isCommercialFlow) {
+      const { valid, errors: e } = validateCommercialInputs({
+        category: formData.type,
+        quality: formData.quality,
+        basementsCount: formData.basementsCount,
+        basementAreas: formData.basementAreas,
+        groundFloorArea: formData.groundFloorArea,
+        mezzanineArea: formData.mezzanineArea,
+        floorsCount: formData.floorsCount,
+        floorAreas: formData.floorAreas,
+        penthouseArea: formData.penthouseArea,
+      });
+      if (!valid) { setErrors(e); return false; }
+      setErrors({});
+      return true;
+    }
+
+    if (isEngineeringFlow) {
+      const { valid, errors: e } = validateEngineeringInputs({
+        buildingType: formData.type,
+        quality: formData.quality,
+        floorsCount: formData.floorsCount,
+        basementArea: formData.basementArea,
+        groundFloorArea: formData.groundFloorArea,
+        typicalFloorArea: formData.typicalFloorArea,
+        penthouseArea: formData.penthouseArea,
+        waterTankArea: formData.waterTankArea,
+        septicTankArea: formData.septicTankArea,
+        fenceLength: formData.fenceLength,
+      });
+      if (!valid) { setErrors(e); return false; }
+      setErrors({});
+      return true;
+    }
+
     const e = {};
     if (!formData.area || isNaN(formData.area) || Number(formData.area) < 50)
       e.area = true;
@@ -261,14 +437,66 @@ export default function CostCalculatorPage() {
   const runCalculation = () => {
     setCalculating(true);
     setTimeout(() => {
-      const res = calculateProjectCost({
-        type: formData.type,
-        area: Number(formData.area),
-        floors: Number(formData.floors),
-        quality: formData.quality,
-        location: formData.location,
-        extras: formData.extras,
-      });
+      const res = isIndustrialFlow
+        ? calculateIndustrialCost(
+            {
+              category: formData.type,
+              quality: formData.quality,
+              groundFloorArea: Number(formData.groundFloorArea) || 0,
+              mezzanineArea: Number(formData.mezzanineArea) || 0,
+              firstFloorArea: Number(formData.firstFloorArea) || 0,
+            },
+            { pricingTable: calcCms?.rates || PRICING }
+          )
+        : isHotelFlow
+        ? calculateHotelCost(
+            {
+              rating: formData.hotelRating,
+              basementAreas: formData.basementAreas.map((a) => Number(a) || 0),
+              groundFloorArea: Number(formData.groundFloorArea) || 0,
+              mezzanineArea: Number(formData.mezzanineArea) || 0,
+              floorAreas: formData.floorAreas.map((a) => Number(a) || 0),
+              penthouseArea: Number(formData.penthouseArea) || 0,
+            },
+            { pricingTable: calcCms?.rates || PRICING }
+          )
+        : isCommercialFlow
+        ? calculateCommercialCost(
+            {
+              category: formData.type,
+              quality: formData.quality,
+              basementAreas: formData.basementAreas.map((a) => Number(a) || 0),
+              groundFloorArea: Number(formData.groundFloorArea) || 0,
+              mezzanineArea: Number(formData.mezzanineArea) || 0,
+              floorAreas: formData.floorAreas.map((a) => Number(a) || 0),
+              penthouseArea: Number(formData.penthouseArea) || 0,
+            },
+            { pricingTable: calcCms?.rates || PRICING }
+          )
+        : isEngineeringFlow
+        ? calculateEngineeringCost(
+            {
+              buildingType: formData.type,
+              quality: formData.quality,
+              basementArea: Number(formData.basementArea) || 0,
+              groundFloorArea: Number(formData.groundFloorArea) || 0,
+              typicalFloorArea: Number(formData.typicalFloorArea) || 0,
+              floorsCount: Number(formData.floorsCount) || 0,
+              penthouseArea: Number(formData.penthouseArea) || 0,
+              waterTankArea: Number(formData.waterTankArea) || 0,
+              septicTankArea: Number(formData.septicTankArea) || 0,
+              fenceLength: Number(formData.fenceLength) || 0,
+            },
+            { pricingTable: calcCms?.rates || PRICING }
+          )
+        : calculateProjectCost({
+            type: formData.type,
+            area: Number(formData.area),
+            floors: Number(formData.floors),
+            quality: formData.quality,
+            location: formData.location,
+            extras: formData.extras,
+          });
       setResult(res);
       setCalculating(false);
       setStep(3);
@@ -287,7 +515,16 @@ export default function CostCalculatorPage() {
   const reset = () => {
     setStep(1);
     setResult(null);
-    setFormData({ type: "", area: "", floors: "1", quality: "standard", location: "jeddah", extras: [] });
+    setResidentialOpen(false);
+    setCommercialOpen(false);
+    setIndustrialOpen(false);
+    setFormData({
+      type: "", area: "", floors: "1", location: "jeddah", extras: [], quality: "standard",
+      basementArea: "", groundFloorArea: "", typicalFloorArea: "", floorsCount: "1",
+      penthouseArea: "", waterTankArea: "", septicTankArea: "", fenceLength: "",
+      basementsCount: "0", basementAreas: [], mezzanineArea: "", floorAreas: [], hotelRating: "",
+      firstFloorArea: "",
+    });
     setErrors({});
   };
 
@@ -361,20 +598,51 @@ export default function CostCalculatorPage() {
             {errors.type && (
               <p className="text-red-400 text-sm text-center mb-4">{t("calculator.required")}</p>
             )}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10">
-              {projectTypes.map(({ key, icon: Icon, color }) => (
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
+              {projectTypes.map(({ key, icon: Icon, color }) => {
+                const isSelected = key === "residential" ? isResidentialSubtype(formData.type) : key === "commercial" ? isCommercialSubtype(formData.type) : key === "industrial" ? isIndustrialSubtype(formData.type) : formData.type === key;
+                return (
                 <button
                   key={key}
-                  onClick={() => { setFormData((p) => ({ ...p, type: key })); setErrors({}); }}
+                  onClick={() => {
+                    setErrors({});
+                    if (key === "residential") {
+                      if (!residentialOpen && !isResidentialSubtype(formData.type)) {
+                        setFormData((p) => ({ ...p, type: "" }));
+                      }
+                      setCommercialOpen(false);
+                      setIndustrialOpen(false);
+                      setResidentialOpen((o) => !o);
+                    } else if (key === "commercial") {
+                      if (!commercialOpen && !isCommercialSubtype(formData.type)) {
+                        setFormData((p) => ({ ...p, type: "" }));
+                      }
+                      setResidentialOpen(false);
+                      setIndustrialOpen(false);
+                      setCommercialOpen((o) => !o);
+                    } else if (key === "industrial") {
+                      if (!industrialOpen && !isIndustrialSubtype(formData.type)) {
+                        setFormData((p) => ({ ...p, type: "" }));
+                      }
+                      setResidentialOpen(false);
+                      setCommercialOpen(false);
+                      setIndustrialOpen((o) => !o);
+                    } else {
+                      setResidentialOpen(false);
+                      setCommercialOpen(false);
+                      setIndustrialOpen(false);
+                      setFormData((p) => ({ ...p, type: key }));
+                    }
+                  }}
                   className={`group relative p-6 sm:p-8 rounded-2xl border-2 transition-all duration-300 cursor-pointer text-center flex flex-col items-center gap-3 ${
-                    formData.type === key
+                    isSelected
                       ? "border-[#D5B25D] bg-[#D5B25D]/10 shadow-[0_0_30px_rgba(213,178,93,0.2)]"
                       : isLightMode
                         ? "border-slate-200 bg-white hover:border-[#D5B25D]/50 hover:bg-slate-50 shadow-sm"
                         : "border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10"
                   }`}
                 >
-                  {formData.type === key && (
+                  {isSelected && (
                     <div className="absolute top-3 right-3">
                       <CheckCircle2 size={16} className="text-[#D5B25D]" />
                     </div>
@@ -390,8 +658,121 @@ export default function CostCalculatorPage() {
                     <p className={`text-xs mt-1 ${textMut}`}>{t(`calculator.${key}_desc`)}</p>
                   </div>
                 </button>
-              ))}
+                );
+              })}
             </div>
+
+            {residentialOpen && (
+              <div className="mb-10 animate-in fade-in slide-in-from-top-2 duration-300">
+                <p className={`text-sm font-bold text-center mb-4 ${textSec}`}>{t("calculator.chooseResidentialType")}</p>
+                <div className="grid grid-cols-2 gap-4 sm:gap-6 max-w-xl mx-auto">
+                  {residentialSubtypes.map(({ key, icon: Icon, color }) => (
+                    <button
+                      key={key}
+                      onClick={() => { setFormData((p) => ({ ...p, type: key })); setErrors({}); }}
+                      className={`group relative p-5 sm:p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer text-center flex flex-col items-center gap-3 ${
+                        formData.type === key
+                          ? "border-[#D5B25D] bg-[#D5B25D]/10 shadow-[0_0_30px_rgba(213,178,93,0.2)]"
+                          : isLightMode
+                            ? "border-slate-200 bg-white hover:border-[#D5B25D]/50 hover:bg-slate-50 shadow-sm"
+                            : "border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10"
+                      }`}
+                    >
+                      {formData.type === key && (
+                        <div className="absolute top-3 right-3">
+                          <CheckCircle2 size={16} className="text-[#D5B25D]" />
+                        </div>
+                      )}
+                      <div
+                        className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                        style={{ background: `${color}20`, border: `1px solid ${color}40` }}
+                      >
+                        <Icon size={24} style={{ color }} />
+                      </div>
+                      <div>
+                        <p className={`font-bold text-sm sm:text-base ${textPri}`}>{t(`calculator.${key}`)}</p>
+                        <p className={`text-xs mt-1 ${textMut}`}>{t(`calculator.${key}_desc`)}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {commercialOpen && (
+              <div className="mb-10 animate-in fade-in slide-in-from-top-2 duration-300">
+                <p className={`text-sm font-bold text-center mb-4 ${textSec}`}>{t("calculator.chooseCommercialType")}</p>
+                <div className="grid grid-cols-2 gap-4 sm:gap-6 max-w-xl mx-auto">
+                  {commercialSubtypes.map(({ key, icon: Icon, color }) => (
+                    <button
+                      key={key}
+                      onClick={() => { setFormData((p) => ({ ...p, type: key })); setErrors({}); }}
+                      className={`group relative p-5 sm:p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer text-center flex flex-col items-center gap-3 ${
+                        formData.type === key
+                          ? "border-[#D5B25D] bg-[#D5B25D]/10 shadow-[0_0_30px_rgba(213,178,93,0.2)]"
+                          : isLightMode
+                            ? "border-slate-200 bg-white hover:border-[#D5B25D]/50 hover:bg-slate-50 shadow-sm"
+                            : "border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10"
+                      }`}
+                    >
+                      {formData.type === key && (
+                        <div className="absolute top-3 right-3">
+                          <CheckCircle2 size={16} className="text-[#D5B25D]" />
+                        </div>
+                      )}
+                      <div
+                        className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                        style={{ background: `${color}20`, border: `1px solid ${color}40` }}
+                      >
+                        <Icon size={24} style={{ color }} />
+                      </div>
+                      <div>
+                        <p className={`font-bold text-sm sm:text-base ${textPri}`}>{t(`calculator.${key}`)}</p>
+                        <p className={`text-xs mt-1 ${textMut}`}>{t(`calculator.${key}_desc`)}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {industrialOpen && (
+              <div className="mb-10 animate-in fade-in slide-in-from-top-2 duration-300">
+                <p className={`text-sm font-bold text-center mb-4 ${textSec}`}>{t("calculator.chooseIndustrialType")}</p>
+                <div className="grid grid-cols-2 gap-4 sm:gap-6 max-w-xl mx-auto">
+                  {industrialSubtypes.map(({ key, icon: Icon, color }) => (
+                    <button
+                      key={key}
+                      onClick={() => { setFormData((p) => ({ ...p, type: key })); setErrors({}); }}
+                      className={`group relative p-5 sm:p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer text-center flex flex-col items-center gap-3 ${
+                        formData.type === key
+                          ? "border-[#D5B25D] bg-[#D5B25D]/10 shadow-[0_0_30px_rgba(213,178,93,0.2)]"
+                          : isLightMode
+                            ? "border-slate-200 bg-white hover:border-[#D5B25D]/50 hover:bg-slate-50 shadow-sm"
+                            : "border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10"
+                      }`}
+                    >
+                      {formData.type === key && (
+                        <div className="absolute top-3 right-3">
+                          <CheckCircle2 size={16} className="text-[#D5B25D]" />
+                        </div>
+                      )}
+                      <div
+                        className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                        style={{ background: `${color}20`, border: `1px solid ${color}40` }}
+                      >
+                        <Icon size={24} style={{ color }} />
+                      </div>
+                      <div>
+                        <p className={`font-bold text-sm sm:text-base ${textPri}`}>{t(`calculator.${key}`)}</p>
+                        <p className={`text-xs mt-1 ${textMut}`}>{t(`calculator.${key}_desc`)}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className="flex justify-center">
               <button
                 onClick={handleNext}
@@ -408,6 +789,462 @@ export default function CostCalculatorPage() {
         {/* ── STEP 2: Specifications ── */}
         {step === 2 && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            {isIndustrialFlow ? (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                {/* Left Column */}
+                <div className="space-y-6">
+                  {/* Construction Quality */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.quality")}
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {industrialQualityOptions.map(({ key, color, label }) => (
+                        <button key={key} onClick={() => { setFormData((p) => ({ ...p, quality: key })); setErrors({}); }}
+                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#D5B25D] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                          style={formData.quality === key ? { borderColor: color, color } : {}}
+                        >{label}</button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Ground Floor Area */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.groundFloorArea")}
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={formData.groundFloorArea}
+                      onChange={(e) => { setFormData((p) => ({ ...p, groundFloorArea: e.target.value })); setErrors({}); }}
+                      placeholder="0"
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.groundFloorArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                    />
+                    {errors.groundFloorArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+                  </div>
+                </div>
+
+                {/* Right Column */}
+                <div className="space-y-6">
+                  {/* Mezzanine Area */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.mezzanineArea")}
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={formData.mezzanineArea}
+                      onChange={(e) => { setFormData((p) => ({ ...p, mezzanineArea: e.target.value })); setErrors({}); }}
+                      placeholder="0"
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.mezzanineArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                    />
+                    {errors.mezzanineArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+                  </div>
+
+                  {/* First Floor Area */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.firstFloorArea")}
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={formData.firstFloorArea}
+                      onChange={(e) => { setFormData((p) => ({ ...p, firstFloorArea: e.target.value })); setErrors({}); }}
+                      placeholder="0"
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.firstFloorArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                    />
+                    {errors.firstFloorArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+                  </div>
+                </div>
+              </div>
+            ) : isHotelFlow ? (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                {/* Left Column */}
+                <div className="space-y-6">
+                  {/* Hotel Rating */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.hotelRating")}
+                    </label>
+                    <div className="grid grid-cols-1 gap-2">
+                      {hotelRatingOptions.map(({ key, label }) => (
+                        <button key={key} onClick={() => { setFormData((p) => ({ ...p, hotelRating: key })); setErrors({}); }}
+                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.hotelRating === key ? "border-[#D5B25D] text-[#D5B25D] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                        >{label}</button>
+                      ))}
+                    </div>
+                    {errors.rating && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+                  </div>
+
+                  {/* Number of Basements */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.basementsCount")}
+                    </label>
+                    <div className="flex items-center gap-4">
+                      <button
+                        onClick={() => setBasementsCount(Number(formData.basementsCount) - 1)}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                      >−</button>
+                      <span className="text-3xl font-black text-[#D5B25D] min-w-[60px] text-center">
+                        {Number(formData.basementsCount) === 0 ? t("calculator.engineering.noBasementOption") : fmt(Number(formData.basementsCount))}
+                      </span>
+                      <button
+                        onClick={() => setBasementsCount(Number(formData.basementsCount) + 1)}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                      >+</button>
+                    </div>
+                    {errors.basementsCount && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+
+                    {formData.basementAreas.length > 0 && (
+                      <div className="grid grid-cols-2 gap-3 mt-5">
+                        {formData.basementAreas.map((value, i) => (
+                          <div key={i}>
+                            <label className={`block text-xs font-semibold mb-1.5 ${textSec}`}>{basementAreaLabel(i)}</label>
+                            <input
+                              type="number"
+                              min="0"
+                              value={value}
+                              onChange={(e) => updateBasementArea(i, e.target.value)}
+                              placeholder="0"
+                              className={`w-full border rounded-lg px-3 py-2 text-sm font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors[`basementArea_${i}`] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Ground Floor Area */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.groundFloorArea")}
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={formData.groundFloorArea}
+                      onChange={(e) => { setFormData((p) => ({ ...p, groundFloorArea: e.target.value })); setErrors({}); }}
+                      placeholder="0"
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.groundFloorArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                    />
+                    {errors.groundFloorArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+                  </div>
+                </div>
+
+                {/* Right Column */}
+                <div className="space-y-6">
+                  {/* Mezzanine Area */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.mezzanineArea")}
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={formData.mezzanineArea}
+                      onChange={(e) => { setFormData((p) => ({ ...p, mezzanineArea: e.target.value })); setErrors({}); }}
+                      placeholder="0"
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.mezzanineArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                    />
+                    {errors.mezzanineArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+                  </div>
+
+                  {/* Number of Floors */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.floorsCount")}
+                    </label>
+                    <div className="flex items-center gap-4">
+                      <button
+                        onClick={() => setCommercialFloorsCount(Number(formData.floorsCount) - 1)}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                      >−</button>
+                      <span className="text-3xl font-black text-[#D5B25D] min-w-[60px] text-center">{fmt(Number(formData.floorsCount))}</span>
+                      <button
+                        onClick={() => setCommercialFloorsCount(Number(formData.floorsCount) + 1)}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                      >+</button>
+                    </div>
+                    {errors.floorsCount && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+
+                    {formData.floorAreas.length > 0 && (
+                      <div className="grid grid-cols-2 gap-3 mt-5">
+                        {formData.floorAreas.map((value, i) => (
+                          <div key={i}>
+                            <label className={`block text-xs font-semibold mb-1.5 ${textSec}`}>{floorAreaLabel(i)}</label>
+                            <input
+                              type="number"
+                              min="0"
+                              value={value}
+                              onChange={(e) => updateFloorArea(i, e.target.value)}
+                              placeholder="0"
+                              className={`w-full border rounded-lg px-3 py-2 text-sm font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors[`floorArea_${i}`] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Penthouse Area */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.penthouseArea")}
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={formData.penthouseArea}
+                      onChange={(e) => { setFormData((p) => ({ ...p, penthouseArea: e.target.value })); setErrors({}); }}
+                      placeholder="0"
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.penthouseArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                    />
+                    {errors.penthouseArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+                  </div>
+                </div>
+              </div>
+            ) : isCommercialFlow ? (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                {/* Left Column */}
+                <div className="space-y-6">
+                  {/* Quality */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.quality")}
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {qualityOptions.map(({ key, color, label }) => (
+                        <button key={key} onClick={() => setFormData((p) => ({ ...p, quality: key }))}
+                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#D5B25D] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                          style={formData.quality === key ? { borderColor: color, color } : {}}
+                        >{label}</button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Number of Basements */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.basementsCount")}
+                    </label>
+                    <div className="flex items-center gap-4">
+                      <button
+                        onClick={() => setBasementsCount(Number(formData.basementsCount) - 1)}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                      >−</button>
+                      <span className="text-3xl font-black text-[#D5B25D] min-w-[60px] text-center">
+                        {Number(formData.basementsCount) === 0 ? t("calculator.engineering.noBasementOption") : fmt(Number(formData.basementsCount))}
+                      </span>
+                      <button
+                        onClick={() => setBasementsCount(Number(formData.basementsCount) + 1)}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                      >+</button>
+                    </div>
+                    {errors.basementsCount && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+
+                    {formData.basementAreas.length > 0 && (
+                      <div className="grid grid-cols-2 gap-3 mt-5">
+                        {formData.basementAreas.map((value, i) => (
+                          <div key={i}>
+                            <label className={`block text-xs font-semibold mb-1.5 ${textSec}`}>{basementAreaLabel(i)}</label>
+                            <input
+                              type="number"
+                              min="0"
+                              value={value}
+                              onChange={(e) => updateBasementArea(i, e.target.value)}
+                              placeholder="0"
+                              className={`w-full border rounded-lg px-3 py-2 text-sm font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors[`basementArea_${i}`] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Ground Floor Area */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.groundFloorArea")}
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={formData.groundFloorArea}
+                      onChange={(e) => { setFormData((p) => ({ ...p, groundFloorArea: e.target.value })); setErrors({}); }}
+                      placeholder="0"
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.groundFloorArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                    />
+                    {errors.groundFloorArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+                  </div>
+                </div>
+
+                {/* Right Column */}
+                <div className="space-y-6">
+                  {/* Mezzanine Area */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.mezzanineArea")}
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={formData.mezzanineArea}
+                      onChange={(e) => { setFormData((p) => ({ ...p, mezzanineArea: e.target.value })); setErrors({}); }}
+                      placeholder="0"
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.mezzanineArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                    />
+                    {errors.mezzanineArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+                  </div>
+
+                  {/* Number of Floors */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.floorsCount")}
+                    </label>
+                    <div className="flex items-center gap-4">
+                      <button
+                        onClick={() => setCommercialFloorsCount(Number(formData.floorsCount) - 1)}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                      >−</button>
+                      <span className="text-3xl font-black text-[#D5B25D] min-w-[60px] text-center">{fmt(Number(formData.floorsCount))}</span>
+                      <button
+                        onClick={() => setCommercialFloorsCount(Number(formData.floorsCount) + 1)}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                      >+</button>
+                    </div>
+                    {errors.floorsCount && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+
+                    {formData.floorAreas.length > 0 && (
+                      <div className="grid grid-cols-2 gap-3 mt-5">
+                        {formData.floorAreas.map((value, i) => (
+                          <div key={i}>
+                            <label className={`block text-xs font-semibold mb-1.5 ${textSec}`}>{floorAreaLabel(i)}</label>
+                            <input
+                              type="number"
+                              min="0"
+                              value={value}
+                              onChange={(e) => updateFloorArea(i, e.target.value)}
+                              placeholder="0"
+                              className={`w-full border rounded-lg px-3 py-2 text-sm font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors[`floorArea_${i}`] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Penthouse Area */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.penthouseArea")}
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={formData.penthouseArea}
+                      onChange={(e) => { setFormData((p) => ({ ...p, penthouseArea: e.target.value })); setErrors({}); }}
+                      placeholder="0"
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.penthouseArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                    />
+                    {errors.penthouseArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+                  </div>
+                </div>
+              </div>
+            ) : isEngineeringFlow ? (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                {/* Left Column */}
+                <div className="space-y-6">
+                  {/* Basement / Ground Floor / Typical Floor Area */}
+                  {engineeringAreaFields.slice(0, 3).map(({ key, label }) => (
+                    <div key={key} className={`${cardCls} rounded-2xl p-6`}>
+                      <label className="block text-[#D5B25D] font-bold text-sm mb-3">{label}</label>
+                      <input
+                        type="number"
+                        min="0"
+                        value={formData[key]}
+                        onChange={(e) => { setFormData((p) => ({ ...p, [key]: e.target.value })); setErrors({}); }}
+                        placeholder="0"
+                        className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors[key] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                      />
+                      {errors[key] && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+                    </div>
+                  ))}
+
+                  {/* Number of Typical Floors */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.floorsCount")}
+                    </label>
+                    <div className="flex items-center gap-4">
+                      <button
+                        onClick={() => setFormData((p) => ({ ...p, floorsCount: String(Math.max(1, Number(p.floorsCount) - 1)) }))}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                      >−</button>
+                      <span className="text-3xl font-black text-[#D5B25D] min-w-[60px] text-center">{fmt(Number(formData.floorsCount))}</span>
+                      <button
+                        onClick={() => setFormData((p) => ({ ...p, floorsCount: String(Math.min(60, Number(p.floorsCount) + 1)) }))}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                      >+</button>
+                    </div>
+                    {errors.floorsCount && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+                  </div>
+                </div>
+
+                {/* Right Column */}
+                <div className="space-y-6">
+                  {/* Penthouse / Water Tank / Septic Tank */}
+                  {engineeringAreaFields.slice(3).map(({ key, label }) => (
+                    <div key={key} className={`${cardCls} rounded-2xl p-6`}>
+                      <label className="block text-[#D5B25D] font-bold text-sm mb-3">{label}</label>
+                      <input
+                        type="number"
+                        min="0"
+                        value={formData[key]}
+                        onChange={(e) => { setFormData((p) => ({ ...p, [key]: e.target.value })); setErrors({}); }}
+                        placeholder="0"
+                        className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors[key] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                      />
+                      {errors[key] && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+                    </div>
+                  ))}
+
+                  {/* Fence Length (linear meters) */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.engineering.fenceLength")}
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={formData.fenceLength}
+                      onChange={(e) => { setFormData((p) => ({ ...p, fenceLength: e.target.value })); setErrors({}); }}
+                      placeholder="0"
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.fenceLength ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                    />
+                    {errors.fenceLength && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
+                  </div>
+
+                  {/* Quality */}
+                  <div className={`${cardCls} rounded-2xl p-6`}>
+                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                      {t("calculator.quality")}
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {qualityOptions.map(({ key, color, label }) => (
+                        <button key={key} onClick={() => setFormData((p) => ({ ...p, quality: key }))}
+                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#D5B25D] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                          style={formData.quality === key ? { borderColor: color, color } : {}}
+                        >{label}</button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
               {/* Left Column */}
               <div className="space-y-6">
@@ -507,6 +1344,7 @@ export default function CostCalculatorPage() {
                 </div>
               </div>
             </div>
+            )}
 
             {/* Navigation */}
             <div className="flex items-center justify-between">
@@ -550,6 +1388,254 @@ export default function CostCalculatorPage() {
         {step === 3 && result && !calculating && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6">
 
+            {result.kind === "industrial" ? (
+            <>
+            {/* Estimated Construction Cost — highlighted */}
+            <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
+              </div>
+              <p className="text-3xl font-black text-[#D5B25D] mt-2">{fmt(result.estimatedCost)}</p>
+              <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
+            </div>
+
+            {/* Estimated Built-up Area */}
+            <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
+              <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
+                <TrendingUp size={22} className="text-[#D5B25D]" />
+              </div>
+              <div>
+                <p className={`text-xs ${textMut}`}>{t("calculator.engineering.builtupArea")}</p>
+                <p className={`font-black text-lg ${textPri}`}>{fmt(result.weightedArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></p>
+              </div>
+            </div>
+
+            {/* Project Summary */}
+            <div className={`${cardCls} rounded-2xl p-6`}>
+              <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
+                <Zap size={18} className="text-[#D5B25D]" />
+                {t("calculator.engineering.summary")}
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.industrialCategory")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{t(`calculator.${result.category}`)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.quality")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{industrialQualityOptions.find((q) => q.key === result.quality)?.label}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.groundFloorArea")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.groundFloorArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.mezzanineArea")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.mezzanineArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.firstFloorArea")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.firstFloorArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
+                </div>
+              </div>
+            </div>
+            </>
+            ) : result.kind === "hotel" ? (
+            <>
+            {/* Estimated Construction Cost — highlighted */}
+            <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
+              </div>
+              <p className="text-3xl font-black text-[#D5B25D] mt-2">{fmt(result.estimatedCost)}</p>
+              <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
+            </div>
+
+            {/* Estimated Built-up Area */}
+            <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
+              <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
+                <TrendingUp size={22} className="text-[#D5B25D]" />
+              </div>
+              <div>
+                <p className={`text-xs ${textMut}`}>{t("calculator.engineering.builtupArea")}</p>
+                <p className={`font-black text-lg ${textPri}`}>{fmt(result.weightedArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></p>
+              </div>
+            </div>
+
+            {/* Project Summary */}
+            <div className={`${cardCls} rounded-2xl p-6`}>
+              <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
+                <Zap size={18} className="text-[#D5B25D]" />
+                {t("calculator.engineering.summary")}
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.hotelRating")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{t(`calculator.hotel_${result.rating}`)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.basementsCount")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.basementsCount)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.floorsCount")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.floorsCount)}</span>
+                </div>
+                {result.areas.basementAreas.map((area, i) => (
+                  <div key={`b-${i}`} className="flex items-center justify-between">
+                    <span className={`text-sm ${textSec}`}>{basementAreaLabel(i)}</span>
+                    <span className={`font-bold text-sm ${textPri}`}>{fmt(area)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
+                  </div>
+                ))}
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.groundFloorArea")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.groundFloorArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.mezzanineArea")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.mezzanineArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
+                </div>
+                {result.areas.floorAreas.map((area, i) => (
+                  <div key={`f-${i}`} className="flex items-center justify-between">
+                    <span className={`text-sm ${textSec}`}>{floorAreaLabel(i)}</span>
+                    <span className={`font-bold text-sm ${textPri}`}>{fmt(area)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
+                  </div>
+                ))}
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.penthouseArea")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.penthouseArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
+                </div>
+              </div>
+            </div>
+            </>
+            ) : result.kind === "commercial" ? (
+            <>
+            {/* Estimated Construction Cost — highlighted */}
+            <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
+              </div>
+              <p className="text-3xl font-black text-[#D5B25D] mt-2">{fmt(result.estimatedCost)}</p>
+              <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
+            </div>
+
+            {/* Estimated Built-up Area */}
+            <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
+              <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
+                <TrendingUp size={22} className="text-[#D5B25D]" />
+              </div>
+              <div>
+                <p className={`text-xs ${textMut}`}>{t("calculator.engineering.builtupArea")}</p>
+                <p className={`font-black text-lg ${textPri}`}>{fmt(result.weightedArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></p>
+              </div>
+            </div>
+
+            {/* Project Summary */}
+            <div className={`${cardCls} rounded-2xl p-6`}>
+              <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
+                <Zap size={18} className="text-[#D5B25D]" />
+                {t("calculator.engineering.summary")}
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.commercialCategory")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{t(`calculator.${result.category}`)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.quality")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{qualityOptions.find((q) => q.key === result.quality)?.label}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.basementsCount")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.basementsCount)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.floorsCount")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.floorsCount)}</span>
+                </div>
+                {result.areas.basementAreas.map((area, i) => (
+                  <div key={`b-${i}`} className="flex items-center justify-between">
+                    <span className={`text-sm ${textSec}`}>{basementAreaLabel(i)}</span>
+                    <span className={`font-bold text-sm ${textPri}`}>{fmt(area)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
+                  </div>
+                ))}
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.groundFloorArea")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.groundFloorArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.mezzanineArea")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.mezzanineArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
+                </div>
+                {result.areas.floorAreas.map((area, i) => (
+                  <div key={`f-${i}`} className="flex items-center justify-between">
+                    <span className={`text-sm ${textSec}`}>{floorAreaLabel(i)}</span>
+                    <span className={`font-bold text-sm ${textPri}`}>{fmt(area)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
+                  </div>
+                ))}
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.penthouseArea")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.penthouseArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
+                </div>
+              </div>
+            </div>
+            </>
+            ) : result.kind === "engineering" ? (
+            <>
+            {/* Estimated Construction Cost — highlighted */}
+            <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
+              </div>
+              <p className="text-3xl font-black text-[#D5B25D] mt-2">{fmt(result.estimatedCost)}</p>
+              <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
+            </div>
+
+            {/* Estimated Built-up Area */}
+            <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
+              <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
+                <TrendingUp size={22} className="text-[#D5B25D]" />
+              </div>
+              <div>
+                <p className={`text-xs ${textMut}`}>{t("calculator.engineering.builtupArea")}</p>
+                <p className={`font-black text-lg ${textPri}`}>{fmt(result.weightedArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></p>
+              </div>
+            </div>
+
+            {/* Project Summary */}
+            <div className={`${cardCls} rounded-2xl p-6`}>
+              <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
+                <Zap size={18} className="text-[#D5B25D]" />
+                {t("calculator.engineering.summary")}
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.buildingType")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{t(`calculator.${result.buildingType}`)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.quality")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{qualityOptions.find((q) => q.key === result.quality)?.label}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.floorsCount")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.floorsCount)}</span>
+                </div>
+                {engineeringAreaFields.map(({ key, label }) => (
+                  <div key={key} className="flex items-center justify-between">
+                    <span className={`text-sm ${textSec}`}>{label}</span>
+                    <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas[key])} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
+                  </div>
+                ))}
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.fenceLength")}</span>
+                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.fenceLength)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م.ط" : "lm"}</span></span>
+                </div>
+              </div>
+            </div>
+            </>
+            ) : (
+            <>
             {/* Main Cost Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {/* Min */}
@@ -649,6 +1735,8 @@ export default function CostCalculatorPage() {
                 ))}
               </div>
             </div>
+            </>
+            )}
 
             {/* Note */}
             <div className="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-5">

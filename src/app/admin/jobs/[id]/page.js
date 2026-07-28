@@ -36,16 +36,16 @@ function scoreApp(app) {
 
 /* ─── Status config ─── */
 const STATUS_CONFIG = {
-  pending:             { color: '#3b82f6', labelAr: 'قيد المراجعة' },
-  accepted:            { color: '#22c55e', labelAr: 'مقبول' },
-  interview_scheduled: { color: '#f59e0b', labelAr: 'تم تحديد موعد مقابلة' },
-  rejected:            { color: '#ef4444', labelAr: 'مرفوض' },
+  pending:             { color: '#3b82f6', labelKey: 'admin.statusPending' },
+  accepted:            { color: '#22c55e', labelKey: 'admin.statusAccepted' },
+  interview_scheduled: { color: '#f59e0b', labelKey: 'admin.statusInterviewScheduled' },
+  rejected:            { color: '#ef4444', labelKey: 'admin.statusRejected' },
 };
 
 export default function JobDetailPage() {
   const { id }       = useParams();
   const router       = useRouter();
-  const { t, isRTL } = useLanguage();
+  const { t, isRTL, lang } = useLanguage();
 
   const [app, setApp]         = useState(null);
   const [actioning, setActioning] = useState('');
@@ -78,7 +78,7 @@ export default function JobDetailPage() {
   };
 
   const rejectApp = async () => {
-    if (!confirm('هل أنت متأكد من رفض هذا المتقدم؟')) return;
+    if (!confirm(t('admin.rejectJobConfirm'))) return;
     setActioning('reject');
     await updateDoc(doc(db, 'jobApplications', id), { status: 'rejected', reviewedAt: new Date() });
     setActioning('');
@@ -100,6 +100,7 @@ export default function JobDetailPage() {
           interviewType,
           interviewLocation,
           additionalMessage,
+          lang,
         }),
       });
       const data = await res.json();
@@ -166,7 +167,7 @@ export default function JobDetailPage() {
                   border: `1px solid ${STATUS_CONFIG[app.status]?.color ?? '#3b82f6'}30`,
                 }}
               >
-                {STATUS_CONFIG[app.status]?.labelAr ?? 'قيد المراجعة'}
+                {t(STATUS_CONFIG[app.status]?.labelKey ?? 'admin.statusPending')}
               </span>
               <span className="text-xs text-white/30" dir="ltr">{submittedDate}</span>
             </div>
@@ -179,7 +180,7 @@ export default function JobDetailPage() {
                 className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold border transition-colors disabled:opacity-50 text-green-400 border-green-500/20 hover:bg-green-500/10"
               >
                 {actioning === 'accept' ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle size={14} />}
-                قبول
+                {t('admin.jobAcceptBtn')}
               </button>
             )}
             {app.status !== 'rejected' && (
@@ -199,16 +200,16 @@ export default function JobDetailPage() {
           {/* Left column — 2/3 */}
           <div className="lg:col-span-2 space-y-6">
             {/* Applicant info */}
-            <Card title="معلومات المتقدم">
+            <Card title={t('admin.jobApplicantInfo')}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <InfoRow icon={User}      label={t('admin.applicantName')}   value={app.fullName} />
                 <InfoRow icon={Mail}      label={t('admin.emailLabel')}      value={app.email}    ltr />
                 <InfoRow icon={Phone}     label={t('admin.phoneCol')}        value={app.phone}    ltr />
                 <InfoRow icon={MapPin}    label={t('admin.cityColLabel')}    value={app.city || '—'} />
-                {app.nationality && <InfoRow icon={User}  label="الجنسية"   value={app.nationality} />}
-                {app.country     && <InfoRow icon={MapPin} label="بلد الإقامة" value={app.country} />}
-                {app.jobType     && <InfoRow icon={Briefcase} label="نوع الوظيفة" value={app.jobType === 'formal' ? 'وظائف إدارية وهندسية' : 'وظائف المعلمين والفنيين'} />}
-                {app.department  && <InfoRow icon={Building2} label="القسم"      value={app.department} />}
+                {app.nationality && <InfoRow icon={User}  label={t('admin.jobNationality')}   value={app.nationality} />}
+                {app.country     && <InfoRow icon={MapPin} label={t('admin.jobCountry')} value={app.country} />}
+                {app.jobType     && <InfoRow icon={Briefcase} label={t('admin.jobTypeLabel')} value={app.jobType === 'formal' ? t('admin.jobTypeFormal') : t('admin.jobTypeTrades')} />}
+                {app.department  && <InfoRow icon={Building2} label={t('admin.jobDeptLabel')}      value={app.department} />}
                 <InfoRow icon={Clock}     label={t('admin.experienceYears')} value={app.experience || '—'} />
                 <InfoRow icon={Briefcase} label={t('admin.positionApplied')} value={app.position} />
                 <InfoRow icon={Calendar}  label={t('admin.submittedCol')}    value={submittedDate} ltr />
@@ -217,14 +218,14 @@ export default function JobDetailPage() {
 
             {/* Cover letter */}
             {app.coverLetter && (
-              <Card title="خطاب التقديم">
+              <Card title={t('admin.jobCoverLetter')}>
                 <p className="text-sm text-white/70 leading-relaxed whitespace-pre-wrap">{app.coverLetter}</p>
               </Card>
             )}
 
             {/* CV download */}
             {app.cvUrl && (
-              <Card title="السيرة الذاتية">
+              <Card title={t('admin.jobCvFile')}>
                 <a
                   href={app.cvUrl}
                   target="_blank"
@@ -251,7 +252,7 @@ export default function JobDetailPage() {
                   >
                     <div className="w-2 h-2 rounded-full shrink-0" style={{ background: cfg.color }} />
                     <span className="text-sm flex-1" style={{ color: app.status === key ? cfg.color : undefined }}>
-                      {cfg.labelAr}
+                      {t(cfg.labelKey)}
                     </span>
                     {app.status === key && (
                       <span className="text-xs text-white/30 shrink-0">{t('admin.currentStatus')}</span>
@@ -268,7 +269,7 @@ export default function JobDetailPage() {
                     className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#c8a96e]/10 hover:bg-[#c8a96e]/20 border border-[#c8a96e]/20 text-[#c8a96e] text-sm font-semibold transition-colors"
                   >
                     <CalendarCheck size={14} />
-                    تحديد موعد مقابلة
+                    {t('admin.jobScheduleBtn')}
                   </button>
 
                   {showInterviewForm && (
@@ -309,24 +310,24 @@ export default function JobDetailPage() {
                       </div>
 
                       <div className="space-y-1.5">
-                        <label className="text-xs text-[#c8a96e] block">{t('admin.interviewLocation')}</label>
-                        <input
-                          type="text" value={interviewLocation}
-                          onChange={e => setInterviewLocation(e.target.value)}
-                          placeholder={interviewType === 'in_person' ? 'مقر الشركة — جدة' : interviewType === 'video' ? 'رابط Google Meet / Zoom' : 'رقم للتواصل'}
-                          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-colors"
-                        />
-                      </div>
+                          <label className="text-xs text-[#c8a96e] block">{t('admin.interviewLocation')}</label>
+                          <input
+                            type="text" value={interviewLocation}
+                            onChange={e => setInterviewLocation(e.target.value)}
+                            placeholder={interviewType === 'in_person' ? t('admin.jobLocationPlaceholder_inPerson') : interviewType === 'video' ? t('admin.jobLocationPlaceholder_video') : t('admin.jobLocationPlaceholder_phone')}
+                            className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-colors"
+                          />
+                        </div>
 
                       <div className="space-y-1.5">
-                        <label className="text-xs text-[#c8a96e] block">{t('admin.additionalMessage')}</label>
-                        <textarea
-                          rows={3} value={additionalMessage}
-                          onChange={e => setAdditionalMessage(e.target.value)}
-                          placeholder="أي تعليمات إضافية للمتقدم..."
-                          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-colors resize-none"
-                        />
-                      </div>
+                          <label className="text-xs text-[#c8a96e] block">{t('admin.additionalMessage')}</label>
+                          <textarea
+                            rows={3} value={additionalMessage}
+                            onChange={e => setAdditionalMessage(e.target.value)}
+                            placeholder={t('admin.jobAdditionalPlaceholder')}
+                            className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-colors resize-none"
+                          />
+                        </div>
 
                       {sendStatus === 'error' && (
                         <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3">
@@ -350,7 +351,7 @@ export default function JobDetailPage() {
             </Card>
 
             {/* AI score */}
-            <Card title="تقييم الذكاء الاصطناعي">
+            <Card title={t('admin.aiScoreTitle')}>
               <div className="bg-purple-500/8 border border-purple-500/20 rounded-xl p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <Sparkles size={13} className="text-purple-400" />
@@ -404,37 +405,37 @@ export default function JobDetailPage() {
 
                 {/* Text */}
                 <div className="space-y-2">
-                  <p className="text-white font-black text-xl tracking-tight">تم الإرسال بنجاح</p>
-                  <p className="text-white/40 text-sm leading-relaxed">
-                    تم إرسال دعوة المقابلة بنجاح إلى<br />
-                    <span className="text-[#c8a96e] font-semibold">{app.fullName}</span>
-                  </p>
-                </div>
+                    <p className="text-white font-black text-xl tracking-tight">{t('admin.jobSuccessTitle')}</p>
+                    <p className="text-white/40 text-sm leading-relaxed">
+                      {t('admin.jobSuccessSub')}<br />
+                      <span className="text-[#c8a96e] font-semibold">{app.fullName}</span>
+                    </p>
+                  </div>
 
-                {/* Details strip */}
-                <div className="w-full bg-white/[0.03] border border-white/[0.07] rounded-2xl divide-y divide-white/[0.06]">
-                  <div className="flex items-center justify-between px-4 py-3">
-                    <span className="text-white/35 text-xs">التاريخ</span>
-                    <span className="text-white text-xs font-bold" dir="ltr">{interviewDate}</span>
+                  {/* Details strip */}
+                  <div className="w-full bg-white/[0.03] border border-white/[0.07] rounded-2xl divide-y divide-white/[0.06]">
+                    <div className="flex items-center justify-between px-4 py-3">
+                      <span className="text-white/35 text-xs">{t('admin.jobSuccessDateLabel')}</span>
+                      <span className="text-white text-xs font-bold" dir="ltr">{interviewDate}</span>
+                    </div>
+                    <div className="flex items-center justify-between px-4 py-3">
+                      <span className="text-white/35 text-xs">{t('admin.jobSuccessTimeLabel')}</span>
+                      <span className="text-white text-xs font-bold" dir="ltr">{interviewTime}</span>
+                    </div>
+                    <div className="flex items-center justify-between px-4 py-3">
+                      <span className="text-white/35 text-xs">{t('admin.jobSuccessTypeLabel')}</span>
+                      <span className="text-white text-xs font-bold">
+                        {{ in_person: t('admin.jobTypeInPerson'), video: t('admin.jobTypeVideo'), phone: t('admin.jobTypePhone') }[interviewType]}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between px-4 py-3">
-                    <span className="text-white/35 text-xs">الوقت</span>
-                    <span className="text-white text-xs font-bold" dir="ltr">{interviewTime}</span>
-                  </div>
-                  <div className="flex items-center justify-between px-4 py-3">
-                    <span className="text-white/35 text-xs">نوع المقابلة</span>
-                    <span className="text-white text-xs font-bold">
-                      {{ in_person: 'حضوري', video: 'فيديو', phone: 'هاتفي' }[interviewType]}
-                    </span>
-                  </div>
-                </div>
 
-                {/* Button */}
-                <button
-                  onClick={closeSuccessDialog}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black font-black text-sm tracking-wide hover:opacity-90 transition-opacity"
-                >
-                  تم
+                  {/* Button */}
+                  <button
+                    onClick={closeSuccessDialog}
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black font-black text-sm tracking-wide hover:opacity-90 transition-opacity"
+                  >
+                    {t('admin.jobDoneBtn')}
                 </button>
 
               </div>

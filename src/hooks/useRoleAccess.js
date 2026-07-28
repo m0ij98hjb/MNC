@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuth } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { 
   ROLES, 
   getDashboardForRole, 
@@ -17,6 +18,7 @@ import {
  */
 export function useRoleAccess() {
   const { user, isSuperAdmin } = useAuth();
+  const { lang } = useLanguage();
   const [profile, setProfile] = useState(undefined); // undefined = loading
   const [role, setRole] = useState(null);
 
@@ -58,12 +60,12 @@ export function useRoleAccess() {
     
     // Helper functions
     getDashboard: () => getDashboardForRole(effectiveRole),
-    getNavigation: () => getNavigationForRole(effectiveRole),
+    getNavigation: (overrideLang) => getNavigationForRole(effectiveRole, overrideLang || lang),
     canAccessRoute: (pathname) => {
       if (!isActive || !effectiveRole) return false;
       return canRoleAccessRoute(effectiveRole, pathname);
     },
-    getRoleLabel: () => getRoleLabel(effectiveRole),
+    getRoleLabel: (overrideLang) => getRoleLabel(effectiveRole, overrideLang || lang),
     isRole: (rolesToCheck) => {
       if (!effectiveRole) return false;
       if (Array.isArray(rolesToCheck)) {

@@ -16,13 +16,11 @@ const About = () => {
     : (aboutCms?.director_pos_en || t('about.directorTitle'));
 
   const ceoImage = aboutCms?.ceo_image || '/asstes/directorr.png';
-  const ceoName  = aboutCms?.ceo_name  || 'م. أوبي ناظر';
-  const ceoTitle = isRTL
-    ? (aboutCms?.ceo_pos_ar || 'المدير التنفيذي لشركة MNC')
-    : (aboutCms?.ceo_pos_en || 'CEO of MNC Company');
+  const ceoName  = aboutCms?.ceo_name  || t('about.ceoName');
+  const ceoTitle = (isRTL ? aboutCms?.ceo_pos_ar : aboutCms?.ceo_pos_en) || t('about.ceoTitle');
 
   return (
-    <section id="about" className="py-20 bg-(--card-bg) relative overflow-x-hidden">
+    <section id="about" className="py-16 md:py-20 bg-(--card-bg) relative overflow-x-hidden">
       {/* Background Decor */}
       <div className={`absolute top-0 ${isRTL ? 'right-0' : 'left-0'} w-1/3 h-full bg-slate-50/50 ${isRTL ? '-skew-x-12 translate-x-1/2' : 'skew-x-12 -translate-x-1/2'} -z-10 hidden sm:block`}></div>
 
@@ -37,7 +35,8 @@ const About = () => {
             <span className="text-secondary font-bold tracking-[0.2em] uppercase text-[11px]">
               {{ ar: "قيادة وخبرة", en: "Leadership & Expertise", zh: "领导力与专长",
                  es: "Liderazgo y experiencia", fr: "Leadership et expertise",
-                 de: "Führung & Expertise", tr: "Liderlik & Uzmanlık", ur: "قیادت اور مہارت" }[lang] || "Leadership & Expertise"}
+                 de: "Führung & Expertise", tr: "Liderlik & Uzmanlık", ur: "قیادت اور مہارت",
+                 hi: "नेतृत्व और विशेषज्ञता", ru: "Лидерство и опыт" }[lang] || "Leadership & Expertise"}
             </span>
             <span className="h-px w-10 bg-linear-to-r from-transparent to-secondary" />
           </div>
@@ -49,7 +48,8 @@ const About = () => {
                  zh: "建立信任的领导力", es: "El liderazgo que construye confianza",
                  fr: "Le leadership qui construit la confiance",
                  de: "Die Führung, die Vertrauen aufbaut",
-                 tr: "Güven İnşa Eden Liderlik", ur: "وہ قیادت جو اعتماد بناتی ہے" }[lang] || "The Leadership That Builds Trust"}
+                 tr: "Güven İnşa Eden Liderlik", ur: "وہ قیادت جو اعتماد بناتی ہے",
+                 hi: "विश्वास बनाने वाला नेतृत्व", ru: "Лидерство, создающее доверие" }[lang] || "The Leadership That Builds Trust"}
             </span>
           </h2>
 
@@ -65,7 +65,9 @@ const About = () => {
                es: "Creemos que la ingeniería es una vocación — detrás de cada proyecto exitoso hay un liderazgo consolidado desde 1986, con más de tres décadas de experiencia.",
                de: "Wir glauben, dass Ingenieurwesen eine Berufung ist — hinter jedem erfolgreichen Projekt steht eine seit 1986 verwurzelte Führung mit über drei Jahrzehnten Erfahrung.",
                tr: "Mühendisliğin bir meslek olmadan önce bir misyon olduğuna inanıyoruz — her başarılı projenin arkasında 1986'dan bu yana köklü, otuz yılı aşkın deneyime sahip bir liderlik vardır.",
-               ur: "ہمارا ماننا ہے کہ انجینئرنگ ایک پیشے سے پہلے ایک مشن ہے — ہر کامیاب منصوبے کے پیچھے 1986 سے قائم قیادت ہے جو تین دہائیوں سے زائد تجربے کے ساتھ وژن کو حقیقت میں بدلتی ہے۔"
+               ur: "ہمارا ماننا ہے کہ انجینئرنگ ایک پیشے سے پہلے ایک مشن ہے — ہر کامیاب منصوبے کے پیچھے 1986 سے قائم قیادت ہے جو تین دہائیوں سے زائد تجربے کے ساتھ وژن کو حقیقت میں بدلتی ہے۔",
+               hi: "हम मानते हैं कि इंजीनियरिंग एक पेशे से पहले एक मिशन है — हर सफल परियोजना के पीछे 1986 से स्थापित नेतृत्व है, जिसके पास तीन दशकों से अधिक का अनुभव है।",
+               ru: "Мы верим, что инженерия — это призвание. За каждым успешным проектом стоит руководство, заложенное с 1986 года, с более чем тридцатилетним опытом."
             }[lang] || "We believe engineering is a calling before a profession — behind every successful project stands leadership rooted since 1986, with over three decades of experience."}
           </p>
         </div>

@@ -2,6 +2,7 @@
 import { useRef, useState } from 'react';
 import { Save, CheckCircle, Loader2, Upload, X, Plus } from 'lucide-react';
 import { uploadToCloudinary } from '@/lib/siteContent';
+import { useLanguage } from '@/context/LanguageContext';
 
 /* ── Input field ── */
 export function Field({ label, value, onChange, type = 'text', placeholder = '', className = '' }) {
@@ -50,7 +51,9 @@ export function Section({ title, icon: Icon, children, className = '' }) {
 }
 
 /* ── Save button ── */
-export function SaveBtn({ saving, saved, onClick, label = 'حفظ التغييرات' }) {
+export function SaveBtn({ saving, saved, onClick, label }) {
+  const { t } = useLanguage();
+  const defaultLabel = label ?? t('admin.contentTabs.shared.saveChanges');
   return (
     <button
       onClick={onClick}
@@ -65,7 +68,7 @@ export function SaveBtn({ saving, saved, onClick, label = 'حفظ التغيير
       {saving ? <Loader2 size={14} className="animate-spin" />
       : saved  ? <CheckCircle size={14} />
       :          <Save size={14} />}
-      {saving ? 'جاري الحفظ...' : saved ? 'تم الحفظ ✓' : label}
+      {saving ? t('admin.contentTabs.shared.saving') : saved ? t('admin.contentTabs.shared.saved') : defaultLabel}
     </button>
   );
 }
@@ -74,6 +77,7 @@ export function SaveBtn({ saving, saved, onClick, label = 'حفظ التغيير
 export function ImageUpload({ label, value, onChange, className = '' }) {
   const ref = useRef(null);
   const [uploading, setUploading] = useState(false);
+  const { t } = useLanguage();
 
   const handle = async (e) => {
     const file = e.target.files?.[0];
@@ -83,7 +87,7 @@ export function ImageUpload({ label, value, onChange, className = '' }) {
       const url = await uploadToCloudinary(file);
       onChange(url);
     } catch (err) {
-      alert('فشل الرفع: ' + err.message);
+      alert(t('admin.contentTabs.shared.uploadFailed') + err.message);
     } finally {
       setUploading(false);
       if (ref.current) ref.current.value = '';
@@ -114,7 +118,7 @@ export function ImageUpload({ label, value, onChange, className = '' }) {
           style={{ background: 'rgba(201,163,77,0.08)', border: '1px solid rgba(201,163,77,0.25)', color: '#c8a96e' }}
         >
           {uploading ? <Loader2 size={12} className="animate-spin" /> : <Upload size={12} />}
-          {uploading ? 'جاري الرفع...' : value ? 'تغيير' : 'رفع صورة'}
+          {uploading ? t('admin.contentTabs.shared.uploading') : value ? t('admin.contentTabs.shared.change') : t('admin.contentTabs.shared.uploadImage')}
         </button>
         {value && <p className="text-[10px] text-white/20 truncate max-w-[120px]">{value.split('/').pop()}</p>}
         <input ref={ref} type="file" accept="image/*" className="hidden" onChange={handle} />
@@ -125,6 +129,7 @@ export function ImageUpload({ label, value, onChange, className = '' }) {
 
 /* ── List editor (array of strings) ── */
 export function ListEditor({ label, items = [], onChange }) {
+  const { t } = useLanguage();
   const add    = () => onChange([...items, '']);
   const update = (i, v) => { const a = [...items]; a[i] = v; onChange(a); };
   const remove = (i) => onChange(items.filter((_, idx) => idx !== i));
@@ -147,7 +152,7 @@ export function ListEditor({ label, items = [], onChange }) {
       </div>
       <button type="button" onClick={add}
         className="flex items-center gap-1.5 text-xs text-[#c8a96e]/60 hover:text-[#c8a96e] transition-colors mt-1">
-        <Plus size={12} /> إضافة عنصر
+        <Plus size={12} /> {t('admin.contentTabs.shared.addItem')}
       </button>
     </div>
   );

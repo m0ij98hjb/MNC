@@ -3,6 +3,7 @@ import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
 import dynamic from 'next/dynamic';
 
 const HomeTab       = dynamic(() => import('@/components/admin/content/HomeTab'),       { ssr: false });
@@ -16,20 +17,21 @@ const CalculatorTab = dynamic(() => import('@/components/admin/content/Calculato
 const SettingsTab   = dynamic(() => import('@/components/admin/content/SettingsTab'),  { ssr: false });
 
 const TABS = [
-  { id: 'home',       label: 'الصفحة الرئيسية', emoji: '🏠', component: HomeTab },
-  { id: 'projects',   label: 'المشاريع',         emoji: '🏗️', component: ProjectsTab },
-  { id: 'services',   label: 'الخدمات',          emoji: '🔧', component: ServicesTab },
-  { id: 'about',      label: 'من نحن',           emoji: '👤', component: AboutTab },
-  { id: 'contact',    label: 'تواصل معنا',        emoji: '📞', component: ContactTab },
-  { id: 'jobs',       label: 'الوظائف',           emoji: '💼', component: JobsTab },
-  { id: 'app',        label: 'صفحة التطبيق',      emoji: '📱', component: AppTab },
-  { id: 'calculator', label: 'احسب تكلفتك',       emoji: '🧮', component: CalculatorTab },
-  { id: 'settings',   label: 'إعدادات الشركة',    emoji: '⚙️', component: SettingsTab },
+  { id: 'home',       labelKey: 'admin.contentTabs.contentPage.tabHome',       emoji: '🏠', component: HomeTab },
+  { id: 'projects',   labelKey: 'admin.contentTabs.contentPage.tabProjects',   emoji: '🏗️', component: ProjectsTab },
+  { id: 'services',   labelKey: 'admin.contentTabs.contentPage.tabServices',   emoji: '🔧', component: ServicesTab },
+  { id: 'about',      labelKey: 'admin.contentTabs.contentPage.tabAbout',      emoji: '👤', component: AboutTab },
+  { id: 'contact',    labelKey: 'admin.contentTabs.contentPage.tabContact',    emoji: '📞', component: ContactTab },
+  { id: 'jobs',       labelKey: 'admin.contentTabs.contentPage.tabJobs',       emoji: '💼', component: JobsTab },
+  { id: 'app',        labelKey: 'admin.contentTabs.contentPage.tabApp',        emoji: '📱', component: AppTab },
+  { id: 'calculator', labelKey: 'admin.contentTabs.contentPage.tabCalculator', emoji: '🧮', component: CalculatorTab },
+  { id: 'settings',   labelKey: 'admin.contentTabs.contentPage.tabSettings',   emoji: '⚙️', component: SettingsTab },
 ];
 
 export default function ContentPage() {
+  const { t } = useLanguage();
   const [active, setActive] = useState('home');
-  const ActiveTab = TABS.find(t => t.id === active)?.component ?? HomeTab;
+  const ActiveTab = TABS.find(tab => tab.id === active)?.component ?? HomeTab;
   const { isSuperAdmin, user } = useAuth();
   const router = useRouter();
 
@@ -47,8 +49,8 @@ export default function ContentPage() {
 
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-xl font-black text-white">إدارة المحتوى</h1>
-          <p className="text-xs text-white/30 mt-0.5">تعديل محتوى صفحات الموقع — التغييرات تظهر فوراً بدون Redeploy</p>
+          <h1 className="text-xl font-black text-white">{t('admin.contentTabs.contentPage.pageTitle')}</h1>
+          <p className="text-xs text-white/30 mt-0.5">{t('admin.contentTabs.contentPage.pageSubtitle')}</p>
         </div>
 
         {/* Tab bar */}
@@ -65,7 +67,7 @@ export default function ContentPage() {
               style={active === tab.id ? { border: '1px solid rgba(201,163,77,0.30)' } : { border: '1px solid transparent' }}
             >
               <span>{tab.emoji}</span>
-              <span className="hidden sm:inline">{tab.label}</span>
+              <span className="hidden sm:inline">{t(tab.labelKey)}</span>
             </button>
           ))}
         </div>

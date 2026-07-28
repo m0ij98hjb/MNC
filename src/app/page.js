@@ -5,6 +5,7 @@ import Vision from "@/components/sections/Vision";
 import Services from "@/components/sections/Services";
 import Projects from "@/components/sections/Projects";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
+import ViewAllProjectsCTA from "@/components/sections/ViewAllProjectsCTA";
 
 export default function Home() {
   return (
@@ -13,9 +14,10 @@ export default function Home() {
       <Hero />
       <About />
       <Vision />
+      <Projects />
       <Services />
       <WhyChooseUs />
-      <Projects />
+      <ViewAllProjectsCTA />
     </main>
   );
 }

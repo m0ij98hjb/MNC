@@ -142,16 +142,16 @@ export default function DashboardPage() {
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-3">
             <MessageSquare size={14} className="text-green-400" />
-            <span className="text-xs font-bold text-white/40 uppercase tracking-widest">رسائل العملاء</span>
+            <span className="text-xs font-bold text-white/40 uppercase tracking-widest">{t('admin.messagesMenu')}</span>
             <Link href="/admin/messages" className="ms-auto text-xs text-[#c8a96e] hover:underline flex items-center gap-1">
               {t('admin.viewAll')} <ArrowIcon size={11} />
             </Link>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <StatCard label="إجمالي الرسائل" value={msgCounts.total}   icon={MessageSquare} color="#a78bfa" bg="rgba(167,139,250,0.12)" href="/admin/messages" />
-            <StatCard label="رسائل جديدة"    value={msgCounts.new}     icon={TrendingUp}    color="#3b82f6" bg="rgba(59,130,246,0.12)"  href="/admin/messages" />
-            <StatCard label="تم الرد"        value={msgCounts.replied} icon={CheckCircle}   color="#10b981" bg="rgba(16,185,129,0.12)"  href="/admin/messages" />
-            <StatCard label="مغلقة"          value={msgCounts.closed}  icon={XCircle}       color="#6b7280" bg="rgba(107,114,128,0.12)" href="/admin/messages" />
+            <StatCard label={t('admin.messages.totalMessages')} value={msgCounts.total}   icon={MessageSquare} color="#a78bfa" bg="rgba(167,139,250,0.12)" href="/admin/messages" />
+            <StatCard label={t('admin.messages.newMessages')}    value={msgCounts.new}     icon={TrendingUp}    color="#3b82f6" bg="rgba(59,130,246,0.12)"  href="/admin/messages" />
+            <StatCard label={t('admin.messages.statusReplied')}  value={msgCounts.replied} icon={CheckCircle}   color="#10b981" bg="rgba(16,185,129,0.12)"  href="/admin/messages" />
+            <StatCard label={t('admin.messages.statusClosed')}   value={msgCounts.closed}  icon={XCircle}       color="#6b7280" bg="rgba(107,114,128,0.12)" href="/admin/messages" />
           </div>
         </div>
 
@@ -248,7 +248,7 @@ export default function DashboardPage() {
                 <div className="w-7 h-7 rounded-lg bg-green-500/12 border border-green-500/20 flex items-center justify-center">
                   <MessageSquare size={13} className="text-green-400" />
                 </div>
-                <h2 className="text-sm font-semibold text-white">آخر الرسائل</h2>
+                <h2 className="text-sm font-semibold text-white">{t('admin.latestMessages')}</h2>
               </div>
               <Link href="/admin/messages" className="flex items-center gap-1 text-xs text-[#c8a96e] hover:underline">
                 {t('admin.viewAll')} <ArrowIcon size={11} />
@@ -256,17 +256,17 @@ export default function DashboardPage() {
             </div>
             <div className="divide-y divide-white/[0.05]">
               {recentMessages.length === 0 ? (
-                <p className="text-center text-white/25 text-sm py-8">لا توجد رسائل</p>
+                <p className="text-center text-white/25 text-sm py-8">{t('admin.messages.noMessagesFound')}</p>
               ) : recentMessages.map(m => {
                 const status = m.status || 'new';
                 const msgColor = status === 'replied' ? '#10b981'
                                : status === 'closed'  ? '#6b7280'
                                : status === 'under_review' ? '#f59e0b'
                                : '#3b82f6';
-                const msgLabel = status === 'replied'      ? 'تم الرد'
-                               : status === 'closed'       ? 'مغلقة'
-                               : status === 'under_review' ? 'قيد المراجعة'
-                               : 'جديدة';
+                const msgLabel = status === 'replied'      ? t('admin.messages.statusReplied')
+                               : status === 'closed'       ? t('admin.messages.statusClosed')
+                               : status === 'under_review' ? t('admin.messages.statusUnderReview')
+                               : t('admin.messages.statusNew');
                 return (
                   <Link
                     key={m.id}

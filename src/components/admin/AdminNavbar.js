@@ -15,18 +15,18 @@ import { useNotifications } from '@/context/NotificationsContext';
 import { useDirectorPhoto } from '@/hooks/useDirectorPhoto';
 import { useRoleAccess } from '@/hooks/useRoleAccess';
 
-/* Page titles always in Arabic regardless of app language */
-const PAGE_TITLES_AR = {
-  '/admin/dashboard':      'لوحة التحكم',
-  '/admin/suppliers':      'الموردون',
-  '/admin/suppliers/best': 'أفضل الموردين',
-  '/admin/approved':       'الموردون المقبولون',
-  '/admin/jobs':           'طلبات التوظيف',
-  '/admin/jobs/approved':  'المقبولون للمقابلة',
-  '/admin/jobs/best':      'أفضل المرشحين',
-  '/admin/messages':       'رسائل العملاء',
-  '/admin/reports':        'التقارير والإحصائيات',
-  '/admin/cameras':        'إدارة الكاميرات',
+/* Route → i18n key map for the header page title */
+const PAGE_TITLE_KEYS = {
+  '/admin/dashboard':      'admin.dashboard',
+  '/admin/suppliers':      'admin.suppliersMenu',
+  '/admin/suppliers/best': 'admin.bestSuppliersPageTitle',
+  '/admin/approved':       'admin.approvedMenu',
+  '/admin/jobs':           'admin.jobsTitle',
+  '/admin/jobs/approved':  'admin.jobsApprovedTitle',
+  '/admin/jobs/best':      'admin.bestJobsPageTitle',
+  '/admin/messages':       'admin.messagesMenu',
+  '/admin/reports':        'admin.reportsTitle',
+  '/admin/cameras':        'admin.camerasMenu',
 };
 
 /* Thin gold vertical divider */
@@ -82,10 +82,11 @@ export default function AdminNavbar() {
     router.replace('/admin/login');
   };
 
-  const pageTitle =
-    PAGE_TITLES_AR[pathname] ??
-    (pathname.startsWith('/admin/suppliers/') ? 'تفاصيل المورد' :
-     pathname.startsWith('/admin/jobs/')      ? 'تفاصيل الوظيفة' : 'لوحة التحكم');
+  const pageTitleKey =
+    PAGE_TITLE_KEYS[pathname] ??
+    (pathname.startsWith('/admin/suppliers/') ? 'admin.supplierDetail' :
+     pathname.startsWith('/admin/jobs/')      ? 'admin.jobDetailTitle' : 'admin.dashboard');
+  const pageTitle = t(pageTitleKey);
 
   const currentLang = LANGUAGES.find(l => l.code === lang) || LANGUAGES[0];
 
@@ -268,10 +269,10 @@ export default function AdminNavbar() {
               }}
             >
               <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.15]">
-                <p className="text-white text-xs font-bold">الإشعارات</p>
+                <p className="text-white text-xs font-bold">{t('admin.notifications')}</p>
                 {unreadCount > 0 && (
                   <span className="text-[10px] font-bold text-red-400 bg-red-500/15 rounded-full px-2 py-0.5 border border-red-500/30">
-                    {unreadCount} جديد
+                    {unreadCount} {t('admin.newBadge')}
                   </span>
                 )}
               </div>
@@ -279,7 +280,7 @@ export default function AdminNavbar() {
                 {allNotifications.length === 0 ? (
                   <div className="text-center py-8">
                     <Bell size={20} className="text-white/10 mx-auto mb-2" />
-                    <p className="text-white/25 text-xs">لا توجد إشعارات جديدة</p>
+                    <p className="text-white/25 text-xs">{t('admin.noNotifications')}</p>
                   </div>
                 ) : allNotifications.map(n => {
                   const isSupplier = n.type === 'supplier';
@@ -305,12 +306,12 @@ export default function AdminNavbar() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-white text-xs font-semibold truncate">
-                          {isSupplier ? n.companyName : (n.fullName || n.name || 'عميل')}
+                          {isSupplier ? n.companyName : (n.fullName || n.name || t('admin.customerFallback'))}
                         </p>
                         <p className="text-white/60 text-[11px] mt-0.5 truncate">
-                          {isSupplier ? `طلب مورد · ${n.activity || ''}`
-                          : isContact ? `رسالة عميل · ${n.subject || ''}`
-                          :             `طلب وظيفة · ${n.position || ''}`}
+                          {isSupplier ? `${t('admin.supplierReqLabel')} · ${n.activity || ''}`
+                          : isContact ? `${t('admin.customerMessageLabel')} · ${n.subject || ''}`
+                          :             `${t('admin.jobReqLabel')} · ${n.position || ''}`}
                         </p>
                       </div>
                       <span className="w-2 h-2 rounded-full bg-[#c8a96e] shrink-0 mt-2" />
@@ -325,7 +326,7 @@ export default function AdminNavbar() {
                     onClick={() => setIsBellOpen(false)}
                     className="flex-1 text-center text-[11px] text-blue-400 hover:text-blue-300 transition-colors font-semibold"
                   >
-                    الموردون
+                    {t('admin.suppliersMenu')}
                   </Link>
                   <div className="w-px bg-white/20" />
                   <Link
@@ -333,7 +334,7 @@ export default function AdminNavbar() {
                     onClick={() => setIsBellOpen(false)}
                     className="flex-1 text-center text-[11px] text-[#c8a96e] hover:text-[#d4b47a] transition-colors font-semibold"
                   >
-                    الوظائف
+                    {t('admin.jobsMenu')}
                   </Link>
                   <div className="w-px bg-white/20" />
                   <Link
@@ -341,7 +342,7 @@ export default function AdminNavbar() {
                     onClick={() => setIsBellOpen(false)}
                     className="flex-1 text-center text-[11px] text-green-400 hover:text-green-300 transition-colors font-semibold"
                   >
-                    الرسائل
+                    {t('admin.messagesMenu')}
                   </Link>
                 </div>
               )}
@@ -421,7 +422,7 @@ export default function AdminNavbar() {
               onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
             >
               <ExternalLink size={11} />
-              الموقع الرئيسي
+              {t('admin.siteLink')}
             </a>
           </div>
 

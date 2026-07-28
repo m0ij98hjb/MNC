@@ -14,13 +14,14 @@ export default function AboutUsPage() {
   const { data: aboutCms } = useSiteContent('about');
   const directorImage = aboutCms?.director_image || '/asstes/directort.png';
   const RIYADH_BASE = '/asstes/Photos%20of%20the%20Riyadh/';
+  const riyadhPhotoAlts = t('aboutUsPage.riyadhPhotoAlts');
   const riyadhPhotos = [
-    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(1).jpeg`, alt: 'فرع الرياض - مبنى المقر' },
-    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(3).jpeg`, alt: 'فرع الرياض - الداخل' },
-    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(4).jpeg`, alt: 'فرع الرياض - قاعة الاجتماعات' },
-    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(5).jpeg`, alt: 'فرع الرياض - المكاتب' },
-    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(6).jpeg`, alt: 'فرع الرياض - الاستقبال' },
-    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.24%20PM.jpeg`,       alt: 'فرع الرياض - الواجهة' },
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(1).jpeg`, alt: riyadhPhotoAlts[0] },
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(3).jpeg`, alt: riyadhPhotoAlts[1] },
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(4).jpeg`, alt: riyadhPhotoAlts[2] },
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(5).jpeg`, alt: riyadhPhotoAlts[3] },
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(6).jpeg`, alt: riyadhPhotoAlts[4] },
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.24%20PM.jpeg`,       alt: riyadhPhotoAlts[5] },
   ];
 
   const [lightboxIndex, setLightboxIndex] = useState(null);
@@ -46,17 +47,18 @@ export default function AboutUsPage() {
     };
   }, [lightboxIndex, closeLightbox, prevPhoto, nextPhoto, isRTL]);
 
+  const heroStatsLabels = t('aboutUsPage.heroStatsLabels');
   const heroStats = aboutCms?.stats?.length
     ? aboutCms.stats.map(s => ({
         value: s.value,
-        labelAr: s.label_ar,
-        labelEn: s.label_en,
+        // CMS stats are admin-authored bilingual (ar/en) content fields — out of scope for i18n remediation.
+        label: isRTL ? s.label_ar : (s.label_en || s.label_ar),
       }))
     : [
-        { value: "38+",  labelAr: "عاماً من الخبرة",    labelEn: "Years of Experience" },
-        { value: "50+",  labelAr: "مشروع منجز",          labelEn: "Completed Projects" },
-        { value: "98%",  labelAr: "رضا العملاء",          labelEn: "Client Satisfaction" },
-        { value: "300+", labelAr: "متخصص في الفريق",     labelEn: "Team Specialists" },
+        { value: "38+",  label: heroStatsLabels[0] },
+        { value: "50+",  label: heroStatsLabels[1] },
+        { value: "98%",  label: heroStatsLabels[2] },
+        { value: "300+", label: heroStatsLabels[3] },
       ];
 
   return (
@@ -125,7 +127,7 @@ export default function AboutUsPage() {
                 <div key={i} className="flex flex-col">
                   <span className="text-3xl md:text-4xl font-black text-secondary leading-none">{stat.value}</span>
                   <span className="text-white/55 text-xs md:text-sm font-semibold mt-1.5 uppercase tracking-wide">
-                    {isRTL ? stat.labelAr : stat.labelEn}
+                    {stat.label}
                   </span>
                 </div>
               ))}
@@ -349,15 +351,15 @@ export default function AboutUsPage() {
             <div className="flex items-center justify-center gap-3 mb-4">
               <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#D5B25D]" />
               <span className="text-[#D5B25D] font-bold tracking-[4px] uppercase text-[11px]">
-                {isRTL ? 'فرع الرياض' : 'Riyadh Branch'}
+                {t('contactPage.riyadhBranch')}
               </span>
               <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#D5B25D]" />
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-white font-heading mb-4 leading-tight">
-              {isRTL ? 'صور الفرع' : 'Branch Gallery'}
+              {t('aboutUsPage.riyadhGalleryTitle')}
             </h2>
             <p className="text-white/50 text-sm md:text-base leading-relaxed">
-              {isRTL ? 'طريق أنس بن مالك — شارع أبها، الرياض' : 'Anas Ibn Malik Rd — Abha St, Riyadh'}
+              {t('contactPage.riyadhAddress')}
             </p>
             <div className="w-20 h-[3px] bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto mt-8 rounded-full" />
           </div>
@@ -396,7 +398,7 @@ export default function AboutUsPage() {
                 {/* Hover label */}
                 <div className={`absolute bottom-4 ${isRTL ? 'right-4' : 'left-4'} translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none`}>
                   <span className="text-[#D5B25D] text-[10px] font-bold uppercase tracking-widest bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-[#D5B25D]/20">
-                    {isRTL ? 'فرع الرياض' : 'Riyadh Branch'}
+                    {t('contactPage.riyadhBranch')}
                   </span>
                 </div>
               </div>
@@ -451,7 +453,7 @@ export default function AboutUsPage() {
           <button
             onClick={closeLightbox}
             className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center text-white/60 hover:text-white bg-white/8 hover:bg-white/15 border border-white/10 hover:border-white/20 transition-all duration-200"
-            aria-label="Close"
+            aria-label={t('aboutUsPage.closeLabel')}
           >
             <X size={18} />
           </button>
@@ -465,7 +467,7 @@ export default function AboutUsPage() {
           <button
             onClick={(e) => { e.stopPropagation(); isRTL ? nextPhoto() : prevPhoto(); }}
             className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center text-white/60 hover:text-white bg-white/8 hover:bg-white/15 border border-white/10 hover:border-[#D5B25D]/40 transition-all duration-200 z-10"
-            aria-label="Previous"
+            aria-label={t('aboutUsPage.previousLabel')}
           >
             <ChevronLeft size={22} />
           </button>
@@ -474,7 +476,7 @@ export default function AboutUsPage() {
           <button
             onClick={(e) => { e.stopPropagation(); isRTL ? prevPhoto() : nextPhoto(); }}
             className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center text-white/60 hover:text-white bg-white/8 hover:bg-white/15 border border-white/10 hover:border-[#D5B25D]/40 transition-all duration-200 z-10"
-            aria-label="Next"
+            aria-label={t('aboutUsPage.nextLabel')}
           >
             <ChevronRight size={22} />
           </button>
@@ -494,7 +496,7 @@ export default function AboutUsPage() {
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/70 backdrop-blur-md px-4 py-2 rounded-full border border-[#D5B25D]/20 whitespace-nowrap">
               <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D]" />
               <span className="text-[#D5B25D] text-[11px] font-bold uppercase tracking-[3px]">
-                MNC · {isRTL ? 'فرع الرياض' : 'Riyadh Branch'}
+                MNC · {t('contactPage.riyadhBranch')}
               </span>
             </div>
           </div>

@@ -95,7 +95,7 @@ export default function SuppliersPage() {
       setSubmitted(true);
     } catch (err) {
       console.error('[Suppliers form] Error:', err?.code, err?.message, err);
-      setSubmitError('Error: ' + (err?.message || 'Please try again.'));
+      setSubmitError(t('suppliers.errorPrefix') + ' ' + (err?.message || t('suppliers.tryAgain')));
     } finally {
       setSubmitting(false);
     }

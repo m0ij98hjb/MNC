@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { User, BarChart2, Target, Plus, X } from 'lucide-react';
 import { loadSiteContent, saveSiteContent } from '@/lib/siteContent';
 import { Field, TextArea, Section, SaveBtn, ImageUpload, Grid2, TabLoading } from './Shared';
+import { useLanguage } from '@/context/LanguageContext';
 
 const DEF = {
   about_ar: 'شركة MNC للمقاولات، رائدة في تقديم حلول البناء والتشييد بالمملكة العربية السعودية منذ أكثر من 38 عامًا.',
@@ -29,6 +30,7 @@ const DEF = {
 };
 
 export default function AboutTab() {
+  const { t } = useLanguage();
   const [form, setForm]       = useState(DEF);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving]   = useState(false);
@@ -62,56 +64,56 @@ export default function AboutTab() {
   return (
     <div className="space-y-5 max-w-2xl">
 
-      <Section title="نبذة عن الشركة" icon={Target}>
+      <Section title={t('admin.contentTabs.aboutTab.aboutSectionTitle')} icon={Target}>
         <Grid2>
-          <TextArea label="النص (عربي)" value={form.about_ar} onChange={v => set('about_ar', v)} rows={3} />
-          <TextArea label="النص (إنجليزي)" value={form.about_en} onChange={v => set('about_en', v)} rows={3} />
+          <TextArea label={t('admin.contentTabs.aboutTab.textArLabel')} value={form.about_ar} onChange={v => set('about_ar', v)} rows={3} />
+          <TextArea label={t('admin.contentTabs.aboutTab.textEnLabel')} value={form.about_en} onChange={v => set('about_en', v)} rows={3} />
         </Grid2>
       </Section>
 
-      <Section title="المدير" icon={User}>
-        <ImageUpload label="صورة المدير" value={form.director_image} onChange={v => set('director_image', v)} />
-        <Field label="الاسم" value={form.director_name} onChange={v => set('director_name', v)} />
+      <Section title={t('admin.contentTabs.aboutTab.directorSectionTitle')} icon={User}>
+        <ImageUpload label={t('admin.contentTabs.aboutTab.directorImageLabel')} value={form.director_image} onChange={v => set('director_image', v)} />
+        <Field label={t('admin.contentTabs.aboutTab.nameLabel')} value={form.director_name} onChange={v => set('director_name', v)} />
         <Grid2>
-          <Field label="المنصب (عربي)" value={form.director_pos_ar} onChange={v => set('director_pos_ar', v)} />
-          <Field label="المنصب (إنجليزي)" value={form.director_pos_en} onChange={v => set('director_pos_en', v)} />
+          <Field label={t('admin.contentTabs.aboutTab.positionArLabel')} value={form.director_pos_ar} onChange={v => set('director_pos_ar', v)} />
+          <Field label={t('admin.contentTabs.aboutTab.positionEnLabel')} value={form.director_pos_en} onChange={v => set('director_pos_en', v)} />
         </Grid2>
       </Section>
 
-      <Section title="الإحصائيات" icon={BarChart2}>
+      <Section title={t('admin.contentTabs.aboutTab.statsSectionTitle')} icon={BarChart2}>
         {form.stats.map((s, i) => (
           <div key={i} className="grid grid-cols-3 gap-2">
-            <Field label={i === 0 ? 'القيمة' : ''} value={s.value} onChange={v => setStat(i, 'value', v)} placeholder="38+" />
-            <Field label={i === 0 ? 'التسمية (عربي)' : ''} value={s.label_ar} onChange={v => setStat(i, 'label_ar', v)} />
-            <Field label={i === 0 ? 'التسمية (EN)' : ''} value={s.label_en} onChange={v => setStat(i, 'label_en', v)} />
+            <Field label={i === 0 ? t('admin.contentTabs.aboutTab.valueLabel') : ''} value={s.value} onChange={v => setStat(i, 'value', v)} placeholder="38+" />
+            <Field label={i === 0 ? t('admin.contentTabs.aboutTab.labelArLabel') : ''} value={s.label_ar} onChange={v => setStat(i, 'label_ar', v)} />
+            <Field label={i === 0 ? t('admin.contentTabs.aboutTab.labelEnLabel') : ''} value={s.label_en} onChange={v => setStat(i, 'label_en', v)} />
           </div>
         ))}
       </Section>
 
-      <Section title="الرؤية والرسالة">
+      <Section title={t('admin.contentTabs.aboutTab.visionMissionSectionTitle')}>
         <Grid2>
-          <TextArea label="الرؤية (عربي)" value={form.vision_ar} onChange={v => set('vision_ar', v)} rows={2} />
-          <TextArea label="Vision (EN)" value={form.vision_en} onChange={v => set('vision_en', v)} rows={2} />
-          <TextArea label="الرسالة (عربي)" value={form.mission_ar} onChange={v => set('mission_ar', v)} rows={2} />
-          <TextArea label="Mission (EN)" value={form.mission_en} onChange={v => set('mission_en', v)} rows={2} />
+          <TextArea label={t('admin.contentTabs.aboutTab.visionArLabel')} value={form.vision_ar} onChange={v => set('vision_ar', v)} rows={2} />
+          <TextArea label={t('admin.contentTabs.aboutTab.visionEnLabel')} value={form.vision_en} onChange={v => set('vision_en', v)} rows={2} />
+          <TextArea label={t('admin.contentTabs.aboutTab.missionArLabel')} value={form.mission_ar} onChange={v => set('mission_ar', v)} rows={2} />
+          <TextArea label={t('admin.contentTabs.aboutTab.missionEnLabel')} value={form.mission_en} onChange={v => set('mission_en', v)} rows={2} />
         </Grid2>
       </Section>
 
-      <Section title="القيم">
+      <Section title={t('admin.contentTabs.aboutTab.valuesSectionTitle')}>
         <div className="space-y-3">
           {form.values.map((v, i) => (
             <div key={i} className="rounded-xl p-3 space-y-2 relative" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
               <button onClick={() => remVal(i)} className="absolute top-2 end-2 text-red-400/40 hover:text-red-400"><X size={12} /></button>
               <Grid2>
-                <Field label="العنوان (عربي)" value={v.title_ar} onChange={val => setVal(i, 'title_ar', val)} />
-                <Field label="Title (EN)" value={v.title_en} onChange={val => setVal(i, 'title_en', val)} />
-                <TextArea label="الوصف (عربي)" value={v.desc_ar} onChange={val => setVal(i, 'desc_ar', val)} rows={2} />
-                <TextArea label="Desc (EN)" value={v.desc_en} onChange={val => setVal(i, 'desc_en', val)} rows={2} />
+                <Field label={t('admin.contentTabs.aboutTab.titleArLabel')} value={v.title_ar} onChange={val => setVal(i, 'title_ar', val)} />
+                <Field label={t('admin.contentTabs.aboutTab.titleEnLabel')} value={v.title_en} onChange={val => setVal(i, 'title_en', val)} />
+                <TextArea label={t('admin.contentTabs.aboutTab.descArLabel')} value={v.desc_ar} onChange={val => setVal(i, 'desc_ar', val)} rows={2} />
+                <TextArea label={t('admin.contentTabs.aboutTab.descEnLabel')} value={v.desc_en} onChange={val => setVal(i, 'desc_en', val)} rows={2} />
               </Grid2>
             </div>
           ))}
           <button onClick={addVal} className="flex items-center gap-1.5 text-xs text-[#c8a96e]/60 hover:text-[#c8a96e] transition-colors">
-            <Plus size={12} /> إضافة قيمة
+            <Plus size={12} /> {t('admin.contentTabs.aboutTab.addValueBtn')}
           </button>
         </div>
       </Section>

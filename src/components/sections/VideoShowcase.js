@@ -5,9 +5,54 @@ import { motion, useInView } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { Play, Pause, Volume2, VolumeX, Maximize } from "lucide-react";
 
+const TX = {
+  eyebrow: {
+    ar: "هويتنا في صورة",
+    en: "Our Identity in Motion",
+    hi: "गति में हमारी पहचान",
+    ru: "Наша идентичность в движении",
+    de: "Unsere Identität in Bewegung",
+    fr: "Notre identité en mouvement",
+    es: "Nuestra identidad en movimiento",
+    tr: "Hareket Halindeki Kimliğimiz",
+    ur: "تصویر میں ہماری شناخت",
+    zh: "动态展示我们的形象",
+  },
+  title1: {
+    ar: "نحن", en: "Who", hi: "हम", ru: "Кто", de: "Wer", fr: "Qui", es: "Quiénes", tr: "Biz", ur: "ہم", zh: "我们"
+  },
+  title2: {
+    ar: "من نحن", en: "We Are", hi: "कौन हैं", ru: "Мы Есть", de: "Wir Sind", fr: "Nous Sommes", es: "Somos", tr: "Kimiz", ur: "کون ہیں", zh: "是谁"
+  },
+  subtitle: {
+    ar: "خبرة منذ عام 1986 في تشييد المباني وصناعة الأحلام",
+    en: "Expertise since 1986 in construction and making dreams real",
+    hi: "1986 से भवन निर्माण और सपनों को साकार करने में विशेषज्ञता",
+    ru: "Опыт с 1986 года в строительстве зданий и воплощении мечты",
+    de: "Expertise seit 1986 im Bauwesen und der Verwirklichung von Träumen",
+    fr: "Expertise depuis 1986 dans la construction et la réalisation des rêves",
+    es: "Experiencia desde 1986 en construcción y realización de sueños",
+    tr: "1986'dan beri inşaat ve hayalleri gerçekleştirme uzmanlığı",
+    ur: "1986 سے عمارتوں کی تعمیر اور خوابوں کی تعبیر میں مہارت",
+    zh: "自1986年以来的建筑与圆梦专业经验",
+  },
+  badge: {
+    ar: "شركة ام ان سى للانشاءات",
+    en: "MNC General Contracting",
+    hi: "MNC जनरल कॉन्ट्रैक्टिंग",
+    ru: "MNC General Contracting",
+    de: "MNC General Contracting",
+    fr: "MNC General Contracting",
+    es: "MNC General Contracting",
+    tr: "MNC General Contracting",
+    ur: "MNC جنرل کنٹریکٹنگ",
+    zh: "MNC 总承包",
+  }
+};
+
 export default function VideoShowcase() {
   const { lang, isRTL } = useLanguage();
-  const isAr = lang === "ar";
+  const tx = (obj) => obj[lang] || obj.en;
 
   const sectionRef = useRef(null);
   const videoRef   = useRef(null);
@@ -87,19 +132,16 @@ export default function VideoShowcase() {
           <div className="flex items-center justify-center gap-3 mb-4">
             <span className="h-px w-10 bg-[#D5B25D]" />
             <span className="text-[#D5B25D] text-[11px] font-black uppercase tracking-[0.25em]">
-              {isAr ? "هويتنا في صورة" : "Our Identity in Motion"}
+              {tx(TX.eyebrow)}
             </span>
             <span className="h-px w-10 bg-[#D5B25D]" />
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-heading leading-tight mb-4">
-            {isAr
-              ? <><span className="text-[#D5B25D]">نحن</span> من نحن</>
-              : <>Who <span className="text-[#D5B25D]">We Are</span></>}
+            <span className="text-white">{tx(TX.title1)} </span>
+            <span className="text-[#D5B25D]">{tx(TX.title2)}</span>
           </h2>
           <p className="text-white/40 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
-            {isAr
-              ? "خبرة منذ عام 1986 في تشييد المباني وصناعة الأحلام"
-              : "Expertise since 1986 in construction and making dreams real"}
+            {tx(TX.subtitle)}
           </p>
         </motion.div>
 
@@ -157,7 +199,7 @@ export default function VideoShowcase() {
               <div className={`absolute top-5 ${isRTL ? "right-5" : "left-5"} flex items-center gap-2.5 bg-black/60 backdrop-blur-md border border-[#D5B25D]/25 rounded-full px-4 py-2`}>
                 <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D] animate-pulse" />
                 <span className="text-white text-xs font-bold">
-                  {isAr ? "شركة ام ان سى للانشاءات" : "MNC General Contracting"}
+                  {tx(TX.badge)}
                 </span>
               </div>
             )}
@@ -200,11 +242,6 @@ export default function VideoShowcase() {
                       : <Volume2 size={14} className="text-white"    />
                     }
                   </button>
-
-                  {/* Label */}
-                  <span className="text-white/50 text-[11px] font-medium hidden sm:block">
-                    {isAr ? "فيديو الشركة" : "Company Video"}
-                  </span>
                 </div>
 
                 {/* Fullscreen */}
@@ -212,48 +249,11 @@ export default function VideoShowcase() {
                   onClick={handleFullscreen}
                   className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#D5B25D]/30 border border-white/15 flex items-center justify-center transition-all duration-200"
                 >
-                  <Maximize size={13} className="text-white" />
+                  <Maximize size={14} className="text-white" />
                 </button>
               </div>
             </div>
-
-            {/* Pause overlay (center) on hover when playing */}
-            {playing && (
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="w-16 h-16 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center border border-white/20">
-                  <Pause size={22} className="text-white" />
-                </div>
-              </div>
-            )}
           </div>
-
-          {/* Corner accents */}
-          <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-[#D5B25D]/60 rounded-tl-lg z-20 pointer-events-none" />
-          <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-[#D5B25D]/60 rounded-tr-lg z-20 pointer-events-none" />
-          <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-[#D5B25D]/60 rounded-bl-lg z-20 pointer-events-none" />
-          <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-[#D5B25D]/60 rounded-br-lg z-20 pointer-events-none" />
-        </motion.div>
-
-        {/* ── Stats row below video ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8"
-        >
-          {[
-            { value: "38+",  labelAr: "عاماً من الخبرة",   labelEn: "Years of Experience" },
-            { value: "50+",  labelAr: "مشروع منجز",         labelEn: "Completed Projects" },
-            { value: "98%",  labelAr: "رضا العملاء",         labelEn: "Client Satisfaction" },
-            { value: "300+", labelAr: "متخصص في الفريق",    labelEn: "Team Specialists" },
-          ].map((stat, i) => (
-            <div key={i} className="bg-white/[0.03] border border-[#D5B25D]/12 rounded-2xl p-4 text-center hover:border-[#D5B25D]/28 transition-colors duration-300">
-              <p className="text-[#D5B25D] text-2xl md:text-3xl font-black">{stat.value}</p>
-              <p className="text-white/40 text-xs font-semibold mt-1 uppercase tracking-wider">
-                {isAr ? stat.labelAr : stat.labelEn}
-              </p>
-            </div>
-          ))}
         </motion.div>
       </div>
     </section>

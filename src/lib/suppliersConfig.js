@@ -21,6 +21,7 @@ export const ACTIVITY_TYPES = [
 ];
 
 export const COUNTRIES_KEYS = {
+  // English keys
   'Saudi Arabia':         'saudiArabia',
   'United Arab Emirates': 'uae',
   'Kuwait':               'kuwait',
@@ -32,9 +33,26 @@ export const COUNTRIES_KEYS = {
   'Lebanon':              'lebanon',
   'Iraq':                 'iraq',
   'Other':                'other',
+  // Arabic keys
+  'المملكة العربية السعودية': 'saudiArabia',
+  'سعودية': 'saudiArabia',
+  'السعودية': 'saudiArabia',
+  'الإمارات العربية المتحدة': 'uae',
+  'الإمارات': 'uae',
+  'الكويت': 'kuwait',
+  'قطر': 'qatar',
+  'البحرين': 'bahrain',
+  'عُمان': 'oman',
+  'عمان': 'oman',
+  'مصر': 'egypt',
+  'الأردن': 'jordan',
+  'لبنان': 'lebanon',
+  'العراق': 'iraq',
+  'أخرى': 'other',
 };
 
 export const ACTIVITY_KEYS = {
+  // English keys
   'Ready Mix Concrete':  'readyMixConcrete',
   'Reinforcement Steel': 'reinforcementSteel',
   'Building Materials':  'buildingMaterials',
@@ -54,6 +72,28 @@ export const ACTIVITY_KEYS = {
   'Heavy Equipment':     'heavyEquipment',
   'Transportation':      'transportation',
   'Other':               'other',
+  // Arabic keys
+  'خرسانة جاهزة': 'readyMixConcrete',
+  'حديد تسليح': 'reinforcementSteel',
+  'مواد بناء': 'buildingMaterials',
+  'سباكة': 'plumbing',
+  'كهرباء': 'electrical',
+  'رخام': 'marble',
+  'سيراميك': 'ceramic',
+  'بلاط': 'tiles',
+  'خشب': 'wood',
+  'سقالات': 'scaffolding',
+  'جبس': 'gypsum',
+  'جبس بورد': 'gypsumBoard',
+  'ألومنيوم': 'aluminum',
+  'زجاج': 'glass',
+  'دهانات': 'paint',
+  'تكييف HVAC': 'hvac',
+  'تكييف': 'hvac',
+  'معدات ثقيلة': 'heavyEquipment',
+  'نقل ولوجستيات': 'transportation',
+  'نقل': 'transportation',
+  'أخرى': 'other',
 };
 
 export const STATUS_CONFIG = {

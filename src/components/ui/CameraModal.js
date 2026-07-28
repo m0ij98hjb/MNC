@@ -6,9 +6,11 @@ import {
   X, Eye, QrCode, Search, Loader2, WifiOff,
   ChevronLeft, SwitchCamera, RefreshCw,
 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 /* ─────────────────── QR / Barcode Scanner ─────────────────── */
 function QrScanView({ onResult, onBack }) {
+  const { t } = useLanguage();
   const [status,      setStatus]      = useState("idle");
   const [errMsg,      setErrMsg]      = useState("");
   const [cameras,     setCameras]     = useState([]);
@@ -80,13 +82,13 @@ function QrScanView({ onResult, onBack }) {
       setStatus("error");
       setErrMsg(
         e?.message?.includes("NotAllowed")
-          ? "تم رفض إذن الكاميرا — يرجى السماح من إعدادات المتصفح"
+          ? t("camera.cameraPermissionDenied")
           : e?.message?.includes("NotFound") || e?.message?.includes("DevicesNotFound")
-          ? "لم يتم العثور على كاميرا متصلة"
-          : "تعذّر تشغيل الكاميرا — تأكد من الاتصال الآمن (HTTPS)"
+          ? t("camera.noCameraFound")
+          : t("camera.cameraStartFailed")
       );
     }
-  }, [cameras, onResult, stopScanner]);
+  }, [cameras, onResult, stopScanner, t]);
 
   useEffect(() => {
     // Deferred so the (traced) setState calls inside startScanner aren't
@@ -104,14 +106,14 @@ function QrScanView({ onResult, onBack }) {
   return (
     <div className="flex flex-col items-center gap-4 py-2">
       <p className="text-sm text-center text-white/50">
-        وجّه الكاميرا نحو رمز QR أو الباركود الخاص بالكاميرا
+        {t("camera.pointAtCode")}
       </p>
 
       <div className="relative rounded-2xl overflow-hidden border-2 border-[#C9A34D]/35 w-full max-w-[280px] aspect-square bg-black flex items-center justify-center">
         {status === "loading" && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 z-10 bg-black/80">
             <Loader2 size={32} className="text-[#C9A34D] animate-spin" />
-            <span className="text-white/50 text-xs">جارٍ تشغيل الكاميرا...</span>
+            <span className="text-white/50 text-xs">{t("camera.startingCamera")}</span>
           </div>
         )}
         {status === "error" && (
@@ -122,7 +124,7 @@ function QrScanView({ onResult, onBack }) {
               onClick={() => startScanner(activeCamId)}
               className="flex items-center gap-1.5 text-[#C9A34D] text-xs border border-[#C9A34D]/30 px-3 py-1.5 rounded-lg hover:bg-[#C9A34D]/10 transition-colors"
             >
-              <RefreshCw size={11} /> إعادة المحاولة
+              <RefreshCw size={11} /> {t("camera.retry")}
             </button>
           </div>
         )}
@@ -156,7 +158,7 @@ function QrScanView({ onResult, onBack }) {
                   : "bg-white/[0.04] border-white/10 text-white/35 hover:text-white/60"
               }`}
             >
-              {cam.label?.replace(/\s*\(.*?\)\s*/g, "").trim() || `كاميرا ${i + 1}`}
+              {cam.label?.replace(/\s*\(.*?\)\s*/g, "").trim() || t("camera.cameraNumberFallback").replace("{n}", i + 1)}
             </button>
           ))}
         </div>
@@ -166,7 +168,7 @@ function QrScanView({ onResult, onBack }) {
         onClick={onBack}
         className="flex items-center gap-2 text-[#C9A34D]/60 hover:text-[#C9A34D] text-sm transition-colors mt-1"
       >
-        <ChevronLeft size={16} /> رجوع
+        <ChevronLeft size={16} /> {t("camera.back")}
       </button>
 
       <style jsx global>{`
@@ -182,6 +184,7 @@ function QrScanView({ onResult, onBack }) {
 /* ─────────────────── Main Modal ─────────────────── */
 export default function CameraModal({ onClose }) {
   const router = useRouter();
+  const { t, isRTL } = useLanguage();
   const [view,    setView   ] = useState("entry");
   const [serial,  setSerial ] = useState("");
   const [loading, setLoading] = useState(false);
@@ -215,13 +218,13 @@ export default function CameraModal({ onClose }) {
         onClose();
         router.push(`/live-camera/${encodeURIComponent(v)}`);
       } else {
-        setErrMsg(`لم يتم العثور على كاميرا برقم "${v}"`);
+        setErrMsg(t("camera.notFoundBySerial").replace("{serial}", v));
       }
     } catch {
-      setErrMsg("خطأ في الاتصال — تحقق من الشبكة");
+      setErrMsg(t("camera.connectionError"));
     }
     setLoading(false);
-  }, [onClose, router]);
+  }, [onClose, router, t]);
 
   const handleScan = useCallback((text) => {
     setView("entry");
@@ -230,7 +233,7 @@ export default function CameraModal({ onClose }) {
   }, [resolve]);
 
   return (
-    <div className="fixed inset-0 z-[999] flex items-end sm:items-center justify-center" dir="rtl">
+    <div className="fixed inset-0 z-[999] flex items-end sm:items-center justify-center" dir={isRTL ? "rtl" : "ltr"}>
       <div className="absolute inset-0 bg-black/75 backdrop-blur-md" onClick={onClose} />
 
       <div className="relative z-10 w-full sm:max-w-md sm:mx-4 rounded-t-3xl sm:rounded-3xl flex flex-col max-h-[92dvh] sm:max-h-[85dvh] bg-[#0a0a0a] border border-[#C9A34D]/15 shadow-[0_-20px_80px_rgba(0,0,0,0.9)]">
@@ -243,8 +246,8 @@ export default function CameraModal({ onClose }) {
               <Eye size={17} className="text-[#C9A34D]" />
             </div>
             <div>
-              <h2 className="font-black text-base text-white leading-tight">الكاميرات المباشرة</h2>
-              <p className="text-[11px] text-white/30">أدخل الرقم التسلسلي أو امسح رمز QR</p>
+              <h2 className="font-black text-base text-white leading-tight">{t("camera.title")}</h2>
+              <p className="text-[11px] text-white/30">{t("camera.subtitle")}</p>
             </div>
           </div>
           <button
@@ -265,7 +268,7 @@ export default function CameraModal({ onClose }) {
               {/* Serial input */}
               <div className="flex flex-col gap-2">
                 <label className="text-[#C9A34D]/70 text-xs font-bold flex items-center gap-1.5">
-                  <Search size={11} /> الرقم التسلسلي للكاميرا
+                  <Search size={11} /> {t("camera.serialLabel")}
                 </label>
                 <div className="flex gap-2">
                   <input
@@ -273,7 +276,7 @@ export default function CameraModal({ onClose }) {
                     value={serial}
                     onChange={e => { setSerial(e.target.value); setErrMsg(""); }}
                     onKeyDown={e => e.key === "Enter" && resolve(serial)}
-                    placeholder="مثال: MNC-CAM-001"
+                    placeholder={t("camera.serialPlaceholder")}
                     dir="ltr"
                     autoFocus
                     className="flex-1 rounded-xl px-4 py-3 text-sm bg-white/[0.05] border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-[#C9A34D]/50 transition-colors"
@@ -283,7 +286,7 @@ export default function CameraModal({ onClose }) {
                     disabled={loading || !serial.trim()}
                     className="px-5 py-3 bg-gradient-to-r from-[#C9A34D] to-[#e0b85a] text-black font-black text-sm rounded-xl hover:opacity-90 active:scale-95 disabled:opacity-40 transition-all shadow-[0_0_18px_rgba(201,163,77,0.3)]"
                   >
-                    {loading ? <Loader2 size={14} className="animate-spin" /> : "بحث"}
+                    {loading ? <Loader2 size={14} className="animate-spin" /> : t("camera.search")}
                   </button>
                 </div>
                 {errMsg && (
@@ -296,7 +299,7 @@ export default function CameraModal({ onClose }) {
               {/* Divider */}
               <div className="flex items-center gap-3">
                 <div className="flex-1 h-px bg-white/[0.07]" />
-                <span className="text-xs text-white/25">أو امسح الباركود</span>
+                <span className="text-xs text-white/25">{t("camera.orScanBarcode")}</span>
                 <div className="flex-1 h-px bg-white/[0.07]" />
               </div>
 
@@ -309,8 +312,8 @@ export default function CameraModal({ onClose }) {
                   <QrCode size={26} className="text-[#C9A34D]" />
                 </div>
                 <div className="text-center">
-                  <p className="font-bold text-sm text-white">مسح رمز QR أو الباركود</p>
-                  <p className="text-xs mt-0.5 text-white/30">يدعم جميع أنواع الباركود</p>
+                  <p className="font-bold text-sm text-white">{t("camera.scanQrTitle")}</p>
+                  <p className="text-xs mt-0.5 text-white/30">{t("camera.scanQrSubtitle")}</p>
                 </div>
               </button>
 

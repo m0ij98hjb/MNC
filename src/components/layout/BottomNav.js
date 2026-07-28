@@ -63,7 +63,6 @@ export default function BottomNav() {
                       background: isActive
                         ? '#D5B25D'
                         : 'linear-gradient(135deg,rgba(213,178,93,0.15),rgba(213,178,93,0.08))',
-                      boxShadow: isActive ? '0 2px 12px rgba(213,178,93,0.4)' : 'none',
                     }}
                   >
                     <Icon size={15} style={{ color: isActive ? '#000' : '#D5B25D' }} />

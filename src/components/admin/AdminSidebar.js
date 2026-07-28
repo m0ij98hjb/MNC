@@ -111,7 +111,7 @@ export default function AdminSidebar() {
               onClick={() => setIsModalOpen(true)}
               className="relative w-[72px] h-[72px] rounded-full overflow-hidden mb-3 group focus:outline-none"
               style={{ boxShadow: '0 0 0 2px rgba(200,169,110,0.35), 0 4px 20px rgba(0,0,0,0.5)' }}
-              title="تغيير الصورة"
+              title={t('admin.changePhoto')}
             >
               <div
                 className="absolute inset-0 rounded-full z-10"
@@ -260,8 +260,8 @@ export default function AdminSidebar() {
               }}
             >
               {isUploading
-                ? <><Loader2 size={14} className="animate-spin" /> جاري الرفع...</>
-                : <><Camera size={14} /> تغيير الصورة</>
+                ? <><Loader2 size={14} className="animate-spin" /> {t('purchasing.uploading')}</>
+                : <><Camera size={14} /> {t('admin.changePhoto')}</>
               }
             </button>
           </div>

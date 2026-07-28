@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Settings, Globe, Music, Loader2, X } from 'lucide-react';
 import { loadSiteContent, saveSiteContent, uploadToCloudinary } from '@/lib/siteContent';
 import { Field, TextArea, Section, SaveBtn, ImageUpload, Grid2, TabLoading } from './Shared';
+import { useLanguage } from '@/context/LanguageContext';
 
 const DEF = {
   companyName:    'MNC Contracting',
@@ -19,6 +20,7 @@ const DEF = {
 };
 
 export default function SettingsTab() {
+  const { t } = useLanguage();
   const [form, setForm]         = useState(DEF);
   const [loading, setLoading]   = useState(true);
   const [saving, setSaving]     = useState(false);
@@ -43,7 +45,7 @@ export default function SettingsTab() {
       const url = await uploadToCloudinary(file, 'video');
       set('music_url', url);
     } catch (err) {
-      alert('فشل رفع الملف: ' + err.message);
+      alert(t('admin.contentTabs.settingsTab.uploadFileFailedPrefix') + err.message);
     } finally {
       setMusicUp(false);
       if (musicRef.current) musicRef.current.value = '';
@@ -61,32 +63,32 @@ export default function SettingsTab() {
   return (
     <div className="space-y-5 max-w-2xl">
 
-      <Section title="بيانات الشركة" icon={Settings}>
-        <Field label="اسم الشركة" value={form.companyName} onChange={v => set('companyName', v)} />
+      <Section title={t('admin.contentTabs.settingsTab.companyInfoSectionTitle')} icon={Settings}>
+        <Field label={t('admin.contentTabs.settingsTab.companyNameLabel')} value={form.companyName} onChange={v => set('companyName', v)} />
         <Grid2>
-          <TextArea label="وصف الشركة (عربي)" value={form.description_ar} onChange={v => set('description_ar', v)} rows={2} />
-          <TextArea label="Description (EN)" value={form.description_en} onChange={v => set('description_en', v)} rows={2} />
+          <TextArea label={t('admin.contentTabs.settingsTab.descArLabel')} value={form.description_ar} onChange={v => set('description_ar', v)} rows={2} />
+          <TextArea label={t('admin.contentTabs.settingsTab.descEnLabel')} value={form.description_en} onChange={v => set('description_en', v)} rows={2} />
         </Grid2>
       </Section>
 
-      <Section title="الهوية البصرية">
+      <Section title={t('admin.contentTabs.settingsTab.brandIdentitySectionTitle')}>
         <Grid2>
-          <ImageUpload label="اللوجو" value={form.logo} onChange={v => set('logo', v)} />
-          <ImageUpload label="الفيفيكون (favicon)" value={form.favicon} onChange={v => set('favicon', v)} />
+          <ImageUpload label={t('admin.contentTabs.settingsTab.logoLabel')} value={form.logo} onChange={v => set('logo', v)} />
+          <ImageUpload label={t('admin.contentTabs.settingsTab.faviconLabel')} value={form.favicon} onChange={v => set('favicon', v)} />
         </Grid2>
       </Section>
 
-      <Section title="روابط التواصل الاجتماعي" icon={Globe}>
+      <Section title={t('admin.contentTabs.settingsTab.socialLinksSectionTitle')} icon={Globe}>
         <Grid2>
           <Field label="Instagram" value={form.social_instagram} onChange={v => set('social_instagram', v)} placeholder="https://instagram.com/..." />
           <Field label="Twitter / X" value={form.social_twitter} onChange={v => set('social_twitter', v)} placeholder="https://twitter.com/..." />
           <Field label="LinkedIn" value={form.social_linkedin} onChange={v => set('social_linkedin', v)} placeholder="https://linkedin.com/..." />
           <Field label="YouTube" value={form.social_youtube} onChange={v => set('social_youtube', v)} placeholder="https://youtube.com/..." />
-          <Field label="WhatsApp (رقم)" value={form.social_whatsapp} onChange={v => set('social_whatsapp', v)} placeholder="966598242385" />
+          <Field label={t('admin.contentTabs.settingsTab.whatsappNumberLabel')} value={form.social_whatsapp} onChange={v => set('social_whatsapp', v)} placeholder="966598242385" />
         </Grid2>
       </Section>
 
-      <Section title="الموسيقى الخلفية" icon={Music}>
+      <Section title={t('admin.contentTabs.settingsTab.backgroundMusicSectionTitle')} icon={Music}>
         <div className="space-y-3">
           {form.music_url && (
             <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
@@ -105,9 +107,9 @@ export default function SettingsTab() {
             style={{ background: 'rgba(201,163,77,0.08)', border: '1px solid rgba(201,163,77,0.25)', color: '#c8a96e' }}
           >
             {musicUp ? <Loader2 size={13} className="animate-spin" /> : <Music size={13} />}
-            {musicUp ? 'جاري الرفع...' : form.music_url ? 'تغيير الموسيقى' : 'رفع ملف صوتي'}
+            {musicUp ? t('admin.contentTabs.settingsTab.uploadingLabel') : form.music_url ? t('admin.contentTabs.settingsTab.changeMusicBtn') : t('admin.contentTabs.settingsTab.uploadAudioFileBtn')}
           </button>
-          <p className="text-[10px] text-white/20">يدعم mp3, wav, ogg — سيرفع على Cloudinary</p>
+          <p className="text-[10px] text-white/20">{t('admin.contentTabs.settingsTab.musicHint')}</p>
         </div>
       </Section>
 

@@ -96,7 +96,7 @@ export default function ServicePageClient({ slug }) {
                 href="#offerings"
                 className="inline-flex items-center gap-3 border-2 border-white/30 text-white font-bold px-8 py-4 rounded-full text-base transition-all duration-300 hover:border-[#D5B25D] hover:text-[#D5B25D]"
               >
-                {lang === "ar" ? "استكشف التفاصيل" : "Explore Details"}
+                {{ ar: "استكشف التفاصيل", en: "Explore Details", hi: "विवरण देखें", ru: "Исследовать детали", de: "Details erkunden", fr: "Explorer les détails", es: "Explorar detalles", tr: "Detayları Keşfet", ur: "تفصیلات دیکھیں", zh: "探索细节" }[lang] || "Explore Details"}
                 {isRTLLang ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
               </a>
             </div>
@@ -171,35 +171,38 @@ export default function ServicePageClient({ slug }) {
         </div>
       </section>
 
-      {/* ═══════ PROJECT GALLERY ═══════ */}
-      <section className="py-24 bg-[var(--card-bg)]">
+      {/* ═══════ PROJECTS SHOWCASE ═══════ */}
+      <section className="py-24 bg-black/40 border-y border-white/5">
         <div className="container mx-auto px-6 max-w-7xl">
-          <div className="text-center mb-16" data-aos="fade-up">
-            <h2 className="text-3xl md:text-4xl font-black text-[var(--foreground)] font-heading mb-4">
+          <div className="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-4 font-heading">
               {content.projectsTitle}
             </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto rounded-full" />
+            <div className="w-16 h-1 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto rounded-full" />
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
-            {serviceData.projectImages.map((img, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {content.projects.map((proj, idx) => (
               <div
-                key={i}
-                className={`relative overflow-hidden rounded-2xl border border-[var(--card-border)] group cursor-pointer ${i === 0 ? "md:col-span-2 md:row-span-2 aspect-square md:aspect-auto" : "aspect-square"}`}
+                key={idx}
+                className="group relative rounded-3xl overflow-hidden aspect-4/3 border border-white/10 shadow-2xl"
                 data-aos="fade-up"
-                data-aos-delay={i * 80}
+                data-aos-delay={idx * 150}
               >
                 <Image
-                  src={img}
-                  alt={`${content.title} ${i + 1}`}
+                  src={proj.img}
+                  alt={proj.title}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  unoptimized
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                <div className="absolute bottom-6 left-6 right-6 z-10">
+                  <h3 className="text-xl font-bold text-white mb-2">{proj.title}</h3>
+                  <p className="text-white/70 text-xs line-clamp-2">{proj.desc}</p>
+                </div>
                 <div className={`absolute bottom-4 ${isRTLLang ? "right-4" : "left-4"} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}>
                   <span className="text-[#D5B25D] text-xs font-bold uppercase tracking-widest bg-black/60 px-3 py-1.5 rounded-full border border-[#D5B25D]/20">
-                    {lang === "ar" ? "مشروع متميز" : "Featured Project"}
+                    {{ ar: "مشروع متميز", en: "Featured Project", hi: "प्रमुख परियोजना", ru: "Рекомендуемый проект", de: "Hervorragendes Projekt", es: "Proyecto destacado", fr: "Projet en vedette", tr: "Öne Çıkan Proje", ur: "نمایاں منصوبہ", zh: "特色项目" }[lang] || "Featured Project"}
                   </span>
                 </div>
               </div>
@@ -230,9 +233,16 @@ export default function ServicePageClient({ slug }) {
 
             {/* Subtitle */}
             <p className="text-white/50 text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-              {lang === "ar"
-                ? "فريقنا جاهز للاستماع إليك ومساعدتك في تحويل فكرتك إلى مشروع واقعي ناجح"
-                : "Our team is ready to listen and help you turn your idea into a successful real project"}
+              {{ ar: "فريقنا جاهز للاستماع إليك ومساعدتك في تحويل فكرتك إلى مشروع واقعي ناجح",
+                 en: "Our team is ready to listen and help you turn your idea into a successful real project",
+                 hi: "हमारी टीम सुनने और आपके विचार को एक सफल वास्तविक परियोजना में बदलने में मदद करने के लिए तैयार है",
+                 ru: "Наша команда готова выслушать вас и помочь превратить вашу идею в успешный реальный проект",
+                 de: "Unser Team steht bereit, Ihre Idee in ein erfolgreiches reales Projekt zu verwandeln",
+                 es: "Nuestro equipo está listo para escuchar y ayudar a convertir su idea en un proyecto real y exitoso",
+                 fr: "Notre équipe est prête à vous écouter et à concrétiser votre idée en un projet réussi",
+                 tr: "Ekibimiz sizi dinlemeye ve fikrinizi başarılı bir projeye dönüştürmeye hazır",
+                 ur: "ہماری ٹیم آپ کی بات سننے اور آپ کے خیال کو ایک کامیاب واقعی منصوبے میں بدلنے کے لیے تیار ہے",
+                 zh: "我们的团队随时准备倾听并帮助您将想法转化为成功的实际项目" }[lang] || "Our team is ready to listen and help you turn your idea into a successful real project"}
             </p>
 
             {/* Divider */}
@@ -251,7 +261,7 @@ export default function ServicePageClient({ slug }) {
                 href="/projects"
                 className="inline-flex items-center justify-center gap-3 border-2 border-[#D5B25D]/35 text-[#D5B25D] font-bold px-10 py-4 rounded-full text-base transition-all duration-300 hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/60"
               >
-                {lang === "ar" ? "عرض جميع المشاريع" : "View All Projects"}
+                {{ ar: "عرض جميع المشاريع", en: "View All Projects", hi: "सभी परियोजनाएं देखें", ru: "Посмотреть все проекты", de: "Alle Projekte anzeigen", fr: "Voir tous les projets", es: "Ver todos los proyectos", tr: "Tüm Projeleri Görüntüle", ur: "تمام منصوبے دیکھیں", zh: "查看所有项目" }[lang] || "View All Projects"}
                 {isRTLLang ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
               </Link>
             </div>

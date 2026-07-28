@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Smartphone, Star, Link2 } from 'lucide-react';
 import { loadSiteContent, saveSiteContent } from '@/lib/siteContent';
 import { Field, TextArea, Section, SaveBtn, ImageUpload, Grid2, TabLoading } from './Shared';
+import { useLanguage } from '@/context/LanguageContext';
 
 const DEF = {
   hero_title_ar: 'حمّل تطبيق MNC',
@@ -31,6 +32,7 @@ const DEF = {
 };
 
 export default function AppTab() {
+  const { t } = useLanguage();
   const [form, setForm]       = useState(DEF);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving]   = useState(false);
@@ -56,45 +58,45 @@ export default function AppTab() {
   return (
     <div className="space-y-5 max-w-2xl">
 
-      <Section title="الهيرو" icon={Smartphone}>
+      <Section title={t('admin.contentTabs.appTab.heroSectionTitle')} icon={Smartphone}>
         <Grid2>
-          <Field label="العنوان (عربي)" value={form.hero_title_ar} onChange={v => set('hero_title_ar', v)} />
-          <Field label="Title (EN)" value={form.hero_title_en} onChange={v => set('hero_title_en', v)} />
+          <Field label={t('admin.contentTabs.appTab.titleArLabel')} value={form.hero_title_ar} onChange={v => set('hero_title_ar', v)} />
+          <Field label={t('admin.contentTabs.appTab.titleEnLabel')} value={form.hero_title_en} onChange={v => set('hero_title_en', v)} />
         </Grid2>
         <Grid2>
-          <TextArea label="النص (عربي)" value={form.hero_desc_ar} onChange={v => set('hero_desc_ar', v)} rows={2} />
-          <TextArea label="Description (EN)" value={form.hero_desc_en} onChange={v => set('hero_desc_en', v)} rows={2} />
+          <TextArea label={t('admin.contentTabs.appTab.descArLabel')} value={form.hero_desc_ar} onChange={v => set('hero_desc_ar', v)} rows={2} />
+          <TextArea label={t('admin.contentTabs.appTab.descEnLabel')} value={form.hero_desc_en} onChange={v => set('hero_desc_en', v)} rows={2} />
         </Grid2>
         <Grid2>
-          <ImageUpload label="صورة الجوال 1" value={form.phone_image1} onChange={v => set('phone_image1', v)} />
-          <ImageUpload label="صورة الجوال 2" value={form.phone_image2} onChange={v => set('phone_image2', v)} />
+          <ImageUpload label={t('admin.contentTabs.appTab.phoneImage1Label')} value={form.phone_image1} onChange={v => set('phone_image1', v)} />
+          <ImageUpload label={t('admin.contentTabs.appTab.phoneImage2Label')} value={form.phone_image2} onChange={v => set('phone_image2', v)} />
         </Grid2>
       </Section>
 
-      <Section title="روابط المتاجر" icon={Link2}>
-        <Field label="رابط App Store" value={form.appstore_url} onChange={v => set('appstore_url', v)} placeholder="https://apps.apple.com/..." />
-        <Field label="رابط Google Play" value={form.googleplay_url} onChange={v => set('googleplay_url', v)} placeholder="https://play.google.com/..." />
+      <Section title={t('admin.contentTabs.appTab.storeLinksSectionTitle')} icon={Link2}>
+        <Field label={t('admin.contentTabs.appTab.appStoreLinkLabel')} value={form.appstore_url} onChange={v => set('appstore_url', v)} placeholder="https://apps.apple.com/..." />
+        <Field label={t('admin.contentTabs.appTab.googlePlayLinkLabel')} value={form.googleplay_url} onChange={v => set('googleplay_url', v)} placeholder="https://play.google.com/..." />
       </Section>
 
-      <Section title="الإحصائيات" icon={Star}>
+      <Section title={t('admin.contentTabs.appTab.statsSectionTitle')} icon={Star}>
         {[1, 2, 3].map(n => (
           <div key={n} className="grid grid-cols-3 gap-2">
-            <Field label={n === 1 ? 'القيمة' : ''} value={form[`stat${n}_value`]} onChange={v => set(`stat${n}_value`, v)} placeholder="١٢+" />
-            <Field label={n === 1 ? 'التسمية (عربي)' : ''} value={form[`stat${n}_label_ar`]} onChange={v => set(`stat${n}_label_ar`, v)} />
-            <Field label={n === 1 ? 'التسمية (EN)' : ''} value={form[`stat${n}_label_en`]} onChange={v => set(`stat${n}_label_en`, v)} />
+            <Field label={n === 1 ? t('admin.contentTabs.appTab.valueLabel') : ''} value={form[`stat${n}_value`]} onChange={v => set(`stat${n}_value`, v)} placeholder="١٢+" />
+            <Field label={n === 1 ? t('admin.contentTabs.appTab.labelArLabel') : ''} value={form[`stat${n}_label_ar`]} onChange={v => set(`stat${n}_label_ar`, v)} />
+            <Field label={n === 1 ? t('admin.contentTabs.appTab.labelEnLabel') : ''} value={form[`stat${n}_label_en`]} onChange={v => set(`stat${n}_label_en`, v)} />
           </div>
         ))}
       </Section>
 
-      <Section title="مميزات التطبيق">
+      <Section title={t('admin.contentTabs.appTab.featuresSectionTitle')}>
         {[1, 2, 3, 4].map(n => (
           <div key={n} className="rounded-xl p-3 space-y-2" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-            <p className="text-[10px] text-white/25 font-semibold uppercase tracking-wider">ميزة {n}</p>
+            <p className="text-[10px] text-white/25 font-semibold uppercase tracking-wider">{t('admin.contentTabs.appTab.featureLabel')} {n}</p>
             <Grid2>
-              <Field label="العنوان (عربي)" value={form[`feat${n}_title_ar`]} onChange={v => set(`feat${n}_title_ar`, v)} />
-              <Field label="Title (EN)" value={form[`feat${n}_title_en`]} onChange={v => set(`feat${n}_title_en`, v)} />
-              <TextArea label="الوصف (عربي)" value={form[`feat${n}_desc_ar`]} onChange={v => set(`feat${n}_desc_ar`, v)} rows={2} />
-              <TextArea label="Description (EN)" value={form[`feat${n}_desc_en`]} onChange={v => set(`feat${n}_desc_en`, v)} rows={2} />
+              <Field label={t('admin.contentTabs.appTab.titleArLabel')} value={form[`feat${n}_title_ar`]} onChange={v => set(`feat${n}_title_ar`, v)} />
+              <Field label={t('admin.contentTabs.appTab.titleEnLabel')} value={form[`feat${n}_title_en`]} onChange={v => set(`feat${n}_title_en`, v)} />
+              <TextArea label={t('admin.contentTabs.appTab.descArLabel')} value={form[`feat${n}_desc_ar`]} onChange={v => set(`feat${n}_desc_ar`, v)} rows={2} />
+              <TextArea label={t('admin.contentTabs.appTab.descEnLabel')} value={form[`feat${n}_desc_en`]} onChange={v => set(`feat${n}_desc_en`, v)} rows={2} />
             </Grid2>
           </div>
         ))}

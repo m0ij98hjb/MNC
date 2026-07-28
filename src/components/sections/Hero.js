@@ -33,100 +33,18 @@ const Hero = () => {
     "/asstes/office-projects/BARJIS - BACK ENTRANCE (07.07.2025).jpg",
   ];
 
-  const successText = {
-    ar: "مشروع ناجح", en: "Successful Projects", zh: "成功项目",
-    es: "Proyectos exitosos", fr: "Projets réussis", de: "Erfolgreiche Projekte",
-    tr: "Başarılı Proje", ur: "کامیاب منصوبے"
-  }[lang] || "Successful Projects";
+  const calcText = t('hero.calculateCostCta');
+  const freeText = t('hero.freeBadge');
 
-  const exploreText = {
-    ar: "استكشف مشاريعنا", en: "Explore Projects", zh: "探索我们的项目",
-    es: "Explorar proyectos", fr: "Explorer les projets", de: "Projekte erkunden",
-    tr: "Projeleri Keşfet", ur: "ہمارے منصوبے دریافت کریں"
-  }[lang] || "Explore Projects";
-
-  const calcText = {
-    ar: "احسب تكلفة مشروعك", en: "Calculate Your Project Cost", zh: "计算您的项目费用",
-    es: "Calcular el costo de su proyecto", fr: "Calculer le coût de votre projet",
-    de: "Projektkosten berechnen", tr: "Proje Maliyetinizi Hesaplayın",
-    ur: "اپنے پروجیکٹ کی لاگت کا حساب لگائیں"
-  }[lang] || "Calculate Your Project Cost";
-
-  const freeText = {
-    ar: "مجاني", en: "Free", zh: "免费", es: "Gratis",
-    fr: "Gratuit", de: "Kostenlos", tr: "Ücretsiz", ur: "مفت"
-  }[lang] || "Free";
-
-  const descFallback = {
-    ar: "شركة ام ان سى للانشاءات - خبرة عريقة في التصميم المعماري، إدارة المشاريع، والتنفيذ الإنشائي بأعلى معايير الجودة العالمية.",
-    en: "MNC General Contracting - Deep expertise in architectural design, project management, and construction execution to the highest international quality standards.",
-    de: "MNC General Contracting - Langjährige Erfahrung in Architekturentwurf, Projektmanagement und Bauausführung nach höchsten internationalen Qualitätsstandards.",
-    es: "MNC Contratación General - Amplia experiencia en diseño arquitectónico, gestión de proyectos y ejecución de construcción según los más altos estándares internacionales de calidad.",
-    fr: "MNC Contracting - Une solide expertise en conception architecturale, gestion de projet et exécution de travaux selon les normes de qualité internationales les plus strictes.",
-    tr: "MNC Genel Müteahhitlik - En yüksek uluslararası kalite standartlarında mimari tasarım, proje yönetimi ve inşaat uygulamalarında köklü uzmanlık.",
-    ur: "ایم این سی للانشاءات - اعلیٰ ترین بین الاقوامی معیار کے مطابق تعمیراتی ڈیزائن، پروجیکٹ مینجمنٹ اور تعمیل میں وسیع تجربہ۔",
-    zh: "MNC 通用承包 - 在建筑设计、项目管理和施工执行方面拥有深厚专长，符合最高国际质量标准。"
-  }[lang] || "MNC General Contracting - Deep expertise in architectural design, project management, and construction execution to the highest international quality standards.";
+  const descFallback = t('hero.liveDescription');
   const descText = isRTL
     ? (homeCms?.hero_sub_ar || descFallback)
     : lang === 'en'
       ? (homeCms?.hero_sub_en || descFallback)
       : descFallback;
 
-  const requestConsultText = {
-    ar: "اطلب استشارة",
-    en: "Request a Consultation",
-    zh: "请求咨询",
-    es: "Solicitar una consulta",
-    fr: "Demander une consultation",
-    de: "Beratung anfordern",
-    tr: "Danışmanlık Talep Et",
-    ur: "مشاورت کی درخواست کریں"
-  }[lang] || "Request a Consultation";
-
-  const viewWorksText = {
-    ar: "شاهد أعمالنا",
-    en: "View Our Work",
-    zh: "查看我们的作品",
-    es: "Ver nuestro trabajo",
-    fr: "Voir nos réalisations",
-    de: "Unsere Arbeiten ansehen",
-    tr: "Çalışmalarımızı İnceleyin",
-    ur: "ہمارا کام دیکھیں"
-  }[lang] || "View Our Work";
-
-  const projectStatText = {
-    ar: "مشروع",
-    en: "Projects",
-    zh: "项目",
-    es: "Proyectos",
-    fr: "Projets",
-    de: "Projekte",
-    tr: "Proje",
-    ur: "منصوبے"
-  }[lang] || "Projects";
-
-  const satisfactionStatText = {
-    ar: "رضى العملاء",
-    en: "Client Satisfaction",
-    zh: "客户满意度",
-    es: "Satisfacción del cliente",
-    fr: "Satisfaction client",
-    de: "Kundenzufriendenheit",
-    tr: "Müşteri Memnuniyeti",
-    ur: "صارفین کا اطمینان"
-  }[lang] || "Client Satisfaction";
-
-  const designStatText = {
-    ar: "تصميم",
-    en: "Designs",
-    zh: "设计",
-    es: "Diseños",
-    fr: "Designs",
-    de: "Designs",
-    tr: "Tasarım",
-    ur: "ڈیزائن"
-  }[lang] || "Designs";
+  const requestConsultText = t('hero.requestConsultationCta');
+  const viewWorksText = t('hero.viewWorkCta');
 
   return (
     <>
@@ -190,13 +108,7 @@ const Hero = () => {
             style={{ textShadow: "0 4px 20px rgba(0,0,0,0.8)" }}
           >
             <TypewriterText
-              texts={
-                { ar: ["بصمة هندسية", "متميزة"], en: ["Distinctive", "Engineering Mark"],
-                  zh: ["独特的", "工程印记"], es: ["Sello", "De Ingeniería Distintivo"],
-                  fr: ["Empreinte", "D'ingénierie Distinctive"], de: ["Einzigartige", "Ingenieursleistung"],
-                  tr: ["Belirgin", "Mühendislik İzi"], ur: ["منفرد", "انجینئرنگ نشان"]
-                }[lang] || ["Distinctive", "Engineering Mark"]
-              }
+              texts={[t('hero.taglineLine1'), t('hero.taglineLine2')]}
               typingSpeed={120} deletingSpeed={60} pauseDuration={2000} loop
               className="text-white" textClassNames={["", "text-secondary"]}
             />
@@ -326,7 +238,8 @@ const Hero = () => {
                   { ar: ["بصمة هندسية", "متميزة"], en: ["Distinctive", "Engineering Mark"],
                     zh: ["独特的", "工程印记"], es: ["Sello", "De Ingeniería Distintivo"],
                     fr: ["Empreinte", "D'ingénierie Distinctive"], de: ["Einzigartige", "Ingenieursleistung"],
-                    tr: ["Belirgin", "Mühendislik İzi"], ur: ["منفرد", "انجینئرنگ نشان"]
+                    tr: ["Belirgin", "Mühendislik İzi"], ur: ["منفرد", "انجینئرنگ نشان"],
+                    hi: ["विशिष्ट", "इंजीनियरिंग छाप"], ru: ["Выдающийся", "Инженерный След"]
                   }[lang] || ["Distinctive", "Engineering Mark"]
                 }
                 typingSpeed={120} deletingSpeed={60} pauseDuration={2000} loop

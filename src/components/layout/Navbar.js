@@ -185,7 +185,7 @@ const Navbar = () => {
 
           {/* ── Desktop Nav Links ── */}
           <div className="hidden lg:flex items-center justify-center flex-1">
-            <nav className="flex items-center" aria-label="Main navigation">
+            <nav className="flex items-center" aria-label={t('nav.ariaLabel')}>
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
 
@@ -306,10 +306,10 @@ const Navbar = () => {
                       style={{ background: '#0b1320', border: '1px solid rgba(201,163,77,0.14)', boxShadow: '0 20px 60px rgba(0,0,0,0.88)' }}
                     >
                       <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.07]">
-                        <p className="text-white text-xs font-bold">الإشعارات</p>
+                        <p className="text-white text-xs font-bold">{t('admin.notifications')}</p>
                         {unreadCount > 0 && (
                           <span className="text-[10px] font-bold text-red-400 bg-red-500/10 rounded-full px-2 py-0.5">
-                            {unreadCount} جديد
+                            {unreadCount} {t('admin.newBadge')}
                           </span>
                         )}
                       </div>
@@ -317,7 +317,7 @@ const Navbar = () => {
                         {allNotifications.length === 0 ? (
                           <div className="text-center py-8">
                             <Bell size={20} className="text-white/10 mx-auto mb-2" />
-                            <p className="text-white/25 text-xs">لا توجد إشعارات جديدة</p>
+                            <p className="text-white/25 text-xs">{t('admin.noNotifications')}</p>
                           </div>
                         ) : allNotifications.map(n => (
                           <Link
@@ -336,7 +336,7 @@ const Navbar = () => {
                                 {n.type === 'supplier' ? n.companyName : n.fullName}
                               </p>
                               <p className="text-white/40 text-[11px] mt-0.5 truncate">
-                                {n.type === 'supplier' ? `طلب مورد جديد · ${n.activity || ''}` : `طلب وظيفة · ${n.position || ''}`}
+                                {n.type === 'supplier' ? `${t('admin.supplierReqLabel')} · ${n.activity || ''}` : `${t('admin.jobReqLabel')} · ${n.position || ''}`}
                               </p>
                             </div>
                             <span className="w-1.5 h-1.5 rounded-full bg-[#c8a96e]/60 shrink-0 mt-1.5" />
@@ -347,12 +347,12 @@ const Navbar = () => {
                         <div className="border-t border-white/[0.06] px-4 py-2.5 flex gap-2">
                           <Link href="/admin/suppliers" onClick={() => setIsBellOpen(false)}
                             className="flex-1 text-center text-[11px] text-blue-400/70 hover:text-blue-400 transition-colors font-semibold">
-                            الموردون
+                            {t('admin.suppliersMenu')}
                           </Link>
                           <div className="w-px bg-white/10" />
                           <Link href="/admin/jobs" onClick={() => setIsBellOpen(false)}
                             className="flex-1 text-center text-[11px] text-[#c8a96e]/70 hover:text-[#c8a96e] transition-colors font-semibold">
-                            الوظائف
+                            {t('admin.jobsMenu')}
                           </Link>
                         </div>
                       )}

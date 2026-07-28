@@ -38,7 +38,7 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="py-28 bg-[var(--background)] relative overflow-hidden">
+    <section className="py-16 md:py-20 bg-[var(--background)] relative overflow-hidden">
 
       {/* Background ambiance */}
       <div className="absolute inset-0 pointer-events-none">
@@ -50,7 +50,7 @@ const WhyChooseUs = () => {
       <div className="container mx-auto px-6 relative z-10">
 
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-20" data-aos="fade-up">
+        <div className="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
           <div className="inline-flex items-center gap-3 mb-5">
             <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#D5B25D]" />
             <span className="text-[#D5B25D] font-bold tracking-[0.2em] uppercase text-[11px]">
@@ -58,6 +58,7 @@ const WhyChooseUs = () => {
                 ar: "مميزاتنا", en: "Our Strengths", zh: "我们的优势",
                 es: "Nuestras fortalezas", fr: "Nos atouts", de: "Unsere Stärken",
                 tr: "Güçlü Yönlerimiz", ur: "ہماری خصوصیات",
+                hi: "हमारी ताकत", ru: "Наши преимущества",
               }[lang] || "Our Strengths"}
             </span>
             <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#D5B25D]" />
@@ -73,6 +74,8 @@ const WhyChooseUs = () => {
               de: <>Warum <span className="text-[#D5B25D]">MNC</span> wählen?</>,
               tr: <>Neden <span className="text-[#D5B25D]">MNC</span>?</>,
               ur: <>کیوں منتخب کریں <span className="text-[#D5B25D]">MNC</span>؟</>,
+              hi: <>क्यों चुनें <span className="text-[#D5B25D]">MNC</span>?</>,
+              ru: <>Почему выбирают <span className="text-[#D5B25D]">MNC</span>?</>,
             }[lang] || <>Why Choose <span className="text-[#D5B25D]">MNC</span>?</>}
           </h2>
 

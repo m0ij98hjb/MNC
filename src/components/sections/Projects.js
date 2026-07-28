@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { Plus, ExternalLink } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 const Projects = () => {
@@ -108,7 +107,7 @@ const Projects = () => {
   const filteredProjects = filter === "all" ? projects : projects.filter(p => p.category === filter);
 
   return (
-    <section id="projects" className="py-24 bg-white dark:bg-primary">
+    <section id="projects" className="py-16 md:py-20 bg-white dark:bg-primary">
       <div className="container mx-auto px-6 max-w-7xl">
         {/* Header */}
         <div className={`flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-8`}>
@@ -176,21 +175,6 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* View All Projects Button */}
-        <div className="mt-16 text-center" data-aos="fade-up">
-          <p className="text-white mb-6 italic">
-            {t("projectsSection.more")}
-          </p>
-          <Link
-            href="/projects"
-            className={`inline-flex items-center gap-2 bg-secondary text-white px-8 py-4 rounded-full font-bold hover:bg-secondary/80 transition-all shadow-md ${
-              lang === 'ar' || lang === 'ur' ? 'flex-row' : 'flex-row-reverse'
-            }`}
-          >
-            {t("projectsSection.viewAll")}
-            <ExternalLink size={18} className={lang === 'ar' || lang === 'ur' ? '' : 'rotate-180'} />
-          </Link>
-        </div>
       </div>
 
       {/* Lightbox */}

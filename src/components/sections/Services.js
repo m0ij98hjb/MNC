@@ -40,7 +40,7 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-[var(--card-bg)] relative overflow-hidden">
+    <section id="services" className="py-16 md:py-20 bg-[var(--card-bg)] relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/architectural-layout.png')]"></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>

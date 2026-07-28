@@ -32,7 +32,7 @@ export default function ProjectDirectory({ projects, categories }) {
     const allCities = projects.map(p => p.location);
     const unique = [];
     allCities.forEach(c => {
-      const label = lang === "ar" ? c.ar : c.en;
+      const label = c[lang] || c.en;
       if (!unique.some(u => u.label === label)) {
         unique.push({ label, raw: c });
       }
@@ -52,14 +52,14 @@ export default function ProjectDirectory({ projects, categories }) {
       if (activeCategory !== "all" && p.category !== activeCategory) return false;
       
       // Search query filter
-      const titleText = (lang === "ar" ? p.title.ar : p.title.en).toLowerCase();
-      const descText = (lang === "ar" ? p.description.ar : p.description.en).toLowerCase();
+      const titleText = (p.title[lang] || p.title.en).toLowerCase();
+      const descText = (p.description[lang] || p.description.en).toLowerCase();
       const matchesSearch = titleText.includes(searchQuery.toLowerCase()) || descText.includes(searchQuery.toLowerCase());
       if (!matchesSearch) return false;
       
       // City filter
       if (selectedCity !== "all") {
-        const cityLabel = lang === "ar" ? p.location.ar : p.location.en;
+        const cityLabel = p.location[lang] || p.location.en;
         if (cityLabel !== selectedCity) return false;
       }
       
@@ -188,10 +188,10 @@ export default function ProjectDirectory({ projects, categories }) {
               <div className="absolute bottom-5 inset-x-5 text-center space-y-1 z-10">
                 <span className="text-2xl block">{cat.icon}</span>
                 <h3 className="text-sm font-black text-white group-hover:text-secondary transition-colors line-clamp-1">
-                  {lang === "ar" ? cat.label.ar : cat.label.en}
+                  {cat.label[lang] || cat.label.en}
                 </h3>
                 <span className="text-[10px] font-bold text-white/50 block">
-                  {count} {lang === "ar" ? (count === 1 ? "مشروع" : count === 2 ? "مشروعين" : "مشاريع") : (count === 1 ? "Project" : "Projects")}
+                  {count} {count === 1 ? t("projectsSection.directory.projectSingular") : count === 2 ? t("projectsSection.directory.projectDual") : t("projectsSection.directory.projectPlural")}
                 </span>
               </div>
             </div>
@@ -210,7 +210,7 @@ export default function ProjectDirectory({ projects, categories }) {
             <Search className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 text-white/40`} size={20} />
             <input
               type="text"
-              placeholder={lang === "ar" ? "ابحث عن مشروع..." : "Search for a project..."}
+              placeholder={t("projectsSection.directory.searchPlaceholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className={`w-full bg-black/40 border border-white/10 rounded-2xl ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-3.5 text-sm text-white focus:border-[var(--secondary)] focus:bg-black/60 outline-none transition-all duration-300`}
@@ -232,7 +232,7 @@ export default function ProjectDirectory({ projects, categories }) {
                   }`}
                 >
                   <span className="text-sm">{cat.icon}</span>
-                  {lang === "ar" ? cat.label.ar : cat.label.en}
+                  {cat.label[lang] || cat.label.en}
                 </button>
               );
             })}
@@ -246,7 +246,7 @@ export default function ProjectDirectory({ projects, categories }) {
           {/* City Filter */}
           <div className="space-y-2">
             <label className="text-xs font-bold text-[#D5B25D] tracking-wider block">
-              {lang === "ar" ? "المدينة" : "City"}
+              {t("projectsSection.directory.cityLabel")}
             </label>
             <div className="relative">
               <select
@@ -255,7 +255,7 @@ export default function ProjectDirectory({ projects, categories }) {
                 className={`w-full bg-black/40 border border-white/10 rounded-xl ${isRTL ? 'pe-4 ps-10' : 'ps-4 pe-10'} py-3 text-xs text-white focus:border-[var(--secondary)] outline-none transition-all appearance-none cursor-pointer`}
               >
                 <option value="all" className="bg-[#0f172a] text-white">
-                  {lang === "ar" ? "كل المدن" : "All Cities"}
+                  {t("projectsSection.directory.allCities")}
                 </option>
                 {cities.map((city) => (
                   <option key={city.label} value={city.label} className="bg-[#0f172a] text-white">
@@ -270,7 +270,7 @@ export default function ProjectDirectory({ projects, categories }) {
           {/* Year Filter */}
           <div className="space-y-2">
             <label className="text-xs font-bold text-[#D5B25D] tracking-wider block">
-              {lang === "ar" ? "السنة" : "Year"}
+              {t("projectsSection.directory.yearLabel")}
             </label>
             <div className="relative">
               <select
@@ -279,7 +279,7 @@ export default function ProjectDirectory({ projects, categories }) {
                 className={`w-full bg-black/40 border border-white/10 rounded-xl ${isRTL ? 'pe-4 ps-10' : 'ps-4 pe-10'} py-3 text-xs text-white focus:border-[var(--secondary)] outline-none transition-all appearance-none cursor-pointer`}
               >
                 <option value="all" className="bg-[#0f172a] text-white">
-                  {lang === "ar" ? "كل السنوات" : "All Years"}
+                  {t("projectsSection.directory.allYears")}
                 </option>
                 {years.map((y) => (
                   <option key={y} value={String(y)} className="bg-[#0f172a] text-white">
@@ -294,7 +294,7 @@ export default function ProjectDirectory({ projects, categories }) {
           {/* Status Filter */}
           <div className="space-y-2">
             <label className="text-xs font-bold text-[#D5B25D] tracking-wider block">
-              {lang === "ar" ? "حالة المشروع" : "Project Status"}
+              {t("projectsSection.directory.statusLabel")}
             </label>
             <div className="relative">
               <select
@@ -303,13 +303,13 @@ export default function ProjectDirectory({ projects, categories }) {
                 className={`w-full bg-black/40 border border-white/10 rounded-xl ${isRTL ? 'pe-4 ps-10' : 'ps-4 pe-10'} py-3 text-xs text-white focus:border-[var(--secondary)] outline-none transition-all appearance-none cursor-pointer`}
               >
                 <option value="all" className="bg-[#0f172a] text-white">
-                  {lang === "ar" ? "كل الحالات" : "All Statuses"}
+                  {t("projectsSection.directory.allStatuses")}
                 </option>
                 <option value="completed" className="bg-[#0f172a] text-white">
-                  {lang === "ar" ? "منجز" : "Completed"}
+                  {t("projectsSection.directory.completed")}
                 </option>
                 <option value="ongoing" className="bg-[#0f172a] text-white">
-                  {lang === "ar" ? "تحت التنفيذ" : "Ongoing"}
+                  {t("projectsSection.directory.ongoing")}
                 </option>
               </select>
               <ChevronLeft className={`absolute ${isRTL ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 text-white/40 pointer-events-none -rotate-90`} size={14} />
@@ -324,7 +324,7 @@ export default function ProjectDirectory({ projects, categories }) {
       {filteredProjects.length === 0 ? (
         <div className="text-center py-20 bg-white/5 border border-white/10 rounded-3xl space-y-4">
           <p className="text-white/60 text-lg">
-            {lang === "ar" ? "لم نجد أي مشاريع تطابق خيارات البحث." : "No projects matched your search criteria."}
+            {t("projectsSection.directory.noResults")}
           </p>
           <button
             onClick={() => {
@@ -336,7 +336,7 @@ export default function ProjectDirectory({ projects, categories }) {
             }}
             className="text-secondary font-bold text-sm hover:underline"
           >
-            {lang === "ar" ? "إعادة تعيين الفلاتر" : "Reset Filters"}
+            {t("projectsSection.directory.resetFilters")}
           </button>
         </div>
       ) : (
@@ -352,7 +352,7 @@ export default function ProjectDirectory({ projects, categories }) {
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
                   <Image
                     src={p.coverImage}
-                    alt={lang === "ar" ? p.title.ar : p.title.en}
+                    alt={p.title[lang] || p.title.en}
                     fill
                     className="object-cover transition-transform duration-1000 group-hover:scale-110"
                     sizes="(max-w-728px) 100vw, (max-w-1024px) 50vw, 33vw"
@@ -365,13 +365,13 @@ export default function ProjectDirectory({ projects, categories }) {
                       ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" 
                       : "bg-amber-500/20 text-amber-300 border border-amber-500/30"
                   }`}>
-                    {p.status === "completed" ? (lang === "ar" ? "منجز" : "Completed") : (lang === "ar" ? "تحت التنفيذ" : "Ongoing")}
+                    {p.status === "completed" ? t("projectsSection.directory.completed") : t("projectsSection.directory.ongoing")}
                   </span>
 
                   {/* Photo Count Badge */}
                   <span className={`absolute bottom-4 ${isRTL ? 'right-4' : 'left-4'} bg-black/60 backdrop-blur-md text-white/90 text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 border border-white/10`}>
                     <Layers size={11} />
-                    {p.gallery.length} {lang === "ar" ? "صور" : "Photos"}
+                    {p.gallery.length} {t("projectsSection.directory.photosCount")}
                   </span>
                 </div>
 
@@ -379,15 +379,15 @@ export default function ProjectDirectory({ projects, categories }) {
                 <div className="p-6 space-y-4">
                   <div>
                     <span className="text-secondary font-black tracking-widest text-[10px] uppercase block mb-1">
-                      {lang === "ar" ? categories[p.category]?.label.ar : categories[p.category]?.label.en}
+                      {categories[p.category]?.label[lang] || categories[p.category]?.label.en}
                     </span>
                     <h3 className="text-xl font-bold text-white group-hover:text-secondary transition-colors duration-300 line-clamp-1">
-                      {lang === "ar" ? p.title.ar : p.title.en}
+                      {p.title[lang] || p.title.en}
                     </h3>
                   </div>
 
                   <p className="text-white/60 text-xs leading-relaxed line-clamp-2">
-                    {lang === "ar" ? p.description.ar : p.description.en}
+                    {p.description[lang] || p.description.en}
                   </p>
                 </div>
               </div>
@@ -396,7 +396,7 @@ export default function ProjectDirectory({ projects, categories }) {
               <div className="px-6 pb-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-white/40">
                 <div className="flex items-center gap-1.5">
                   <MapPin size={12} className="text-secondary" />
-                  <span>{lang === "ar" ? p.location.ar : p.location.en}</span>
+                  <span>{p.location[lang] || p.location.en}</span>
                 </div>
                 {p.year && (
                   <div className="flex items-center gap-1.5">
@@ -424,10 +424,10 @@ export default function ProjectDirectory({ projects, categories }) {
           >
             <div>
               <span className="text-secondary font-black tracking-widest text-[10px] uppercase block mb-1">
-                {lang === "ar" ? categories[activeProject.category]?.label.ar : categories[activeProject.category]?.label.en}
+                {categories[activeProject.category]?.label[lang] || categories[activeProject.category]?.label.en}
               </span>
               <h2 className="text-white text-base md:text-xl font-black">
-                {lang === "ar" ? activeProject.title.ar : activeProject.title.en}
+                {activeProject.title[lang] || activeProject.title.en}
               </h2>
             </div>
             
@@ -436,7 +436,7 @@ export default function ProjectDirectory({ projects, categories }) {
               <button
                 onClick={toggleFullscreen}
                 className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 hover:text-white transition-all"
-                title={lang === "ar" ? "ملء الشاشة" : "Full Screen"}
+                title={t("projectsSection.directory.fullScreen")}
               >
                 {isFullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
               </button>
@@ -445,7 +445,7 @@ export default function ProjectDirectory({ projects, categories }) {
               <button
                 onClick={closeLightbox}
                 className="p-2.5 rounded-xl bg-secondary hover:bg-[#E1BF67] border border-secondary/20 text-black font-black transition-all"
-                title={lang === "ar" ? "إغلاق" : "Close"}
+                title={t("aboutUsPage.closeLabel")}
               >
                 <X size={18} />
               </button>
@@ -506,11 +506,13 @@ export default function ProjectDirectory({ projects, categories }) {
             {/* Description & Counter */}
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <p className="text-white/60 text-xs md:text-sm leading-relaxed max-w-3xl">
-                {lang === "ar" ? activeProject.description.ar : activeProject.description.en}
+                {activeProject.description[lang] || activeProject.description.en}
               </p>
               
               <div className="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-xs font-bold text-secondary self-end md:self-auto whitespace-nowrap" dir="ltr">
-                {lang === "ar" ? `${currentImageIndex + 1} من ${activeProject.gallery.length}` : `Image ${currentImageIndex + 1} of ${activeProject.gallery.length}`}
+                {t("projectsSection.directory.imageCounter")
+                  .replace("{current}", String(currentImageIndex + 1))
+                  .replace("{total}", String(activeProject.gallery.length))}
               </div>
             </div>
 

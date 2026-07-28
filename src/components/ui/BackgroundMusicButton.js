@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMusic } from '@/context/MusicContext';
 import useHasMounted from '@/hooks/useHasMounted';
+import { useLanguage } from '@/context/LanguageContext';
 
 // Randomized equalizer-bar animation config — generated once when this
 // module is first evaluated (not during any component render), so it's
@@ -17,6 +18,7 @@ const BAR_CONFIG = [0, 1, 2, 3, 4].map(() => ({
 export default function BackgroundMusicButton() {
   const { isMusicPlaying, toggleMusic, isMusicReady } = useMusic();
   const isMounted = useHasMounted();
+  const { t } = useLanguage();
 
   if (!isMounted || !isMusicReady) return null;
 
@@ -29,8 +31,8 @@ export default function BackgroundMusicButton() {
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.95 }}
       className="group relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full cursor-pointer transition-all duration-300 z-40"
-      title={isMusicPlaying ? 'إيقاف الموسيقى' : 'تشغيل الموسيقى'}
-      aria-label={isMusicPlaying ? 'Pause Background Music' : 'Play Background Music'}
+      title={isMusicPlaying ? t('music.pause') : t('music.play')}
+      aria-label={isMusicPlaying ? t('music.pauseAria') : t('music.playAria')}
     >
       {/* Outer glow ring */}
       <div className={`absolute inset-0 rounded-full transition-all duration-500 ${

@@ -11,6 +11,7 @@ export function MusicProvider({ children }) {
   const musicRef = useRef(null);
   const wasMusicPlayingRef = useRef(false);
   const musicUserPausedRef = useRef(false);
+  const wasHiddenPlayingRef = useRef(false);
 
   useEffect(() => {
     const audio = new Audio('/assets/audio/divine-music.mp3');
@@ -48,6 +49,26 @@ export function MusicProvider({ children }) {
         musicRef.current = null;
       }
     };
+  }, []);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (musicRef.current && !musicRef.current.paused) {
+          wasHiddenPlayingRef.current = true;
+          musicRef.current.pause();
+          setIsMusicPlaying(false);
+        } else {
+          wasHiddenPlayingRef.current = false;
+        }
+      } else if (musicRef.current && wasHiddenPlayingRef.current && !musicUserPausedRef.current) {
+        wasHiddenPlayingRef.current = false;
+        musicRef.current.play().then(() => setIsMusicPlaying(true)).catch(() => {});
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
   }, []);
 
   const playMusic = useCallback(() => {

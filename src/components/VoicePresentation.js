@@ -9,11 +9,12 @@ import { usePathname } from 'next/navigation';
 import useHasMounted from '@/hooks/useHasMounted';
 
 // Languages that have a pre-recorded MP3 file in /public/asstes/
-const MP3_LANGS = new Set(['ar', 'en', 'de', 'es', 'fr', 'tr', 'ur', 'zh']);
+const MP3_LANGS = new Set(['ar', 'de', 'en', 'es', 'fr', 'hi', 'tr', 'ur', 'zh']);
 
 // BCP-47 tags used by SpeechSynthesis for languages without an MP3
 const LANG_BCP47 = {
   ru: 'ru-RU',
+  hi: 'hi-IN',
 };
 
 export default function VoicePresentation() {

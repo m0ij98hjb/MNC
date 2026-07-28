@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Building2, Loader2, AlertCircle, Camera, RefreshCw } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 /* ── Stream helpers (logic from /live-camera/[serial]/page.js) ──────────── */
 
@@ -14,6 +15,7 @@ function detectType(url, hint) {
 }
 
 function MjpegPlayer({ url, onError }) {
+  const { t } = useLanguage();
   const [stamp, setStamp] = useState(() => Date.now());
   const [failed, setFailed] = useState(false);
 
@@ -33,7 +35,7 @@ function MjpegPlayer({ url, onError }) {
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={src} alt="بث مباشر" className="w-full h-full object-contain bg-black" onError={() => setFailed(true)} />
+    <img src={src} alt={t("camera.liveAlt")} className="w-full h-full object-contain bg-black" onError={() => setFailed(true)} />
   );
 }
 
@@ -89,6 +91,7 @@ function Placeholder({ children }) {
  * @param {string} projectCode — serial number entered by user; empty = idle state
  */
 export default function CameraPreview({ projectCode }) {
+  const { t, isRTL } = useLanguage();
   const [phase, setPhase] = useState("idle"); // idle | loading | success | error
   const [cameras, setCameras] = useState([]);
   const [activeCam, setActiveCam] = useState(0);
@@ -98,9 +101,9 @@ export default function CameraPreview({ projectCode }) {
 
   const loadStream = useCallback(async (serial) => {
     const res = await fetch(`/api/cameras/${encodeURIComponent(serial)}/stream`);
-    if (!res.ok) throw new Error("الكاميرا غير متاحة حالياً");
+    if (!res.ok) throw new Error(t("camera.unavailable"));
     return res.json(); // { serialNumber, streamUrl, cameraType, status }
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     if (!projectCode) {
@@ -120,7 +123,7 @@ export default function CameraPreview({ projectCode }) {
       try {
         // 1. Verify serial via existing API
         const verRes = await fetch(`/api/cameras/${encodeURIComponent(projectCode)}`);
-        if (!verRes.ok) throw new Error("الكود غير صحيح أو غير موجود");
+        if (!verRes.ok) throw new Error(t("camera.invalidOrNotFound"));
         const cam = await verRes.json();
         if (cancelled) return;
 
@@ -144,11 +147,11 @@ export default function CameraPreview({ projectCode }) {
         setStreamData(stream);
         setPhase("success");
       } catch (e) {
-        if (!cancelled) { setPhase("error"); setErrMsg(e.message || "خطأ في الاتصال"); }
+        if (!cancelled) { setPhase("error"); setErrMsg(e.message || t("camera.connectionError")); }
       }
     })();
     return () => { cancelled = true; };
-  }, [projectCode, loadStream]);
+  }, [projectCode, loadStream, t]);
 
   const switchTo = useCallback(async (idx) => {
     if (idx === activeCam) return;
@@ -173,7 +176,7 @@ export default function CameraPreview({ projectCode }) {
         : "bg-white/10 text-white/40 border border-white/10"
     }`}>
       <span className={`w-1.5 h-1.5 rounded-full ${isLive ? "bg-red-500 animate-pulse" : "bg-white/30"}`} />
-      {isLive ? "مباشر" : "غير متصل"}
+      {isLive ? t("camera.live") : t("camera.offline")}
     </div>
   );
 
@@ -185,16 +188,16 @@ export default function CameraPreview({ projectCode }) {
       return (
         <iframe src={streamData.streamUrl} className="w-full h-full border-0"
           sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
-          title="بث الكاميرا" allowFullScreen />
+          title={t("camera.streamTitle")} allowFullScreen />
       );
     }
     if (streamType === "RTSP") {
       return (
         <div className="flex flex-col items-center justify-center h-full gap-3 p-4">
           <Camera size={28} className="text-[#D5B25D]" />
-          <p className="text-white/50 text-xs text-center">RTSP — يتطلب برنامج VLC</p>
+          <p className="text-white/50 text-xs text-center">{t("camera.rtspRequiresVlc")}</p>
           <a href={streamData.streamUrl} className="text-[#D5B25D] text-[10px] underline break-all text-center"
-            target="_blank" rel="noopener noreferrer">فتح الرابط</a>
+            target="_blank" rel="noopener noreferrer">{t("camera.openLink")}</a>
         </div>
       );
     }
@@ -209,7 +212,7 @@ export default function CameraPreview({ projectCode }) {
         <Placeholder>
           <Building2 size={42} className="text-[#D5B25D]/35" />
           <p className="text-white/25 text-xs text-center leading-relaxed">
-            أدخل كود المشروع<br />لعرض الكاميرا
+            {t("camera.enterProjectCode")}<br />{t("camera.toViewCamera")}
           </p>
         </Placeholder>
       </div>
@@ -221,7 +224,7 @@ export default function CameraPreview({ projectCode }) {
       <div className="w-full h-full bg-black">
         <Placeholder>
           <Loader2 size={32} className="text-[#D5B25D] animate-spin" />
-          <p className="text-white/40 text-xs">جاري التحقق…</p>
+          <p className="text-white/40 text-xs">{t("camera.verifying")}</p>
         </Placeholder>
       </div>
     );
@@ -268,7 +271,7 @@ export default function CameraPreview({ projectCode }) {
         {streamError ? (
           <Placeholder>
             <AlertCircle size={26} className="text-red-400/70" />
-            <p className="text-white/40 text-xs">تعذّر تحميل البث</p>
+            <p className="text-white/40 text-xs">{t("camera.streamLoadFailed")}</p>
             <button
               onClick={() => {
                 setStreamError(false);
@@ -279,7 +282,7 @@ export default function CameraPreview({ projectCode }) {
               className="flex items-center gap-1 text-[#D5B25D] text-[10px] hover:text-[#E1BF67] transition-colors
                 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D5B25D]/60 rounded px-1"
             >
-              <RefreshCw size={11} />إعادة المحاولة
+              <RefreshCw size={11} />{t("camera.retry")}
             </button>
           </Placeholder>
         ) : renderStream()}
@@ -287,8 +290,8 @@ export default function CameraPreview({ projectCode }) {
 
       {/* Bottom label */}
       <div className="px-3 py-2 shrink-0" style={{ background: "rgba(0,0,0,0.7)" }}>
-        <p className="text-white/55 text-[10px] font-medium truncate" dir="rtl">
-          {activeCamInfo?.cameraName || "كاميرا 1"}
+        <p className="text-white/55 text-[10px] font-medium truncate" dir={isRTL ? "rtl" : "ltr"}>
+          {activeCamInfo?.cameraName || t("camera.cameraNameFallback")}
           {activeCamInfo?.projectLocation ? ` — ${activeCamInfo.projectLocation}` : ""}
         </p>
       </div>

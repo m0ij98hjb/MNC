@@ -11,7 +11,7 @@ import {
   Calendar, User,
 } from 'lucide-react';
 
-const TYPE_LABEL = { in_person: 'حضوري', video: 'مكالمة فيديو', phone: 'مكالمة هاتفية' };
+const TYPE_LABEL_KEYS = { in_person: 'admin.inPerson', video: 'admin.videoCall', phone: 'admin.phoneCall' };
 
 export default function ApprovedJobsPage() {
   const { t, isRTL } = useLanguage();
@@ -64,9 +64,9 @@ export default function ApprovedJobsPage() {
           <div>
             <h1 className="text-2xl font-bold text-white flex items-center gap-2">
               <CalendarCheck size={22} className="text-[#c8a96e]" />
-              المتقدمون المقبولون
+              {t('admin.approvedApplicantsTitle')}
             </h1>
-            <p className="text-white/35 text-xs mt-0.5">سجل الموظفين الذين تم قبولهم وتحديد مواعيد مقابلاتهم</p>
+            <p className="text-white/35 text-xs mt-0.5">{t('admin.approvedApplicantsSubtitle')}</p>
           </div>
         </div>
 
@@ -75,11 +75,11 @@ export default function ApprovedJobsPage() {
           <div className="relative flex-1 max-w-sm">
             <Search size={15} className={`absolute ${isRTL ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 text-white/30`} />
             <input value={search} onChange={e => setSearch(e.target.value)}
-              placeholder="بحث بالاسم أو الوظيفة أو المدينة..."
+              placeholder={t('admin.searchApprovedPlaceholder')}
               className={`w-full bg-white/5 border border-white/10 rounded-xl py-2.5 ${isRTL ? 'pr-9 pl-3' : 'pl-9 pr-3'} text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#c8a96e]/40`} />
           </div>
           <div className="px-3 py-2 bg-[#c8a96e]/10 border border-[#c8a96e]/20 rounded-xl text-[#c8a96e] text-xs font-bold">
-            {apps.length} مقبول
+            {apps.length} {t('admin.acceptedCount')}
           </div>
         </div>
 
@@ -89,7 +89,7 @@ export default function ApprovedJobsPage() {
         ) : visible.length === 0 ? (
           <div className="text-center py-24">
             <CalendarCheck size={40} className="text-white/10 mx-auto mb-3" />
-            <p className="text-white/25 text-sm">لا يوجد متقدمون مقبولون بعد</p>
+            <p className="text-white/25 text-sm">{t('admin.noApprovedApplicantsYet')}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -110,7 +110,7 @@ export default function ApprovedJobsPage() {
                     </div>
                   </div>
                   <span className="text-[10px] font-black text-[#f59e0b] bg-[#f59e0b]/10 border border-[#f59e0b]/20 rounded-full px-2 py-0.5 shrink-0">
-                    مقابلة محددة
+                    {t('admin.statusInterviewBadge')}
                   </span>
                 </div>
 
@@ -132,14 +132,14 @@ export default function ApprovedJobsPage() {
                 {/* Interview details */}
                 {app.interviewDetails && (
                   <div className="bg-[#c8a96e]/6 border border-[#c8a96e]/15 rounded-xl p-3 space-y-1.5">
-                    <p className="text-[#c8a96e] text-[10px] font-black uppercase tracking-wider mb-2">تفاصيل المقابلة</p>
+                    <p className="text-[#c8a96e] text-[10px] font-black uppercase tracking-wider mb-2">{t('admin.interviewDetailsTitle')}</p>
                     <div className="flex items-center gap-2 text-[11px] text-white/55">
                       <Calendar size={10} className="text-[#c8a96e]/60" />
                       {app.interviewDetails.interviewDate} — {app.interviewDetails.interviewTime}
                     </div>
                     <div className="flex items-center gap-2 text-[11px] text-white/55">
                       <Briefcase size={10} className="text-[#c8a96e]/60" />
-                      {TYPE_LABEL[app.interviewDetails.interviewType] || app.interviewDetails.interviewType}
+                      {TYPE_LABEL_KEYS[app.interviewDetails.interviewType] ? t(TYPE_LABEL_KEYS[app.interviewDetails.interviewType]) : app.interviewDetails.interviewType}
                     </div>
                     {app.interviewDetails.interviewLocation && (
                       <div className="flex items-center gap-2 text-[11px] text-white/55">
@@ -150,7 +150,7 @@ export default function ApprovedJobsPage() {
                   </div>
                 )}
 
-                <p className="text-white/20 text-[10px] mt-3 text-end group-hover:text-white/40 transition-colors">اضغط للتفاصيل الكاملة ←</p>
+                <p className="text-white/20 text-[10px] mt-3 text-end group-hover:text-white/40 transition-colors">{t('admin.clickForFullDetails')} {isRTL ? '←' : '→'}</p>
               </div>
             ))}
           </div>
@@ -181,10 +181,10 @@ export default function ApprovedJobsPage() {
               {/* Personal info */}
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { label: 'البريد الإلكتروني', val: selected.email },
-                  { label: 'رقم الهاتف',       val: selected.phone },
-                  { label: 'المدينة',          val: selected.city || '—' },
-                  { label: 'سنوات الخبرة',    val: selected.experience || '—' },
+                  { label: t('admin.emailLabel'),      val: selected.email },
+                  { label: t('admin.phoneCol'),        val: selected.phone },
+                  { label: t('admin.cityColLabel'),    val: selected.city || '—' },
+                  { label: t('admin.experienceYears'), val: selected.experience || '—' },
                 ].map(row => (
                   <div key={row.label} className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3">
                     <p className="text-white/30 text-[10px] mb-1">{row.label}</p>
@@ -196,13 +196,13 @@ export default function ApprovedJobsPage() {
               {/* Interview card */}
               {selected.interviewDetails && (
                 <div className="bg-[#c8a96e]/8 border border-[#c8a96e]/20 rounded-xl p-4">
-                  <p className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest mb-3">تفاصيل المقابلة المحددة</p>
+                  <p className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest mb-3">{t('admin.interviewDetailsTitle')}</p>
                   <div className="space-y-2">
                     {[
-                      { label: 'التاريخ', val: selected.interviewDetails.interviewDate },
-                      { label: 'الوقت',   val: selected.interviewDetails.interviewTime },
-                      { label: 'النوع',   val: TYPE_LABEL[selected.interviewDetails.interviewType] || selected.interviewDetails.interviewType },
-                      selected.interviewDetails.interviewLocation && { label: 'الموقع / الرابط', val: selected.interviewDetails.interviewLocation },
+                      { label: t('admin.dateLabel'), val: selected.interviewDetails.interviewDate },
+                      { label: t('admin.timeLabel'), val: selected.interviewDetails.interviewTime },
+                      { label: t('admin.interviewTypeLabel'), val: TYPE_LABEL_KEYS[selected.interviewDetails.interviewType] ? t(TYPE_LABEL_KEYS[selected.interviewDetails.interviewType]) : selected.interviewDetails.interviewType },
+                      selected.interviewDetails.interviewLocation && { label: t('admin.interviewLocation'), val: selected.interviewDetails.interviewLocation },
                     ].filter(Boolean).map(row => (
                       <div key={row.label} className="flex items-center justify-between text-xs">
                         <span className="text-white/35">{row.label}</span>
@@ -211,7 +211,7 @@ export default function ApprovedJobsPage() {
                     ))}
                     {selected.interviewDetails.additionalMessage && (
                       <div className="pt-2 border-t border-white/[0.06] mt-2">
-                        <p className="text-white/30 text-[10px] mb-1">رسالة إضافية</p>
+                        <p className="text-white/30 text-[10px] mb-1">{t('admin.additionalMessage')}</p>
                         <p className="text-white/65 text-xs leading-relaxed">{selected.interviewDetails.additionalMessage}</p>
                       </div>
                     )}
@@ -222,7 +222,7 @@ export default function ApprovedJobsPage() {
               {/* Cover letter */}
               {selected.coverLetter && (
                 <div>
-                  <p className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest mb-2">رسالة التقديم</p>
+                  <p className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest mb-2">{t('admin.coverLetterAdmin')}</p>
                   <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-4">
                     <p className="text-white/60 text-xs leading-relaxed whitespace-pre-wrap">{selected.coverLetter}</p>
                   </div>
@@ -234,7 +234,7 @@ export default function ApprovedJobsPage() {
                 <a href={selected.cvUrl} target="_blank" rel="noreferrer"
                   className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#c8a96e]/10 border border-[#c8a96e]/25 text-[#c8a96e] text-sm font-bold hover:bg-[#c8a96e]/18 transition-all">
                   <Download size={15} />
-                  تحميل السيرة الذاتية
+                  {t('admin.downloadCV')}
                 </a>
               )}
             </div>

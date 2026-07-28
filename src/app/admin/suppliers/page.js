@@ -47,7 +47,7 @@ function scoreSupplier(s) {
 }
 
 export default function SuppliersListPage() {
-  const { t, isRTL } = useLanguage();
+  const { t, isRTL, lang } = useLanguage();
   const getAct = (name) => name && (t('activities.' + ACTIVITY_KEYS[name]) || name);
 
   const [suppliers, setSuppliers] = useState([]);
@@ -129,6 +129,7 @@ export default function SuppliersListPage() {
           supplierEmail: dialogSupplier.email,
           activity:      getAct(dialogSupplier.activity) || dialogSupplier.activity,
           additionalMessage,
+          lang,
         }),
       });
       const data = await res.json();
@@ -190,11 +191,8 @@ export default function SuppliersListPage() {
           <div className="flex items-start gap-3 bg-purple-500/8 border border-purple-500/20 rounded-xl px-4 py-3 mb-4">
             <Sparkles size={14} className="text-purple-400 mt-0.5 shrink-0" />
             <div>
-              <p className="text-purple-300 text-xs font-bold mb-0.5">الذكاء الاصطناعي مفعّل</p>
-              <p className="text-white/40 text-xs leading-relaxed">
-                يتم ترتيب الموردين تلقائياً بناءً على <strong className="text-white/60">أفضل سعر</strong> و<strong className="text-white/60">أعلى طاقة إنتاجية</strong> وسرعة التسليم.
-                الموردون الذين يحققون الشرطين الأساسيين يظهرون أولاً بشارة ⭐
-              </p>
+              <p className="text-purple-300 text-xs font-bold mb-0.5">{t('admin.agentEnabled')}</p>
+              <p className="text-white/40 text-xs leading-relaxed">{t('admin.agentSuppliersBannerDesc')}</p>
             </div>
           </div>
         )}
@@ -248,7 +246,7 @@ export default function SuppliersListPage() {
                                   {s.priceLevel && (
                                     <span className={`text-[10px] font-bold flex items-center gap-0.5 ${s.priceLevel === 'low' ? 'text-green-400' : s.priceLevel === 'mid' ? 'text-yellow-400' : 'text-red-400'}`}>
                                       <DollarSign size={9} />
-                                      {s.priceLevel === 'low' ? 'زهيد' : s.priceLevel === 'mid' ? 'تنافسي' : 'مرتفع'}
+                                      {s.priceLevel === 'low' ? t('admin.priceLow') : s.priceLevel === 'mid' ? t('admin.priceMid') : t('admin.priceHigh')}
                                     </span>
                                   )}
                                   {s.supplyCapacity && (
@@ -316,7 +314,7 @@ export default function SuppliersListPage() {
           <div className="w-full max-w-lg bg-[#111118] border border-white/10 rounded-2xl overflow-hidden shadow-2xl" dir={isRTL ? 'rtl' : 'ltr'}>
             <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]" style={{ background: 'linear-gradient(135deg,rgba(184,146,58,0.1),rgba(0,0,0,0))' }}>
               <div>
-                <h2 className="text-white font-bold text-base">إرسال رسالة قبول المورد</h2>
+                <h2 className="text-white font-bold text-base">{t('admin.supplierAcceptDialogTitle')}</h2>
                 <p className="text-white/40 text-xs mt-0.5">{dialogSupplier.companyName} — {dialogSupplier.contactName}</p>
               </div>
               <button onClick={closeDialog} className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/8 transition-all">
@@ -326,7 +324,7 @@ export default function SuppliersListPage() {
 
             <div className="px-6 py-4 grid grid-cols-2 gap-3 border-b border-white/[0.05]">
               <div className="flex items-center gap-2 text-xs text-white/45"><Building2 size={12} className="text-[#c8a96e] shrink-0" />{dialogSupplier.companyName}</div>
-              <div className="flex items-center gap-2 text-xs text-white/45"><Mail size={12} className="text-[#c8a96e] shrink-0" />{dialogSupplier.email || <span className="text-red-400/70">لا يوجد إيميل</span>}</div>
+              <div className="flex items-center gap-2 text-xs text-white/45"><Mail size={12} className="text-[#c8a96e] shrink-0" />{dialogSupplier.email || <span className="text-red-400/70">{t('admin.supplierEmailOptional')}</span>}</div>
               <div className="flex items-center gap-2 text-xs text-white/45"><Phone size={12} className="text-[#c8a96e] shrink-0" />{dialogSupplier.phone}</div>
               <div className="flex items-center gap-2 text-xs text-white/45"><MapPin size={12} className="text-[#c8a96e] shrink-0" />{dialogSupplier.city}{dialogSupplier.country ? `, ${dialogSupplier.country}` : ''}</div>
             </div>
@@ -334,25 +332,23 @@ export default function SuppliersListPage() {
             <div className="px-6 pt-5 pb-2">
               <div className="flex items-start gap-3 bg-[#c8a96e]/8 border border-[#c8a96e]/20 rounded-xl px-4 py-3">
                 <Mail size={14} className="text-[#c8a96e] mt-0.5 shrink-0" />
-                <p className="text-white/60 text-xs leading-relaxed">
-                  سيتم إرسال رسالة قبول احترافية تتضمن تهنئة المورد وخطوات استكمال الإجراءات والزيارة للفرع.
-                </p>
+                <p className="text-white/60 text-xs leading-relaxed">{t('admin.supplierAcceptNote')}</p>
               </div>
             </div>
 
             <div className="px-6 py-4 space-y-4">
               <div className="space-y-1.5">
                 <label className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest block">
-                  ملاحظة إضافية <span className="text-white/25 normal-case font-normal">(اختياري)</span>
+                  {t('admin.supplierExtraNoteLabel')} <span className="text-white/25 normal-case font-normal">{t('admin.supplierOptionalLabel')}</span>
                 </label>
                 <textarea rows={3} value={additionalMessage} onChange={e => setAdditionalMessage(e.target.value)}
-                  placeholder="مثال: يرجى التواصل خلال أسبوع..."
+                  placeholder={t('admin.supplierExtraNotePlaceholder')}
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-all resize-none" />
               </div>
-              {sendStatus === 'success' && <p className="text-green-400 text-sm font-semibold text-center">تم الإرسال بنجاح ✓</p>}
+              {sendStatus === 'success' && <p className="text-green-400 text-sm font-semibold text-center">{t('admin.supplierSendSuccess')}</p>}
               {sendStatus === 'error' && (
                 <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3">
-                  <p className="text-red-400 text-sm font-semibold text-center mb-1">فشل الإرسال</p>
+                  <p className="text-red-400 text-sm font-semibold text-center mb-1">{t('admin.supplierSendFail')}</p>
                   {sendError && <p className="text-red-300/70 text-xs text-center break-all">{sendError}</p>}
                 </div>
               )}
@@ -360,12 +356,12 @@ export default function SuppliersListPage() {
 
             <div className="px-6 py-4 border-t border-white/[0.07] flex gap-3">
               <button onClick={closeDialog} className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-semibold hover:text-white hover:border-white/20 transition-all">
-                إلغاء
+                {t('admin.supplierCancelBtn')}
               </button>
               <button onClick={handleSendAcceptance} disabled={sending || !dialogSupplier.email}
                 className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black text-sm font-black flex items-center justify-center gap-2 hover:from-[#D5B25D] hover:to-[#c8a96e] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
                 {sending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
-                إرسال رسالة القبول
+                {t('admin.supplierSendBtn')}
               </button>
             </div>
           </div>

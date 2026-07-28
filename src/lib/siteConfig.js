@@ -12,7 +12,9 @@ export const siteStats = {
       fr: "Projets",
       de: "Projekte",
       tr: "Proje",
-      ur: "منصوبے"
+      ur: "منصوبے",
+      hi: "परियोजनाएं",
+      ru: "Проекты"
     }
   },
   satisfaction: {
@@ -25,7 +27,9 @@ export const siteStats = {
       fr: "Satisfaction client",
       de: "Kundenzufriedenheit",
       tr: "Müşteri Memnuniyeti",
-      ur: "صارفین کا اطمینان"
+      ur: "صارفین کا اطمینان",
+      hi: "ग्राहक संतुष्टि",
+      ru: "Удовлетворённость клиентов"
     },
     suffix: "%"
   },
@@ -39,7 +43,9 @@ export const siteStats = {
       fr: "Designs",
       de: "Designs",
       tr: "Tasarım",
-      ur: "ڈیزائن"
+      ur: "ڈیزائن",
+      hi: "डिज़ाइन",
+      ru: "Дизайны"
     },
     suffix: "+",
     displayValue: (val) => val

@@ -7,23 +7,59 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const VALUES = [
   {
-    title:  { ar: "الجودة أولاً",         en: "Quality First"           },
-    desc:   { ar: "نلتزم بأعلى معايير الجودة في كل تفصيلة من تفاصيل المشروع", en: "We commit to the highest quality standards in every project detail" },
+    title:  { ar: "الجودة أولاً", en: "Quality First", hi: "गुणवत्ता सर्वोपरि", ru: "Качество прежде всего", de: "Qualität zuerst", es: "Calidad primero", fr: "La qualité d'abord", tr: "Önce Kalite", ur: "معیار سب سے پہلے", zh: "质量第一" },
+    desc:   { ar: "نلتزم بأعلى معايير الجودة في كل تفصيلة من تفاصيل المشروع",
+              en: "We commit to the highest quality standards in every project detail",
+              hi: "हम परियोजना के हर विवरण में सर्वोच्च गुणवत्ता मानकों के लिए प्रतिबद्ध हैं",
+              ru: "Мы придерживаемся высочайших стандартов качества в каждой детали проекта",
+              de: "Wir verpflichten uns zu den höchsten Qualitätsstandards in jedem Projektdetail",
+              es: "Nos comprometemos con los más altos estándares de calidad en cada detalle",
+              fr: "Nous nous engageons aux normes de qualité les plus élevées dans chaque détail",
+              tr: "Projenin her detayında en yüksek kalite standartlarına bağlı kalıyoruz",
+              ur: "ہم منصوبے کی ہر تفصیل میں اعلیٰ ترین معیاری اصولوں کے پابند ہیں",
+              zh: "我们致力于在项目的每个细节中遵循最高质量标准" },
     delay: "100",
   },
   {
-    title:  { ar: "الابتكار المستمر",     en: "Continuous Innovation"   },
-    desc:   { ar: "نطبّق أحدث التقنيات والأساليب الهندسية في كل أعمالنا",      en: "We apply the latest engineering techniques and technologies"      },
+    title:  { ar: "الابتكار المستمر", en: "Continuous Innovation", hi: "निरंतर नवाचार", ru: "Непрерывные инновации", de: "Kontinuierliche Innovation", es: "Innovación continua", fr: "Innovation continue", tr: "Sürekli İnovasyon", ur: "مسلسل جدت", zh: "持续创新" },
+    desc:   { ar: "نطبّق أحدث التقنيات والأساليب الهندسية في كل أعمالنا",
+              en: "We apply the latest engineering techniques and technologies",
+              hi: "हम अपने सभी कार्यों में नवीनतम इंजीनियरिंग तकनीकों और तकनीकों को लागू करते हैं",
+              ru: "Мы применяем новейшие инженерные методы и технологии во всех наших работах",
+              de: "Wir wenden in allen unseren Arbeiten die neuesten Ingenieurtechniken an",
+              es: "Aplicamos las últimas técnicas y tecnologías de ingeniería",
+              fr: "Nous appliquons les dernières techniques et technologies d'ingénierie",
+              tr: "Tüm çalışmalarımızda en son mühendislik tekniklerini uyguluyoruz",
+              ur: "ہم اپنے تمام کاموں میں جدید ترین انجینئرنگ کی تکنیک کا اطلاق کرتے ہیں",
+              zh: "我们在所有工作中应用最新的工程技术" },
     delay: "200",
   },
   {
-    title:  { ar: "الشراكة الحقيقية",    en: "True Partnership"        },
-    desc:   { ar: "نبني علاقات استراتيجية طويلة الأمد مع عملائنا وشركائنا",   en: "We build long-term strategic relationships with clients"          },
+    title:  { ar: "الشراكة الحقيقية", en: "True Partnership", hi: "सच्ची साझेदारी", ru: "Настоящее партнерство", de: "Echte Partnerschaft", es: "Verdadera asociación", fr: "Véritable partenariat", tr: "Gerçek Ortaklık", ur: "سچی شراکت داری", zh: "真诚合作" },
+    desc:   { ar: "نبني علاقات استراتيجية طويلة الأمد مع عملائنا وشركائنا",
+              en: "We build long-term strategic relationships with clients",
+              hi: "हम ग्राहकों और भागीदारों के साथ दीर्घकालिक रणनीतिक संबंध बनाते हैं",
+              ru: "Мы строим долгосрочные стратегические отношения с клиентами",
+              de: "Wir bauen langfristige strategische Beziehungen zu Kunden auf",
+              es: "Construimos relaciones estratégicas a largo plazo con nuestros clientes",
+              fr: "Nous construisons des relations stratégiques à long terme avec nos clients",
+              tr: "Müşterilerimizle uzun vadeli stratejik ilişkiler kuruyoruz",
+              ur: "ہم اپنے کلائنٹس کے ساتھ طویل مدتی حکمت عملی پر مبنی تعلقات استوار کرتے ہیں",
+              zh: "我们与客户建立长期的战略合作关系" },
     delay: "300",
   },
   {
-    title:  { ar: "الالتزام بالمواعيد",  en: "On-Time Delivery"        },
-    desc:   { ar: "نسلّم مشاريعنا في الوقت المحدد دون أي تنازل عن الجودة",   en: "We deliver on schedule without compromising quality"              },
+    title:  { ar: "الالتزام بالمواعيد", en: "On-Time Delivery", hi: "समय पर डिलीवरी", ru: "Соблюдение сроков", de: "Pünktliche Lieferung", es: "Entrega a tiempo", fr: "Livraison dans les délais", tr: "Zamanında Teslimat", ur: "وقت کی پابندی", zh: "按时交付" },
+    desc:   { ar: "نسلّم مشاريعنا في الوقت المحدد دون أي تنازل عن الجودة",
+              en: "We deliver on schedule without compromising quality",
+              hi: "हम गुणवत्ता से समझौता किए बिना समय पर अपनी परियोजनाएं वितरित करते हैं",
+              ru: "Мы сдаем наши проекты в срок без ущерба для качества",
+              de: "Wir liefern pünktlich ohne Kompromisse bei der Qualität",
+              es: "Entregamos a tiempo sin comprometer la calidad",
+              fr: "Nous livrons dans les délais sans compromettre la qualité",
+              tr: "Kaliteden ödün vermeden zamanında teslim ediyoruz",
+              ur: "ہم معیار پر کوئی سمجھوتہ کیے بغیر وقت پر اپنے منصوبے فراہم کرتے ہیں",
+              zh: "我们在不妥协质量的前提下按时交付项目" },
     delay: "400",
   },
 ];
@@ -37,7 +73,7 @@ const Vision = () => {
 
   return (
     <section
-      className="relative py-28 overflow-hidden"
+      className="relative py-16 md:py-20 overflow-hidden"
       style={{ backgroundColor: "var(--background)" }}
       dir={isRTL ? "rtl" : "ltr"}
     >
@@ -74,7 +110,8 @@ const Vision = () => {
             <span className="text-[#D5B25D] font-bold tracking-[0.2em] uppercase text-[11px]">
               {{ ar: "رؤية وخبرة", en: "Vision & Expertise", zh: "愿景与专长",
                  es: "Visión y experiencia", fr: "Vision et expertise",
-                 de: "Vision & Expertise", tr: "Vizyon & Uzmanlık", ur: "وژن اور مہارت" }[lang] || "Vision & Expertise"}
+                 de: "Vision & Expertise", tr: "Vizyon & Uzmanlık", ur: "وژن اور مہارت",
+                 hi: "दृष्टि और विशेषज्ञता", ru: "Видение и опыт" }[lang] || "Vision & Expertise"}
             </span>
             <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#D5B25D]" />
           </div>
@@ -86,14 +123,16 @@ const Vision = () => {
                  zh: "我们不只是建造项目", es: "No solo construimos proyectos",
                  fr: "Nous ne construisons pas que des projets",
                  de: "Wir bauen nicht nur Projekte",
-                 tr: "Sadece proje inşa etmiyoruz", ur: "ہم صرف منصوبے نہیں بناتے" }[lang] || "We Don't Just Build Projects"}
+                 tr: "Sadece proje inşa etmiyoruz", ur: "ہم صرف منصوبے نہیں بناتے",
+                 hi: "हम केवल परियोजनाएं नहीं बनाते", ru: "Мы не просто строим объекты" }[lang] || "We Don't Just Build Projects"}
             </span>
             <span className="text-gradient">
-              {{ ar: "بل نصمم مستقبلاً متميزاً", en: "We Design a Distinguished Future",
-                 zh: "我们设计卓越的未来", es: "Diseñamos un futuro distinguido",
-                 fr: "Nous concevons un avenir distinctif",
-                 de: "Wir gestalten eine ausgezeichnete Zukunft",
-                 tr: "Seçkin bir gelecek tasarlıyoruz", ur: "ہم ایک ممتاز مستقبل ڈیزائن کرتے ہیں" }[lang] || "We Design a Distinguished Future"}
+              {{ ar: "نحن نصنع معالم معمارية خالدة", en: "We Create Timeless Architectural Landmarks",
+                 zh: "我们创造永恒的建筑地标", es: "Creamos hitos arquitectónicos atemporales",
+                 fr: "Nous créons des repères architecturaux intemporels",
+                 de: "Wir schaffen zeitlose architektonische Wahrzeichen",
+                 tr: "Zamansız mimari yapıtlar yaratıyoruz", ur: "ہم لازوال معمارانہ شاہکار بناتے ہیں",
+                 hi: "हम कालातीत वास्तुकला के लैंडमार्क बनाते हैं", ru: "Мы создаем вечные архитектурные шедевры" }[lang] || "We Create Timeless Architectural Landmarks"}
             </span>
           </h2>
 
@@ -109,7 +148,9 @@ const Vision = () => {
                es: "MNC Construction combina experiencia sólida con visión prospectiva para entregar proyectos que superan las expectativas.",
                de: "MNC verbindet tiefe Expertise mit zukunftsorientierter Vision für Projekte, die Erwartungen übertreffen.",
                tr: "MNC, derin uzmanlığı ileri görüşlü bir vizyonla birleştirerek beklentilerin ötesinde projeler sunar.",
-               ur: "MNC تعمیرات گہری مہارت اور دور اندیش وژن کو یکجا کرکے توقعات سے بڑھ کر منصوبے فراہم کرتی ہے۔"
+               ur: "MNC تعمیرات گہری مہارت اور دور اندیش وژن کو یکجا کرکے توقعات سے بڑھ کر منصوبے فراہم کرتی ہے۔",
+               hi: "MNC कंस्ट्रक्शन डिजाइन से लेकर हैंडओवर तक, अपेक्षाओं से परे परियोजनाएं देने के लिए गहरी विशेषज्ञता को दूरदर्शी दृष्टि के साथ जोड़ती है।",
+               ru: "MNC Construction объединяет глубокий опыт с перспективным видением для создания проектов, превосходящих ожидания."
             }[lang] || "MNC Construction bridges deep expertise with forward-thinking vision to deliver projects that exceed expectations."}
           </p>
         </div>
@@ -118,16 +159,32 @@ const Vision = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-12">
           {[
             {
-              label: { ar: "رؤيتنا",    en: "Our Vision",   zh: "我们的愿景", fr: "Notre Vision",   es: "Nuestra Visión",   de: "Unsere Vision",  tr: "Vizyonumuz",  ur: "ہمارا وژن"  },
+              label: { ar: "رؤيتنا",    en: "Our Vision",   zh: "我们的愿景", fr: "Notre Vision",   es: "Nuestra Visión",   de: "Unsere Vision",  tr: "Vizyonumuz",  ur: "ہمارا وژن",  hi: "हमारी दृष्टि",  ru: "Наше видение"  },
               text:  { ar: "أن نكون الشركة الرائدة في قطاع الإنشاءات على مستوى المنطقة، من خلال تقديم مشاريع استثنائية تجمع بين الجودة والابتكار والاستدامة.",
-                       en: "To be the leading construction company in the region by delivering exceptional projects that blend quality, innovation, and sustainability." },
+                       en: "To be the leading construction company in the region by delivering exceptional projects that blend quality, innovation, and sustainability.",
+                       hi: "गुणवत्ता, नवाचार और स्थिरता को जोड़ने वाली असाधारण परियोजनाएं प्रदान करके क्षेत्र में अग्रणी निर्माण कंपनी बनना।",
+                       ru: "Быть ведущей строительной компанией в регионе, реализуя исключительные проекты, сочетающие качество, инновации и устойчивость.",
+                       de: "Das führende Bauunternehmen der Region zu sein, indem wir außergewöhnliche Projekte liefern.",
+                       es: "Ser la empresa de construcción líder en la región entregando proyectos excepcionales.",
+                       fr: "Être la première entreprise de construction de la région en réalisant des projets d'exception.",
+                       tr: "Kalite, yenilik ve sürdürülebilirliği harmanlayan olağanüstü projeler sunarak bölgenin lider inşaat şirketi olmak.",
+                       ur: "اعلیٰ معیار، جدت اور پائیداری کو جوڑنے والے غیر معمولی منصوبے فراہم کرکے خطے کی اہم تعمیراتی کمپنی بننا۔",
+                       zh: "通过交付融合质量、创新和可持续性的卓越项目，成为该地区领先的建筑公司。" },
               num: "01",
               delay: "100",
             },
             {
-              label: { ar: "رسالتنا",   en: "Our Mission",  zh: "我们的使命", fr: "Notre Mission",  es: "Nuestra Misión",  de: "Unsere Mission", tr: "Misyonumuz", ur: "ہمارا مشن" },
+              label: { ar: "رسالتنا",   en: "Our Mission",  zh: "我们的使命", fr: "Notre Mission",  es: "Nuestra Misión",  de: "Unsere Mission", tr: "Misyonumuz", ur: "ہمارا مشن", hi: "हमारा मिशन", ru: "Наша миссия" },
               text:  { ar: "تحقيق طموحات عملائنا من خلال تنفيذ مشاريع بأعلى معايير الجودة والسلامة، وبناء شراكات مبنية على الثقة والشفافية.",
-                       en: "Realising our clients' ambitions through projects built to the highest standards of quality and safety, founded on trust and transparency." },
+                       en: "Realising our clients' ambitions through projects built to the highest standards of quality and safety, founded on trust and transparency.",
+                       hi: "विश्वास और पारदर्शिता पर आधारित गुणवत्ता और सुरक्षा के उच्चतम मानकों के साथ परियोजनाओं के माध्यम से अपने ग्राहकों की आकांक्षाओं को पूरा करना।",
+                       ru: "Реализация амбиций наших клиентов через проекты, построенные по высочайшим стандартам качества и безопасности.",
+                       de: "Die Ambitionen unserer Kunden durch Projekte nach höchsten Qualitäts- und Sicherheitsstandards zu verwirklichen.",
+                       es: "Hacer realidad las ambiciones de nuestros clientes a través de proyectos construidos con los más altos estándares.",
+                       fr: "Réaliser les ambitions de nos clients grâce à des projets répondant aux normes les plus élevées.",
+                       tr: "Müşterilerimizin beklentilerini en yüksek kalite ve güvenlik standartlarında projelerle karşılamak.",
+                       ur: "اعتماد اور شفافیت پر مبنی اعلیٰ ترین معیار اور حفاظت کے ساتھ اپنے کلائنٹس کی خواہشات کو پورا کرنا۔",
+                       zh: "通过以最高质量和安全标准构建的项目，实现客户的抱负。" },
               num: "02",
               delay: "200",
             },

@@ -16,39 +16,39 @@ import {
 } from 'lucide-react';
 
 /* ─── Permission definitions ─── */
-const PERMISSIONS = [
+const PERMISSION_KEYS = [
   {
     id: 'purchasing_module',
-    label: 'إدارة المشتريات',
-    desc: 'طلب مواد وتتبع طلبات الشراء',
+    labelKey: 'admin.purchasingMenu',
+    descKey: 'admin.permPurchasingDesc',
     icon: ShoppingCart,
     color: '#c8a96e',
   },
   {
     id: 'suppliers_module',
-    label: 'إدارة الموردين',
-    desc: 'عرض وإدارة سجلات الموردين',
+    labelKey: 'admin.suppliersMenu',
+    descKey: 'admin.permSuppliersDesc',
     icon: Building2,
     color: '#a78bfa',
   },
   {
     id: 'jobs_module',
-    label: 'إدارة التوظيف',
-    desc: 'عرض وإدارة طلبات التوظيف',
+    labelKey: 'admin.jobsMenu',
+    descKey: 'admin.permJobsDesc',
     icon: Briefcase,
     color: '#3b82f6',
   },
   {
     id: 'messages_module',
-    label: 'رسائل العملاء',
-    desc: 'عرض والرد على رسائل العملاء',
+    labelKey: 'admin.messagesMenu',
+    descKey: 'admin.permMessagesDesc',
     icon: MessageSquare,
     color: '#10b981',
   },
   {
     id: 'reports_module',
-    label: 'التقارير والإحصائيات',
-    desc: 'عرض التقارير التحليلية',
+    labelKey: 'admin.reportsMenu',
+    descKey: 'admin.permReportsDesc',
     icon: BarChart2,
     color: '#f59e0b',
   },
@@ -65,6 +65,7 @@ const labelCls = 'text-[#c8a96e] text-[10px] font-black uppercase tracking-wides
 
 /* ─── Add / Edit User Modal ─── */
 function UserModal({ onClose, currentUid, editUser = null }) {
+  const { t } = useLanguage();
   const [form, setForm] = useState(editUser
     ? { name: editUser.name, phone: editUser.phone || '', jobTitle: editUser.jobTitle || '', department: editUser.department || '' }
     : { name: '', email: '', password: '', phone: '', jobTitle: '', department: '' }
@@ -84,10 +85,10 @@ function UserModal({ onClose, currentUid, editUser = null }) {
     setError('');
     if (!editUser) {
       if (!form.name.trim() || !form.email.trim()) {
-        setError('الاسم والإيميل مطلوبان.'); return;
+        setError(t('admin.nameEmailRequired')); return;
       }
       if ((form.password || '').length < 6) {
-        setError('كلمة المرور يجب أن تكون 6 أحرف على الأقل.'); return;
+        setError(t('admin.passwordMinLength')); return;
       }
     }
 
@@ -111,7 +112,7 @@ function UserModal({ onClose, currentUid, editUser = null }) {
       }
       onClose();
     } catch (e) {
-      setError(e.message || 'حدث خطأ أثناء الحفظ.');
+      setError(e.message || t('admin.saveErrorGeneric'));
     } finally {
       setSaving(false);
     }
@@ -133,7 +134,7 @@ function UserModal({ onClose, currentUid, editUser = null }) {
               {editUser ? <Edit2 size={14} className="text-[#c8a96e]" /> : <Plus size={14} className="text-[#c8a96e]" />}
             </div>
             <h2 className="text-white font-bold text-base">
-              {editUser ? 'تعديل بيانات المستخدم' : 'إضافة مستخدم جديد'}
+              {editUser ? t('admin.editUserTitle') : t('admin.addUserTitle')}
             </h2>
           </div>
           <button onClick={onClose} className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/8 transition-colors">
@@ -150,44 +151,44 @@ function UserModal({ onClose, currentUid, editUser = null }) {
 
           {/* Basic Info */}
           <div>
-            <p className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3">البيانات الأساسية</p>
+            <p className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3">{t('admin.basicInfoTitle')}</p>
             <div className="grid grid-cols-2 gap-3">
               <div className="col-span-2">
-                <label className={labelCls}><User size={10} className="inline me-1" />الاسم الكامل</label>
-                <input className={inputCls} value={form.name} onChange={e => set('name', e.target.value)} placeholder="أدخل الاسم الكامل" />
+                <label className={labelCls}><User size={10} className="inline me-1" />{t('admin.fullNameLabel')}</label>
+                <input className={inputCls} value={form.name} onChange={e => set('name', e.target.value)} placeholder={t('admin.fullNamePlaceholder')} />
               </div>
               {!editUser && (
                 <>
                   <div>
-                    <label className={labelCls}><Mail size={10} className="inline me-1" />البريد الإلكتروني</label>
+                    <label className={labelCls}><Mail size={10} className="inline me-1" />{t('admin.emailLabel')}</label>
                     <input type="email" dir="ltr" className={inputCls} value={form.email} onChange={e => set('email', e.target.value)} placeholder="user@mnc.com" />
                   </div>
                   <div>
-                    <label className={labelCls}><Lock size={10} className="inline me-1" />كلمة المرور المبدئية</label>
-                    <input type="password" dir="ltr" className={inputCls} value={form.password} onChange={e => set('password', e.target.value)} placeholder="6 أحرف على الأقل" />
+                    <label className={labelCls}><Lock size={10} className="inline me-1" />{t('admin.initialPasswordLabel')}</label>
+                    <input type="password" dir="ltr" className={inputCls} value={form.password} onChange={e => set('password', e.target.value)} placeholder={t('admin.minSixCharsPlaceholder')} />
                   </div>
                 </>
               )}
               <div>
-                <label className={labelCls}><Phone size={10} className="inline me-1" />رقم الجوال</label>
+                <label className={labelCls}><Phone size={10} className="inline me-1" />{t('purchasing.requesterPhone')}</label>
                 <input dir="ltr" className={inputCls} value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="+966 5xx xxx xxx" />
               </div>
               <div>
-                <label className={labelCls}>المسمى الوظيفي</label>
-                <input className={inputCls} value={form.jobTitle} onChange={e => set('jobTitle', e.target.value)} placeholder="مشرف / مهندس / ..." />
+                <label className={labelCls}>{t('purchasing.jobTitle')}</label>
+                <input className={inputCls} value={form.jobTitle} onChange={e => set('jobTitle', e.target.value)} placeholder={t('admin.jobTitlePlaceholder')} />
               </div>
               <div className="col-span-2">
-                <label className={labelCls}>القسم</label>
-                <input className={inputCls} value={form.department} onChange={e => set('department', e.target.value)} placeholder="الإنشاءات / المشاريع / المشتريات / ..." />
+                <label className={labelCls}>{t('purchasing.department')}</label>
+                <input className={inputCls} value={form.department} onChange={e => set('department', e.target.value)} placeholder={t('admin.departmentPlaceholder')} />
               </div>
             </div>
           </div>
 
           {/* Role Selection */}
           <div>
-            <p className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3">الوظيفة والدور</p>
+            <p className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3">{t('admin.jobAndRoleTitle')}</p>
             <div>
-              <label className={labelCls}>الوظيفة</label>
+              <label className={labelCls}>{t('purchasing.roleLabel')}</label>
               <select
                 className={inputCls}
                 value={role}
@@ -204,9 +205,9 @@ function UserModal({ onClose, currentUid, editUser = null }) {
 
           {/* Permissions */}
           <div>
-            <p className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3">الصلاحيات والوصول</p>
+            <p className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-3">{t('admin.permissionsAccessTitle')}</p>
             <div className="space-y-2">
-              {PERMISSIONS.map(({ id, label, desc, icon: Icon, color }) => {
+              {PERMISSION_KEYS.map(({ id, labelKey, descKey, icon: Icon, color }) => {
                 const checked = permissions.includes(id);
                 return (
                   <button
@@ -226,8 +227,8 @@ function UserModal({ onClose, currentUid, editUser = null }) {
                       <Icon size={15} style={{ color: checked ? color : 'rgba(255,255,255,0.3)' }} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className={`text-sm font-semibold leading-tight ${checked ? 'text-white' : 'text-white/50'}`}>{label}</p>
-                      <p className="text-[11px] text-white/25 mt-0.5">{desc}</p>
+                      <p className={`text-sm font-semibold leading-tight ${checked ? 'text-white' : 'text-white/50'}`}>{t(labelKey)}</p>
+                      <p className="text-[11px] text-white/25 mt-0.5">{t(descKey)}</p>
                     </div>
                     <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
                       checked ? 'border-[#c8a96e] bg-[#c8a96e]' : 'border-white/20'
@@ -247,7 +248,7 @@ function UserModal({ onClose, currentUid, editUser = null }) {
             onClick={onClose}
             className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-semibold hover:text-white hover:border-white/25 transition-all"
           >
-            إلغاء
+            {t('admin.cancel')}
           </button>
           <button
             onClick={submit}
@@ -255,7 +256,7 @@ function UserModal({ onClose, currentUid, editUser = null }) {
             className="flex-1 py-2.5 rounded-xl text-black text-sm font-black flex items-center justify-center gap-2 disabled:opacity-60 transition-all"
             style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)' }}
           >
-            {saving ? <Loader2 size={15} className="animate-spin" /> : (editUser ? 'حفظ التعديلات' : 'إنشاء الحساب')}
+            {saving ? <Loader2 size={15} className="animate-spin" /> : (editUser ? t('admin.saveChangesBtn') : t('purchasing.createUser'))}
           </button>
         </div>
       </div>
@@ -265,7 +266,8 @@ function UserModal({ onClose, currentUid, editUser = null }) {
 
 /* ─── Permission Badges ─── */
 function PermBadge({ id }) {
-  const perm = PERMISSIONS.find(p => p.id === id);
+  const { t } = useLanguage();
+  const perm = PERMISSION_KEYS.find(p => p.id === id);
   if (!perm) return null;
   const Icon = perm.icon;
   return (
@@ -274,7 +276,7 @@ function PermBadge({ id }) {
       style={{ color: perm.color, background: `${perm.color}18`, border: `1px solid ${perm.color}28` }}
     >
       <Icon size={9} />
-      {perm.label}
+      {t(perm.labelKey)}
     </span>
   );
 }
@@ -282,7 +284,7 @@ function PermBadge({ id }) {
 /* ─── Main Page Content ─── */
 function UsersContent() {
   const { user } = useAuth();
-  const { isRTL } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const [users, setUsers] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [editUser, setEditUser] = useState(null);
@@ -302,7 +304,7 @@ function UsersContent() {
           // User exists in purchasingUsers but not in adminUsers
           adminMap.set(p.id, {
             id: p.id,
-            name: p.name || 'مستخدم مشتريات',
+            name: p.name || t('admin.purchasingUserFallbackName'),
             email: p.email || '',
             role: 'user',
             permissions: ['purchasing_module'],
@@ -333,14 +335,14 @@ function UsersContent() {
       unsub1();
       unsub2();
     };
-  }, []);
+  }, [t]);
 
   const toggleActive = async (u) => {
     setError('');
     try {
       await updateAdminUserPermissions(u.id, { active: !u.active });
     } catch (e) {
-      setError(e.message || 'حدث خطأ.');
+      setError(e.message || t('admin.genericError'));
     }
   };
 
@@ -354,16 +356,16 @@ function UsersContent() {
         <div>
           <h1 className="text-2xl font-bold text-white flex items-center gap-2">
             <Users size={20} className="text-[#c8a96e]" />
-            إدارة المستخدمين
+            {t('admin.usersManagementTitle')}
           </h1>
-          <p className="text-sm text-white/30 mt-1">إضافة وإدارة حسابات موظفي النظام وتحديد وظائفهم وصلاحياتهم</p>
+          <p className="text-sm text-white/30 mt-1">{t('admin.usersManagementSubtitle')}</p>
         </div>
         <button
           onClick={() => { setEditUser(null); setShowModal(true); }}
           className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-black shadow-lg transition-all hover:scale-105"
           style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)' }}
         >
-          <Plus size={14} /> إضافة مستخدم
+          <Plus size={14} /> {t('purchasing.addUser')}
         </button>
       </div>
 
@@ -382,14 +384,14 @@ function UsersContent() {
         ) : users.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 gap-3">
             <Users size={40} className="text-white/10" />
-            <p className="text-white/30 text-sm">لا يوجد مستخدمون بعد. أضف أول موظف!</p>
+            <p className="text-white/30 text-sm">{t('admin.noUsersYet')}</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-white/[0.07]">
-                  {['الاسم', 'البريد الإلكتروني', 'الوظيفة', 'القسم', 'الحالة', 'الإجراءات'].map(h => (
+                  {[t('admin.nameLabel'), t('admin.emailLabel'), t('purchasing.roleLabel'), t('purchasing.department'), t('admin.statusCol'), t('admin.actionsCol')].map(h => (
                     <th key={h} className="text-start text-xs text-white/30 font-medium px-5 py-3.5 whitespace-nowrap">
                       {h}
                     </th>
@@ -436,8 +438,8 @@ function UsersContent() {
                           : 'text-red-400 bg-red-500/12 border border-red-500/20'
                       }`}>
                         {u.active !== false
-                          ? <><ShieldCheck size={9} /> مفعّل</>
-                          : <><ShieldOff size={9} /> معطّل</>
+                          ? <><ShieldCheck size={9} /> {t('purchasing.activeLabel')}</>
+                          : <><ShieldOff size={9} /> {t('purchasing.inactiveLabel')}</>
                         }
                       </span>
                     </td>
@@ -446,7 +448,7 @@ function UsersContent() {
                         <button
                           onClick={() => openEdit(u)}
                           className="p-1.5 rounded-lg text-white/40 hover:text-[#c8a96e] hover:bg-[#c8a96e]/10 transition-all"
-                          title="تعديل"
+                          title={t('admin.editLabel')}
                         >
                           <Edit2 size={13} />
                         </button>
@@ -457,7 +459,7 @@ function UsersContent() {
                               ? 'text-white/40 hover:text-red-400 hover:bg-red-500/10'
                               : 'text-white/40 hover:text-green-400 hover:bg-green-500/10'
                           }`}
-                          title={u.active !== false ? 'تعطيل الحساب' : 'تفعيل الحساب'}
+                          title={u.active !== false ? t('admin.deactivateAccountLabel') : t('admin.activateAccountLabel')}
                         >
                           <Power size={13} />
                         </button>
@@ -465,7 +467,7 @@ function UsersContent() {
                           <button
                             onClick={() => setDeleteTarget(u)}
                             className="p-1.5 rounded-lg text-white/40 hover:text-red-500 hover:bg-red-500/10 transition-all"
-                            title="حذف المستخدم"
+                            title={t('admin.deleteUserTitle')}
                           >
                             <Trash2 size={13} />
                           </button>
@@ -499,19 +501,19 @@ function UsersContent() {
               <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center">
                 <Trash2 size={20} />
               </div>
-              <h3 className="text-white font-bold text-lg">حذف المستخدم</h3>
+              <h3 className="text-white font-bold text-lg">{t('admin.deleteUserTitle')}</h3>
             </div>
             <p className="text-white/60 text-sm mb-6 leading-relaxed text-right">
-              هل أنت متأكد من حذف المستخدم <strong className="text-white">"{deleteTarget.name}"</strong>؟
+              {t('admin.deleteUserConfirmPrefix')} <strong className="text-white">&quot;{deleteTarget.name}&quot;</strong>{t('admin.deleteUserConfirmSuffix')}
               <br />
-              سيتم إزالة حساب الموظف وصلاحياته بالكامل من النظام. لا يمكن التراجع عن هذا الإجراء.
+              {t('admin.deleteUserConfirmDetail')}
             </p>
             <div className="flex gap-3">
               <button
                 onClick={() => setDeleteTarget(null)}
                 className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-semibold hover:text-white hover:border-white/25 transition-all"
               >
-                إلغاء
+                {t('admin.cancel')}
               </button>
               <button
                 onClick={async () => {
@@ -521,12 +523,12 @@ function UsersContent() {
                   try {
                     await deleteAdminUser(targetId);
                   } catch (e) {
-                    setError(e.message || 'حدث خطأ أثناء حذف المستخدم.');
+                    setError(e.message || t('admin.deleteUserError'));
                   }
                 }}
                 className="flex-1 py-2.5 rounded-xl bg-red-500 text-white text-sm font-bold hover:bg-red-600 transition-all"
               >
-                تأكيد الحذف
+                {t('admin.confirmDeleteBtn')}
               </button>
             </div>
           </div>

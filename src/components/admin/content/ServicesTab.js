@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { ChevronDown, ChevronUp, Wrench } from 'lucide-react';
 import { loadSiteContent, saveSiteContent } from '@/lib/siteContent';
 import { Field, TextArea, Section, SaveBtn, ImageUpload, ListEditor, Grid2, TabLoading } from './Shared';
+import { useLanguage } from '@/context/LanguageContext';
 
 const DEFAULT_SERVICES = [
   {
@@ -56,6 +57,7 @@ const DEFAULT_SERVICES = [
 ];
 
 function ServiceCard({ svc, onChange }) {
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const set = (k, v) => onChange({ ...svc, [k]: v });
   return (
@@ -75,23 +77,23 @@ function ServiceCard({ svc, onChange }) {
       {open && (
         <div className="px-5 pb-5 space-y-4 border-t border-white/[0.06]" style={{ background: 'rgba(255,255,255,0.015)' }}>
           <div className="pt-4">
-            <ImageUpload label="صورة الهيرو" value={svc.heroImage} onChange={v => set('heroImage', v)} />
+            <ImageUpload label={t('admin.contentTabs.servicesTab.heroImageLabel')} value={svc.heroImage} onChange={v => set('heroImage', v)} />
           </div>
           <Grid2>
-            <Field label="الاسم (عربي)" value={svc.name_ar} onChange={v => set('name_ar', v)} />
-            <Field label="الاسم (إنجليزي)" value={svc.name_en} onChange={v => set('name_en', v)} />
+            <Field label={t('admin.contentTabs.servicesTab.nameArLabel')} value={svc.name_ar} onChange={v => set('name_ar', v)} />
+            <Field label={t('admin.contentTabs.servicesTab.nameEnLabel')} value={svc.name_en} onChange={v => set('name_en', v)} />
           </Grid2>
           <Grid2>
-            <TextArea label="الوصف (عربي)" value={svc.desc_ar} onChange={v => set('desc_ar', v)} rows={2} />
-            <TextArea label="الوصف (إنجليزي)" value={svc.desc_en} onChange={v => set('desc_en', v)} rows={2} />
+            <TextArea label={t('admin.contentTabs.servicesTab.descArLabel')} value={svc.desc_ar} onChange={v => set('desc_ar', v)} rows={2} />
+            <TextArea label={t('admin.contentTabs.servicesTab.descEnLabel')} value={svc.desc_en} onChange={v => set('desc_en', v)} rows={2} />
           </Grid2>
           <Grid2>
-            <ListEditor label="ما نقدمه (عربي)" items={svc.offerings_ar} onChange={v => set('offerings_ar', v)} />
-            <ListEditor label="Offerings (EN)" items={svc.offerings_en} onChange={v => set('offerings_en', v)} />
+            <ListEditor label={t('admin.contentTabs.servicesTab.offeringsArLabel')} items={svc.offerings_ar} onChange={v => set('offerings_ar', v)} />
+            <ListEditor label={t('admin.contentTabs.servicesTab.offeringsEnLabel')} items={svc.offerings_en} onChange={v => set('offerings_en', v)} />
           </Grid2>
           <Grid2>
-            <ListEditor label="مميزاتنا (عربي)" items={svc.advantages_ar} onChange={v => set('advantages_ar', v)} />
-            <ListEditor label="Advantages (EN)" items={svc.advantages_en} onChange={v => set('advantages_en', v)} />
+            <ListEditor label={t('admin.contentTabs.servicesTab.advantagesArLabel')} items={svc.advantages_ar} onChange={v => set('advantages_ar', v)} />
+            <ListEditor label={t('admin.contentTabs.servicesTab.advantagesEnLabel')} items={svc.advantages_en} onChange={v => set('advantages_en', v)} />
           </Grid2>
         </div>
       )}

@@ -8,6 +8,8 @@ import {
   ArrowRight, Maximize2, Minimize2, RefreshCw, Wifi, WifiOff,
   Camera, MapPin, Hash, Clock, Shield, ExternalLink, ChevronLeft,
 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { formatTime } from "@/lib/formatters";
 
 /* ─────────── Stream type detection ─────────── */
 function detectType(url, hint) {
@@ -21,6 +23,7 @@ function detectType(url, hint) {
 
 /* ─────────── MJPEG via <img> ─────────── */
 function MjpegPlayer({ url, onError }) {
+  const { t } = useLanguage();
   const [stamp, setStamp] = useState(() => Date.now());
   const [failed, setFailed] = useState(false);
 
@@ -43,7 +46,7 @@ function MjpegPlayer({ url, onError }) {
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src}
-      alt="كاميرا مباشرة"
+      alt={t("camera.liveCameraAlt")}
       className="w-full h-full object-contain bg-black"
       onError={() => setFailed(true)}
     />
@@ -84,10 +87,11 @@ function HlsPlayer({ url, onError }) {
 
 /* ─────────── HTTPS / Portal via iframe ─────────── */
 function IframePlayer({ url }) {
+  const { t } = useLanguage();
   return (
     <iframe
       src={url}
-      title="كاميرا مباشرة"
+      title={t("camera.liveCameraAlt")}
       className="w-full h-full bg-black"
       allowFullScreen
       sandbox="allow-scripts allow-same-origin allow-forms"
@@ -97,16 +101,16 @@ function IframePlayer({ url }) {
 
 /* ─────────── RTSP placeholder ─────────── */
 function RtspInfo({ url }) {
+  const { t } = useLanguage();
   return (
     <div className="flex flex-col items-center justify-center w-full h-full gap-6 bg-black p-8 text-center">
       <div className="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center">
         <Shield size={28} className="text-amber-400" />
       </div>
       <div>
-        <h3 className="text-white font-black text-xl mb-2">بث RTSP</h3>
+        <h3 className="text-white font-black text-xl mb-2">{t("camera.rtspTitle")}</h3>
         <p className="text-white/50 text-sm leading-relaxed max-w-sm">
-          بروتوكول RTSP لا يُدعم مباشرةً في المتصفح.
-          يمكن فتح البث عبر تطبيق VLC أو برنامج مشابه.
+          {t("camera.rtspDesc")}
         </p>
       </div>
       <a
@@ -115,7 +119,7 @@ function RtspInfo({ url }) {
         rel="noopener noreferrer"
         className="flex items-center gap-2 px-5 py-3 bg-[#C9A34D]/15 border border-[#C9A34D]/30 text-[#C9A34D] rounded-xl text-sm font-bold hover:bg-[#C9A34D]/25 transition-colors"
       >
-        <ExternalLink size={15} /> نسخ رابط RTSP
+        <ExternalLink size={15} /> {t("camera.copyRtspLink")}
       </a>
     </div>
   );
@@ -123,11 +127,12 @@ function RtspInfo({ url }) {
 
 /* ─────────── Empty / no stream ─────────── */
 function NoStream() {
+  const { t } = useLanguage();
   return (
     <div className="flex flex-col items-center justify-center w-full h-full gap-4 bg-black text-center p-8">
       <WifiOff size={40} className="text-white/15" />
-      <p className="text-white/30 text-sm">لم يتم تحديد رابط البث بعد</p>
-      <p className="text-white/20 text-xs">يمكن للمسؤول تحديثه من لوحة الإدارة</p>
+      <p className="text-white/30 text-sm">{t("camera.noStreamSet")}</p>
+      <p className="text-white/20 text-xs">{t("camera.adminCanUpdate")}</p>
     </div>
   );
 }
@@ -136,6 +141,7 @@ function NoStream() {
 export default function LiveCameraPage() {
   const { serial } = useParams();
   const router = useRouter();
+  const { t, lang, isRTL } = useLanguage();
 
   const [camera,     setCamera]     = useState(null);
   const [stream,     setStream]     = useState(null);
@@ -157,7 +163,7 @@ export default function LiveCameraPage() {
         fetch(`/api/cameras/${serial}/stream`),
       ]);
       if (!camRes.ok) {
-        setError("لم يتم العثور على هذه الكاميرا. تأكد من صحة الرقم التسلسلي.");
+        setError(t("camera.cameraNotFoundBySerial"));
         setLoading(false);
         return;
       }
@@ -167,10 +173,10 @@ export default function LiveCameraPage() {
       setStream(streamData);
       setLastRefresh(new Date());
     } catch {
-      setError("خطأ في الاتصال. تحقق من الشبكة وأعد المحاولة.");
+      setError(t("camera.connectionErrorRetry"));
     }
     setLoading(false);
-  }, [serial]);
+  }, [serial, t]);
 
   useEffect(() => { queueMicrotask(() => { load(); }); }, [load]);
 
@@ -196,12 +202,12 @@ export default function LiveCameraPage() {
   /* ── Loading ── */
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center" dir="rtl">
+      <div className="min-h-screen bg-black flex items-center justify-center" dir={isRTL ? "rtl" : "ltr"}>
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 rounded-2xl bg-[#C9A34D]/15 border border-[#C9A34D]/30 flex items-center justify-center animate-pulse">
             <Camera size={22} className="text-[#C9A34D]" />
           </div>
-          <p className="text-white/40 text-sm">جارٍ تحميل الكاميرا...</p>
+          <p className="text-white/40 text-sm">{t("camera.loadingCamera")}</p>
         </div>
       </div>
     );
@@ -210,21 +216,21 @@ export default function LiveCameraPage() {
   /* ── Not found ── */
   if (error || !camera) {
     return (
-      <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-6 p-8 text-center" dir="rtl">
+      <div className="min-h-screen bg-black flex flex-col items-center justify-center gap-6 p-8 text-center" dir={isRTL ? "rtl" : "ltr"}>
         <div className="w-16 h-16 rounded-2xl bg-red-500/15 border border-red-500/25 flex items-center justify-center">
           <WifiOff size={28} className="text-red-400" />
         </div>
         <div>
-          <h1 className="text-white font-black text-2xl mb-2">الكاميرا غير موجودة</h1>
+          <h1 className="text-white font-black text-2xl mb-2">{t("camera.cameraNotFoundTitle")}</h1>
           <p className="text-white/40 text-sm max-w-md">
-            {error || "لا توجد كاميرا بهذا الرقم التسلسلي."}
+            {error || t("camera.noCameraWithSerial")}
           </p>
         </div>
         <button
           onClick={() => router.back()}
           className="flex items-center gap-2 px-5 py-3 bg-[#C9A34D]/15 border border-[#C9A34D]/30 text-[#C9A34D] rounded-xl font-bold text-sm hover:bg-[#C9A34D]/25 transition-colors"
         >
-          <ChevronLeft size={16} /> العودة
+          <ChevronLeft size={16} /> {t("camera.backAction")}
         </button>
       </div>
     );
@@ -246,7 +252,7 @@ export default function LiveCameraPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex flex-col" dir="rtl">
+    <div className="min-h-screen bg-black flex flex-col" dir={isRTL ? "rtl" : "ltr"}>
 
       {/* ── Top bar ── */}
       <header
@@ -281,7 +287,7 @@ export default function LiveCameraPage() {
               : 'bg-red-500/10 border-red-500/25 text-red-400'
           }`}>
             {isOnline ? <Wifi size={11} /> : <WifiOff size={11} />}
-            {isOnline ? 'مباشر' : 'غير متصل'}
+            {isOnline ? t("camera.live") : t("camera.offline")}
           </div>
           <span className="hidden sm:block text-[#C9A34D]/60 text-xs font-mono font-bold">
             {camera.serialNumber}
@@ -308,12 +314,12 @@ export default function LiveCameraPage() {
           {streamErr && (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/90 z-20">
               <WifiOff size={32} className="text-red-400" />
-              <p className="text-red-400 font-bold text-sm">تعذّر تحميل البث</p>
+              <p className="text-red-400 font-bold text-sm">{t("camera.streamLoadFailed")}</p>
               <button
                 onClick={refresh}
                 className="flex items-center gap-2 px-4 py-2 text-xs text-[#C9A34D] border border-[#C9A34D]/30 rounded-xl hover:bg-[#C9A34D]/10 transition-colors"
               >
-                <RefreshCw size={12} /> إعادة المحاولة
+                <RefreshCw size={12} /> {t("camera.retry")}
               </button>
             </div>
           )}
@@ -322,14 +328,14 @@ export default function LiveCameraPage() {
           <div className="absolute top-3 left-3 flex items-center gap-2 z-30">
             <button
               onClick={refresh}
-              title="تحديث البث"
+              title={t("camera.refreshStreamTitle")}
               className="w-9 h-9 rounded-xl bg-black/70 backdrop-blur border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-[#C9A34D]/40 transition-all"
             >
               <RefreshCw size={14} />
             </button>
             <button
               onClick={toggleFullscreen}
-              title="شاشة كاملة"
+              title={t("camera.fullscreenTitle")}
               className="w-9 h-9 rounded-xl bg-black/70 backdrop-blur border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-[#C9A34D]/40 transition-all"
             >
               {fullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
@@ -379,7 +385,7 @@ export default function LiveCameraPage() {
             <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
               <Hash size={14} className="text-[#C9A34D]/50 shrink-0" />
               <div className="min-w-0">
-                <p className="text-white/30 text-[10px] mb-0.5">الرقم التسلسلي</p>
+                <p className="text-white/30 text-[10px] mb-0.5">{t("camera.serialNumberLabel")}</p>
                 <p className="text-[#C9A34D] text-sm font-mono font-black">{camera.serialNumber}</p>
               </div>
             </div>
@@ -389,7 +395,7 @@ export default function LiveCameraPage() {
               <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
                 <MapPin size={14} className="text-[#C9A34D]/50 shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-white/30 text-[10px] mb-0.5">الموقع</p>
+                  <p className="text-white/30 text-[10px] mb-0.5">{t("camera.locationLabel")}</p>
                   <p className="text-white/70 text-sm font-bold truncate">{camera.projectLocation}</p>
                 </div>
               </div>
@@ -399,9 +405,9 @@ export default function LiveCameraPage() {
             <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
               <div className={`w-2 h-2 rounded-full shrink-0 ${isOnline ? 'bg-green-400 animate-pulse' : 'bg-red-500'}`} />
               <div>
-                <p className="text-white/30 text-[10px] mb-0.5">الحالة</p>
+                <p className="text-white/30 text-[10px] mb-0.5">{t("camera.statusLabel")}</p>
                 <p className={`text-sm font-bold ${isOnline ? 'text-green-400' : 'text-red-400'}`}>
-                  {isOnline ? 'متصلة — بث مباشر' : 'غير متصلة'}
+                  {isOnline ? t("camera.connectedLive") : t("camera.disconnected")}
                 </p>
               </div>
             </div>
@@ -411,9 +417,9 @@ export default function LiveCameraPage() {
               <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
                 <Clock size={14} className="text-[#C9A34D]/50 shrink-0" />
                 <div>
-                  <p className="text-white/30 text-[10px] mb-0.5">آخر تحديث</p>
+                  <p className="text-white/30 text-[10px] mb-0.5">{t("camera.lastUpdateLabel")}</p>
                   <p className="text-white/60 text-xs">
-                    {lastRefresh.toLocaleTimeString('ar-SA')}
+                    {formatTime(lastRefresh, lang)}
                   </p>
                 </div>
               </div>
@@ -422,7 +428,7 @@ export default function LiveCameraPage() {
             {/* QR Code */}
             {camera.qrCode && (
               <div className="mt-2">
-                <p className="text-white/25 text-[10px] mb-2 font-bold uppercase tracking-wider">رمز QR</p>
+                <p className="text-white/25 text-[10px] mb-2 font-bold uppercase tracking-wider">{t("camera.qrCodeLabel")}</p>
                 <div className="flex justify-center p-4 bg-white/[0.04] rounded-xl border border-white/[0.06]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -432,7 +438,7 @@ export default function LiveCameraPage() {
                     style={{ imageRendering: 'pixelated' }}
                   />
                 </div>
-                <p className="text-white/20 text-[10px] text-center mt-1.5">امسح لفتح الكاميرا مباشرةً</p>
+                <p className="text-white/20 text-[10px] text-center mt-1.5">{t("camera.scanToOpen")}</p>
               </div>
             )}
 
@@ -445,7 +451,7 @@ export default function LiveCameraPage() {
               className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#C9A34D]/10 border border-[#C9A34D]/20 text-[#C9A34D] font-bold text-sm hover:bg-[#C9A34D]/18 transition-colors"
             >
               <RefreshCw size={14} />
-              تحديث البث
+              {t("camera.refreshStreamTitle")}
             </button>
           </div>
         </div>

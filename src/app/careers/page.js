@@ -66,53 +66,46 @@ export default function CareersPage() {
   const trainingRef     = useRef(null);
   const availPosRef     = useRef(null);
 
-  const benefits          = t("careers.benefits");
-  const positions         = t("careers.positions");
-  const trainingPositions = t("careers.trainingPositions");
-  const expOptions        = t("careers.expOptions");
+  const benefits           = t("careers.benefits");
+  const positions          = t("careers.positions");
+  const trainingPositions  = t("careers.trainingPositions");
+  const expOptions         = t("careers.expOptions");
+  const supervisorPositions = t("careers.supervisorPositions");
 
   /* ─── Derived options from recruitmentConfig ─── */
   const departmentOptions = Object.entries(DEPARTMENTS).map(([key, val]) => ({
     key,
-    label: lang === "ar" ? val.ar : val.en,
+    label: val[lang] || val.en,
   }));
 
   const positionOptions = department && DEPARTMENTS[department]
     ? Object.values(DEPARTMENTS[department].positions).map(p =>
-        lang === "ar" ? p.ar : p.en
+        p[lang] || p.en
       )
     : [];
 
   const tradeOptions = Object.entries(TRADES).map(([key, val]) => ({
     key,
-    label: lang === "ar" ? val.ar : val.en,
+    label: val[lang] || val.en,
   }));
 
-  /* ── handleApplyClick for locale-driven legacy cards ── */
+  /* ── handleApplyClick for locale-driven legacy cards ──
+     `posCard` is an item from the already-localized `careers.positions` /
+     `careers.trainingPositions` arrays, so `posCard.title` is correctly
+     translated for the active language — no ar/en branching needed here.
+     Only the internal DEPARTMENTS key (an identifier, not user-facing text)
+     needs a lookup table. */
+  const APPLY_DEPARTMENT_BY_KEY = {
+    pm: "pm", civil: "engineering", arch: "architecture", interior: "interior_design",
+    supervisor: "engineering", qty: "engineering", autocad: "architecture", sales: "administration",
+    mech: "engineering", elec: "engineering", safety: "hse", decor: "interior_design",
+    secretary: "administration", doccontrol: "administration", contracts: "contracts", it: "it",
+    intern_eng: "engineering", intern_design: "interior_design",
+  };
   const handleApplyClick = (posCard) => {
-    const mapping = {
-      pm:           { jobType: "formal", department: "pm",             position: lang === "ar" ? "مدير مشروع" : "Project Manager" },
-      civil:        { jobType: "formal", department: "engineering",    position: lang === "ar" ? "مهندس مدني" : "Civil Engineer" },
-      arch:         { jobType: "formal", department: "architecture",   position: lang === "ar" ? "مهندس معماري" : "Architectural Engineer" },
-      interior:     { jobType: "formal", department: "interior_design",position: lang === "ar" ? "مصمم داخلي" : "Interior Designer" },
-      supervisor:   { jobType: "formal", department: "engineering",    position: lang === "ar" ? "مهندس موقع" : "Site Engineer" },
-      qty:          { jobType: "formal", department: "engineering",    position: lang === "ar" ? "حاسب كميات" : "Quantity Surveyor" },
-      autocad:      { jobType: "formal", department: "architecture",   position: lang === "ar" ? "رسام معماري" : "Architectural Draftsman" },
-      sales:        { jobType: "formal", department: "administration", position: lang === "ar" ? "إداري مكتب" : "Office Administrator" },
-      mech:         { jobType: "formal", department: "engineering",    position: lang === "ar" ? "مهندس موقع" : "Site Engineer" },
-      elec:         { jobType: "formal", department: "engineering",    position: lang === "ar" ? "مهندس موقع" : "Site Engineer" },
-      safety:       { jobType: "formal", department: "hse",            position: lang === "ar" ? "مهندس سلامة" : "Safety Engineer" },
-      decor:        { jobType: "formal", department: "interior_design",position: lang === "ar" ? "مصمم داخلي" : "Interior Designer" },
-      secretary:    { jobType: "formal", department: "administration", position: lang === "ar" ? "سكرتير إداري" : "Administrative Secretary" },
-      doccontrol:   { jobType: "formal", department: "administration", position: lang === "ar" ? "إداري مكتب" : "Office Administrator" },
-      contracts:    { jobType: "formal", department: "contracts",      position: lang === "ar" ? "أخصائي عقود" : "Contract Specialist" },
-      it:           { jobType: "formal", department: "it",             position: lang === "ar" ? "مهندس تقنية معلومات" : "IT Engineer" },
-      intern_eng:   { jobType: "formal", department: "engineering",    position: lang === "ar" ? "مهندس موقع" : "Site Engineer" },
-      intern_design:{ jobType: "formal", department: "interior_design",position: lang === "ar" ? "مصمم داخلي" : "Interior Designer" },
-    };
-    const sel = mapping[posCard.key];
-    if (sel) {
-      setJobType(sel.jobType); setDepartment(sel.department); setPosition(sel.position); setTrade("");
+    const dept = APPLY_DEPARTMENT_BY_KEY[posCard.key];
+    if (dept) {
+      setJobType("formal"); setDepartment(dept); setPosition(posCard.title || ""); setTrade("");
     } else {
       setJobType("formal"); setDepartment(""); setPosition(posCard.title || ""); setTrade("");
     }
@@ -148,7 +141,7 @@ export default function CareersPage() {
 
   const resolvedPosition = jobType === "formal"
     ? position
-    : trade ? (lang === "ar" ? TRADES[trade]?.ar : TRADES[trade]?.en) ?? trade : "";
+    : trade ? (TRADES[trade]?.[lang] || TRADES[trade]?.en) ?? trade : "";
 
   const handleSubmit = async (e) => {
     e.preventDefault(); setSubmitting(true); setSubmitError("");
@@ -156,7 +149,7 @@ export default function CareersPage() {
       let cvUrl = "";
       if (cvFile) cvUrl = await uploadToCloudinary(cvFile);
       const deptLabel = department && DEPARTMENTS[department]
-        ? (lang === "ar" ? DEPARTMENTS[department].ar : DEPARTMENTS[department].en) : "";
+        ? (DEPARTMENTS[department][lang] || DEPARTMENTS[department].en) : "";
       await addDoc(collection(db, "jobApplications"), {
         fullName, phone, email, city, nationality, country,
         jobType, department: deptLabel,
@@ -303,10 +296,10 @@ export default function CareersPage() {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#B8923A]/12 text-[#B8923A] text-[10px] font-black uppercase tracking-widest mb-2.5 border border-[#B8923A]/20">
-                    {lang === "ar" ? "إشراف وإدارة ميدانية" : "Site Supervision"}
+                    {t("careers.siteSupervisionBadge")}
                   </span>
                   <h3 className="text-white font-black text-xl leading-tight">
-                    {lang === "ar" ? "وظائف الإشراف والإدارة" : "Supervision & Management"}
+                    {t("careers.siteSupervisionTitle")}
                   </h3>
                 </div>
                 <div className="w-12 h-12 rounded-xl bg-[#B8923A]/8 border border-[#B8923A]/15 flex items-center justify-center text-[#B8923A] flex-shrink-0 group-hover:scale-110 group-hover:bg-[#B8923A]/15 transition-all duration-300">
@@ -314,36 +307,15 @@ export default function CareersPage() {
                 </div>
               </div>
               <p className="text-white/55 text-sm leading-relaxed flex-1">
-                {lang === "ar"
-                  ? "وظائف الإشراف الميداني وإدارة المواقع والمشاريع في مختلف التخصصات."
-                  : "Field supervision and site management positions across all specializations."}
+                {t("careers.siteSupervisionDesc")}
               </p>
               <div className="flex flex-col gap-3 pt-4 border-t border-white/5">
                 <div className="relative">
                   <select value={cardFormalDept} onChange={e => setCardFormalDept(e.target.value)} className={selectCls}>
-                    <option value="" className="bg-[#111]">{lang === "ar" ? "— اختر المسمى الوظيفي —" : "— Select Position —"}</option>
-                    {[
-                      { ar: "مشرف عمال",           en: "Workers Supervisor" },
-                      { ar: "مشرف كهرباء",          en: "Electrical Supervisor" },
-                      { ar: "مشرف سباكة",           en: "Plumbing Supervisor" },
-                      { ar: "مشرف تشطيبات",         en: "Finishing Supervisor" },
-                      { ar: "مشرف ديكور",           en: "Decoration Supervisor" },
-                      { ar: "مشرف نجارة",           en: "Carpentry Supervisor" },
-                      { ar: "مشرف حدادة",           en: "Steel Works Supervisor" },
-                      { ar: "مشرف جبس بورد",        en: "Gypsum Board Supervisor" },
-                      { ar: "مشرف دهانات",          en: "Painting Supervisor" },
-                      { ar: "مشرف تكييف",           en: "HVAC Supervisor" },
-                      { ar: "مشرف سيراميك ورخام",   en: "Ceramic & Marble Supervisor" },
-                      { ar: "مشرف مواقع",           en: "Site Supervisor" },
-                      { ar: "مشرف مشاريع",          en: "Project Supervisor" },
-                      { ar: "مراقب أعمال",          en: "Works Inspector" },
-                      { ar: "فورمان تشطيبات",       en: "Finishing Foreman" },
-                      { ar: "فورمان إنشاءات",       en: "Construction Foreman" },
-                      { ar: "مدير موقع",            en: "Site Manager" },
-                      { ar: "مدير مشروع",           en: "Project Manager" },
-                    ].map(opt => (
-                      <option key={opt.ar} value={lang === "ar" ? opt.ar : opt.en} className="bg-[#111]">
-                        {lang === "ar" ? opt.ar : opt.en}
+                    <option value="" className="bg-[#111]">{t("careers.selectPositionPlaceholder")}</option>
+                    {supervisorPositions.map(pos => (
+                      <option key={pos} value={pos} className="bg-[#111]">
+                        {pos}
                       </option>
                     ))}
                   </select>
@@ -372,10 +344,10 @@ export default function CareersPage() {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#B8923A]/12 text-[#B8923A] text-[10px] font-black uppercase tracking-widest mb-2.5 border border-[#B8923A]/20">
-                    {lang === "ar" ? "وظائف فنية وحرفية" : "Skilled Trades"}
+                    {t("careers.skilledTradesBadge")}
                   </span>
                   <h3 className="text-white font-black text-xl leading-tight">
-                    {lang === "ar" ? "وظائف المعلمين" : "Skilled Workers"}
+                    {t("careers.skilledTradesTitle")}
                   </h3>
                 </div>
                 <div className="w-12 h-12 rounded-xl bg-[#B8923A]/8 border border-[#B8923A]/15 flex items-center justify-center text-[#B8923A] flex-shrink-0 group-hover:scale-110 group-hover:bg-[#B8923A]/15 transition-all duration-300">
@@ -383,14 +355,12 @@ export default function CareersPage() {
                 </div>
               </div>
               <p className="text-white/55 text-sm leading-relaxed flex-1">
-                {lang === "ar"
-                  ? "وظائف المعلمين والفنيين في مختلف تخصصات البناء والتشغيل."
-                  : "Skilled trades and technical positions across construction and operations."}
+                {t("careers.skilledTradesDesc")}
               </p>
               <div className="flex flex-col gap-3 pt-4 border-t border-white/5">
                 <div className="relative">
                   <select value={cardSkillTrade} onChange={e => setCardSkillTrade(e.target.value)} className={selectCls}>
-                    <option value="" className="bg-[#111]">{lang === "ar" ? "— اختر التخصص —" : "— Select Trade —"}</option>
+                    <option value="" className="bg-[#111]">{t("careers.selectTradePlaceholder")}</option>
                     {tradeOptions.map(opt => (
                       <option key={opt.key} value={opt.key} className="bg-[#111]">{opt.label}</option>
                     ))}
@@ -504,24 +474,24 @@ export default function CareersPage() {
                     <div className={`flex items-center gap-2 mb-3 ${isRTL ? "flex-row-reverse" : ""}`}>
                       <CheckCircle2 size={14} className="text-[#B8923A] flex-shrink-0" />
                       <span className="text-[#B8923A] text-[11px] font-black uppercase tracking-widest">
-                        {lang === "ar" ? "الوظيفة المختارة" : "Selected Position"}
+                        {t("careers.selectedPositionBannerLabel")}
                       </span>
                     </div>
                     <div className={`grid grid-cols-2 gap-4 ${isRTL ? "text-right" : "text-left"}`}>
                       <div>
                         <p className="text-white/35 text-[10px] uppercase tracking-wider mb-1">
-                          {lang === "ar" ? "نوع الوظيفة" : "Job Type"}
+                          {t("careers.jobType")}
                         </p>
                         <p className="text-white font-bold text-sm">
                           {jobType === "formal"
-                            ? (lang === "ar" ? "وظائف إدارية وهندسية" : "Formal Staff")
-                            : (lang === "ar" ? "وظائف المعلمين والفنيين" : "Skilled Workers")}
+                            ? t("careers.formalStaffTab")
+                            : t("careers.skilledWorkersTab")}
                         </p>
                       </div>
                       {(department || trade || position) && (
                         <div>
                           <p className="text-white/35 text-[10px] uppercase tracking-wider mb-1">
-                            {lang === "ar" ? "المسمى الوظيفي" : "Position"}
+                            {t("careers.positionShort")}
                           </p>
                           <p className="text-white font-bold text-sm">
                             {department
@@ -586,8 +556,8 @@ export default function CareersPage() {
                       onChange={e => { setJobType(e.target.value); setDepartment(""); setPosition(""); setTrade(""); }}
                       className={selectCls}>
                       <option value="" className="bg-[#111]">{t("careers.chooseJobType")}</option>
-                      <option value="formal"  className="bg-[#111]">{lang === "ar" ? "وظائف إدارية وهندسية" : "Formal Staff (وظائف إدارية وهندسية)"}</option>
-                      <option value="skilled" className="bg-[#111]">{lang === "ar" ? "وظائف المعلمين والفنيين" : "Skilled Workers (وظائف المعلمين والفنيين)"}</option>
+                      <option value="formal"  className="bg-[#111]">{t("careers.formalStaffTab")}</option>
+                      <option value="skilled" className="bg-[#111]">{t("careers.skilledWorkersTab")}</option>
                     </select>
                     <ChevronDown size={14} className={`absolute ${isRTL ? "left-3" : "right-3"} top-1/2 -translate-y-1/2 text-white/40 pointer-events-none`} />
                   </div>

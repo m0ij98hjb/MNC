@@ -10,6 +10,7 @@ import { de } from '../locales/de';
 import { tr } from '../locales/tr';
 import { ur } from '../locales/ur';
 import { ru } from '../locales/ru';
+import { hi } from '../locales/hi';
 
 const LanguageContext = createContext();
 
@@ -24,36 +25,46 @@ export const LANGUAGES = [
   { code: 'tr', name: 'Turkish',    nativeName: 'Türkçe',    flag: '🇹🇷', dir: 'ltr' },
   { code: 'ur', name: 'Urdu',       nativeName: 'اردو',      flag: '🇵🇰', dir: 'rtl' },
   { code: 'ru', name: 'Russian',    nativeName: 'Русский',   flag: '🇷🇺', dir: 'ltr' },
+  { code: 'hi', name: 'Hindi',      nativeName: 'हिन्दी',     flag: '🇮🇳', dir: 'ltr' },
 ];
 
-const localesMap = { ar, en, zh, es, fr, de, tr, ur, ru };
+const localesMap = { ar, en, zh, es, fr, de, tr, ur, ru, hi };
 
 // Languages that use RTL direction
 const RTL_LANGS = ['ar', 'ur'];
 
+const getSavedLang = () => {
+  if (typeof window !== 'undefined') {
+    try {
+      const local = localStorage.getItem('mnc_lang');
+      if (local && localesMap[local]) return local;
+      
+      const match = document.cookie.match(/(?:^|; )mnc_lang=([^;]*)/);
+      if (match && localesMap[match[1]]) return match[1];
+    } catch (e) {}
+  }
+  return 'ar';
+};
+
 export const LanguageProvider = ({ children }) => {
-  const [lang, setLangState] = useState('ar');
-  // Pure lookup derived from `lang` — no need for its own state/effect.
-  const translations = localesMap[lang] || en;
+  const [lang, setLangState] = useState(getSavedLang);
 
   useEffect(() => {
-    // Deferred into a microtask (not called synchronously in the effect
-    // body) — still runs once right after mount, still avoids any SSR/
-    // hydration mismatch since `lang` starts at 'ar' on both server and
-    // the initial client render either way.
-    queueMicrotask(() => {
-      const savedLang = localStorage.getItem('mnc_lang');
-      if (savedLang && localesMap[savedLang]) {
-        setLangState(savedLang);
-      }
-    });
+    const saved = getSavedLang();
+    if (saved && saved !== lang) {
+      setLangState(saved);
+    }
   }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const isRTL = RTL_LANGS.includes(lang);
     document.documentElement.lang = lang;
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
-    localStorage.setItem('mnc_lang', lang);
+    try {
+      localStorage.setItem('mnc_lang', lang);
+      document.cookie = `mnc_lang=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+    } catch (e) {}
   }, [lang]);
 
   const setLang = (code) => {
@@ -67,6 +78,7 @@ export const LanguageProvider = ({ children }) => {
   };
 
   const isRTL = RTL_LANGS.includes(lang);
+  const translations = localesMap[lang] || en;
 
   // Translation function - supports dot notation (e.g. 'nav.home')
   const t = (key) => {

@@ -13,64 +13,228 @@ const STAGES = [
   {
     id: 1,
     Icon: Hammer,
-    titleAr: "تمهيد الأرض والحفر",
-    titleEn: "Site Prep & Excavation",
-    descAr: "دراسة التربة وتخطيط الموقع الهندسي وحفر الأساسات بدقة عالية",
-    descEn: "Soil analysis, engineering site planning, and precision foundation excavation",
-    tagsAr: ["دراسة التربة", "مخططات الأساسات", "أعمال الحفر"],
-    tagsEn: ["Soil Analysis", "Foundation Plans", "Excavation Works"],
+    title: {
+      ar: "تمهيد الأرض والحفر",
+      en: "Site Prep & Excavation",
+      hi: "साइट तैयारी और खुदाई",
+      ru: "Подготовка участка и земляные работы",
+      de: "Standortvorbereitung & Aushub",
+      fr: "Préparation du site & Excavation",
+      es: "Preparación del sitio y excavación",
+      tr: "Saha Hazırlığı ve Kazı",
+      ur: "سائٹ کی تیاری اور کھدائی",
+      zh: "场地准备与开挖",
+    },
+    desc: {
+      ar: "دراسة التربة وتخطيط الموقع الهندسي وحفر الأساسات بدقة عالية",
+      en: "Soil analysis, engineering site planning, and precision foundation excavation",
+      hi: "मिट्टी का विश्लेषण, इंजीनियरिंग साइट योजना और सटीक नींव खुदाई",
+      ru: "Анализ грунта, инженерное планирование участка и точная экскавация фундамента",
+      de: "Bodenanalyse, technische Standortplanung und präzise Fundamentaushebung",
+      fr: "Analyse du sol, planification du site et excavation de fondation de précision",
+      es: "Análisis del suelo, planificación del sitio y excavación de cimentación de precisión",
+      tr: "Zemin analizi, mühendislik alanı planlaması ve hassas temel kazısı",
+      ur: "مٹی کا تجزیہ، انجینئرنگ سائٹ پلاننگ اور صحت مند بنیاد کی کھدائی",
+      zh: "土壤分析、工程场地规划和精确的基础开挖",
+    },
+    tags: {
+      ar: ["دراسة التربة", "مخططات الأساسات", "أعمال الحفر"],
+      en: ["Soil Analysis", "Foundation Plans", "Excavation Works"],
+      hi: ["मिट्टी विश्लेषण", "नींव योजनाएं", "खुदाई कार्य"],
+      ru: ["Анализ грунта", "Планы фундамента", "Земляные работы"],
+      de: ["Bodenanalyse", "Fundamentpläne", "Erdarbeiten"],
+      fr: ["Analyse du sol", "Plans de fondation", "Travaux d'excavation"],
+      es: ["Análisis del suelo", "Planos de cimentación", "Trabajos de excavación"],
+      tr: ["Zemin Analizi", "Temel Planları", "Kazı İşleri"],
+      ur: ["مٹی کا تجزیہ", "بنیاد کے منصوبے", "کھدائی کا کام"],
+      zh: ["土壤分析", "基础计划", "开挖工程"],
+    },
     floorsTo: 1,
   },
   {
     id: 2,
     Icon: Layers,
-    titleAr: "الخرسانة والهيكل الإنشائي",
-    titleEn: "Concrete & Structural Frame",
-    descAr: "صب الأساسات وإقامة الأعمدة والأسقف الخرسانية المسلحة طابقاً بطابق",
-    descEn: "Foundation pour, reinforced concrete columns and slabs floor by floor",
-    tagsAr: ["صب الأساسات", "الأعمدة والأسقف", "الهيكل الكامل"],
-    tagsEn: ["Foundation Pour", "Columns & Slabs", "Full Skeleton"],
+    title: {
+      ar: "الخرسانة والهيكل الإنشائي",
+      en: "Concrete & Structural Frame",
+      hi: "कंक्रीट और संरचनात्मक ढांचा",
+      ru: "Бетон и конструктивный каркас",
+      de: "Beton & Tragwerk",
+      fr: "Béton & Structure Portante",
+      es: "Hormigón y estructura",
+      tr: "Beton & Yapısal Çerçeve",
+      ur: "کنکریٹ اور ساختی فریم",
+      zh: "混凝土与结构框架",
+    },
+    desc: {
+      ar: "صب الأساسات وإقامة الأعمدة والأسقف الخرسانية المسلحة طابقاً بطابق",
+      en: "Foundation pour, reinforced concrete columns and slabs floor by floor",
+      hi: "नींव डालना, प्रबलित कंक्रीट स्तंभ और फर्श दर फर्श स्लैब",
+      ru: "Заливка фундамента, колонны и плиты из армированного бетона этаж за этажом",
+      de: "Fundamentguss, Stahlbetonstützen und -decken Etage für Etage",
+      fr: "Coulage de fondation, colonnes et dalles en béton armé étage par étage",
+      es: "Vaciado de cimentación, columnas y losas de concreto reforzado piso por piso",
+      tr: "Temel dökümü, betonarme kolonlar ve döşemeler kat kat",
+      ur: "بنیاد ڈالنا، مسلح کنکریٹ کے کالم اور سلیب منزل بہ منزل",
+      zh: "基础浇筑，逐层施工钢筋混凝土柱和板",
+    },
+    tags: {
+      ar: ["صب الأساسات", "الأعمدة والأسقف", "الهيكل الكامل"],
+      en: ["Foundation Pour", "Columns & Slabs", "Full Skeleton"],
+      hi: ["नींव डालना", "स्तंभ और स्लैब", "पूरा कंकाल"],
+      ru: ["Заливка фундамента", "Колонны и плиты", "Полный каркас"],
+      de: ["Fundamentguss", "Stützen & Decken", "Komplettes Tragwerk"],
+      fr: ["Coulage fondation", "Colonnes & Dalles", "Squelette complet"],
+      es: ["Vaciado cimentación", "Columnas y losas", "Esqueleto completo"],
+      tr: ["Temel Dökümü", "Kolonlar ve Döşemeler", "Tam İskelet"],
+      ur: ["بنیاد ڈالنا", "کالم اور سلیب", "مکمل ڈھانچہ"],
+      zh: ["基础浇筑", "柱与板", "完整骨架"],
+    },
     floorsTo: 4,
   },
   {
     id: 3,
     Icon: Building2,
-    titleAr: "الجدران والواجهات الخارجية",
-    titleEn: "Walls & Exterior Facades",
-    descAr: "رفع جدران الطوب وتركيب النوافذ والأبواب وتكسية الواجهات الخارجية",
-    descEn: "Masonry walls, window and door installation, and exterior cladding",
-    tagsAr: ["جدران الطوب", "النوافذ والأبواب", "الواجهات"],
-    tagsEn: ["Masonry", "Windows & Doors", "Exterior Cladding"],
+    title: {
+      ar: "الجدران والواجهات الخارجية",
+      en: "Walls & Exterior Facades",
+      hi: "दीवारें और बाहरी अग्रभाग",
+      ru: "Стены и внешние фасады",
+      de: "Wände & Außenfassaden",
+      fr: "Murs & Façades Extérieures",
+      es: "Paredes y fachadas exteriores",
+      tr: "Duvarlar & Dış Cepheler",
+      ur: "دیواریں اور بیرونی سامنے",
+      zh: "墙体与外立面",
+    },
+    desc: {
+      ar: "رفع جدران الطوب وتركيب النوافذ والأبواب وتكسية الواجهات الخارجية",
+      en: "Masonry walls, window and door installation, and exterior cladding",
+      hi: "चिनाई वाली दीवारें, खिड़की और दरवाजे की स्थापना, और बाहरी क्लैडिंग",
+      ru: "Кирпичные стены, установка окон и дверей, наружная облицовка",
+      de: "Mauerwerk, Fenster- und Türmontage sowie Außenverkleidung",
+      fr: "Murs en maçonnerie, pose des fenêtres et portes, revêtement extérieur",
+      es: "Muros de mampostería, instalación de ventanas y puertas, revestimiento exterior",
+      tr: "Tuğla duvarlar, pencere ve kapı montajı ve dış kaplama",
+      ur: "اینٹوں کی دیواریں، کھڑکی اور دروازہ نصب، بیرونی کلیڈنگ",
+      zh: "砌体墙、门窗安装和外部装饰",
+    },
+    tags: {
+      ar: ["جدران الطوب", "النوافذ والأبواب", "الواجهات"],
+      en: ["Masonry", "Windows & Doors", "Exterior Cladding"],
+      hi: ["चिनाई", "खिड़कियां और दरवाजे", "बाहरी क्लैडिंग"],
+      ru: ["Кладка", "Окна и двери", "Наружная облицовка"],
+      de: ["Mauerwerk", "Fenster & Türen", "Außenverkleidung"],
+      fr: ["Maçonnerie", "Fenêtres & Portes", "Revêtement extérieur"],
+      es: ["Mampostería", "Ventanas y puertas", "Revestimiento exterior"],
+      tr: ["Duvar Örme", "Pencereler & Kapılar", "Dış Kaplama"],
+      ur: ["اینٹ چنائی", "کھڑکیاں اور دروازے", "بیرونی کلیڈنگ"],
+      zh: ["砌体", "门窗", "外部装饰"],
+    },
     floorsTo: 6,
   },
   {
     id: 4,
     Icon: Zap,
-    titleAr: "الأعمال الميكانيكية والكهربائية",
-    titleEn: "MEP Works",
-    descAr: "تمديدات الكهرباء والسباكة وأنظمة التكييف والإنذار وأنظمة الأمان",
-    descEn: "Electrical, plumbing, HVAC, fire alarm, and security systems",
-    tagsAr: ["تمديدات الكهرباء", "شبكة السباكة", "التكييف والأمان"],
-    tagsEn: ["Electrical Works", "Plumbing Network", "HVAC & Safety"],
+    title: {
+      ar: "الأعمال الميكانيكية والكهربائية",
+      en: "MEP Works",
+      hi: "MEP कार्य",
+      ru: "МЭП работы",
+      de: "TGA-Arbeiten",
+      fr: "Travaux MEP",
+      es: "Trabajos MEP",
+      tr: "MEP İşleri",
+      ur: "MEP کام",
+      zh: "MEP工程",
+    },
+    desc: {
+      ar: "تمديدات الكهرباء والسباكة وأنظمة التكييف والإنذار وأنظمة الأمان",
+      en: "Electrical, plumbing, HVAC, fire alarm, and security systems",
+      hi: "विद्युत, प्लंबिंग, HVAC, अग्नि अलार्म और सुरक्षा प्रणालियां",
+      ru: "Электрика, сантехника, HVAC, пожарная сигнализация и системы безопасности",
+      de: "Elektro-, Sanitär-, HVAC-, Brandmelde- und Sicherheitssysteme",
+      fr: "Électricité, plomberie, CVC, alarme incendie et systèmes de sécurité",
+      es: "Sistemas eléctricos, plomería, HVAC, alarma contra incendios y seguridad",
+      tr: "Elektrik, tesisat, iklimlendirme, yangın alarmı ve güvenlik sistemleri",
+      ur: "بجلی، پلمبنگ، HVAC، فائر الارم اور سیکیورٹی سسٹمز",
+      zh: "电气、管道、暖通空调、火警和安全系统",
+    },
+    tags: {
+      ar: ["تمديدات الكهرباء", "شبكة السباكة", "التكييف والأمان"],
+      en: ["Electrical Works", "Plumbing Network", "HVAC & Safety"],
+      hi: ["विद्युत कार्य", "प्लंबिंग नेटवर्क", "HVAC और सुरक्षा"],
+      ru: ["Электромонтаж", "Сантехническая сеть", "HVAC и безопасность"],
+      de: ["Elektroarbeiten", "Sanitärnetz", "HVAC & Sicherheit"],
+      fr: ["Travaux électriques", "Réseau de plomberie", "CVC & Sécurité"],
+      es: ["Trabajos eléctricos", "Red de plomería", "HVAC y seguridad"],
+      tr: ["Elektrik İşleri", "Tesisat Ağı", "HVAC & Güvenlik"],
+      ur: ["بجلی کا کام", "پلمبنگ نیٹ ورک", "HVAC اور سیکیورٹی"],
+      zh: ["电气工程", "管道网络", "暖通空调与安全"],
+    },
     floorsTo: 8,
   },
   {
     id: 5,
     Icon: Sparkles,
-    titleAr: "التشطيبات والتسليم",
-    titleEn: "Finishing & Handover",
-    descAr: "الدهانات والأرضيات والديكور الداخلي والتشطيبات الخارجية ثم تسليم المفتاح",
-    descEn: "Paint, flooring, interior decor, exterior finishing, and key handover",
-    tagsAr: ["الدهانات والأرضيات", "الديكور الداخلي", "تسليم المشروع"],
-    tagsEn: ["Paint & Flooring", "Interior Decor", "Key Handover"],
+    title: {
+      ar: "التشطيبات والتسليم",
+      en: "Finishing & Handover",
+      hi: "फिनिशिंग और हैंडओवर",
+      ru: "Отделка и сдача",
+      de: "Ausbau & Übergabe",
+      fr: "Finitions & Remise",
+      es: "Acabados y entrega",
+      tr: "Son İşlemler & Teslim",
+      ur: "فنشنگ اور حوالگی",
+      zh: "装饰与交付",
+    },
+    desc: {
+      ar: "الدهانات والأرضيات والديكور الداخلي والتشطيبات الخارجية ثم تسليم المفتاح",
+      en: "Paint, flooring, interior decor, exterior finishing, and key handover",
+      hi: "पेंट, फर्श, आंतरिक सजावट, बाहरी फिनिशिंग और चाबी हस्तांतरण",
+      ru: "Покраска, напольные покрытия, интерьер, внешняя отделка и передача ключей",
+      de: "Anstrich, Böden, Innendekor, Außenverkleidung und Schlüsselübergabe",
+      fr: "Peinture, sols, décoration intérieure, finition extérieure et remise des clés",
+      es: "Pintura, pisos, decoración interior, acabado exterior y entrega de llaves",
+      tr: "Boya, zemin kaplaması, iç dekorasyon, dış kaplama ve anahtar teslimi",
+      ur: "پینٹ، فرش، اندرونی سجاوٹ، بیرونی فنشنگ اور چابی حوالگی",
+      zh: "涂料、地板、室内装饰、外部装饰和钥匙交付",
+    },
+    tags: {
+      ar: ["الدهانات والأرضيات", "الديكور الداخلي", "تسليم المشروع"],
+      en: ["Paint & Flooring", "Interior Decor", "Key Handover"],
+      hi: ["पेंट और फर्श", "आंतरिक सजावट", "चाबी हस्तांतरण"],
+      ru: ["Покраска и полы", "Интерьер", "Передача ключей"],
+      de: ["Anstrich & Böden", "Innendekor", "Schlüsselübergabe"],
+      fr: ["Peinture & sols", "Décoration intérieure", "Remise des clés"],
+      es: ["Pintura y pisos", "Decoración interior", "Entrega de llaves"],
+      tr: ["Boya & Zemin", "İç Dekorasyon", "Anahtar Teslimi"],
+      ur: ["پینٹ اور فرش", "اندرونی سجاوٹ", "پروجیکٹ حوالگی"],
+      zh: ["涂料与地板", "室内装饰", "钥匙交付"],
+    },
     floorsTo: 10,
   },
 ];
 
 const TOTAL_FLOORS = 10;
 
+const TX = {
+  eyebrow:    { ar: "رحلة التشييد", en: "Construction Journey", hi: "निर्माण यात्रा", ru: "Строительный путь", de: "Baureise", fr: "Parcours de construction", es: "Viaje de construcción", tr: "İnşaat Yolculuğu", ur: "تعمیر کا سفر", zh: "建设之旅" },
+  h2a:        { ar: "من", en: "From", hi: "जमीन से", ru: "От", de: "Vom", fr: "Du", es: "Desde", tr: "Temelden", ur: "زمین سے", zh: "从" },
+  h2b:        { ar: "الأرض", en: "Ground", hi: "जमीन", ru: "Земли", de: "Grund", fr: "Sol", es: "suelo", tr: "Temel", ur: "زمین", zh: "地面" },
+  h2c:        { ar: "إلى", en: "to", hi: "शीर्ष", ru: "до", de: "bis", fr: "au", es: "hasta", tr: "Zirveye", ur: "چوٹی", zh: "到" },
+  h2d:        { ar: "القمة", en: "Top", hi: "शीर्ष तक", ru: "Вершины", de: "Gipfel", fr: "Sommet", es: "la cima", tr: "Zirve", ur: "چوٹی تک", zh: "顶部" },
+  subtitle:   { ar: "شاهد فيديو الشركة واكتشف رحلتنا من الأساس حتى التشطيب بأعلى معايير الجودة", en: "Watch our company video and discover our journey from foundation to finishing", hi: "हमारे कंपनी वीडियो देखें और नींव से फिनिशिंग तक हमारी यात्रा की खोज करें", ru: "Посмотрите видео нашей компании и откройте для себя наш путь от фундамента до финишной отделки", de: "Sehen Sie unser Firmenvideo und entdecken Sie unsere Reise vom Fundament bis zur Fertigstellung", fr: "Regardez notre vidéo d'entreprise et découvrez notre parcours de la fondation à la finition", es: "Vea nuestro video corporativo y descubra nuestro camino de la cimentación al acabado", tr: "Şirket videomuzu izleyin ve temelden bitişe kadar olan yolculuğumuzu keşfedin", ur: "ہمارا کمپنی ویڈیو دیکھیں اور بنیاد سے فنشنگ تک ہمارے سفر کو دریافت کریں", zh: "观看我们的公司视频，了解我们从基础到完工的建设旅程" },
+  done:       { ar: "مكتمل", en: "Done", hi: "पूर्ण", ru: "Готово", de: "Fertig", fr: "Terminé", es: "Listo", tr: "Tamamlandı", ur: "مکمل", zh: "完成" },
+  inProgress: { ar: "جارٍ الآن", en: "In Progress", hi: "जारी है", ru: "В процессе", de: "Läuft", fr: "En cours", es: "En progreso", tr: "Devam Ediyor", ur: "جاری ہے", zh: "进行中" },
+  progress:   { ar: "التقدم الإجمالي", en: "Overall Progress", hi: "कुल प्रगति", ru: "Общий прогресс", de: "Gesamtfortschritt", fr: "Progression globale", es: "Progreso general", tr: "Genel İlerleme", ur: "مجموعی پیشرفت", zh: "总体进度" },
+  complete:   { ar: "المشروع مكتمل — من الأساس إلى التشطيب بأعلى معايير الجودة", en: "Project Complete — From Foundation to Finishing with the highest quality standards", hi: "परियोजना पूर्ण — नींव से फिनिशिंग तक उच्चतम गुणवत्ता मानकों के साथ", ru: "Проект завершен — от фундамента до отделки по высочайшим стандартам", de: "Projekt abgeschlossen — vom Fundament bis zur Fertigstellung", fr: "Projet terminé — De la fondation à la finition avec les normes de qualité les plus élevées", es: "Proyecto completo — desde la cimentación hasta el acabado con los más altos estándares", tr: "Proje Tamamlandı — Temelden Bitişe En Yüksek Kalite Standartlarıyla", ur: "منصوبہ مکمل — بنیاد سے فنشنگ تک اعلیٰ ترین معیار کے ساتھ", zh: "项目完成——从基础到完工，达到最高质量标准" },
+  companyBadge: { ar: "شركة ام ان سى للانشاءات", en: "MNC General Contracting", hi: "MNC जनरल कॉन्ट्रैक्टिंग", ru: "MNC General Contracting", de: "MNC General Contracting", fr: "MNC General Contracting", es: "MNC General Contracting", tr: "MNC General Contracting", ur: "MNC جنرل کنٹریکٹنگ", zh: "MNC 总承包" },
+};
+
 /* ── Video Player ── */
-function VideoPlayer() {
+function VideoPlayer({ lang }) {
   const videoRef          = useRef(null);
   const [playing,  setPlaying]  = useState(false);
   const [muted,    setMuted]    = useState(false);
@@ -173,7 +337,7 @@ function VideoPlayer() {
           {!started && (
             <div className="absolute top-3 left-3 flex items-center gap-2 bg-black/60 backdrop-blur-md border border-[#D5B25D]/25 rounded-full px-3 py-1.5">
               <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D] animate-pulse" />
-              <span className="text-white text-[10px] font-bold">شركة ام ان سى للانشاءات</span>
+              <span className="text-white text-[10px] font-bold">{TX.companyBadge[lang] || TX.companyBadge.en}</span>
             </div>
           )}
         </div>
@@ -214,7 +378,8 @@ export default function BuildingJourney() {
   const isInView          = useInView(sectionRef, { once: true, amount: 0.25 });
   const [builtFloors, setBuiltFloors] = useState(0);
   const [activeStage, setActiveStage] = useState(-1);
-  const isAr = lang === "ar";
+
+  const tx = (obj) => obj[lang] || obj.en;
 
   /* ── Auto-build animation ── */
   useEffect(() => {
@@ -270,19 +435,18 @@ export default function BuildingJourney() {
           <div className="flex items-center justify-center gap-3 mb-5">
             <span className="h-px w-10 bg-[#D5B25D]" />
             <span className="text-[#D5B25D] text-xs font-black uppercase tracking-[0.25em]">
-              {isAr ? "رحلة التشييد" : "Construction Journey"}
+              {tx(TX.eyebrow)}
             </span>
             <span className="h-px w-10 bg-[#D5B25D]" />
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-heading mb-5 leading-tight">
-            {isAr
-              ? <>من <span className="text-[#D5B25D]">الأرض</span> إلى <span className="text-[#D5B25D]">القمة</span></>
-              : <>From <span className="text-[#D5B25D]">Ground</span> to <span className="text-[#D5B25D]">Top</span></>}
+            {tx(TX.h2a)}{" "}
+            <span className="text-[#D5B25D]">{tx(TX.h2b)}</span>{" "}
+            {tx(TX.h2c)}{" "}
+            <span className="text-[#D5B25D]">{tx(TX.h2d)}</span>
           </h2>
           <p className="text-white/45 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            {isAr
-              ? "شاهد فيديو الشركة واكتشف رحلتنا من الأساس حتى التشطيب بأعلى معايير الجودة"
-              : "Watch our company video and discover our journey from foundation to finishing"}
+            {tx(TX.subtitle)}
           </p>
         </motion.div>
 
@@ -296,7 +460,7 @@ export default function BuildingJourney() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="lg:w-[50%] w-full min-h-[320px] sm:min-h-[400px] lg:h-[580px] lg:sticky lg:top-28 lg:self-start"
           >
-            <VideoPlayer />
+            <VideoPlayer lang={lang} />
           </motion.div>
 
           {/* Stages — right */}
@@ -346,11 +510,11 @@ export default function BuildingJourney() {
                         0{stage.id}
                       </span>
                       {isDoneStep && !isActive && (
-                        <span className="text-[9px] bg-[#D5B25D]/12 text-[#D5B25D] px-2 py-0.5 rounded-full font-black">✓ {isAr ? "مكتمل" : "Done"}</span>
+                        <span className="text-[9px] bg-[#D5B25D]/12 text-[#D5B25D] px-2 py-0.5 rounded-full font-black">✓ {tx(TX.done)}</span>
                       )}
                       {isActive && (
                         <span className="text-[9px] bg-[#D5B25D] text-black px-2 py-0.5 rounded-full font-black animate-pulse">
-                          {isAr ? "جارٍ الآن" : "In Progress"}
+                          {tx(TX.inProgress)}
                         </span>
                       )}
                     </div>
@@ -358,7 +522,7 @@ export default function BuildingJourney() {
                     <h3 className={`font-black text-sm md:text-base leading-tight mb-1 transition-colors duration-300 ${
                       isActive ? "text-white" : isDoneStep ? "text-white/60" : "text-white/25"
                     }`}>
-                      {isAr ? stage.titleAr : stage.titleEn}
+                      {tx(stage.title)}
                     </h3>
 
                     {isActive && (
@@ -369,10 +533,10 @@ export default function BuildingJourney() {
                         className="overflow-hidden"
                       >
                         <p className="text-white/50 text-xs md:text-sm leading-relaxed mb-2">
-                          {isAr ? stage.descAr : stage.descEn}
+                          {tx(stage.desc)}
                         </p>
                         <div className="flex flex-wrap gap-1.5">
-                          {(isAr ? stage.tagsAr : stage.tagsEn).map((tag, j) => (
+                          {(stage.tags[lang] || stage.tags.en).map((tag, j) => (
                             <motion.span
                               key={j}
                               initial={{ opacity: 0, scale: 0.85 }}
@@ -394,7 +558,7 @@ export default function BuildingJourney() {
             {/* Progress bar */}
             <div className="mt-1 px-1">
               <div className="flex justify-between text-[9px] font-bold text-white/25 mb-1">
-                <span>{isAr ? "التقدم الإجمالي" : "Overall Progress"}</span>
+                <span>{tx(TX.progress)}</span>
                 <span className="text-[#D5B25D]">{Math.round((builtFloors / TOTAL_FLOORS) * 100)}%</span>
               </div>
               <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
@@ -419,9 +583,7 @@ export default function BuildingJourney() {
             <div className="inline-flex items-center gap-4 bg-gradient-to-r from-[#D5B25D]/15 via-[#D5B25D]/8 to-[#D5B25D]/15 border border-[#D5B25D]/30 rounded-2xl px-8 py-5 shadow-[0_0_60px_rgba(213,178,93,0.12)]">
               <Sparkles className="text-[#D5B25D]" size={20} />
               <p className="text-white font-black text-sm md:text-base">
-                {isAr
-                  ? "المشروع مكتمل — من الأساس إلى التشطيب بأعلى معايير الجودة"
-                  : "Project Complete — From Foundation to Finishing with the highest quality standards"}
+                {tx(TX.complete)}
               </p>
               <Sparkles className="text-[#D5B25D]" size={20} />
             </div>

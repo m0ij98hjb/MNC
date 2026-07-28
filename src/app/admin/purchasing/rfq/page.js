@@ -35,9 +35,9 @@ function RFQListContent() {
         <div>
           <h1 className="text-2xl font-bold text-white flex items-center gap-2">
             <BarChart2 size={22} className="text-[#c8a96e]" />
-            مقارنات عروض الأسعار (RFQ)
+            {t('purchasing.rfqComparisonsListTitle')}
           </h1>
-          <p className="text-xs text-white/40 mt-1">اختر طلب شراء لاستعراض أو إنشاء جدول مقارنة عروض الأسعار بين الموردين</p>
+          <p className="text-xs text-white/40 mt-1">{t('purchasing.rfqComparisonsListSubtitle')}</p>
         </div>
       </div>
 
@@ -56,25 +56,25 @@ function RFQListContent() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-white/[0.07] bg-white/[0.01]">
-                  <th className="text-start text-xs text-white/40 font-medium px-5 py-3.5 whitespace-nowrap">رقم الطلب / العنون</th>
-                  <th className="text-start text-xs text-white/40 font-medium px-5 py-3.5 whitespace-nowrap">مقدم الطلب</th>
-                  <th className="text-start text-xs text-white/40 font-medium px-5 py-3.5 whitespace-nowrap">عدد المواد</th>
-                  <th className="text-start text-xs text-white/40 font-medium px-5 py-3.5 whitespace-nowrap">الحالة</th>
-                  <th className="text-start text-xs text-white/40 font-medium px-5 py-3.5 whitespace-nowrap">إجراء</th>
+                  <th className="text-start text-xs text-white/40 font-medium px-5 py-3.5 whitespace-nowrap">{t('purchasing.colRequestNumberTitle')}</th>
+                  <th className="text-start text-xs text-white/40 font-medium px-5 py-3.5 whitespace-nowrap">{t('purchasing.colRequester')}</th>
+                  <th className="text-start text-xs text-white/40 font-medium px-5 py-3.5 whitespace-nowrap">{t('purchasing.colItemCount')}</th>
+                  <th className="text-start text-xs text-white/40 font-medium px-5 py-3.5 whitespace-nowrap">{t('admin.statusCol')}</th>
+                  <th className="text-start text-xs text-white/40 font-medium px-5 py-3.5 whitespace-nowrap">{t('admin.actionsCol')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.04]">
                 {requests.map(req => (
                   <tr key={req.id} className="hover:bg-white/[0.02] transition-colors">
                     <td className="px-5 py-3.5">
-                      <div className="font-medium text-white">{req.title || req.requestNumber || 'طلب شراء'}</div>
+                      <div className="font-medium text-white">{req.title || req.requestNumber || t('purchasing.purchaseRequestFallback')}</div>
                       <div className="text-[11px] text-white/40 font-mono mt-0.5">{req.requestNumber || req.id}</div>
                     </td>
                     <td className="px-5 py-3.5 text-white/70 text-xs">
                       {req.requesterName || req.createdByName || '—'}
                     </td>
                     <td className="px-5 py-3.5 text-white/70 text-xs">
-                      {req.items?.length || 0} صنف
+                      {req.items?.length || 0} {t('purchasing.itemsUnitLabel')}
                     </td>
                     <td className="px-5 py-3.5">
                       <PurchaseStatusBadge status={req.status} />
@@ -86,7 +86,7 @@ function RFQListContent() {
                         style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)' }}
                       >
                         <Eye size={13} />
-                        جدول المقارنة
+                        {t('purchasing.quotationComparisonTitle')}
                         {isRTL ? <ArrowLeft size={13} /> : <ArrowRight size={13} />}
                       </Link>
                     </td>

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Plus, Pencil, Trash2, X, GripVertical, FolderOpen } from 'lucide-react';
 import { loadSiteContent, saveSiteContent } from '@/lib/siteContent';
 import { Field, TextArea, SaveBtn, ImageUpload, Grid2, TabLoading } from './Shared';
+import { useLanguage } from '@/context/LanguageContext';
 
 const EMPTY = () => ({
   id: crypto.randomUUID(),
@@ -15,6 +16,7 @@ const EMPTY = () => ({
 });
 
 export default function ProjectsTab() {
+  const { t } = useLanguage();
   const [items, setItems]     = useState([]);
   const [loading, setLoading] = useState(true);
   const [editId, setEditId]   = useState(null);
@@ -45,7 +47,7 @@ export default function ProjectsTab() {
   };
 
   const remove = (id) => {
-    if (confirm('حذف المشروع؟')) setItems(p => p.filter(x => x.id !== id));
+    if (confirm(t('admin.contentTabs.projectsTab.deleteProjectConfirm'))) setItems(p => p.filter(x => x.id !== id));
   };
 
   const save = async () => {
@@ -63,13 +65,13 @@ export default function ProjectsTab() {
     <div className="space-y-5 max-w-3xl">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <p className="text-sm text-white/40">{items.length} مشروع</p>
+        <p className="text-sm text-white/40">{items.length} {t('admin.contentTabs.projectsTab.projectsCountLabel')}</p>
         <button
           onClick={openNew}
           className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all"
           style={{ background: 'rgba(201,163,77,0.10)', border: '1px solid rgba(201,163,77,0.30)', color: '#c8a96e' }}
         >
-          <Plus size={13} /> مشروع جديد
+          <Plus size={13} /> {t('admin.contentTabs.projectsTab.newProjectBtn')}
         </button>
       </div>
 
@@ -77,7 +79,7 @@ export default function ProjectsTab() {
       {items.length === 0 ? (
         <div className="rounded-2xl py-16 text-center" style={{ border: '1px dashed rgba(255,255,255,0.08)' }}>
           <FolderOpen size={28} className="text-white/10 mx-auto mb-2" />
-          <p className="text-white/20 text-sm">لا توجد مشاريع بعد</p>
+          <p className="text-white/20 text-sm">{t('admin.contentTabs.projectsTab.noProjectsYetLabel')}</p>
         </div>
       ) : (
         <div className="space-y-2">
@@ -111,32 +113,32 @@ export default function ProjectsTab() {
             style={{ background: '#0a0e17', border: '1px solid rgba(201,163,77,0.2)', boxShadow: '0 24px 80px rgba(0,0,0,0.9)' }}
             onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-white">{editId === '__new__' ? 'مشروع جديد' : 'تعديل المشروع'}</h3>
+              <h3 className="text-sm font-bold text-white">{editId === '__new__' ? t('admin.contentTabs.projectsTab.newProjectModalTitle') : t('admin.contentTabs.projectsTab.editProjectModalTitle')}</h3>
               <button onClick={closeDlg} className="text-white/30 hover:text-white"><X size={15} /></button>
             </div>
-            <ImageUpload label="صورة المشروع" value={draft.image} onChange={v => setF('image', v)} />
+            <ImageUpload label={t('admin.contentTabs.projectsTab.projectImageLabel')} value={draft.image} onChange={v => setF('image', v)} />
             <Grid2>
-              <Field label="الاسم (عربي)" value={draft.name_ar} onChange={v => setF('name_ar', v)} />
-              <Field label="الاسم (إنجليزي)" value={draft.name_en} onChange={v => setF('name_en', v)} />
+              <Field label={t('admin.contentTabs.projectsTab.nameArLabel')} value={draft.name_ar} onChange={v => setF('name_ar', v)} />
+              <Field label={t('admin.contentTabs.projectsTab.nameEnLabel')} value={draft.name_en} onChange={v => setF('name_en', v)} />
             </Grid2>
             <Grid2>
-              <TextArea label="الوصف (عربي)" value={draft.desc_ar} onChange={v => setF('desc_ar', v)} rows={2} />
-              <TextArea label="الوصف (إنجليزي)" value={draft.desc_en} onChange={v => setF('desc_en', v)} rows={2} />
+              <TextArea label={t('admin.contentTabs.projectsTab.descArLabel')} value={draft.desc_ar} onChange={v => setF('desc_ar', v)} rows={2} />
+              <TextArea label={t('admin.contentTabs.projectsTab.descEnLabel')} value={draft.desc_en} onChange={v => setF('desc_en', v)} rows={2} />
             </Grid2>
             <Grid2>
-              <Field label="التصنيف" value={draft.category} onChange={v => setF('category', v)} placeholder="سكني / تجاري..." />
-              <Field label="المدينة" value={draft.city} onChange={v => setF('city', v)} placeholder="جدة" />
-              <Field label="الترتيب" value={draft.order} onChange={v => setF('order', Number(v))} type="number" />
+              <Field label={t('admin.contentTabs.projectsTab.categoryLabel')} value={draft.category} onChange={v => setF('category', v)} placeholder={t('admin.contentTabs.projectsTab.categoryPlaceholder')} />
+              <Field label={t('admin.contentTabs.projectsTab.cityLabel')} value={draft.city} onChange={v => setF('city', v)} placeholder={t('admin.contentTabs.projectsTab.cityPlaceholder')} />
+              <Field label={t('admin.contentTabs.projectsTab.orderLabel')} value={draft.order} onChange={v => setF('order', Number(v))} type="number" />
             </Grid2>
             <div className="flex gap-3 pt-2">
               <button onClick={applyDraft}
                 className="flex-1 py-2.5 rounded-xl text-sm font-bold transition-all"
                 style={{ background: 'rgba(201,163,77,0.12)', border: '1px solid rgba(201,163,77,0.35)', color: '#c8a96e' }}>
-                تأكيد
+                {t('admin.contentTabs.projectsTab.confirmBtn')}
               </button>
               <button onClick={closeDlg}
                 className="px-5 py-2.5 rounded-xl text-sm font-medium text-white/40 hover:text-white transition-colors">
-                إلغاء
+                {t('admin.contentTabs.projectsTab.cancelBtn')}
               </button>
             </div>
           </div>

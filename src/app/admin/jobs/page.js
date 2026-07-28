@@ -174,8 +174,8 @@ export default function JobsPage() {
           <div className="flex items-start gap-3 bg-purple-500/8 border border-purple-500/20 rounded-xl px-4 py-3 mb-4">
             <Sparkles size={14} className="text-purple-400 mt-0.5 shrink-0" />
             <div>
-              <p className="text-purple-300 text-xs font-bold mb-0.5">الذكاء الاصطناعي مفعّل</p>
-              <p className="text-white/40 text-xs leading-relaxed">يتم ترتيب المتقدمين تلقائياً بناءً على <strong className="text-white/60">سنوات الخبرة</strong> و<strong className="text-white/60">قرب المدينة</strong>. المتقدمون الذين يحققون الشرطين معاً يظهرون أولاً بشارة ⭐</p>
+              <p className="text-purple-300 text-xs font-bold mb-0.5">{t('admin.agentEnabled')}</p>
+              <p className="text-white/40 text-xs leading-relaxed">{t('admin.agentJobsBannerDesc')}</p>
             </div>
           </div>
         )}
@@ -223,7 +223,7 @@ export default function JobsPage() {
                         <div className="flex items-center gap-1">
                           {/* View — links to detail page */}
                           <Link href={`/admin/jobs/${app.id}`}
-                            className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/8 transition-all" title="عرض التفاصيل">
+                            className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/8 transition-all" title={t('admin.viewDetails')}>
                             <Eye size={14} />
                           </Link>
                           {/* CV */}
