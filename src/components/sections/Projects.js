@@ -51,20 +51,37 @@ const Projects = () => {
             </p>
           </div>
 
-          {/* Filter Buttons */}
-          <div className={`flex flex-wrap justify-center gap-3`} data-aos="fade-up">
-            {categories.map((cat) => (
-              <button
-                key={cat.key}
-                onClick={() => setFilter(cat.key)}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  filter === cat.key
-                    ? "bg-secondary text-white shadow-lg"
-                    : "bg-slate-100 text-muted hover:bg-slate-200"
-                }`}
+          {/* Filter Buttons — exactly 2 rows of 3, right-aligned (RTL). Rows
+              are explicit slices (not natural flex-wrap) so the 3+3 grouping
+              holds regardless of viewport width. */}
+          <div className="flex flex-col gap-2 w-full md:w-auto" data-aos="fade-up">
+            {[categories.slice(0, 3), categories.slice(3, 6)].map((row, rowIdx) => (
+              <div
+                key={rowIdx}
+                className="flex flex-wrap justify-end gap-2"
+                dir={lang === 'ar' || lang === 'ur' ? 'rtl' : 'ltr'}
               >
-                {cat.label}
-              </button>
+                {row.map((cat) => {
+                  const isActive = filter === cat.key;
+                  return (
+                    <button
+                      key={cat.key}
+                      onClick={() => setFilter(cat.key)}
+                      className={`rounded-full whitespace-nowrap py-2 transition-all duration-300 ${
+                        isActive
+                          ? "px-5 font-medium text-[#2c1f0a] border-0"
+                          : "px-[18px] font-normal bg-transparent border border-secondary text-white"
+                      }`}
+                      style={{
+                        fontSize: "clamp(12px, 3.5vw, 13px)",
+                        ...(isActive ? { background: "linear-gradient(180deg, #d4af6a, #b8944f)" } : undefined),
+                      }}
+                    >
+                      {cat.label}
+                    </button>
+                  );
+                })}
+              </div>
             ))}
           </div>
         </div>
