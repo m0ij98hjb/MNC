@@ -27,6 +27,8 @@ const PAGE_TITLE_KEYS = {
   '/admin/messages':       'admin.messagesMenu',
   '/admin/reports':        'admin.reportsTitle',
   '/admin/cameras':        'admin.camerasMenu',
+  '/admin/cost-calculator': 'nav.costCalc',
+  '/admin/cost-reports':    'costReports.title',
 };
 
 /* Thin gold vertical divider */
@@ -85,14 +87,15 @@ export default function AdminNavbar() {
   const pageTitleKey =
     PAGE_TITLE_KEYS[pathname] ??
     (pathname.startsWith('/admin/suppliers/') ? 'admin.supplierDetail' :
-     pathname.startsWith('/admin/jobs/')      ? 'admin.jobDetailTitle' : 'admin.dashboard');
+     pathname.startsWith('/admin/jobs/')      ? 'admin.jobDetailTitle' :
+     pathname.startsWith('/admin/cost-reports/') ? 'costReports.detailsTitle' : 'admin.dashboard');
   const pageTitle = t(pageTitleKey);
 
   const currentLang = LANGUAGES.find(l => l.code === lang) || LANGUAGES[0];
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-[100]"
+      className="fixed inset-x-0 top-0 z-[100] print:hidden"
       style={{
         height: '72px',
         background: '#000000',

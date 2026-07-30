@@ -178,6 +178,23 @@ export const es = {
       range: "✦ El costo promedio por m² en {location} varía de {min} a {max} SAR según el nivel de acabado."
     }
   },
+  costReports: {
+    title: "Informes de Costos",
+    subtitle: "Un registro de todos los informes generados por la calculadora de costos",
+    noReportsYet: "Aún no hay informes",
+    backToCalculator: "Volver a la Calculadora",
+    viewBtn: "Ver Detalles",
+    closeLabel: "Cerrar",
+    createdByLabel: "Creado por",
+    dateLabel: "Fecha",
+    reportsCountLabel: "informe(s)",
+    searchPlaceholder: "Buscar por nombre...",
+    allCategories: "Todos los Tipos",
+    detailsTitle: "Detalles del Informe",
+    printBtn: "Imprimir Informe",
+    generatedOnLabel: "Generado el",
+    backToList: "Volver a la Lista de Informes"
+  },
   about: {
     badge: "Visión y Experiencia",
     titlePart1: "No solo construimos paredes,",
@@ -218,6 +235,7 @@ export const es = {
     }
   },
   projectsSection: {
+    genericProjectName: "Proyecto {location}",
     badge: "Portafolio",
     titlePart1: "Nuestras ",
     titlePart2: "Marcas",
@@ -227,15 +245,15 @@ export const es = {
     viewAll: "Ver todos los proyectos",
     categories: {
       all: "Todos",
-      barjis: "Proyecto BARJIS",
+      barjis: "Obras de Construcción",
       residential: "Residencial",
       recent: "Trabajo Reciente"
     },
     items: {
-      barjisFacade: "BARJIS - Fachada Frontal",
-      barjisCourt: "BARJIS - Patio Interior",
-      barjisRoof: "BARJIS - Techo",
-      barjisBasement: "BARJIS - Sótano",
+      barjisFacade: "Obras de Construcción - Fachada Frontal",
+      barjisCourt: "Obras de Construcción - Patio Interior",
+      barjisRoof: "Obras de Construcción - Techo",
+      barjisBasement: "Obras de Construcción - Sótano",
       villa1: "Villa Residencial - 1",
       villa2: "Villa Residencial - 2",
       villa3: "Villa Residencial - 3",
@@ -339,7 +357,7 @@ export const es = {
     clickEnlarge: "Haga clic en la imagen para ampliar y deslice para ver el resto",
     distinctive: "Proyecto Distinguido",
     viewDetails: "Ver Detalles",
-    barjisTitle: "Proyecto BARJIS",
+    barjisTitle: "Obras de Construcción",
     residentialTitle: "Proyectos Residenciales y de Construcción",
     recentTitle: "Trabajos Recientes 2025"
   },
@@ -1058,6 +1076,10 @@ export const es = {
     jobTitlePlaceholder: "Supervisor / Ingeniero / ...",
     departmentPlaceholder: "Construcción / Proyectos / Compras / ...",
     cancel: "Cancelar",
+    confirmBtn: "Confirmar",
+    okBtn: "OK",
+    accessDeniedTitle: "No tienes acceso",
+    accessDeniedDesc: "Esta herramienta no está disponible para tu rol actual. Contacta al administrador del sistema si necesitas acceso.",
     saveChangesBtn: "Guardar Cambios",
     usersManagementTitle: "Gestión de Usuarios",
     usersManagementSubtitle: "Agregar y gestionar las cuentas de empleados y definir sus roles y permisos",

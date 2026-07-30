@@ -31,6 +31,8 @@ export function subscribeProjects(callback, { includeArchived = false } = {}) {
     if (!includeArchived) items = items.filter((p) => !p.archived);
     items.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
     callback(items);
+  }, (err) => {
+    console.error('subscribeProjects failed:', err);
   });
 }
 
@@ -57,6 +59,8 @@ export function subscribeFeaturedProjects(callback, { max = 12 } = {}) {
   );
   return onSnapshot(q, (snap) => {
     callback(snap.docs.slice(0, max).map((d) => ({ slug: d.id, ...d.data() })));
+  }, (err) => {
+    console.error('subscribeFeaturedProjects failed:', err);
   });
 }
 

@@ -178,6 +178,23 @@ export const ru = {
       range: "✦ Средняя стоимость за м² в {location} составляет от {min} до {max} SAR в зависимости от уровня отделки."
     }
   },
+  costReports: {
+    title: "Отчеты о стоимости",
+    subtitle: "Журнал всех отчетов, созданных калькулятором стоимости",
+    noReportsYet: "Пока нет отчетов",
+    backToCalculator: "Вернуться к калькулятору",
+    viewBtn: "Просмотреть детали",
+    closeLabel: "Закрыть",
+    createdByLabel: "Создал",
+    dateLabel: "Дата",
+    reportsCountLabel: "отчет(ов)",
+    searchPlaceholder: "Поиск по имени...",
+    allCategories: "Все типы",
+    detailsTitle: "Детали отчета",
+    printBtn: "Печать отчета",
+    generatedOnLabel: "Создан",
+    backToList: "Вернуться к списку отчетов"
+  },
   about: {
     badge: "Видение и опыт",
     titlePart1: "Мы не просто строим стены,",
@@ -218,6 +235,7 @@ export const ru = {
     }
   },
   projectsSection: {
+    genericProjectName: "Проект {location}",
     badge: "Портфолио",
     titlePart1: "Наши ",
     titlePart2: "Полевые",
@@ -227,15 +245,15 @@ export const ru = {
     viewAll: "Посмотреть все проекты",
     categories: {
       all: "Все",
-      barjis: "Проект BARJIS",
+      barjis: "Строительные Работы",
       residential: "Жилой",
       recent: "Последние работы"
     },
     items: {
-      barjisFacade: "BARJIS — Главный фасад",
-      barjisCourt: "BARJIS — Внутренний двор",
-      barjisRoof: "BARJIS — Крыша",
-      barjisBasement: "BARJIS — Подвал",
+      barjisFacade: "Стройка — Главный фасад",
+      barjisCourt: "Стройка — Внутренний двор",
+      barjisRoof: "Стройка — Крыша",
+      barjisBasement: "Стройка — Подвал",
       villa1: "Жилая вилла — 1",
       villa2: "Жилая вилла — 2",
       villa3: "Жилая вилла — 3",
@@ -339,7 +357,7 @@ export const ru = {
     clickEnlarge: "Нажмите на изображение для увеличения и прокрутите для просмотра остальных изображений",
     distinctive: "Выдающийся проект",
     viewDetails: "Посмотреть детали",
-    barjisTitle: "Проект BARJIS",
+    barjisTitle: "Строительные Работы на Объекте",
     residentialTitle: "Жилые и строительные проекты",
     recentTitle: "Последние работы 2025"
   },
@@ -1161,6 +1179,10 @@ export const ru = {
     jobTitlePlaceholder: "Супервайзер / Инженер / ...",
     departmentPlaceholder: "Строительство / Проекты / Закупки / ...",
     cancel: "Отмена",
+    confirmBtn: "Подтвердить",
+    okBtn: "ОК",
+    accessDeniedTitle: "У вас нет доступа",
+    accessDeniedDesc: "Этот инструмент недоступен для вашей текущей роли. Обратитесь к системному администратору, если вам нужен доступ.",
     saveChangesBtn: "Сохранить изменения",
     usersManagementTitle: "Управление пользователями",
     usersManagementSubtitle: "Добавление и управление учётными записями сотрудников, определение их ролей и прав доступа",

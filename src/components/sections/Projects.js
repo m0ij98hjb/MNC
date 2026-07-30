@@ -13,13 +13,17 @@ const Projects = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const { projects: featured } = useFeaturedProjects(12);
 
-  const projects = featured.map((p) => ({
-    id: p.slug,
-    title: getLocalizedText(p, "name", lang),
-    category: p.category,
-    image: p.coverImage,
-    location: getLocalizedText(p, "location", lang),
-  }));
+  const projects = featured.map((p) => {
+    const location = getLocalizedText(p, "location", lang);
+    return {
+      id: p.slug,
+      // Public visitors see a location-based label, not the real project name.
+      title: t("projectsSection.genericProjectName").replace("{location}", location),
+      category: p.category,
+      image: p.coverImage,
+      location,
+    };
+  });
 
   const categories = [
     { key: "all", label: getCategoryLabel("all", lang) },

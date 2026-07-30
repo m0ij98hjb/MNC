@@ -7,7 +7,13 @@ import { useLanguage } from "@/context/LanguageContext";
 
 export default function ProjectDirectory({ projects, categories }) {
   const { lang, t, isRTL } = useLanguage();
-  
+
+  // Public visitors see a location-based label, never the real project name.
+  const projectLabel = useCallback(
+    (p) => t("projectsSection.genericProjectName").replace("{location}", p.location[lang] || p.location.en),
+    [t, lang]
+  );
+
   // State for active category
   const [activeCategory, setActiveCategory] = useState("all");
   
@@ -52,7 +58,7 @@ export default function ProjectDirectory({ projects, categories }) {
       if (activeCategory !== "all" && p.category !== activeCategory) return false;
       
       // Search query filter
-      const titleText = (p.title[lang] || p.title.en).toLowerCase();
+      const titleText = projectLabel(p).toLowerCase();
       const descText = (p.description[lang] || p.description.en).toLowerCase();
       const matchesSearch = titleText.includes(searchQuery.toLowerCase()) || descText.includes(searchQuery.toLowerCase());
       if (!matchesSearch) return false;
@@ -71,7 +77,7 @@ export default function ProjectDirectory({ projects, categories }) {
       
       return true;
     });
-  }, [projects, activeCategory, searchQuery, selectedCity, selectedYear, selectedStatus, lang]);
+  }, [projects, activeCategory, searchQuery, selectedCity, selectedYear, selectedStatus, lang, projectLabel]);
 
   // Handle opening a project details modal
   const handleOpenProject = (project) => {
@@ -352,7 +358,7 @@ export default function ProjectDirectory({ projects, categories }) {
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
                   <Image
                     src={p.coverImage}
-                    alt={p.title[lang] || p.title.en}
+                    alt={projectLabel(p)}
                     fill
                     className="object-cover transition-transform duration-1000 group-hover:scale-110"
                     sizes="(max-w-728px) 100vw, (max-w-1024px) 50vw, 33vw"
@@ -382,7 +388,7 @@ export default function ProjectDirectory({ projects, categories }) {
                       {categories[p.category]?.label[lang] || categories[p.category]?.label.en}
                     </span>
                     <h3 className="text-xl font-bold text-white group-hover:text-secondary transition-colors duration-300 line-clamp-1">
-                      {p.title[lang] || p.title.en}
+                      {projectLabel(p)}
                     </h3>
                   </div>
 
@@ -427,7 +433,7 @@ export default function ProjectDirectory({ projects, categories }) {
                 {categories[activeProject.category]?.label[lang] || categories[activeProject.category]?.label.en}
               </span>
               <h2 className="text-white text-base md:text-xl font-black">
-                {activeProject.title[lang] || activeProject.title.en}
+                {projectLabel(activeProject)}
               </h2>
             </div>
             
@@ -475,7 +481,7 @@ export default function ProjectDirectory({ projects, categories }) {
             >
               <Image
                 src={activeProject.gallery[currentImageIndex]}
-                alt={`${activeProject.title.en} - ${currentImageIndex + 1}`}
+                alt={`${projectLabel(activeProject)} - ${currentImageIndex + 1}`}
                 fill
                 className="object-contain"
                 priority

@@ -4,6 +4,7 @@ import { collection, onSnapshot, doc, deleteDoc, updateDoc } from 'firebase/fire
 import { db } from '@/lib/firebase';
 import { STATUS_CONFIG, ACTIVITY_KEYS } from '@/lib/suppliersConfig';
 import { useLanguage } from '@/context/LanguageContext';
+import { useConfirm } from '@/context/ConfirmContext';
 import StatusBadge from '@/components/admin/StatusBadge';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import {
@@ -48,6 +49,7 @@ function scoreSupplier(s) {
 
 export default function SuppliersListPage() {
   const { t, isRTL, lang } = useLanguage();
+  const { confirm } = useConfirm();
   const getAct = (name) => name && (t('activities.' + ACTIVITY_KEYS[name]) || name);
 
   const [suppliers, setSuppliers] = useState([]);
@@ -106,7 +108,7 @@ export default function SuppliersListPage() {
   };
 
   const deleteSupplier = async (id, name) => {
-    if (!confirm(`${t('admin.delete')} "${name}"?`)) return;
+    if (!(await confirm(`${t('admin.delete')} "${name}"?`, { variant: 'danger' }))) return;
     await deleteDoc(doc(db, 'suppliers', id));
   };
 

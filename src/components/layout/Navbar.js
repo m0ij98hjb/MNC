@@ -140,7 +140,6 @@ const Navbar = () => {
     { name: t('nav.contact'),  href: "/contact",         icon: PhoneCall },
     { name: t('nav.app'),      href: "/app",             icon: Smartphone, showDesktopIcon: true, isSecondary: true },
     { name: t('nav.careers'),  href: "/careers",         icon: Users, isSecondary: true },
-    { name: t('nav.costCalc'), href: "/cost-calculator", isSpecial: true, icon: Calculator },
   ];
 
   const currentLang = LANGUAGES.find(l => l.code === lang) || LANGUAGES[0];
@@ -169,10 +168,10 @@ const Navbar = () => {
             ? "bg-white/80 backdrop-blur-md border-b border-slate-100/70"
             : `bg-gradient-to-b from-black/35 to-transparent backdrop-blur-sm border-b ${isAdmin ? 'border-[#D5B25D]/30' : 'border-white/[0.04]'}`
       }`}>
-        <div className="w-full mx-auto flex items-center nav-container-responsive px-4 sm:px-6 md:px-8 lg:px-10 xl:px-14 py-3 sm:py-3.5">
+        <div className="w-full max-w-7xl mx-auto flex items-center lg:justify-center nav-container-responsive px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-3 sm:py-3.5">
 
           {/* ── Logo ── */}
-          <Link href="/" onClick={handleLogoTap} className="flex items-center flex-shrink-0 nav-logo-responsive me-4 lg:me-6 xl:me-10">
+          <Link href="/" onClick={handleLogoTap} className="flex items-center flex-shrink-0 nav-logo-responsive me-5 lg:me-7 xl:me-12">
             <Image
               src="/asstes/logo-navbar.png"
               alt="MNC Logo"
@@ -183,16 +182,19 @@ const Navbar = () => {
             />
           </Link>
 
-          {/* ── Desktop Nav Links ── */}
-          <div className="hidden lg:flex items-center justify-center flex-1">
-            <nav className="flex items-center" aria-label={t('nav.ariaLabel')}>
+          {/* ── Desktop Nav Links — sits right next to the logo (no flex-1/
+              justify-center absorbing space here); the slack space collects
+              in the single spacer below instead, so there's one balanced gap
+              rather than two dead zones around a centered group. ── */}
+          <div className="hidden lg:flex items-center">
+            <nav className="flex items-center gap-0.5 xl:gap-1" aria-label={t('nav.ariaLabel')}>
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
 
                 if (link.isSpecial) {
                   return (
                     <Link key={link.name} href={link.href}
-                      className={`flex items-center gap-1.5 text-[11px] xl:text-[12px] font-extrabold px-3.5 xl:px-4 py-[7px] xl:py-2 mx-1.5 xl:mx-2 rounded-full border transition-all duration-300 whitespace-nowrap nav-link-special-responsive ${
+                      className={`flex items-center gap-1.5 text-[12px] xl:text-[13.5px] font-extrabold px-3.5 xl:px-4 py-[7px] xl:py-2 mx-1 xl:mx-1.5 rounded-full border transition-all duration-300 whitespace-nowrap nav-link-special-responsive ${
                         isActive
                           ? "bg-[#D5B25D] text-black border-transparent shadow-[0_4px_20px_rgba(213,178,93,0.45)]"
                           : "bg-[#D5B25D]/[0.07] text-[#D5B25D] border-[#D5B25D]/28 hover:bg-[#D5B25D]/[0.13] hover:border-[#D5B25D]/45 hover:shadow-[0_2px_14px_rgba(213,178,93,0.13)]"
@@ -205,7 +207,7 @@ const Navbar = () => {
 
                 return (
                   <Link key={link.name} href={link.href}
-                    className={`relative text-[11.5px] xl:text-[13px] px-3 xl:px-4 py-2.5 transition-colors duration-200 whitespace-nowrap group font-semibold tracking-[0.018em] nav-link-responsive ${
+                    className={`relative text-[14px] xl:text-[15px] px-3.5 xl:px-4 py-2.5 transition-colors duration-200 whitespace-nowrap group font-semibold tracking-[0.018em] nav-link-responsive ${
                       isActive
                         ? "text-[#D5B25D]"
                         : isLightMode
@@ -228,7 +230,7 @@ const Navbar = () => {
           </div>
 
           {/* ── Vertical Separator ── */}
-          <div className="hidden lg:block w-px h-6 bg-[#D5B25D]/14 nav-separator-responsive mx-2 xl:mx-3 flex-shrink-0" />
+          <div className="hidden lg:block w-px h-6 bg-[#D5B25D]/14 nav-separator-responsive mx-3 lg:mx-3.5 xl:mx-6 flex-shrink-0" />
 
           {/* ── Desktop Actions ── */}
           <div className="hidden lg:flex items-center nav-actions-responsive gap-1.5 xl:gap-2 flex-shrink-0">
@@ -368,7 +370,7 @@ const Navbar = () => {
                       <span className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 border border-[#D5B25D]/22 text-[#D5B25D] rounded-lg transition-all duration-300 group-hover:bg-[#D5B25D]/10 group-hover:border-[#D5B25D]/40 active:scale-95 nav-action-icon-btn-responsive">
                         <HiDocumentText size={17} />
                       </span>
-                      <span className="bg-[#D5B25D] text-black px-3 xl:px-4 py-[7px] xl:py-2 rounded-lg font-bold text-[11px] xl:text-[12px] shadow-[0_2px_12px_rgba(213,178,93,0.25)] transition-all duration-300 hover:bg-[#E1BF67] hover:shadow-[0_4px_20px_rgba(213,178,93,0.35)] active:scale-95 flex items-center gap-1.5 whitespace-nowrap nav-action-btn-responsive">
+                      <span className="bg-[#D5B25D] text-black px-3 xl:px-4 py-[7px] xl:py-2 rounded-lg font-bold text-[12.5px] xl:text-[13.5px] shadow-[0_2px_12px_rgba(213,178,93,0.25)] transition-all duration-300 hover:bg-[#E1BF67] hover:shadow-[0_4px_20px_rgba(213,178,93,0.35)] active:scale-95 flex items-center gap-1.5 whitespace-nowrap nav-action-btn-responsive">
                         {t('nav.profile')}
                         <ChevronDown size={11} className={`transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
                       </span>
@@ -412,7 +414,7 @@ const Navbar = () => {
                     className="flex items-center gap-1.5 xl:gap-2 px-2.5 xl:px-3 py-[7px] xl:py-2 rounded-lg border border-[#C9A34D]/30 hover:border-[#C9A34D]/50 hover:bg-[#C9A34D]/8 transition-all duration-300 active:scale-95 nav-action-btn-responsive"
                   >
                     <UserCog size={14} className="text-[#C9A34D] flex-shrink-0" />
-                    <span className="text-[11px] xl:text-[12px] font-bold text-[#C9A34D] whitespace-nowrap">
+                    <span className="text-[12.5px] xl:text-[13.5px] font-bold text-[#C9A34D] whitespace-nowrap">
                       {adminDisplayName}
                     </span>
                     <ChevronDown size={10} className={`text-[#C9A34D]/50 transition-transform duration-300 ${isAdminOpen ? 'rotate-180' : ''}`} />
@@ -451,7 +453,7 @@ const Navbar = () => {
                     <span className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 border border-[#D5B25D]/22 text-[#D5B25D] rounded-lg transition-all duration-300 group-hover:bg-[#D5B25D]/10 group-hover:border-[#D5B25D]/40 active:scale-95 nav-action-icon-btn-responsive">
                       <HiDocumentText size={17} />
                     </span>
-                    <span className="bg-[#D5B25D] text-black px-3 xl:px-4 py-[7px] xl:py-2 rounded-lg font-bold text-[11px] xl:text-[12px] shadow-[0_2px_12px_rgba(213,178,93,0.25)] transition-all duration-300 hover:bg-[#E1BF67] hover:shadow-[0_4px_20px_rgba(213,178,93,0.35)] active:scale-95 flex items-center gap-1.5 whitespace-nowrap nav-action-btn-responsive">
+                    <span className="bg-[#D5B25D] text-black px-3 xl:px-4 py-[7px] xl:py-2 rounded-lg font-bold text-[12.5px] xl:text-[13.5px] shadow-[0_2px_12px_rgba(213,178,93,0.25)] transition-all duration-300 hover:bg-[#E1BF67] hover:shadow-[0_4px_20px_rgba(213,178,93,0.35)] active:scale-95 flex items-center gap-1.5 whitespace-nowrap nav-action-btn-responsive">
                       {t('nav.profile')}
                       <ChevronDown size={11} className={`transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
                     </span>

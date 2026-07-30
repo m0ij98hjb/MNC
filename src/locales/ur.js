@@ -178,6 +178,23 @@ export const ur = {
       range: "✦ {location} میں فی مربع میٹر اوسط لاگت فنشنگ لیول کے لحاظ سے {min} سے {max} سعودی ریال تک ہے۔"
     }
   },
+  costReports: {
+    title: "لاگت رپورٹس",
+    subtitle: "کیلکولیٹر سے بنائی گئی تمام رپورٹس کا لاگ",
+    noReportsYet: "ابھی تک کوئی رپورٹ نہیں",
+    backToCalculator: "کیلکولیٹر پر واپس جائیں",
+    viewBtn: "تفصیلات دیکھیں",
+    closeLabel: "بند کریں",
+    createdByLabel: "بنانے والا",
+    dateLabel: "تاریخ",
+    reportsCountLabel: "رپورٹ",
+    searchPlaceholder: "نام سے تلاش کریں...",
+    allCategories: "تمام اقسام",
+    detailsTitle: "رپورٹ کی تفصیلات",
+    printBtn: "رپورٹ پرنٹ کریں",
+    generatedOnLabel: "تاریخ اجراء",
+    backToList: "رپورٹس کی فہرست پر واپس جائیں"
+  },
   about: {
     badge: "وژن اور مہارت",
     titlePart1: "ہم صرف دیواریں نہیں بناتے،",
@@ -218,6 +235,7 @@ export const ur = {
     }
   },
   projectsSection: {
+    genericProjectName: "{location} پروجیکٹ",
     badge: "پورٹ فولیو",
     titlePart1: "ہمارے ",
     titlePart2: "میدانی",
@@ -227,15 +245,15 @@ export const ur = {
     viewAll: "تمام منصوبے دیکھیں",
     categories: {
       all: "سب",
-      barjis: "بارجیس پروجیکٹ",
+      barjis: "تعمیراتی کام",
       residential: "رہائشی منصوبے",
       recent: "حالیہ کام"
     },
     items: {
-      barjisFacade: "بارجیس - سامنے کا رخ",
-      barjisCourt: "بارجیس - اندرونی صحن",
-      barjisRoof: "بارجیس - چھت",
-      barjisBasement: "بارجیس - تہہ خانہ",
+      barjisFacade: "تعمیراتی کام - سامنے کا رخ",
+      barjisCourt: "تعمیراتی کام - اندرونی صحن",
+      barjisRoof: "تعمیراتی کام - چھت",
+      barjisBasement: "تعمیراتی کام - تہہ خانہ",
       villa1: "رہائشی ولا - 1",
       villa2: "رہائشی ولا - 2",
       villa3: "رہائشی ولا - 3",
@@ -339,7 +357,7 @@ export const ur = {
     clickEnlarge: "تصویر کو بڑا کرنے کے لیے کلک کریں اور باقی تصاویر دیکھنے کے لیے سوائپ کریں",
     distinctive: "نمایاں منصوبہ",
     viewDetails: "تفصیلات دیکھیں",
-    barjisTitle: "بارجیس پروجیکٹ",
+    barjisTitle: "تعمیراتی سائٹ کا کام",
     residentialTitle: "رہائشی اور تعمیراتی منصوبے",
     recentTitle: "حالیہ کام 2025"
   },
@@ -1058,6 +1076,10 @@ export const ur = {
     jobTitlePlaceholder: "سپروائزر / انجینئر / ...",
     departmentPlaceholder: "تعمیرات / منصوبے / خریداری / ...",
     cancel: "منسوخ کریں",
+    confirmBtn: "تصدیق کریں",
+    okBtn: "ٹھیک ہے",
+    accessDeniedTitle: "آپ کو رسائی حاصل نہیں ہے",
+    accessDeniedDesc: "یہ ٹول آپ کے موجودہ کردار کے لیے دستیاب نہیں ہے۔ رسائی درکار ہو تو سسٹم ایڈمن سے رابطہ کریں۔",
     saveChangesBtn: "تبدیلیاں محفوظ کریں",
     usersManagementTitle: "صارفین کا انتظام",
     usersManagementSubtitle: "ملازمین کے اکاؤنٹس شامل کریں اور ان کا انتظام کریں، اور ان کے کردار اور اجازتیں طے کریں",

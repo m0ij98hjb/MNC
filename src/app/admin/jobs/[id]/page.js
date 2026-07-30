@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useLanguage } from '@/context/LanguageContext';
+import { useConfirm } from '@/context/ConfirmContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import {
   ArrowLeft, ArrowRight, XCircle, CheckCircle, Loader2,
@@ -46,6 +47,7 @@ export default function JobDetailPage() {
   const { id }       = useParams();
   const router       = useRouter();
   const { t, isRTL, lang } = useLanguage();
+  const { confirm } = useConfirm();
 
   const [app, setApp]         = useState(null);
   const [actioning, setActioning] = useState('');
@@ -78,7 +80,7 @@ export default function JobDetailPage() {
   };
 
   const rejectApp = async () => {
-    if (!confirm(t('admin.rejectJobConfirm'))) return;
+    if (!(await confirm(t('admin.rejectJobConfirm'), { variant: 'warning' }))) return;
     setActioning('reject');
     await updateDoc(doc(db, 'jobApplications', id), { status: 'rejected', reviewedAt: new Date() });
     setActioning('');

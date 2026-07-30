@@ -5,6 +5,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useLanguage } from '@/context/LanguageContext';
+import { useConfirm } from '@/context/ConfirmContext';
 import { COMPANY } from '@/config/company';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import {
@@ -37,6 +38,7 @@ const SUBJECT_LABEL_KEYS = {
 
 function StatusChip({ status }) {
   const { t } = useLanguage();
+  const { confirm } = useConfirm();
   const cfg      = STATUS_CONFIG[status] || STATUS_CONFIG.new;
   const labelKey = STATUS_LABEL_KEYS[status];
   return (
@@ -135,7 +137,7 @@ export default function MessagesPage() {
   };
 
   const deleteMsg = async (id) => {
-    if (!confirm(t('admin.messages.deleteConfirm'))) return;
+    if (!(await confirm(t('admin.messages.deleteConfirm'), { variant: 'danger' }))) return;
     await deleteDoc(doc(db, 'contacts', id));
     if (viewMsg?.id  === id) setViewMsg(null);
     if (replyMsg?.id === id) setReplyMsg(null);

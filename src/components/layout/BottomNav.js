@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, FolderOpen, Briefcase, PhoneCall, Calculator, Users, Smartphone } from 'lucide-react';
+import { Home, FolderOpen, Briefcase, PhoneCall, Users, Smartphone } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTheme } from '@/context/ThemeContext';
 
@@ -10,7 +10,6 @@ const NAV_ITEMS = [
   { key: 'nav.projects', href: '/projects',        icon: FolderOpen },
   { key: 'nav.services', href: '/#services',       icon: Briefcase },
   { key: 'nav.contact',  href: '/contact',         icon: PhoneCall },
-  { key: 'nav.costCalc', href: '/cost-calculator', icon: Calculator, special: true },
 ];
 
 export default function BottomNav() {

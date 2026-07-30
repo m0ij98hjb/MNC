@@ -64,9 +64,10 @@ const Services = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {services.map((service, index) => (
-            <div
+            <Link
               key={index}
-              className="group bg-[var(--background)] p-5 sm:p-6 md:p-8 rounded-2xl shadow-[0_20px_50px_rgba(197,160,89,0.12)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-500 border border-[var(--card-border)] relative overflow-hidden flex flex-col items-center text-center -translate-y-2 hover:translate-y-0"
+              href={`/services/${service.slug}`}
+              className="group bg-[var(--background)] p-5 sm:p-6 md:p-8 rounded-2xl shadow-[0_20px_50px_rgba(197,160,89,0.12)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-500 border border-[var(--card-border)] relative overflow-hidden flex flex-col items-center text-center -translate-y-2 hover:translate-y-0 cursor-pointer"
               data-aos="fade-up"
               data-aos-delay={service.delay}
             >
@@ -90,12 +91,12 @@ const Services = () => {
                 {service.description}
               </p>
 
-              {/* Permanent Learn More Link */}
-              <Link href={`/services/${service.slug}`} className="mt-auto pt-4 flex items-center gap-2 text-secondary text-xs font-black uppercase tracking-widest transition-all duration-500 hover:gap-3">
+              {/* Learn More indicator — decorative now, the whole card is the link */}
+              <span className="mt-auto pt-4 flex items-center gap-2 text-secondary text-xs font-black uppercase tracking-widest transition-all duration-500 group-hover:gap-3">
                 {t("servicesSection.learnMore")}
                 {lang === 'ar' || lang === 'ur' ? <ArrowRight size={14} className="rotate-180" /> : <ArrowRight size={14} />}
-              </Link>
-            </div>
+              </span>
+            </Link>
           ))}
         </div>
       </div>

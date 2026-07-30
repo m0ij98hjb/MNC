@@ -178,6 +178,23 @@ export const hi = {
       range: "✦ {location} में प्रति वर्ग मीटर औसत लागत फिनिशिंग स्तर के आधार पर {min} से {max} SAR तक होती है।"
     }
   },
+  costReports: {
+    title: "लागत रिपोर्ट",
+    subtitle: "कैलकुलेटर से बनाई गई सभी रिपोर्ट का लॉग",
+    noReportsYet: "अभी तक कोई रिपोर्ट नहीं",
+    backToCalculator: "कैलकुलेटर पर वापस जाएं",
+    viewBtn: "विवरण देखें",
+    closeLabel: "बंद करें",
+    createdByLabel: "बनाया गया",
+    dateLabel: "तारीख",
+    reportsCountLabel: "रिपोर्ट",
+    searchPlaceholder: "नाम से खोजें...",
+    allCategories: "सभी प्रकार",
+    detailsTitle: "रिपोर्ट विवरण",
+    printBtn: "रिपोर्ट प्रिंट करें",
+    generatedOnLabel: "जनरेट किया गया",
+    backToList: "रिपोर्ट सूची पर वापस जाएं"
+  },
   about: {
     badge: "दृष्टि और विशेषज्ञता",
     titlePart1: "हम केवल दीवारें नहीं बनाते,",
@@ -218,6 +235,7 @@ export const hi = {
     }
   },
   projectsSection: {
+    genericProjectName: "{location} परियोजना",
     badge: "पोर्टफोलियो",
     titlePart1: "हमारे ",
     titlePart2: "क्षेत्र",
@@ -227,15 +245,15 @@ export const hi = {
     viewAll: "सभी परियोजनाएं देखें",
     categories: {
       all: "सभी",
-      barjis: "BARJIS परियोजना",
+      barjis: "निर्माण कार्य",
       residential: "आवासीय",
       recent: "हालिया कार्य"
     },
     items: {
-      barjisFacade: "BARJIS - फ्रंट फसाड",
-      barjisCourt: "BARJIS - इनर कोर्ट",
-      barjisRoof: "BARJIS - छत",
-      barjisBasement: "BARJIS - बेसमेंट",
+      barjisFacade: "निर्माण कार्य - फ्रंट फसाड",
+      barjisCourt: "निर्माण कार्य - इनर कोर्ट",
+      barjisRoof: "निर्माण कार्य - छत",
+      barjisBasement: "निर्माण कार्य - बेसमेंट",
       villa1: "आवासीय विला - 1",
       villa2: "आवासीय विला - 2",
       villa3: "आवासीय विला - 3",
@@ -339,7 +357,7 @@ export const hi = {
     clickEnlarge: "छवि को बड़ा देखने के लिए क्लिक करें और अन्य तस्वीरें देखने के लिए स्क्रॉल करें",
     distinctive: "विशिष्ट परियोजना",
     viewDetails: "विवरण देखें",
-    barjisTitle: "बारजिस परियोजना",
+    barjisTitle: "निर्माण स्थल कार्य",
     residentialTitle: "आवासीय और निर्माण परियोजनाएं",
     recentTitle: "हालिया कार्य 2025"
   },
@@ -1167,6 +1185,10 @@ export const hi = {
     jobTitlePlaceholder: "सुपरवाइज़र / इंजीनियर / ...",
     departmentPlaceholder: "निर्माण / परियोजनाएं / खरीद / ...",
     cancel: "रद्द करें",
+    confirmBtn: "पुष्टि करें",
+    okBtn: "ठीक है",
+    accessDeniedTitle: "आपके पास पहुँच नहीं है",
+    accessDeniedDesc: "यह टूल आपकी वर्तमान भूमिका के लिए उपलब्ध नहीं है। पहुँच चाहिए तो सिस्टम एडमिन से संपर्क करें।",
     saveChangesBtn: "परिवर्तन सहेजें",
     usersManagementTitle: "उपयोगकर्ता प्रबंधन",
     usersManagementSubtitle: "कर्मचारी खाते जोड़ें और प्रबंधित करें और उनकी भूमिकाएं व अनुमतियाँ निर्धारित करें",

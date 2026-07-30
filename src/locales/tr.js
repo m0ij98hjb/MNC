@@ -178,6 +178,23 @@ export const tr = {
       range: "✦ {location} konumundaki ortalama metrekare maliyeti, kaplama seviyesine bağlı olarak {min} ile {max} SAR arasında değişmektedir."
     }
   },
+  costReports: {
+    title: "Maliyet Raporları",
+    subtitle: "Maliyet hesaplayıcı tarafından oluşturulan tüm raporların günlüğü",
+    noReportsYet: "Henüz rapor yok",
+    backToCalculator: "Hesaplayıcıya Dön",
+    viewBtn: "Detayları Görüntüle",
+    closeLabel: "Kapat",
+    createdByLabel: "Oluşturan",
+    dateLabel: "Tarih",
+    reportsCountLabel: "rapor",
+    searchPlaceholder: "İsme göre ara...",
+    allCategories: "Tüm Türler",
+    detailsTitle: "Rapor Detayları",
+    printBtn: "Raporu Yazdır",
+    generatedOnLabel: "Oluşturulma Tarihi",
+    backToList: "Rapor Listesine Dön"
+  },
   about: {
     badge: "Vizyon ve Uzmanlık",
     titlePart1: "Sadece duvarlar inşa etmiyoruz,",
@@ -218,6 +235,7 @@ export const tr = {
     }
   },
   projectsSection: {
+    genericProjectName: "{location} Projesi",
     badge: "Portfolyo",
     titlePart1: "Saha ",
     titlePart2: "Mühendislik ",
@@ -227,15 +245,15 @@ export const tr = {
     viewAll: "Tüm Projeleri Görüntüle",
     categories: {
       all: "Hepsi",
-      barjis: "BARJIS Projesi",
+      barjis: "İnşaat Çalışmaları",
       residential: "Konut Projeleri",
       recent: "Güncel Çalışmalar"
     },
     items: {
-      barjisFacade: "BARJIS - Ön Cephe",
-      barjisCourt: "BARJIS - İç Avlu",
-      barjisRoof: "BARJIS - Çatı",
-      barjisBasement: "BARJIS - Bodrum",
+      barjisFacade: "İnşaat Çalışmaları - Ön Cephe",
+      barjisCourt: "İnşaat Çalışmaları - İç Avlu",
+      barjisRoof: "İnşaat Çalışmaları - Çatı",
+      barjisBasement: "İnşaat Çalışmaları - Bodrum",
       villa1: "Konut Villası - 1",
       villa2: "Konut Villası - 2",
       villa3: "Konut Villası - 3",
@@ -339,7 +357,7 @@ export const tr = {
     clickEnlarge: "Büyütmek için resme tıklayın ve diğerlerine göz atmak için kaydırın",
     distinctive: "Seçkin Proje",
     viewDetails: "Detayları Görüntüle",
-    barjisTitle: "BARJIS Projesi",
+    barjisTitle: "İnşaat Saha Çalışmaları",
     residentialTitle: "Konut & İnşaat Projeleri",
     recentTitle: "Güncel Çalışmalar 2025"
   },
@@ -1058,6 +1076,10 @@ export const tr = {
     jobTitlePlaceholder: "Şef / Mühendis / ...",
     departmentPlaceholder: "İnşaat / Projeler / Satın Alma / ...",
     cancel: "İptal",
+    confirmBtn: "Onayla",
+    okBtn: "Tamam",
+    accessDeniedTitle: "Erişim izniniz yok",
+    accessDeniedDesc: "Bu araç mevcut rolünüz için kullanılamıyor. Erişime ihtiyacınız varsa sistem yöneticisiyle iletişime geçin.",
     saveChangesBtn: "Değişiklikleri Kaydet",
     usersManagementTitle: "Kullanıcı Yönetimi",
     usersManagementSubtitle: "Çalışan hesapları ekleyin ve yönetin, görev ve izinlerini belirleyin",

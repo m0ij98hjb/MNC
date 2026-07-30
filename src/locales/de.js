@@ -178,6 +178,23 @@ export const de = {
       range: "✦ Die durchschnittlichen Kosten pro m² in {location} liegen je nach Ausbauqualität zwischen {min} und {max} SAR."
     }
   },
+  costReports: {
+    title: "Kostenberichte",
+    subtitle: "Ein Protokoll aller mit dem Kostenrechner erstellten Berichte",
+    noReportsYet: "Noch keine Berichte",
+    backToCalculator: "Zurück zum Rechner",
+    viewBtn: "Details anzeigen",
+    closeLabel: "Schließen",
+    createdByLabel: "Erstellt von",
+    dateLabel: "Datum",
+    reportsCountLabel: "Bericht(e)",
+    searchPlaceholder: "Nach Name suchen...",
+    allCategories: "Alle Typen",
+    detailsTitle: "Berichtsdetails",
+    printBtn: "Bericht Drucken",
+    generatedOnLabel: "Erstellt am",
+    backToList: "Zurück zur Berichtsliste"
+  },
   about: {
     badge: "Vision & Expertise",
     titlePart1: "Wir bauen nicht nur Mauern,",
@@ -218,6 +235,7 @@ export const de = {
     }
   },
   projectsSection: {
+    genericProjectName: "Projekt {location}",
     badge: "Portfolio",
     titlePart1: "Unsere ",
     titlePart2: "Praxis-",
@@ -227,15 +245,15 @@ export const de = {
     viewAll: "Alle Projekte anzeigen",
     categories: {
       all: "Alle",
-      barjis: "BARJIS Projekt",
+      barjis: "Bauarbeiten",
       residential: "Wohnprojekte",
       recent: "Aktuelle Arbeiten"
     },
     items: {
-      barjisFacade: "BARJIS - Vorderfassade",
-      barjisCourt: "BARJIS - Innenhof",
-      barjisRoof: "BARJIS - Dach",
-      barjisBasement: "BARJIS - Keller",
+      barjisFacade: "Bauarbeiten - Vorderfassade",
+      barjisCourt: "Bauarbeiten - Innenhof",
+      barjisRoof: "Bauarbeiten - Dach",
+      barjisBasement: "Bauarbeiten - Keller",
       villa1: "Wohnvilla - 1",
       villa2: "Wohnvilla - 2",
       villa3: "Wohnvilla - 3",
@@ -339,7 +357,7 @@ export const de = {
     clickEnlarge: "Klicken Sie auf das Bild zum Vergrößern und wischen Sie, um weitere Bilder zu sehen",
     distinctive: "Herausragendes Projekt",
     viewDetails: "Details anzeigen",
-    barjisTitle: "BARJIS Projekt",
+    barjisTitle: "Bauarbeiten vor Ort",
     residentialTitle: "Wohn- & Bauprojekte",
     recentTitle: "Aktuelle Arbeiten 2025"
   },
@@ -1058,6 +1076,10 @@ export const de = {
     jobTitlePlaceholder: "Vorarbeiter / Ingenieur / ...",
     departmentPlaceholder: "Bauwesen / Projekte / Einkauf / ...",
     cancel: "Abbrechen",
+    confirmBtn: "Bestätigen",
+    okBtn: "OK",
+    accessDeniedTitle: "Kein Zugriff",
+    accessDeniedDesc: "Dieses Tool ist für Ihre aktuelle Rolle nicht verfügbar. Wenden Sie sich an den Systemadministrator, wenn Sie Zugriff benötigen.",
     saveChangesBtn: "Änderungen Speichern",
     usersManagementTitle: "Benutzerverwaltung",
     usersManagementSubtitle: "Mitarbeiterkonten hinzufügen und verwalten sowie deren Rollen und Berechtigungen festlegen",

@@ -15,11 +15,11 @@ export default function AdminPageLayout({ children }) {
   }, [pathname]);
 
   return (
-    <div className="min-h-screen bg-[var(--background)]" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-[var(--background)] print:bg-white" dir={isRTL ? 'rtl' : 'ltr'}>
       <AdminNavbar />
-      <div className="flex pt-[72px] min-h-screen">
+      <div className="flex pt-[72px] min-h-screen print:pt-0 print:block">
         <AdminSidebar />
-        <div className="flex-1 min-w-0 overflow-hidden">
+        <div className="flex-1 min-w-0 overflow-hidden print:overflow-visible">
           {children}
         </div>
       </div>

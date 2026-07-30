@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useLanguage } from '@/context/LanguageContext';
+import { useConfirm } from '@/context/ConfirmContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import PurchasingAccessGate from '@/components/purchasing/PurchasingAccessGate';
 import PurchasingSubNav from '@/components/purchasing/PurchasingSubNav';
@@ -82,6 +83,7 @@ function SupplierModal({ supplier, onClose }) {
 
 function SuppliersContent() {
   const { t, isRTL } = useLanguage();
+  const { confirm } = useConfirm();
   const { isRole } = usePurchasingRole();
   const canDelete = isRole('super_admin');
   const [suppliers, setSuppliers] = useState(null);
@@ -105,7 +107,7 @@ function SuppliersContent() {
   useEffect(() => { queueMicrotask(() => { refreshPerformance(); }); }, []);
 
   const remove = async (id, name) => {
-    if (!confirm(`${t('admin.delete')} "${name}"?`)) return;
+    if (!(await confirm(`${t('admin.delete')} "${name}"?`, { variant: 'danger' }))) return;
     setError('');
     try { await deleteDoc(doc(db, 'purchasingSuppliers', id)); }
     catch (e) { setError(e.message || t('purchasing.actionFailed')); }

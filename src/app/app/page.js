@@ -335,7 +335,7 @@ export default function AppPage() {
                   </div>
                   <div>
                     <div className="text-white font-black text-sm">{isAr ? "٧٥٪ منجز" : "75% Done"}</div>
-                    <div className="text-white/40 text-[10px]">{isAr ? "مشروع BARJIS" : "BARJIS Project"}</div>
+                    <div className="text-white/40 text-[10px]">{isAr ? "مشروع جدة" : "Jeddah Project"}</div>
                   </div>
                 </div>
                 <div className="mt-2.5 h-1.5 bg-white/8 rounded-full overflow-hidden">

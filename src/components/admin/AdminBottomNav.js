@@ -4,7 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import { useRoleAccess } from '@/hooks/useRoleAccess';
-import { LayoutDashboard, Users, CheckCircle, BarChart2, LogOut, Briefcase, MessageSquare, ShoppingCart, PenSquare, Camera, UserCog, Award, Settings } from 'lucide-react';
+import { LayoutDashboard, Users, CheckCircle, BarChart2, LogOut, Briefcase, MessageSquare, ShoppingCart, PenSquare, Camera, UserCog, Award, Settings, Calculator, FileText } from 'lucide-react';
 
 // Icon mapping
 const ICON_MAP = {
@@ -20,6 +20,8 @@ const ICON_MAP = {
   ShoppingCart,
   Award,
   Settings,
+  Calculator,
+  FileText,
 };
 
 export default function AdminBottomNav() {
@@ -40,10 +42,10 @@ export default function AdminBottomNav() {
   return (
     <>
       {/* Spacer — 72px content + safe area */}
-      <div className="lg:hidden" style={{ height: 'calc(72px + env(safe-area-inset-bottom))' }} aria-hidden="true" />
+      <div className="lg:hidden print:hidden" style={{ height: 'calc(72px + env(safe-area-inset-bottom))' }} aria-hidden="true" />
 
       <nav
-        className="lg:hidden fixed bottom-0 inset-x-0 z-[95]"
+        className="lg:hidden fixed bottom-0 inset-x-0 z-[95] print:hidden"
         style={{
           background: 'rgba(5,5,8,0.97)',
           backdropFilter: 'blur(20px)',

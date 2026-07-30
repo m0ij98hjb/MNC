@@ -14,7 +14,7 @@ import {
   LayoutDashboard, Users, CheckCircle, BarChart2,
   ChevronRight, ChevronLeft, LogOut, Briefcase, PenSquare,
   Camera, X, Loader2, MessageSquare, ShoppingCart, UserCog,
-  Award, Settings, Image as ImageIcon,
+  Award, Settings, Image as ImageIcon, Calculator, FileText,
 } from 'lucide-react';
 
 // Icon mapping
@@ -32,6 +32,8 @@ const ICON_MAP = {
   Award,
   Settings,
   ImageIcon,
+  Calculator,
+  FileText,
 };
 
 export default function AdminSidebar() {
@@ -78,7 +80,7 @@ export default function AdminSidebar() {
   return (
     <>
       <aside
-        className="hidden lg:flex flex-col w-56 shrink-0 sticky top-[92px] h-[calc(100vh-92px)] overflow-y-auto"
+        className="hidden lg:flex flex-col w-56 shrink-0 sticky top-[92px] h-[calc(100vh-92px)] overflow-y-auto print:hidden"
         style={{
           background: 'rgba(255,255,255,0.02)',
           borderInlineEnd: '1px solid rgba(255,255,255,0.07)',

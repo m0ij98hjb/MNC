@@ -178,6 +178,23 @@ export const zh = {
       range: "✦ {location} 的每平方米平均成本在 {min} 到 {max} 沙特里亚尔之间，具体取决于装修水平。"
     }
   },
+  costReports: {
+    title: "成本报告",
+    subtitle: "成本计算器生成的所有报告记录",
+    noReportsYet: "暂无报告",
+    backToCalculator: "返回计算器",
+    viewBtn: "查看详情",
+    closeLabel: "关闭",
+    createdByLabel: "创建者",
+    dateLabel: "日期",
+    reportsCountLabel: "份报告",
+    searchPlaceholder: "按名称搜索...",
+    allCategories: "所有类型",
+    detailsTitle: "报告详情",
+    printBtn: "打印报告",
+    generatedOnLabel: "生成于",
+    backToList: "返回报告列表"
+  },
   about: {
     badge: "愿景与经验",
     titlePart1: "我们不仅仅是建造墙壁，",
@@ -218,6 +235,7 @@ export const zh = {
     }
   },
   projectsSection: {
+    genericProjectName: "{location}项目",
     badge: "项目案例",
     titlePart1: "我们的 ",
     titlePart2: "实地",
@@ -227,15 +245,15 @@ export const zh = {
     viewAll: "查看所有项目",
     categories: {
       all: "全部",
-      barjis: "BARJIS 项目",
+      barjis: "建筑工程",
       residential: "住宅项目",
       recent: "近期作品"
     },
     items: {
-      barjisFacade: "BARJIS - 正面外观",
-      barjisCourt: "BARJIS - 内院",
-      barjisRoof: "BARJIS - 屋顶",
-      barjisBasement: "BARJIS - 地下室",
+      barjisFacade: "建筑工程 - 正面外观",
+      barjisCourt: "建筑工程 - 内院",
+      barjisRoof: "建筑工程 - 屋顶",
+      barjisBasement: "建筑工程 - 地下室",
       villa1: "住宅别墅 - 1",
       villa2: "住宅别墅 - 2",
       villa3: "住宅别墅 - 3",
@@ -339,7 +357,7 @@ export const zh = {
     clickEnlarge: "点击图片放大，滑动浏览其他图片",
     distinctive: "杰出项目",
     viewDetails: "查看详情",
-    barjisTitle: "BARJIS 项目",
+    barjisTitle: "施工现场作业",
     residentialTitle: "住宅与建筑项目",
     recentTitle: "近期作品 2025"
   },
@@ -1058,6 +1076,10 @@ export const zh = {
     jobTitlePlaceholder: "主管 / 工程师 / ...",
     departmentPlaceholder: "建筑 / 项目 / 采购 / ...",
     cancel: "取消",
+    confirmBtn: "确认",
+    okBtn: "好的",
+    accessDeniedTitle: "您没有访问权限",
+    accessDeniedDesc: "此工具不适用于您当前的角色。如需访问权限，请联系系统管理员。",
     saveChangesBtn: "保存更改",
     usersManagementTitle: "用户管理",
     usersManagementSubtitle: "添加和管理员工账户，并设定其职位与权限",

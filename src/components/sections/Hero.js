@@ -33,9 +33,6 @@ const Hero = () => {
     "/asstes/office-projects/BARJIS - BACK ENTRANCE (07.07.2025).jpg",
   ];
 
-  const calcText = t('hero.calculateCostCta');
-  const freeText = t('hero.freeBadge');
-
   const descFallback = t('hero.liveDescription');
   const descText = isRTL
     ? (homeCms?.hero_sub_ar || descFallback)
@@ -163,23 +160,6 @@ const Hero = () => {
             </div>
           </div>
 
-          <div data-aos="fade-up" data-aos-delay="580" className="mb-4">
-            <Link
-              href="/cost-calculator"
-              className="flex items-center gap-3 px-5 py-3 rounded-[4px] border border-[#D5B25D]/40 bg-[#D5B25D]/10 hover:bg-[#D5B25D]/20 hover:border-[#D5B25D]/70 transition-all duration-300 group backdrop-blur-sm w-full"
-            >
-              <span className="flex items-center justify-center w-8 h-8 rounded-[4px] bg-[#D5B25D]/20 border border-[#D5B25D]/30 flex-shrink-0">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#D5B25D" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/>
-                  <line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/>
-                  <path d="M16 17l2 2 4-4" strokeWidth="2"/>
-                </svg>
-              </span>
-              <span className="text-[#D5B25D] font-bold text-sm flex-1">{calcText}</span>
-              <span className="text-[10px] px-2 py-0.5 rounded-[4px] bg-[#D5B25D]/20 text-[#D5B25D]/80 font-bold uppercase border border-[#D5B25D]/20 flex-shrink-0">{freeText}</span>
-              <ArrowLeft size={13} className={`text-[#D5B25D]/60 flex-shrink-0 ${isRTL ? 'group-hover:-translate-x-1' : 'rotate-180 group-hover:translate-x-1'} transition-transform`} />
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -302,23 +282,6 @@ const Hero = () => {
               />
             </div>
 
-            <div data-aos="fade-up" data-aos-delay="1000" className="mt-4">
-              <Link
-                href="/cost-calculator"
-                className="inline-flex items-center gap-3 px-6 py-3.5 rounded-[4px] border border-[#D5B25D]/40 bg-[#D5B25D]/10 hover:bg-[#D5B25D]/20 hover:border-[#D5B25D]/70 transition-all duration-300 group backdrop-blur-sm"
-              >
-                <span className="flex items-center justify-center w-8 h-8 rounded-[4px] bg-[#D5B25D]/20 border border-[#D5B25D]/30 group-hover:bg-[#D5B25D]/30 transition-all duration-300">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D5B25D" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/>
-                    <line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/>
-                    <path d="M16 17l2 2 4-4" strokeWidth="2"/>
-                  </svg>
-                </span>
-                <span className="text-[#D5B25D] font-bold text-sm">{calcText}</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-[4px] bg-[#D5B25D]/20 text-[#D5B25D]/80 font-bold tracking-wider uppercase border border-[#D5B25D]/20">{freeText}</span>
-                <ArrowLeft size={14} className={`text-[#D5B25D]/60 transition-transform duration-300 ${isRTL ? 'group-hover:-translate-x-1' : 'rotate-180 group-hover:translate-x-1'}`} />
-              </Link>
-            </div>
           </div>
       </section>
     </>

@@ -4,6 +4,7 @@ import { Settings, Globe, Music, Loader2, X } from 'lucide-react';
 import { loadSiteContent, saveSiteContent, uploadToCloudinary } from '@/lib/siteContent';
 import { Field, TextArea, Section, SaveBtn, ImageUpload, Grid2, TabLoading } from './Shared';
 import { useLanguage } from '@/context/LanguageContext';
+import { useConfirm } from '@/context/ConfirmContext';
 
 const DEF = {
   companyName:    'MNC Contracting',
@@ -21,6 +22,7 @@ const DEF = {
 
 export default function SettingsTab() {
   const { t } = useLanguage();
+  const { alert } = useConfirm();
   const [form, setForm]         = useState(DEF);
   const [loading, setLoading]   = useState(true);
   const [saving, setSaving]     = useState(false);
@@ -45,7 +47,7 @@ export default function SettingsTab() {
       const url = await uploadToCloudinary(file, 'video');
       set('music_url', url);
     } catch (err) {
-      alert(t('admin.contentTabs.settingsTab.uploadFileFailedPrefix') + err.message);
+      await alert(t('admin.contentTabs.settingsTab.uploadFileFailedPrefix') + err.message, { variant: 'danger' });
     } finally {
       setMusicUp(false);
       if (musicRef.current) musicRef.current.value = '';

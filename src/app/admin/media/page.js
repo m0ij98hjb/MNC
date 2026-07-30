@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
+import { useConfirm } from '@/context/ConfirmContext';
 import { Image as ImageIcon, Upload, Search, Trash2, RefreshCw, FileText, Film, Copy, Check } from 'lucide-react';
 import { validateFile, uploadAsset } from '@/lib/cloudinary';
 import { subscribeMedia, createMediaAsset, updateMediaAsset, deleteMediaAsset, isAssetInUse } from '@/lib/mediaLibraryRepo';
@@ -12,6 +13,7 @@ const TYPE_FILTERS = ['all', 'image', 'pdf', 'video'];
 
 export default function MediaLibraryPage() {
   const { t } = useLanguage();
+  const { confirm } = useConfirm();
   const { isSuperAdmin, user } = useAuth();
   const router = useRouter();
 
@@ -81,8 +83,8 @@ export default function MediaLibraryPage() {
     const { inUse, refs } = await isAssetInUse(asset.id);
     if (inUse) {
       const list = refs.map((r) => `${r.collection}/${r.docId} (${r.field})`).join(', ');
-      if (!confirm(`${t('admin.contentTabs.mediaLibrary.assetInUseWarning')} ${list}\n\n${t('admin.contentTabs.mediaLibrary.deleteAnywayConfirm')}`)) return;
-    } else if (!confirm(t('admin.contentTabs.mediaLibrary.deleteConfirm'))) {
+      if (!(await confirm(`${t('admin.contentTabs.mediaLibrary.assetInUseWarning')} ${list}\n\n${t('admin.contentTabs.mediaLibrary.deleteAnywayConfirm')}`, { variant: 'warning' }))) return;
+    } else if (!(await confirm(t('admin.contentTabs.mediaLibrary.deleteConfirm'), { variant: 'danger' }))) {
       return;
     }
     await deleteMediaAsset(asset.id);

@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { Save, CheckCircle, Loader2, Upload, X, Plus } from 'lucide-react';
 import { uploadToCloudinary } from '@/lib/siteContent';
 import { useLanguage } from '@/context/LanguageContext';
+import { useConfirm } from '@/context/ConfirmContext';
 
 /* ── Input field ── */
 export function Field({ label, value, onChange, type = 'text', placeholder = '', className = '' }) {
@@ -78,6 +79,7 @@ export function ImageUpload({ label, value, onChange, className = '' }) {
   const ref = useRef(null);
   const [uploading, setUploading] = useState(false);
   const { t } = useLanguage();
+  const { alert } = useConfirm();
 
   const handle = async (e) => {
     const file = e.target.files?.[0];
@@ -87,7 +89,7 @@ export function ImageUpload({ label, value, onChange, className = '' }) {
       const url = await uploadToCloudinary(file);
       onChange(url);
     } catch (err) {
-      alert(t('admin.contentTabs.shared.uploadFailed') + err.message);
+      await alert(t('admin.contentTabs.shared.uploadFailed') + err.message, { variant: 'danger' });
     } finally {
       setUploading(false);
       if (ref.current) ref.current.value = '';

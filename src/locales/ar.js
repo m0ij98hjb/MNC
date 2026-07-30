@@ -178,6 +178,23 @@ export const ar = {
       range: "✦ معدل تكلفة المتر المربع في {location} يتراوح بين {min} و{max} ريال حسب مستوى التشطيب."
     }
   },
+  costReports: {
+    title: "تقارير التكلفة",
+    subtitle: "سجل بكل التقارير اللي تم إنشاؤها من الآلة الحاسبة",
+    noReportsYet: "لا توجد تقارير بعد",
+    backToCalculator: "العودة للآلة الحاسبة",
+    viewBtn: "عرض التفاصيل",
+    closeLabel: "إغلاق",
+    createdByLabel: "أنشأه",
+    dateLabel: "التاريخ",
+    reportsCountLabel: "تقرير",
+    searchPlaceholder: "بحث بالاسم...",
+    allCategories: "كل الأنواع",
+    detailsTitle: "تفاصيل التقرير",
+    printBtn: "طباعة التقرير",
+    generatedOnLabel: "تاريخ الإصدار",
+    backToList: "العودة لقائمة التقارير"
+  },
   about: {
     badge: "رؤية وخبرة",
     titlePart1: "نحن لا نبني مشاريع فقط",
@@ -188,7 +205,7 @@ export const ar = {
     directorName: "م. مروان أحمد ناظر",
     directorTitle: "رئيس مجلس إدارة شركة MNC",
     ceoName: "م. أبي مروان ناظر",
-    ceoTitle: "المدير التنفيذي لشركة MNC",
+    ceoTitle: "الرئيس التنفيذي لشركة MNC",
     experienceBadge: "عاماً من الخبرة"
   },
   servicesSection: {
@@ -218,6 +235,7 @@ export const ar = {
     }
   },
   projectsSection: {
+    genericProjectName: "مشروع {location}",
     badge: "معرض الأعمال",
     titlePart1: "بصماتنا ",
     titlePart2: "الهندسية ",
@@ -227,15 +245,15 @@ export const ar = {
     viewAll: "شاهد جميع المشاريع",
     categories: {
       all: "الكل",
-      barjis: "مشروع BARJIS",
+      barjis: "أعمال إنشائية",
       residential: "مشاريع سكنية",
       recent: "أعمال حديثة"
     },
     items: {
-      barjisFacade: "مشروع بارجيس - الواجهة الأمامية",
-      barjisCourt: "مشروع بارجيس - الفناء الداخلي",
-      barjisRoof: "مشروع بارجيس - السطح",
-      barjisBasement: "مشروع بارجيس - البدروم",
+      barjisFacade: "أعمال إنشائية - الواجهة الأمامية",
+      barjisCourt: "أعمال إنشائية - الفناء الداخلي",
+      barjisRoof: "أعمال إنشائية - السطح",
+      barjisBasement: "أعمال إنشائية - البدروم",
       villa1: "تصميم فيلا سكنية - 1",
       villa2: "تصميم فيلا سكنية - 2",
       villa3: "تصميم فيلا سكنية - 3",
@@ -339,7 +357,7 @@ export const ar = {
     clickEnlarge: "اضغط على الصورة لتكبيرها ومرر لتصفح باقي الصور",
     distinctive: "مشروع متميز",
     viewDetails: "عرض التفاصيل",
-    barjisTitle: "مشروع BARJIS",
+    barjisTitle: "أعمال الإنشاءات الميدانية",
     residentialTitle: "مشاريع سكنية وإنشائية",
     recentTitle: "أعمال حديثة 2025"
   },
@@ -1173,6 +1191,10 @@ export const ar = {
     jobTitlePlaceholder: "مشرف / مهندس / ...",
     departmentPlaceholder: "الإنشاءات / المشاريع / المشتريات / ...",
     cancel: "إلغاء",
+    confirmBtn: "تأكيد",
+    okBtn: "حسنًا",
+    accessDeniedTitle: "لا تملك صلاحية الوصول",
+    accessDeniedDesc: "هذه الأداة غير متاحة لدورك الوظيفي الحالي. تواصل مع مدير النظام إذا كنت تحتاج إلى صلاحية الوصول.",
     saveChangesBtn: "حفظ التعديلات",
     usersManagementTitle: "إدارة المستخدمين",
     usersManagementSubtitle: "إضافة وإدارة حسابات موظفي النظام وتحديد وظائفهم وصلاحياتهم",

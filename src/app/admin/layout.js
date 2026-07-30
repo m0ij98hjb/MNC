@@ -4,6 +4,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useRoleAccess } from '@/hooks/useRoleAccess';
 import { NotificationsProvider } from '@/context/NotificationsContext';
+import { ConfirmProvider } from '@/context/ConfirmContext';
 import { ROLES } from '@/lib/roleBasedAccess';
 
 export default function AdminLayout({ children }) {
@@ -44,5 +45,9 @@ export default function AdminLayout({ children }) {
   }
 
   // Authenticated: each page manages its own layout via AdminPageLayout
-  return <NotificationsProvider>{children}</NotificationsProvider>;
+  return (
+    <ConfirmProvider>
+      <NotificationsProvider>{children}</NotificationsProvider>
+    </ConfirmProvider>
+  );
 }

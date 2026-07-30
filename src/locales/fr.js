@@ -178,6 +178,23 @@ export const fr = {
       range: "✦ Le coût moyen au m² à {location} varie de {min} à {max} SAR selon le niveau de finition."
     }
   },
+  costReports: {
+    title: "Rapports de Coûts",
+    subtitle: "Un journal de tous les rapports générés par le calculateur de coûts",
+    noReportsYet: "Aucun rapport pour le moment",
+    backToCalculator: "Retour au Calculateur",
+    viewBtn: "Voir les Détails",
+    closeLabel: "Fermer",
+    createdByLabel: "Créé par",
+    dateLabel: "Date",
+    reportsCountLabel: "rapport(s)",
+    searchPlaceholder: "Rechercher par nom...",
+    allCategories: "Tous les Types",
+    detailsTitle: "Détails du Rapport",
+    printBtn: "Imprimer le Rapport",
+    generatedOnLabel: "Généré le",
+    backToList: "Retour à la Liste des Rapports"
+  },
   about: {
     badge: "Vision & Expertise",
     titlePart1: "Nous ne construisons pas seulement des murs,",
@@ -218,6 +235,7 @@ export const fr = {
     }
   },
   projectsSection: {
+    genericProjectName: "Projet {location}",
     badge: "Portfolio",
     titlePart1: "Nos ",
     titlePart2: "Empreintes",
@@ -227,15 +245,15 @@ export const fr = {
     viewAll: "Voir tous les projets",
     categories: {
       all: "Tous",
-      barjis: "Projet BARJIS",
+      barjis: "Travaux de Construction",
       residential: "Résidentiel",
       recent: "Travaux Récents"
     },
     items: {
-      barjisFacade: "BARJIS - Façade Principale",
-      barjisCourt: "BARJIS - Cour Intérieure",
-      barjisRoof: "BARJIS - Toit",
-      barjisBasement: "BARJIS - Sous-sol",
+      barjisFacade: "Travaux de Construction - Façade Principale",
+      barjisCourt: "Travaux de Construction - Cour Intérieure",
+      barjisRoof: "Travaux de Construction - Toit",
+      barjisBasement: "Travaux de Construction - Sous-sol",
       villa1: "Villa Résidentielle - 1",
       villa2: "Villa Résidentielle - 2",
       villa3: "Villa Résidentielle - 3",
@@ -339,7 +357,7 @@ export const fr = {
     clickEnlarge: "Cliquez sur l'image pour l'agrandir et faites défiler pour voir les autres",
     distinctive: "Projet Distingué",
     viewDetails: "Voir les Détails",
-    barjisTitle: "Projet BARJIS",
+    barjisTitle: "Travaux de Chantier",
     residentialTitle: "Projets Résidentiels & Construction",
     recentTitle: "Travaux Récents 2025"
   },
@@ -1061,6 +1079,10 @@ export const fr = {
     jobTitlePlaceholder: "Superviseur / Ingénieur / ...",
     departmentPlaceholder: "Construction / Projets / Achats / ...",
     cancel: "Annuler",
+    confirmBtn: "Confirmer",
+    okBtn: "OK",
+    accessDeniedTitle: "Vous n'avez pas accès",
+    accessDeniedDesc: "Cet outil n'est pas disponible pour votre rôle actuel. Contactez l'administrateur système si vous avez besoin d'accès.",
     saveChangesBtn: "Enregistrer les Modifications",
     usersManagementTitle: "Gestion des Utilisateurs",
     usersManagementSubtitle: "Ajouter et gérer les comptes des employés et définir leurs rôles et autorisations",

@@ -159,6 +159,14 @@ export const NAV_LABELS_MULTILANG = {
     ar: 'طلب شراء', en: 'Purchase Request', hi: 'क्रय अनुरोध', ru: 'Запрос на закупку',
     de: 'Kaufanfrage', fr: "Demande d'achat", es: 'Solicitud de compra', tr: 'Satınalma Talebi', ur: 'خریداری کی درخواست', zh: '采购申请'
   },
+  '/admin/cost-calculator': {
+    ar: 'احسب تكلفتك', en: 'Cost Calculator', hi: 'लागत कैलकुलेटर', ru: 'Калькулятор стоимости',
+    de: 'Kostenrechner', fr: 'Calculateur de coûts', es: 'Calculadora de costos', tr: 'Maliyet Hesaplayıcı', ur: 'لاگت کیلکولیٹر', zh: '成本计算器'
+  },
+  '/admin/cost-reports': {
+    ar: 'تقارير التكلفة', en: 'Cost Reports', hi: 'लागत रिपोर्ट', ru: 'Отчеты о стоимости',
+    de: 'Kostenberichte', fr: 'Rapports de coûts', es: 'Informes de costos', tr: 'Maliyet Raporları', ur: 'لاگت رپورٹس', zh: '成本报告'
+  },
 };
 
 /* ─── Dashboard Routes per Role ─── */
@@ -186,16 +194,20 @@ export const ROLE_NAVIGATION = {
     { href: '/admin/approved', label: 'المقبولون', icon: 'CheckCircle' },
     { href: '/admin/purchasing', label: 'إدارة المشتريات', icon: 'ShoppingCart' },
     { href: '/admin/reports', label: 'التقارير', icon: 'BarChart2' },
+    { href: '/admin/cost-calculator', label: 'احسب تكلفتك', icon: 'Calculator' },
+    { href: '/admin/cost-reports', label: 'تقارير التكلفة', icon: 'FileText' },
   ],
-  
+
   [ROLES.PROJECT_MANAGER]: [
     { href: '/admin/dashboard', label: 'لوحة التحكم', icon: 'LayoutDashboard' },
     { href: '/admin/suppliers', label: 'الموردون', icon: 'Users' },
     { href: '/admin/jobs', label: 'طلبات التوظيف', icon: 'Briefcase' },
     { href: '/admin/purchasing', label: 'إدارة المشتريات', icon: 'ShoppingCart' },
     { href: '/admin/reports', label: 'التقارير', icon: 'BarChart2' },
+    { href: '/admin/cost-calculator', label: 'احسب تكلفتك', icon: 'Calculator' },
+    { href: '/admin/cost-reports', label: 'تقارير التكلفة', icon: 'FileText' },
   ],
-  
+
   [ROLES.PROCUREMENT_MANAGER]: [
     { href: '/admin/dashboard', label: 'لوحة التحكم', icon: 'LayoutDashboard' },
     { href: '/admin/purchasing', label: 'إدارة المشتريات', icon: 'ShoppingCart' },
@@ -205,6 +217,8 @@ export const ROLE_NAVIGATION = {
     { href: '/admin/purchasing/rfq', label: 'المقارنات', icon: 'BarChart2' },
     { href: '/admin/purchasing/reports', label: 'التقارير', icon: 'BarChart2' },
     { href: '/admin/purchasing/settings', label: 'الإعدادات', icon: 'Settings' },
+    { href: '/admin/cost-calculator', label: 'احسب تكلفتك', icon: 'Calculator' },
+    { href: '/admin/cost-reports', label: 'تقارير التكلفة', icon: 'FileText' },
   ],
   
   [ROLES.HR_MANAGER]: [
@@ -228,12 +242,16 @@ export const ROLE_NAVIGATION = {
     { href: '/admin/suppliers', label: 'الموردون', icon: 'Users' },
     { href: '/admin/purchasing', label: 'إدارة المشتريات', icon: 'ShoppingCart' },
     { href: '/admin/reports', label: 'التقارير', icon: 'BarChart2' },
+    { href: '/admin/cost-calculator', label: 'احسب تكلفتك', icon: 'Calculator' },
+    { href: '/admin/cost-reports', label: 'تقارير التكلفة', icon: 'FileText' },
   ],
-  
+
   [ROLES.SITE_ENGINEER]: [
     { href: '/admin/dashboard', label: 'لوحة التحكم', icon: 'LayoutDashboard' },
     { href: '/admin/purchasing', label: 'إدارة المشتريات', icon: 'ShoppingCart' },
     { href: '/admin/purchasing/requests', label: 'طلبات الشراء', icon: 'ShoppingCart' },
+    { href: '/admin/cost-calculator', label: 'احسب تكلفتك', icon: 'Calculator' },
+    { href: '/admin/cost-reports', label: 'تقارير التكلفة', icon: 'FileText' },
   ],
   
   [ROLES.SITE_SUPERVISOR]: [
@@ -263,6 +281,8 @@ export const ROLE_NAVIGATION = {
     { href: '/admin/approved', label: 'المقبولون', icon: 'CheckCircle' },
     { href: '/admin/purchasing', label: 'إدارة المشتريات', icon: 'ShoppingCart' },
     { href: '/admin/reports', label: 'التقارير', icon: 'BarChart2' },
+    { href: '/admin/cost-calculator', label: 'احسب تكلفتك', icon: 'Calculator' },
+    { href: '/admin/cost-reports', label: 'تقارير التكلفة', icon: 'FileText' },
   ],
 };
 
@@ -279,8 +299,10 @@ export const ROLE_ALLOWED_ROUTES = {
     '/admin/purchasing',
     '/admin/purchasing/*',
     '/admin/reports',
+    '/admin/cost-calculator',
+    '/admin/cost-reports',
   ],
-  
+
   [ROLES.PROJECT_MANAGER]: [
     '/admin/dashboard',
     '/admin/suppliers',
@@ -290,12 +312,16 @@ export const ROLE_ALLOWED_ROUTES = {
     '/admin/purchasing',
     '/admin/purchasing/*',
     '/admin/reports',
+    '/admin/cost-calculator',
+    '/admin/cost-reports',
   ],
-  
+
   [ROLES.PROCUREMENT_MANAGER]: [
     '/admin/dashboard',
     '/admin/purchasing',
     '/admin/purchasing/*',
+    '/admin/cost-calculator',
+    '/admin/cost-reports',
   ],
   
   [ROLES.HR_MANAGER]: [
@@ -321,13 +347,17 @@ export const ROLE_ALLOWED_ROUTES = {
     '/admin/purchasing',
     '/admin/purchasing/*',
     '/admin/reports',
+    '/admin/cost-calculator',
+    '/admin/cost-reports',
   ],
-  
+
   [ROLES.SITE_ENGINEER]: [
     '/admin/dashboard',
     '/admin/purchasing',
     '/admin/purchasing/requests',
     '/admin/purchasing/requests/*',
+    '/admin/cost-calculator',
+    '/admin/cost-reports',
   ],
   
   [ROLES.SITE_SUPERVISOR]: [
@@ -349,6 +379,16 @@ export const ROLE_ALLOWED_ROUTES = {
     '/admin/*',
   ],
 };
+
+/* ─── Roles allowed to use the internal Cost Calculator tool + its reports log ─── */
+export const COST_TOOL_ROLES = [
+  ROLES.PROJECT_MANAGER,
+  ROLES.COMPANY_MANAGER,
+  ROLES.SUPER_ADMIN,
+  ROLES.ENGINEERING_MANAGER,
+  ROLES.SITE_ENGINEER,
+  ROLES.PROCUREMENT_MANAGER,
+];
 
 /* ─── Helper Functions ─── */
 

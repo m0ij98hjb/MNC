@@ -44,9 +44,10 @@ export default function ProjectPageClient({ project, related }) {
   const { t, lang, isRTL } = useLanguage();
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
-  const name = getLocalizedText(project, "name", lang);
   const desc = getLocalizedText(project, "desc", lang);
   const location = getLocalizedText(project, "location", lang);
+  // Public visitors see a location-based label, never the real project name.
+  const name = t("projectsSection.genericProjectName").replace("{location}", location);
   const features = lang === "ar" ? project.features_ar : project.features_en;
   const gallery = project.gallery || [];
   const galleryUrls = [project.coverImage, ...gallery.map((g) => g.url)].filter(Boolean);
@@ -192,7 +193,7 @@ export default function ProjectPageClient({ project, related }) {
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
                     <Image
                       src={rp.coverImage}
-                      alt={getLocalizedText(rp, "name", lang)}
+                      alt={t("projectsSection.genericProjectName").replace("{location}", getLocalizedText(rp, "location", lang))}
                       fill
                       className="object-cover transition-transform duration-1000 group-hover:scale-110"
                       unoptimized
@@ -203,7 +204,7 @@ export default function ProjectPageClient({ project, related }) {
                       {getCategoryLabel(rp.category, lang)}
                     </span>
                     <h4 className="text-white font-bold group-hover:text-secondary transition-colors line-clamp-1">
-                      {getLocalizedText(rp, "name", lang)}
+                      {t("projectsSection.genericProjectName").replace("{location}", getLocalizedText(rp, "location", lang))}
                     </h4>
                   </div>
                 </Link>

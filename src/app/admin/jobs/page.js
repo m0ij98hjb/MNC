@@ -3,6 +3,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { collection, onSnapshot, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useLanguage } from '@/context/LanguageContext';
+import { useConfirm } from '@/context/ConfirmContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import Link from 'next/link';
 import {
@@ -53,6 +54,7 @@ function scoreApp(app) {
 /* ─── Main page ─── */
 export default function JobsPage() {
   const { t, isRTL } = useLanguage();
+  const { confirm } = useConfirm();
   const [apps, setApps]         = useState([]);
   const [filter, setFilter]     = useState('all');
   const [search, setSearch]     = useState('');
@@ -96,14 +98,14 @@ export default function JobsPage() {
   }, [apps, filter, search, agentOn]);
 
   const rejectApp = async (id) => {
-    if (!confirm(t('admin.rejectJobConfirm'))) return;
+    if (!(await confirm(t('admin.rejectJobConfirm'), { variant: 'warning' }))) return;
     setActionId(id + 'reject');
     await updateDoc(doc(db, 'jobApplications', id), { status: 'rejected', reviewedAt: new Date() });
     setActionId(null);
   };
 
   const deleteApp = async (id) => {
-    if (!confirm(t('admin.deleteJobConfirm'))) return;
+    if (!(await confirm(t('admin.deleteJobConfirm'), { variant: 'danger' }))) return;
     await deleteDoc(doc(db, 'jobApplications', id));
   };
 

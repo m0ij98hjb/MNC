@@ -178,6 +178,23 @@ export const en = {
       range: "✦ The average cost per m² in {location} ranges from {min} to {max} SAR based on finishing level."
     }
   },
+  costReports: {
+    title: "Cost Reports",
+    subtitle: "A log of every report generated from the cost calculator",
+    noReportsYet: "No reports yet",
+    backToCalculator: "Back to Calculator",
+    viewBtn: "View Details",
+    closeLabel: "Close",
+    createdByLabel: "Created by",
+    dateLabel: "Date",
+    reportsCountLabel: "report(s)",
+    searchPlaceholder: "Search by name...",
+    allCategories: "All Types",
+    detailsTitle: "Report Details",
+    printBtn: "Print Report",
+    generatedOnLabel: "Generated on",
+    backToList: "Back to Reports List"
+  },
   about: {
     badge: "Vision & Expertise",
     titlePart1: "We don't just build walls,",
@@ -218,6 +235,7 @@ export const en = {
     }
   },
   projectsSection: {
+    genericProjectName: "{location} Project",
     badge: "Portfolio",
     titlePart1: "Our ",
     titlePart2: "Field",
@@ -227,15 +245,15 @@ export const en = {
     viewAll: "View All Projects",
     categories: {
       all: "All",
-      barjis: "BARJIS Project",
+      barjis: "Construction Works",
       residential: "Residential",
       recent: "Recent Work"
     },
     items: {
-      barjisFacade: "BARJIS - Front Facade",
-      barjisCourt: "BARJIS - Inner Court",
-      barjisRoof: "BARJIS - Roof",
-      barjisBasement: "BARJIS - Basement",
+      barjisFacade: "Construction Works - Front Facade",
+      barjisCourt: "Construction Works - Inner Court",
+      barjisRoof: "Construction Works - Roof",
+      barjisBasement: "Construction Works - Basement",
       villa1: "Residential Villa - 1",
       villa2: "Residential Villa - 2",
       villa3: "Residential Villa - 3",
@@ -339,7 +357,7 @@ export const en = {
     clickEnlarge: "Click on the image to enlarge and scroll to browse the rest of the images",
     distinctive: "Distinctive Project",
     viewDetails: "View Details",
-    barjisTitle: "BARJIS Project",
+    barjisTitle: "Construction Site Works",
     residentialTitle: "Residential & Construction Projects",
     recentTitle: "Recent Work 2025"
   },
@@ -1167,6 +1185,10 @@ export const en = {
     jobTitlePlaceholder: "Supervisor / Engineer / ...",
     departmentPlaceholder: "Construction / Projects / Purchasing / ...",
     cancel: "Cancel",
+    confirmBtn: "Confirm",
+    okBtn: "OK",
+    accessDeniedTitle: "You don't have access",
+    accessDeniedDesc: "This tool isn't available for your current role. Contact the system admin if you need access.",
     saveChangesBtn: "Save Changes",
     usersManagementTitle: "User Management",
     usersManagementSubtitle: "Add and manage employee accounts and define their roles and permissions",

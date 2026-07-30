@@ -12,7 +12,10 @@ export async function generateMetadata({ params }) {
   const project = await getProjectBySlug(slug);
   if (!project || project.draft || project.archived) return {};
 
-  const title = project.seoTitle || project.name_ar || project.name_en || slug;
+  // Public-facing title is location-based, not the real project name — same
+  // masking rule as the client-rendered pages (ProjectPageClient.js / ProjectDirectory.js).
+  const locationLabel = project.location_ar || project.location_en || "";
+  const title = locationLabel ? `مشروع ${locationLabel}` : slug;
   const description = (project.seoDescription || project.shortDesc_ar || project.desc_ar || "").slice(0, 160);
 
   return {

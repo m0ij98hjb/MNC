@@ -305,37 +305,44 @@ main {
 /* ── Multilingual Navbar Sizing & Spacing Optimizations ────────────────── */
 
 @media (min-width: 1024px) {
-  /* 1. Responsive Navbar Container Padding */
+  /* 1. Responsive Navbar Container Padding — increased edge padding so the
+     whole bar sits with clear, deliberate breathing room from the browser
+     edges, not just gaps between the internal elements. */
   .nav-container-responsive {
-    padding-left: clamp(12px, 1.8vw, 56px) !important;
-    padding-right: clamp(12px, 1.8vw, 56px) !important;
+    padding-left: clamp(20px, 2.6vw, 64px) !important;
+    padding-right: clamp(20px, 2.6vw, 64px) !important;
   }
 
-  /* 2. Responsive Logo Margins */
+  /* 2. Responsive Logo Margin — matches the separator's total contribution
+     on the opposite side (2 × separator margin + 1px line), so the
+     logo↔first-link gap and the last-link↔actions gap stay equal while both
+     read as clearly bigger. */
   .nav-logo-responsive {
-    margin-inline-end: clamp(8px, 1.5vw, 40px) !important;
-  }
+          margin-inline-end: clamp(21px, 6.4vw, 80px) !important;
 
-  /* 3. Responsive Nav links */
+  }
+  /* 3. Responsive Nav links — 13-15px professional desktop range. */
   .nav-link-responsive {
-    font-size: clamp(10px, 0.85vw, 13px) !important;
-    padding-left: clamp(4px, 0.75vw, 16px) !important;
-    padding-right: clamp(4px, 0.75vw, 16px) !important;
+    font-size: clamp(13px, 0.95vw, 15px) !important;
+    padding-left: clamp(8px, 0.9vw, 16px) !important;
+    padding-right: clamp(8px, 0.9vw, 16px) !important;
   }
 
   /* 4. Responsive Special (Cost Calculator) Link */
   .nav-link-special-responsive {
-    font-size: clamp(9.5px, 0.8vw, 12px) !important;
+    font-size: clamp(12px, 0.85vw, 13.5px) !important;
     padding-left: clamp(6px, 0.8vw, 16px) !important;
     padding-right: clamp(6px, 0.8vw, 16px) !important;
     margin-left: clamp(4px, 0.5vw, 8px) !important;
     margin-right: clamp(4px, 0.5vw, 8px) !important;
   }
 
-  /* 5. Responsive Separator Margin */
+  /* 5. Responsive Separator Margin — matched to the logo margin (see #2)
+     so "وظائف"↔actions-group and logo↔"الرئيسية" are the same visible gap. */
   .nav-separator-responsive {
-    margin-left: clamp(4px, 0.6vw, 12px) !important;
-    margin-right: clamp(4px, 0.6vw, 12px) !important;
+    margin-left: clamp(10px, 1.2vw, 24px) !important;
+    margin-right: clamp(10px, 6.2vw, 80px) !important;
+
   }
 
   /* 6. Responsive Actions Gap */
@@ -343,9 +350,10 @@ main {
     gap: clamp(4px, 0.5vw, 8px) !important;
   }
 
-  /* 7. Responsive Individual Actions Buttons */
+  /* 7. Responsive Individual Actions Buttons — matched proportionally to the
+     enlarged nav-link text so "البروفايل" reads consistent, not oversized. */
   .nav-action-btn-responsive {
-    font-size: clamp(9.5px, 0.8vw, 12px) !important;
+    font-size: clamp(12px, 0.85vw, 13.5px) !important;
     padding-left: clamp(6px, 0.8vw, 12px) !important;
     padding-right: clamp(6px, 0.8vw, 12px) !important;
   }

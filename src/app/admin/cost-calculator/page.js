@@ -2,7 +2,12 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Navbar from "@/components/layout/Navbar";
+import AdminPageLayout from "@/components/admin/AdminPageLayout";
+import { useRoleAccess } from "@/hooks/useRoleAccess";
+import { useAuth } from "@/context/AuthContext";
+import { COST_TOOL_ROLES } from "@/lib/roleBasedAccess";
+import { createCostReport } from "@/lib/costReportsRepo";
+import CalculatorResultView from "@/components/calculator/CalculatorResultView";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
@@ -35,6 +40,10 @@ import {
   Flower2,
   SquareStack,
   Phone,
+  Loader2,
+  ShieldAlert,
+  FileText,
+  Printer,
 } from "lucide-react";
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -42,6 +51,8 @@ export default function CostCalculatorPage() {
   const { t, lang, isRTL } = useLanguage();
   const { theme } = useTheme();
   const { data: calcCms } = useSiteContent('calculator');
+  const { loading: roleLoading, isRole, profile, role } = useRoleAccess();
+  const { user } = useAuth();
   const isLightMode = theme === 'dark';
   const isRtl = isRTL;
   // Light mode helper classes
@@ -65,8 +76,8 @@ export default function CostCalculatorPage() {
       fr: "Retour", de: "Zurück", tr: "Geri", ur: "پیچھے"
     },
     backToHome: {
-      ar: "العودة إلى الرئيسية", en: "Back to Home", zh: "返回首页", es: "Volver al inicio",
-      fr: "Retour à l'accueil", de: "Zurück zur Startseite", tr: "Ana Sayفaya Dön", ur: "ہوم پیج پر واپس"
+      ar: "العودة إلى لوحة التحكم", en: "Back to Dashboard", zh: "返回仪表板", es: "Volver al panel",
+      fr: "Retour au tableau de bord", de: "Zurück zum Dashboard", tr: "Panele Dön", ur: "ڈیش بورڈ پر واپس"
     },
     processing: {
       ar: "نعمل على تحليل بيانات مشروعك...",
@@ -220,6 +231,7 @@ export default function CostCalculatorPage() {
   const [result, setResult] = useState(null);
   const [calculating, setCalculating] = useState(false);
   const [errors, setErrors] = useState({});
+  const [lastReportId, setLastReportId] = useState(null);
 
   const isEngineeringFlow = hasEngineeringEngine(formData.type);
   const isCommercialFlow = hasCommercialEngine(formData.type);
@@ -231,6 +243,15 @@ export default function CostCalculatorPage() {
   const [residentialOpen, setResidentialOpen] = useState(false);
   const [commercialOpen, setCommercialOpen] = useState(false);
   const [industrialOpen, setIndustrialOpen] = useState(false);
+  const subtypePanelRef = useRef(null);
+
+  // Auto-scroll the newly revealed subtype panel into view instead of leaving
+  // it hidden below the fold until the user notices and scrolls manually.
+  useEffect(() => {
+    if ((residentialOpen || commercialOpen || industrialOpen) && subtypePanelRef.current) {
+      subtypePanelRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [residentialOpen, commercialOpen, industrialOpen]);
 
   const hotelRatingOptions = [
     { key: "3_star", label: t("calculator.hotel_3_star") },
@@ -500,6 +521,23 @@ export default function CostCalculatorPage() {
       setResult(res);
       setCalculating(false);
       setStep(3);
+      setLastReportId(null);
+
+      // Auto-log this run so it shows up in "تقارير التكلفة" — fire-and-forget,
+      // a logging failure shouldn't block the user from seeing their result.
+      const category = isIndustrialFlow ? "industrial" : isHotelFlow ? "hotel" : isCommercialFlow ? "commercial" : isEngineeringFlow ? "residential" : "other";
+      createCostReport({
+        category,
+        type: formData.type,
+        quality: formData.quality,
+        inputs: formData,
+        result: res,
+        createdByUid: user?.uid || "",
+        createdByName: profile?.name || user?.email || "",
+        createdByEmail: user?.email || "",
+        createdByRole: role || "",
+      }).then((id) => setLastReportId(id))
+        .catch((err) => console.error("Failed to save cost report:", err));
     }, 1800);
   };
 
@@ -515,6 +553,7 @@ export default function CostCalculatorPage() {
   const reset = () => {
     setStep(1);
     setResult(null);
+    setLastReportId(null);
     setResidentialOpen(false);
     setCommercialOpen(false);
     setIndustrialOpen(false);
@@ -531,12 +570,39 @@ export default function CostCalculatorPage() {
   const breakdownKeys = ["structure", "finishing", "mep", "external", "contingency"];
   const breakdownColors = ["#D5B25D", "#60a5fa", "#34d399", "#f472b6", "#f59e0b"];
 
+  // Role gate: this is an internal tool, restricted to the 6 roles in ALLOWED_ROLES.
+  // UI-level check (hides the sidebar entry) lives in roleBasedAccess.js / AdminSidebar;
+  // this is the route-level check so direct URL access is blocked too.
+  if (roleLoading) {
+    return (
+      <AdminPageLayout>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <Loader2 size={28} className="animate-spin text-[#c8a96e]" />
+        </div>
+      </AdminPageLayout>
+    );
+  }
+
+  if (!isRole(COST_TOOL_ROLES)) {
+    return (
+      <AdminPageLayout>
+        <div className="flex items-center justify-center min-h-[60vh] px-6" dir={isRTL ? 'rtl' : 'ltr'}>
+          <div className="text-center max-w-md">
+            <ShieldAlert size={32} className="text-amber-400 mx-auto mb-3" />
+            <p className="text-white font-bold mb-1.5">{t('admin.accessDeniedTitle')}</p>
+            <p className="text-white/40 text-sm">{t('admin.accessDeniedDesc')}</p>
+          </div>
+        </div>
+      </AdminPageLayout>
+    );
+  }
+
   return (
+    <AdminPageLayout>
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]" dir={isRtl ? "rtl" : "ltr"}>
-      <Navbar />
 
       {/* Hero Banner */}
-      <div className="relative pt-36 sm:pt-44 md:pt-48 pb-16 sm:pb-20 md:pb-24 overflow-hidden">
+      <div className="relative pt-6 sm:pt-8 md:pt-10 pb-8 sm:pb-10 md:pb-12 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0d1526] to-black" />
         <div className="absolute inset-0 opacity-10"
           style={{ backgroundImage: "radial-gradient(circle at 30% 50%, #D5B25D 0%, transparent 60%), radial-gradient(circle at 70% 30%, #B8923A 0%, transparent 50%)" }}
@@ -559,11 +625,18 @@ export default function CostCalculatorPage() {
           <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed text-white/70">
             {t("calculator.subtitle")}
           </p>
+          <Link
+            href="/admin/cost-reports"
+            className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full border border-[#D5B25D]/40 bg-[#D5B25D]/10 hover:bg-[#D5B25D]/20 hover:border-[#D5B25D]/70 text-[#D5B25D] font-bold text-sm transition-all duration-300"
+          >
+            <FileText size={16} />
+            {t("costReports.title")}
+          </Link>
         </div>
       </div>
 
       {/* Steps Indicator */}
-      <div className={`sticky top-[72px] lg:top-[104px] z-40 backdrop-blur-xl border-b ${isLightMode ? 'bg-white/90 border-[#D5B25D]/20' : 'bg-black/80 border-[#D5B25D]/10'}`}>
+      <div className={`sticky top-[72px] z-40 backdrop-blur-xl border-b ${isLightMode ? 'bg-white/90 border-[#D5B25D]/20' : 'bg-black/80 border-[#D5B25D]/10'}`}>
         <div className="container mx-auto px-6 py-3">
           <div className="flex items-center justify-center gap-2 sm:gap-4">
             {[1, 2, 3].map((s, i) => (
@@ -663,7 +736,7 @@ export default function CostCalculatorPage() {
             </div>
 
             {residentialOpen && (
-              <div className="mb-10 animate-in fade-in slide-in-from-top-2 duration-300">
+              <div ref={subtypePanelRef} className="mb-10 animate-in fade-in slide-in-from-top-2 duration-300">
                 <p className={`text-sm font-bold text-center mb-4 ${textSec}`}>{t("calculator.chooseResidentialType")}</p>
                 <div className="grid grid-cols-2 gap-4 sm:gap-6 max-w-xl mx-auto">
                   {residentialSubtypes.map(({ key, icon: Icon, color }) => (
@@ -700,7 +773,7 @@ export default function CostCalculatorPage() {
             )}
 
             {commercialOpen && (
-              <div className="mb-10 animate-in fade-in slide-in-from-top-2 duration-300">
+              <div ref={subtypePanelRef} className="mb-10 animate-in fade-in slide-in-from-top-2 duration-300">
                 <p className={`text-sm font-bold text-center mb-4 ${textSec}`}>{t("calculator.chooseCommercialType")}</p>
                 <div className="grid grid-cols-2 gap-4 sm:gap-6 max-w-xl mx-auto">
                   {commercialSubtypes.map(({ key, icon: Icon, color }) => (
@@ -737,7 +810,7 @@ export default function CostCalculatorPage() {
             )}
 
             {industrialOpen && (
-              <div className="mb-10 animate-in fade-in slide-in-from-top-2 duration-300">
+              <div ref={subtypePanelRef} className="mb-10 animate-in fade-in slide-in-from-top-2 duration-300">
                 <p className={`text-sm font-bold text-center mb-4 ${textSec}`}>{t("calculator.chooseIndustrialType")}</p>
                 <div className="grid grid-cols-2 gap-4 sm:gap-6 max-w-xl mx-auto">
                   {industrialSubtypes.map(({ key, icon: Icon, color }) => (
@@ -1388,354 +1461,17 @@ export default function CostCalculatorPage() {
         {step === 3 && result && !calculating && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6">
 
-            {result.kind === "industrial" ? (
-            <>
-            {/* Estimated Construction Cost — highlighted */}
-            <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
-              </div>
-              <p className="text-3xl font-black text-[#D5B25D] mt-2">{fmt(result.estimatedCost)}</p>
-              <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
-            </div>
+            <CalculatorResultView result={result} isLightMode={isLightMode} />
 
-            {/* Estimated Built-up Area */}
-            <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
-              <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
-                <TrendingUp size={22} className="text-[#D5B25D]" />
-              </div>
-              <div>
-                <p className={`text-xs ${textMut}`}>{t("calculator.engineering.builtupArea")}</p>
-                <p className={`font-black text-lg ${textPri}`}>{fmt(result.weightedArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></p>
-              </div>
-            </div>
-
-            {/* Project Summary */}
-            <div className={`${cardCls} rounded-2xl p-6`}>
-              <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
-                <Zap size={18} className="text-[#D5B25D]" />
-                {t("calculator.engineering.summary")}
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.industrialCategory")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{t(`calculator.${result.category}`)}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.quality")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{industrialQualityOptions.find((q) => q.key === result.quality)?.label}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.groundFloorArea")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.groundFloorArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.mezzanineArea")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.mezzanineArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.firstFloorArea")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.firstFloorArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
-                </div>
-              </div>
-            </div>
-            </>
-            ) : result.kind === "hotel" ? (
-            <>
-            {/* Estimated Construction Cost — highlighted */}
-            <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
-              </div>
-              <p className="text-3xl font-black text-[#D5B25D] mt-2">{fmt(result.estimatedCost)}</p>
-              <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
-            </div>
-
-            {/* Estimated Built-up Area */}
-            <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
-              <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
-                <TrendingUp size={22} className="text-[#D5B25D]" />
-              </div>
-              <div>
-                <p className={`text-xs ${textMut}`}>{t("calculator.engineering.builtupArea")}</p>
-                <p className={`font-black text-lg ${textPri}`}>{fmt(result.weightedArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></p>
-              </div>
-            </div>
-
-            {/* Project Summary */}
-            <div className={`${cardCls} rounded-2xl p-6`}>
-              <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
-                <Zap size={18} className="text-[#D5B25D]" />
-                {t("calculator.engineering.summary")}
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.hotelRating")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{t(`calculator.hotel_${result.rating}`)}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.basementsCount")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.basementsCount)}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.floorsCount")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.floorsCount)}</span>
-                </div>
-                {result.areas.basementAreas.map((area, i) => (
-                  <div key={`b-${i}`} className="flex items-center justify-between">
-                    <span className={`text-sm ${textSec}`}>{basementAreaLabel(i)}</span>
-                    <span className={`font-bold text-sm ${textPri}`}>{fmt(area)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
-                  </div>
-                ))}
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.groundFloorArea")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.groundFloorArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.mezzanineArea")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.mezzanineArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
-                </div>
-                {result.areas.floorAreas.map((area, i) => (
-                  <div key={`f-${i}`} className="flex items-center justify-between">
-                    <span className={`text-sm ${textSec}`}>{floorAreaLabel(i)}</span>
-                    <span className={`font-bold text-sm ${textPri}`}>{fmt(area)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
-                  </div>
-                ))}
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.penthouseArea")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.penthouseArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
-                </div>
-              </div>
-            </div>
-            </>
-            ) : result.kind === "commercial" ? (
-            <>
-            {/* Estimated Construction Cost — highlighted */}
-            <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
-              </div>
-              <p className="text-3xl font-black text-[#D5B25D] mt-2">{fmt(result.estimatedCost)}</p>
-              <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
-            </div>
-
-            {/* Estimated Built-up Area */}
-            <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
-              <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
-                <TrendingUp size={22} className="text-[#D5B25D]" />
-              </div>
-              <div>
-                <p className={`text-xs ${textMut}`}>{t("calculator.engineering.builtupArea")}</p>
-                <p className={`font-black text-lg ${textPri}`}>{fmt(result.weightedArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></p>
-              </div>
-            </div>
-
-            {/* Project Summary */}
-            <div className={`${cardCls} rounded-2xl p-6`}>
-              <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
-                <Zap size={18} className="text-[#D5B25D]" />
-                {t("calculator.engineering.summary")}
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.commercialCategory")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{t(`calculator.${result.category}`)}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.quality")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{qualityOptions.find((q) => q.key === result.quality)?.label}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.basementsCount")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.basementsCount)}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.floorsCount")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.floorsCount)}</span>
-                </div>
-                {result.areas.basementAreas.map((area, i) => (
-                  <div key={`b-${i}`} className="flex items-center justify-between">
-                    <span className={`text-sm ${textSec}`}>{basementAreaLabel(i)}</span>
-                    <span className={`font-bold text-sm ${textPri}`}>{fmt(area)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
-                  </div>
-                ))}
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.groundFloorArea")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.groundFloorArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.mezzanineArea")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.mezzanineArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
-                </div>
-                {result.areas.floorAreas.map((area, i) => (
-                  <div key={`f-${i}`} className="flex items-center justify-between">
-                    <span className={`text-sm ${textSec}`}>{floorAreaLabel(i)}</span>
-                    <span className={`font-bold text-sm ${textPri}`}>{fmt(area)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
-                  </div>
-                ))}
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.penthouseArea")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas.penthouseArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
-                </div>
-              </div>
-            </div>
-            </>
-            ) : result.kind === "engineering" ? (
-            <>
-            {/* Estimated Construction Cost — highlighted */}
-            <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
-              </div>
-              <p className="text-3xl font-black text-[#D5B25D] mt-2">{fmt(result.estimatedCost)}</p>
-              <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
-            </div>
-
-            {/* Estimated Built-up Area */}
-            <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
-              <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
-                <TrendingUp size={22} className="text-[#D5B25D]" />
-              </div>
-              <div>
-                <p className={`text-xs ${textMut}`}>{t("calculator.engineering.builtupArea")}</p>
-                <p className={`font-black text-lg ${textPri}`}>{fmt(result.weightedArea)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></p>
-              </div>
-            </div>
-
-            {/* Project Summary */}
-            <div className={`${cardCls} rounded-2xl p-6`}>
-              <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
-                <Zap size={18} className="text-[#D5B25D]" />
-                {t("calculator.engineering.summary")}
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.buildingType")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{t(`calculator.${result.buildingType}`)}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.quality")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{qualityOptions.find((q) => q.key === result.quality)?.label}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.floorsCount")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.floorsCount)}</span>
-                </div>
-                {engineeringAreaFields.map(({ key, label }) => (
-                  <div key={key} className="flex items-center justify-between">
-                    <span className={`text-sm ${textSec}`}>{label}</span>
-                    <span className={`font-bold text-sm ${textPri}`}>{fmt(result.areas[key])} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م²" : "m²"}</span></span>
-                  </div>
-                ))}
-                <div className="flex items-center justify-between">
-                  <span className={`text-sm ${textSec}`}>{t("calculator.engineering.fenceLength")}</span>
-                  <span className={`font-bold text-sm ${textPri}`}>{fmt(result.fenceLength)} <span className={`text-xs ${textMut}`}>{lang === "ar" || lang === "ur" ? "م.ط" : "lm"}</span></span>
-                </div>
-              </div>
-            </div>
-            </>
-            ) : (
-            <>
-            {/* Main Cost Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {/* Min */}
-              <div className={`${cardCls} rounded-2xl p-6 text-center`}>
-                <p className={`text-xs font-semibold mb-2 ${textMut}`}>{t("calculator.min_cost")}</p>
-                <p className={`text-2xl font-black ${textPri}`}>{fmt(result.min)}</p>
-                <p className={`text-xs mt-1 ${textMut}`}>{t("calculator.currency")}</p>
-              </div>
-              {/* Avg — highlighted */}
-              <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.avg_cost")}</span>
-                </div>
-                <p className="text-3xl font-black text-[#D5B25D] mt-2">{fmt(result.avg)}</p>
-                <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
-              </div>
-              {/* Max */}
-              <div className={`${cardCls} rounded-2xl p-6 text-center`}>
-                <p className={`text-xs font-semibold mb-2 ${textMut}`}>{t("calculator.max_cost")}</p>
-                <p className={`text-2xl font-black ${textPri}`}>{fmt(result.max)}</p>
-                <p className={`text-xs mt-1 ${textMut}`}>{t("calculator.currency")}</p>
-              </div>
-            </div>
-
-            {/* Stats Row */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
-                <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
-                  <TrendingUp size={22} className="text-[#D5B25D]" />
-                </div>
-                <div>
-                  <p className={`text-xs ${textMut}`}>{t("calculator.cost_per_sqm")}</p>
-                  <p className={`font-black text-lg ${textPri}`}>{fmt(result.costPerSqm)} <span className={`text-xs ${textMut}`}>{t("calculator.currency")}</span></p>
-                </div>
-              </div>
-              <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
-                <div className="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center">
-                  <Clock size={22} className="text-blue-400" />
-                </div>
-                <div>
-                  <p className={`text-xs ${textMut}`}>{t("calculator.timeline")}</p>
-                  <p className={`font-black text-lg ${textPri}`}>{fmt(result.timeline)} <span className={`text-xs ${textMut}`}>{t("calculator.months")}</span></p>
-                </div>
-              </div>
-            </div>
-
-            {/* Cost Breakdown */}
-            <div className={`${cardCls} rounded-2xl p-6`}>
-              <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
-                <Zap size={18} className="text-[#D5B25D]" />
-                {t("calculator.breakdown")}
-              </h3>
-              <div className="space-y-4">
-                {breakdownKeys.map((key, i) => {
-                  const value = result.breakdown[key];
-                  const pct = Math.round((value / result.avg) * 100);
-                  return (
-                    <div key={key}>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className={`text-sm ${textSec}`}>{t(`calculator.${key}`)}</span>
-                        <span className={`font-bold text-sm ${textPri}`}>{fmt(value)} <span className={`text-xs ${textMut}`}>{t("calculator.currency")}</span></span>
-                      </div>
-                      <div className={`h-2 rounded-full overflow-hidden ${isLightMode ? 'bg-slate-100' : 'bg-white/5'}`}>
-                        <div
-                          className="h-full rounded-full transition-all duration-1000"
-                          style={{ width: `${pct}%`, background: breakdownColors[i] }}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-                {result.breakdown.extras > 0 && (
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className={`text-sm ${textSec}`}>{t("calculator.extras")}</span>
-                      <span className={`font-bold text-sm ${textPri}`}>{fmt(result.breakdown.extras)} <span className={`text-xs ${textMut}`}>{t("calculator.currency")}</span></span>
-                    </div>
-                    <div className={`h-2 rounded-full overflow-hidden ${isLightMode ? 'bg-slate-100' : 'bg-white/5'}`}>
-                      <div className="h-full rounded-full" style={{ width: `${Math.round((result.breakdown.extras / result.avg) * 100)}%`, background: "#e879f9" }} />
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Engineering Insights */}
-            <div className="bg-gradient-to-br from-[#D5B25D]/10 to-transparent border border-[#D5B25D]/20 rounded-2xl p-6">
-              <h3 className="text-[#D5B25D] font-black text-lg mb-4 flex items-center gap-2">
-                <TrendingUp size={18} />
-                {t("calculator.aiInsights")}
-              </h3>
-              <div className="space-y-3">
-                {result.insights.map((insight, i) => (
-                  <div key={i} className={`flex gap-3 text-sm leading-relaxed ${textSec}`}>
-                    <span>{insight}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            </>
+            {/* Print Report — jumps to the saved report's page */}
+            {lastReportId && (
+              <Link
+                href={`/admin/cost-reports/${lastReportId}`}
+                className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl border-2 border-[#D5B25D] bg-[#D5B25D]/10 hover:bg-[#D5B25D]/20 text-[#D5B25D] font-bold text-base transition-all duration-300"
+              >
+                <Printer size={18} />
+                {t("costReports.printBtn")}
+              </Link>
             )}
 
             {/* Note */}
@@ -1760,7 +1496,7 @@ export default function CostCalculatorPage() {
 
             {/* Back link */}
             <div className="text-center pt-2">
-              <Link href="/" className={`inline-flex items-center gap-2 text-sm transition-colors ${isLightMode ? 'text-slate-400 hover:text-slate-600' : 'text-white/40 hover:text-white/70'}`}>
+              <Link href="/admin/dashboard" className={`inline-flex items-center gap-2 text-sm transition-colors ${isLightMode ? 'text-slate-400 hover:text-slate-600' : 'text-white/40 hover:text-white/70'}`}>
                 <ArrowLeft size={14} className={isRtl ? "rotate-180" : ""} />
                 <span>{ui.backToHome[lang] || ui.backToHome['en']}</span>
               </Link>
@@ -1782,5 +1518,6 @@ export default function CostCalculatorPage() {
         }
       `}</style>
     </div>
+    </AdminPageLayout>
   );
 }

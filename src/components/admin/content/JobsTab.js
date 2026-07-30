@@ -4,6 +4,7 @@ import { Plus, Pencil, Trash2, X, Briefcase, Eye, EyeOff } from 'lucide-react';
 import { loadSiteContent, saveSiteContent } from '@/lib/siteContent';
 import { Field, TextArea, SaveBtn, Grid2, TabLoading } from './Shared';
 import { useLanguage } from '@/context/LanguageContext';
+import { useConfirm } from '@/context/ConfirmContext';
 
 const EMPTY_JOB = () => ({
   id: crypto.randomUUID(),
@@ -18,6 +19,7 @@ const TYPE_LABEL_KEYS = { full: 'admin.contentTabs.jobsTab.typeFullTime', part: 
 
 export default function JobsTab() {
   const { t } = useLanguage();
+  const { confirm } = useConfirm();
   const [jobs, setJobs]       = useState([]);
   const [loading, setLoading] = useState(true);
   const [editId, setEditId]   = useState(null);
@@ -44,7 +46,7 @@ export default function JobsTab() {
     close();
   };
 
-  const remove  = (id) => { if (confirm(t('admin.contentTabs.jobsTab.deleteJobConfirm'))) setJobs(p => p.filter(j => j.id !== id)); };
+  const remove  = async (id) => { if (await confirm(t('admin.contentTabs.jobsTab.deleteJobConfirm'), { variant: 'danger' })) setJobs(p => p.filter(j => j.id !== id)); };
   const toggle  = (id) => setJobs(p => p.map(j => j.id === id ? { ...j, visible: !j.visible } : j));
 
   const save = async () => {

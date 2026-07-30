@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
+import { useConfirm } from '@/context/ConfirmContext';
 import { TabLoading } from './Shared';
 import ProjectEditorModal from './ProjectEditorModal';
 import { useAdminProjects } from '@/hooks/useProjects';
@@ -19,6 +20,7 @@ import { PROJECTS as LEGACY_PROJECTS } from '@/data/projects.js';
 export default function ProjectsTab() {
   const { t, lang } = useLanguage();
   const { user } = useAuth();
+  const { confirm } = useConfirm();
   const [showArchived, setShowArchived] = useState(false);
   const { projects, loading } = useAdminProjects({ includeArchived: showArchived });
 
@@ -63,7 +65,7 @@ export default function ProjectsTab() {
   };
 
   const remove = async (slug) => {
-    if (!confirm(t('admin.contentTabs.projectsTab.deleteProjectConfirm'))) return;
+    if (!(await confirm(t('admin.contentTabs.projectsTab.deleteProjectConfirm'), { variant: 'danger' }))) return;
     await deleteProject(slug);
   };
 
@@ -88,7 +90,7 @@ export default function ProjectsTab() {
   };
 
   const handleImport = async () => {
-    if (!confirm(t('admin.contentTabs.projectsTab.importConfirm'))) return;
+    if (!(await confirm(t('admin.contentTabs.projectsTab.importConfirm')))) return;
     setImporting(true);
     setImportMsg('');
     let imported = 0;

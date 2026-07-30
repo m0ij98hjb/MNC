@@ -205,6 +205,30 @@ service cloud.firestore {
       allow read, write: if cmsIsSuperAdmin();
     }
 
+    // ══════════════════════════════════════════════════════════════
+    // Cost Calculator — internal tool reports log (additive). Access is
+    // governed by the general `adminUsers/{uid}.role` field — the same
+    // source useRoleAccess()/roleBasedAccess.js reads client-side — kept
+    // to the same 6 roles allowed to use the calculator itself.
+    // ══════════════════════════════════════════════════════════════
+    function calcRole() {
+      return request.auth != null && exists(/databases/$(database)/documents/adminUsers/$(request.auth.uid))
+        ? get(/databases/$(database)/documents/adminUsers/$(request.auth.uid)).data.role
+        : null;
+    }
+
+    function calcToolAllowed() {
+      return cmsIsSuperAdmin() || (request.auth != null && calcRole() in [
+        'project_manager', 'company_manager', 'engineering_manager',
+        'site_engineer', 'procurement_manager'
+      ]);
+    }
+
+    match /costReports/{reportId} {
+      allow read, create: if calcToolAllowed();
+      allow update, delete: if cmsIsSuperAdmin();
+    }
+
     // Deny everything else by default
     match /{document=**} {
       allow read, write: if false;
