@@ -1,6 +1,9 @@
 export const metadata = {
   title: "مشاريعنا – MNC",
   description: "استعرض أحدث مشاريعنا في المقاولات، التصميم المعماري، والتصميم الداخلي.",
+  alternates: {
+    canonical: "/projects",
+  },
 };
 
 export default function ProjectsLayout({ children }) {

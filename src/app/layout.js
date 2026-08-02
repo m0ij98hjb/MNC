@@ -17,8 +17,16 @@ const cairo = Cairo({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://mnc.sa"),
   title: "شركة ام ان سى للانشاءات: MNC",
   description: "خدماتنا ; مشاريع مقاولات. دراسة وتنفيذ ; التصميم المعماري. الأفكار والحلول ; إدارة المشاريع. إدارة التنفيذ ; التصميم الداخلي. الديكور والتشطيب ...",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    url: "/",
+    siteName: "MNC",
+  },
   icons: {
     icon: [
       { url: "/favicon-32.png",  type: "image/png", sizes: "32x32" },

@@ -14,6 +14,13 @@ export async function generateMetadata({ params }) {
   return {
     title: `${title} – MNC`,
     description: data.content.ar?.description?.slice(0, 160),
+    alternates: {
+      canonical: `/services/${slug}`,
+    },
+    openGraph: {
+      title: `${title} – MNC`,
+      url: `/services/${slug}`,
+    },
   };
 }
 

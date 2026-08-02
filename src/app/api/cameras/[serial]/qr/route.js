@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server';
 import QRCode from 'qrcode';
 import { getCameraBySerial, updateCamera } from '@/lib/camerasFirestore';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://mnc-construction.com';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://mnc.sa';
 
 export async function POST(_, { params }) {
   try {

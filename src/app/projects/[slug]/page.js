@@ -22,9 +22,13 @@ export async function generateMetadata({ params }) {
     title: `${title} – MNC`,
     description,
     keywords: project.keywords?.length ? project.keywords.join(", ") : undefined,
+    alternates: {
+      canonical: `/projects/${slug}`,
+    },
     openGraph: {
       title: `${title} – MNC`,
       description,
+      url: `/projects/${slug}`,
       images: project.coverImage ? [{ url: project.coverImage }] : undefined,
     },
   };
