@@ -29,6 +29,9 @@ export const metadata = {
     ],
     shortcut: "/favicon-32.png",
   },
+  verification: {
+    google: "0fmi6g2GS7XJ1e8FD_ScN_zIZwWnpJPEJmAOSyb3bwI",
+  },
 };
 
 export default function RootLayout({ children }) {
