@@ -27,16 +27,6 @@ export const metadata = {
     url: "/",
     siteName: "MNC",
   },
-  icons: {
-    icon: [
-      { url: "/favicon-32.png",  type: "image/png", sizes: "32x32" },
-      { url: "/favicon-512.png", type: "image/png", sizes: "512x512" },
-    ],
-    apple: [
-      { url: "/favicon-180.png", type: "image/png", sizes: "180x180" },
-    ],
-    shortcut: "/favicon-32.png",
-  },
   verification: {
     google: "0fmi6g2GS7XJ1e8FD_ScN_zIZwWnpJPEJmAOSyb3bwI",
   },
