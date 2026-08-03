@@ -8,6 +8,7 @@ import { ArrowRight, ArrowLeft, CheckCircle2, Users, Building2, Target, X, ZoomI
 import Navbar from "@/components/layout/Navbar";
 import { useLanguage } from "@/context/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { cldOptimize } from "@/lib/cloudinary";
 
 export default function AboutUsPage() {
   const { lang, t, isRTL } = useLanguage();
@@ -242,7 +243,7 @@ export default function AboutUsPage() {
             {/* Image */}
             <div className={`relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-2xl ${isRTL ? 'order-last' : 'order-first'}`} data-aos={isRTL ? 'fade-left' : 'fade-right'}>
               <Image
-                src={directorImage}
+                src={cldOptimize(directorImage)}
                 alt={t("aboutUsPage.ceoSectionTitle")}
                 fill
                 className="object-cover"

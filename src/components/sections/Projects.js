@@ -6,6 +6,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useFeaturedProjects } from "@/hooks/useProjects";
 import { getLocalizedText } from "@/lib/i18nHelpers";
 import { getCategoryLabel, PROJECT_CATEGORY_IDS } from "@/lib/projectCategories";
+import { cldOptimize } from "@/lib/cloudinary";
 
 const Projects = () => {
   const { t, lang } = useLanguage();
@@ -97,7 +98,7 @@ const Projects = () => {
               onClick={() => setSelectedImage(project)}
             >
               <Image
-                src={project.image}
+                src={cldOptimize(project.image)}
                 alt={project.title}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -136,7 +137,7 @@ const Projects = () => {
               ×
             </button>
             <Image
-              src={selectedImage.image}
+              src={cldOptimize(selectedImage.image)}
               alt={selectedImage.title}
               width={1200}
               height={800}

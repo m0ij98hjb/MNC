@@ -5,6 +5,16 @@
 const CLOUD_NAME    = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 const MEDIA_PRESET  = process.env.NEXT_PUBLIC_CLOUDINARY_MEDIA_PRESET;
 
+// Injects Cloudinary's f_auto,q_auto transformation (auto format + auto
+// quality) into a delivery URL. Only touches format/quality — never
+// dimensions — so the rendered image size/layout is unaffected.
+export function cldOptimize(url) {
+  if (typeof url !== "string") return url;
+  if (!url.includes("res.cloudinary.com") || !url.includes("/upload/")) return url;
+  if (/\/upload\/[^/]*\b(f_auto|q_auto)\b/.test(url)) return url;
+  return url.replace("/upload/", "/upload/f_auto,q_auto/");
+}
+
 function detectResourceType(file) {
   if (file.type?.startsWith("image/")) return "image";
   if (file.type?.startsWith("video/")) return "video";

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { ZoomIn, X, ChevronLeft, ChevronRight, Maximize2, Minimize2, Search, Calendar, MapPin, Layers } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { cldOptimize } from "@/lib/cloudinary";
 
 export default function ProjectDirectory({ projects, categories }) {
   const { lang, t, isRTL } = useLanguage();
@@ -357,7 +358,7 @@ export default function ProjectDirectory({ projects, categories }) {
                 {/* Cover Image Container */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
                   <Image
-                    src={p.coverImage}
+                    src={cldOptimize(p.coverImage)}
                     alt={projectLabel(p)}
                     fill
                     className="object-cover transition-transform duration-1000 group-hover:scale-110"
@@ -480,7 +481,7 @@ export default function ProjectDirectory({ projects, categories }) {
               onClick={(e) => e.stopPropagation()}
             >
               <Image
-                src={activeProject.gallery[currentImageIndex]}
+                src={cldOptimize(activeProject.gallery[currentImageIndex])}
                 alt={`${projectLabel(activeProject)} - ${currentImageIndex + 1}`}
                 fill
                 className="object-contain"
@@ -536,7 +537,7 @@ export default function ProjectDirectory({ projects, categories }) {
                       }`}
                     >
                       <Image
-                        src={img}
+                        src={cldOptimize(img)}
                         alt="Thumbnail"
                         fill
                         className="object-cover"

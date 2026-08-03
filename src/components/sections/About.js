@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { cldOptimize } from "@/lib/cloudinary";
 
 const About = () => {
   const { lang, t } = useLanguage();
@@ -80,7 +81,7 @@ const About = () => {
             <div className="relative z-10 group">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-4/3">
                 <Image
-                  src={directorImage}
+                  src={cldOptimize(directorImage)}
                   alt={directorName}
                   fill
                   className="object-cover"
@@ -106,7 +107,7 @@ const About = () => {
             <div className="relative z-10 group">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-4/3">
                 <Image
-                  src={ceoImage}
+                  src={cldOptimize(ceoImage)}
                   alt={ceoName}
                   fill
                   className="object-cover"

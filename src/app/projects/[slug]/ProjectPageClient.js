@@ -12,6 +12,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { getLocalizedText } from "@/lib/i18nHelpers";
 import { getCategoryLabel } from "@/lib/projectCategories";
 import { SERVICES_DATA } from "@/lib/servicesData";
+import { cldOptimize } from "@/lib/cloudinary";
 
 function isVideoEmbeddable(url) {
   return /youtube\.com|youtu\.be|vimeo\.com/.test(url);
@@ -62,7 +63,7 @@ export default function ProjectPageClient({ project, related }) {
       {/* Hero */}
       <section className="relative h-[70vh] min-h-[420px] flex items-end overflow-hidden pt-20">
         <div className="absolute inset-0 z-0">
-          <Image src={project.coverImage} alt={name} fill className="object-cover object-center" priority unoptimized />
+          <Image src={cldOptimize(project.coverImage)} alt={name} fill className="object-cover object-center" priority unoptimized />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/20" />
         </div>
         <div className="container relative z-10 mx-auto px-6 pb-14">
@@ -143,7 +144,7 @@ export default function ProjectPageClient({ project, related }) {
                   onClick={() => setLightboxIndex(idx)}
                   className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 hover:border-secondary/40 transition-all"
                 >
-                  <Image src={url} alt={`${name} ${idx + 1}`} fill className="object-cover" unoptimized />
+                  <Image src={cldOptimize(url)} alt={`${name} ${idx + 1}`} fill className="object-cover" unoptimized />
                 </button>
               ))}
             </div>
@@ -192,7 +193,7 @@ export default function ProjectPageClient({ project, related }) {
                 >
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
                     <Image
-                      src={rp.coverImage}
+                      src={cldOptimize(rp.coverImage)}
                       alt={t("projectsSection.genericProjectName").replace("{location}", getLocalizedText(rp, "location", lang))}
                       fill
                       className="object-cover transition-transform duration-1000 group-hover:scale-110"
@@ -232,7 +233,7 @@ export default function ProjectPageClient({ project, related }) {
             </button>
           )}
           <div className="relative w-[90vw] h-[70vh] max-w-5xl" onClick={(e) => e.stopPropagation()}>
-            <Image src={galleryUrls[lightboxIndex]} alt="" fill className="object-contain" unoptimized />
+            <Image src={cldOptimize(galleryUrls[lightboxIndex])} alt="" fill className="object-contain" unoptimized />
           </div>
           {galleryUrls.length > 1 && (
             <button
