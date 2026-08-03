@@ -587,7 +587,7 @@ const Navbar = () => {
           {/* Panel Header */}
           <div className="flex items-center justify-between px-5 pt-8 pb-4 flex-shrink-0" style={{ backgroundColor: isLightMode ? '#ffffff' : '#0a0a0a', borderBottom: `1px solid ${isLightMode ? '#e2e8f0' : 'rgba(255,255,255,0.05)'}` }}>
             <Link href="/" onClick={() => setIsOpen(false)}>
-              <Image src="/asstes/logo-navbar.png" alt="MNC Logo" width={90} height={45} className="h-9 w-auto object-contain" priority />
+              <Image src="/asstes/logo-navbar.png" alt="MNC Logo" width={90} height={45} className="h-9 w-auto object-contain" />
             </Link>
             <button onClick={() => setIsOpen(false)}
               className="w-8 h-8 rounded-[10px] border border-[#D5B25D]/22 bg-[#D5B25D]/5 flex items-center justify-center text-[#D5B25D] hover:bg-[#D5B25D]/12 transition-all active:scale-95">

@@ -148,7 +148,6 @@ const Footer = () => {
                 width={520}
                 height={260}
                 className="logo-footer w-auto h-28 sm:max-h-32 md:max-h-36 object-contain"
-                priority
               />
             </div>
             <p className="text-[var(--foreground)] text-sm leading-relaxed max-w-sm">
