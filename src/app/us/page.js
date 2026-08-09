@@ -22,7 +22,7 @@ export default function AboutUsPage() {
     { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(4).jpeg`, alt: riyadhPhotoAlts[2] },
     { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(5).jpeg`, alt: riyadhPhotoAlts[3] },
     { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.23%20PM%20(6).jpeg`, alt: riyadhPhotoAlts[4] },
-    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.24%20PM.jpeg`,       alt: riyadhPhotoAlts[5] },
+    { src: `${RIYADH_BASE}WhatsApp%20Image%202026-06-24%20at%203.58.24%20PM.jpeg`, alt: riyadhPhotoAlts[5] },
   ];
 
   const [lightboxIndex, setLightboxIndex] = useState(null);
@@ -37,7 +37,7 @@ export default function AboutUsPage() {
     if (lightboxIndex === null) return;
     const handler = (e) => {
       if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft')  isRTL ? nextPhoto() : prevPhoto();
+      if (e.key === 'ArrowLeft') isRTL ? nextPhoto() : prevPhoto();
       if (e.key === 'ArrowRight') isRTL ? prevPhoto() : nextPhoto();
     };
     document.body.style.overflow = 'hidden';
@@ -51,27 +51,27 @@ export default function AboutUsPage() {
   const heroStatsLabels = t('aboutUsPage.heroStatsLabels');
   const heroStats = aboutCms?.stats?.length
     ? aboutCms.stats.map(s => ({
-        value: s.value,
-        // CMS stats are admin-authored bilingual (ar/en) content fields — out of scope for i18n remediation.
-        label: isRTL ? s.label_ar : (s.label_en || s.label_ar),
-      }))
+      value: s.value,
+      // CMS stats are admin-authored bilingual (ar/en) content fields — out of scope for i18n remediation.
+      label: isRTL ? s.label_ar : (s.label_en || s.label_ar),
+    }))
     : [
-        { value: "38+",  label: heroStatsLabels[0] },
-        { value: "50+",  label: heroStatsLabels[1] },
-        { value: "98%",  label: heroStatsLabels[2] },
-        { value: "300+", label: heroStatsLabels[3] },
-      ];
+      { value: "38+", label: heroStatsLabels[0] },
+      { value: "50+", label: heroStatsLabels[1] },
+      { value: "98%", label: heroStatsLabels[2] },
+      { value: "300+", label: heroStatsLabels[3] },
+    ];
 
   return (
     <main className="min-h-screen bg-[var(--background)] font-cairo text-white" dir={isRTL ? "rtl" : "ltr"}>
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="image-hero relative h-screen min-h-[700px] flex items-center overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/heroes/hero-us.jpg"
+            src="/images/heroes/hero-us.png"
             alt="About MNC Construction"
             fill
             className="object-cover object-center animate-slow-zoom"
@@ -144,10 +144,10 @@ export default function AboutUsPage() {
       <section className="py-24 bg-[var(--background)] relative overflow-hidden">
         {/* Soft background ambient light */}
         <div className="absolute top-1/3 left-1/4 -translate-x-1/2 w-[350px] h-[350px] bg-[#D5B25D]/5 rounded-full blur-[120px] pointer-events-none" />
-        
+
         <div className="container mx-auto px-6 max-w-7xl relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
+
             {/* Text Content - Column 1 (renders Right in RTL, Left in LTR) */}
             <div className="lg:col-span-7 space-y-6 lg:space-y-8 text-start" data-aos="fade-up">
               <div>
@@ -209,7 +209,7 @@ export default function AboutUsPage() {
                     <span className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider bg-black/60 px-3 py-1.5 rounded-full border border-[#D5B25D]/20">{t("gallery.distinctive")}</span>
                   </div>
                 </div>
-                
+
                 <div className="relative h-[220px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl group cursor-pointer">
                   <Image src="/project2.png" alt="MNC Commercial Project" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent transition-opacity duration-500" />
@@ -258,7 +258,7 @@ export default function AboutUsPage() {
                   {t("aboutUsPage.ceoSectionTitle")}
                 </h2>
                 <div className={`w-16 h-1 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] ${isRTL ? 'mr-0 ml-auto lg:mr-0' : 'ml-0 mr-auto lg:ml-0'} mb-6 lg:mb-8 rounded-full`}></div>
-                
+
                 <div className="space-y-6 text-base md:text-lg leading-relaxed text-white/70 font-medium">
                   <p>
                     {t("aboutUsPage.ceoSectionText")}
@@ -299,7 +299,7 @@ export default function AboutUsPage() {
                 />
                 {/* Fixed White-text overlay bug by using dark gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
+
                 <div className={`absolute bottom-0 ${isRTL ? 'left-0 text-right' : 'right-0 text-left'} w-full p-6 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500`}>
                   <h3 className="text-white font-bold text-xl md:text-2xl mb-2">
                     {t("aboutUsPage.teamStaffTitle")}
@@ -322,7 +322,7 @@ export default function AboutUsPage() {
                 />
                 {/* Fixed White-text overlay bug by using dark gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
+
                 <div className={`absolute bottom-0 ${isRTL ? 'left-0 text-right' : 'right-0 text-left'} w-full p-6 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500`}>
                   <h3 className="text-white font-bold text-xl md:text-2xl mb-2">
                     {t("aboutUsPage.teamFieldTitle")}
@@ -425,7 +425,7 @@ export default function AboutUsPage() {
       <section className="py-24 bg-[var(--background)] border-t border-white/5 relative overflow-hidden">
         {/* Glowing gold ambient light behind content */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-[#D5B25D]/10 rounded-full blur-[120px] pointer-events-none" />
-        
+
         {/* Grid pattern overlay */}
         <div className="absolute inset-0 opacity-[0.03]"
           style={{ backgroundImage: "linear-gradient(to right, #D5B25D 1px, transparent 1px), linear-gradient(to bottom, #D5B25D 1px, transparent 1px)", backgroundSize: "40px 40px" }}
