@@ -12,6 +12,7 @@ import {
   Search, Trash2, Loader2, Eye, MessageSquare, X, Send,
   Mail, Phone, Building2, User, Calendar, Tag, Clock,
   CheckCircle, XCircle, ChevronDown, FileText, CornerUpLeft,
+  ArrowRight, ArrowLeft,
 } from 'lucide-react';
 
 /* ── Status system ── */
@@ -52,6 +53,8 @@ function StatusChip({ status }) {
 /* ── Main page ── */
 export default function MessagesPage() {
   const { lang, isRTL, t } = useLanguage();
+  const { confirm, alert } = useConfirm();
+  const BackIcon = isRTL ? ArrowRight : ArrowLeft;
 
   const [messages, setMessages]     = useState([]);
   const [filter, setFilter]         = useState('all');
@@ -131,9 +134,14 @@ export default function MessagesPage() {
   /* Actions */
   const updateStatus = async (id, status) => {
     setActionId(id + status);
-    await updateDoc(doc(db, 'contacts', id), { status, updatedAt: serverTimestamp() });
-    setActionId(null);
-    if (viewMsg?.id === id) setViewMsg(v => v ? { ...v, status } : v);
+    try {
+      await updateDoc(doc(db, 'contacts', id), { status, updatedAt: serverTimestamp() });
+      if (viewMsg?.id === id) setViewMsg(v => v ? { ...v, status } : v);
+    } catch (err) {
+      await alert(err.message || t('admin.genericError'), { variant: 'danger' });
+    } finally {
+      setActionId(null);
+    }
   };
 
   const deleteMsg = async (id) => {
@@ -210,6 +218,8 @@ export default function MessagesPage() {
           <h1 className="text-2xl font-bold text-white">{t('admin.messagesMenu')}</h1>
         </div>
 
+        {!viewMsg && (
+        <>
         {/* ── Stats Cards ── */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           {[
@@ -300,7 +310,8 @@ export default function MessagesPage() {
                 </thead>
                 <tbody className="divide-y divide-white/[0.04]">
                   {visible.map(msg => (
-                    <tr key={msg.id} className="hover:bg-white/[0.02] transition-colors">
+                    <tr key={msg.id} onClick={() => setViewMsg(msg)}
+                      className="hover:bg-white/[0.02] transition-colors cursor-pointer">
                       {/* Name + Email */}
                       <td className="px-4 py-3.5">
                         <p className="font-semibold text-white">{msg.fullName || msg.name || '—'}</p>
@@ -317,7 +328,7 @@ export default function MessagesPage() {
                       {/* Status */}
                       <td className="px-4 py-3.5"><StatusChip status={msg.status || 'new'} /></td>
                       {/* Actions */}
-                      <td className="px-4 py-3.5">
+                      <td className="px-4 py-3.5" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center gap-1">
                           <button onClick={() => setViewMsg(msg)}
                             className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/8 transition-all"
@@ -363,28 +374,27 @@ export default function MessagesPage() {
             </div>
           </div>
         )}
+        </>
+        )}
 
         {/* ══════════════════════════════════════════
-            VIEW MODAL
+            INLINE MESSAGE DETAILS (same page, no dialog)
         ══════════════════════════════════════════ */}
         {viewMsg && (
           <div
-            className="fixed inset-0 z-[200] flex items-center justify-center p-4"
-            style={{ background: 'rgba(0,0,0,0.78)' }}
-            onClick={() => setViewMsg(null)}
+            className="rounded-2xl overflow-hidden"
+            style={{
+              background:  '#0a0e17',
+              border:      '1px solid rgba(201,163,77,0.18)',
+            }}
           >
-            <div
-              className="relative w-full max-w-2xl rounded-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
-              style={{
-                background:  '#0a0e17',
-                border:      '1px solid rgba(201,163,77,0.18)',
-                boxShadow:   '0 24px 80px rgba(0,0,0,0.95)',
-              }}
-              onClick={e => e.stopPropagation()}
-            >
               {/* Header */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]">
                 <div className="flex items-center gap-3">
+                  <button onClick={() => setViewMsg(null)}
+                    className="w-7 h-7 rounded-full flex items-center justify-center text-white/40 hover:text-white hover:bg-white/8 transition-all">
+                    <BackIcon size={15} />
+                  </button>
                   <MessageSquare size={15} className="text-[#c8a96e]" />
                   <h2 className="text-base font-bold text-white">{t('admin.messages.detailsTitle')}</h2>
                 </div>
@@ -462,7 +472,6 @@ export default function MessagesPage() {
                   </button>
                 </div>
               </div>
-            </div>
           </div>
         )}
 

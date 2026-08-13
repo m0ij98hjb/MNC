@@ -107,6 +107,10 @@ export const NAV_LABELS_MULTILANG = {
     ar: 'طلبات التوظيف', en: 'Job Applications', hi: 'नौकरी के आवेदन', ru: 'Заявки на работу',
     de: 'Bewerbungen', fr: 'Candidatures', es: 'Solicitudes de empleo', tr: 'İş Başvuruları', ur: 'نوکری کی درخواستیں', zh: 'Job 申请'
   },
+  '/admin/jobs/postings': {
+    ar: 'الوظائف الحالية', en: 'Current Jobs', hi: 'वर्तमान नौकरियां', ru: 'Текущие вакансии',
+    de: 'Aktuelle Stellen', fr: 'Offres Actuelles', es: 'Empleos Actuales', tr: 'Güncel İlanlar', ur: 'موجودہ ملازمتیں', zh: '当前职位'
+  },
   '/admin/jobs/approved': {
     ar: 'المقبولون للمقابلة', en: 'Interview Candidates', hi: 'साक्षात्कार उम्मीदवार', ru: 'Кандидаты на интервью',
     de: 'Interview-Kandidaten', fr: 'Candidats en entretien', es: 'Candidatos a entrevista', tr: 'Mülakat Adayları', ur: 'انٹرویو کے امیدوار', zh: '面试候选人'
@@ -224,8 +228,10 @@ export const ROLE_NAVIGATION = {
   [ROLES.HR_MANAGER]: [
     { href: '/admin/dashboard', label: 'لوحة التحكم', icon: 'LayoutDashboard' },
     { href: '/admin/jobs', label: 'طلبات التوظيف', icon: 'Briefcase' },
+    { href: '/admin/jobs/postings', label: 'الوظائف الحالية', icon: 'PenSquare' },
     { href: '/admin/jobs/approved', label: 'المقبولون للمقابلة', icon: 'CheckCircle' },
     { href: '/admin/jobs/best', label: 'أفضل المرشحين', icon: 'Award' },
+    { href: '/admin/messages', label: 'رسائل العملاء', icon: 'MessageSquare' },
     { href: '/admin/reports', label: 'التقارير', icon: 'BarChart2' },
   ],
   
@@ -328,6 +334,7 @@ export const ROLE_ALLOWED_ROUTES = {
     '/admin/dashboard',
     '/admin/jobs',
     '/admin/jobs/*',
+    '/admin/messages',
     '/admin/reports',
   ],
   

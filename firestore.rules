@@ -10,6 +10,30 @@ service cloud.firestore {
       allow read, update, delete: if request.auth != null;
     }
 
+    // Contact-form messages (contacts collection):
+    // - Anyone can CREATE (the public /contact page submits anonymously)
+    // - Any authenticated admin can READ (needed for the /admin/dashboard
+    //   unread-message badge, shown to every role)
+    // - Company Manager, HR Manager, or super admin can reply/update/delete
+    //   (matches the /admin/messages route — the only roles granted access
+    //   to it in ROLE_ALLOWED_ROUTES)
+    match /contacts/{contactId} {
+      allow create: if true;
+      allow read: if request.auth != null;
+      allow update, delete: if cmsIsSuperAdmin() || (request.auth != null && calcRole() in ['company_manager', 'hr_manager']);
+    }
+
+    // Job applications submitted via the public /careers form. Contains
+    // applicant PII (name, phone, email, CV URL):
+    // - Anyone can CREATE (candidates apply anonymously)
+    // - READ/UPDATE/DELETE restricted to the roles that actually work with
+    //   recruitment (matches /admin/jobs* route access) plus the super admin
+    match /jobApplications/{appId} {
+      allow create: if true;
+      allow read, update, delete: if cmsIsSuperAdmin()
+        || (request.auth != null && calcRole() in ['hr_manager', 'company_manager', 'project_manager']);
+    }
+
     // ══════════════════════════════════════════════════════════════
     // Purchasing / Procurement module — fully independent of the rules
     // above. Its own role system (purchasingUsers) drives every check,
@@ -203,6 +227,36 @@ service cloud.firestore {
 
     match /mediaLibrary/{assetId} {
       allow read, write: if cmsIsSuperAdmin();
+    }
+
+    // Job postings (siteContent/jobs doc, array field `listings`) — public
+    // read so /careers can list published jobs; write is allowed for the
+    // super admin (Dashboard → Content → Jobs) and for the HR Manager role
+    // (Dashboard → Current Jobs, a dedicated page since HR doesn't have
+    // access to Content Management). Role comes from adminUsers/{uid}.role,
+    // same source as calcRole() used elsewhere in this file.
+    // Note: this is a single document holding all listings, so the
+    // isPublished filter is applied client-side, not via a Firestore query —
+    // unpublished job text is technically fetchable, which is acceptable
+    // since job ad copy isn't sensitive data.
+    match /siteContent/jobs {
+      allow read: if true;
+      allow write: if cmsIsSuperAdmin() || (request.auth != null && calcRole() == 'hr_manager');
+    }
+
+    // Remaining siteContent/* sections (home/about/contact/services/app/
+    // calculator/settings tabs in Content Management) — edited only via
+    // that super-admin-only page, so read/write stays super-admin-only.
+    // (siteContent/jobs above already has its own broader rule.)
+    match /siteContent/{section} {
+      allow read, write: if cmsIsSuperAdmin();
+    }
+
+    // Small standalone settings docs (e.g. settings/director — the avatar
+    // photo shown in the admin dashboard chrome for every logged-in role).
+    // Low-sensitivity; any authenticated admin can read/update.
+    match /settings/{docId} {
+      allow read, write: if request.auth != null;
     }
 
     // ══════════════════════════════════════════════════════════════

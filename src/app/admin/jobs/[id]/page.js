@@ -47,7 +47,7 @@ export default function JobDetailPage() {
   const { id }       = useParams();
   const router       = useRouter();
   const { t, isRTL, lang } = useLanguage();
-  const { confirm } = useConfirm();
+  const { confirm, alert } = useConfirm();
 
   const [app, setApp]         = useState(null);
   const [actioning, setActioning] = useState('');
@@ -75,15 +75,25 @@ export default function JobDetailPage() {
 
   const acceptApp = async () => {
     setActioning('accept');
-    await updateDoc(doc(db, 'jobApplications', id), { status: 'accepted', reviewedAt: new Date() });
-    setActioning('');
+    try {
+      await updateDoc(doc(db, 'jobApplications', id), { status: 'accepted', reviewedAt: new Date() });
+    } catch (err) {
+      await alert(err.message || t('admin.genericError'), { variant: 'danger' });
+    } finally {
+      setActioning('');
+    }
   };
 
   const rejectApp = async () => {
     if (!(await confirm(t('admin.rejectJobConfirm'), { variant: 'warning' }))) return;
     setActioning('reject');
-    await updateDoc(doc(db, 'jobApplications', id), { status: 'rejected', reviewedAt: new Date() });
-    setActioning('');
+    try {
+      await updateDoc(doc(db, 'jobApplications', id), { status: 'rejected', reviewedAt: new Date() });
+    } catch (err) {
+      await alert(err.message || t('admin.genericError'), { variant: 'danger' });
+    } finally {
+      setActioning('');
+    }
   };
 
   const handleSendInterview = async () => {

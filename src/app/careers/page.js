@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { loadSiteContent } from "@/lib/siteContent";
 import Navbar from "@/components/layout/Navbar";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
@@ -15,7 +16,57 @@ import {
 import { DEPARTMENTS, TRADES } from "@/lib/recruitmentConfig";
 import { uploadAsset } from "@/lib/cloudinary";
 
+// Same type keys the admin JobsTab uses for its own type dropdown/labels.
+const JOB_TYPE_LABEL_KEYS = {
+  full: "admin.contentTabs.jobsTab.typeFullTime",
+  part: "admin.contentTabs.jobsTab.typePartTime",
+  training: "admin.contentTabs.jobsTab.typeTraining",
+  supervision: "admin.contentTabs.jobsTab.typeSupervision",
+  skilled: "admin.contentTabs.jobsTab.typeSkilled",
+};
+
 const BENEFIT_ICONS = [Award, TrendingUp, Users, Building2];
+
+// Shared card used by every published-job grid (Open Positions, Training,
+// Supervision, Skilled Trades) so all four sections stay visually identical.
+function JobCard({ pos, isRTL, t, onApply, index = 0 }) {
+  return (
+    <div className="group relative bg-white/[0.03] border border-white/8 rounded-2xl p-6 hover:border-[#B8923A]/30 hover:bg-[#B8923A]/4 transition-all duration-400 flex flex-col gap-4 overflow-hidden" data-aos="fade-up" data-aos-delay={index * 60}>
+      <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#B8923A]/0 to-transparent group-hover:via-[#B8923A]/50 transition-all duration-500" />
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#B8923A]/12 text-[#B8923A] text-[10px] font-black uppercase tracking-widest mb-2.5 border border-[#B8923A]/20">{pos.dept}</span>
+          <h3 className="text-white font-black text-xl leading-tight">{pos.title}</h3>
+        </div>
+        <div className="w-12 h-12 rounded-xl bg-[#B8923A]/8 border border-[#B8923A]/15 flex items-center justify-center text-[#B8923A] flex-shrink-0 group-hover:scale-110 group-hover:bg-[#B8923A]/15 transition-all duration-300">
+          <Briefcase size={19} />
+        </div>
+      </div>
+      <p className="text-white/55 text-sm leading-relaxed flex-1">{pos.desc}</p>
+      <div className="flex items-center justify-between pt-4 border-t border-white/5">
+        <div className={`flex items-center gap-4 text-white/35 text-xs ${isRTL ? "flex-row" : ""}`}>
+          <span className="flex items-center gap-1.5"><MapPin size={11} />{pos.location || t("careers.jeddah")}</span>
+          <span className="flex items-center gap-1.5"><Clock size={11} />{pos.typeLabel}</span>
+        </div>
+        <button onClick={() => onApply(pos)}
+          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#B8923A] to-[#C9A34D] text-black font-black text-xs hover:shadow-lg hover:shadow-[#B8923A]/25 hover:-translate-y-0.5 transition-all duration-300 active:scale-95">
+          {t("careers.applyNow")}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// Shown instead of a grid when a section (or the whole page) currently has
+// no published jobs of that type.
+function EmptyJobsState({ t }) {
+  return (
+    <div className="col-span-full rounded-2xl py-16 text-center" style={{ border: "1px dashed rgba(255,255,255,0.08)" }}>
+      <Briefcase size={28} className="text-white/15 mx-auto mb-3" />
+      <p className="text-white/35 text-sm">{t("careers.noPositionsAvailable")}</p>
+    </div>
+  );
+}
 
 async function uploadToCloudinary(file) {
   const { url } = await uploadAsset(file, {
@@ -27,10 +78,6 @@ async function uploadToCloudinary(file) {
 
 export default function CareersPage() {
   const { t, lang, isRTL } = useLanguage();
-
-  /* ── Card selection state ── */
-  const [cardFormalDept, setCardFormalDept] = useState("");
-  const [cardSkillTrade, setCardSkillTrade] = useState("");
 
   /* ── Personal Info ── */
   const [fullName, setFullName]       = useState("");
@@ -62,11 +109,32 @@ export default function CareersPage() {
   const trainingRef     = useRef(null);
   const availPosRef     = useRef(null);
 
+  /* ── Published job postings (Dashboard → Content → Jobs) ── */
+  const [firestoreJobs, setFirestoreJobs] = useState([]);
+  useEffect(() => {
+    loadSiteContent("jobs")
+      .then(d => {
+        const published = (d.listings || []).filter(
+          j => (j.isPublished !== undefined ? j.isPublished : j.visible !== false)
+        );
+        setFirestoreJobs(published);
+      })
+      .catch(() => setFirestoreJobs([]));
+  }, []);
+
   const benefits           = t("careers.benefits");
-  const positions          = t("careers.positions");
-  const trainingPositions  = t("careers.trainingPositions");
+  const localizeJob = (job) => {
+    const typeLabel = t(JOB_TYPE_LABEL_KEYS[job.type] || JOB_TYPE_LABEL_KEYS.full);
+    const title = lang === "ar" ? (job.title_ar || job.title_en) : (job.title_en || job.title_ar);
+    const desc  = lang === "ar" ? (job.desc_ar  || job.desc_en)  : (job.desc_en  || job.desc_ar);
+    const dept  = (lang === "ar" ? (job.dept_ar || job.dept_en) : (job.dept_en || job.dept_ar)) || typeLabel;
+    return { key: job.id, title, desc, dept, location: job.location, typeLabel };
+  };
+  const positions          = firestoreJobs.filter(j => !["training", "supervision", "skilled"].includes(j.type)).map(localizeJob);
+  const trainingPositions  = firestoreJobs.filter(j => j.type === "training").map(localizeJob);
+  const supervisionJobs    = firestoreJobs.filter(j => j.type === "supervision").map(localizeJob);
+  const skilledJobs        = firestoreJobs.filter(j => j.type === "skilled").map(localizeJob);
   const expOptions         = t("careers.expOptions");
-  const supervisorPositions = t("careers.supervisorPositions");
 
   /* ─── Derived options from recruitmentConfig ─── */
   const departmentOptions = Object.entries(DEPARTMENTS).map(([key, val]) => ({
@@ -105,26 +173,6 @@ export default function CareersPage() {
     } else {
       setJobType("formal"); setDepartment(""); setPosition(posCard.title || ""); setTrade("");
     }
-    setTimeout(() => formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
-  };
-
-  /* ── handleApplyFromFormalCard — supervisory positions card ── */
-  const handleApplyFromFormalCard = () => {
-    if (!cardFormalDept) return;
-    setJobType("formal");
-    setDepartment("");
-    setPosition(cardFormalDept);
-    setTrade("");
-    setTimeout(() => formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
-  };
-
-  /* ── handleApplyFromSkillCard — two-card section ── */
-  const handleApplyFromSkillCard = () => {
-    if (!cardSkillTrade) return;
-    setJobType("skilled");
-    setDepartment("");
-    setPosition("");
-    setTrade(cardSkillTrade);
     setTimeout(() => formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
   };
 
@@ -260,126 +308,47 @@ export default function CareersPage() {
             <div className="w-20 h-1 bg-gradient-to-r from-[#B8923A] to-[#D5B25D] mx-auto mt-6 rounded-full" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {Array.isArray(positions) && positions.map((pos, i) => (
-              <div key={i} className="group relative bg-white/[0.03] border border-white/8 rounded-2xl p-6 hover:border-[#B8923A]/30 hover:bg-[#B8923A]/4 transition-all duration-400 flex flex-col gap-4 overflow-hidden" data-aos="fade-up" data-aos-delay={i * 60}>
-                <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#B8923A]/0 to-transparent group-hover:via-[#B8923A]/50 transition-all duration-500" />
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#B8923A]/12 text-[#B8923A] text-[10px] font-black uppercase tracking-widest mb-2.5 border border-[#B8923A]/20">{pos.dept}</span>
-                    <h3 className="text-white font-black text-xl leading-tight">{pos.title}</h3>
-                  </div>
-                  <div className="w-12 h-12 rounded-xl bg-[#B8923A]/8 border border-[#B8923A]/15 flex items-center justify-center text-[#B8923A] flex-shrink-0 group-hover:scale-110 group-hover:bg-[#B8923A]/15 transition-all duration-300">
-                    <Briefcase size={19} />
-                  </div>
-                </div>
-                <p className="text-white/55 text-sm leading-relaxed flex-1">{pos.desc}</p>
-                <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                  <div className={`flex items-center gap-4 text-white/35 text-xs ${isRTL ? "flex-row" : ""}`}>
-                    <span className="flex items-center gap-1.5"><MapPin size={11} />{t("careers.jeddah")}</span>
-                    <span className="flex items-center gap-1.5"><Clock size={11} />{t("careers.fullTime")}</span>
-                  </div>
-                  <button onClick={() => handleApplyClick(pos)}
-                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#B8923A] to-[#C9A34D] text-black font-black text-xs hover:shadow-lg hover:shadow-[#B8923A]/25 hover:-translate-y-0.5 transition-all duration-300 active:scale-95">
-                    {t("careers.applyNow")}
-                  </button>
-                </div>
-              </div>
-            ))}
+            {positions.length > 0
+              ? positions.map((pos, i) => (
+                  <JobCard key={pos.key} pos={pos} isRTL={isRTL} t={t} onApply={handleApplyClick} index={i} />
+                ))
+              : <EmptyJobsState t={t} />}
+          </div>
 
-            {/* ── Card: وظائف الإشراف والإدارة الميدانية ── */}
-            <div className="group relative bg-white/[0.03] border border-white/8 rounded-2xl p-6 hover:border-[#B8923A]/30 hover:bg-[#B8923A]/4 transition-all duration-400 flex flex-col gap-4 overflow-hidden" data-aos="fade-up">
-              <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#B8923A]/0 to-transparent group-hover:via-[#B8923A]/50 transition-all duration-500" />
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#B8923A]/12 text-[#B8923A] text-[10px] font-black uppercase tracking-widest mb-2.5 border border-[#B8923A]/20">
-                    {t("careers.siteSupervisionBadge")}
-                  </span>
-                  <h3 className="text-white font-black text-xl leading-tight">
-                    {t("careers.siteSupervisionTitle")}
-                  </h3>
-                </div>
-                <div className="w-12 h-12 rounded-xl bg-[#B8923A]/8 border border-[#B8923A]/15 flex items-center justify-center text-[#B8923A] flex-shrink-0 group-hover:scale-110 group-hover:bg-[#B8923A]/15 transition-all duration-300">
-                  <Briefcase size={19} />
-                </div>
-              </div>
-              <p className="text-white/55 text-sm leading-relaxed flex-1">
-                {t("careers.siteSupervisionDesc")}
-              </p>
-              <div className="flex flex-col gap-3 pt-4 border-t border-white/5">
-                <div className="relative">
-                  <select value={cardFormalDept} onChange={e => setCardFormalDept(e.target.value)} className={selectCls}>
-                    <option value="" className="bg-[#111]">{t("careers.selectPositionPlaceholder")}</option>
-                    {supervisorPositions.map(pos => (
-                      <option key={pos} value={pos} className="bg-[#111]">
-                        {pos}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown size={14} className={`absolute ${isRTL ? "left-3" : "right-3"} top-1/2 -translate-y-1/2 text-white/40 pointer-events-none`} />
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className={`flex items-center gap-4 text-white/35 text-xs ${isRTL ? "flex-row" : ""}`}>
-                    <span className="flex items-center gap-1.5"><MapPin size={11} />{t("careers.jeddah")}</span>
-                    <span className="flex items-center gap-1.5"><Clock size={11} />{t("careers.fullTime")}</span>
-                  </div>
-                  <button onClick={handleApplyFromFormalCard} disabled={!cardFormalDept}
-                    className={`px-5 py-2.5 rounded-xl font-black text-xs hover:-translate-y-0.5 transition-all duration-300 active:scale-95 ${
-                      cardFormalDept
-                        ? "bg-gradient-to-r from-[#B8923A] to-[#C9A34D] text-black hover:shadow-lg hover:shadow-[#B8923A]/25"
-                        : "bg-white/5 border border-white/8 text-white/25 cursor-not-allowed"
-                    }`}>
-                    {t("careers.applyNow")}
-                  </button>
-                </div>
-              </div>
+          {/* ── وظائف الإشراف والإدارة الميدانية ── */}
+          <div className="flex items-center gap-3 mt-16 mb-6" data-aos="fade-up">
+            <span className="w-9 h-9 rounded-xl bg-[#B8923A]/10 border border-[#B8923A]/20 flex items-center justify-center text-[#B8923A] flex-shrink-0">
+              <Briefcase size={16} />
+            </span>
+            <div>
+              <p className="text-[#B8923A] text-[10px] font-black uppercase tracking-widest">{t("careers.siteSupervisionBadge")}</p>
+              <h3 className="text-white font-black text-lg leading-tight">{t("careers.siteSupervisionTitle")}</h3>
             </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {supervisionJobs.length > 0
+              ? supervisionJobs.map((pos, i) => (
+                  <JobCard key={pos.key} pos={pos} isRTL={isRTL} t={t} onApply={handleApplyClick} index={i} />
+                ))
+              : <EmptyJobsState t={t} />}
+          </div>
 
-            {/* ── Card: وظائف المعلمين ── */}
-            <div className="group relative bg-white/[0.03] border border-white/8 rounded-2xl p-6 hover:border-[#B8923A]/30 hover:bg-[#B8923A]/4 transition-all duration-400 flex flex-col gap-4 overflow-hidden" data-aos="fade-up" data-aos-delay="80">
-              <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#B8923A]/0 to-transparent group-hover:via-[#B8923A]/50 transition-all duration-500" />
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#B8923A]/12 text-[#B8923A] text-[10px] font-black uppercase tracking-widest mb-2.5 border border-[#B8923A]/20">
-                    {t("careers.skilledTradesBadge")}
-                  </span>
-                  <h3 className="text-white font-black text-xl leading-tight">
-                    {t("careers.skilledTradesTitle")}
-                  </h3>
-                </div>
-                <div className="w-12 h-12 rounded-xl bg-[#B8923A]/8 border border-[#B8923A]/15 flex items-center justify-center text-[#B8923A] flex-shrink-0 group-hover:scale-110 group-hover:bg-[#B8923A]/15 transition-all duration-300">
-                  <HardHat size={19} />
-                </div>
-              </div>
-              <p className="text-white/55 text-sm leading-relaxed flex-1">
-                {t("careers.skilledTradesDesc")}
-              </p>
-              <div className="flex flex-col gap-3 pt-4 border-t border-white/5">
-                <div className="relative">
-                  <select value={cardSkillTrade} onChange={e => setCardSkillTrade(e.target.value)} className={selectCls}>
-                    <option value="" className="bg-[#111]">{t("careers.selectTradePlaceholder")}</option>
-                    {tradeOptions.map(opt => (
-                      <option key={opt.key} value={opt.key} className="bg-[#111]">{opt.label}</option>
-                    ))}
-                  </select>
-                  <ChevronDown size={14} className={`absolute ${isRTL ? "left-3" : "right-3"} top-1/2 -translate-y-1/2 text-white/40 pointer-events-none`} />
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className={`flex items-center gap-4 text-white/35 text-xs ${isRTL ? "flex-row" : ""}`}>
-                    <span className="flex items-center gap-1.5"><MapPin size={11} />{t("careers.jeddah")}</span>
-                    <span className="flex items-center gap-1.5"><Clock size={11} />{t("careers.fullTime")}</span>
-                  </div>
-                  <button onClick={handleApplyFromSkillCard} disabled={!cardSkillTrade}
-                    className={`px-5 py-2.5 rounded-xl font-black text-xs hover:-translate-y-0.5 transition-all duration-300 active:scale-95 ${
-                      cardSkillTrade
-                        ? "bg-gradient-to-r from-[#B8923A] to-[#C9A34D] text-black hover:shadow-lg hover:shadow-[#B8923A]/25"
-                        : "bg-white/5 border border-white/8 text-white/25 cursor-not-allowed"
-                    }`}>
-                    {t("careers.applyNow")}
-                  </button>
-                </div>
-              </div>
+          {/* ── وظائف المعلمين ── */}
+          <div className="flex items-center gap-3 mt-16 mb-6" data-aos="fade-up">
+            <span className="w-9 h-9 rounded-xl bg-[#B8923A]/10 border border-[#B8923A]/20 flex items-center justify-center text-[#B8923A] flex-shrink-0">
+              <HardHat size={16} />
+            </span>
+            <div>
+              <p className="text-[#B8923A] text-[10px] font-black uppercase tracking-widest">{t("careers.skilledTradesBadge")}</p>
+              <h3 className="text-white font-black text-lg leading-tight">{t("careers.skilledTradesTitle")}</h3>
             </div>
-
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {skilledJobs.length > 0
+              ? skilledJobs.map((pos, i) => (
+                  <JobCard key={pos.key} pos={pos} isRTL={isRTL} t={t} onApply={handleApplyClick} index={i} />
+                ))
+              : <EmptyJobsState t={t} />}
           </div>
         </div>
       </section>
@@ -399,36 +368,39 @@ export default function CareersPage() {
             <div className="w-20 h-1 bg-gradient-to-r from-[#B8923A] to-[#D5B25D] mx-auto mt-6 rounded-full" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {Array.isArray(trainingPositions) && trainingPositions.map((pos, i) => (
-              <div key={i} className="group relative bg-gradient-to-br from-[#B8923A]/8 to-[#B8923A]/3 border border-[#B8923A]/20 rounded-2xl p-7 hover:border-[#B8923A]/45 hover:from-[#B8923A]/12 hover:to-[#B8923A]/6 transition-all duration-500 flex flex-col gap-4 overflow-hidden" data-aos="fade-up" data-aos-delay={i * 100}>
-                <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-[#B8923A]/8 blur-3xl group-hover:bg-[#B8923A]/14 transition-all duration-500" />
-                <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-[#B8923A]/15 border border-[#B8923A]/30 flex items-center justify-center text-[#B8923A] flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
-                    <GraduationCap size={24} />
+            {trainingPositions.length > 0
+              ? trainingPositions.map((pos, i) => (
+                  <div key={pos.key} className="group relative bg-gradient-to-br from-[#B8923A]/8 to-[#B8923A]/3 border border-[#B8923A]/20 rounded-2xl p-7 hover:border-[#B8923A]/45 hover:from-[#B8923A]/12 hover:to-[#B8923A]/6 transition-all duration-500 flex flex-col gap-4 overflow-hidden" data-aos="fade-up" data-aos-delay={i * 100}>
+                    <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-[#B8923A]/8 blur-3xl group-hover:bg-[#B8923A]/14 transition-all duration-500" />
+                    <div className="flex items-start gap-4">
+                      <div className="w-14 h-14 rounded-2xl bg-[#B8923A]/15 border border-[#B8923A]/30 flex items-center justify-center text-[#B8923A] flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                        <GraduationCap size={24} />
+                      </div>
+                      <div>
+                        <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#B8923A]/15 text-[#B8923A] text-[10px] font-black uppercase tracking-widest mb-2 border border-[#B8923A]/25">{pos.dept}</span>
+                        <h3 className="text-white font-black text-lg leading-tight">{pos.title}</h3>
+                      </div>
+                    </div>
+                    <p className="text-white/55 text-sm leading-relaxed flex-1">{pos.desc}</p>
+                    <div className="flex items-center justify-between pt-4 border-t border-[#B8923A]/12">
+                      <div className="flex items-center gap-1.5 text-white/35 text-xs">
+                        <Zap size={11} className="text-[#B8923A]" />
+                        <span className="text-[#B8923A]/70">{pos.location || t("careers.jeddah")}</span>
+                      </div>
+                      <button onClick={() => handleApplyClick(pos)}
+                        className="px-5 py-2.5 rounded-xl bg-[#B8923A]/15 border border-[#B8923A]/35 text-[#B8923A] font-black text-xs hover:bg-[#B8923A]/25 hover:border-[#B8923A]/60 hover:-translate-y-0.5 transition-all duration-300 active:scale-95">
+                        {t("careers.applyNow")}
+                      </button>
+                    </div>
                   </div>
-                  <div>
-                    <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#B8923A]/15 text-[#B8923A] text-[10px] font-black uppercase tracking-widest mb-2 border border-[#B8923A]/25">{pos.dept}</span>
-                    <h3 className="text-white font-black text-lg leading-tight">{pos.title}</h3>
-                  </div>
-                </div>
-                <p className="text-white/55 text-sm leading-relaxed flex-1">{pos.desc}</p>
-                <div className="flex items-center justify-between pt-4 border-t border-[#B8923A]/12">
-                  <div className="flex items-center gap-1.5 text-white/35 text-xs">
-                    <Zap size={11} className="text-[#B8923A]" />
-                    <span className="text-[#B8923A]/70">{t("careers.jeddah")}</span>
-                  </div>
-                  <button onClick={() => handleApplyClick(pos)}
-                    className="px-5 py-2.5 rounded-xl bg-[#B8923A]/15 border border-[#B8923A]/35 text-[#B8923A] font-black text-xs hover:bg-[#B8923A]/25 hover:border-[#B8923A]/60 hover:-translate-y-0.5 transition-all duration-300 active:scale-95">
-                    {t("careers.applyNow")}
-                  </button>
-                </div>
-              </div>
-            ))}
+                ))
+              : <EmptyJobsState t={t} />}
           </div>
         </div>
       </section>
 
       {/* ===== APPLICATION FORM ===== */}
+      {firestoreJobs.length > 0 && (
       <section ref={formRef} className="py-28 bg-[var(--card-bg)] relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04]"
           style={{ backgroundImage: "radial-gradient(circle at 2px 2px, #B8923A 1px, transparent 0)", backgroundSize: "28px 28px" }} />
@@ -677,6 +649,7 @@ export default function CareersPage() {
           )}
         </div>
       </section>
+      )}
     </main>
   );
 }

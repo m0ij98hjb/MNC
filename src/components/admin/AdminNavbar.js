@@ -64,9 +64,8 @@ export default function AdminNavbar() {
     ? directorPhoto
     : (profile?.photoURL || '/asstes/ph dashborad.png');
 
-  // Display role label instead of user name
   const roleLabel = getRoleLabel();
-  const displayName = roleLabel;
+  const displayName = profile?.name || user?.displayName || roleLabel;
 
   useEffect(() => {
     const handler = (e) => {

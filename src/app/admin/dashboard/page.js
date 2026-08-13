@@ -13,6 +13,8 @@ import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import PurchasingDashboardWidget from '@/components/purchasing/PurchasingDashboardWidget';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import { useRoleAccess } from '@/hooks/useRoleAccess';
+import { ROLES } from '@/lib/roleBasedAccess';
 
 const JOB_STATUS_COLORS = {
   pending:             '#3b82f6',
@@ -38,6 +40,8 @@ function StatCard({ label, value, icon: Icon, color, bg, href }) {
 export default function DashboardPage() {
   const { t, isRTL } = useLanguage();
   const { isSuperAdmin, user } = useAuth();
+  const { role } = useRoleAccess();
+  const isHR = role === ROLES.HR_MANAGER;
   const isPurchasingOnlyUser = user?.email?.trim().toLowerCase() === 'engineer.tester@mnc.com';
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
@@ -49,7 +53,8 @@ export default function DashboardPage() {
   const [recentMessages, setRecentMessages]   = useState([]);
 
   useEffect(() => {
-    if (isPurchasingOnlyUser) return;
+    // HR Manager dashboards never surface supplier data.
+    if (isPurchasingOnlyUser || isHR) return;
     const unsub = onSnapshot(collection(db, 'suppliers'), snap => {
       const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
       const c = { total: docs.length, new: 0, under_review: 0, approved: 0, rejected: 0 };
@@ -60,7 +65,7 @@ export default function DashboardPage() {
       );
     });
     return unsub;
-  }, [isPurchasingOnlyUser]);
+  }, [isPurchasingOnlyUser, isHR]);
 
   useEffect(() => {
     if (isPurchasingOnlyUser) return;
@@ -100,10 +105,10 @@ export default function DashboardPage() {
           <h1 className="text-2xl font-bold text-white">{t('admin.dashboard')}</h1>
         </div>
 
-        {/* ── Suppliers Stats ── */}
+        {/* ── Suppliers Stats (never shown to HR Manager) ── */}
         {!isPurchasingOnlyUser && (
           <>
-            {/* ── Suppliers Stats ── */}
+            {!isHR && (
         <div className="mb-2">
           <div className="flex items-center gap-2 mb-3">
             <Building2 size={14} className="text-blue-400" />
@@ -120,6 +125,7 @@ export default function DashboardPage() {
             <StatCard label={t('admin.rejected')}    value={supplierCounts.rejected}     icon={XCircle}     color="#ef4444" bg="rgba(239,68,68,0.12)"    href="/admin/suppliers" />
           </div>
         </div>
+            )}
 
         {/* ── Jobs Stats ── */}
         <div className="mb-6">
@@ -155,10 +161,11 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* ── Recent records — three columns ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        {/* ── Recent records ── */}
+        <div className={`grid grid-cols-1 gap-5 ${isHR ? 'lg:grid-cols-2' : 'lg:grid-cols-3'}`}>
 
-          {/* Suppliers */}
+          {/* Suppliers (never shown to HR Manager) */}
+          {!isHR && (
           <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">
             <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.07]">
               <div className="flex items-center gap-2">
@@ -194,6 +201,7 @@ export default function DashboardPage() {
               ))}
             </div>
           </div>
+          )}
 
           {/* Jobs */}
           <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">

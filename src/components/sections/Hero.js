@@ -105,9 +105,9 @@ const Hero = () => {
             style={{ textShadow: "0 4px 20px rgba(0,0,0,0.8)" }}
           >
             <TypewriterText
-              texts={[t('hero.taglineLine1'), t('hero.taglineLine2')]}
+              texts={[t('hero.taglineLine1'), t('hero.taglineLine2'), t('hero.since1986')]}
               typingSpeed={120} deletingSpeed={60} pauseDuration={2000} loop
-              className="text-white" textClassNames={["", "text-secondary"]}
+              className="text-white" textClassNames={["", "text-secondary", "text-secondary"]}
             />
           </h1>
 
@@ -215,15 +215,20 @@ const Hero = () => {
             >
               <TypewriterText
                 texts={
-                  { ar: ["بصمة هندسية", "متميزة"], en: ["Distinctive", "Engineering Mark"],
-                    zh: ["独特的", "工程印记"], es: ["Sello", "De Ingeniería Distintivo"],
-                    fr: ["Empreinte", "D'ingénierie Distinctive"], de: ["Einzigartige", "Ingenieursleistung"],
-                    tr: ["Belirgin", "Mühendislik İzi"], ur: ["منفرد", "انجینئرنگ نشان"],
-                    hi: ["विशिष्ट", "इंजीनियरिंग छाप"], ru: ["Выдающийся", "Инженерный След"]
-                  }[lang] || ["Distinctive", "Engineering Mark"]
+                  { ar: ["بصمة هندسية", "متميزة", "خبرة منذ عام 1986"],
+                    en: ["Distinctive", "Engineering Mark", "Experience Since 1986"],
+                    zh: ["独特的", "工程印记", "自1986年以来的经验"],
+                    es: ["Sello", "De Ingeniería Distintivo", "Experiencia Desde 1986"],
+                    fr: ["Empreinte", "D'ingénierie Distinctive", "Expérience Depuis 1986"],
+                    de: ["Einzigartige", "Ingenieursleistung", "Erfahrung seit 1986"],
+                    tr: ["Belirgin", "Mühendislik İzi", "1986'dan Beri Deneyim"],
+                    ur: ["منفرد", "انجینئرنگ نشان", "1986 سے تجربہ"],
+                    hi: ["विशिष्ट", "इंजीनियरिंग छाप", "1986 से अनुभव"],
+                    ru: ["Выдающийся", "Инженерный След", "Опыт с 1986 года"]
+                  }[lang] || ["Distinctive", "Engineering Mark", "Experience Since 1986"]
                 }
                 typingSpeed={120} deletingSpeed={60} pauseDuration={2000} loop
-                className="text-white" textClassNames={["", "text-secondary"]}
+                className="text-white" textClassNames={["", "text-secondary", "text-secondary"]}
               />
             </h1>
 

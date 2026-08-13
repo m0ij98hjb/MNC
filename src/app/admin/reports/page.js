@@ -4,6 +4,8 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { STATUS_CONFIG, ACTIVITY_KEYS } from '@/lib/suppliersConfig';
 import { useLanguage } from '@/context/LanguageContext';
+import { useRoleAccess } from '@/hooks/useRoleAccess';
+import { ROLES } from '@/lib/roleBasedAccess';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import {
   AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
@@ -12,6 +14,7 @@ import {
 import {
   Loader2, Users, Briefcase, TrendingUp, CheckCircle,
   XCircle, Clock, Building2, MapPin, Calendar, Star, BarChart2,
+  MessageSquare,
 } from 'lucide-react';
 
 /* ─── palette ─── */
@@ -30,6 +33,8 @@ const SUP_STATUS_COLORS = { new: BLUE, under_review: AMBER, approved: GREEN, rej
 const SUP_STATUS_TKEYS  = { new: 'admin.statusNew', under_review: 'admin.statusUnderReview', approved: 'admin.statusApproved', rejected: 'admin.statusRejected' };
 const JOB_STATUS_COLORS = { pending: BLUE, interview_scheduled: AMBER, rejected: RED };
 const JOB_STATUS_TKEYS  = { pending: 'admin.statusPending', interview_scheduled: 'admin.statusInterviewScheduled', rejected: 'admin.statusRejected' };
+const MSG_STATUS_COLORS = { new: BLUE, under_review: AMBER, replied: GREEN, closed: '#6b7280' };
+const MSG_STATUS_TKEYS  = { new: 'admin.messages.statusNew', under_review: 'admin.messages.statusUnderReview', replied: 'admin.messages.statusReplied', closed: 'admin.messages.statusClosed' };
 const EXP_ORDER = ['أقل من سنة','1 – 3 سنوات','3 – 5 سنوات','5 – 10 سنوات','أكثر من 10 سنوات'];
 
 function toMonthKey(ts) {
@@ -139,24 +144,33 @@ function DonutChart({ data, total, totalLabel = 'Total' }) {
 /* ══════════════════════════════════════════════════════ */
 export default function ReportsPage() {
   const { t, isRTL, lang } = useLanguage();
+  const { role } = useRoleAccess();
+  const jobsOnly = role === ROLES.HR_MANAGER;
   const getAct = (name) => name && (t('activities.' + ACTIVITY_KEYS[name]) || name);
 
-  const [suppliers, setSuppliers] = useState(null);
+  const [suppliers, setSuppliers] = useState(jobsOnly ? [] : null);
   const [jobs, setJobs]           = useState(null);
-  const [tab, setTab]             = useState('overview');
+  const [messages, setMessages]   = useState(jobsOnly ? null : []);
+  const [tab, setTab]             = useState(jobsOnly ? 'jobs' : 'overview');
 
   useEffect(() => {
-    const u1 = onSnapshot(collection(db, 'suppliers'),       snap => setSuppliers(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
+    // HR Manager reports are scoped to job-applicant + customer-message
+    // content only — never fetch or surface supplier data for that role.
     const u2 = onSnapshot(collection(db, 'jobApplications'), snap => setJobs(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
+    if (jobsOnly) {
+      const u3 = onSnapshot(collection(db, 'contacts'), snap => setMessages(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
+      return () => { u2(); u3(); };
+    }
+    const u1 = onSnapshot(collection(db, 'suppliers'), snap => setSuppliers(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
     return () => { u1(); u2(); };
-  }, []);
+  }, [jobsOnly]);
 
   /* marker changes when translations update (translations updates async after lang) */
   const _tmarker = t('admin.statusNew');
 
   /* ── derived data ── */
   const data = useMemo(() => {
-    if (!suppliers || !jobs) return null;
+    if (!suppliers || !jobs || (jobsOnly && !messages)) return null;
 
     /* Supplier status donut */
     const supStatusData = Object.entries(SUP_STATUS_TKEYS).map(([k, tk]) => ({
@@ -222,12 +236,28 @@ export default function ReportsPage() {
     const jobCityData = Object.entries(jobCityMap).sort((a, b) => b[1] - a[1]).slice(0, 8)
       .map(([name, count]) => ({ name, count }));
 
+    /* Message status donut + monthly trend (HR Manager reports only) */
+    let msgStatusData = [];
+    let monthlyMessages = [];
+    if (jobsOnly && messages) {
+      msgStatusData = Object.entries(MSG_STATUS_TKEYS).map(([k, tk]) => ({
+        name: t(tk), value: messages.filter(m => (m.status || 'new') === k).length, color: MSG_STATUS_COLORS[k],
+      })).filter(d => d.value > 0);
+
+      const msgMonths = [...new Set(messages.map(m => toMonthKey(m.createdAt)).filter(Boolean))]
+        .sort((a, b) => toMonthSort(a) - toMonthSort(b));
+      monthlyMessages = msgMonths.map(month => ({
+        month, count: messages.filter(m => toMonthKey(m.createdAt) === month).length,
+      }));
+    }
+
     return {
       supStatusData, jobStatusData, supKey, jobKey,
       monthlyCombo, monthlySuppliers, monthlyJobs,
       activityData, supCityData, positionData, expData, jobCityData,
+      msgStatusData, monthlyMessages,
     };
-  }, [suppliers, jobs, _tmarker]);
+  }, [suppliers, jobs, messages, jobsOnly, _tmarker]);
 
   if (!data) {
     return (
@@ -241,15 +271,19 @@ export default function ReportsPage() {
 
   const S = suppliers;
   const J = jobs;
+  const M = messages || [];
   const approvedSup = S.filter(s => s.status === 'approved').length;
   const interviewJ  = J.filter(j => j.status === 'interview_scheduled').length;
   const approvalRate = S.length ? Math.round((approvedSup / S.length) * 100) : 0;
 
-  const TABS = [
-    { id: 'overview',   label: t('admin.overviewTab') },
-    { id: 'suppliers',  label: t('admin.suppliersTab') },
-    { id: 'jobs',       label: t('admin.jobsTab') },
-  ];
+  const TABS = jobsOnly
+    ? [{ id: 'jobs', label: t('admin.jobsTab') }]
+    : [
+        { id: 'overview',   label: t('admin.overviewTab') },
+        { id: 'suppliers',  label: t('admin.suppliersTab') },
+        { id: 'jobs',       label: t('admin.jobsTab') },
+      ];
+  const effectiveTab = jobsOnly ? 'jobs' : tab;
 
   return (
     <AdminPageLayout>
@@ -260,10 +294,12 @@ export default function ReportsPage() {
           <div>
             <h1 className="text-2xl font-bold text-white">{t('admin.reportsTitle')}</h1>
             <p className="text-sm text-white/35 mt-1">
-              {S.length} {t('admin.suppliersTab')} · {J.length} {t('admin.totalJobsKPI')}
+              {jobsOnly ? '' : `${S.length} ${t('admin.suppliersTab')} · `}{J.length} {t('admin.totalJobsKPI')}
+              {jobsOnly && ` · ${M.length} ${t('admin.messagesMenu')}`}
             </p>
           </div>
           {/* Tabs */}
+          {!jobsOnly && (
           <div className="flex gap-1 p-1 rounded-xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
             {TABS.map(tb => (
               <button key={tb.id} onClick={() => setTab(tb.id)}
@@ -276,10 +312,11 @@ export default function ReportsPage() {
               </button>
             ))}
           </div>
+          )}
         </div>
 
         {/* ══════════ OVERVIEW TAB ══════════ */}
-        {tab === 'overview' && (
+        {effectiveTab === 'overview' && (
           <div className="space-y-5">
             {/* KPIs */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -354,7 +391,7 @@ export default function ReportsPage() {
         )}
 
         {/* ══════════ SUPPLIERS TAB ══════════ */}
-        {tab === 'suppliers' && (
+        {effectiveTab === 'suppliers' && (
           <div className="space-y-5">
             {/* Supplier KPIs */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -438,7 +475,7 @@ export default function ReportsPage() {
         )}
 
         {/* ══════════ JOBS TAB ══════════ */}
-        {tab === 'jobs' && (
+        {effectiveTab === 'jobs' && (
           <div className="space-y-5">
             {/* Jobs KPIs */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -519,6 +556,61 @@ export default function ReportsPage() {
                 )}
               </ChartCard>
             </div>
+
+            {/* ── Messages stats (HR Manager reports only) ── */}
+            {jobsOnly && (
+              <>
+                <div className="flex items-center gap-2 pt-2">
+                  <MessageSquare size={14} className="text-green-400" />
+                  <h2 className="text-sm font-bold text-white">{t('admin.messagesMenu')}</h2>
+                </div>
+
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                  <KPI label={t('admin.messages.totalMessages')}  value={M.length}                                                 icon={MessageSquare} color={PURPLE} bg={`${PURPLE}18`} />
+                  <KPI label={t('admin.messages.newMessages')}    value={M.filter(m => (m.status || 'new') === 'new').length}     icon={TrendingUp}    color={BLUE}   bg={`${BLUE}18`}   />
+                  <KPI label={t('admin.messages.statusReplied')}  value={M.filter(m => m.status === 'replied').length}            icon={CheckCircle}   color={GREEN}  bg={`${GREEN}18`}  />
+                  <KPI label={t('admin.messages.statusClosed')}   value={M.filter(m => m.status === 'closed').length}             icon={XCircle}       color={RED}    bg={`${RED}18`}    />
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                  <ChartCard title={t('admin.monthlyActivity')} subtitle={t('admin.messagesMenu')}>
+                    {data.monthlyMessages.length === 0 ? <Empty /> : (
+                      <ResponsiveContainer width="100%" height={240}>
+                        <AreaChart data={data.monthlyMessages} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                          <defs>
+                            <linearGradient id="gradM" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%"  stopColor={GREEN} stopOpacity={0.3} />
+                              <stop offset="95%" stopColor={GREEN} stopOpacity={0}   />
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+                          <XAxis dataKey="month" tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10 }} axisLine={false} tickLine={false} />
+                          <YAxis tick={{ fill: 'rgba(255,255,255,0.3)', fontSize: 10 }} axisLine={false} tickLine={false} allowDecimals={false} />
+                          <Tooltip content={<Tip />} />
+                          <Area type="monotone" dataKey="count" stroke={GREEN} strokeWidth={2.5} fill="url(#gradM)" dot={false} activeDot={{ r: 5, fill: GREEN }} />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    )}
+                  </ChartCard>
+
+                  <ChartCard title={t('admin.statusDistTitle')}>
+                    {data.msgStatusData.length === 0 ? <Empty msg={t('admin.reportNoData')} /> : (
+                      <>
+                        <DonutChart data={data.msgStatusData} total={M.length} totalLabel={t('admin.totalScoreLabel')} />
+                        <div className="flex flex-wrap gap-x-4 gap-y-1.5 mt-1">
+                          {data.msgStatusData.map((d, i) => (
+                            <div key={i} className="flex items-center gap-1.5">
+                              <span className="w-2.5 h-2.5 rounded-full" style={{ background: d.color }} />
+                              <span className="text-[11px] text-white/50">{d.name} ({d.value})</span>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </ChartCard>
+                </div>
+              </>
+            )}
           </div>
         )}
 

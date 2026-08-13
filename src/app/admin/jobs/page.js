@@ -6,6 +6,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useConfirm } from '@/context/ConfirmContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Search, Trash2, XCircle, Loader2,
   FileText, Eye, Sparkles,
@@ -54,7 +55,8 @@ function scoreApp(app) {
 /* ─── Main page ─── */
 export default function JobsPage() {
   const { t, isRTL } = useLanguage();
-  const { confirm } = useConfirm();
+  const { confirm, alert } = useConfirm();
+  const router = useRouter();
   const [apps, setApps]         = useState([]);
   const [filter, setFilter]     = useState('all');
   const [search, setSearch]     = useState('');
@@ -100,13 +102,22 @@ export default function JobsPage() {
   const rejectApp = async (id) => {
     if (!(await confirm(t('admin.rejectJobConfirm'), { variant: 'warning' }))) return;
     setActionId(id + 'reject');
-    await updateDoc(doc(db, 'jobApplications', id), { status: 'rejected', reviewedAt: new Date() });
-    setActionId(null);
+    try {
+      await updateDoc(doc(db, 'jobApplications', id), { status: 'rejected', reviewedAt: new Date() });
+    } catch (err) {
+      await alert(err.message || t('admin.genericError'), { variant: 'danger' });
+    } finally {
+      setActionId(null);
+    }
   };
 
   const deleteApp = async (id) => {
     if (!(await confirm(t('admin.deleteJobConfirm'), { variant: 'danger' }))) return;
-    await deleteDoc(doc(db, 'jobApplications', id));
+    try {
+      await deleteDoc(doc(db, 'jobApplications', id));
+    } catch (err) {
+      await alert(err.message || t('admin.genericError'), { variant: 'danger' });
+    }
   };
 
   /* stats */
@@ -200,7 +211,8 @@ export default function JobsPage() {
                 </thead>
                 <tbody className="divide-y divide-white/[0.04]">
                   {visible.map(app => (
-                    <tr key={app.id} className={`hover:bg-white/[0.02] transition-colors ${agentOn && bestIds.has(app.id) ? 'bg-purple-500/[0.03]' : ''}`}>
+                    <tr key={app.id} onClick={() => router.push(`/admin/jobs/${app.id}`)}
+                      className={`hover:bg-white/[0.02] transition-colors cursor-pointer ${agentOn && bestIds.has(app.id) ? 'bg-purple-500/[0.03]' : ''}`}>
                       <td className="px-4 py-3.5">
                         <div className="flex items-center gap-2">
                           {agentOn && bestIds.has(app.id) && (
@@ -221,7 +233,7 @@ export default function JobsPage() {
                         {app.createdAt?.seconds ? new Date(app.createdAt.seconds * 1000).toLocaleDateString('en-GB') : '—'}
                       </td>
                       <td className="px-4 py-3.5"><StatusChip status={app.status} t={t} /></td>
-                      <td className="px-4 py-3.5">
+                      <td className="px-4 py-3.5" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center gap-1">
                           {/* View — links to detail page */}
                           <Link href={`/admin/jobs/${app.id}`}

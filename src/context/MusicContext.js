@@ -1,10 +1,20 @@
 'use client';
 
 import { createContext, useContext, useState, useRef, useEffect, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
 
 const MusicContext = createContext(null);
 
 export function MusicProvider({ children }) {
+  const pathname = usePathname();
+  const isAdminRoute = !!pathname && pathname.startsWith('/admin');
+  const isAdminRouteRef = useRef(isAdminRoute);
+  const wasAdminPausedRef = useRef(false);
+
+  useEffect(() => {
+    isAdminRouteRef.current = isAdminRoute;
+  }, [isAdminRoute]);
+
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [isMusicReady, setIsMusicReady] = useState(false);
   const [musicUserPaused, setMusicUserPaused] = useState(false);
@@ -26,18 +36,21 @@ export function MusicProvider({ children }) {
       window.removeEventListener('touchstart', onFirstInteraction);
       window.removeEventListener('touchend', onFirstInteraction);
       window.removeEventListener('keydown', onFirstInteraction);
-      if (!musicRef.current || musicUserPausedRef.current) return;
+      if (!musicRef.current || musicUserPausedRef.current || isAdminRouteRef.current) return;
       musicRef.current.play().then(() => setIsMusicPlaying(true)).catch(() => {});
     };
 
-    audio.play().then(() => {
-      setIsMusicPlaying(true);
-    }).catch(() => {
-      window.addEventListener('click', onFirstInteraction);
-      window.addEventListener('touchstart', onFirstInteraction, { passive: true });
-      window.addEventListener('touchend', onFirstInteraction, { passive: true });
-      window.addEventListener('keydown', onFirstInteraction);
-    });
+    // Never auto-start music when landing directly on an admin/dashboard route.
+    if (!isAdminRouteRef.current) {
+      audio.play().then(() => {
+        setIsMusicPlaying(true);
+      }).catch(() => {
+        window.addEventListener('click', onFirstInteraction);
+        window.addEventListener('touchstart', onFirstInteraction, { passive: true });
+        window.addEventListener('touchend', onFirstInteraction, { passive: true });
+        window.addEventListener('keydown', onFirstInteraction);
+      });
+    }
 
     return () => {
       window.removeEventListener('click', onFirstInteraction);
@@ -51,6 +64,24 @@ export function MusicProvider({ children }) {
     };
   }, []);
 
+  // Pause music while inside admin/dashboard routes; resume when navigating
+  // back to the public site, unless the user had explicitly paused it.
+  useEffect(() => {
+    if (!musicRef.current) return;
+    if (isAdminRoute) {
+      if (!musicRef.current.paused) {
+        wasAdminPausedRef.current = true;
+        musicRef.current.pause();
+        setIsMusicPlaying(false);
+      }
+    } else if (wasAdminPausedRef.current) {
+      wasAdminPausedRef.current = false;
+      if (!musicUserPausedRef.current) {
+        musicRef.current.play().then(() => setIsMusicPlaying(true)).catch(() => {});
+      }
+    }
+  }, [isAdminRoute]);
+
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.hidden) {
@@ -61,7 +92,7 @@ export function MusicProvider({ children }) {
         } else {
           wasHiddenPlayingRef.current = false;
         }
-      } else if (musicRef.current && wasHiddenPlayingRef.current && !musicUserPausedRef.current) {
+      } else if (musicRef.current && wasHiddenPlayingRef.current && !musicUserPausedRef.current && !isAdminRouteRef.current) {
         wasHiddenPlayingRef.current = false;
         musicRef.current.play().then(() => setIsMusicPlaying(true)).catch(() => {});
       }
@@ -72,7 +103,7 @@ export function MusicProvider({ children }) {
   }, []);
 
   const playMusic = useCallback(() => {
-    if (musicRef.current) {
+    if (musicRef.current && !isAdminRouteRef.current) {
       musicRef.current.play().then(() => {
         setIsMusicPlaying(true);
         setMusicUserPaused(false);
