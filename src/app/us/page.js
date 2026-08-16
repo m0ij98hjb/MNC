@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import TypewriterText from "@/components/TypewriterText";
+import LogoRevealTypewriter from "@/components/LogoRevealTypewriter";
 import { ArrowRight, ArrowLeft, CheckCircle2, Users, Building2, Target, X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import { useLanguage } from "@/context/LanguageContext";
@@ -71,7 +71,7 @@ export default function AboutUsPage() {
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/heroes/hero-us.png"
+            src="/images/heroes/hero-cus.png"
             alt="About MNC Construction"
             fill
             className="object-cover object-center animate-slow-zoom"
@@ -106,14 +106,18 @@ export default function AboutUsPage() {
 
             {/* Main title */}
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 font-heading leading-none">
-              <TypewriterText
-                texts={t("aboutUsPage.titleTypewriter") || ["تعرف علينا", "MNC Contracting"]}
+              <LogoRevealTypewriter
+                firstText={(t("aboutUsPage.titleTypewriter") || ["تعرف علينا", "مقاولات"])[0]}
+                word={(t("aboutUsPage.titleTypewriter") || ["تعرف علينا", "مقاولات"])[1]}
+                logoSrc="/asstes/logo-mnc-full.png"
+                logoAlt="MNC Construction"
                 typingSpeed={120}
                 deletingSpeed={60}
                 pauseDuration={2500}
                 loop={true}
                 className="text-white"
-                textClassNames={["text-white", "text-gradient"]}
+                textClassName="text-white"
+                wordClassName="text-gradient"
               />
             </h1>
 

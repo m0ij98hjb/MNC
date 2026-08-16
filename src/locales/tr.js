@@ -288,7 +288,7 @@ export const tr = {
     },
   },
   aboutUsPage: {
-    titleTypewriter: ["Bizi Tanıyın", "MNC İnşaat"],
+    titleTypewriter: ["Bizi Tanıyın", "İnşaat"],
     subtitle: "Cidde'de inşaat, proje geliştirme ve yönetimi alanında seçkin bir marka.",
     visionHistoryTitle: "Vizyonumuz & Tarihçemiz",
     visionHistoryDesc: "MNC Proje Geliştirme ve Yönetimi, Cidde'de inşaat alanında öncü bir markadır. Kısa sürede birçok projeyi başarıyla tamamlamıştır. Tüm bunlar alanında deneyimli uzmanlarca hazırlanan planlar sayesinde gerçekleşmiştir.",

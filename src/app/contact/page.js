@@ -266,7 +266,7 @@ export default function ContactPage() {
   const [formError, setFormError]           = useState("");
 
   const phone1   = cms?.phone1   || "0598242385";
-  const phone2   = cms?.phone2   || "0505649859";
+  const phone2   = cms?.phone2   || "";
   const email    = cms?.email    || COMPANY.email;
   const whatsapp = cms?.whatsapp || "966598242385";
 
@@ -475,7 +475,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider mb-1">{t("contact.phone")}</p>
-                    <p className="text-lg font-bold text-white group-hover:text-[var(--secondary)] transition-colors">0598242385 - 0505649859</p>
+                    <p className="text-lg font-bold text-white group-hover:text-[var(--secondary)] transition-colors">0598242385</p>
                   </div>
                 </div>
 

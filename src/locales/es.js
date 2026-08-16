@@ -288,7 +288,7 @@ export const es = {
     },
   },
   aboutUsPage: {
-    titleTypewriter: ["Conózcanos", "MNC Contratistas"],
+    titleTypewriter: ["Conózcanos", "Contratistas"],
     subtitle: "Una marca distintiva en el campo de la construcción, desarrollo de proyectos y gestión en Yeda.",
     visionHistoryTitle: "Nuestra Visión e Historia",
     visionHistoryDesc: "MNC Project Development and Management es una marca destacada en Yeda. En un corto período, ha gestionado y ejecutado con éxito numerosos proyectos, gracias a planes trazados por expertos de primer nivel.",

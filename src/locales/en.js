@@ -288,7 +288,7 @@ export const en = {
     },
   },
   aboutUsPage: {
-    titleTypewriter: ["Get to Know Us", "MNC Contracting"],
+    titleTypewriter: ["Get to Know Us", "Contracting"],
     subtitle: "A distinctive mark in the field of construction, project development, and management in Jeddah.",
     visionHistoryTitle: "Our Vision & History",
     visionHistoryDesc: "MNC Project Development and Management is a distinctive mark in the construction field in Jeddah. In a short period, it has successfully managed and executed numerous projects. All this was based on a plan developed by distinguished and experienced experts in this important field.",

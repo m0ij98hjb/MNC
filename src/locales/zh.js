@@ -288,7 +288,7 @@ export const zh = {
     },
   },
   aboutUsPage: {
-    titleTypewriter: ["了解我们", "MNC 承包"],
+    titleTypewriter: ["了解我们", "承包"],
     subtitle: "吉达建筑、项目开发和管理领域的杰出品牌。",
     visionHistoryTitle: "我们的愿景与历史",
     visionHistoryDesc: "MNC 项目开发与管理是吉达建筑领域的杰出品牌。在很短的时间内，它已经成功管理和执行了许多项目。这一切都基于一流专家制定的计划。",

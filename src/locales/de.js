@@ -288,7 +288,7 @@ export const de = {
     },
   },
   aboutUsPage: {
-    titleTypewriter: ["Lernen Sie uns kennen", "MNC Contracting"],
+    titleTypewriter: ["Lernen Sie uns kennen", "Contracting"],
     subtitle: "Ein unverwechselbares Zeichen im Bereich Bauwesen, Projektentwicklung und -management in Dschidda.",
     visionHistoryTitle: "Unsere Vision & Geschichte",
     visionHistoryDesc: "MNC Project Development and Management ist eine herausragende Marke im Bausektor in Dschidda. In kurzer Zeit wurden zahlreiche Projekte erfolgreich durchgeführt. All dies basierte auf Plänen, die von erfahrenen Experten entwickelt wurden.",

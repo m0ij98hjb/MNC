@@ -288,7 +288,7 @@ export const fr = {
     },
   },
   aboutUsPage: {
-    titleTypewriter: ["Découvrez-nous", "MNC Entreprise"],
+    titleTypewriter: ["Découvrez-nous", "Entreprise"],
     subtitle: "Une marque de distinction dans le domaine de la construction, du développement de projets et de la gestion à Djeddah.",
     visionHistoryTitle: "Notre Vision & Histoire",
     visionHistoryDesc: "MNC Project Development and Management est une référence dans la construction à Djeddah. En peu de temps, l'entreprise a géré et exécuté avec succès de nombreux projets, sur la base de plans d'experts.",
