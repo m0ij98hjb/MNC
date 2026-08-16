@@ -1,4 +1,4 @@
 export const COMPANY = {
   name: "MNC Construction",
-  email: "info@mnc.sa",
+  email: "hr@mnc.sa",
 };
