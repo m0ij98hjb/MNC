@@ -1105,6 +1105,13 @@ export const ur = {
     genericError: "خرابی پیش آگئی۔",
     deleteUserError: "صارف کو حذف کرتے وقت خرابی پیش آگئی۔",
     purchasingUserFallbackName: "خریداری صارف",
+    changePasswordTitle: "پاس ورڈ تبدیل کریں",
+    changePasswordLabel: "پاس ورڈ تبدیل کریں",
+    changePasswordDesc: "اس صارف کے لیے نیا پاس ورڈ سیٹ کیا جائے گا",
+    newPasswordLabel: "نیا پاس ورڈ",
+    changePasswordBtn: "پاس ورڈ تبدیل کریں",
+    changePasswordSuccess: "پاس ورڈ کامیابی سے تبدیل ہو گیا۔",
+    changePasswordError: "پاس ورڈ تبدیل کرتے وقت خرابی پیش آگئی۔",
     messages: {
       deleteConfirm: "کیا آپ واقعی اس پیغام کو حذف کرنا چاہتے ہیں؟",
       replySubjectPrefix: "جواب: آپ کا پیغام",

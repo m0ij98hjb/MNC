@@ -1214,6 +1214,13 @@ export const hi = {
     genericError: "एक त्रुटि हुई।",
     deleteUserError: "उपयोगकर्ता को हटाते समय एक त्रुटि हुई।",
     purchasingUserFallbackName: "खरीद उपयोगकर्ता",
+    changePasswordTitle: "पासवर्ड बदलें",
+    changePasswordLabel: "पासवर्ड बदलें",
+    changePasswordDesc: "इस उपयोगकर्ता के लिए एक नया पासवर्ड सेट किया जाएगा",
+    newPasswordLabel: "नया पासवर्ड",
+    changePasswordBtn: "पासवर्ड बदलें",
+    changePasswordSuccess: "पासवर्ड सफलतापूर्वक बदल दिया गया।",
+    changePasswordError: "पासवर्ड बदलते समय एक त्रुटि हुई।",
     messages: {
       deleteConfirm: "क्या आप वाकई इस संदेश को हटाना चाहते हैं?",
       replySubjectPrefix: "उत्तर: आपका संदेश",

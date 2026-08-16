@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import {
   Users, Plus, X, Loader2, Power, ShieldCheck, ShieldOff,
   Building2, Briefcase, MessageSquare, ShoppingCart, BarChart2,
-  Check, User, Phone, Mail, Lock, Edit2, Trash2,
+  Check, User, Phone, Mail, Lock, Edit2, Trash2, KeyRound,
 } from 'lucide-react';
 
 /* ─── Permission definitions ─── */
@@ -264,6 +264,109 @@ function UserModal({ onClose, currentUid, editUser = null }) {
   );
 }
 
+/* ─── Change Password Modal ─── */
+function ChangePasswordModal({ targetUser, onClose }) {
+  const { t } = useLanguage();
+  const { user } = useAuth();
+  const [newPassword, setNewPassword] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  const submit = async () => {
+    setError('');
+    if (newPassword.length < 6) {
+      setError(t('admin.passwordMinLength'));
+      return;
+    }
+    setSaving(true);
+    try {
+      const idToken = await user.getIdToken();
+      const res = await fetch('/api/admin/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken, targetUid: targetUser.id, newPassword }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || t('admin.changePasswordError'));
+      setSuccess(true);
+      setTimeout(onClose, 1200);
+    } catch (e) {
+      setError(e.message || t('admin.changePasswordError'));
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-[210] flex items-center justify-center p-4"
+      style={{ background: 'rgba(0,0,0,0.82)', backdropFilter: 'blur(10px)' }}
+    >
+      <div className="w-full max-w-sm bg-[#0d1117] border border-white/10 rounded-2xl overflow-hidden shadow-2xl" dir="rtl">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-[#c8a96e]/15 flex items-center justify-center">
+              <KeyRound size={14} className="text-[#c8a96e]" />
+            </div>
+            <h2 className="text-white font-bold text-base">{t('admin.changePasswordTitle')}</h2>
+          </div>
+          <button onClick={onClose} className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/8 transition-colors">
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="px-6 py-5 space-y-4">
+          <p className="text-white/40 text-xs leading-relaxed">
+            {t('admin.changePasswordDesc')} <strong className="text-white">&quot;{targetUser.name}&quot;</strong>
+          </p>
+
+          {error && (
+            <div className="rounded-xl px-4 py-3 text-sm bg-red-500/10 border border-red-500/25 text-red-400">
+              {error}
+            </div>
+          )}
+          {success && (
+            <div className="rounded-xl px-4 py-3 text-sm bg-green-500/10 border border-green-500/25 text-green-400">
+              {t('admin.changePasswordSuccess')}
+            </div>
+          )}
+
+          <div>
+            <label className={labelCls}><Lock size={10} className="inline me-1" />{t('admin.newPasswordLabel')}</label>
+            <input
+              type="password"
+              dir="ltr"
+              className={inputCls}
+              value={newPassword}
+              onChange={e => setNewPassword(e.target.value)}
+              placeholder={t('admin.minSixCharsPlaceholder')}
+              autoFocus
+            />
+          </div>
+        </div>
+
+        <div className="px-6 py-4 border-t border-white/[0.07] flex gap-3">
+          <button
+            onClick={onClose}
+            className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-semibold hover:text-white hover:border-white/25 transition-all"
+          >
+            {t('admin.cancel')}
+          </button>
+          <button
+            onClick={submit}
+            disabled={saving || success}
+            className="flex-1 py-2.5 rounded-xl text-black text-sm font-black flex items-center justify-center gap-2 disabled:opacity-60 transition-all"
+            style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)' }}
+          >
+            {saving ? <Loader2 size={15} className="animate-spin" /> : t('admin.changePasswordBtn')}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ─── Permission Badges ─── */
 function PermBadge({ id }) {
   const { t } = useLanguage();
@@ -289,6 +392,7 @@ function UsersContent() {
   const [showModal, setShowModal] = useState(false);
   const [editUser, setEditUser] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [passwordTarget, setPasswordTarget] = useState(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -463,6 +567,13 @@ function UsersContent() {
                         >
                           <Power size={13} />
                         </button>
+                        <button
+                          onClick={() => setPasswordTarget(u)}
+                          className="p-1.5 rounded-lg text-white/40 hover:text-[#c8a96e] hover:bg-[#c8a96e]/10 transition-all"
+                          title={t('admin.changePasswordLabel')}
+                        >
+                          <KeyRound size={13} />
+                        </button>
                         {u.id !== user?.uid && (
                           <button
                             onClick={() => setDeleteTarget(u)}
@@ -487,6 +598,13 @@ function UsersContent() {
           onClose={closeModal}
           currentUid={user?.uid}
           editUser={editUser}
+        />
+      )}
+
+      {passwordTarget && (
+        <ChangePasswordModal
+          targetUser={passwordTarget}
+          onClose={() => setPasswordTarget(null)}
         />
       )}
 

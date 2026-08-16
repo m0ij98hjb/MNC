@@ -1214,6 +1214,13 @@ export const en = {
     genericError: "An error occurred.",
     deleteUserError: "An error occurred while deleting the user.",
     purchasingUserFallbackName: "Purchasing User",
+    changePasswordTitle: "Change Password",
+    changePasswordLabel: "Change Password",
+    changePasswordDesc: "A new password will be set for this user",
+    newPasswordLabel: "New Password",
+    changePasswordBtn: "Change Password",
+    changePasswordSuccess: "Password changed successfully.",
+    changePasswordError: "An error occurred while changing the password.",
     messages: {
       deleteConfirm: "Are you sure you want to delete this message?",
       replySubjectPrefix: "Re: Your Message",

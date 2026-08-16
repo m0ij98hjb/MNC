@@ -1108,6 +1108,13 @@ export const fr = {
     genericError: "Une erreur s'est produite.",
     deleteUserError: "Une erreur s'est produite lors de la suppression de l'utilisateur.",
     purchasingUserFallbackName: "Utilisateur des Achats",
+    changePasswordTitle: "Changer le mot de passe",
+    changePasswordLabel: "Changer le mot de passe",
+    changePasswordDesc: "Un nouveau mot de passe sera défini pour cet utilisateur",
+    newPasswordLabel: "Nouveau mot de passe",
+    changePasswordBtn: "Changer le mot de passe",
+    changePasswordSuccess: "Mot de passe modifié avec succès.",
+    changePasswordError: "Une erreur s'est produite lors du changement de mot de passe.",
     messages: {
       deleteConfirm: "Êtes-vous sûr de vouloir supprimer ce message ?",
       replySubjectPrefix: "Re : Votre Message",

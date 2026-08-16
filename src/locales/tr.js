@@ -1105,6 +1105,13 @@ export const tr = {
     genericError: "Bir hata oluştu.",
     deleteUserError: "Kullanıcı silinirken bir hata oluştu.",
     purchasingUserFallbackName: "Satın Alma Kullanıcısı",
+    changePasswordTitle: "Şifreyi Değiştir",
+    changePasswordLabel: "Şifreyi Değiştir",
+    changePasswordDesc: "Bu kullanıcı için yeni bir şifre belirlenecek",
+    newPasswordLabel: "Yeni Şifre",
+    changePasswordBtn: "Şifreyi Değiştir",
+    changePasswordSuccess: "Şifre başarıyla değiştirildi.",
+    changePasswordError: "Şifre değiştirilirken bir hata oluştu.",
     messages: {
       deleteConfirm: "Bu mesajı silmek istediğinizden emin misiniz?",
       replySubjectPrefix: "Yanıt: Mesajınız",

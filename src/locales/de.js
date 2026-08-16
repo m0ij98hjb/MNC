@@ -1105,6 +1105,13 @@ export const de = {
     genericError: "Ein Fehler ist aufgetreten.",
     deleteUserError: "Beim Löschen des Benutzers ist ein Fehler aufgetreten.",
     purchasingUserFallbackName: "Einkaufsbenutzer",
+    changePasswordTitle: "Passwort ändern",
+    changePasswordLabel: "Passwort ändern",
+    changePasswordDesc: "Für diesen Benutzer wird ein neues Passwort festgelegt",
+    newPasswordLabel: "Neues Passwort",
+    changePasswordBtn: "Passwort ändern",
+    changePasswordSuccess: "Passwort erfolgreich geändert.",
+    changePasswordError: "Beim Ändern des Passworts ist ein Fehler aufgetreten.",
     messages: {
       deleteConfirm: "Möchten Sie diese Nachricht wirklich löschen?",
       replySubjectPrefix: "Re: Ihre Nachricht",

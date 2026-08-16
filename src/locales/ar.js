@@ -1220,6 +1220,13 @@ export const ar = {
     genericError: "حدث خطأ.",
     deleteUserError: "حدث خطأ أثناء حذف المستخدم.",
     purchasingUserFallbackName: "مستخدم مشتريات",
+    changePasswordTitle: "تغيير كلمة المرور",
+    changePasswordLabel: "تغيير كلمة المرور",
+    changePasswordDesc: "سيتم تعيين كلمة مرور جديدة للمستخدم",
+    newPasswordLabel: "كلمة المرور الجديدة",
+    changePasswordBtn: "تغيير كلمة المرور",
+    changePasswordSuccess: "تم تغيير كلمة المرور بنجاح.",
+    changePasswordError: "حدث خطأ أثناء تغيير كلمة المرور.",
     messages: {
       deleteConfirm: "هل أنت متأكد من حذف هذه الرسالة؟",
       replySubjectPrefix: "رد على رسالتك",

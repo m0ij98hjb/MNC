@@ -1208,6 +1208,13 @@ export const ru = {
     genericError: "Произошла ошибка.",
     deleteUserError: "Произошла ошибка при удалении пользователя.",
     purchasingUserFallbackName: "Пользователь закупок",
+    changePasswordTitle: "Изменить пароль",
+    changePasswordLabel: "Изменить пароль",
+    changePasswordDesc: "Для этого пользователя будет установлен новый пароль",
+    newPasswordLabel: "Новый пароль",
+    changePasswordBtn: "Изменить пароль",
+    changePasswordSuccess: "Пароль успешно изменён.",
+    changePasswordError: "Произошла ошибка при изменении пароля.",
     messages: {
       deleteConfirm: "Вы уверены, что хотите удалить это сообщение?",
       replySubjectPrefix: "Re: Ваше сообщение",

@@ -1105,6 +1105,13 @@ export const zh = {
     genericError: "发生错误。",
     deleteUserError: "删除用户时发生错误。",
     purchasingUserFallbackName: "采购用户",
+    changePasswordTitle: "更改密码",
+    changePasswordLabel: "更改密码",
+    changePasswordDesc: "将为该用户设置新密码",
+    newPasswordLabel: "新密码",
+    changePasswordBtn: "更改密码",
+    changePasswordSuccess: "密码修改成功。",
+    changePasswordError: "更改密码时发生错误。",
     messages: {
       deleteConfirm: "您确定要删除此消息吗？",
       replySubjectPrefix: "回复：您的留言",
