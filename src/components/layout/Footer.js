@@ -158,14 +158,14 @@ const Footer = () => {
               {[
                 {
                   icon: FaFacebookF,
-                  href: "https://www.facebook.com/",
+                  href: "https://www.facebook.com/mnc.nazer/?locale=ar_AR",
                 },
                 {
                   icon: FaInstagram,
-                  href: "https://www.instagram.com//",
+                  href: "https://www.instagram.com/mnc_sa/",
                 },
-                { icon: BsTwitterX, href: "https://x.com/" },
-                { icon: FaWhatsapp, href: "https://wa.me/" },
+                { icon: BsTwitterX, href: "https://x.com/KsaMnc?lang=ar" },
+                { icon: FaWhatsapp, href: "https://wa.me/966598242385" },
               ].map((social, index) => (
                 <motion.a
                   key={index}
