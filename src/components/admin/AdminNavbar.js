@@ -12,7 +12,6 @@ import { db } from '@/lib/firebase';
 import { useLanguage, LANGUAGES } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
 import { useNotifications } from '@/context/NotificationsContext';
-import { useDirectorPhoto } from '@/hooks/useDirectorPhoto';
 import { useRoleAccess } from '@/hooks/useRoleAccess';
 
 /* Route → i18n key map for the header page title */
@@ -56,12 +55,9 @@ export default function AdminNavbar() {
   const bellRef = useRef(null);
 
   const { allNotifications = [], unreadCount = 0, markBellOpened } = useNotifications() ?? {};
-  const directorPhoto = useDirectorPhoto();
 
   const displayPhoto = (isSuperAdmin || role === 'super_admin')
     ? '/asstes/super-admin.jpg'
-    : role === 'company_manager'
-    ? directorPhoto
     : (profile?.photoURL || '/asstes/ph dashborad.png');
 
   const roleLabel = getRoleLabel();

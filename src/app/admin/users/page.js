@@ -1,18 +1,18 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { collection, doc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import { createAdminUser, updateAdminUserPermissions, deleteAdminUser } from '@/lib/adminUserCreation';
-import { ROLES, ROLE_LABELS } from '@/lib/roleBasedAccess';
+import { ROLES, ROLE_LABELS, COMPANY_MANAGER_MODULES, DEFAULT_COMPANY_MANAGER_MODULES } from '@/lib/roleBasedAccess';
 import { useRouter } from 'next/navigation';
 import {
   Users, Plus, X, Loader2, Power, ShieldCheck, ShieldOff,
   Building2, Briefcase, MessageSquare, ShoppingCart, BarChart2,
-  Check, User, Phone, Mail, Lock, Edit2, Trash2, KeyRound,
+  Check, User, Phone, Mail, Lock, Edit2, Trash2, KeyRound, Crown,
 } from 'lucide-react';
 
 /* ─── Permission definitions ─── */
@@ -384,6 +384,98 @@ function PermBadge({ id }) {
   );
 }
 
+/* ─── Company Manager Access Panel ───
+   Lets a super admin flip which modules the Company Manager role can see,
+   live from Firestore (settings/companyManagerAccess) — no code change or
+   redeploy needed. Reuses the same 5 module definitions as per-user
+   permissions above. */
+function CompanyManagerAccessPanel() {
+  const { t, isRTL } = useLanguage();
+  const [modules, setModules] = useState(null); // null = loading
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, 'settings', 'companyManagerAccess'), (snap) => {
+      const data = snap.data();
+      setModules(Array.isArray(data?.modules) ? data.modules : DEFAULT_COMPANY_MANAGER_MODULES);
+    });
+    return unsub;
+  }, []);
+
+  const toggle = async (id) => {
+    const current = modules ?? DEFAULT_COMPANY_MANAGER_MODULES;
+    const next = current.includes(id) ? current.filter(m => m !== id) : [...current, id];
+    setSaving(true);
+    try {
+      await setDoc(doc(db, 'settings', 'companyManagerAccess'), { modules: next }, { merge: true });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const companyManagerPerms = PERMISSION_KEYS.filter(p => COMPANY_MANAGER_MODULES.includes(p.id));
+
+  return (
+    <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-5 mb-6" dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="flex items-center gap-2 mb-1">
+        <div className="w-8 h-8 rounded-xl bg-[#c8a96e]/15 flex items-center justify-center">
+          <Crown size={14} className="text-[#c8a96e]" />
+        </div>
+        <h2 className="text-white font-bold text-sm">
+          {{ ar: 'صلاحيات مدير الشركة', en: 'Company Manager Access' }[isRTL ? 'ar' : 'en']}
+        </h2>
+      </div>
+      <p className="text-white/30 text-xs mb-4 ms-10">
+        {{
+          ar: 'تحكم فورًا في الأقسام التي يراها مدير الشركة في لوحة التحكم — بدون تعديل كود أو رفع نسخة جديدة على السيرفر.',
+          en: 'Instantly control which dashboard sections the Company Manager can see — no code changes or server deploy needed.',
+        }[isRTL ? 'ar' : 'en']}
+      </p>
+
+      {modules === null ? (
+        <div className="flex items-center justify-center py-6">
+          <Loader2 size={20} className="text-[#c8a96e] animate-spin" />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+          {companyManagerPerms.map(({ id, labelKey, descKey, icon: Icon, color }) => {
+            const checked = modules.includes(id);
+            return (
+              <button
+                key={id}
+                type="button"
+                disabled={saving}
+                onClick={() => toggle(id)}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-start transition-all duration-200 disabled:opacity-60 ${
+                  checked
+                    ? 'border-[#c8a96e]/40 bg-[#c8a96e]/8'
+                    : 'border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.04]'
+                }`}
+              >
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all"
+                  style={{ background: checked ? `${color}22` : 'rgba(255,255,255,0.05)' }}
+                >
+                  <Icon size={15} style={{ color: checked ? color : 'rgba(255,255,255,0.3)' }} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className={`text-sm font-semibold leading-tight ${checked ? 'text-white' : 'text-white/50'}`}>{t(labelKey)}</p>
+                  <p className="text-[11px] text-white/25 mt-0.5">{t(descKey)}</p>
+                </div>
+                <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+                  checked ? 'border-[#c8a96e] bg-[#c8a96e]' : 'border-white/20'
+                }`}>
+                  {checked && <Check size={11} className="text-black" strokeWidth={3} />}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ─── Main Page Content ─── */
 function UsersContent() {
   const { user } = useAuth();
@@ -473,6 +565,8 @@ function UsersContent() {
         </button>
       </div>
 
+      <CompanyManagerAccessPanel />
+
       {error && (
         <div className="rounded-xl px-4 py-3 text-sm bg-red-500/10 border border-red-500/25 text-red-400 mb-5">
           {error}
@@ -512,14 +606,13 @@ function UsersContent() {
                             src={
                               u.role === 'super_admin'
                                 ? '/asstes/super-admin.jpg'
-                                : u.role === 'company_manager'
-                                ? '/asstes/directort.png'
                                 : (u.photoURL || '/asstes/ph dashborad.png')
                             }
                             alt={u.name || 'User'}
                             fill
                             sizes="32px"
                             className="object-cover object-top"
+                            unoptimized={!!u.photoURL && u.photoURL.startsWith('http')}
                           />
                         </div>
                         <div>

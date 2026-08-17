@@ -4,12 +4,13 @@ import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
-import { 
-  ROLES, 
-  getDashboardForRole, 
-  getNavigationForRole, 
+import { useCompanyManagerAccess } from '@/hooks/useCompanyManagerAccess';
+import {
+  ROLES,
+  getDashboardForRole,
+  getNavigationForRole,
   canRoleAccessRoute,
-  getRoleLabel 
+  getRoleLabel
 } from '@/lib/roleBasedAccess';
 
 /**
@@ -19,6 +20,7 @@ import {
 export function useRoleAccess() {
   const { user, isSuperAdmin } = useAuth();
   const { lang } = useLanguage();
+  const companyManagerModules = useCompanyManagerAccess();
   const [profile, setProfile] = useState(undefined); // undefined = loading
   const [role, setRole] = useState(null);
 
@@ -60,10 +62,10 @@ export function useRoleAccess() {
     
     // Helper functions
     getDashboard: () => getDashboardForRole(effectiveRole),
-    getNavigation: (overrideLang) => getNavigationForRole(effectiveRole, overrideLang || lang),
+    getNavigation: (overrideLang) => getNavigationForRole(effectiveRole, overrideLang || lang, companyManagerModules),
     canAccessRoute: (pathname) => {
       if (!isActive || !effectiveRole) return false;
-      return canRoleAccessRoute(effectiveRole, pathname);
+      return canRoleAccessRoute(effectiveRole, pathname, companyManagerModules);
     },
     getRoleLabel: (overrideLang) => getRoleLabel(effectiveRole, overrideLang || lang),
     isRole: (rolesToCheck) => {

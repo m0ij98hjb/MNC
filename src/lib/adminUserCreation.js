@@ -50,7 +50,10 @@ export async function createAdminUser({
       role,                      // Main role for RBAC
       permissions,                // ['purchasing_module', 'suppliers_module', ...]
       purchasingRole: purchasingRole || null,
-      photoURL: role === 'company_manager' ? '/asstes/directort.png' : (role === 'super_admin' ? '/asstes/super-admin.jpg' : '/asstes/ph dashborad.png'),
+      // company_manager gets no special-case default — their photo is
+      // uploaded per-account from the dashboard sidebar (see AdminSidebar.js)
+      // and stored right here on this field, not shared across accounts.
+      photoURL: role === 'super_admin' ? '/asstes/super-admin.jpg' : '/asstes/ph dashborad.png',
       active: true,
       createdAt: serverTimestamp(),
       createdBy: createdByUid,

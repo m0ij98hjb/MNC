@@ -5,11 +5,10 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useState, useRef } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
-import { useDirectorPhoto } from '@/hooks/useDirectorPhoto';
 import { useRoleAccess } from '@/hooks/useRoleAccess';
-import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { uploadToCloudinary } from '@/lib/siteContent';
 import { doc, setDoc } from 'firebase/firestore';
-import { storage, db } from '@/lib/firebase';
+import { db } from '@/lib/firebase';
 import {
   LayoutDashboard, Users, CheckCircle, BarChart2,
   ChevronRight, ChevronLeft, LogOut, Briefcase, PenSquare,
@@ -42,7 +41,7 @@ export default function AdminSidebar() {
   const { t, isRTL } = useLanguage();
   const { logout, isSuperAdmin, user } = useAuth();
   const { getNavigation, getRoleLabel, profile, role } = useRoleAccess();
-  const directorPhoto = useDirectorPhoto();
+  const managerPhoto = profile?.photoURL || '/asstes/ph dashborad.png';
 
   const [isModalOpen,  setIsModalOpen]  = useState(false);
   const [isUploading,  setIsUploading]  = useState(false);
@@ -61,13 +60,13 @@ export default function AdminSidebar() {
 
   const handleFileChange = async (e) => {
     const file = e.target.files?.[0];
-    if (!file) return;
+    if (!file || !user) return;
     setIsUploading(true);
     try {
-      const sRef = storageRef(storage, 'settings/director-photo');
-      await uploadBytes(sRef, file);
-      const url = await getDownloadURL(sRef);
-      await setDoc(doc(db, 'settings', 'director'), { photoURL: url }, { merge: true });
+      const url = await uploadToCloudinary(file);
+      // Per-account photo — only this signed-in Company Manager's own
+      // adminUsers doc is touched, never a shared/global record.
+      await setDoc(doc(db, 'adminUsers', user.uid), { photoURL: url }, { merge: true });
     } catch (err) {
       console.error('Photo upload failed:', err);
     } finally {
@@ -121,12 +120,12 @@ export default function AdminSidebar() {
                 style={{ boxShadow: 'inset 0 0 0 2px rgba(200,169,110,0.25)' }}
               />
               <Image
-                src={directorPhoto}
+                src={managerPhoto}
                 alt="Director"
                 fill
                 sizes="72px"
                 className="object-cover object-top"
-                unoptimized={directorPhoto.startsWith('http')}
+                unoptimized={managerPhoto.startsWith('http')}
               />
               {/* Camera hover overlay */}
               <div className="absolute inset-0 rounded-full bg-black/55 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center z-20">
@@ -231,7 +230,7 @@ export default function AdminSidebar() {
               style={{ boxShadow: '0 0 0 2.5px rgba(201,163,77,0.45), 0 8px 32px rgba(0,0,0,0.6)' }}
             >
               <img
-                src={directorPhoto}
+                src={managerPhoto}
                 alt="Director"
                 className="w-full h-full object-cover object-top"
               />

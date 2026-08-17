@@ -387,6 +387,50 @@ export const ROLE_ALLOWED_ROUTES = {
   ],
 };
 
+/* ─── Company Manager: Firestore-editable module access ───
+   Unlike other roles, the Company Manager's module access is not fixed in
+   code. It's read from settings/companyManagerAccess (see useCompanyManagerAccess)
+   so a super admin can grant/revoke modules from the dashboard with no
+   deploy. Items below with no `module` key (dashboard, cost tools) are
+   always visible. DEFAULT_COMPANY_MANAGER_MODULES is what applies when the
+   settings doc doesn't exist yet, preserving today's full-access behavior. */
+export const COMPANY_MANAGER_MODULES = [
+  'suppliers_module',
+  'jobs_module',
+  'messages_module',
+  'purchasing_module',
+  'reports_module',
+];
+
+export const DEFAULT_COMPANY_MANAGER_MODULES = [...COMPANY_MANAGER_MODULES];
+
+const COMPANY_MANAGER_ROUTE_MODULES = {
+  '/admin/suppliers': 'suppliers_module',
+  '/admin/jobs': 'jobs_module',
+  '/admin/messages': 'messages_module',
+  '/admin/approved': 'jobs_module',
+  '/admin/purchasing': 'purchasing_module',
+  '/admin/reports': 'reports_module',
+};
+
+function filterNavForCompanyManager(items, enabledModules) {
+  const modules = enabledModules || DEFAULT_COMPANY_MANAGER_MODULES;
+  return items.filter(item => {
+    const requiredModule = COMPANY_MANAGER_ROUTE_MODULES[item.href];
+    return !requiredModule || modules.includes(requiredModule);
+  });
+}
+
+function companyManagerCanAccessRoute(pathname, enabledModules) {
+  const modules = enabledModules || DEFAULT_COMPANY_MANAGER_MODULES;
+  for (const [route, requiredModule] of Object.entries(COMPANY_MANAGER_ROUTE_MODULES)) {
+    if (pathname === route || pathname.startsWith(route + '/')) {
+      return modules.includes(requiredModule);
+    }
+  }
+  return true; // routes with no module gate (dashboard, cost tools, etc.)
+}
+
 /* ─── Roles allowed to use the internal Cost Calculator tool + its reports log ─── */
 export const COST_TOOL_ROLES = [
   ROLES.PROJECT_MANAGER,
@@ -407,10 +451,15 @@ export function getDashboardForRole(role) {
 }
 
 /**
- * Get navigation items for a given role (localized)
+ * Get navigation items for a given role (localized).
+ * For COMPANY_MANAGER, `enabledModules` (from Firestore) filters which
+ * module items appear — pass undefined to fall back to full access.
  */
-export function getNavigationForRole(role, lang = 'ar') {
-  const items = ROLE_NAVIGATION[role] || [];
+export function getNavigationForRole(role, lang = 'ar', enabledModules) {
+  let items = ROLE_NAVIGATION[role] || [];
+  if (role === ROLES.COMPANY_MANAGER) {
+    items = filterNavForCompanyManager(items, enabledModules);
+  }
   return items.map(item => {
     const locMap = NAV_LABELS_MULTILANG[item.href];
     const localizedLabel = locMap ? (locMap[lang] || locMap.en || item.label) : item.label;
@@ -422,20 +471,27 @@ export function getNavigationForRole(role, lang = 'ar') {
 }
 
 /**
- * Check if a role can access a specific route
+ * Check if a role can access a specific route.
+ * For COMPANY_MANAGER, `enabledModules` (from Firestore) additionally gates
+ * module-specific routes — pass undefined to fall back to full access.
  */
-export function canRoleAccessRoute(role, pathname) {
+export function canRoleAccessRoute(role, pathname, enabledModules) {
   const allowedRoutes = ROLE_ALLOWED_ROUTES[role] || [];
-  
+
+  let allowed = false;
   for (const route of allowedRoutes) {
-    if (route === pathname) return true;
+    if (route === pathname) { allowed = true; break; }
     if (route.endsWith('/*')) {
       const prefix = route.slice(0, -2);
-      if (pathname.startsWith(prefix)) return true;
+      if (pathname.startsWith(prefix)) { allowed = true; break; }
     }
   }
-  
-  return false;
+  if (!allowed) return false;
+
+  if (role === ROLES.COMPANY_MANAGER) {
+    return companyManagerCanAccessRoute(pathname, enabledModules);
+  }
+  return true;
 }
 
 /**
