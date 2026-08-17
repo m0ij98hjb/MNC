@@ -8,15 +8,19 @@ import { cldOptimize } from "@/lib/cloudinary";
 const About = () => {
   const { lang, t } = useLanguage();
   const isRTL = lang === 'ar' || lang === 'ur';
-  const { data: aboutCms } = useSiteContent('about');
+  const { data: aboutCms, loading: aboutLoading } = useSiteContent('about');
 
-  const directorImage = aboutCms?.director_image || '/asstes/directort.png';
+  // While the CMS doc is still loading, don't render either the stale
+  // hardcoded fallback or a wrong image — render null and show a skeleton
+  // instead, so refreshing the page never flashes the old photo before the
+  // real one (from Firestore/Cloudinary) swaps in.
+  const directorImage = aboutLoading ? null : (aboutCms?.director_image || '/asstes/directort.png');
   const directorName  = aboutCms?.director_name  || t('about.directorName');
   const directorTitle = isRTL
     ? (aboutCms?.director_pos_ar || t('about.directorTitle'))
     : (aboutCms?.director_pos_en || t('about.directorTitle'));
 
-  const ceoImage = aboutCms?.ceo_image || '/asstes/directorr.png';
+  const ceoImage = aboutLoading ? null : (aboutCms?.ceo_image || '/asstes/directorr.png');
   const ceoName  = aboutCms?.ceo_name  || t('about.ceoName');
   const ceoTitle = (isRTL ? aboutCms?.ceo_pos_ar : aboutCms?.ceo_pos_en) || t('about.ceoTitle');
 
@@ -80,15 +84,21 @@ const About = () => {
           <div className="w-full sm:w-1/2 lg:w-2/5 relative pb-14" data-aos="fade-up">
             <div className="relative z-10 group">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-4/3">
-                <Image
-                  src={cldOptimize(directorImage)}
-                  alt={directorName}
-                  fill
-                  className="object-cover"
-                  style={{ objectPosition: 'center 2%' }}
-                  unoptimized={directorImage.startsWith('http')}
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {directorImage ? (
+                  <>
+                    <Image
+                      src={cldOptimize(directorImage)}
+                      alt={directorName}
+                      fill
+                      className="object-cover"
+                      style={{ objectPosition: 'center 2%' }}
+                      unoptimized={directorImage.startsWith('http')}
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </>
+                ) : (
+                  <div className="absolute inset-0 bg-slate-200 animate-pulse" />
+                )}
               </div>
 
               {/* Decorative Frame */}
@@ -106,15 +116,21 @@ const About = () => {
           <div className="w-full sm:w-1/2 lg:w-2/5 relative pb-14" data-aos="fade-up" data-aos-delay="150">
             <div className="relative z-10 group">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-4/3">
-                <Image
-                  src={cldOptimize(ceoImage)}
-                  alt={ceoName}
-                  fill
-                  className="object-cover"
-                  style={{ objectPosition: 'center 2%' }}
-                  unoptimized={ceoImage.startsWith('http')}
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {ceoImage ? (
+                  <>
+                    <Image
+                      src={cldOptimize(ceoImage)}
+                      alt={ceoName}
+                      fill
+                      className="object-cover"
+                      style={{ objectPosition: 'center 2%' }}
+                      unoptimized={ceoImage.startsWith('http')}
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </>
+                ) : (
+                  <div className="absolute inset-0 bg-slate-200 animate-pulse" />
+                )}
               </div>
 
               {/* Decorative Frame (mirrored) */}

@@ -12,8 +12,10 @@ import { cldOptimize } from "@/lib/cloudinary";
 
 export default function AboutUsPage() {
   const { lang, t, isRTL } = useLanguage();
-  const { data: aboutCms } = useSiteContent('about');
-  const directorImage = aboutCms?.director_image || '/asstes/directort.png';
+  const { data: aboutCms, loading: aboutLoading } = useSiteContent('about');
+  // null while the CMS doc is loading — avoids flashing the stale hardcoded
+  // fallback before the real Firestore/Cloudinary image swaps in on refresh.
+  const directorImage = aboutLoading ? null : (aboutCms?.director_image || '/asstes/directort.png');
   const RIYADH_BASE = '/asstes/Photos%20of%20the%20Riyadh/';
   const riyadhPhotoAlts = t('aboutUsPage.riyadhPhotoAlts');
   const riyadhPhotos = [
@@ -246,13 +248,17 @@ export default function AboutUsPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Image */}
             <div className={`relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-2xl ${isRTL ? 'order-last' : 'order-first'}`} data-aos={isRTL ? 'fade-left' : 'fade-right'}>
-              <Image
-                src={cldOptimize(directorImage)}
-                alt={t("aboutUsPage.ceoSectionTitle")}
-                fill
-                className="object-cover"
-                unoptimized={directorImage.startsWith('http')}
-              />
+              {directorImage ? (
+                <Image
+                  src={cldOptimize(directorImage)}
+                  alt={t("aboutUsPage.ceoSectionTitle")}
+                  fill
+                  className="object-cover"
+                  unoptimized={directorImage.startsWith('http')}
+                />
+              ) : (
+                <div className="absolute inset-0 bg-white/5 animate-pulse" />
+              )}
             </div>
 
             {/* Text Content */}
