@@ -14,7 +14,7 @@ const About = () => {
   // hardcoded fallback or a wrong image — render null and show a skeleton
   // instead, so refreshing the page never flashes the old photo before the
   // real one (from Firestore/Cloudinary) swaps in.
-  const directorImage = aboutLoading ? null : (aboutCms?.director_image || '/asstes/directort.png');
+  const directorImage = aboutLoading ? null : (aboutCms?.director_image || '/asstes/directort-company.jpg');
   const directorName  = aboutCms?.director_name  || t('about.directorName');
   const directorTitle = isRTL
     ? (aboutCms?.director_pos_ar || t('about.directorTitle'))

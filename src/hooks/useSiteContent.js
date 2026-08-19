@@ -10,6 +10,11 @@ export function useSiteContent(section) {
     const unsub = onSnapshot(doc(db, 'siteContent', section), snap => {
       setData(snap.exists() ? snap.data() : {});
       setLoading(false);
+    }, () => {
+      // Firestore error (e.g. permission-denied) — fall back to hardcoded
+      // defaults instead of leaving callers stuck on `loading: true` forever.
+      setData({});
+      setLoading(false);
     });
     return unsub;
   }, [section]);

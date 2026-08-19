@@ -15,7 +15,7 @@ export default function AboutUsPage() {
   const { data: aboutCms, loading: aboutLoading } = useSiteContent('about');
   // null while the CMS doc is loading — avoids flashing the stale hardcoded
   // fallback before the real Firestore/Cloudinary image swaps in on refresh.
-  const directorImage = aboutLoading ? null : (aboutCms?.director_image || '/asstes/directort.png');
+  const directorImage = aboutLoading ? null : (aboutCms?.director_image || '/asstes/directort-company.jpg');
   const RIYADH_BASE = '/asstes/Photos%20of%20the%20Riyadh/';
   const riyadhPhotoAlts = t('aboutUsPage.riyadhPhotoAlts');
   const riyadhPhotos = [

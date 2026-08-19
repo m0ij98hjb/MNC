@@ -244,10 +244,31 @@ service cloud.firestore {
       allow write: if cmsIsSuperAdmin() || (request.auth != null && calcRole() == 'hr_manager');
     }
 
-    // Remaining siteContent/* sections (home/about/contact/services/app/
-    // calculator/settings tabs in Content Management) — edited only via
-    // that super-admin-only page, so read/write stays super-admin-only.
-    // (siteContent/jobs above already has its own broader rule.)
+    // Sections rendered on public site pages (Hero, About/director+CEO
+    // photos, Contact, /app) need public read so anonymous visitors can
+    // load them — write stays super-admin-only via the CMS page.
+    match /siteContent/home {
+      allow read: if true;
+      allow write: if cmsIsSuperAdmin();
+    }
+    match /siteContent/about {
+      allow read: if true;
+      allow write: if cmsIsSuperAdmin();
+    }
+    match /siteContent/contact {
+      allow read: if true;
+      allow write: if cmsIsSuperAdmin();
+    }
+    match /siteContent/app {
+      allow read: if true;
+      allow write: if cmsIsSuperAdmin();
+    }
+
+    // Remaining siteContent/* sections (services/calculator/settings tabs
+    // in Content Management, plus any future ones) — not rendered on a
+    // public page, so read/write stays super-admin-only.
+    // (siteContent/jobs and the public sections above already have their
+    // own broader rules.)
     match /siteContent/{section} {
       allow read, write: if cmsIsSuperAdmin();
     }
