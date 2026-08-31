@@ -624,6 +624,7 @@ export const zh = {
     reject: "拒绝",
     underReviewAction: "审核中",
     delete: "删除",
+    edit: "编辑",
     noResults: "无结果",
     back: "返回",
     companyInfo: "公司信息",
@@ -1244,6 +1245,12 @@ export const zh = {
     signatureRequired: "需要签名才能继续。",
     signatureLabel: "电子签名",
 
+    submitSignatureDialogTitle: "签名以提交",
+    submitSignatureDialogDesc: "请在此手写签名（手机上用手指，电脑上用鼠标）或输入姓名，以确认并提交此采购申请。",
+    submitSignatureConfirm: "完成",
+    submitSignatureCancel: "返回",
+    submitSignatureRequired: "请先签名，然后再发送申请。",
+
     attachmentTooLarge: "一个或多个文件超过允许的最大大小。",
     attachmentInvalidType: "不支持的文件类型。允许的类型：PDF、Word、Excel、DWG、DXF、ZIP、图片。",
     attachmentUploadFailed: "文件上传失败，请重试。",
@@ -1271,7 +1278,7 @@ export const zh = {
     actionReturn: "退回修改",
 
     procurementStageTitle: "采购执行",
-    startRFQDesc: "向一个或多个供应商发送询价请求以开始采购流程。",
+    startRFQDesc: "为此已批准的申请直接向供应商签发采购订单。",
     createRFQ: "创建询价",
     manageRFQDesc: "管理询价请求并比较供应商报价。",
     manageRFQ: "管理询价",
@@ -1316,6 +1323,10 @@ export const zh = {
     colPriority: "优先级",
     colValue: "金额",
     backToRequest: "返回申请",
+    backToRequests: "返回申请列表",
+    editRequestTitle: "编辑采购申请",
+    adminEditedNote: "由管理员编辑",
+    confirmDeleteRequest: "删除此采购申请？此操作无法撤销。",
 
     reportsTitle: "采购报告",
     kpiOverdue: "逾期申请",
@@ -1360,6 +1371,11 @@ export const zh = {
     saveQuotation: "保存",
     editQuotation: "编辑",
     selectWinner: "选为中标方",
+    createPOPageTitle: "创建采购订单",
+    selectSupplierTitle: "选择供应商",
+    supplierRequired: "请选择一个供应商。",
+    issuePOButton: "签发采购订单",
+    poNotAvailableNote: "该申请目前不在等待采购订单的状态。",
 
     warehouseTitle: "仓库",
     pendingReceiptTitle: "待验收",
@@ -1399,6 +1415,7 @@ export const zh = {
 
     statusPendingPM: "等待项目经理审批",
     statusPendingEM: "等待工程部经理审批",
+    statusPendingEngineer: "等待项目工程师签名",
     statusPendingProcurement: "等待采购审批",
     statusPendingGM: "等待总经理审批",
     statusApproved: "已批准",

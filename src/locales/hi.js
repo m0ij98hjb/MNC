@@ -624,6 +624,7 @@ export const hi = {
     reject: "अस्वीकार करें",
     underReviewAction: "समीक्षाधीन",
     delete: "हटाएं",
+    edit: "संपादित करें",
     noResults: "कोई परिणाम नहीं मिला",
     back: "आपूर्तिकर्ताओं पर वापस जाएं",
     companyInfo: "कंपनी की जानकारी",
@@ -1353,6 +1354,12 @@ export const hi = {
     signatureRequired: "आगे बढ़ने के लिए एक हस्ताक्षर आवश्यक है।",
     signatureLabel: "डिजिटल हस्ताक्षर",
 
+    submitSignatureDialogTitle: "भेजने के लिए हस्ताक्षर करें",
+    submitSignatureDialogDesc: "इस खरीद अनुरोध की पुष्टि और भेजने के लिए यहां हस्ताक्षर करें (मोबाइल पर उंगली से या कंप्यूटर पर माउस से बनाकर) या अपना नाम टाइप करें।",
+    submitSignatureConfirm: "हो गया",
+    submitSignatureCancel: "वापस",
+    submitSignatureRequired: "अनुरोध भेजने से पहले कृपया हस्ताक्षर करें।",
+
     attachmentTooLarge: "एक या अधिक फ़ाइलें अधिकतम अनुमत आकार से अधिक हैं।",
     attachmentInvalidType: "असमर्थित फ़ाइल प्रकार। अनुमत: PDF, Word, Excel, DWG, DXF, ZIP, छवियां।",
     attachmentUploadFailed: "फ़ाइल अपलोड विफल। कृपया पुनः प्रयास करें।",
@@ -1380,7 +1387,7 @@ export const hi = {
     actionReturn: "संशोधन के लिए वापस करें",
 
     procurementStageTitle: "खरीद",
-    startRFQDesc: "खरीद शुरू करने के लिए एक या अधिक आपूर्तिकर्ताओं को कोटेशन का अनुरोध भेजें।",
+    startRFQDesc: "इस स्वीकृत अनुरोध के लिए सीधे किसी आपूर्तिकर्ता को खरीद आदेश जारी करें।",
     createRFQ: "RFQ बनाएं",
     manageRFQDesc: "कोटेशन के अनुरोध का प्रबंधन करें और आपूर्तिकर्ता प्रस्तावों की तुलना करें।",
     manageRFQ: "RFQ प्रबंधित करें",
@@ -1425,6 +1432,10 @@ export const hi = {
     colPriority: "प्राथमिकता",
     colValue: "मूल्य",
     backToRequest: "अनुरोध पर वापस जाएं",
+    backToRequests: "अनुरोध सूची पर वापस जाएं",
+    editRequestTitle: "खरीद अनुरोध संपादित करें",
+    adminEditedNote: "व्यवस्थापक द्वारा संपादित",
+    confirmDeleteRequest: "इस खरीद अनुरोध को हटाएं? इसे पूर्ववत नहीं किया जा सकता।",
 
     reportsTitle: "क्रय रिपोर्ट",
     kpiOverdue: "अतिदेय अनुरोध",
@@ -1469,6 +1480,11 @@ export const hi = {
     saveQuotation: "सहेजें",
     editQuotation: "संपादित करें",
     selectWinner: "विजेता के रूप में चुनें",
+    createPOPageTitle: "खरीद आदेश बनाएं",
+    selectSupplierTitle: "आपूर्तिकर्ता चुनें",
+    supplierRequired: "कृपया एक आपूर्तिकर्ता चुनें।",
+    issuePOButton: "खरीद आदेश जारी करें",
+    poNotAvailableNote: "यह अनुरोध खरीद आदेश की प्रतीक्षा में नहीं है।",
 
     warehouseTitle: "गोदाम",
     pendingReceiptTitle: "प्राप्ति लंबित",
@@ -1508,6 +1524,7 @@ export const hi = {
 
     statusPendingPM: "परियोजना प्रबंधक की स्वीकृति लंबित",
     statusPendingEM: "इंजीनियरिंग प्रबंधक की स्वीकृति लंबित",
+    statusPendingEngineer: "प्रोजेक्ट इंजीनियर के हस्ताक्षर की प्रतीक्षा में",
     statusPendingProcurement: "क्रय स्वीकृति लंबित",
     statusPendingGM: "जनरल मैनेजर की स्वीकृति लंबित",
     statusApproved: "स्वीकृत",

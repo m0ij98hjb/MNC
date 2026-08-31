@@ -624,6 +624,7 @@ export const ur = {
     reject: "مسترد کریں",
     underReviewAction: "جائزہ میں",
     delete: "حذف کریں",
+    edit: "ترمیم کریں",
     noResults: "کوئی نتیجہ نہیں",
     back: "واپس",
     companyInfo: "کمپنی کی معلومات",
@@ -1244,6 +1245,12 @@ export const ur = {
     signatureRequired: "جاری رکھنے کے لیے دستخط درکار ہے۔",
     signatureLabel: "الیکٹرانک دستخط",
 
+    submitSignatureDialogTitle: "بھیجنے کے لیے دستخط کریں",
+    submitSignatureDialogDesc: "اس خریداری کی درخواست کی تصدیق اور ارسال کے لیے یہاں دستخط کریں (موبائل پر انگلی سے یا کمپیوٹر پر ماؤس سے بنا کر) یا اپنا نام ٹائپ کریں۔",
+    submitSignatureConfirm: "ہو گیا",
+    submitSignatureCancel: "واپس",
+    submitSignatureRequired: "درخواست بھیجنے سے پہلے براہ کرم دستخط کریں۔",
+
     attachmentTooLarge: "ایک یا زیادہ فائلیں زیادہ سے زیادہ مقررہ سائز سے تجاوز کرتی ہیں۔",
     attachmentInvalidType: "غیر مجاز فائل قسم۔ اجازت شدہ اقسام: PDF, Word, Excel, DWG, DXF, ZIP, تصاویر۔",
     attachmentUploadFailed: "فائل اپ لوڈ ناکام، براہ کرم دوبارہ کوشش کریں۔",
@@ -1271,7 +1278,7 @@ export const ur = {
     actionReturn: "نظرثانی کے لیے واپس کریں",
 
     procurementStageTitle: "خریداری",
-    startRFQDesc: "خریداری شروع کرنے کے لیے ایک یا زیادہ سپلائرز کو عرضِ قیمت بھیجیں۔",
+    startRFQDesc: "اس منظور شدہ درخواست کے لیے براہ راست کسی سپلائر کو خریداری آرڈر جاری کریں۔",
     createRFQ: "عرضِ قیمت بنائیں",
     manageRFQDesc: "عرضِ قیمت کا انتظام کریں اور سپلائرز کی پیشکشوں کا موازنہ کریں۔",
     manageRFQ: "عرضِ قیمت کا انتظام کریں",
@@ -1316,6 +1323,10 @@ export const ur = {
     colPriority: "ترجیح",
     colValue: "مالیت",
     backToRequest: "درخواست پر واپس جائیں",
+    backToRequests: "درخواستوں کی فہرست پر واپس جائیں",
+    editRequestTitle: "خریداری کی درخواست میں ترمیم کریں",
+    adminEditedNote: "ایڈمن کی جانب سے ترمیم شدہ",
+    confirmDeleteRequest: "یہ خریداری کی درخواست حذف کریں؟ اسے واپس نہیں لایا جا سکتا۔",
 
     reportsTitle: "خریداری کی رپورٹس",
     kpiOverdue: "تاخیر شدہ درخواستیں",
@@ -1360,6 +1371,11 @@ export const ur = {
     saveQuotation: "محفوظ کریں",
     editQuotation: "ترمیم کریں",
     selectWinner: "فاتح کے طور پر منتخب کریں",
+    createPOPageTitle: "خریداری آرڈر بنائیں",
+    selectSupplierTitle: "سپلائر منتخب کریں",
+    supplierRequired: "براہ کرم ایک سپلائر منتخب کریں۔",
+    issuePOButton: "خریداری آرڈر جاری کریں",
+    poNotAvailableNote: "یہ درخواست فی الحال خریداری آرڈر کی منتظر نہیں ہے۔",
 
     warehouseTitle: "گودام",
     pendingReceiptTitle: "استلام کا انتظار",
@@ -1399,6 +1415,7 @@ export const ur = {
 
     statusPendingPM: "منصوبہ منیجر کی منظوری کا منتظر",
     statusPendingEM: "انجینئرنگ منیجر کی منظوری کا منتظر",
+    statusPendingEngineer: "پراجیکٹ انجینئر کے دستخط کا منتظر",
     statusPendingProcurement: "خریداری کی منظوری کا منتظر",
     statusPendingGM: "جنرل منیجر کی منظوری کا منتظر",
     statusApproved: "منظور شدہ",

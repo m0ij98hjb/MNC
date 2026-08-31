@@ -6,7 +6,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { STATUS_LABEL_KEYS, ROLE_LABEL_KEYS } from '@/lib/purchasingConfig';
 import {
   Loader2, History, CheckCircle2, XCircle, RotateCcw, Send, FileSpreadsheet,
-  ShoppingCart, Truck, PackageCheck, Archive as ArchiveIcon, AlertTriangle, Boxes,
+  ShoppingCart, Truck, PackageCheck, Archive as ArchiveIcon, AlertTriangle, Boxes, Pencil,
 } from 'lucide-react';
 
 function fmtDate(ts) {
@@ -15,6 +15,8 @@ function fmtDate(ts) {
 }
 
 const ACTION_ICON = {
+  submitted: { icon: Send, cls: 'bg-blue-500/15 border-blue-500/40 text-blue-400' },
+  resubmitted: { icon: RotateCcw, cls: 'bg-amber-500/15 border-amber-500/40 text-amber-400' },
   approved_stage: { icon: CheckCircle2, cls: 'bg-green-500/15 border-green-500/40 text-green-400' },
   reject: { icon: XCircle, cls: 'bg-red-500/15 border-red-500/40 text-red-400' },
   return: { icon: RotateCcw, cls: 'bg-amber-500/15 border-amber-500/40 text-amber-400' },
@@ -27,9 +29,10 @@ const ACTION_ICON = {
   archived: { icon: ArchiveIcon, cls: 'bg-white/10 border-white/30 text-white/50' },
   budget_exception: { icon: AlertTriangle, cls: 'bg-red-500/15 border-red-500/40 text-red-400' },
   fulfilled_from_warehouse: { icon: Boxes, cls: 'bg-purple-500/15 border-purple-500/40 text-purple-400' },
+  edited: { icon: Pencil, cls: 'bg-white/10 border-white/30 text-white/50' },
 };
 const DEFAULT_ICON = { icon: History, cls: 'bg-[#c8a96e]/15 border-[#c8a96e]/40 text-[#c8a96e]' };
-const APPROVAL_ACTIONS = ['approved_stage', 'reject', 'return'];
+const APPROVAL_ACTIONS = ['submitted', 'resubmitted', 'approved_stage', 'reject', 'return'];
 
 export default function ApprovalTimeline({ requestId }) {
   const { t, isRTL } = useLanguage();

@@ -128,7 +128,7 @@ function WarehouseContent() {
 
 export default function WarehousePage() {
   return (
-    <PurchasingAccessGate allow={['store_keeper', 'procurement_manager']}>
+    <PurchasingAccessGate allow={['procurement_manager']}>
       <AdminPageLayout><WarehouseContent /></AdminPageLayout>
     </PurchasingAccessGate>
   );

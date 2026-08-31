@@ -624,6 +624,7 @@ export const es = {
     reject: "Rechazar",
     underReviewAction: "En Revisión",
     delete: "Eliminar",
+    edit: "Editar",
     noResults: "Sin resultados",
     back: "Volver",
     companyInfo: "Información de la Empresa",
@@ -1244,6 +1245,12 @@ export const es = {
     signatureRequired: "Se requiere una firma para continuar.",
     signatureLabel: "Firma Digital",
 
+    submitSignatureDialogTitle: "Firmar para Enviar",
+    submitSignatureDialogDesc: "Firme aquí dibujando (con el dedo en el móvil o con el ratón en el ordenador) o escribiendo su nombre para confirmar y enviar esta solicitud de compra.",
+    submitSignatureConfirm: "Listo",
+    submitSignatureCancel: "Volver",
+    submitSignatureRequired: "Por favor firme antes de enviar la solicitud.",
+
     attachmentTooLarge: "Uno o más archivos exceden el tamaño máximo permitido.",
     attachmentInvalidType: "Tipo de archivo no permitido. Permitidos: PDF, Word, Excel, DWG, DXF, ZIP, imágenes.",
     attachmentUploadFailed: "Error al subir el archivo. Inténtelo de nuevo.",
@@ -1271,7 +1278,7 @@ export const es = {
     actionReturn: "Devolver para Revisión",
 
     procurementStageTitle: "Compras",
-    startRFQDesc: "Envíe una solicitud de cotización a uno o más proveedores para iniciar el proceso de compra.",
+    startRFQDesc: "Emita una orden de compra directamente a un proveedor para esta solicitud aprobada.",
     createRFQ: "Crear Solicitud de Cotización",
     manageRFQDesc: "Gestione la solicitud de cotización y compare las ofertas de los proveedores.",
     manageRFQ: "Gestionar Cotización",
@@ -1316,6 +1323,10 @@ export const es = {
     colPriority: "Prioridad",
     colValue: "Valor",
     backToRequest: "Volver a la Solicitud",
+    backToRequests: "Volver a la lista de solicitudes",
+    editRequestTitle: "Editar Solicitud de Compra",
+    adminEditedNote: "Editado por el administrador",
+    confirmDeleteRequest: "¿Eliminar esta solicitud de compra? Esta acción no se puede deshacer.",
 
     reportsTitle: "Informes de Compras",
     kpiOverdue: "Solicitudes Atrasadas",
@@ -1360,6 +1371,11 @@ export const es = {
     saveQuotation: "Guardar",
     editQuotation: "Editar",
     selectWinner: "Seleccionar como Ganador",
+    createPOPageTitle: "Crear Orden de Compra",
+    selectSupplierTitle: "Seleccionar Proveedor",
+    supplierRequired: "Por favor seleccione un proveedor.",
+    issuePOButton: "Emitir Orden de Compra",
+    poNotAvailableNote: "Esta solicitud no está a la espera de una orden de compra.",
 
     warehouseTitle: "Almacén",
     pendingReceiptTitle: "Pendiente de Recepción",
@@ -1399,6 +1415,7 @@ export const es = {
 
     statusPendingPM: "Pendiente de Aprobación del Gerente de Proyecto",
     statusPendingEM: "Pendiente de Aprobación del Gerente de Ingeniería",
+    statusPendingEngineer: "Pendiente de Firma del Ingeniero del Proyecto",
     statusPendingProcurement: "Pendiente de Aprobación de Compras",
     statusPendingGM: "Pendiente de Aprobación del Director General",
     statusApproved: "Aprobado",

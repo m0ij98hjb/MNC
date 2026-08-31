@@ -31,7 +31,14 @@ export function useRoleAccess() {
       return;
     }
 
-    const unsub = onSnapshot(doc(db, 'adminUsers', user.uid), snap => {
+    const unsub = onSnapshot(doc(db, 'adminUsers', user.uid), { includeMetadataChanges: true }, snap => {
+      // Right after sign-in, local persistence can briefly report "not found"
+      // from cache before the server-confirmed doc arrives. Treating that as
+      // "no role" would fire AdminLayout's route guard on stale data and
+      // bounce the user to the wrong page. Wait for a server-confirmed read
+      // before trusting a negative result.
+      if (!snap.exists() && snap.metadata.fromCache) return;
+
       if (snap.exists()) {
         const data = snap.data();
         setProfile({ id: snap.id, ...data });

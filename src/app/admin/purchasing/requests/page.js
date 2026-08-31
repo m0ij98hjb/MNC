@@ -1,14 +1,17 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
-import { collection, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
+import { useRouter } from 'next/navigation';
+import { collection, doc, deleteDoc, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useLanguage } from '@/context/LanguageContext';
+import { useConfirm } from '@/context/ConfirmContext';
+import { usePurchasingRole } from '@/hooks/usePurchasingRole';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import PurchasingAccessGate from '@/components/purchasing/PurchasingAccessGate';
 import PurchasingSubNav from '@/components/purchasing/PurchasingSubNav';
 import PurchaseStatusBadge from '@/components/purchasing/PurchaseStatusBadge';
 import { DASHBOARD_TABS, STATUS_LABEL_KEYS, PRIORITY_LABEL_KEYS } from '@/lib/purchasingConfig';
-import { Search, Loader2, Eye } from 'lucide-react';
+import { Search, Loader2, Eye, Pencil, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 
 const DATE_PRESETS = ['all', 'today', 'week', 'month', 'year'];
@@ -27,12 +30,27 @@ function withinPreset(date, preset) {
 
 function RequestsContent() {
   const { t, isRTL } = useLanguage();
+  const router = useRouter();
+  const { confirm, alert } = useConfirm();
+  const { isRole } = usePurchasingRole();
+  const canManage = isRole('super_admin');
   const [requests, setRequests] = useState(null);
   const [tab, setTab] = useState('all');
   const [search, setSearch] = useState('');
   const [datePreset, setDatePreset] = useState('all');
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const [hasMore, setHasMore] = useState(false);
+
+  const handleDelete = async (r) => {
+    if (!(await confirm(t('purchasing.confirmDeleteRequest'), { variant: 'danger' }))) return;
+    try {
+      // history/approvals subcollections are append-only by design (firestore.rules
+      // denies delete on them unconditionally) — only the request doc itself is removed.
+      await deleteDoc(doc(db, 'purchaseRequests', r.id));
+    } catch (err) {
+      await alert(err.message || t('purchasing.actionFailed'), { variant: 'danger' });
+    }
+  };
 
   useEffect(() => {
     const q = query(collection(db, 'purchaseRequests'), orderBy('createdAt', 'desc'), limit(pageSize));
@@ -114,7 +132,9 @@ function RequestsContent() {
               </thead>
               <tbody className="divide-y divide-white/[0.04]">
                 {filtered.map(r => (
-                  <tr key={r.id} className="hover:bg-white/[0.02] transition-colors">
+                  <tr key={r.id}
+                    onClick={() => router.push(`/admin/purchasing/requests/${r.id}`)}
+                    className="hover:bg-white/[0.02] transition-colors cursor-pointer">
                     <td className="px-5 py-3.5 text-white font-medium" dir="ltr">{r.requestNumber}</td>
                     <td className="px-5 py-3.5 text-white/60 text-xs">{r.projectName}</td>
                     <td className="px-5 py-3.5 text-white/60 text-xs">{r.requesterName}</td>
@@ -125,9 +145,22 @@ function RequestsContent() {
                     </td>
                     <td className="px-5 py-3.5"><PurchaseStatusBadge status={r.status} /></td>
                     <td className="px-5 py-3.5">
-                      <Link href={`/admin/purchasing/requests/${r.id}`} className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors inline-flex">
-                        <Eye size={15} />
-                      </Link>
+                      <div className="flex items-center gap-1" onClick={e => e.stopPropagation()}>
+                        <Link href={`/admin/purchasing/requests/${r.id}`} title={t('admin.viewDetails')} className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors inline-flex">
+                          <Eye size={15} />
+                        </Link>
+                        {canManage && (
+                          <>
+                            <Link href={`/admin/purchasing/requests/${r.id}/edit`} title={t('admin.edit')} className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors inline-flex">
+                              <Pencil size={15} />
+                            </Link>
+                            <button type="button" title={t('admin.delete')} onClick={() => handleDelete(r)}
+                              className="p-1.5 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-500/10 transition-colors inline-flex">
+                              <Trash2 size={15} />
+                            </button>
+                          </>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))}

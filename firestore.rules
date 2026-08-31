@@ -76,55 +76,45 @@ service cloud.firestore {
     }
 
     match /purchaseRequests/{requestId} {
+      // The site engineer now signs at submission time (a signature dialog on
+      // the public form), so a new request is created already past stage 1 —
+      // straight into pending_procurement_approval.
       allow create: if request.auth != null
         && request.resource.data.requesterUid == request.auth.uid
-        && request.resource.data.status == 'pending_project_manager_approval'
+        && request.resource.data.status == 'pending_procurement_approval'
         && (purchRole() != null || purchIsSuperAdmin());
 
       allow read: if request.auth != null && (
         resource.data.requesterUid == request.auth.uid ||
-        purchInRoles(['project_manager','engineering_manager','procurement_manager','procurement_officer',
-                       'general_manager','accountant','store_keeper','viewer'])
+        purchInRoles(['site_supervisor','site_engineer','procurement_manager'])
       );
 
       allow update: if request.auth != null && (
-        // Requester edits + resubmits after being returned for revision
+        // Requester edits + resubmits after being returned for revision — also
+        // re-signed by the site engineer at resubmit time, so it goes straight
+        // back to pending_procurement_approval rather than stage 1.
         (resource.data.requesterUid == request.auth.uid
           && resource.data.status == 'returned_for_revision'
-          && request.resource.data.status == 'pending_project_manager_approval') ||
+          && request.resource.data.status == 'pending_procurement_approval') ||
 
-        // Stage 1 — Project Manager
-        (purchRole() == 'project_manager'
-          && resource.data.status == 'pending_project_manager_approval'
-          && request.resource.data.status in ['pending_engineering_manager_approval','rejected','returned_for_revision']) ||
-
-        // Stage 2 — Engineering Manager
-        (purchRole() == 'engineering_manager'
-          && resource.data.status == 'pending_engineering_manager_approval'
+        // Stage 1 — Site Engineer (legacy path, kept for any request still
+        // sitting in pending_site_engineer_approval from before this change)
+        (purchRole() == 'site_engineer'
+          && resource.data.status == 'pending_site_engineer_approval'
           && request.resource.data.status in ['pending_procurement_approval','rejected','returned_for_revision']) ||
 
-        // Stage 3 — Procurement Manager (routes to GM stage or straight to Approved)
+        // Stage 2 — Procurement Manager (final approval)
         (purchRole() == 'procurement_manager'
           && resource.data.status == 'pending_procurement_approval'
-          && request.resource.data.status in ['pending_gm_approval','approved','rejected','returned_for_revision']) ||
-
-        // Stage 4 — General Manager (conditional, high-value requests only)
-        (purchRole() == 'general_manager'
-          && resource.data.status == 'pending_gm_approval'
           && request.resource.data.status in ['approved','rejected','returned_for_revision']) ||
 
-        // Procurement execution pipeline
-        (purchRole() in ['procurement_officer','procurement_manager']
-          && resource.data.status in ['approved','rfq_requested','quotations_received','po_issued']
-          && request.resource.data.status in ['rfq_requested','quotations_received','po_issued','delivered_pending_receipt']) ||
-
-        // Store keeper receiving
-        (purchRole() == 'store_keeper'
-          && resource.data.status == 'delivered_pending_receipt'
-          && request.resource.data.status == 'received') ||
+        // Procurement execution pipeline (Procurement Manager owns it end-to-end)
+        (purchRole() == 'procurement_manager'
+          && resource.data.status in ['approved','rfq_requested','quotations_received','po_issued','delivered_pending_receipt']
+          && request.resource.data.status in ['rfq_requested','quotations_received','po_issued','delivered_pending_receipt','received']) ||
 
         // Completion / archive
-        (purchRole() in ['procurement_manager','store_keeper']
+        (purchRole() == 'procurement_manager'
           && resource.data.status == 'received'
           && request.resource.data.status == 'completed') ||
         (purchRole() == 'procurement_manager'

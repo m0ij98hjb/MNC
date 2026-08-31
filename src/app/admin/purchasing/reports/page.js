@@ -8,6 +8,7 @@ import PurchasingAccessGate from '@/components/purchasing/PurchasingAccessGate';
 import PurchasingSubNav from '@/components/purchasing/PurchasingSubNav';
 import { STATUS, STATUS_COLORS, STATUS_LABEL_KEYS, ITEM_CATEGORY_LABEL_KEYS } from '@/lib/purchasingConfig';
 import { exportCSV, exportExcel, exportWord, exportPDF } from '@/lib/purchasingExport';
+import { PRINT_AREA_CSS } from '@/lib/purchasingPrintStyles';
 import { projectKeyFor, computeBudgetSummary, budgetBarColor } from '@/lib/purchasingBudget';
 import PurchasingReportHeader from '@/components/purchasing/PurchasingReportHeader';
 import {
@@ -138,11 +139,7 @@ function ReportsContent() {
 
   return (
     <div className="p-6 lg:p-8 max-w-6xl mx-auto" dir={isRTL ? 'rtl' : 'ltr'}>
-      <style media="print">{`
-        body * { visibility: hidden; }
-        #purchasing-print-area, #purchasing-print-area * { visibility: visible; }
-        #purchasing-print-area { position: absolute; inset: 0; width: 100%; }
-      `}</style>
+      <style media="print">{PRINT_AREA_CSS('purchasing-print-area')}</style>
 
       <PurchasingSubNav />
       <div className="flex items-center justify-between flex-wrap gap-3 mb-6">

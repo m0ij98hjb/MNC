@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
 import {
   collection, doc, addDoc, updateDoc, query, where, onSnapshot, serverTimestamp,
 } from 'firebase/firestore';
@@ -12,12 +13,14 @@ import ItemsTable, { blankItem, computeItemTotals } from '@/components/purchasin
 import AttachmentsUploader from '@/components/purchasing/AttachmentsUploader';
 import PurchaseStatusBadge from '@/components/purchasing/PurchaseStatusBadge';
 import ApprovalTimeline from '@/components/purchasing/ApprovalTimeline';
-import { nextRequestNumber, addHistoryEntry, notify } from '@/lib/purchasingApi';
+import { nextRequestNumber, addHistoryEntry, addApprovalRecord, notify } from '@/lib/purchasingApi';
 import { PRIORITY, PRIORITY_LABEL_KEYS, ROLES, STATUS } from '@/lib/purchasingConfig';
 import {
   Loader2, Mail, Lock, Eye, EyeOff, FileText, ListChecks, Send, ShieldAlert,
-  ChevronDown, ChevronUp, Pencil,
+  ChevronDown, ChevronUp, Pencil, PenLine, X,
 } from 'lucide-react';
+
+const SignaturePad = dynamic(() => import('@/components/purchasing/SignaturePad'), { ssr: false });
 
 const inputCls = 'w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/25 focus:border-[#c8a96e]/60 focus:bg-black/60 outline-none transition-all duration-300';
 const labelCls = 'text-[#c8a96e] text-[11px] font-black uppercase tracking-widest block mb-1.5';
@@ -113,13 +116,16 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
   } : emptyForm(profile, user));
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [showSignDialog, setShowSignDialog] = useState(false);
+  const [signature, setSignature] = useState(null);
+  const [signError, setSignError] = useState('');
 
   const set = (field, val) => setForm(f => ({ ...f, [field]: val }));
   const { totalQuantity, totalEstimatedCost } = useMemo(() => computeItemTotals(form.items), [form.items]);
 
   const validItems = form.items.filter(it => it.itemName.trim() && Number(it.quantity) > 0);
 
-  const handleSubmit = async (e) => {
+  const handleValidateAndOpenSign = (e) => {
     e.preventDefault();
     setError('');
     if (!form.projectName.trim() || !form.siteName.trim() || !form.reason.trim()) {
@@ -128,27 +134,45 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
     if (validItems.length === 0) {
       setError(t('purchasing.needAtLeastOneItem')); return;
     }
+    setSignature(null);
+    setSignError('');
+    setShowSignDialog(true);
+  };
+
+  const handleConfirmSignature = async () => {
+    if (!signature) { setSignError(t('purchasing.submitSignatureRequired')); return; }
+    setSignError('');
     setSubmitting(true);
     try {
       const payload = {
         ...form,
         items: validItems,
         totalQuantity, totalEstimatedCost,
+        requesterSignature: signature,
         updatedAt: serverTimestamp(),
       };
+      // The site engineer's sign-off already happened on the paper request outside
+      // this system — the site supervisor submits directly to the procurement
+      // manager, who is the only digital approval stage.
+      const approverName = signature.type === 'typed' ? signature.value : form.requesterName;
 
       if (editingRequest) {
-        payload.status = STATUS.PENDING_ENGINEER_APPROVAL;
+        payload.status = STATUS.PENDING_PROC_APPROVAL;
         await updateDoc(doc(db, 'purchaseRequests', editingRequest.id), payload);
         await addHistoryEntry(editingRequest.id, {
-          userId: user.uid, userName: form.requesterName, role: ROLES.SITE_SUPERVISOR,
-          action: 'resubmitted', previousStatus: STATUS.RETURNED, newStatus: STATUS.PENDING_ENGINEER_APPROVAL,
+          userId: user.uid, userName: approverName, role: ROLES.SITE_SUPERVISOR,
+          action: 'resubmitted', previousStatus: STATUS.RETURNED, newStatus: STATUS.PENDING_PROC_APPROVAL,
           notes: '',
         });
+        await addApprovalRecord(editingRequest.id, {
+          stage: 'site_supervisor', decision: 'submit',
+          approverUid: user.uid, approverName, jobTitle: form.jobTitle || '',
+          signature, comment: '',
+        });
         await notify({
-          targetRole: ROLES.SITE_ENGINEER, type: 'resubmitted',
+          targetRole: ROLES.PROCUREMENT_MANAGER, type: 'stage_pending',
           requestId: editingRequest.id, requestNumber: editingRequest.requestNumber,
-          title: t('purchasing.notifResubmittedTitle'),
+          title: t('purchasing.notifPendingApprovalTitle'),
           message: `${editingRequest.requestNumber} — ${form.projectName}`,
         });
       } else {
@@ -158,31 +182,37 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
           requestNumber,
           requestDate: new Date().toISOString().slice(0, 10),
           requesterUid: user.uid,
-          status: STATUS.PENDING_ENGINEER_APPROVAL,
+          status: STATUS.PENDING_PROC_APPROVAL,
           createdAt: serverTimestamp(),
           submittedAt: serverTimestamp(),
         });
         await addHistoryEntry(docRef.id, {
-          userId: user.uid, userName: form.requesterName, role: ROLES.SITE_SUPERVISOR,
-          action: 'submitted', previousStatus: null, newStatus: STATUS.PENDING_ENGINEER_APPROVAL, notes: '',
+          userId: user.uid, userName: approverName, role: ROLES.SITE_SUPERVISOR,
+          action: 'submitted', previousStatus: null, newStatus: STATUS.PENDING_PROC_APPROVAL, notes: '',
+        });
+        await addApprovalRecord(docRef.id, {
+          stage: 'site_supervisor', decision: 'submit',
+          approverUid: user.uid, approverName, jobTitle: form.jobTitle || '',
+          signature, comment: '',
         });
         await notify({
-          targetRole: ROLES.SITE_ENGINEER, type: 'new_request',
+          targetRole: ROLES.PROCUREMENT_MANAGER, type: 'stage_pending',
           requestId: docRef.id, requestNumber,
-          title: t('purchasing.notifNewRequestTitle'),
+          title: t('purchasing.notifPendingApprovalTitle'),
           message: `${requestNumber} — ${form.projectName}`,
         });
       }
+      setShowSignDialog(false);
       onDone();
     } catch (err) {
-      setError(err.message || t('purchasing.submitFailed'));
+      setSignError(err.message || t('purchasing.submitFailed'));
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
+    <form onSubmit={handleValidateAndOpenSign} className="space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
       {error && <div className="rounded-xl px-4 py-3 text-sm bg-red-500/10 border border-red-500/25 text-red-400">{error}</div>}
 
       {/* Requester info */}
@@ -241,7 +271,7 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
       <div className="flex items-center gap-3 bg-blue-500/8 border border-blue-500/20 rounded-xl px-4 py-3">
         <ShieldAlert size={16} className="text-blue-400 shrink-0" />
         <p className="text-sm text-white/60">
-          {t('purchasing.approvalStatusLabel')}: <span className="font-bold text-blue-300">{t('purchasing.statusPendingEngineer')}</span>
+          {t('purchasing.approvalStatusLabel')}: <span className="font-bold text-blue-300">{t('purchasing.statusPendingProcurement')}</span>
         </p>
       </div>
 
@@ -251,6 +281,53 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
         {submitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
         {editingRequest ? t('purchasing.resubmitRequest') : t('purchasing.submitRequest')}
       </button>
+
+      {showSignDialog && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center px-4 bg-black/70 backdrop-blur-sm"
+          onClick={() => !submitting && setShowSignDialog(false)}
+        >
+          <div
+            className="w-full max-w-lg bg-[#0a0e17] border border-[#c8a96e]/25 rounded-2xl p-6 sm:p-7 space-y-5"
+            style={{ boxShadow: '0 24px 80px rgba(0,0,0,0.9)' }}
+            dir={isRTL ? 'rtl' : 'ltr'}
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'rgba(200,169,110,0.12)' }}>
+                  <PenLine size={18} className="text-[#c8a96e]" />
+                </div>
+                <div>
+                  <h2 className="text-base font-black text-white">{t('purchasing.submitSignatureDialogTitle')}</h2>
+                  <p className="text-xs text-white/45 mt-1">{t('purchasing.submitSignatureDialogDesc')}</p>
+                </div>
+              </div>
+              <button type="button" disabled={submitting} onClick={() => setShowSignDialog(false)}
+                className="w-7 h-7 rounded-full flex items-center justify-center text-white/30 hover:text-white hover:bg-white/8 transition-all shrink-0 disabled:opacity-40">
+                <X size={14} />
+              </button>
+            </div>
+
+            <SignaturePad onChange={setSignature} defaultName={form.requesterName} />
+
+            {signError && <div className="rounded-xl px-4 py-2.5 text-xs bg-red-500/10 border border-red-500/25 text-red-400">{signError}</div>}
+
+            <div className="flex gap-2.5">
+              <button type="button" disabled={submitting} onClick={() => setShowSignDialog(false)}
+                className="flex-1 py-3 rounded-xl text-sm font-bold text-white/60 border border-white/10 hover:text-white hover:border-white/20 transition-all disabled:opacity-50">
+                {t('purchasing.submitSignatureCancel')}
+              </button>
+              <button type="button" disabled={submitting || !signature} onClick={handleConfirmSignature}
+                className="flex-1 py-3 rounded-xl text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+                style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)', color: '#000' }}>
+                {submitting && <Loader2 size={15} className="animate-spin" />}
+                {t('purchasing.submitSignatureConfirm')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </form>
   );
 }

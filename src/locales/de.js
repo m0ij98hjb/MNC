@@ -624,6 +624,7 @@ export const de = {
     reject: "Ablehnen",
     underReviewAction: "In Prüfung",
     delete: "Löschen",
+    edit: "Bearbeiten",
     noResults: "Keine Ergebnisse",
     back: "Zurück",
     companyInfo: "Unternehmensinformationen",
@@ -1244,6 +1245,12 @@ export const de = {
     signatureRequired: "Eine Signatur ist erforderlich, um fortzufahren.",
     signatureLabel: "Digitale Signatur",
 
+    submitSignatureDialogTitle: "Zum Senden unterschreiben",
+    submitSignatureDialogDesc: "Unterschreiben Sie hier (mit dem Finger auf dem Handy oder mit der Maus am Computer) oder geben Sie Ihren Namen ein, um diese Bestellanfrage zu bestätigen und zu senden.",
+    submitSignatureConfirm: "Fertig",
+    submitSignatureCancel: "Zurück",
+    submitSignatureRequired: "Bitte unterschreiben Sie, bevor Sie die Anfrage senden.",
+
     attachmentTooLarge: "Eine oder mehrere Dateien überschreiten die maximal zulässige Größe.",
     attachmentInvalidType: "Nicht unterstützter Dateityp. Erlaubt: PDF, Word, Excel, DWG, DXF, ZIP, Bilder.",
     attachmentUploadFailed: "Datei-Upload fehlgeschlagen. Bitte versuchen Sie es erneut.",
@@ -1271,7 +1278,7 @@ export const de = {
     actionReturn: "Zur Überarbeitung Zurückgeben",
 
     procurementStageTitle: "Beschaffung",
-    startRFQDesc: "Senden Sie eine Angebotsanfrage an einen oder mehrere Lieferanten, um die Beschaffung zu starten.",
+    startRFQDesc: "Stellen Sie für diese genehmigte Anfrage direkt eine Bestellung bei einem Lieferanten aus.",
     createRFQ: "Angebotsanfrage Erstellen",
     manageRFQDesc: "Verwalten Sie die Angebotsanfrage und vergleichen Sie Lieferantenangebote.",
     manageRFQ: "Angebotsanfrage Verwalten",
@@ -1316,6 +1323,10 @@ export const de = {
     colPriority: "Priorität",
     colValue: "Wert",
     backToRequest: "Zurück zum Antrag",
+    backToRequests: "Zurück zur Antragsliste",
+    editRequestTitle: "Kaufantrag Bearbeiten",
+    adminEditedNote: "Vom Administrator bearbeitet",
+    confirmDeleteRequest: "Diesen Kaufantrag löschen? Dies kann nicht rückgängig gemacht werden.",
 
     reportsTitle: "Beschaffungsberichte",
     kpiOverdue: "Überfällige Anträge",
@@ -1360,6 +1371,11 @@ export const de = {
     saveQuotation: "Speichern",
     editQuotation: "Bearbeiten",
     selectWinner: "Als Gewinner Auswählen",
+    createPOPageTitle: "Bestellung erstellen",
+    selectSupplierTitle: "Lieferant auswählen",
+    supplierRequired: "Bitte wählen Sie einen Lieferanten aus.",
+    issuePOButton: "Bestellung ausstellen",
+    poNotAvailableNote: "Für diese Anfrage steht derzeit keine Bestellung an.",
 
     warehouseTitle: "Lager",
     pendingReceiptTitle: "Ausstehender Wareneingang",
@@ -1399,6 +1415,7 @@ export const de = {
 
     statusPendingPM: "Ausstehende Genehmigung des Projektleiters",
     statusPendingEM: "Ausstehende Genehmigung des Technikleiters",
+    statusPendingEngineer: "Ausstehende Unterschrift des Projektingenieurs",
     statusPendingProcurement: "Ausstehende Genehmigung des Einkaufs",
     statusPendingGM: "Ausstehende Genehmigung des Generaldirektors",
     statusApproved: "Genehmigt",

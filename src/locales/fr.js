@@ -624,6 +624,7 @@ export const fr = {
     reject: "Rejeter",
     underReviewAction: "En Examen",
     delete: "Supprimer",
+    edit: "Modifier",
     noResults: "Aucun résultat",
     back: "Retour",
     companyInfo: "Informations Entreprise",
@@ -1247,6 +1248,12 @@ export const fr = {
     signatureRequired: "Une signature est requise pour continuer.",
     signatureLabel: "Signature Électronique",
 
+    submitSignatureDialogTitle: "Signer pour Envoyer",
+    submitSignatureDialogDesc: "Signez ici en dessinant (avec le doigt sur mobile ou la souris sur ordinateur) ou en tapant votre nom pour confirmer et envoyer cette demande d'achat.",
+    submitSignatureConfirm: "Terminé",
+    submitSignatureCancel: "Retour",
+    submitSignatureRequired: "Veuillez signer avant d'envoyer la demande.",
+
     attachmentTooLarge: "Un ou plusieurs fichiers dépassent la taille maximale autorisée.",
     attachmentInvalidType: "Type de fichier non autorisé. Autorisés : PDF, Word, Excel, DWG, DXF, ZIP, images.",
     attachmentUploadFailed: "Échec du téléchargement du fichier. Veuillez réessayer.",
@@ -1274,7 +1281,7 @@ export const fr = {
     actionReturn: "Renvoyer pour Révision",
 
     procurementStageTitle: "Achats",
-    startRFQDesc: "Envoyez une demande de devis à un ou plusieurs fournisseurs pour lancer le processus d'achat.",
+    startRFQDesc: "Émettez un bon de commande directement à un fournisseur pour cette demande approuvée.",
     createRFQ: "Créer une Demande de Devis",
     manageRFQDesc: "Gérez la demande de devis et comparez les offres des fournisseurs.",
     manageRFQ: "Gérer la Demande de Devis",
@@ -1319,6 +1326,10 @@ export const fr = {
     colPriority: "Priorité",
     colValue: "Valeur",
     backToRequest: "Retour à la Demande",
+    backToRequests: "Retour à la liste des demandes",
+    editRequestTitle: "Modifier la Demande d'Achat",
+    adminEditedNote: "Modifié par l'administrateur",
+    confirmDeleteRequest: "Supprimer cette demande d'achat ? Cette action est irréversible.",
 
     reportsTitle: "Rapports des Achats",
     kpiOverdue: "Demandes en Retard",
@@ -1363,6 +1374,11 @@ export const fr = {
     saveQuotation: "Enregistrer",
     editQuotation: "Modifier",
     selectWinner: "Sélectionner comme Gagnant",
+    createPOPageTitle: "Créer un Bon de Commande",
+    selectSupplierTitle: "Sélectionner un Fournisseur",
+    supplierRequired: "Veuillez sélectionner un fournisseur.",
+    issuePOButton: "Émettre le Bon de Commande",
+    poNotAvailableNote: "Cette demande n'est pas en attente d'un bon de commande.",
 
     warehouseTitle: "Entrepôt",
     pendingReceiptTitle: "En Attente de Réception",
@@ -1402,6 +1418,7 @@ export const fr = {
 
     statusPendingPM: "En Attente d'Approbation du Chef de Projet",
     statusPendingEM: "En Attente d'Approbation du Directeur de l'Ingénierie",
+    statusPendingEngineer: "En Attente de Signature de l'Ingénieur du Projet",
     statusPendingProcurement: "En Attente d'Approbation des Achats",
     statusPendingGM: "En Attente d'Approbation du Directeur Général",
     statusApproved: "Approuvée",

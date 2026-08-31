@@ -4,6 +4,7 @@ import { collection, query, where, onSnapshot, doc, updateDoc } from 'firebase/f
 import { db } from '@/lib/firebase';
 import { useAuth } from '@/context/AuthContext';
 import { usePurchasingRole } from './usePurchasingRole';
+import { ROLES, ALL_ROLES } from '@/lib/purchasingConfig';
 
 /**
  * Independent from the site's existing NotificationsContext (suppliers/jobs/contacts) —
@@ -24,7 +25,11 @@ export function usePurchaseNotifications() {
 
   useEffect(() => {
     if (!role) return; // no subscription needed; falls back to [] below
-    const q = query(collection(db, 'purchaseNotifications'), where('targetRole', '==', role));
+    // Super admin oversees the whole module, so it should see every role-targeted
+    // notification (e.g. a new request notifies targetRole: 'procurement_manager'),
+    // not just ones literally addressed to 'super_admin' (which nothing ever sends).
+    const roles = role === ROLES.SUPER_ADMIN ? ALL_ROLES : [role];
+    const q = query(collection(db, 'purchaseNotifications'), where('targetRole', 'in', roles));
     const unsub = onSnapshot(q, snap => setByRole(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
     return unsub;
   }, [role]);

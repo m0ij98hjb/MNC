@@ -20,6 +20,7 @@ import PurchasingReportHeader from '@/components/purchasing/PurchasingReportHead
 import { useProjectBudget } from '@/hooks/useProjectBudget';
 import { stockKeyFor } from '@/lib/purchasingWarehouse';
 import { exportWord, exportPDF } from '@/lib/purchasingExport';
+import { PRINT_AREA_CSS } from '@/lib/purchasingPrintStyles';
 import { ROLES, STATUS, PRIORITY_LABEL_KEYS, APPROVAL_STAGES } from '@/lib/purchasingConfig';
 import { applyStatusChange, addApprovalRecord, addHistoryEntry, notify } from '@/lib/purchasingApi';
 import {
@@ -177,14 +178,7 @@ function ProcurementPanel({ request, currentUser, actorName }) {
   if (request.status === STATUS.APPROVED) {
     return (
       <ActionBox icon={ShoppingCart} title={t('purchasing.procurementStageTitle')} desc={t('purchasing.startRFQDesc')} isRTL={isRTL}>
-        <Link href={`/admin/purchasing/rfq/${request.id}`} className="purch-btn-gold">{t('purchasing.createRFQ')}</Link>
-      </ActionBox>
-    );
-  }
-  if (request.status === STATUS.RFQ_REQUESTED || request.status === STATUS.QUOTATIONS_RECEIVED) {
-    return (
-      <ActionBox icon={ShoppingCart} title={t('purchasing.procurementStageTitle')} desc={t('purchasing.manageRFQDesc')} isRTL={isRTL}>
-        <Link href={`/admin/purchasing/rfq/${request.id}`} className="purch-btn-gold">{t('purchasing.manageRFQ')}</Link>
+        <Link href={`/admin/purchasing/rfq/${request.id}`} className="purch-btn-gold">{t('purchasing.issuePOButton')}</Link>
       </ActionBox>
     );
   }
@@ -349,12 +343,11 @@ function RequestDetailContent({ id }) {
   return (
     <div className="p-6 lg:p-8 max-w-5xl mx-auto space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
       <style>{`.purch-btn-gold{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:12px;font-size:12px;font-weight:800;background:linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e);color:#000;transition:opacity .2s} .purch-btn-gold:disabled{opacity:.5} .purch-btn-outline{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:12px;font-size:12px;font-weight:700;border:1px solid rgba(200,169,110,0.35);color:#c8a96e}`}</style>
-      <style media="print">{`
-        body * { visibility: hidden; }
-        #purchasing-request-print-area, #purchasing-request-print-area * { visibility: visible; }
-        #purchasing-request-print-area { position: absolute; inset: 0; width: 100%; }
-        .no-print { display: none !important; }
-      `}</style>
+      <style media="print">{PRINT_AREA_CSS('purchasing-request-print-area')}</style>
+
+      <Link href="/admin/purchasing/requests" className="text-xs text-[#c8a96e] hover:underline flex items-center gap-1 w-fit">
+        {isRTL ? <ArrowRight size={12} /> : <ArrowLeft size={12} />} {t('purchasing.backToRequests')}
+      </Link>
 
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>

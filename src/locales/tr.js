@@ -624,6 +624,7 @@ export const tr = {
     reject: "Reddet",
     underReviewAction: "İncelemeye Al",
     delete: "Sil",
+    edit: "Düzenle",
     noResults: "Sonuç bulunamadı",
     back: "Geri",
     companyInfo: "Şirket Bilgileri",
@@ -1244,6 +1245,12 @@ export const tr = {
     signatureRequired: "Devam etmek için imza gereklidir.",
     signatureLabel: "Dijital İmza",
 
+    submitSignatureDialogTitle: "Göndermek İçin İmzalayın",
+    submitSignatureDialogDesc: "Bu satın alma talebini onaylamak ve göndermek için burayı çizerek (mobilde parmakla veya bilgisayarda fare ile) imzalayın ya da adınızı yazın.",
+    submitSignatureConfirm: "Tamam",
+    submitSignatureCancel: "Geri",
+    submitSignatureRequired: "Talebi göndermeden önce lütfen imzalayın.",
+
     attachmentTooLarge: "Bir veya daha fazla dosya izin verilen maksimum boyutu aşıyor.",
     attachmentInvalidType: "Desteklenmeyen dosya türü. İzin verilenler: PDF, Word, Excel, DWG, DXF, ZIP, görseller.",
     attachmentUploadFailed: "Dosya yükleme başarısız. Lütfen tekrar deneyin.",
@@ -1271,7 +1278,7 @@ export const tr = {
     actionReturn: "Revizyon İçin İade Et",
 
     procurementStageTitle: "Satın Alma",
-    startRFQDesc: "Satın alma sürecini başlatmak için bir veya daha fazla tedarikçiye teklif talebi gönderin.",
+    startRFQDesc: "Bu onaylanmış talep için doğrudan bir tedarikçiye satın alma siparişi verin.",
     createRFQ: "Teklif Talebi Oluştur",
     manageRFQDesc: "Teklif talebini yönetin ve tedarikçi tekliflerini karşılaştırın.",
     manageRFQ: "Teklif Talebini Yönet",
@@ -1316,6 +1323,10 @@ export const tr = {
     colPriority: "Öncelik",
     colValue: "Değer",
     backToRequest: "Talebe Geri Dön",
+    backToRequests: "Talep Listesine Dön",
+    editRequestTitle: "Satın Alma Talebini Düzenle",
+    adminEditedNote: "Yönetici tarafından düzenlendi",
+    confirmDeleteRequest: "Bu satın alma talebi silinsin mi? Bu işlem geri alınamaz.",
 
     reportsTitle: "Satın Alma Raporları",
     kpiOverdue: "Gecikmiş Talepler",
@@ -1360,6 +1371,11 @@ export const tr = {
     saveQuotation: "Kaydet",
     editQuotation: "Düzenle",
     selectWinner: "Kazanan Olarak Seç",
+    createPOPageTitle: "Satın Alma Siparişi Oluştur",
+    selectSupplierTitle: "Tedarikçi Seç",
+    supplierRequired: "Lütfen bir tedarikçi seçin.",
+    issuePOButton: "Satın Alma Siparişini Ver",
+    poNotAvailableNote: "Bu talep şu anda bir satın alma siparişi beklemiyor.",
 
     warehouseTitle: "Depo",
     pendingReceiptTitle: "Teslim Alma Bekleyen",
@@ -1399,6 +1415,7 @@ export const tr = {
 
     statusPendingPM: "Proje Müdürü Onayı Bekliyor",
     statusPendingEM: "Mühendislik Müdürü Onayı Bekliyor",
+    statusPendingEngineer: "Proje Mühendisinin İmzası Bekleniyor",
     statusPendingProcurement: "Satın Alma Onayı Bekliyor",
     statusPendingGM: "Genel Müdür Onayı Bekliyor",
     statusApproved: "Onaylandı",

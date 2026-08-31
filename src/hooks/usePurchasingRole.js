@@ -17,10 +17,16 @@ export function usePurchasingRole() {
 
   useEffect(() => {
     if (!user) return;
-    const unsub1 = onSnapshot(doc(db, 'purchasingUsers', user.uid), snap => {
+    // includeMetadataChanges + the fromCache check below: right after sign-in,
+    // local persistence can briefly report "not found" from cache before the
+    // server-confirmed doc arrives — ignore that transient negative read so
+    // access checks don't flicker to "no role" for a moment.
+    const unsub1 = onSnapshot(doc(db, 'purchasingUsers', user.uid), { includeMetadataChanges: true }, snap => {
+      if (!snap.exists() && snap.metadata.fromCache) return;
       setProfile(snap.exists() ? { id: snap.id, ...snap.data() } : null);
     });
-    const unsub2 = onSnapshot(doc(db, 'adminUsers', user.uid), snap => {
+    const unsub2 = onSnapshot(doc(db, 'adminUsers', user.uid), { includeMetadataChanges: true }, snap => {
+      if (!snap.exists() && snap.metadata.fromCache) return;
       setAdminUserRole(snap.exists() ? snap.data().role : null);
     });
     return () => {

@@ -624,6 +624,7 @@ export const en = {
     reject: "Reject",
     underReviewAction: "Under Review",
     delete: "Delete",
+    edit: "Edit",
     noResults: "No results found",
     back: "Back to Suppliers",
     companyInfo: "Company Information",
@@ -1353,6 +1354,12 @@ export const en = {
     signatureRequired: "A signature is required to proceed.",
     signatureLabel: "Digital Signature",
 
+    submitSignatureDialogTitle: "Sign to Submit",
+    submitSignatureDialogDesc: "Sign here by drawing (with a finger on mobile or a mouse on desktop) or typing your name to confirm and submit this purchase request.",
+    submitSignatureConfirm: "Done",
+    submitSignatureCancel: "Back",
+    submitSignatureRequired: "Please sign before sending the request.",
+
     attachmentTooLarge: "One or more files exceed the maximum allowed size.",
     attachmentInvalidType: "Unsupported file type. Allowed: PDF, Word, Excel, DWG, DXF, ZIP, images.",
     attachmentUploadFailed: "File upload failed. Please try again.",
@@ -1380,7 +1387,7 @@ export const en = {
     actionReturn: "Return for Revision",
 
     procurementStageTitle: "Procurement",
-    startRFQDesc: "Send a request for quotation to one or more suppliers to begin procurement.",
+    startRFQDesc: "Issue a purchase order directly to a supplier for this approved request.",
     createRFQ: "Create RFQ",
     manageRFQDesc: "Manage the request for quotation and compare supplier offers.",
     manageRFQ: "Manage RFQ",
@@ -1425,6 +1432,10 @@ export const en = {
     colPriority: "Priority",
     colValue: "Value",
     backToRequest: "Back to Request",
+    backToRequests: "Back to Requests List",
+    editRequestTitle: "Edit Purchase Request",
+    adminEditedNote: "Edited by admin",
+    confirmDeleteRequest: "Delete this purchase request? This cannot be undone.",
 
     reportsTitle: "Purchasing Reports",
     kpiOverdue: "Overdue Requests",
@@ -1469,6 +1480,11 @@ export const en = {
     saveQuotation: "Save",
     editQuotation: "Edit",
     selectWinner: "Select as Winner",
+    createPOPageTitle: "Create Purchase Order",
+    selectSupplierTitle: "Select Supplier",
+    supplierRequired: "Please select a supplier.",
+    issuePOButton: "Issue Purchase Order",
+    poNotAvailableNote: "This request isn't awaiting a purchase order.",
 
     warehouseTitle: "Warehouse",
     pendingReceiptTitle: "Pending Receipt",
@@ -1508,6 +1524,7 @@ export const en = {
 
     statusPendingPM: "Pending Project Manager Approval",
     statusPendingEM: "Pending Engineering Manager Approval",
+    statusPendingEngineer: "Pending Project Engineer Signature",
     statusPendingProcurement: "Pending Procurement Approval",
     statusPendingGM: "Pending General Manager Approval",
     statusApproved: "Approved",

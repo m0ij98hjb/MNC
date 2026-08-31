@@ -624,6 +624,7 @@ export const ar = {
     reject: "رفض",
     underReviewAction: "مراجعة",
     delete: "حذف",
+    edit: "تعديل",
     noResults: "لا توجد نتائج",
     back: "العودة للقائمة",
     companyInfo: "معلومات الشركة",
@@ -1359,6 +1360,12 @@ export const ar = {
     signatureRequired: "التوقيع الإلكتروني مطلوب للمتابعة.",
     signatureLabel: "التوقيع الإلكتروني",
 
+    submitSignatureDialogTitle: "التوقيع لإرسال الطلب",
+    submitSignatureDialogDesc: "وقّع هنا بالرسم (بإصبعك على الجوال أو بالماوس على الكمبيوتر) أو بكتابة اسمك لتأكيد إرسال طلب الشراء.",
+    submitSignatureConfirm: "تم",
+    submitSignatureCancel: "رجوع",
+    submitSignatureRequired: "يرجى التوقيع أولاً قبل إرسال الطلب.",
+
     attachmentTooLarge: "حجم ملف واحد أو أكثر يتجاوز الحد المسموح.",
     attachmentInvalidType: "نوع ملف غير مسموح. الأنواع المقبولة: PDF, Word, Excel, DWG, DXF, ZIP, الصور.",
     attachmentUploadFailed: "فشل رفع الملف، يرجى المحاولة مرة أخرى.",
@@ -1386,7 +1393,7 @@ export const ar = {
     actionReturn: "إعادة للمراجعة",
 
     procurementStageTitle: "المشتريات",
-    startRFQDesc: "أرسل طلب عرض أسعار لمورد واحد أو أكثر لبدء إجراءات الشراء.",
+    startRFQDesc: "أصدر أمر شراء مباشرة لأحد الموردين لهذا الطلب المعتمد.",
     createRFQ: "إنشاء طلب عرض أسعار",
     manageRFQDesc: "إدارة طلب عروض الأسعار ومقارنة عروض الموردين.",
     manageRFQ: "إدارة طلب عروض الأسعار",
@@ -1431,6 +1438,10 @@ export const ar = {
     colPriority: "الأولوية",
     colValue: "القيمة",
     backToRequest: "العودة إلى الطلب",
+    backToRequests: "العودة لقائمة الطلبات",
+    editRequestTitle: "تعديل طلب الشراء",
+    adminEditedNote: "تم التعديل بواسطة الإدارة",
+    confirmDeleteRequest: "هل تريد حذف طلب الشراء هذا؟ لا يمكن التراجع عن هذا الإجراء.",
 
     reportsTitle: "تقارير المشتريات",
     kpiOverdue: "طلبات متأخرة",
@@ -1475,6 +1486,11 @@ export const ar = {
     saveQuotation: "حفظ",
     editQuotation: "تعديل",
     selectWinner: "اختيار كمورد فائز",
+    createPOPageTitle: "إنشاء أمر شراء",
+    selectSupplierTitle: "اختر المورد",
+    supplierRequired: "من فضلك اختر موردًا.",
+    issuePOButton: "إصدار أمر الشراء",
+    poNotAvailableNote: "هذا الطلب لا ينتظر إصدار أمر شراء حاليًا.",
 
     warehouseTitle: "المستودع",
     pendingReceiptTitle: "بانتظار الاستلام",
@@ -1514,6 +1530,7 @@ export const ar = {
 
     statusPendingPM: "بانتظار اعتماد مدير المشروع",
     statusPendingEM: "بانتظار اعتماد مدير الإدارة الهندسية",
+    statusPendingEngineer: "بانتظار توقيع مهندس المشروع",
     statusPendingProcurement: "بانتظار اعتماد المشتريات",
     statusPendingGM: "بانتظار اعتماد المدير العام",
     statusApproved: "معتمد",

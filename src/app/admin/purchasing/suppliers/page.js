@@ -180,7 +180,7 @@ function SuppliersContent() {
 
 export default function PurchasingSuppliersPage() {
   return (
-    <PurchasingAccessGate allow={['procurement_officer', 'procurement_manager']}>
+    <PurchasingAccessGate allow={['procurement_manager']}>
       <AdminPageLayout><SuppliersContent /></AdminPageLayout>
     </PurchasingAccessGate>
   );

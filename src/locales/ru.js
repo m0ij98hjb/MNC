@@ -623,6 +623,7 @@ export const ru = {
     reject: "Отклонить",
     underReviewAction: "На рассмотрении",
     delete: "Удалить",
+    edit: "Изменить",
     noResults: "Результаты не найдены",
     back: "Назад к поставщикам",
     companyInfo: "Информация о компании",
@@ -1347,6 +1348,12 @@ export const ru = {
     signatureRequired: "Для продолжения требуется подпись.",
     signatureLabel: "Электронная подпись",
 
+    submitSignatureDialogTitle: "Подпишите, чтобы отправить",
+    submitSignatureDialogDesc: "Распишитесь здесь (пальцем на телефоне или мышью на компьютере) или введите своё имя, чтобы подтвердить и отправить эту заявку на закупку.",
+    submitSignatureConfirm: "Готово",
+    submitSignatureCancel: "Назад",
+    submitSignatureRequired: "Пожалуйста, распишитесь перед отправкой заявки.",
+
     attachmentTooLarge: "Один или несколько файлов превышают максимально допустимый размер.",
     attachmentInvalidType: "Недопустимый тип файла. Разрешены: PDF, Word, Excel, DWG, DXF, ZIP, изображения.",
     attachmentUploadFailed: "Не удалось загрузить файл. Попробуйте снова.",
@@ -1374,7 +1381,7 @@ export const ru = {
     actionReturn: "Вернуть на доработку",
 
     procurementStageTitle: "Закупка",
-    startRFQDesc: "Отправьте запрос на предложение одному или нескольким поставщикам, чтобы начать процесс закупки.",
+    startRFQDesc: "Выпустите заказ на закупку напрямую поставщику для этой одобренной заявки.",
     createRFQ: "Создать запрос на предложение",
     manageRFQDesc: "Управляйте запросом на предложение и сравнивайте предложения поставщиков.",
     manageRFQ: "Управление запросом",
@@ -1419,6 +1426,10 @@ export const ru = {
     colPriority: "Приоритет",
     colValue: "Стоимость",
     backToRequest: "Назад к заявке",
+    backToRequests: "Назад к списку заявок",
+    editRequestTitle: "Редактировать заявку на закупку",
+    adminEditedNote: "Отредактировано администратором",
+    confirmDeleteRequest: "Удалить эту заявку на закупку? Это действие необратимо.",
 
     reportsTitle: "Отчёты по закупкам",
     kpiOverdue: "Просроченные заявки",
@@ -1463,6 +1474,11 @@ export const ru = {
     saveQuotation: "Сохранить",
     editQuotation: "Редактировать",
     selectWinner: "Выбрать победителем",
+    createPOPageTitle: "Создать заказ на закупку",
+    selectSupplierTitle: "Выбрать поставщика",
+    supplierRequired: "Пожалуйста, выберите поставщика.",
+    issuePOButton: "Выпустить заказ на закупку",
+    poNotAvailableNote: "Эта заявка сейчас не ожидает заказа на закупку.",
 
     warehouseTitle: "Склад",
     pendingReceiptTitle: "Ожидает приёмки",
@@ -1502,6 +1518,7 @@ export const ru = {
 
     statusPendingPM: "Ожидает согласования руководителя проекта",
     statusPendingEM: "Ожидает согласования директора по инжинирингу",
+    statusPendingEngineer: "Ожидает подписи инженера проекта",
     statusPendingProcurement: "Ожидает согласования отдела закупок",
     statusPendingGM: "Ожидает согласования генерального директора",
     statusApproved: "Одобрено",

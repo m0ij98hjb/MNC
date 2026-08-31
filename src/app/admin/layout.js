@@ -39,8 +39,10 @@ export default function AdminLayout({ children }) {
     );
   }
 
-  // Redirect in progress – hide UI for loading or role-based redirect
-  if (user === undefined || user === null || roleLoading) {
+  // Redirect in progress – hide UI for loading or role-based redirect.
+  // Also blank out a route the role can't access so the wrong page never
+  // paints before the redirect effect above swaps it for the right one.
+  if (user === undefined || user === null || roleLoading || !canAccessRoute(pathname)) {
     return null;
   }
 
