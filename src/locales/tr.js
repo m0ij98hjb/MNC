@@ -1079,6 +1079,8 @@ export const tr = {
     basicInfoTitle: "Temel Bilgiler",
     jobAndRoleTitle: "Görev ve Rol",
     permissionsAccessTitle: "İzinler ve Erişim",
+    purchasingRoleLabel: "Satın Alma Rolü",
+    procurementManagerAccessNote: "Satın Alma Müdürü, kendi tedarikçi dizini dahil olmak üzere satın alma modülüne tam erişim kazanır — genel Tedarikçiler izni de otomatik olarak etkinleştirildi.",
     fullNameLabel: "Ad Soyad",
     fullNamePlaceholder: "Ad soyad girin",
     initialPasswordLabel: "Başlangıç Şifresi",

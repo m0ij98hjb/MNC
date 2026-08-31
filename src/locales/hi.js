@@ -1188,6 +1188,8 @@ export const hi = {
     basicInfoTitle: "बुनियादी जानकारी",
     jobAndRoleTitle: "नौकरी और भूमिका",
     permissionsAccessTitle: "अनुमतियाँ और पहुंच",
+    purchasingRoleLabel: "खरीद भूमिका",
+    procurementManagerAccessNote: "खरीद प्रबंधक को खरीद मॉड्यूल तक पूर्ण पहुंच मिलती है, जिसमें उसकी अपनी आपूर्तिकर्ता सूची भी शामिल है — सामान्य आपूर्तिकर्ता अनुमति भी स्वतः सक्षम कर दी गई।",
     fullNameLabel: "पूरा नाम",
     fullNamePlaceholder: "पूरा नाम दर्ज करें",
     initialPasswordLabel: "प्रारंभिक पासवर्ड",

@@ -1194,6 +1194,8 @@ export const ar = {
     basicInfoTitle: "البيانات الأساسية",
     jobAndRoleTitle: "الوظيفة والدور",
     permissionsAccessTitle: "الصلاحيات والوصول",
+    purchasingRoleLabel: "دور المشتريات",
+    procurementManagerAccessNote: "مدير المشتريات يحصل على صلاحية كاملة في نظام المشتريات، بما فيها دليل الموردين الخاص به — تم تفعيل صلاحية الموردين العامة تلقائيًا أيضًا.",
     fullNameLabel: "الاسم الكامل",
     fullNamePlaceholder: "أدخل الاسم الكامل",
     initialPasswordLabel: "كلمة المرور المبدئية",

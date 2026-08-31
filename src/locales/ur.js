@@ -1079,6 +1079,8 @@ export const ur = {
     basicInfoTitle: "بنیادی معلومات",
     jobAndRoleTitle: "عہدہ اور کردار",
     permissionsAccessTitle: "اجازتیں اور رسائی",
+    purchasingRoleLabel: "خریداری کا کردار",
+    procurementManagerAccessNote: "خریداری منیجر کو خریداری ماڈیول تک مکمل رسائی ملتی ہے، بشمول اس کی اپنی سپلائرز ڈائریکٹری — عمومی سپلائرز کی اجازت بھی خودکار طور پر فعال کر دی گئی۔",
     fullNameLabel: "پورا نام",
     fullNamePlaceholder: "پورا نام درج کریں",
     initialPasswordLabel: "ابتدائی پاس ورڈ",

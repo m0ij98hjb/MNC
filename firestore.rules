@@ -89,6 +89,16 @@ service cloud.firestore {
         purchInRoles(['site_supervisor','site_engineer','procurement_manager'])
       );
 
+      // Field-level allowlists for each non-super-admin update branch below —
+      // the status-transition checks alone only constrain the `status` field;
+      // without this, e.g. a procurement_manager mid-pipeline-update could
+      // smuggle in an edit to unrelated fields (projectName, items, ...) in
+      // the same write. purchIsSuperAdmin() / the requester's own resubmit
+      // stay unrestricted (a resubmit is a legitimate full-form edit).
+      function decisionKeys() {
+        return ['status','updatedAt','decidedByUid','decidedByName','approvalDecisionAt','budgetExceeded','budgetExceptionAcknowledgedBy','rejectionReason','returnReason'];
+      }
+
       allow update: if request.auth != null && (
         // Requester edits + resubmits after being returned for revision — also
         // re-signed by the site engineer at resubmit time, so it goes straight
@@ -101,30 +111,40 @@ service cloud.firestore {
         // sitting in pending_site_engineer_approval from before this change)
         (purchRole() == 'site_engineer'
           && resource.data.status == 'pending_site_engineer_approval'
-          && request.resource.data.status in ['pending_procurement_approval','rejected','returned_for_revision']) ||
+          && request.resource.data.status in ['pending_procurement_approval','rejected','returned_for_revision']
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(decisionKeys().concat(['items','totalQuantity','totalEstimatedCost']))) ||
 
         // Stage 2 — Procurement Manager (final approval)
         (purchRole() == 'procurement_manager'
           && resource.data.status == 'pending_procurement_approval'
-          && request.resource.data.status in ['approved','rejected','returned_for_revision']) ||
+          && request.resource.data.status in ['approved','rejected','returned_for_revision']
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(decisionKeys())) ||
 
         // Procurement execution pipeline (Procurement Manager owns it end-to-end)
         (purchRole() == 'procurement_manager'
           && resource.data.status in ['approved','rfq_requested','quotations_received','po_issued','delivered_pending_receipt']
-          && request.resource.data.status in ['rfq_requested','quotations_received','po_issued','delivered_pending_receipt','received']) ||
+          && request.resource.data.status in ['rfq_requested','quotations_received','po_issued','delivered_pending_receipt','received']
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','updatedAt','purchaseOrderId'])) ||
 
         // Completion / archive
         (purchRole() == 'procurement_manager'
           && resource.data.status == 'received'
-          && request.resource.data.status == 'completed') ||
+          && request.resource.data.status == 'completed'
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','updatedAt','completedAt'])) ||
         (purchRole() == 'procurement_manager'
           && resource.data.status == 'completed'
-          && request.resource.data.status == 'archived') ||
+          && request.resource.data.status == 'archived'
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','updatedAt'])) ||
+
+        // Procurement Manager admin edit — same unrestricted access as super
+        // admin, matching the /admin/purchasing/requests/[id]/edit page being
+        // open to both roles (procurement_manager owns this module day-to-day).
+        purchRole() == 'procurement_manager' ||
 
         purchIsSuperAdmin()
       );
 
-      allow delete: if purchIsSuperAdmin();
+      allow delete: if purchRole() == 'procurement_manager' || purchIsSuperAdmin();
 
       // Per-stage approval records (decision, signature, approver) — append-only
       match /approvals/{stageId} {

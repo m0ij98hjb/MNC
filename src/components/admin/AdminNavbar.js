@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
 import {
   LogOut, LayoutDashboard, ChevronDown, Globe,
-  Bell, Briefcase, Building2, ExternalLink, MessageSquare,
+  Bell, Briefcase, Building2, ExternalLink, MessageSquare, ShoppingCart,
 } from 'lucide-react';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
@@ -45,7 +45,7 @@ export default function AdminNavbar() {
   const router   = useRouter();
   const { lang, setLang, t } = useLanguage();
   const { logout, isSuperAdmin, user } = useAuth();
-  const { getRoleLabel, getDashboard, profile, role } = useRoleAccess();
+  const { getRoleLabel, getDashboard, profile, role, canAccessRoute } = useRoleAccess();
 
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isUserOpen, setIsUserOpen] = useState(false);
@@ -87,6 +87,13 @@ export default function AdminNavbar() {
   const pageTitle = t(pageTitleKey);
 
   const currentLang = LANGUAGES.find(l => l.code === lang) || LANGUAGES[0];
+
+  const quickLinks = [
+    canAccessRoute('/admin/suppliers') && { href: '/admin/suppliers', label: t('admin.suppliersMenu'), color: 'text-blue-400 hover:text-blue-300' },
+    canAccessRoute('/admin/purchasing') && { href: '/admin/purchasing', label: t('admin.purchasingMenu'), color: 'text-purple-400 hover:text-purple-300' },
+    canAccessRoute('/admin/jobs') && { href: '/admin/jobs', label: t('admin.jobsMenu'), color: 'text-[#c8a96e] hover:text-[#d4b47a]' },
+    canAccessRoute('/admin/messages') && { href: '/admin/messages', label: t('admin.messagesMenu'), color: 'text-green-400 hover:text-green-300' },
+  ].filter(Boolean);
 
   return (
     <header
@@ -283,9 +290,12 @@ export default function AdminNavbar() {
                 ) : allNotifications.map(n => {
                   const isSupplier = n.type === 'supplier';
                   const isContact  = n.type === 'contact';
+                  const isPurchase = n.type === 'purchase';
                   const href       = isSupplier ? `/admin/suppliers/${n.id}`
                                    : isContact  ? '/admin/messages'
+                                   : isPurchase ? `/admin/purchasing/requests/${n.requestId}`
                                    :              '/admin/jobs';
+                  const unread     = isPurchase ? !n.read : true;
                   return (
                     <Link
                       key={n.id}
@@ -296,52 +306,46 @@ export default function AdminNavbar() {
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
                         isSupplier ? 'bg-blue-500/20 border border-blue-500/40'
                         : isContact ? 'bg-green-500/20 border border-green-500/40'
+                        : isPurchase ? 'bg-purple-500/20 border border-purple-500/40'
                         :             'bg-[#c8a96e]/20 border border-[#c8a96e]/40'
                       }`}>
                         {isSupplier ? <Building2 size={13} className="text-blue-400" />
                         : isContact ? <MessageSquare size={13} className="text-green-400" />
+                        : isPurchase ? <ShoppingCart size={13} className="text-purple-400" />
                         :             <Briefcase size={13} className="text-[#c8a96e]" />}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-white text-xs font-semibold truncate">
-                          {isSupplier ? n.companyName : (n.fullName || n.name || t('admin.customerFallback'))}
+                          {isSupplier ? n.companyName
+                          : isPurchase ? n.title
+                          :              (n.fullName || n.name || t('admin.customerFallback'))}
                         </p>
                         <p className="text-white/60 text-[11px] mt-0.5 truncate">
                           {isSupplier ? `${t('admin.supplierReqLabel')} · ${n.activity || ''}`
                           : isContact ? `${t('admin.customerMessageLabel')} · ${n.subject || ''}`
+                          : isPurchase ? n.message
                           :             `${t('admin.jobReqLabel')} · ${n.position || ''}`}
                         </p>
                       </div>
-                      <span className="w-2 h-2 rounded-full bg-[#c8a96e] shrink-0 mt-2" />
+                      {unread && <span className="w-2 h-2 rounded-full bg-[#c8a96e] shrink-0 mt-2" />}
                     </Link>
                   );
                 })}
               </div>
-              {allNotifications.length > 0 && (
+              {allNotifications.length > 0 && quickLinks.length > 0 && (
                 <div className="border-t border-white/[0.15] px-4 py-2.5 flex gap-2">
-                  <Link
-                    href="/admin/suppliers"
-                    onClick={() => setIsBellOpen(false)}
-                    className="flex-1 text-center text-[11px] text-blue-400 hover:text-blue-300 transition-colors font-semibold"
-                  >
-                    {t('admin.suppliersMenu')}
-                  </Link>
-                  <div className="w-px bg-white/20" />
-                  <Link
-                    href="/admin/jobs"
-                    onClick={() => setIsBellOpen(false)}
-                    className="flex-1 text-center text-[11px] text-[#c8a96e] hover:text-[#d4b47a] transition-colors font-semibold"
-                  >
-                    {t('admin.jobsMenu')}
-                  </Link>
-                  <div className="w-px bg-white/20" />
-                  <Link
-                    href="/admin/messages"
-                    onClick={() => setIsBellOpen(false)}
-                    className="flex-1 text-center text-[11px] text-green-400 hover:text-green-300 transition-colors font-semibold"
-                  >
-                    {t('admin.messagesMenu')}
-                  </Link>
+                  {quickLinks.map((link, i) => (
+                    <div key={link.href} className="contents">
+                      {i > 0 && <div className="w-px bg-white/20" />}
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsBellOpen(false)}
+                        className={`flex-1 text-center text-[11px] transition-colors font-semibold ${link.color}`}
+                      >
+                        {link.label}
+                      </Link>
+                    </div>
+                  ))}
                 </div>
               )}
             </div>

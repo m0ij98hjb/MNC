@@ -1082,6 +1082,8 @@ export const fr = {
     basicInfoTitle: "Informations de Base",
     jobAndRoleTitle: "Poste et Rôle",
     permissionsAccessTitle: "Autorisations et Accès",
+    purchasingRoleLabel: "Rôle Achats",
+    procurementManagerAccessNote: "Le Responsable des Achats obtient un accès complet au module achats, y compris son propre annuaire de fournisseurs — l'autorisation générale Fournisseurs a aussi été activée automatiquement.",
     fullNameLabel: "Nom Complet",
     fullNamePlaceholder: "Entrez le nom complet",
     initialPasswordLabel: "Mot de Passe Initial",

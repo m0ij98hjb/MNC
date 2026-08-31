@@ -11,7 +11,7 @@ import PurchasingAccessGate from '@/components/purchasing/PurchasingAccessGate';
 import ItemsTable, { computeItemTotals } from '@/components/purchasing/ItemsTable';
 import AttachmentsUploader from '@/components/purchasing/AttachmentsUploader';
 import { addHistoryEntry } from '@/lib/purchasingApi';
-import { PRIORITY, PRIORITY_LABEL_KEYS, ROLES } from '@/lib/purchasingConfig';
+import { PRIORITY, PRIORITY_LABEL_KEYS } from '@/lib/purchasingConfig';
 import { Loader2, Save, ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -22,7 +22,7 @@ function EditRequestContent({ id }) {
   const { t, isRTL } = useLanguage();
   const router = useRouter();
   const { user } = useAuth();
-  const { profile } = usePurchasingRole();
+  const { profile, role } = usePurchasingRole();
   const [request, setRequest] = useState(undefined);
   const [form, setForm] = useState(null);
   const [saving, setSaving] = useState(false);
@@ -60,7 +60,7 @@ function EditRequestContent({ id }) {
         updatedAt: serverTimestamp(),
       });
       await addHistoryEntry(id, {
-        userId: user.uid, userName: profile?.name || user?.displayName || user?.email || '—', role: ROLES.SUPER_ADMIN,
+        userId: user.uid, userName: profile?.name || user?.displayName || user?.email || '—', role,
         action: 'edited', previousStatus: request.status, newStatus: request.status,
         notes: t('purchasing.adminEditedNote'),
       });
@@ -152,7 +152,7 @@ function EditRequestContent({ id }) {
 export default function EditRequestPage() {
   const { id } = useParams();
   return (
-    <PurchasingAccessGate allow={['super_admin']}>
+    <PurchasingAccessGate allow={['procurement_manager']}>
       <AdminPageLayout><EditRequestContent id={id} /></AdminPageLayout>
     </PurchasingAccessGate>
   );

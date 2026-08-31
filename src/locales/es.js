@@ -1079,6 +1079,8 @@ export const es = {
     basicInfoTitle: "Información Básica",
     jobAndRoleTitle: "Puesto y Rol",
     permissionsAccessTitle: "Permisos y Acceso",
+    purchasingRoleLabel: "Rol de Compras",
+    procurementManagerAccessNote: "El Gerente de Compras obtiene acceso completo al módulo de compras, incluido su propio directorio de proveedores — el permiso general de Proveedores también se habilitó automáticamente.",
     fullNameLabel: "Nombre Completo",
     fullNamePlaceholder: "Ingrese el nombre completo",
     initialPasswordLabel: "Contraseña Inicial",

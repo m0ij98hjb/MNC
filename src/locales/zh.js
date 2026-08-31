@@ -1079,6 +1079,8 @@ export const zh = {
     basicInfoTitle: "基本信息",
     jobAndRoleTitle: "职位与角色",
     permissionsAccessTitle: "权限与访问",
+    purchasingRoleLabel: "采购角色",
+    procurementManagerAccessNote: "采购经理将获得采购模块的完整权限，包括其自身的供应商目录——通用供应商权限也已自动启用。",
     fullNameLabel: "姓名",
     fullNamePlaceholder: "请输入姓名",
     initialPasswordLabel: "初始密码",

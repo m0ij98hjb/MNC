@@ -1079,6 +1079,8 @@ export const de = {
     basicInfoTitle: "Grundinformationen",
     jobAndRoleTitle: "Position und Rolle",
     permissionsAccessTitle: "Berechtigungen und Zugriff",
+    purchasingRoleLabel: "Beschaffungsrolle",
+    procurementManagerAccessNote: "Der Beschaffungsleiter erhält vollen Zugriff auf das Beschaffungsmodul, einschließlich seines eigenen Lieferantenverzeichnisses — die allgemeine Lieferanten-Berechtigung wurde ebenfalls automatisch aktiviert.",
     fullNameLabel: "Vollständiger Name",
     fullNamePlaceholder: "Vollständigen Namen eingeben",
     initialPasswordLabel: "Anfangspasswort",

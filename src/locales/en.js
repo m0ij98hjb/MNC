@@ -1188,6 +1188,8 @@ export const en = {
     basicInfoTitle: "Basic Information",
     jobAndRoleTitle: "Job & Role",
     permissionsAccessTitle: "Permissions & Access",
+    purchasingRoleLabel: "Purchasing Role",
+    procurementManagerAccessNote: "Procurement Manager gets full access to the purchasing module, including its own supplier directory — the general Suppliers permission was enabled automatically too.",
     fullNameLabel: "Full Name",
     fullNamePlaceholder: "Enter full name",
     initialPasswordLabel: "Initial Password",

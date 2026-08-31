@@ -214,6 +214,7 @@ export const ROLE_NAVIGATION = {
 
   [ROLES.PROCUREMENT_MANAGER]: [
     { href: '/admin/dashboard', label: 'لوحة التحكم', icon: 'LayoutDashboard' },
+    { href: '/admin/suppliers', label: 'الموردون', icon: 'Users' },
     { href: '/admin/purchasing', label: 'إدارة المشتريات', icon: 'ShoppingCart' },
     { href: '/admin/purchasing/requests', label: 'طلبات الشراء', icon: 'ShoppingCart' },
     { href: '/admin/purchasing/orders', label: 'أوامر الشراء', icon: 'ShoppingCart' },
@@ -324,6 +325,9 @@ export const ROLE_ALLOWED_ROUTES = {
 
   [ROLES.PROCUREMENT_MANAGER]: [
     '/admin/dashboard',
+    '/admin/suppliers',
+    '/admin/suppliers/*',
+    '/admin/approved',
     '/admin/purchasing',
     '/admin/purchasing/*',
     '/admin/cost-calculator',

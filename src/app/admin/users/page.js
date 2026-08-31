@@ -8,6 +8,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
 import { createAdminUser, updateAdminUserPermissions, deleteAdminUser } from '@/lib/adminUserCreation';
 import { ROLES, ROLE_LABELS, COMPANY_MANAGER_MODULES, DEFAULT_COMPANY_MANAGER_MODULES } from '@/lib/roleBasedAccess';
+import { ROLES as PURCH_ROLES, ROLE_LABEL_KEYS as PURCH_ROLE_LABEL_KEYS } from '@/lib/purchasingConfig';
 import { useRouter } from 'next/navigation';
 import {
   Users, Plus, X, Loader2, Power, ShieldCheck, ShieldOff,
@@ -60,6 +61,12 @@ const ROLE_OPTIONS = Object.entries(ROLE_LABELS).map(([key, label]) => ({
   label: label,
 }));
 
+/* Sub-role inside the purchasing module — separate from the main ROLE_OPTIONS
+   above. super_admin is excluded: that's a hardcoded email check, not an
+   assignable purchasingUsers role. */
+const PURCHASING_ROLE_OPTIONS = [PURCH_ROLES.SITE_SUPERVISOR, PURCH_ROLES.SITE_ENGINEER, PURCH_ROLES.PROCUREMENT_MANAGER]
+  .map(value => ({ value, labelKey: PURCH_ROLE_LABEL_KEYS[value] }));
+
 const inputCls = 'w-full bg-black border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-all';
 const labelCls = 'text-[#c8a96e] text-[10px] font-black uppercase tracking-widest block mb-1.5';
 
@@ -72,7 +79,7 @@ function UserModal({ onClose, currentUid, editUser = null }) {
   );
   const [role, setRole] = useState(editUser?.role || ROLES.PROJECT_MANAGER);
   const [permissions, setPermissions] = useState(editUser?.permissions ?? []);
-  const [purchasingRole, setPurchasingRole] = useState(editUser?.purchasingRole ?? 'site_supervisor');
+  const [purchasingRole, setPurchasingRole] = useState(editUser?.purchasingRole ?? PURCH_ROLES.SITE_SUPERVISOR);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const set = (f, v) => setForm(x => ({ ...x, [f]: v }));
@@ -80,6 +87,16 @@ function UserModal({ onClose, currentUid, editUser = null }) {
   const togglePerm = (id) => setPermissions(prev =>
     prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]
   );
+
+  // A procurement manager needs the module's own supplier directory (already
+  // automatic via their purchasingRole) plus the general suppliers directory —
+  // auto-enable that permission so it isn't missed.
+  const handlePurchasingRoleChange = (value) => {
+    setPurchasingRole(value);
+    if (value === PURCH_ROLES.PROCUREMENT_MANAGER) {
+      setPermissions(prev => prev.includes('suppliers_module') ? prev : [...prev, 'suppliers_module']);
+    }
+  };
 
   const submit = async () => {
     setError('');
@@ -240,6 +257,27 @@ function UserModal({ onClose, currentUid, editUser = null }) {
               })}
             </div>
           </div>
+
+          {/* Purchasing sub-role — only relevant once the purchasing module permission is on */}
+          {permissions.includes('purchasing_module') && (
+            <div>
+              <label className={labelCls}>{t('admin.purchasingRoleLabel')}</label>
+              <select
+                className={inputCls}
+                value={purchasingRole}
+                onChange={e => handlePurchasingRoleChange(e.target.value)}
+              >
+                {PURCHASING_ROLE_OPTIONS.map(({ value, labelKey }) => (
+                  <option key={value} value={value}>
+                    {t(labelKey)}
+                  </option>
+                ))}
+              </select>
+              {purchasingRole === PURCH_ROLES.PROCUREMENT_MANAGER && (
+                <p className="text-[11px] text-white/25 mt-1.5">{t('admin.procurementManagerAccessNote')}</p>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Footer */}

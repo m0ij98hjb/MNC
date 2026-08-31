@@ -42,7 +42,10 @@ export default function DashboardPage() {
   const { isSuperAdmin, user } = useAuth();
   const { role } = useRoleAccess();
   const isHR = role === ROLES.HR_MANAGER;
+  const isProcurementManager = role === ROLES.PROCUREMENT_MANAGER;
   const isPurchasingOnlyUser = user?.email?.trim().toLowerCase() === 'engineer.tester@mnc.com';
+  // Procurement Manager only cares about purchasing + suppliers — no jobs/messages noise.
+  const hideJobsAndMessages = isPurchasingOnlyUser || isProcurementManager;
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   const [supplierCounts, setSupplierCounts]   = useState({ total: 0, new: 0, under_review: 0, approved: 0, rejected: 0 });
@@ -68,7 +71,7 @@ export default function DashboardPage() {
   }, [isPurchasingOnlyUser, isHR]);
 
   useEffect(() => {
-    if (isPurchasingOnlyUser) return;
+    if (hideJobsAndMessages) return;
     const unsub = onSnapshot(collection(db, 'jobApplications'), snap => {
       const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
       const c = { total: docs.length, pending: 0, interview_scheduled: 0, rejected: 0 };
@@ -79,10 +82,10 @@ export default function DashboardPage() {
       );
     });
     return unsub;
-  }, [isPurchasingOnlyUser]);
+  }, [hideJobsAndMessages]);
 
   useEffect(() => {
-    if (isPurchasingOnlyUser) return;
+    if (hideJobsAndMessages) return;
     const unsub = onSnapshot(collection(db, 'contacts'), snap => {
       const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
       const c = { total: docs.length, new: 0, replied: 0, closed: 0 };
@@ -96,7 +99,7 @@ export default function DashboardPage() {
       );
     });
     return unsub;
-  }, [isPurchasingOnlyUser]);
+  }, [hideJobsAndMessages]);
 
   return (
     <AdminPageLayout>
@@ -127,7 +130,8 @@ export default function DashboardPage() {
         </div>
             )}
 
-        {/* ── Jobs Stats ── */}
+        {/* ── Jobs Stats (hidden from Procurement Manager) ── */}
+        {!hideJobsAndMessages && (
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-3">
             <Briefcase size={14} className="text-[#c8a96e]" />
@@ -143,8 +147,10 @@ export default function DashboardPage() {
             <StatCard label={t('admin.rejectedLabel')}       value={jobCounts.rejected}            icon={XCircle}       color="#ef4444" bg="rgba(239,68,68,0.12)"   href="/admin/jobs" />
           </div>
         </div>
+        )}
 
-        {/* ── Messages Stats ── */}
+        {/* ── Messages Stats (hidden from Procurement Manager) ── */}
+        {!hideJobsAndMessages && (
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-3">
             <MessageSquare size={14} className="text-green-400" />
@@ -160,9 +166,10 @@ export default function DashboardPage() {
             <StatCard label={t('admin.messages.statusClosed')}   value={msgCounts.closed}  icon={XCircle}       color="#6b7280" bg="rgba(107,114,128,0.12)" href="/admin/messages" />
           </div>
         </div>
+        )}
 
         {/* ── Recent records ── */}
-        <div className={`grid grid-cols-1 gap-5 ${isHR ? 'lg:grid-cols-2' : 'lg:grid-cols-3'}`}>
+        <div className={`grid grid-cols-1 gap-5 ${hideJobsAndMessages ? 'lg:grid-cols-1' : isHR ? 'lg:grid-cols-2' : 'lg:grid-cols-3'}`}>
 
           {/* Suppliers (never shown to HR Manager) */}
           {!isHR && (
@@ -203,7 +210,8 @@ export default function DashboardPage() {
           </div>
           )}
 
-          {/* Jobs */}
+          {/* Jobs (hidden from Procurement Manager) */}
+          {!hideJobsAndMessages && (
           <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">
             <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.07]">
               <div className="flex items-center gap-2">
@@ -248,8 +256,10 @@ export default function DashboardPage() {
               })}
             </div>
           </div>
+          )}
 
-          {/* Messages */}
+          {/* Messages (hidden from Procurement Manager) */}
+          {!hideJobsAndMessages && (
           <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">
             <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.07]">
               <div className="flex items-center gap-2">
@@ -301,6 +311,7 @@ export default function DashboardPage() {
               })}
             </div>
           </div>
+          )}
         </div>
         </>
         )}

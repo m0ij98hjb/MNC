@@ -33,7 +33,7 @@ function RequestsContent() {
   const router = useRouter();
   const { confirm, alert } = useConfirm();
   const { isRole } = usePurchasingRole();
-  const canManage = isRole('super_admin');
+  const canManage = isRole('super_admin', 'procurement_manager');
   const [requests, setRequests] = useState(null);
   const [tab, setTab] = useState('all');
   const [search, setSearch] = useState('');

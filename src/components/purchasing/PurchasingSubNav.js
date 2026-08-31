@@ -4,12 +4,11 @@ import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { usePurchasingRole } from '@/hooks/usePurchasingRole';
 import { ROLES } from '@/lib/purchasingConfig';
-import PurchasingNotificationBell from './PurchasingNotificationBell';
 import {
   LayoutDashboard, ListChecks, FileText, Building2, Truck, BarChart2, Users, Wallet, Search,
 } from 'lucide-react';
 
-/* Site Engineer only ever needs their approval queue + notifications (bell, always shown below).
+/* Site Engineer only ever needs their approval queue (notifications live in the main navbar bell).
    Everything else here is Procurement Manager (and Super Admin) territory. */
 const ITEMS = [
   { href: '/admin/purchasing',           labelKey: 'purchasing.navDashboard', icon: LayoutDashboard, roles: [ROLES.PROCUREMENT_MANAGER] },
@@ -31,7 +30,7 @@ export default function PurchasingSubNav() {
   const visible = ITEMS.filter(item => !item.roles || isRole(...item.roles) || isRole(ROLES.SUPER_ADMIN));
 
   return (
-    <div className="flex items-center justify-between gap-3 mb-6">
+    <div className="flex items-center gap-3 mb-6">
       <div className="flex gap-1.5 p-1.5 rounded-xl bg-white/[0.03] border border-white/[0.07] w-fit overflow-x-auto max-w-full">
         {visible.map(({ href, labelKey, icon: Icon }) => {
           const active = pathname === href;
@@ -43,7 +42,6 @@ export default function PurchasingSubNav() {
           );
         })}
       </div>
-      <PurchasingNotificationBell />
     </div>
   );
 }

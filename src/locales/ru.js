@@ -1182,6 +1182,8 @@ export const ru = {
     basicInfoTitle: "Основная информация",
     jobAndRoleTitle: "Должность и роль",
     permissionsAccessTitle: "Права доступа",
+    purchasingRoleLabel: "Роль в закупках",
+    procurementManagerAccessNote: "Менеджер по закупкам получает полный доступ к модулю закупок, включая собственный справочник поставщиков — общее разрешение «Поставщики» также включено автоматически.",
     fullNameLabel: "Полное имя",
     fullNamePlaceholder: "Введите полное имя",
     initialPasswordLabel: "Начальный пароль",
