@@ -5,17 +5,16 @@ import { useLanguage } from '@/context/LanguageContext';
 import { usePurchasingRole } from '@/hooks/usePurchasingRole';
 import { ROLES } from '@/lib/purchasingConfig';
 import {
-  LayoutDashboard, ListChecks, FileText, Building2, Truck, BarChart2, Users, Wallet, Search,
+  LayoutDashboard, ListChecks, BarChart2, Users, Wallet, Search,
 } from 'lucide-react';
 
 /* Site Engineer only ever needs their approval queue (notifications live in the main navbar bell).
-   Everything else here is Procurement Manager (and Super Admin) territory. */
+   Everything else here is Procurement Manager (and Super Admin) territory.
+   No Orders/Suppliers/Warehouse tabs — the module is approve-and-archive only,
+   no RFQ/PO/delivery pipeline exists past approval (removed per explicit request). */
 const ITEMS = [
   { href: '/admin/purchasing',           labelKey: 'purchasing.navDashboard', icon: LayoutDashboard, roles: [ROLES.PROCUREMENT_MANAGER] },
   { href: '/admin/purchasing/requests',  labelKey: 'purchasing.navRequests',  icon: ListChecks },
-  { href: '/admin/purchasing/orders',    labelKey: 'purchasing.navOrders',    icon: FileText, roles: [ROLES.PROCUREMENT_MANAGER] },
-  { href: '/admin/purchasing/suppliers', labelKey: 'purchasing.navSuppliers', icon: Building2, roles: [ROLES.PROCUREMENT_MANAGER] },
-  { href: '/admin/purchasing/warehouse', labelKey: 'purchasing.navWarehouse', icon: Truck, roles: [ROLES.PROCUREMENT_MANAGER] },
   { href: '/admin/purchasing/budgets',   labelKey: 'purchasing.navBudgets',   icon: Wallet, roles: [ROLES.PROCUREMENT_MANAGER] },
   { href: '/admin/purchasing/search',    labelKey: 'purchasing.navSearch',    icon: Search, roles: [ROLES.PROCUREMENT_MANAGER] },
   { href: '/admin/purchasing/reports',   labelKey: 'purchasing.navReports',   icon: BarChart2, roles: [ROLES.PROCUREMENT_MANAGER] },

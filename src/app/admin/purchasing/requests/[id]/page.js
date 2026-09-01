@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { doc, onSnapshot, addDoc, setDoc, collection, serverTimestamp, increment } from 'firebase/firestore';
+import { doc, onSnapshot, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
@@ -18,15 +18,13 @@ const SignaturePad = dynamic(() => import('@/components/purchasing/SignaturePad'
 import BudgetWidget from '@/components/purchasing/BudgetWidget';
 import PurchasingReportHeader from '@/components/purchasing/PurchasingReportHeader';
 import { useProjectBudget } from '@/hooks/useProjectBudget';
-import { stockKeyFor } from '@/lib/purchasingWarehouse';
 import { exportWord, exportPDF } from '@/lib/purchasingExport';
 import { PRINT_AREA_CSS } from '@/lib/purchasingPrintStyles';
 import { ROLES, STATUS, PRIORITY_LABEL_KEYS, APPROVAL_STAGES } from '@/lib/purchasingConfig';
 import { applyStatusChange, addApprovalRecord, addHistoryEntry, notify } from '@/lib/purchasingApi';
 import {
   Loader2, CheckCircle2, XCircle, RotateCcw, Paperclip, Info, AlertTriangle,
-  ShoppingCart, Truck, PackageCheck, Archive as ArchiveIcon, ArrowLeft, ArrowRight,
-  Printer, FileText,
+  ArrowLeft, ArrowRight, Printer, FileText, ShieldCheck,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -157,164 +155,54 @@ function ApprovalActionPanel({ request, stageConfig, currentUser, actorName, act
   );
 }
 
-/* ─────────────────────────── Procurement pipeline panel ─────────────────────────── */
-function ProcurementPanel({ request, currentUser, actorName }) {
+/* ─────────────────────────── Delivery received — procurement closes the request ─────────────────────────── */
+function DeliveryReceivedPanel({ request, currentUser, actorName }) {
   const { t, isRTL } = useLanguage();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
 
-  const markDelivered = async () => {
+  const completeRequest = async () => {
     setError('');
     setBusy(true);
     try {
-      await applyStatusChange(request.id, STATUS.DELIVERED_PENDING);
-      await addHistoryEntry(request.id, { userId: currentUser.uid, userName: actorName, role: ROLES.PROCUREMENT_MANAGER, action: 'status_changed', previousStatus: request.status, newStatus: STATUS.DELIVERED_PENDING, notes: '' });
-      await notify({ targetRole: ROLES.PROCUREMENT_MANAGER, type: 'delivered_pending', requestId: request.id, requestNumber: request.requestNumber, title: t('purchasing.notifDeliveredPendingTitle'), message: request.projectName });
+      await applyStatusChange(request.id, STATUS.COMPLETED, {
+        completedAt: serverTimestamp(), completedByUid: currentUser.uid, completedByName: actorName,
+      });
+      await addHistoryEntry(request.id, {
+        userId: currentUser.uid, userName: actorName, role: ROLES.PROCUREMENT_MANAGER,
+        action: 'completed', previousStatus: STATUS.RECEIVED, newStatus: STATUS.COMPLETED, notes: '',
+      });
+      await notify({
+        targetUid: request.requesterUid, type: 'completed', requestId: request.id, requestNumber: request.requestNumber,
+        title: t('purchasing.notifCompletedTitle'), message: request.projectName,
+      });
     } catch (e) {
       setError(e.message || t('purchasing.actionFailed'));
     } finally { setBusy(false); }
   };
 
-  if (request.status === STATUS.APPROVED) {
-    return (
-      <ActionBox icon={ShoppingCart} title={t('purchasing.procurementStageTitle')} desc={t('purchasing.startRFQDesc')} isRTL={isRTL}>
-        <Link href={`/admin/purchasing/rfq/${request.id}`} className="purch-btn-gold">{t('purchasing.issuePOButton')}</Link>
-      </ActionBox>
-    );
-  }
-  if (request.status === STATUS.PO_ISSUED) {
-    return (
-      <ActionBox icon={Truck} title={t('purchasing.procurementStageTitle')} desc={t('purchasing.markDeliveredDesc')} isRTL={isRTL}>
-        {error && <div className="rounded-lg px-3 py-2 text-xs bg-red-500/10 border border-red-500/25 text-red-400">{error}</div>}
-        <div className="flex gap-2">
-          {request.purchaseOrderId && (
-            <Link href={`/admin/purchasing/orders/${request.purchaseOrderId}`} className="purch-btn-outline">{t('purchasing.viewPO')}</Link>
-          )}
-          <button type="button" disabled={busy} onClick={markDelivered} className="purch-btn-gold">
-            {busy ? <Loader2 size={14} className="animate-spin" /> : t('purchasing.actionMarkDelivered')}
-          </button>
-        </div>
-      </ActionBox>
-    );
-  }
-  return null;
-}
-
-function ActionBox({ icon: Icon, title, desc, children, isRTL }) {
   return (
-    <div className="bg-white/[0.03] border border-[#c8a96e]/25 rounded-2xl p-5 space-y-3" dir={isRTL ? 'rtl' : 'ltr'}>
-      <h3 className="text-sm font-bold text-white flex items-center gap-2"><Icon size={14} className="text-[#c8a96e]" />{title}</h3>
-      <p className="text-xs text-white/40">{desc}</p>
-      {children}
+    <div className="bg-white/[0.03] border border-[#c8a96e]/25 rounded-2xl p-5 space-y-4" dir={isRTL ? 'rtl' : 'ltr'}>
+      <h3 className="text-sm font-bold text-white flex items-center gap-2"><ShieldCheck size={14} className="text-lime-400" />{t('purchasing.deliveryConfirmedNote')}</h3>
+      {request.deliveryProof?.length > 0 && (
+        <div>
+          <label className="text-xs text-white/40 block mb-1.5">{t('purchasing.deliveryProofLabel')}</label>
+          <AttachmentsUploader pathPrefix="" attachments={request.deliveryProof} onChange={() => {}} disabled />
+        </div>
+      )}
+      {error && <div className="rounded-lg px-3 py-2 text-xs bg-red-500/10 border border-red-500/25 text-red-400">{error}</div>}
+      <button type="button" disabled={busy} onClick={completeRequest} className="purch-btn-gold">
+        {busy ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle2 size={14} />} {t('purchasing.actionCompleteRequest')}
+      </button>
     </div>
   );
-}
-
-/* ─────────────────────────── Warehouse receiving panel ─────────────────────────── */
-function ReceivingPanel({ request, currentUser, actorName }) {
-  const { t, isRTL } = useLanguage();
-  const [rows, setRows] = useState(() => (request.items || []).map(it => ({ itemId: it.id, orderedQty: it.quantity, receivedQty: it.quantity, shortageQty: 0, notes: '' })));
-  const [photos, setPhotos] = useState([]);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState('');
-
-  const updateRow = (idx, field, val) => setRows(r => r.map((row, i) => i === idx ? { ...row, [field]: val } : row));
-
-  const confirmReceipt = async () => {
-    setError('');
-    setBusy(true);
-    try {
-      await addDoc(collection(db, 'warehouseReceipts'), {
-        requestId: request.id, poId: request.purchaseOrderId || null,
-        receivedByUid: currentUser.uid, receivedByName: actorName,
-        receivedAt: serverTimestamp(), items: rows, photos, confirmed: true, allocatedToProject: true,
-      });
-      await Promise.all(rows.map((row, idx) => {
-        const itemName = request.items[idx]?.itemName;
-        const qty = Number(row.receivedQty) || 0;
-        if (!itemName || qty <= 0) return Promise.resolve();
-        return setDoc(doc(db, 'warehouseStock', stockKeyFor(itemName)), {
-          itemName, unit: request.items[idx]?.unit || '', quantityOnHand: increment(qty), updatedAt: serverTimestamp(),
-        }, { merge: true });
-      }));
-      await applyStatusChange(request.id, STATUS.RECEIVED);
-      await addHistoryEntry(request.id, { userId: currentUser.uid, userName: actorName, role: ROLES.PROCUREMENT_MANAGER, action: 'received', previousStatus: request.status, newStatus: STATUS.RECEIVED, notes: '' });
-      await notify({ targetUid: request.requesterUid, type: 'received', requestId: request.id, requestNumber: request.requestNumber, title: t('purchasing.notifReceivedTitle'), message: request.projectName });
-    } catch (e) {
-      setError(e.message || t('purchasing.actionFailed'));
-    } finally { setBusy(false); }
-  };
-
-  return (
-    <ActionBox icon={PackageCheck} title={t('purchasing.warehouseReceivingTitle')} desc={t('purchasing.warehouseReceivingDesc')} isRTL={isRTL}>
-      {error && <div className="rounded-lg px-3 py-2 text-xs bg-red-500/10 border border-red-500/25 text-red-400">{error}</div>}
-      <div className="space-y-2">
-        {rows.map((row, idx) => (
-          <div key={row.itemId} className="grid grid-cols-3 gap-2 items-center bg-white/[0.02] rounded-lg p-2">
-            <span className="text-xs text-white/60 truncate">{request.items[idx]?.itemName}</span>
-            <input type="number" className="bg-white/5 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-white" placeholder={t('purchasing.receivedQty')}
-              value={row.receivedQty} onChange={e => updateRow(idx, 'receivedQty', e.target.value)} />
-            <input type="number" className="bg-white/5 border border-white/10 rounded-lg px-2 py-1.5 text-xs text-white" placeholder={t('purchasing.shortageQty')}
-              value={row.shortageQty} onChange={e => updateRow(idx, 'shortageQty', e.target.value)} />
-          </div>
-        ))}
-      </div>
-      <AttachmentsUploader pathPrefix={`warehouseReceipts/${request.id}`} attachments={photos} onChange={setPhotos} />
-      <button type="button" disabled={busy} onClick={confirmReceipt} className="purch-btn-gold w-full justify-center">
-        {busy ? <Loader2 size={14} className="animate-spin" /> : t('purchasing.confirmReceipt')}
-      </button>
-    </ActionBox>
-  );
-}
-
-function CompletionPanel({ request, currentUser, actorName, role, canComplete, canArchive }) {
-  const { t, isRTL } = useLanguage();
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState('');
-
-  const advance = async (newStatus, action) => {
-    setError('');
-    setBusy(true);
-    try {
-      const extra = newStatus === STATUS.COMPLETED ? { completedAt: serverTimestamp() } : {};
-      await applyStatusChange(request.id, newStatus, extra);
-      await addHistoryEntry(request.id, { userId: currentUser.uid, userName: actorName, role, action, previousStatus: request.status, newStatus, notes: '' });
-      if (newStatus === STATUS.COMPLETED) {
-        await notify({ targetUid: request.requesterUid, type: 'completed', requestId: request.id, requestNumber: request.requestNumber, title: t('purchasing.notifCompletedTitle'), message: request.projectName });
-      }
-    } catch (e) {
-      setError(e.message || t('purchasing.actionFailed'));
-    } finally { setBusy(false); }
-  };
-
-  if (canComplete && request.status === STATUS.RECEIVED) {
-    return (
-      <ActionBox icon={PackageCheck} title={t('purchasing.closeRequestTitle')} desc={t('purchasing.closeRequestDesc')} isRTL={isRTL}>
-        {error && <div className="rounded-lg px-3 py-2 text-xs bg-red-500/10 border border-red-500/25 text-red-400">{error}</div>}
-        <button disabled={busy} onClick={() => advance(STATUS.COMPLETED, 'completed')} className="purch-btn-gold">
-          {busy ? <Loader2 size={14} className="animate-spin" /> : t('purchasing.actionComplete')}
-        </button>
-      </ActionBox>
-    );
-  }
-  if (canArchive && request.status === STATUS.COMPLETED) {
-    return (
-      <ActionBox icon={ArchiveIcon} title={t('purchasing.archiveTitle')} desc={t('purchasing.archiveDesc')} isRTL={isRTL}>
-        {error && <div className="rounded-lg px-3 py-2 text-xs bg-red-500/10 border border-red-500/25 text-red-400">{error}</div>}
-        <button disabled={busy} onClick={() => advance(STATUS.ARCHIVED, 'archived')} className="purch-btn-outline">
-          {busy ? <Loader2 size={14} className="animate-spin" /> : t('purchasing.actionArchive')}
-        </button>
-      </ActionBox>
-    );
-  }
-  return null;
 }
 
 /* ─────────────────────────── Page ─────────────────────────── */
 function RequestDetailContent({ id }) {
   const { t, isRTL } = useLanguage();
   const { user } = useAuth();
-  const { role, profile, isRole } = usePurchasingRole();
+  const { profile, isRole } = usePurchasingRole();
   const [request, setRequest] = useState(undefined);
 
   useEffect(() => {
@@ -334,11 +222,6 @@ function RequestDetailContent({ id }) {
 
   const canActApproval = stageConfig && isRole(stageConfig.role, ROLES.SUPER_ADMIN);
   const canActProcurement = isRole(ROLES.PROCUREMENT_MANAGER, ROLES.SUPER_ADMIN);
-  const canActWarehouse = isRole(ROLES.PROCUREMENT_MANAGER, ROLES.SUPER_ADMIN) && request.status === STATUS.DELIVERED_PENDING;
-  // Matches firestore.rules exactly: procurement_manager (or super_admin) owns the entire
-  // post-approval pipeline now that store_keeper/procurement_officer no longer exist.
-  const canCompleteReceived = isRole(ROLES.PROCUREMENT_MANAGER, ROLES.SUPER_ADMIN) && request.status === STATUS.RECEIVED;
-  const canArchiveCompleted = isRole(ROLES.PROCUREMENT_MANAGER, ROLES.SUPER_ADMIN) && request.status === STATUS.COMPLETED;
 
   return (
     <div className="p-6 lg:p-8 max-w-5xl mx-auto space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -404,12 +287,22 @@ function RequestDetailContent({ id }) {
 
       {/* Actions (excluded from print/export output — no-print) */}
       <div className="no-print space-y-6">
-        {canActApproval && <ApprovalActionPanel request={request} stageConfig={stageConfig} currentUser={user} actorName={actorName} actorJobTitle={profile?.jobTitle} />}
-        {canActProcurement && <ProcurementPanel request={request} currentUser={user} actorName={actorName} />}
-        {canActWarehouse && <ReceivingPanel request={request} currentUser={user} actorName={actorName} />}
-        {(canCompleteReceived || canArchiveCompleted) && (
-          <CompletionPanel request={request} currentUser={user} actorName={actorName} role={role} canComplete={canCompleteReceived} canArchive={canArchiveCompleted} />
+        {request.status === STATUS.PENDING_PROC_APPROVAL && (
+          <div className="flex items-center gap-3 bg-green-500/8 border border-green-500/20 rounded-xl px-4 py-3">
+            <ShieldCheck size={16} className="text-green-400 shrink-0" />
+            <p className="text-sm text-white/70">{t('purchasing.approvedByEngineerAndPMNote')}</p>
+          </div>
         )}
+        {request.status === STATUS.APPROVED && (
+          <div className="flex items-center gap-3 bg-green-500/8 border border-green-500/20 rounded-xl px-4 py-3">
+            <ShieldCheck size={16} className="text-green-400 shrink-0" />
+            <p className="text-sm text-white/70">{t('purchasing.requestApprovedPrintNote')}</p>
+          </div>
+        )}
+        {request.status === STATUS.RECEIVED && canActProcurement && (
+          <DeliveryReceivedPanel request={request} currentUser={user} actorName={actorName} />
+        )}
+        {canActApproval && <ApprovalActionPanel request={request} stageConfig={stageConfig} currentUser={user} actorName={actorName} actorJobTitle={profile?.jobTitle} />}
       </div>
 
       {/* History — includes full approval chain with signatures (Executive Reports requirement) */}

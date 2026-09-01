@@ -107,6 +107,16 @@ service cloud.firestore {
           && resource.data.status == 'returned_for_revision'
           && request.resource.data.status == 'pending_procurement_approval') ||
 
+        // Requester confirms delivery — after procurement approves, the
+        // request's own submitter (not procurement, not a warehouse role)
+        // attaches a receipt photo and marks it received once materials
+        // physically arrive on site.
+        (resource.data.requesterUid == request.auth.uid
+          && resource.data.status == 'approved'
+          && request.resource.data.status == 'received'
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(
+               ['status','updatedAt','deliveryProof','deliveryConfirmedAt','deliveryConfirmedByUid','deliveryConfirmedByName'])) ||
+
         // Stage 1 — Site Engineer (legacy path, kept for any request still
         // sitting in pending_site_engineer_approval from before this change)
         (purchRole() == 'site_engineer'

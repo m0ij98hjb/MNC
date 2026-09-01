@@ -35,10 +35,9 @@ export default function PurchasingDashboardWidget() {
   const counts = {
     total: requests.length,
     pending: requests.filter(r => PENDING_STATUSES.includes(r.status)).length,
-    underReview: requests.filter(r => [STATUS.RFQ_REQUESTED, STATUS.QUOTATIONS_RECEIVED, STATUS.PO_ISSUED].includes(r.status)).length,
     approved: requests.filter(r => r.status === STATUS.APPROVED).length,
     rejected: requests.filter(r => r.status === STATUS.REJECTED).length,
-    completed: requests.filter(r => r.status === STATUS.COMPLETED || r.status === STATUS.ARCHIVED).length,
+    returned: requests.filter(r => r.status === STATUS.RETURNED).length,
   };
   const latest = [...requests].sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0)).slice(0, 10);
 
@@ -52,11 +51,11 @@ export default function PurchasingDashboardWidget() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5">
         {[
           ['purchasing.kpiTotal', counts.total], ['purchasing.kpiPending', counts.pending],
-          ['purchasing.kpiUnderPurchase', counts.underReview], ['purchasing.kpiApproved', counts.approved],
-          ['purchasing.kpiRejected', counts.rejected], ['purchasing.kpiCompleted', counts.completed],
+          ['purchasing.kpiApproved', counts.approved], ['purchasing.kpiRejected', counts.rejected],
+          ['purchasing.statusReturned', counts.returned],
         ].map(([key, value]) => (
           <Link key={key} href="/admin/purchasing/requests" className="bg-white/[0.03] border border-white/[0.07] rounded-2xl p-4 hover:border-white/[0.13] transition-all">
             <p className="text-xs text-white/40 mb-2">{t(key)}</p>

@@ -44,20 +44,18 @@ function KPI({ label, value, icon: Icon, color }) {
 function ReportsContent() {
   const { t, isRTL } = useLanguage();
   const [requests, setRequests] = useState(null);
-  const [orders, setOrders] = useState(null);
   const [budgets, setBudgets] = useState(null);
 
   useEffect(() => {
     const u1 = onSnapshot(collection(db, 'purchaseRequests'), snap => setRequests(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-    const u2 = onSnapshot(collection(db, 'purchaseOrders'), snap => setOrders(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-    const u3 = onSnapshot(collection(db, 'projectBudgets'), snap => setBudgets(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-    return () => { u1(); u2(); u3(); };
+    const u2 = onSnapshot(collection(db, 'projectBudgets'), snap => setBudgets(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
+    return () => { u1(); u2(); };
   }, []);
 
   const data = useMemo(() => {
-    if (!requests || !orders) return null;
+    if (!requests) return null;
     const today = new Date();
-    const openStatuses = [STATUS.COMPLETED, STATUS.ARCHIVED, STATUS.REJECTED];
+    const openStatuses = [STATUS.REJECTED];
 
     const overdue = requests.filter(r => !openStatuses.includes(r.status) &&
       r.items?.some(it => it.neededDate && new Date(it.neededDate) < today));
@@ -74,19 +72,7 @@ function ReportsContent() {
     const approvalDurations = requests.map(r => daysBetween(r.submittedAt, r.approvalDecisionAt)).filter(d => d !== null && d >= 0);
     const avgApprovalDays = approvalDurations.length ? (approvalDurations.reduce((a, b) => a + b, 0) / approvalDurations.length) : 0;
 
-    const purchaseDurations = requests.map(r => daysBetween(r.approvalDecisionAt, r.completedAt)).filter(d => d !== null && d >= 0);
-    const avgPurchaseDays = purchaseDurations.length ? (purchaseDurations.reduce((a, b) => a + b, 0) / purchaseDurations.length) : 0;
-
     const totalCost = requests.reduce((s, r) => s + (Number(r.totalEstimatedCost) || 0), 0);
-
-    const supplierMap = {};
-    orders.forEach(o => {
-      if (!o.supplierName) return;
-      if (!supplierMap[o.supplierName]) supplierMap[o.supplierName] = { name: o.supplierName, count: 0, value: 0 };
-      supplierMap[o.supplierName].count += 1;
-      supplierMap[o.supplierName].value += Number(o.totalValue) || 0;
-    });
-    const topSuppliers = Object.values(supplierMap).sort((a, b) => b.value - a.value).slice(0, 8);
 
     const months = [...new Set(requests.map(r => toMonthKey(r.createdAt)).filter(Boolean))].sort((a, b) => new Date(a) - new Date(b));
     const monthly = months.map(month => ({
@@ -123,12 +109,11 @@ function ReportsContent() {
 
     const budgetConsumption = (budgets || []).map(b => {
       const projectRequests = requests.filter(r => projectKeyFor(r.projectName) === b.id);
-      const projectOrders = orders.filter(o => projectKeyFor(o.projectName) === b.id);
-      return { projectName: b.projectName, ...computeBudgetSummary({ approvedBudget: b.approvedBudget, projectRequests, projectOrders }) };
+      return { projectName: b.projectName, ...computeBudgetSummary({ approvedBudget: b.approvedBudget, projectRequests }) };
     }).sort((a, b) => b.consumedPct - a.consumedPct);
 
-    return { overdue, urgent, byProject, byStatus, avgApprovalDays, avgPurchaseDays, totalCost, topSuppliers, monthly, yearly, byCategory, topMaterials, budgetConsumption };
-  }, [requests, orders, budgets, t]);
+    return { overdue, urgent, byProject, byStatus, avgApprovalDays, totalCost, monthly, yearly, byCategory, topMaterials, budgetConsumption };
+  }, [requests, budgets, t]);
 
   const exportRows = () => (requests || []).map(r => ({
     RequestNumber: r.requestNumber, Project: r.projectName, Site: r.siteName, Requester: r.requesterName,
@@ -155,11 +140,10 @@ function ReportsContent() {
 
       <div id="purchasing-print-area" className="space-y-6">
         <PurchasingReportHeader title={t('purchasing.reportsTitle')} subtitle={t('purchasing.execReportSubtitle')} />
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
           <KPI label={t('purchasing.kpiOverdue')} value={data.overdue.length} icon={AlertTriangle} color="#ef4444" />
           <KPI label={t('purchasing.kpiUrgent')} value={data.urgent.length} icon={Zap} color="#f59e0b" />
           <KPI label={t('purchasing.kpiAvgApprovalDays')} value={data.avgApprovalDays.toFixed(1)} icon={Clock} color="#3b82f6" />
-          <KPI label={t('purchasing.kpiAvgPurchaseDays')} value={data.avgPurchaseDays.toFixed(1)} icon={Clock} color="#8b5cf6" />
         </div>
 
         <div className="bg-white/[0.03] border border-white/[0.07] rounded-2xl p-5 flex items-center gap-4">
@@ -204,7 +188,7 @@ function ReportsContent() {
                 <div key={i}>
                   <div className="flex items-center justify-between text-xs mb-1">
                     <span className="text-white/60">{b.projectName}</span>
-                    <span className="text-white/40" dir="ltr">{b.consumedPct}% · {(b.committedCost + b.actualCost).toLocaleString()} / {b.approvedBudget.toLocaleString()}</span>
+                    <span className="text-white/40" dir="ltr">{b.consumedPct}% · {b.committedCost.toLocaleString()} / {b.approvedBudget.toLocaleString()}</span>
                   </div>
                   <div className="h-2 rounded-full bg-white/5 overflow-hidden">
                     <div className="h-full rounded-full" style={{ width: `${Math.min(100, b.consumedPct)}%`, background: budgetBarColor(b.consumedPct) }} />
@@ -242,20 +226,6 @@ function ReportsContent() {
               </div>
             )}
           </div>
-        </div>
-
-        <div className="bg-white/[0.025] border border-white/[0.07] rounded-2xl p-5">
-          <h3 className="text-sm font-semibold text-white mb-4">{t('purchasing.reportTopSuppliers')}</h3>
-          {data.topSuppliers.length === 0 ? <p className="text-white/20 text-sm text-center py-10">—</p> : (
-            <div className="space-y-2.5">
-              {data.topSuppliers.map((s, i) => (
-                <div key={i} className="flex items-center justify-between text-sm">
-                  <span className="text-white/60">{s.name} <span className="text-white/30 text-xs">({s.count})</span></span>
-                  <span className="text-[#c8a96e] font-bold" dir="ltr">{s.value.toLocaleString()}</span>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">

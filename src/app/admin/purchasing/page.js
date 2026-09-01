@@ -13,7 +13,7 @@ import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell,
 } from 'recharts';
 import {
-  Loader2, FileText, Clock, XCircle, CheckCircle, ShoppingCart, PackageCheck,
+  Loader2, FileText, Clock, XCircle, CheckCircle, RotateCcw,
   DollarSign, ArrowLeft, ArrowRight, TrendingUp,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -21,9 +21,6 @@ import Link from 'next/link';
 const GOLD = '#c8a96e', BLUE = '#3b82f6', GREEN = '#10b981', AMBER = '#f59e0b', RED = '#ef4444';
 
 const PENDING_STATUSES = [STATUS.PENDING_ENGINEER_APPROVAL, STATUS.PENDING_PROC_APPROVAL];
-const UNDER_PURCHASE_STATUSES = [
-  STATUS.RFQ_REQUESTED, STATUS.QUOTATIONS_RECEIVED, STATUS.PO_ISSUED, STATUS.DELIVERED_PENDING, STATUS.RECEIVED,
-];
 
 function StatCard({ label, value, icon: Icon, color, bg, href }) {
   const inner = (
@@ -63,8 +60,7 @@ function DashboardContent() {
     const pending = requests.filter(r => PENDING_STATUSES.includes(r.status)).length;
     const approved = requests.filter(r => r.status === STATUS.APPROVED).length;
     const rejected = requests.filter(r => r.status === STATUS.REJECTED).length;
-    const underPurchase = requests.filter(r => UNDER_PURCHASE_STATUSES.includes(r.status)).length;
-    const completed = requests.filter(r => r.status === STATUS.COMPLETED || r.status === STATUS.ARCHIVED).length;
+    const returned = requests.filter(r => r.status === STATUS.RETURNED).length;
     const totalValue = requests.reduce((s, r) => s + (Number(r.totalEstimatedCost) || 0), 0);
 
     const projMap = {};
@@ -77,7 +73,7 @@ function DashboardContent() {
 
     const latest = [...requests].sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0)).slice(0, 10);
 
-    return { total, pending, approved, rejected, underPurchase, completed, totalValue, topProjects, monthly, latest };
+    return { total, pending, approved, rejected, returned, totalValue, topProjects, monthly, latest };
   }, [requests]);
 
   if (!data) {
@@ -93,13 +89,12 @@ function DashboardContent() {
 
       <PurchasingReminders requests={requests} />
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
-        <StatCard label={t('purchasing.kpiTotal')}         value={data.total}        icon={FileText}     color={GOLD}  bg={`${GOLD}18`}  href="/admin/purchasing/requests" />
-        <StatCard label={t('purchasing.kpiPending')}       value={data.pending}      icon={Clock}        color={BLUE}  bg={`${BLUE}18`}  href="/admin/purchasing/requests" />
-        <StatCard label={t('purchasing.kpiApproved')}      value={data.approved}     icon={CheckCircle}  color={GREEN} bg={`${GREEN}18`} href="/admin/purchasing/requests" />
-        <StatCard label={t('purchasing.kpiRejected')}      value={data.rejected}     icon={XCircle}      color={RED}   bg={`${RED}18`}   href="/admin/purchasing/requests" />
-        <StatCard label={t('purchasing.kpiUnderPurchase')} value={data.underPurchase} icon={ShoppingCart} color={AMBER} bg={`${AMBER}18`} href="/admin/purchasing/requests" />
-        <StatCard label={t('purchasing.kpiCompleted')}     value={data.completed}    icon={PackageCheck} color={GREEN} bg={`${GREEN}18`} href="/admin/purchasing/requests" />
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-8">
+        <StatCard label={t('purchasing.kpiTotal')}    value={data.total}    icon={FileText}    color={GOLD}  bg={`${GOLD}18`}  href="/admin/purchasing/requests" />
+        <StatCard label={t('purchasing.kpiPending')}  value={data.pending}  icon={Clock}       color={BLUE}  bg={`${BLUE}18`}  href="/admin/purchasing/requests" />
+        <StatCard label={t('purchasing.kpiApproved')} value={data.approved} icon={CheckCircle} color={GREEN} bg={`${GREEN}18`} href="/admin/purchasing/requests" />
+        <StatCard label={t('purchasing.kpiRejected')} value={data.rejected} icon={XCircle}     color={RED}   bg={`${RED}18`}   href="/admin/purchasing/requests" />
+        <StatCard label={t('purchasing.statusReturned')} value={data.returned} icon={RotateCcw} color={AMBER} bg={`${AMBER}18`} href="/admin/purchasing/requests" />
       </div>
 
       <div className="bg-white/[0.03] border border-white/[0.07] rounded-2xl p-5 mb-8 flex items-center gap-4">

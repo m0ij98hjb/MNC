@@ -4,11 +4,10 @@ import { collection, doc, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { projectKeyFor, computeBudgetSummary } from '@/lib/purchasingBudget';
 
-/** Live budget summary (approved/committed/actual/remaining) for a given project name. */
+/** Live budget summary (approved/committed/remaining) for a given project name. */
 export function useProjectBudget(projectName) {
   const [budgetDoc, setBudgetDoc] = useState(undefined);
   const [requests, setRequests] = useState(null);
-  const [orders, setOrders] = useState(null);
 
   useEffect(() => {
     if (!projectName) return;
@@ -24,15 +23,8 @@ export function useProjectBudget(projectName) {
     return unsub;
   }, [projectName]);
 
-  useEffect(() => {
-    if (!projectName) return;
-    const q = query(collection(db, 'purchaseOrders'), where('projectName', '==', projectName));
-    const unsub = onSnapshot(q, snap => setOrders(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-    return unsub;
-  }, [projectName]);
-
-  const loading = budgetDoc === undefined || requests === null || orders === null;
-  const summary = loading ? null : computeBudgetSummary({ approvedBudget: budgetDoc?.approvedBudget, projectRequests: requests, projectOrders: orders });
+  const loading = budgetDoc === undefined || requests === null;
+  const summary = loading ? null : computeBudgetSummary({ approvedBudget: budgetDoc?.approvedBudget, projectRequests: requests });
 
   return { loading, hasBudget: !!budgetDoc, summary };
 }

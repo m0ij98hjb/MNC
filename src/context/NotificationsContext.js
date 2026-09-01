@@ -42,7 +42,7 @@ export function NotificationsProvider({ children }) {
     const unsub = onSnapshot(collection(db, 'suppliers'), snap => {
       setSuppliers(
         snap.docs
-          .map(d => ({ id: d.id, type: 'supplier', ...d.data() }))
+          .map(d => ({ ...d.data(), id: d.id, type: 'supplier' }))
           .filter(d => d.status === 'new')
           .sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0))
       );
@@ -56,7 +56,7 @@ export function NotificationsProvider({ children }) {
     const unsub = onSnapshot(collection(db, 'jobApplications'), snap => {
       setJobs(
         snap.docs
-          .map(d => ({ id: d.id, type: 'job', ...d.data() }))
+          .map(d => ({ ...d.data(), id: d.id, type: 'job' }))
           .filter(d => d.status === 'pending')
           .sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0))
       );
@@ -70,7 +70,7 @@ export function NotificationsProvider({ children }) {
     const unsub = onSnapshot(collection(db, 'contacts'), snap => {
       setContacts(
         snap.docs
-          .map(d => ({ id: d.id, type: 'contact', ...d.data() }))
+          .map(d => ({ ...d.data(), id: d.id, type: 'contact' }))
           .filter(d => (d.status || 'new') === 'new')
           .sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0))
       );
@@ -87,7 +87,13 @@ export function NotificationsProvider({ children }) {
     const roles = purchasingRole === PURCHASING_ROLES.SUPER_ADMIN ? ALL_PURCHASING_ROLES : [purchasingRole];
     const unsub = onSnapshot(
       query(collection(db, 'purchaseNotifications'), where('targetRole', 'in', roles)),
-      snap => setPurchaseNotifsByRole(snap.docs.map(d => ({ id: d.id, type: 'purchase', ...d.data() })))
+      // `type` on the underlying doc is the notify()-supplied semantic kind
+      // ('approved', 'stage_pending', 'received', ...) — spreading it AFTER
+      // our own `type: 'purchase'` category marker used to silently clobber
+      // it, so every purchase notification fell through to the bell's
+      // default "job application" rendering. Keep the semantic value under
+      // its own key and let our category marker win.
+      snap => setPurchaseNotifsByRole(snap.docs.map(d => { const data = d.data(); return { ...data, id: d.id, notifType: data.type, type: 'purchase' }; }))
     );
     return unsub;
   }, [purchasingRole]);
@@ -96,7 +102,7 @@ export function NotificationsProvider({ children }) {
     if (!user) { setPurchaseNotifsByUid([]); return; }
     const unsub = onSnapshot(
       query(collection(db, 'purchaseNotifications'), where('targetUid', '==', user.uid)),
-      snap => setPurchaseNotifsByUid(snap.docs.map(d => ({ id: d.id, type: 'purchase', ...d.data() })))
+      snap => setPurchaseNotifsByUid(snap.docs.map(d => { const data = d.data(); return { ...data, id: d.id, notifType: data.type, type: 'purchase' }; }))
     );
     return unsub;
   }, [user]);
@@ -128,6 +134,7 @@ export function NotificationsProvider({ children }) {
       allNotifications,
       unreadCount,
       markBellOpened,
+      bellOpenedAt,
     }}>
       {children}
     </NotificationsContext.Provider>

@@ -36,10 +36,9 @@ export default function BudgetWidget({ projectName }) {
       <h3 className="text-xs text-[#c8a96e] font-bold uppercase tracking-widest flex items-center gap-1.5">
         <Wallet size={13} /> {t('purchasing.budgetSectionTitle')}
       </h3>
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-3 gap-4">
         <Stat label={t('purchasing.budgetApproved')} value={summary.approvedBudget} />
         <Stat label={t('purchasing.budgetCommitted')} value={summary.committedCost} />
-        <Stat label={t('purchasing.budgetActual')} value={summary.actualCost} />
         <Stat label={t('purchasing.budgetRemaining')} value={summary.remaining} />
       </div>
       <div>

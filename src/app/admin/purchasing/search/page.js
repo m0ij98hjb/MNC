@@ -16,7 +16,6 @@ const inputCls = 'bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs
 function SearchContent() {
   const { t, isRTL } = useLanguage();
   const [requests, setRequests] = useState(null);
-  const [orders, setOrders] = useState(null);
   const [q, setQ] = useState('');
   const [status, setStatus] = useState('all');
   const [category, setCategory] = useState('all');
@@ -26,18 +25,14 @@ function SearchContent() {
   const [budgetMax, setBudgetMax] = useState('');
 
   useEffect(() => {
-    const u1 = onSnapshot(collection(db, 'purchaseRequests'), snap => setRequests(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-    const u2 = onSnapshot(collection(db, 'purchaseOrders'), snap => setOrders(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-    return () => { u1(); u2(); };
+    const unsub = onSnapshot(collection(db, 'purchaseRequests'), snap => setRequests(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
+    return unsub;
   }, []);
-
-  const poByRequestId = useMemo(() => Object.fromEntries((orders || []).map(o => [o.requestId, o])), [orders]);
 
   const results = useMemo(() => {
     if (!requests) return [];
     const term = q.trim().toLowerCase();
     return requests.filter(r => {
-      const po = poByRequestId[r.id];
       if (status !== 'all' && r.status !== status) return false;
       if (category !== 'all' && !(r.items || []).some(it => it.category === category)) return false;
       if (dateFrom && (!r.requestDate || new Date(r.requestDate) < new Date(dateFrom))) return false;
@@ -50,14 +45,12 @@ function SearchContent() {
         r.requestNumber?.toLowerCase().includes(term) ||
         r.projectName?.toLowerCase().includes(term) ||
         r.requesterName?.toLowerCase().includes(term) ||
-        po?.poNumber?.toLowerCase().includes(term) ||
-        po?.supplierName?.toLowerCase().includes(term) ||
         r.items?.some(it => it.itemName?.toLowerCase().includes(term) || it.suggestedSupplier?.toLowerCase().includes(term))
       );
     });
-  }, [requests, poByRequestId, q, status, category, dateFrom, dateTo, budgetMin, budgetMax]);
+  }, [requests, q, status, category, dateFrom, dateTo, budgetMin, budgetMax]);
 
-  const loading = requests === null || orders === null;
+  const loading = requests === null;
 
   return (
     <div className="p-6 lg:p-8 max-w-7xl mx-auto" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -93,29 +86,24 @@ function SearchContent() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-white/[0.07]">
-                  {[t('purchasing.colRequestNumber'), t('purchasing.colPONumber'), t('purchasing.colProject'), t('purchasing.colRequester'), t('purchasing.colSupplier'), t('purchasing.colValue'), t('admin.statusCol'), t('admin.actionsCol')].map(h => (
+                  {[t('purchasing.colRequestNumber'), t('purchasing.colProject'), t('purchasing.colRequester'), t('purchasing.colValue'), t('admin.statusCol'), t('admin.actionsCol')].map(h => (
                     <th key={h} className="text-start text-xs text-white/30 font-medium px-5 py-3.5 whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.04]">
-                {results.map(r => {
-                  const po = poByRequestId[r.id];
-                  return (
-                    <tr key={r.id} className="hover:bg-white/[0.02] transition-colors">
-                      <td className="px-5 py-3.5 text-white font-medium" dir="ltr">{r.requestNumber}</td>
-                      <td className="px-5 py-3.5 text-white/60 text-xs" dir="ltr">{po?.poNumber || '—'}</td>
-                      <td className="px-5 py-3.5 text-white/60 text-xs">{r.projectName}</td>
-                      <td className="px-5 py-3.5 text-white/60 text-xs">{r.requesterName}</td>
-                      <td className="px-5 py-3.5 text-white/60 text-xs">{po?.supplierName || '—'}</td>
-                      <td className="px-5 py-3.5 text-white/60 text-xs" dir="ltr">{Number(r.totalEstimatedCost || 0).toLocaleString()}</td>
-                      <td className="px-5 py-3.5"><PurchaseStatusBadge status={r.status} /></td>
-                      <td className="px-5 py-3.5">
-                        <Link href={`/admin/purchasing/requests/${r.id}`} className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 inline-flex"><Eye size={15} /></Link>
-                      </td>
-                    </tr>
-                  );
-                })}
+                {results.map(r => (
+                  <tr key={r.id} className="hover:bg-white/[0.02] transition-colors">
+                    <td className="px-5 py-3.5 text-white font-medium" dir="ltr">{r.requestNumber}</td>
+                    <td className="px-5 py-3.5 text-white/60 text-xs">{r.projectName}</td>
+                    <td className="px-5 py-3.5 text-white/60 text-xs">{r.requesterName}</td>
+                    <td className="px-5 py-3.5 text-white/60 text-xs" dir="ltr">{Number(r.totalEstimatedCost || 0).toLocaleString()}</td>
+                    <td className="px-5 py-3.5"><PurchaseStatusBadge status={r.status} /></td>
+                    <td className="px-5 py-3.5">
+                      <Link href={`/admin/purchasing/requests/${r.id}`} className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 inline-flex"><Eye size={15} /></Link>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

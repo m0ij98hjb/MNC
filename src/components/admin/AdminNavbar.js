@@ -54,7 +54,7 @@ export default function AdminNavbar() {
   const userRef = useRef(null);
   const bellRef = useRef(null);
 
-  const { allNotifications = [], unreadCount = 0, markBellOpened } = useNotifications() ?? {};
+  const { allNotifications = [], unreadCount = 0, markBellOpened, bellOpenedAt = 0 } = useNotifications() ?? {};
 
   const displayPhoto = (isSuperAdmin || role === 'super_admin')
     ? '/asstes/super-admin.jpg'
@@ -295,7 +295,7 @@ export default function AdminNavbar() {
                                    : isContact  ? '/admin/messages'
                                    : isPurchase ? `/admin/purchasing/requests/${n.requestId}`
                                    :              '/admin/jobs';
-                  const unread     = isPurchase ? !n.read : true;
+                  const unread     = isPurchase ? !n.read : ((n.createdAt?.seconds ?? 0) * 1000 > bellOpenedAt);
                   return (
                     <Link
                       key={n.id}

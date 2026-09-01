@@ -135,18 +135,6 @@ export const NAV_LABELS_MULTILANG = {
     ar: 'طلبات الشراء', en: 'Purchase Requests', hi: 'क्रय अनुरोध', ru: 'Запросы на закупку',
     de: 'Kaufanfragen', fr: "Demandes d'achat", es: 'Solicitudes de compra', tr: 'Satınalma Talepleri', ur: 'خریداری کی درخواستیں', zh: '采购请求'
   },
-  '/admin/purchasing/orders': {
-    ar: 'أوامر الشراء', en: 'Purchase Orders', hi: 'क्रय आदेश', ru: 'Заказы на закупку',
-    de: 'Bestellungen', fr: 'Bons de commande', es: 'Órdenes de compra', tr: 'Satınalma Siparişleri', ur: 'خریداری کے احکامات', zh: '采购订单'
-  },
-  '/admin/purchasing/suppliers': {
-    ar: 'الموردين', en: 'Suppliers', hi: 'आपूर्तिकर्ता', ru: 'Поставщики',
-    de: 'Lieferanten', fr: 'Fournisseurs', es: 'Proveedores', tr: 'Tedarikçiler', ur: 'سپلائرز', zh: '供应商'
-  },
-  '/admin/purchasing/rfq': {
-    ar: 'المقارنات', en: 'RFQ Comparisons', hi: 'RFQ तुलना', ru: 'Сравнения RFQ',
-    de: 'Angebotsvergleiche', fr: 'Comparaisons RFQ', es: 'Comparaciones RFQ', tr: 'Teklif Karşılaştırmaları', ur: 'پیاد موازنہ', zh: 'RFQ 比较'
-  },
   '/admin/purchasing/reports': {
     ar: 'تقارير المشتريات', en: 'Purchasing Reports', hi: 'क्रय रिपोर्ट', ru: 'Отчеты по закупкам',
     de: 'Einkaufsberichte', fr: "Rapports d'achats", es: 'Informes de compras', tr: 'Satınalma Raporları', ur: 'خریداری کی رپورٹس', zh: '采购报告'
@@ -217,9 +205,6 @@ export const ROLE_NAVIGATION = {
     { href: '/admin/suppliers', label: 'الموردون', icon: 'Users' },
     { href: '/admin/purchasing', label: 'إدارة المشتريات', icon: 'ShoppingCart' },
     { href: '/admin/purchasing/requests', label: 'طلبات الشراء', icon: 'ShoppingCart' },
-    { href: '/admin/purchasing/orders', label: 'أوامر الشراء', icon: 'ShoppingCart' },
-    { href: '/admin/purchasing/suppliers', label: 'الموردين', icon: 'Users' },
-    { href: '/admin/purchasing/rfq', label: 'المقارنات', icon: 'BarChart2' },
     { href: '/admin/purchasing/reports', label: 'التقارير', icon: 'BarChart2' },
     { href: '/admin/purchasing/settings', label: 'الإعدادات', icon: 'Settings' },
     { href: '/admin/cost-calculator', label: 'احسب تكلفتك', icon: 'Calculator' },
@@ -239,7 +224,7 @@ export const ROLE_NAVIGATION = {
   [ROLES.ACCOUNTANT]: [
     { href: '/admin/dashboard', label: 'لوحة التحكم', icon: 'LayoutDashboard' },
     { href: '/admin/purchasing', label: 'إدارة المشتريات', icon: 'ShoppingCart' },
-    { href: '/admin/purchasing/orders', label: 'أوامر الشراء', icon: 'ShoppingCart' },
+    { href: '/admin/purchasing/requests', label: 'طلبات الشراء', icon: 'ShoppingCart' },
     { href: '/admin/purchasing/reports', label: 'التقارير المالية', icon: 'BarChart2' },
     { href: '/admin/reports', label: 'التقارير العامة', icon: 'BarChart2' },
   ],
@@ -345,8 +330,8 @@ export const ROLE_ALLOWED_ROUTES = {
   [ROLES.ACCOUNTANT]: [
     '/admin/dashboard',
     '/admin/purchasing',
-    '/admin/purchasing/orders',
-    '/admin/purchasing/orders/*',
+    '/admin/purchasing/requests',
+    '/admin/purchasing/requests/*',
     '/admin/purchasing/reports',
     '/admin/reports',
   ],

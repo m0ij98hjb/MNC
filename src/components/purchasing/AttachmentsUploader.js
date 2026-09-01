@@ -1,8 +1,7 @@
 'use client';
 import { useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { storage } from '@/lib/firebase';
+import { uploadAsset } from '@/lib/cloudinary';
 import { useLanguage } from '@/context/LanguageContext';
 import { ACCEPTED_ATTACHMENT_ACCEPT, ACCEPTED_ATTACHMENT_EXT, MAX_ATTACHMENT_SIZE_MB } from '@/lib/purchasingConfig';
 import { exportAttachmentsZip } from '@/lib/purchasingExport';
@@ -11,8 +10,10 @@ import { Upload, Paperclip, X, Loader2, Eye, FolderArchive } from 'lucide-react'
 const AttachmentPreviewModal = dynamic(() => import('./AttachmentPreviewModal'), { ssr: false });
 
 /**
- * Uploads files straight to Firebase Storage under `${pathPrefix}/{timestamp}_{filename}`
- * and reports the resulting attachment metadata array via onChange.
+ * Uploads files to Cloudinary (same service/preset the rest of the site's
+ * document uploads use — see careers/suppliers pages — the app has no
+ * Firebase Storage bucket provisioned) under folder `pathPrefix`, and
+ * reports the resulting attachment metadata array via onChange.
  */
 export default function AttachmentsUploader({ pathPrefix, attachments, onChange, disabled = false }) {
   const { t } = useLanguage();
@@ -36,11 +37,12 @@ export default function AttachmentsUploader({ pathPrefix, attachments, onChange,
     setUploading(true);
     try {
       const uploaded = await Promise.all(files.map(async (file) => {
-        const path = `${pathPrefix}/${Date.now()}_${file.name}`;
-        const sRef = storageRef(storage, path);
-        await uploadBytes(sRef, file);
-        const url = await getDownloadURL(sRef);
-        return { name: file.name, url, path, size: file.size, type: file.type, uploadedAt: new Date().toISOString() };
+        const { url } = await uploadAsset(file, {
+          resourceType: 'auto',
+          preset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
+          folder: pathPrefix,
+        });
+        return { name: file.name, url, size: file.size, type: file.type, uploadedAt: new Date().toISOString() };
       }));
       onChange([...(attachments || []), ...uploaded]);
     } catch (e) {

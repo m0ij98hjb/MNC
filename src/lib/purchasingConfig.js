@@ -17,6 +17,12 @@ export const ROLES = {
   SUPER_ADMIN:         'super_admin',
   SITE_SUPERVISOR:     'site_supervisor',
   SITE_ENGINEER:       'site_engineer',
+  // Not a login role — no one authenticates as this. The requester captures
+  // the Project Manager's name + signature as a second sign-off dialog during
+  // submission (see purchase-request/page.js), same as the site engineer's
+  // signature is captured on the same form. Exists here only so the activity
+  // log / approvals record can attribute and label that signature correctly.
+  PROJECT_MANAGER:     'project_manager',
   PROCUREMENT_MANAGER: 'procurement_manager',
 };
 
@@ -24,6 +30,7 @@ export const ROLE_LABEL_KEYS = {
   [ROLES.SUPER_ADMIN]:         'purchasing.roleSuperAdmin',
   [ROLES.SITE_SUPERVISOR]:     'purchasing.roleSiteSupervisor',
   [ROLES.SITE_ENGINEER]:       'purchasing.roleSiteEngineer',
+  [ROLES.PROJECT_MANAGER]:     'purchasing.roleProjectManager',
   [ROLES.PROCUREMENT_MANAGER]: 'purchasing.roleProcurementManager',
 };
 
@@ -32,28 +39,27 @@ export const ALL_ROLES = Object.values(ROLES);
 /* Roles allowed to open the /admin/purchasing module (dashboard shell) */
 export const ADMIN_MODULE_ROLES = [ROLES.SUPER_ADMIN, ROLES.SITE_ENGINEER, ROLES.PROCUREMENT_MANAGER];
 
-/* ─── Status enum (full lifecycle) ─── */
+/* ─── Status enum ───
+   Approval is the terminal decision step — no RFQ/PO/warehouse pipeline
+   exists (removed per explicit request — "أوافق عليه وأطبعه وخلاص"). A
+   lightweight delivery-confirmation loop sits after it though: once
+   approved, the request's own submitter (not procurement, not a warehouse
+   role) attaches a receipt photo and confirms delivery themselves, and only
+   then does the procurement manager close the request out. */
 export const STATUS = {
   PENDING_ENGINEER_APPROVAL: 'pending_site_engineer_approval',
   PENDING_PROC_APPROVAL:     'pending_procurement_approval',
   APPROVED:             'approved',
   RETURNED:             'returned_for_revision',
   REJECTED:             'rejected',
-  RFQ_REQUESTED:        'rfq_requested',
-  QUOTATIONS_RECEIVED:  'quotations_received',
-  PO_ISSUED:            'po_issued',
-  DELIVERED_PENDING:    'delivered_pending_receipt',
   RECEIVED:             'received',
   COMPLETED:            'completed',
-  ARCHIVED:             'archived',
 };
 
 /* Tabs shown in the main Purchasing Dashboard / requests list */
 export const DASHBOARD_TABS = [
   STATUS.PENDING_ENGINEER_APPROVAL, STATUS.PENDING_PROC_APPROVAL,
-  STATUS.APPROVED, STATUS.RFQ_REQUESTED,
-  STATUS.QUOTATIONS_RECEIVED, STATUS.PO_ISSUED, STATUS.DELIVERED_PENDING,
-  STATUS.RECEIVED, STATUS.COMPLETED, STATUS.REJECTED, STATUS.RETURNED, STATUS.ARCHIVED,
+  STATUS.APPROVED, STATUS.RECEIVED, STATUS.COMPLETED, STATUS.REJECTED, STATUS.RETURNED,
 ];
 
 export const STATUS_COLORS = {
@@ -62,13 +68,8 @@ export const STATUS_COLORS = {
   [STATUS.APPROVED]:              '#10b981',
   [STATUS.RETURNED]:              '#f59e0b',
   [STATUS.REJECTED]:              '#ef4444',
-  [STATUS.RFQ_REQUESTED]:         '#f59e0b',
-  [STATUS.QUOTATIONS_RECEIVED]:   '#14b8a6',
-  [STATUS.PO_ISSUED]:             '#06b6d4',
-  [STATUS.DELIVERED_PENDING]:     '#f97316',
   [STATUS.RECEIVED]:              '#84cc16',
-  [STATUS.COMPLETED]:             '#10b981',
-  [STATUS.ARCHIVED]:              '#6b7280',
+  [STATUS.COMPLETED]:             '#6b7280',
 };
 
 export const STATUS_LABEL_KEYS = {
@@ -77,13 +78,8 @@ export const STATUS_LABEL_KEYS = {
   [STATUS.APPROVED]:              'purchasing.statusApproved',
   [STATUS.RETURNED]:              'purchasing.statusReturned',
   [STATUS.REJECTED]:              'purchasing.statusRejected',
-  [STATUS.RFQ_REQUESTED]:         'purchasing.statusRFQRequested',
-  [STATUS.QUOTATIONS_RECEIVED]:   'purchasing.statusQuotationsReceived',
-  [STATUS.PO_ISSUED]:             'purchasing.statusPOIssued',
-  [STATUS.DELIVERED_PENDING]:     'purchasing.statusDeliveredPending',
   [STATUS.RECEIVED]:              'purchasing.statusReceived',
   [STATUS.COMPLETED]:             'purchasing.statusCompleted',
-  [STATUS.ARCHIVED]:              'purchasing.statusArchived',
 };
 
 /* ─── Approval chain (fixed order, 2 stages, no conditional stage) ─── */

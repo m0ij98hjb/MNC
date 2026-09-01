@@ -11,13 +11,13 @@ import PurchasingSubNav from '@/components/purchasing/PurchasingSubNav';
 import { projectKeyFor, computeBudgetSummary, budgetBarColor } from '@/lib/purchasingBudget';
 import { Loader2, Wallet, Save } from 'lucide-react';
 
-function BudgetRow({ projectName, requests, orders, budgetDoc, actorUid, t }) {
+function BudgetRow({ projectName, requests, budgetDoc, actorUid, t }) {
   const [value, setValue] = useState(budgetDoc?.approvedBudget ?? '');
   const [saving, setSaving] = useState(false);
 
   const summary = useMemo(() => computeBudgetSummary({
-    approvedBudget: budgetDoc?.approvedBudget, projectRequests: requests, projectOrders: orders,
-  }), [budgetDoc, requests, orders]);
+    approvedBudget: budgetDoc?.approvedBudget, projectRequests: requests,
+  }), [budgetDoc, requests]);
 
   const save = async () => {
     setSaving(true);
@@ -36,7 +36,6 @@ function BudgetRow({ projectName, requests, orders, budgetDoc, actorUid, t }) {
           className="w-32 bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white" />
       </td>
       <td className="px-5 py-3.5 text-white/60 text-xs" dir="ltr">{summary.committedCost.toLocaleString()}</td>
-      <td className="px-5 py-3.5 text-white/60 text-xs" dir="ltr">{summary.actualCost.toLocaleString()}</td>
       <td className="px-5 py-3.5 text-xs font-bold" dir="ltr" style={{ color: budgetBarColor(summary.consumedPct) }}>{summary.remaining.toLocaleString()}</td>
       <td className="px-5 py-3.5">
         <button onClick={save} disabled={saving} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-black disabled:opacity-50"
@@ -52,16 +51,14 @@ function BudgetsContent() {
   const { t, isRTL } = useLanguage();
   const { user } = useAuth();
   const [requests, setRequests] = useState(null);
-  const [orders, setOrders] = useState(null);
   const [budgets, setBudgets] = useState(null);
 
   useEffect(() => {
     const u1 = onSnapshot(collection(db, 'purchaseRequests'), snap => setRequests(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-    const u2 = onSnapshot(collection(db, 'purchaseOrders'), snap => setOrders(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-    const u3 = onSnapshot(collection(db, 'projectBudgets'), snap => {
+    const u2 = onSnapshot(collection(db, 'projectBudgets'), snap => {
       const map = {}; snap.docs.forEach(d => { map[d.id] = d.data(); }); setBudgets(map);
     });
-    return () => { u1(); u2(); u3(); };
+    return () => { u1(); u2(); };
   }, []);
 
   const projectNames = useMemo(() => {
@@ -69,7 +66,7 @@ function BudgetsContent() {
     return [...new Set(requests.map(r => r.projectName).filter(Boolean))].sort();
   }, [requests]);
 
-  const loading = requests === null || orders === null || budgets === null;
+  const loading = requests === null || budgets === null;
 
   return (
     <div className="p-6 lg:p-8 max-w-6xl mx-auto" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -85,7 +82,7 @@ function BudgetsContent() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-white/[0.07]">
-                  {[t('purchasing.colProject'), t('purchasing.budgetApproved'), t('purchasing.budgetCommitted'), t('purchasing.budgetActual'), t('purchasing.budgetRemaining'), t('admin.actionsCol')].map(h => (
+                  {[t('purchasing.colProject'), t('purchasing.budgetApproved'), t('purchasing.budgetCommitted'), t('purchasing.budgetRemaining'), t('admin.actionsCol')].map(h => (
                     <th key={h} className="text-start text-xs text-white/30 font-medium px-5 py-3.5 whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
@@ -94,7 +91,6 @@ function BudgetsContent() {
                 {projectNames.map(name => (
                   <BudgetRow key={name} projectName={name} actorUid={user?.uid}
                     requests={requests.filter(r => r.projectName === name)}
-                    orders={orders.filter(o => o.projectName === name)}
                     budgetDoc={budgets[projectKeyFor(name)]} t={t} />
                 ))}
               </tbody>
