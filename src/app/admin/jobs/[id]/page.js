@@ -5,6 +5,7 @@ import { db } from '@/lib/firebase';
 import { useLanguage } from '@/context/LanguageContext';
 import { useConfirm } from '@/context/ConfirmContext';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
+import { openPrintReport } from '@/lib/printReport';
 import {
   ArrowLeft, ArrowRight, XCircle, CheckCircle, Loader2,
   User, Phone, Mail, MapPin, Calendar,
@@ -131,6 +132,50 @@ export default function JobDetailPage() {
     }
   };
 
+  const downloadReport = () => {
+    const sc2 = scoreApp(app);
+    openPrintReport({
+      lang, isRTL,
+      docTitle: `${t('admin.jobApplicantInfo')} — ${app.fullName}`,
+      heading: app.fullName,
+      refLine: `${t('admin.positionApplied')}: ${app.position || '—'}`,
+      statusLabel: t(STATUS_CONFIG[app.status]?.labelKey ?? 'admin.statusPending'),
+      statusColor: STATUS_CONFIG[app.status]?.color ?? '#3b82f6',
+      generatedLabel: `${t('admin.reportGeneratedOn')}: ${new Date().toLocaleString(lang === 'ar' ? 'ar-SA' : 'en-GB')}`,
+      printLabel: t('admin.downloadReport'),
+      confidentialNote: t('admin.reportConfidentialNote'),
+      sections: [
+        {
+          title: t('admin.jobApplicantInfo'),
+          fields: [
+            { label: t('admin.applicantName'),   value: app.fullName },
+            { label: t('admin.emailLabel'),      value: app.email, ltr: true },
+            { label: t('admin.phoneCol'),        value: app.phone, ltr: true },
+            { label: t('admin.cityColLabel'),    value: app.city },
+            { label: t('admin.jobNationality'),  value: app.nationality },
+            { label: t('admin.jobCountry'),      value: app.country },
+            { label: t('admin.jobTypeLabel'),    value: app.jobType ? (app.jobType === 'formal' ? t('admin.jobTypeFormal') : t('admin.jobTypeTrades')) : '' },
+            { label: t('admin.jobDeptLabel'),    value: app.department },
+            { label: t('admin.experienceYears'), value: app.experience },
+            { label: t('admin.positionApplied'), value: app.position },
+            { label: t('admin.submittedCol'),    value: submittedDate, ltr: true },
+          ],
+        },
+        {
+          title: t('admin.aiScoreTitle'),
+          fields: [
+            { label: t('admin.expScoreLabel'),   value: sc2.expScore },
+            { label: t('admin.locScoreLabel'),   value: sc2.cityScore },
+            { label: t('admin.totalScoreLabel'), value: sc2.total },
+          ],
+        },
+      ],
+      longSections: [
+        { title: t('admin.jobCoverLetter'), text: app.coverLetter },
+      ],
+    });
+  };
+
   const closeSuccessDialog = () => {
     setSendStatus('');
     setShowInterviewForm(false);
@@ -185,6 +230,13 @@ export default function JobDetailPage() {
             </div>
           </div>
           <div className="flex gap-2 flex-wrap">
+            <button
+              onClick={downloadReport}
+              className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold border transition-colors text-[#c8a96e] border-[#c8a96e]/25 hover:bg-[#c8a96e]/10"
+            >
+              <FileText size={14} />
+              {t('admin.downloadReport')}
+            </button>
             {app.status !== 'accepted' && app.status !== 'interview_scheduled' && app.status !== 'rejected' && (
               <button
                 onClick={acceptApp}

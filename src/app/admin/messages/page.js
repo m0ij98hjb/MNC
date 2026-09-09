@@ -8,6 +8,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useConfirm } from '@/context/ConfirmContext';
 import { COMPANY } from '@/config/company';
 import AdminPageLayout from '@/components/admin/AdminPageLayout';
+import { openPrintReport } from '@/lib/printReport';
 import {
   Search, Trash2, Loader2, Eye, MessageSquare, X, Send,
   Mail, Phone, Building2, User, Calendar, Tag, Clock,
@@ -206,6 +207,38 @@ export default function MessagesPage() {
   const fmtFull = ts => ts?.seconds ? new Date(ts.seconds * 1000).toLocaleString(lang === 'ar' ? 'ar-SA' : 'en-GB') : '—';
   const subjectLabel = s => (SUBJECT_LABEL_KEYS[s] ? t(SUBJECT_LABEL_KEYS[s]) : (s || '—'));
 
+  const downloadReport = (msg) => {
+    const status = msg.status || 'new';
+    openPrintReport({
+      lang, isRTL,
+      docTitle: `${t('admin.messages.detailsTitle')} — ${msg.fullName || msg.name || ''}`,
+      heading: msg.fullName || msg.name || '—',
+      refLine: `${t('admin.messages.subjectCol')}: ${subjectLabel(msg.subject)}`,
+      statusLabel: STATUS_LABEL_KEYS[status] ? t(STATUS_LABEL_KEYS[status]) : status,
+      statusColor: STATUS_CONFIG[status]?.color ?? '#3b82f6',
+      generatedLabel: `${t('admin.reportGeneratedOn')}: ${new Date().toLocaleString(lang === 'ar' ? 'ar-SA' : 'en-GB')}`,
+      printLabel: t('admin.downloadReport'),
+      confidentialNote: t('admin.reportConfidentialNote'),
+      sections: [
+        {
+          title: t('admin.messages.detailsTitle'),
+          fields: [
+            { label: t('admin.fullNameLabel'),          value: msg.fullName || msg.name },
+            { label: t('admin.emailLabel'),              value: msg.email, ltr: true },
+            { label: t('admin.phoneCol'),                value: msg.phone, ltr: true },
+            { label: t('admin.messages.companyLabel'),   value: msg.company },
+            { label: t('admin.messages.subjectCol'),     value: subjectLabel(msg.subject) },
+            { label: t('admin.dateLabel'),                value: fmtFull(msg.createdAt), ltr: true },
+          ],
+        },
+      ],
+      longSections: [
+        { title: t('admin.messages.messageLabel'),    text: msg.message },
+        { title: t('admin.messages.adminReplyLabel'), text: msg.adminReply },
+      ],
+    });
+  };
+
   return (
     <AdminPageLayout>
       <div className="p-6 lg:p-8" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -399,6 +432,10 @@ export default function MessagesPage() {
                   <h2 className="text-base font-bold text-white">{t('admin.messages.detailsTitle')}</h2>
                 </div>
                 <div className="flex items-center gap-2">
+                  <button onClick={() => downloadReport(viewMsg)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-[#c8a96e]/10 border border-[#c8a96e]/25 text-[#c8a96e] hover:bg-[#c8a96e]/18">
+                    <FileText size={12} /> {t('admin.downloadReport')}
+                  </button>
                   <StatusChip status={viewMsg.status || 'new'} />
                   <button onClick={() => setViewMsg(null)}
                     className="w-7 h-7 rounded-full flex items-center justify-center text-white/30 hover:text-white hover:bg-white/8 transition-all">
