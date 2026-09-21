@@ -83,7 +83,7 @@ const About = () => {
           {/* Chairman Card */}
           <div className="w-full sm:w-1/2 lg:w-2/5 relative pb-14" data-aos="fade-up">
             <div className="relative z-10 group">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-4/3">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[1019/1600]">
                 {directorImage ? (
                   <>
                     <Image
@@ -115,7 +115,7 @@ const About = () => {
           {/* CEO Card */}
           <div className="w-full sm:w-1/2 lg:w-2/5 relative pb-14" data-aos="fade-up" data-aos-delay="150">
             <div className="relative z-10 group">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-4/3">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[1019/1600]">
                 {ceoImage ? (
                   <>
                     <Image
@@ -123,7 +123,7 @@ const About = () => {
                       alt={ceoName}
                       fill
                       className="object-cover"
-                      style={{ objectPosition: 'center 2%' }}
+                      style={{ objectPosition: 'center top' }}
                       unoptimized={ceoImage.startsWith('http')}
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
