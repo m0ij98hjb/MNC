@@ -162,10 +162,10 @@ const Navbar = () => {
       <nav className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${
         scrolled
           ? isLightMode
-            ? "bg-white/97 backdrop-blur-2xl border-b border-slate-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.07)]"
+            ? "bg-white backdrop-blur-2xl border-b border-slate-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.07)]"
             : "bg-[#05090d]/95 backdrop-blur-2xl border-b border-[#D5B25D]/18 shadow-[0_8px_40px_rgba(0,0,0,0.75),0_1px_0_rgba(213,178,93,0.10)]"
           : isLightMode
-            ? "bg-white/95 backdrop-blur-xl border-b border-slate-200/70 shadow-[0_2px_16px_rgba(15,23,42,0.05)]"
+            ? "bg-white border-b border-slate-200/70 shadow-[0_2px_16px_rgba(15,23,42,0.05)]"
             : `bg-gradient-to-b from-black/35 to-transparent backdrop-blur-sm border-b ${isAdmin ? 'border-[#D5B25D]/30' : 'border-white/[0.04]'}`
       }`}>
         <div className="w-full max-w-7xl mx-auto flex items-center lg:justify-center nav-container-responsive px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-3 sm:py-3.5">
