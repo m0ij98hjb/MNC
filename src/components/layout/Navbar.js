@@ -456,10 +456,10 @@ const Navbar = () => {
                 <div className="relative">
                   <button onClick={() => setIsProfileOpen(!isProfileOpen)}
                     className="flex items-center gap-1.5 group">
-                    <span className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 border border-[#D5B25D]/22 text-[#f2a624] rounded-lg transition-all duration-300 group-hover:bg-[#D5B25D]/10 group-hover:border-[#D5B25D]/40 active:scale-95 nav-action-icon-btn-responsive">
+                    <span className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 border border-[#f2a624]/35 text-[#f2a624] rounded-lg transition-all duration-300 group-hover:bg-[#f2a624]/10 group-hover:border-[#f2a624] active:scale-95 nav-action-icon-btn-responsive">
                       <HiDocumentText size={17} />
                     </span>
-                    <span className="bg-[#D5B25D] text-black px-3 xl:px-4 py-[7px] xl:py-2 rounded-lg font-bold text-[12.5px] xl:text-[13.5px] shadow-[0_2px_12px_rgba(213,178,93,0.25)] transition-all duration-300 hover:bg-[#E1BF67] hover:shadow-[0_4px_20px_rgba(213,178,93,0.35)] active:scale-95 flex items-center gap-1.5 whitespace-nowrap nav-action-btn-responsive">
+                    <span className="bg-[#f2a624] text-black px-3 xl:px-4 py-[7px] xl:py-2 rounded-lg font-bold text-[12.5px] xl:text-[13.5px] shadow-[0_2px_12px_rgba(242,166,36,0.35)] transition-all duration-300 hover:bg-[#f3ad38] hover:shadow-[0_4px_20px_rgba(242,166,36,0.5)] active:scale-95 flex items-center gap-1.5 whitespace-nowrap nav-action-btn-responsive">
                       {t('nav.profile')}
                       <ChevronDown size={11} className={`transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
                     </span>
@@ -773,8 +773,8 @@ const Navbar = () => {
                 {/* Portfolio */}
                 <div>
                   <button onClick={() => setIsProfileOpen(!isProfileOpen)}
-                    className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-[#D5B25D]/6 border border-[#D5B25D]/18 hover:bg-[#D5B25D]/10 transition-all active:scale-[0.98]">
-                    <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/14 flex items-center justify-center text-[#f2a624] flex-shrink-0"><HiDocumentText size={18} /></span>
+                    className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-[#f2a624]/10 border border-[#f2a624]/25 hover:bg-[#f2a624]/15 transition-all active:scale-[0.98]">
+                    <span className="w-[34px] h-[34px] rounded-[10px] bg-[#f2a624]/20 flex items-center justify-center text-[#f2a624] flex-shrink-0"><HiDocumentText size={18} /></span>
                     <div className="flex-1 text-start">
                       <p className="text-[12px] font-bold text-[#f2a624] leading-none">{t('nav.profile')}</p>
                       <p className={`text-[10px] mt-0.5 ${isLightMode ? 'text-slate-400' : 'text-white/28'}`}>PDF</p>
