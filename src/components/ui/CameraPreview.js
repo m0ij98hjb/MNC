@@ -198,9 +198,9 @@ export default function CameraPreview({ projectCode }) {
     if (streamType === "RTSP") {
       return (
         <div className="flex flex-col items-center justify-center h-full gap-3 p-4">
-          <Camera size={28} className="text-[#D5B25D]" />
+          <Camera size={28} className="text-[#f2a624]" />
           <p className="text-white/50 text-xs text-center">{t("camera.rtspRequiresVlc")}</p>
-          <a href={streamData.streamUrl} className="text-[#D5B25D] text-[10px] underline break-all text-center"
+          <a href={streamData.streamUrl} className="text-[#f2a624] text-[10px] underline break-all text-center"
             target="_blank" rel="noopener noreferrer">{t("camera.openLink")}</a>
         </div>
       );
@@ -214,7 +214,7 @@ export default function CameraPreview({ projectCode }) {
     return (
       <div className="w-full h-full">
         <Placeholder isLight={isLight}>
-          <Building2 size={42} className={isLight ? "text-[#B8923A]/70" : "text-[#D5B25D]/35"} />
+          <Building2 size={42} className={isLight ? "text-[#f2a624]/70" : "text-[#f2a624]/35"} />
           <p className={`text-xs text-center leading-relaxed ${isLight ? "text-[#64748b]" : "text-white/25"}`}>
             {t("camera.enterProjectCode")}<br />{t("camera.toViewCamera")}
           </p>
@@ -227,7 +227,7 @@ export default function CameraPreview({ projectCode }) {
     return (
       <div className="w-full h-full">
         <Placeholder isLight={isLight}>
-          <Loader2 size={32} className={`animate-spin ${isLight ? "text-[#A8832B]" : "text-[#D5B25D]"}`} />
+          <Loader2 size={32} className={`animate-spin ${isLight ? "text-[#A8832B]" : "text-[#f2a624]"}`} />
           <p className={`text-xs ${isLight ? "text-[#64748b]" : "text-white/40"}`}>{t("camera.verifying")}</p>
         </Placeholder>
       </div>
@@ -261,7 +261,7 @@ export default function CameraPreview({ projectCode }) {
                 onClick={() => switchTo(i)}
                 className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all duration-200
                   focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D5B25D]/60
-                  ${i === activeCam ? "text-[#D5B25D] bg-[#D5B25D]/15" : "text-white/35 hover:text-white/60"}`}
+                  ${i === activeCam ? "text-[#f2a624] bg-[#D5B25D]/15" : "text-white/35 hover:text-white/60"}`}
               >
                 {i + 1}
               </button>
@@ -283,7 +283,7 @@ export default function CameraPreview({ projectCode }) {
                   .then(setStreamData)
                   .catch(() => setStreamError(true));
               }}
-              className="flex items-center gap-1 text-[#D5B25D] text-[10px] hover:text-[#E1BF67] transition-colors
+              className="flex items-center gap-1 text-[#f2a624] text-[10px] hover:text-[#f2a624] transition-colors
                 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D5B25D]/60 rounded px-1"
             >
               <RefreshCw size={11} />{t("camera.retry")}

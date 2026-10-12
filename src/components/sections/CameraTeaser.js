@@ -51,7 +51,7 @@ export default function CameraTeaser() {
             {/* Eyebrow — same pattern as Vision section */}
             <div className={`inline-flex items-center gap-3 mb-5 ${isRTL ? "flex-row" : "flex-row-reverse"}`}>
               <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#D5B25D]" />
-              <span className="text-[#D5B25D] font-bold tracking-[0.2em] uppercase text-[11px]">
+              <span className="text-[#f2a624] font-bold tracking-[0.2em] uppercase text-[11px]">
                 {{ ar: "شفافية كاملة", en: "Full Transparency", zh: "完全透明",
                    fr: "Transparence totale", es: "Transparencia total",
                    de: "Volle Transparenz", tr: "Tam Şeffaflık", ur: "مکمل شفافیت",
@@ -68,7 +68,7 @@ export default function CameraTeaser() {
                    de: "Ihr Projekt live", tr: "Projenizi Takip Edin", ur: "اپنا منصوبہ ٹریک کریں",
                    hi: "अपनी परियोजना को ट्रैक करें", ru: "Отслеживайте ваш проект" }[lang] || "Track Your Project"}
               </span>
-              <span className="text-gradient">
+              <span className="text-[#f2a624]">
                 {{ ar: "مباشرةً", en: "Live", zh: "实时", fr: "En direct",
                    es: "En vivo", de: "Jetzt", tr: "Canlı", ur: "براہ راست",
                    hi: "लाइव", ru: "В прямом эфире" }[lang] || "Live"}
@@ -138,7 +138,7 @@ export default function CameraTeaser() {
                 <QrCode
                   size={14}
                   aria-hidden="true"
-                  className={`absolute top-1/2 -translate-y-1/2 ${isRTL ? "left-3" : "right-3"} text-[#D5B25D]/40 pointer-events-none`}
+                  className={`absolute top-1/2 -translate-y-1/2 ${isRTL ? "left-3" : "right-3"} text-[#f2a624]/40 pointer-events-none`}
                 />
               </div>
             </form>

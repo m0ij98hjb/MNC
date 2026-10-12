@@ -92,7 +92,7 @@ export default function AdminNavbar() {
   const quickLinks = [
     canAccessRoute('/admin/suppliers') && { href: '/admin/suppliers', label: t('admin.suppliersMenu'), color: 'text-blue-400 hover:text-blue-300' },
     canAccessRoute('/admin/purchasing') && { href: '/admin/purchasing', label: t('admin.purchasingMenu'), color: 'text-purple-400 hover:text-purple-300' },
-    canAccessRoute('/admin/jobs') && { href: '/admin/jobs', label: t('admin.jobsMenu'), color: 'text-[#c8a96e] hover:text-[#d4b47a]' },
+    canAccessRoute('/admin/jobs') && { href: '/admin/jobs', label: t('admin.jobsMenu'), color: 'text-[#f2a624] hover:text-[#d4b47a]' },
     canAccessRoute('/admin/messages') && { href: '/admin/messages', label: t('admin.messagesMenu'), color: 'text-green-400 hover:text-green-300' },
   ].filter(Boolean);
 
@@ -112,11 +112,11 @@ export default function AdminNavbar() {
         {/* ── RIGHT: Logo ── */}
         <Link href="/" className="flex-shrink-0 pe-4">
           <Image
-            src="/asstes/logo-navbar-v2.png"
+            src="/asstes/mnc-logo-2026.png"
             alt="MNC"
-            width={180}
-            height={90}
-            className="h-10 sm:h-11 w-auto object-contain"
+            width={855}
+            height={310}
+            className="h-[18px] sm:h-5 w-auto object-contain"
             priority
           />
         </Link>
@@ -171,12 +171,12 @@ export default function AdminNavbar() {
                   className="object-cover object-top"
                 />
               </div>
-              <span className="hidden sm:block text-[11px] font-bold text-[#C9A34D] whitespace-nowrap leading-none">
+              <span className="hidden sm:block text-[11px] font-bold text-[#f2a624] whitespace-nowrap leading-none">
                 {displayName}
               </span>
               <ChevronDown
                 size={10}
-                className={`text-[#C9A34D]/50 transition-transform duration-200 ${isUserOpen ? 'rotate-180' : ''}`}
+                className={`text-[#f2a624]/50 transition-transform duration-200 ${isUserOpen ? 'rotate-180' : ''}`}
               />
             </button>
 
@@ -213,7 +213,7 @@ export default function AdminNavbar() {
                 </div>
                 <div className="min-w-0">
                   <p className="text-[13px] font-bold text-white leading-none">{displayName}</p>
-                  <p className="text-[10px] text-[#C9A34D] mt-0.5 uppercase tracking-widest font-semibold">
+                  <p className="text-[10px] text-[#f2a624] mt-0.5 uppercase tracking-widest font-semibold">
                     {roleLabel}
                   </p>
                 </div>
@@ -223,7 +223,7 @@ export default function AdminNavbar() {
                 onClick={() => setIsUserOpen(false)}
                 className="flex items-center gap-2.5 w-full px-4 py-3 text-[13px] font-semibold text-white/70 hover:text-white hover:bg-[#c8a96e]/15 transition-colors"
               >
-                <LayoutDashboard size={14} className="text-[#C9A34D] flex-shrink-0" />
+                <LayoutDashboard size={14} className="text-[#f2a624] flex-shrink-0" />
                 {roleLabel}
               </Link>
               <div className="h-px mx-3 bg-white/[0.12]" />
@@ -313,7 +313,7 @@ export default function AdminNavbar() {
                         {isSupplier ? <Building2 size={13} className="text-blue-400" />
                         : isContact ? <MessageSquare size={13} className="text-green-400" />
                         : isPurchase ? <ShoppingCart size={13} className="text-purple-400" />
-                        :             <Briefcase size={13} className="text-[#c8a96e]" />}
+                        :             <Briefcase size={13} className="text-[#f2a624]" />}
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-white text-xs font-semibold truncate">
@@ -389,7 +389,7 @@ export default function AdminNavbar() {
                       onClick={() => { setLang(language.code); setIsLangOpen(false); }}
                       className={`flex items-center gap-2 px-2.5 py-2 rounded-xl text-start transition-all duration-200 ${
                         lang === language.code
-                          ? 'bg-[#C9A34D]/20 border border-[#C9A34D]/40 text-[#C9A34D]'
+                          ? 'bg-[#C9A34D]/20 border border-[#C9A34D]/40 text-[#f2a624]'
                           : 'border border-transparent text-white/60 hover:bg-white/10 hover:text-white'
                       }`}
                     >
@@ -418,7 +418,7 @@ export default function AdminNavbar() {
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold whitespace-nowrap transition-all duration-200 active:scale-95"
               style={{
-                color: '#C9A34D',
+                color: '#f2a624',
                 border: '1px dashed rgba(201,163,77,0.50)',
               }}
               onMouseEnter={e => e.currentTarget.style.background = 'rgba(201,163,77,0.08)'}

@@ -111,7 +111,7 @@ function ApprovalActionPanel({ request, stageConfig, currentUser, actorName, act
 
   return (
     <div className="bg-white/[0.03] border border-[#c8a96e]/25 rounded-2xl p-5 space-y-4" dir={isRTL ? 'rtl' : 'ltr'}>
-      <h3 className="text-sm font-bold text-white flex items-center gap-2"><Info size={14} className="text-[#c8a96e]" />{t('purchasing.approvalActionTitle')}</h3>
+      <h3 className="text-sm font-bold text-white flex items-center gap-2"><Info size={14} className="text-[#f2a624]" />{t('purchasing.approvalActionTitle')}</h3>
       {error && <div className="rounded-lg px-3 py-2 text-xs bg-red-500/10 border border-red-500/25 text-red-400">{error}</div>}
       {budgetExceeded && (
         <div className="rounded-lg px-3 py-2.5 text-xs bg-amber-500/10 border border-amber-500/25 text-amber-300 space-y-2">
@@ -217,7 +217,7 @@ function RequestDetailContent({ id }) {
     return APPROVAL_STAGES.find(s => s.status === request.status) || null;
   }, [request]);
 
-  if (request === undefined) return <div className="flex items-center justify-center min-h-[60vh]"><Loader2 size={28} className="animate-spin text-[#c8a96e]" /></div>;
+  if (request === undefined) return <div className="flex items-center justify-center min-h-[60vh]"><Loader2 size={28} className="animate-spin text-[#f2a624]" /></div>;
   if (request === null) return <div className="flex items-center justify-center min-h-[60vh] text-white/40">{t('admin.noResults')}</div>;
 
   const canActApproval = stageConfig && isRole(stageConfig.role, ROLES.SUPER_ADMIN);
@@ -228,7 +228,7 @@ function RequestDetailContent({ id }) {
       <style>{`.purch-btn-gold{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:12px;font-size:12px;font-weight:800;background:linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e);color:#000;transition:opacity .2s} .purch-btn-gold:disabled{opacity:.5} .purch-btn-outline{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:12px;font-size:12px;font-weight:700;border:1px solid rgba(200,169,110,0.35);color:#c8a96e}`}</style>
       <style media="print">{PRINT_AREA_CSS('purchasing-request-print-area')}</style>
 
-      <Link href="/admin/purchasing/requests" className="text-xs text-[#c8a96e] hover:underline flex items-center gap-1 w-fit">
+      <Link href="/admin/purchasing/requests" className="text-xs text-[#f2a624] hover:underline flex items-center gap-1 w-fit">
         {isRTL ? <ArrowRight size={12} /> : <ArrowLeft size={12} />} {t('purchasing.backToRequests')}
       </Link>
 
@@ -263,24 +263,24 @@ function RequestDetailContent({ id }) {
       <BudgetWidget projectName={request.projectName} />
 
       <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-5">
-        <p className="text-xs text-[#c8a96e] font-bold uppercase tracking-widest mb-1.5">{t('purchasing.requestReason')}</p>
+        <p className="text-xs text-[#f2a624] font-bold uppercase tracking-widest mb-1.5">{t('purchasing.requestReason')}</p>
         <p className="text-sm text-white/70">{request.reason}</p>
         {request.generalNotes && <>
-          <p className="text-xs text-[#c8a96e] font-bold uppercase tracking-widest mt-3 mb-1.5">{t('purchasing.generalNotes')}</p>
+          <p className="text-xs text-[#f2a624] font-bold uppercase tracking-widest mt-3 mb-1.5">{t('purchasing.generalNotes')}</p>
           <p className="text-sm text-white/60">{request.generalNotes}</p>
         </>}
       </div>
 
       {/* Items */}
       <div>
-        <p className="text-xs text-[#c8a96e] font-bold uppercase tracking-widest mb-2">{t('purchasing.itemsTableTitle')}</p>
+        <p className="text-xs text-[#f2a624] font-bold uppercase tracking-widest mb-2">{t('purchasing.itemsTableTitle')}</p>
         <ItemsTable items={request.items || []} onChange={() => {}} readOnly />
       </div>
 
       {/* Attachments */}
       {request.attachments?.length > 0 && (
         <div>
-          <p className="text-xs text-[#c8a96e] font-bold uppercase tracking-widest mb-2 flex items-center gap-1.5"><Paperclip size={12} />{t('purchasing.attachments')}</p>
+          <p className="text-xs text-[#f2a624] font-bold uppercase tracking-widest mb-2 flex items-center gap-1.5"><Paperclip size={12} />{t('purchasing.attachments')}</p>
           <AttachmentsUploader pathPrefix="" attachments={request.attachments} onChange={() => {}} disabled />
         </div>
       )}
@@ -307,7 +307,7 @@ function RequestDetailContent({ id }) {
 
       {/* History — includes full approval chain with signatures (Executive Reports requirement) */}
       <div>
-        <p className="text-xs text-[#c8a96e] font-bold uppercase tracking-widest mb-3">{t('purchasing.activityLog')}</p>
+        <p className="text-xs text-[#f2a624] font-bold uppercase tracking-widest mb-3">{t('purchasing.activityLog')}</p>
         <ApprovalTimeline requestId={request.id} />
       </div>
       </div>

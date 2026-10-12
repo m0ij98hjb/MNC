@@ -107,7 +107,7 @@ const Vision = () => {
           {/* Eyebrow */}
           <div className={`inline-flex items-center gap-3 mb-5 ${isRTL ? 'flex-row' : 'flex-row-reverse'}`}>
             <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#D5B25D]" />
-            <span className="text-[#D5B25D] font-bold tracking-[0.2em] uppercase text-[11px]">
+            <span className="text-[#f2a624] font-bold tracking-[0.2em] uppercase text-[11px]">
               {{ ar: "رؤية وخبرة", en: "Vision & Expertise", zh: "愿景与专长",
                  es: "Visión y experiencia", fr: "Vision et expertise",
                  de: "Vision & Expertise", tr: "Vizyon & Uzmanlık", ur: "وژن اور مہارت",
@@ -126,7 +126,7 @@ const Vision = () => {
                  tr: "Sadece proje inşa etmiyoruz", ur: "ہم صرف منصوبے نہیں بناتے",
                  hi: "हम केवल परियोजनाएं नहीं बनाते", ru: "Мы не просто строим объекты" }[lang] || "We Don't Just Build Projects"}
             </span>
-            <span className="text-gradient">
+            <span className="text-[#f2a624]">
               {{ ar: "نحن نصنع معالم معمارية خالدة", en: "We Create Timeless Architectural Landmarks",
                  zh: "我们创造永恒的建筑地标", es: "Creamos hitos arquitectónicos atemporales",
                  fr: "Nous créons des repères architecturaux intemporels",
@@ -224,7 +224,7 @@ const Vision = () => {
               />
 
               {/* Number watermark */}
-              <span className={`absolute top-4 ${isRTL ? 'left-5' : 'right-5'} text-6xl font-black text-white/[0.03] group-hover:text-[#D5B25D]/[0.07] transition-colors duration-500 select-none leading-none`}>
+              <span className={`absolute top-4 ${isRTL ? 'left-5' : 'right-5'} text-6xl font-black text-white/[0.03] group-hover:text-[#f2a624]/[0.07] transition-colors duration-500 select-none leading-none`}>
                 {card.num}
               </span>
 
@@ -232,7 +232,7 @@ const Vision = () => {
               <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full"
                 style={{ background: "rgba(213,178,93,0.1)", border: "1px solid rgba(213,178,93,0.2)" }}>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#D5B25D]" />
-                <span className="text-[#D5B25D] text-[11px] font-bold tracking-widest uppercase">
+                <span className="text-[#f2a624] text-[11px] font-bold tracking-widest uppercase">
                   {tx(card.label)}
                 </span>
               </div>
@@ -272,12 +272,12 @@ const Vision = () => {
               {/* Icon */}
               <div className="shrink-0 mt-0.5 w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110"
                 style={{ background: "rgba(213,178,93,0.1)", border: "1px solid rgba(213,178,93,0.2)" }}>
-                <CheckCircle2 size={16} className="text-[#D5B25D]" />
+                <CheckCircle2 size={16} className="text-[#f2a624]" />
               </div>
 
               {/* Text */}
               <div className="flex flex-col gap-1 min-w-0">
-                <h4 className="text-white font-bold text-sm md:text-base leading-snug group-hover:text-[#D5B25D] transition-colors duration-300">
+                <h4 className="text-white font-bold text-sm md:text-base leading-snug group-hover:text-[#f2a624] transition-colors duration-300">
                   {tx(val.title)}
                 </h4>
                 <p className="text-white/40 text-xs md:text-sm leading-relaxed group-hover:text-white/55 transition-colors duration-300">

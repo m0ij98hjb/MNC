@@ -19,7 +19,7 @@ export default function PurchasingAccessGate({ children, allow }) {
   if (loading) {
     return (
       <AdminPageLayout>
-        <div className="flex items-center justify-center min-h-[60vh]"><Loader2 size={28} className="animate-spin text-[#c8a96e]" /></div>
+        <div className="flex items-center justify-center min-h-[60vh]"><Loader2 size={28} className="animate-spin text-[#f2a624]" /></div>
       </AdminPageLayout>
     );
   }

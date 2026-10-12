@@ -23,7 +23,7 @@ const PERMISSION_KEYS = [
     labelKey: 'admin.purchasingMenu',
     descKey: 'admin.permPurchasingDesc',
     icon: ShoppingCart,
-    color: '#c8a96e',
+    color: '#f2a624',
   },
   {
     id: 'suppliers_module',
@@ -68,7 +68,7 @@ const PURCHASING_ROLE_OPTIONS = [PURCH_ROLES.SITE_SUPERVISOR, PURCH_ROLES.SITE_E
   .map(value => ({ value, labelKey: PURCH_ROLE_LABEL_KEYS[value] }));
 
 const inputCls = 'w-full bg-black border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-all';
-const labelCls = 'text-[#c8a96e] text-[10px] font-black uppercase tracking-widest block mb-1.5';
+const labelCls = 'text-[#f2a624] text-[10px] font-black uppercase tracking-widest block mb-1.5';
 
 /* ─── Add / Edit User Modal ─── */
 function UserModal({ onClose, currentUid, editUser = null }) {
@@ -148,7 +148,7 @@ function UserModal({ onClose, currentUid, editUser = null }) {
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl bg-[#c8a96e]/15 flex items-center justify-center">
-              {editUser ? <Edit2 size={14} className="text-[#c8a96e]" /> : <Plus size={14} className="text-[#c8a96e]" />}
+              {editUser ? <Edit2 size={14} className="text-[#f2a624]" /> : <Plus size={14} className="text-[#f2a624]" />}
             </div>
             <h2 className="text-white font-bold text-base">
               {editUser ? t('admin.editUserTitle') : t('admin.addUserTitle')}
@@ -345,7 +345,7 @@ function ChangePasswordModal({ targetUser, onClose }) {
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl bg-[#c8a96e]/15 flex items-center justify-center">
-              <KeyRound size={14} className="text-[#c8a96e]" />
+              <KeyRound size={14} className="text-[#f2a624]" />
             </div>
             <h2 className="text-white font-bold text-base">{t('admin.changePasswordTitle')}</h2>
           </div>
@@ -457,7 +457,7 @@ function CompanyManagerAccessPanel() {
     <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-5 mb-6" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="flex items-center gap-2 mb-1">
         <div className="w-8 h-8 rounded-xl bg-[#c8a96e]/15 flex items-center justify-center">
-          <Crown size={14} className="text-[#c8a96e]" />
+          <Crown size={14} className="text-[#f2a624]" />
         </div>
         <h2 className="text-white font-bold text-sm">
           {{ ar: 'صلاحيات مدير الشركة', en: 'Company Manager Access' }[isRTL ? 'ar' : 'en']}
@@ -472,7 +472,7 @@ function CompanyManagerAccessPanel() {
 
       {modules === null ? (
         <div className="flex items-center justify-center py-6">
-          <Loader2 size={20} className="text-[#c8a96e] animate-spin" />
+          <Loader2 size={20} className="text-[#f2a624] animate-spin" />
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
@@ -589,7 +589,7 @@ function UsersContent() {
       <div className="flex items-center justify-between mb-7">
         <div>
           <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Users size={20} className="text-[#c8a96e]" />
+            <Users size={20} className="text-[#f2a624]" />
             {t('admin.usersManagementTitle')}
           </h1>
           <p className="text-sm text-white/30 mt-1">{t('admin.usersManagementSubtitle')}</p>
@@ -615,7 +615,7 @@ function UsersContent() {
       <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">
         {users === null ? (
           <div className="flex items-center justify-center py-20">
-            <Loader2 size={28} className="text-[#c8a96e] animate-spin" />
+            <Loader2 size={28} className="text-[#f2a624] animate-spin" />
           </div>
         ) : users.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 gap-3">
@@ -661,7 +661,7 @@ function UsersContent() {
                     </td>
                     <td className="px-5 py-4 text-white/50 text-xs" dir="ltr">{u.email}</td>
                     <td className="px-5 py-4">
-                      <span className="text-[#c8a96e] text-xs font-medium">
+                      <span className="text-[#f2a624] text-xs font-medium">
                         {ROLE_LABELS[u.role] || u.role || '—'}
                       </span>
                     </td>
@@ -682,7 +682,7 @@ function UsersContent() {
                       <div className="flex items-center gap-1">
                         <button
                           onClick={() => openEdit(u)}
-                          className="p-1.5 rounded-lg text-white/40 hover:text-[#c8a96e] hover:bg-[#c8a96e]/10 transition-all"
+                          className="p-1.5 rounded-lg text-white/40 hover:text-[#f2a624] hover:bg-[#c8a96e]/10 transition-all"
                           title={t('admin.editLabel')}
                         >
                           <Edit2 size={13} />
@@ -700,7 +700,7 @@ function UsersContent() {
                         </button>
                         <button
                           onClick={() => setPasswordTarget(u)}
-                          className="p-1.5 rounded-lg text-white/40 hover:text-[#c8a96e] hover:bg-[#c8a96e]/10 transition-all"
+                          className="p-1.5 rounded-lg text-white/40 hover:text-[#f2a624] hover:bg-[#c8a96e]/10 transition-all"
                           title={t('admin.changePasswordLabel')}
                         >
                           <KeyRound size={13} />
@@ -802,7 +802,7 @@ export default function AdminUsersPage() {
     return (
       <AdminPageLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <Loader2 size={28} className="animate-spin text-[#c8a96e]" />
+          <Loader2 size={28} className="animate-spin text-[#f2a624]" />
         </div>
       </AdminPageLayout>
     );

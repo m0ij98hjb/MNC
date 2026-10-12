@@ -156,7 +156,7 @@ export default function ProjectEditorModal({ project, onClose, onSave, saving, e
                     type="button"
                     onClick={() => toggleService(slug)}
                     className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                      active ? 'bg-[#c8a96e]/12 text-[#c8a96e] border border-[#c8a96e]/30' : 'text-white/35 border border-white/10 hover:text-white/60'
+                      active ? 'bg-[#c8a96e]/12 text-[#f2a624] border border-[#c8a96e]/30' : 'text-white/35 border border-white/10 hover:text-white/60'
                     }`}
                   >
                     {title}
@@ -197,7 +197,7 @@ export default function ProjectEditorModal({ project, onClose, onSave, saving, e
             onClick={handleSubmit}
             disabled={saving || !form.name_ar || !form.name_en || !form.slug}
             className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold transition-all disabled:opacity-50"
-            style={{ background: 'rgba(201,163,77,0.12)', border: '1px solid rgba(201,163,77,0.35)', color: '#c8a96e' }}
+            style={{ background: 'rgba(201,163,77,0.12)', border: '1px solid rgba(201,163,77,0.35)', color: '#f2a624' }}
           >
             {saving && <Loader2 size={14} className="animate-spin" />}
             {t('admin.contentTabs.projectsTab.confirmBtn')}

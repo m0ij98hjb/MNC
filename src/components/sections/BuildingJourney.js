@@ -430,16 +430,16 @@ export default function BuildingJourney() {
         >
           <div className="flex items-center justify-center gap-3 mb-5">
             <span className="h-px w-10 bg-[#D5B25D]" />
-            <span className="text-[#D5B25D] text-xs font-black uppercase tracking-[0.25em]">
+            <span className="text-[#f2a624] text-xs font-black uppercase tracking-[0.25em]">
               {tx(TX.eyebrow)}
             </span>
             <span className="h-px w-10 bg-[#D5B25D]" />
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-heading mb-5 leading-tight">
             {tx(TX.h2a)}{" "}
-            <span className="text-[#D5B25D]">{tx(TX.h2b)}</span>{" "}
+            <span className="text-[#f2a624]">{tx(TX.h2b)}</span>{" "}
             {tx(TX.h2c)}{" "}
-            <span className="text-[#D5B25D]">{tx(TX.h2d)}</span>
+            <span className="text-[#f2a624]">{tx(TX.h2d)}</span>
           </h2>
           <p className="text-white/45 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
             {tx(TX.subtitle)}
@@ -494,7 +494,7 @@ export default function BuildingJourney() {
                       : "bg-white/[0.04] border border-white/8"
                   }`}>
                     {isDoneStep && !isActive
-                      ? <CheckCircle size={18} className="text-[#D5B25D]" />
+                      ? <CheckCircle size={18} className="text-[#f2a624]" />
                       : <Icon size={18} className={isActive ? "text-black" : "text-white/25"} />
                     }
                   </div>
@@ -502,11 +502,11 @@ export default function BuildingJourney() {
                   {/* Text */}
                   <div className="flex-1 min-w-0">
                     <div className={`flex items-center gap-2 mb-0.5 flex-wrap ${isRTL ? "flex-row-reverse justify-end" : ""}`}>
-                      <span className={`text-[10px] font-black tracking-[0.2em] ${isActive || isDoneStep ? "text-[#D5B25D]" : "text-white/20"}`}>
+                      <span className={`text-[10px] font-black tracking-[0.2em] ${isActive || isDoneStep ? "text-[#f2a624]" : "text-white/20"}`}>
                         0{stage.id}
                       </span>
                       {isDoneStep && !isActive && (
-                        <span className="text-[9px] bg-[#D5B25D]/12 text-[#D5B25D] px-2 py-0.5 rounded-full font-black">✓ {tx(TX.done)}</span>
+                        <span className="text-[9px] bg-[#D5B25D]/12 text-[#f2a624] px-2 py-0.5 rounded-full font-black">✓ {tx(TX.done)}</span>
                       )}
                       {isActive && (
                         <span className="text-[9px] bg-[#D5B25D] text-black px-2 py-0.5 rounded-full font-black animate-pulse">
@@ -538,7 +538,7 @@ export default function BuildingJourney() {
                               initial={{ opacity: 0, scale: 0.85 }}
                               animate={{ opacity: 1, scale: 1 }}
                               transition={{ delay: j * 0.08 }}
-                              className="text-[9px] bg-[#D5B25D]/10 border border-[#D5B25D]/25 text-[#D5B25D] px-2.5 py-1 rounded-full font-bold"
+                              className="text-[9px] bg-[#D5B25D]/10 border border-[#D5B25D]/25 text-[#f2a624] px-2.5 py-1 rounded-full font-bold"
                             >
                               {tag}
                             </motion.span>
@@ -555,7 +555,7 @@ export default function BuildingJourney() {
             <div className="mt-1 px-1">
               <div className="flex justify-between text-[9px] font-bold text-white/25 mb-1">
                 <span>{tx(TX.progress)}</span>
-                <span className="text-[#D5B25D]">{Math.round((builtFloors / TOTAL_FLOORS) * 100)}%</span>
+                <span className="text-[#f2a624]">{Math.round((builtFloors / TOTAL_FLOORS) * 100)}%</span>
               </div>
               <div className="h-1.5 bg-white/8 rounded-full overflow-hidden">
                 <motion.div
@@ -577,11 +577,11 @@ export default function BuildingJourney() {
             className="mt-16 text-center"
           >
             <div className="inline-flex items-center gap-4 bg-gradient-to-r from-[#D5B25D]/15 via-[#D5B25D]/8 to-[#D5B25D]/15 border border-[#D5B25D]/30 rounded-2xl px-8 py-5 shadow-[0_0_60px_rgba(213,178,93,0.12)]">
-              <Sparkles className="text-[#D5B25D]" size={20} />
+              <Sparkles className="text-[#f2a624]" size={20} />
               <p className="text-white font-black text-sm md:text-base">
                 {tx(TX.complete)}
               </p>
-              <Sparkles className="text-[#D5B25D]" size={20} />
+              <Sparkles className="text-[#f2a624]" size={20} />
             </div>
           </motion.div>
         )}

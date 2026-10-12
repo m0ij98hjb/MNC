@@ -35,10 +35,10 @@ function JobCard({ pos, isRTL, t, onApply, index = 0 }) {
       <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#B8923A]/0 to-transparent group-hover:via-[#B8923A]/50 transition-all duration-500" />
       <div className="flex items-start justify-between gap-3">
         <div>
-          <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#B8923A]/12 text-[#B8923A] text-[10px] font-black uppercase tracking-widest mb-2.5 border border-[#B8923A]/20">{pos.dept}</span>
+          <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#B8923A]/12 text-[#f2a624] text-[10px] font-black uppercase tracking-widest mb-2.5 border border-[#B8923A]/20">{pos.dept}</span>
           <h3 className="text-white font-black text-xl leading-tight">{pos.title}</h3>
         </div>
-        <div className="w-12 h-12 rounded-xl bg-[#B8923A]/8 border border-[#B8923A]/15 flex items-center justify-center text-[#B8923A] flex-shrink-0 group-hover:scale-110 group-hover:bg-[#B8923A]/15 transition-all duration-300">
+        <div className="w-12 h-12 rounded-xl bg-[#B8923A]/8 border border-[#B8923A]/15 flex items-center justify-center text-[#f2a624] flex-shrink-0 group-hover:scale-110 group-hover:bg-[#B8923A]/15 transition-all duration-300">
           <Briefcase size={19} />
         </div>
       </div>
@@ -218,7 +218,7 @@ export default function CareersPage() {
 
   const selectCls = `w-full bg-black/40 border border-white/10 rounded-xl py-3.5 text-sm text-white focus:border-[#B8923A]/60 outline-none transition-all duration-300 appearance-none cursor-pointer ${isRTL ? "pe-4 ps-10" : "ps-4 pe-10"}`;
   const inputCls  = "w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/25 focus:border-[#B8923A]/60 focus:bg-black/60 outline-none transition-all duration-300";
-  const labelCls  = "text-[#B8923A] text-[11px] font-black uppercase tracking-widest block";
+  const labelCls  = "text-[#f2a624] text-[11px] font-black uppercase tracking-widest block";
 
   return (
     <main className="min-h-screen bg-[var(--background)] text-white font-cairo">
@@ -238,13 +238,13 @@ export default function CareersPage() {
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#B8923A]/6 rounded-full blur-[100px]" />
         </div>
         <div className="relative z-10 container mx-auto px-6 text-center max-w-5xl pt-32 pb-24">
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#B8923A]/40 bg-[#B8923A]/10 text-[#B8923A] text-xs font-bold uppercase tracking-[3px] mb-8" data-aos="fade-down">
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#B8923A]/40 bg-[#B8923A]/10 text-[#f2a624] text-xs font-bold uppercase tracking-[3px] mb-8" data-aos="fade-down">
             <span className="w-1.5 h-1.5 rounded-full bg-[#B8923A] animate-pulse" />
             {t("careers.heroBadge")}
           </div>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.08] mb-6" data-aos="fade-up" data-aos-delay="100">
             {t("careers.heroTitle")}<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#B8923A] via-[#E8D08A] to-[#B8923A]">
+            <span className="text-[#f2a624]">
               {t("careers.heroSubtitle")}
             </span>
           </h1>
@@ -258,7 +258,7 @@ export default function CareersPage() {
               <ArrowDown size={15} className="group-hover:translate-y-1 transition-transform duration-300" />
             </button>
             <button onClick={() => trainingRef.current?.scrollIntoView({ behavior: "smooth" })}
-              className="px-8 py-4 rounded-xl border border-[#B8923A]/40 text-[#B8923A] font-black text-sm hover:bg-[#B8923A]/10 hover:border-[#B8923A]/70 transition-all duration-300 hover:-translate-y-1 flex items-center gap-2">
+              className="px-8 py-4 rounded-xl border border-[#B8923A]/40 text-[#f2a624] font-black text-sm hover:bg-[#B8923A]/10 hover:border-[#B8923A]/70 transition-all duration-300 hover:-translate-y-1 flex items-center gap-2">
               <GraduationCap size={15} />
               {t("careers.trainingBadge")}
             </button>
@@ -275,7 +275,7 @@ export default function CareersPage() {
           style={{ backgroundImage: "radial-gradient(circle at 2px 2px, #B8923A 1px, transparent 0)", backgroundSize: "32px 32px" }} />
         <div className="container mx-auto px-6 max-w-6xl relative z-10">
           <div className="text-center mb-16" data-aos="fade-up">
-            <span className="text-[#B8923A] text-xs font-bold uppercase tracking-[3px] mb-3 block">{t("careers.whyBadge")}</span>
+            <span className="text-[#f2a624] text-xs font-bold uppercase tracking-[3px] mb-3 block">{t("careers.whyBadge")}</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4">{t("careers.whyTitle")}</h2>
             <p className="text-white/50 text-base max-w-xl mx-auto">{t("careers.whySubtitle")}</p>
             <div className="w-20 h-1 bg-gradient-to-r from-[#B8923A] to-[#D5B25D] mx-auto mt-6 rounded-full" />
@@ -286,7 +286,7 @@ export default function CareersPage() {
               return (
                 <div key={i} className="group relative bg-white/[0.03] border border-white/8 rounded-2xl p-7 hover:border-[#B8923A]/35 hover:bg-[#B8923A]/5 transition-all duration-500 overflow-hidden" data-aos="fade-up" data-aos-delay={i * 80}>
                   <div className="absolute -top-8 -right-8 w-28 h-28 rounded-full bg-[#B8923A]/5 group-hover:bg-[#B8923A]/12 transition-all duration-500 blur-xl" />
-                  <div className="w-12 h-12 rounded-xl bg-[#B8923A]/12 border border-[#B8923A]/20 flex items-center justify-center text-[#B8923A] mb-5 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-12 h-12 rounded-xl bg-[#B8923A]/12 border border-[#B8923A]/20 flex items-center justify-center text-[#f2a624] mb-5 group-hover:scale-110 transition-transform duration-300">
                     <Icon size={22} />
                   </div>
                   <h3 className="text-white font-black text-base mb-2.5">{benefit.title}</h3>
@@ -302,7 +302,7 @@ export default function CareersPage() {
       <section ref={el => { positionsRef.current = el; availPosRef.current = el; }} className="py-28 bg-[var(--background)] relative">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="text-center mb-16" data-aos="fade-up">
-            <span className="text-[#B8923A] text-xs font-bold uppercase tracking-[3px] mb-3 block">{t("careers.positionsBadge")}</span>
+            <span className="text-[#f2a624] text-xs font-bold uppercase tracking-[3px] mb-3 block">{t("careers.positionsBadge")}</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4">{t("careers.positionsTitle")}</h2>
             <p className="text-white/50 text-base max-w-xl mx-auto">{t("careers.positionsSubtitle")}</p>
             <div className="w-20 h-1 bg-gradient-to-r from-[#B8923A] to-[#D5B25D] mx-auto mt-6 rounded-full" />
@@ -317,11 +317,11 @@ export default function CareersPage() {
 
           {/* ── وظائف الإشراف والإدارة الميدانية ── */}
           <div className="flex items-center gap-3 mt-16 mb-6" data-aos="fade-up">
-            <span className="w-9 h-9 rounded-xl bg-[#B8923A]/10 border border-[#B8923A]/20 flex items-center justify-center text-[#B8923A] flex-shrink-0">
+            <span className="w-9 h-9 rounded-xl bg-[#B8923A]/10 border border-[#B8923A]/20 flex items-center justify-center text-[#f2a624] flex-shrink-0">
               <Briefcase size={16} />
             </span>
             <div>
-              <p className="text-[#B8923A] text-[10px] font-black uppercase tracking-widest">{t("careers.siteSupervisionBadge")}</p>
+              <p className="text-[#f2a624] text-[10px] font-black uppercase tracking-widest">{t("careers.siteSupervisionBadge")}</p>
               <h3 className="text-white font-black text-lg leading-tight">{t("careers.siteSupervisionTitle")}</h3>
             </div>
           </div>
@@ -335,11 +335,11 @@ export default function CareersPage() {
 
           {/* ── وظائف المعلمين ── */}
           <div className="flex items-center gap-3 mt-16 mb-6" data-aos="fade-up">
-            <span className="w-9 h-9 rounded-xl bg-[#B8923A]/10 border border-[#B8923A]/20 flex items-center justify-center text-[#B8923A] flex-shrink-0">
+            <span className="w-9 h-9 rounded-xl bg-[#B8923A]/10 border border-[#B8923A]/20 flex items-center justify-center text-[#f2a624] flex-shrink-0">
               <HardHat size={16} />
             </span>
             <div>
-              <p className="text-[#B8923A] text-[10px] font-black uppercase tracking-widest">{t("careers.skilledTradesBadge")}</p>
+              <p className="text-[#f2a624] text-[10px] font-black uppercase tracking-widest">{t("careers.skilledTradesBadge")}</p>
               <h3 className="text-white font-black text-lg leading-tight">{t("careers.skilledTradesTitle")}</h3>
             </div>
           </div>
@@ -360,7 +360,7 @@ export default function CareersPage() {
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#B8923A]/30 to-transparent" />
         <div className="container mx-auto px-6 max-w-6xl relative z-10">
           <div className="text-center mb-16" data-aos="fade-up">
-            <span className="inline-flex items-center gap-2 text-[#B8923A] text-xs font-bold uppercase tracking-[3px] mb-3">
+            <span className="inline-flex items-center gap-2 text-[#f2a624] text-xs font-bold uppercase tracking-[3px] mb-3">
               <GraduationCap size={14} />{t("careers.trainingBadge")}
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4">{t("careers.trainingTitle")}</h2>
@@ -373,22 +373,22 @@ export default function CareersPage() {
                   <div key={pos.key} className="group relative bg-gradient-to-br from-[#B8923A]/8 to-[#B8923A]/3 border border-[#B8923A]/20 rounded-2xl p-7 hover:border-[#B8923A]/45 hover:from-[#B8923A]/12 hover:to-[#B8923A]/6 transition-all duration-500 flex flex-col gap-4 overflow-hidden" data-aos="fade-up" data-aos-delay={i * 100}>
                     <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-[#B8923A]/8 blur-3xl group-hover:bg-[#B8923A]/14 transition-all duration-500" />
                     <div className="flex items-start gap-4">
-                      <div className="w-14 h-14 rounded-2xl bg-[#B8923A]/15 border border-[#B8923A]/30 flex items-center justify-center text-[#B8923A] flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                      <div className="w-14 h-14 rounded-2xl bg-[#B8923A]/15 border border-[#B8923A]/30 flex items-center justify-center text-[#f2a624] flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
                         <GraduationCap size={24} />
                       </div>
                       <div>
-                        <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#B8923A]/15 text-[#B8923A] text-[10px] font-black uppercase tracking-widest mb-2 border border-[#B8923A]/25">{pos.dept}</span>
+                        <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#B8923A]/15 text-[#f2a624] text-[10px] font-black uppercase tracking-widest mb-2 border border-[#B8923A]/25">{pos.dept}</span>
                         <h3 className="text-white font-black text-lg leading-tight">{pos.title}</h3>
                       </div>
                     </div>
                     <p className="text-white/55 text-sm leading-relaxed flex-1">{pos.desc}</p>
                     <div className="flex items-center justify-between pt-4 border-t border-[#B8923A]/12">
                       <div className="flex items-center gap-1.5 text-white/35 text-xs">
-                        <Zap size={11} className="text-[#B8923A]" />
-                        <span className="text-[#B8923A]/70">{pos.location || t("careers.jeddah")}</span>
+                        <Zap size={11} className="text-[#f2a624]" />
+                        <span className="text-[#f2a624]/70">{pos.location || t("careers.jeddah")}</span>
                       </div>
                       <button onClick={() => handleApplyClick(pos)}
-                        className="px-5 py-2.5 rounded-xl bg-[#B8923A]/15 border border-[#B8923A]/35 text-[#B8923A] font-black text-xs hover:bg-[#B8923A]/25 hover:border-[#B8923A]/60 hover:-translate-y-0.5 transition-all duration-300 active:scale-95">
+                        className="px-5 py-2.5 rounded-xl bg-[#B8923A]/15 border border-[#B8923A]/35 text-[#f2a624] font-black text-xs hover:bg-[#B8923A]/25 hover:border-[#B8923A]/60 hover:-translate-y-0.5 transition-all duration-300 active:scale-95">
                         {t("careers.applyNow")}
                       </button>
                     </div>
@@ -408,7 +408,7 @@ export default function CareersPage() {
 
         <div className="container mx-auto px-6 max-w-3xl relative z-10">
           <div className="text-center mb-14" data-aos="fade-up">
-            <span className="text-[#B8923A] text-xs font-bold uppercase tracking-[3px] mb-3 block">{t("careers.formBadge")}</span>
+            <span className="text-[#f2a624] text-xs font-bold uppercase tracking-[3px] mb-3 block">{t("careers.formBadge")}</span>
             <h2 className="text-3xl md:text-4xl font-black text-white mb-4">{t("careers.formTitle")}</h2>
             <p className="text-white/50 text-base max-w-xl mx-auto">{t("careers.formSubtitle")}</p>
             <div className="w-20 h-1 bg-gradient-to-r from-[#B8923A] to-[#D5B25D] mx-auto mt-6 rounded-full" />
@@ -418,7 +418,7 @@ export default function CareersPage() {
             <div className="bg-gradient-to-br from-[#B8923A]/10 to-[#B8923A]/5 border border-[#B8923A]/25 rounded-3xl p-14 text-center" data-aos="zoom-in">
               <div className="relative inline-block mb-7">
                 <div className="w-24 h-24 rounded-full bg-[#B8923A]/15 border border-[#B8923A]/30 flex items-center justify-center mx-auto">
-                  <CheckCircle2 size={44} className="text-[#B8923A]" />
+                  <CheckCircle2 size={44} className="text-[#f2a624]" />
                 </div>
                 <div className="absolute inset-0 rounded-full bg-[#B8923A]/10 blur-xl animate-pulse" />
               </div>
@@ -440,8 +440,8 @@ export default function CareersPage() {
                 {jobType && (
                   <div className="p-4 rounded-2xl bg-gradient-to-r from-[#B8923A]/10 to-[#B8923A]/5 border border-[#B8923A]/25">
                     <div className={`flex items-center gap-2 mb-3 ${isRTL ? "flex-row-reverse" : ""}`}>
-                      <CheckCircle2 size={14} className="text-[#B8923A] flex-shrink-0" />
-                      <span className="text-[#B8923A] text-[11px] font-black uppercase tracking-widest">
+                      <CheckCircle2 size={14} className="text-[#f2a624] flex-shrink-0" />
+                      <span className="text-[#f2a624] text-[11px] font-black uppercase tracking-widest">
                         {t("careers.selectedPositionBannerLabel")}
                       </span>
                     </div>
@@ -618,11 +618,11 @@ export default function CareersPage() {
                     {cvFile ? (
                       <div className="flex items-center justify-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-[#B8923A]/20 border border-[#B8923A]/30 flex items-center justify-center flex-shrink-0">
-                          <FileText size={20} className="text-[#B8923A]" />
+                          <FileText size={20} className="text-[#f2a624]" />
                         </div>
                         <div className={isRTL ? "text-right" : "text-left"}>
                           <p className="text-white font-bold text-sm leading-tight">{cvFile.name}</p>
-                          <p className="text-[#B8923A] text-xs mt-0.5 font-bold">{t("careers.cvUploaded")}</p>
+                          <p className="text-[#f2a624] text-xs mt-0.5 font-bold">{t("careers.cvUploaded")}</p>
                         </div>
                       </div>
                     ) : (

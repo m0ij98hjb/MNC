@@ -6,6 +6,7 @@ import { useRoleAccess } from '@/hooks/useRoleAccess';
 import { NotificationsProvider } from '@/context/NotificationsContext';
 import { ConfirmProvider } from '@/context/ConfirmContext';
 import { ROLES } from '@/lib/roleBasedAccess';
+import './admin-theme.css';
 
 export default function AdminLayout({ children }) {
   const { user } = useAuth();
@@ -46,10 +47,13 @@ export default function AdminLayout({ children }) {
     return null;
   }
 
-  // Authenticated: each page manages its own layout via AdminPageLayout
+  // Authenticated: each page manages its own layout via AdminPageLayout.
+  // .admin-shell applies the light, site-identity dashboard theme (admin-theme.css).
   return (
-    <ConfirmProvider>
-      <NotificationsProvider>{children}</NotificationsProvider>
-    </ConfirmProvider>
+    <div className="admin-shell">
+      <ConfirmProvider>
+        <NotificationsProvider>{children}</NotificationsProvider>
+      </ConfirmProvider>
+    </div>
   );
 }

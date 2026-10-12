@@ -263,7 +263,7 @@ export default function ReportsPage() {
     return (
       <AdminPageLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <Loader2 size={32} className="text-[#c8a96e] animate-spin" />
+          <Loader2 size={32} className="text-[#f2a624] animate-spin" />
         </div>
       </AdminPageLayout>
     );

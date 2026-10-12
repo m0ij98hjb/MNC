@@ -63,7 +63,7 @@ export default function BestJobsPage() {
     return (
       <AdminPageLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <Sparkles size={28} className="text-[#c8a96e] animate-pulse" />
+          <Sparkles size={28} className="text-[#f2a624] animate-pulse" />
         </div>
       </AdminPageLayout>
     );
@@ -176,7 +176,7 @@ export default function BestJobsPage() {
                       <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-black shrink-0 ${
                         i === 0 ? 'bg-amber-500/20 text-amber-400' :
                         i === 1 ? 'bg-slate-500/20 text-slate-400' :
-                        i === 2 ? 'bg-[#c8a96e]/20 text-[#c8a96e]' :
+                        i === 2 ? 'bg-[#c8a96e]/20 text-[#f2a624]' :
                         'bg-white/5 text-white/25'
                       }`}>
                         {i + 1}
@@ -221,7 +221,7 @@ export default function BestJobsPage() {
 
                       {app.cvUrl && (
                         <a href={app.cvUrl} target="_blank" rel="noopener noreferrer"
-                          className="flex items-center justify-center w-8 h-8 rounded-lg border border-[#c8a96e]/25 text-[#c8a96e]/60 hover:text-[#c8a96e] hover:border-[#c8a96e]/50 hover:bg-[#c8a96e]/8 transition-all shrink-0"
+                          className="flex items-center justify-center w-8 h-8 rounded-lg border border-[#c8a96e]/25 text-[#f2a624]/60 hover:text-[#f2a624] hover:border-[#c8a96e]/50 hover:bg-[#c8a96e]/8 transition-all shrink-0"
                           title={t('admin.downloadCV')}>
                           <Download size={13} />
                         </a>

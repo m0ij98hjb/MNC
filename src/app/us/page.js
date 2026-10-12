@@ -119,7 +119,7 @@ export default function AboutUsPage() {
                 loop={true}
                 className="text-white"
                 textClassName="text-white"
-                wordClassName="text-gradient"
+                wordClassName="text-[#f2a624]"
               />
             </h1>
 
@@ -180,7 +180,7 @@ export default function AboutUsPage() {
               <div className="space-y-6 pt-2">
                 <div className={`flex items-start gap-4 ${isRTL ? 'flex-row' : 'flex-row-reverse'}`} data-aos="fade-up" data-aos-delay="200">
                   <div className="w-12 h-12 rounded-2xl bg-[#D5B25D]/10 border border-[#D5B25D]/20 flex items-center justify-center shrink-0 shadow-lg">
-                    <Target className="text-[#D5B25D]" size={22} />
+                    <Target className="text-[#f2a624]" size={22} />
                   </div>
                   <div className="flex-1">
                     <h3 className="font-bold text-lg text-white mb-1.5">{t("aboutUsPage.goalTitle")}</h3>
@@ -192,7 +192,7 @@ export default function AboutUsPage() {
 
                 <div className={`flex items-start gap-4 ${isRTL ? 'flex-row' : 'flex-row-reverse'}`} data-aos="fade-up" data-aos-delay="300">
                   <div className="w-12 h-12 rounded-2xl bg-[#D5B25D]/10 border border-[#D5B25D]/20 flex items-center justify-center shrink-0 shadow-lg">
-                    <Building2 className="text-[#D5B25D]" size={22} />
+                    <Building2 className="text-[#f2a624]" size={22} />
                   </div>
                   <div className="flex-1">
                     <h3 className="font-bold text-lg text-white mb-1.5">{t("aboutUsPage.projectsTitle")}</h3>
@@ -212,7 +212,7 @@ export default function AboutUsPage() {
                   <Image src="/project1.png" alt="MNC Residential Project" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent transition-opacity duration-500" />
                   <div className={`absolute bottom-4 ${isRTL ? 'right-4 text-right' : 'left-4 text-left'}`}>
-                    <span className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider bg-black/60 px-3 py-1.5 rounded-full border border-[#D5B25D]/20">{t("gallery.distinctive")}</span>
+                    <span className="text-[#f2a624] text-xs font-bold uppercase tracking-wider bg-black/60 px-3 py-1.5 rounded-full border border-[#D5B25D]/20">{t("gallery.distinctive")}</span>
                   </div>
                 </div>
 
@@ -220,7 +220,7 @@ export default function AboutUsPage() {
                   <Image src="/project2.png" alt="MNC Commercial Project" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent transition-opacity duration-500" />
                   <div className={`absolute bottom-4 ${isRTL ? 'right-4 text-right' : 'left-4 text-left'}`}>
-                    <span className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider bg-black/60 px-3 py-1.5 rounded-full border border-[#D5B25D]/20">{t("gallery.distinctive")}</span>
+                    <span className="text-[#f2a624] text-xs font-bold uppercase tracking-wider bg-black/60 px-3 py-1.5 rounded-full border border-[#D5B25D]/20">{t("gallery.distinctive")}</span>
                   </div>
                 </div>
               </div>
@@ -230,7 +230,7 @@ export default function AboutUsPage() {
                 <Image src="/hero.png" alt="MNC Engineering" fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent transition-opacity duration-500" />
                 <div className={`absolute bottom-6 ${isRTL ? 'right-6 text-right' : 'left-6 text-left'}`}>
-                  <span className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider bg-black/60 px-3 py-1.5 rounded-full border border-[#D5B25D]/20">{t("gallery.distinctive")}</span>
+                  <span className="text-[#f2a624] text-xs font-bold uppercase tracking-wider bg-black/60 px-3 py-1.5 rounded-full border border-[#D5B25D]/20">{t("gallery.distinctive")}</span>
                 </div>
               </div>
             </div>
@@ -284,7 +284,7 @@ export default function AboutUsPage() {
           <div className="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
             <div className="flex items-center justify-center gap-3 mb-4">
               <span className="h-px w-8 bg-[#D5B25D]"></span>
-              <span className="text-[#D5B25D] font-bold tracking-widest uppercase text-xs">
+              <span className="text-[#f2a624] font-bold tracking-widest uppercase text-xs">
                 {t("aboutUsPage.teamBadge")}
               </span>
               <span className="h-px w-8 bg-[#D5B25D]"></span>
@@ -314,7 +314,7 @@ export default function AboutUsPage() {
                   <h3 className="text-white font-bold text-xl md:text-2xl mb-2">
                     {t("aboutUsPage.teamStaffTitle")}
                   </h3>
-                  <p className="text-[#D5B25D] text-sm md:text-base font-semibold">
+                  <p className="text-[#f2a624] text-sm md:text-base font-semibold">
                     {t("aboutUsPage.teamStaffDesc")}
                   </p>
                 </div>
@@ -337,7 +337,7 @@ export default function AboutUsPage() {
                   <h3 className="text-white font-bold text-xl md:text-2xl mb-2">
                     {t("aboutUsPage.teamFieldTitle")}
                   </h3>
-                  <p className="text-[#D5B25D] text-sm md:text-base font-semibold">
+                  <p className="text-[#f2a624] text-sm md:text-base font-semibold">
                     {t("aboutUsPage.teamFieldDesc")}
                   </p>
                 </div>
@@ -361,7 +361,7 @@ export default function AboutUsPage() {
           <div className="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
             <div className="flex items-center justify-center gap-3 mb-4">
               <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#D5B25D]" />
-              <span className="text-[#D5B25D] font-bold tracking-[4px] uppercase text-[11px]">
+              <span className="text-[#f2a624] font-bold tracking-[4px] uppercase text-[11px]">
                 {t('contactPage.riyadhBranch')}
               </span>
               <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#D5B25D]" />
@@ -403,12 +403,12 @@ export default function AboutUsPage() {
 
                 {/* Zoom icon */}
                 <div className={`absolute top-3 ${isRTL ? 'left-3' : 'right-3'} w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`}>
-                  <ZoomIn size={13} className="text-[#D5B25D]" />
+                  <ZoomIn size={13} className="text-[#f2a624]" />
                 </div>
 
                 {/* Hover label */}
                 <div className={`absolute bottom-4 ${isRTL ? 'right-4' : 'left-4'} translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none`}>
-                  <span className="text-[#D5B25D] text-[10px] font-bold uppercase tracking-widest bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-[#D5B25D]/20">
+                  <span className="text-[#f2a624] text-[10px] font-bold uppercase tracking-widest bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-[#D5B25D]/20">
                     {t('contactPage.riyadhBranch')}
                   </span>
                 </div>
@@ -506,7 +506,7 @@ export default function AboutUsPage() {
             {/* Gold bottom label */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/70 backdrop-blur-md px-4 py-2 rounded-full border border-[#D5B25D]/20 whitespace-nowrap">
               <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D]" />
-              <span className="text-[#D5B25D] text-[11px] font-bold uppercase tracking-[3px]">
+              <span className="text-[#f2a624] text-[11px] font-bold uppercase tracking-[3px]">
                 MNC · {t('contactPage.riyadhBranch')}
               </span>
             </div>

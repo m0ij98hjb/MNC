@@ -131,14 +131,14 @@ export default function VideoShowcase() {
         >
           <div className="flex items-center justify-center gap-3 mb-4">
             <span className="h-px w-10 bg-[#D5B25D]" />
-            <span className="text-[#D5B25D] text-[11px] font-black uppercase tracking-[0.25em]">
+            <span className="text-[#f2a624] text-[11px] font-black uppercase tracking-[0.25em]">
               {tx(TX.eyebrow)}
             </span>
             <span className="h-px w-10 bg-[#D5B25D]" />
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-heading leading-tight mb-4">
             <span className="text-white">{tx(TX.title1)} </span>
-            <span className="text-[#D5B25D]">{tx(TX.title2)}</span>
+            <span className="text-[#f2a624]">{tx(TX.title2)}</span>
           </h2>
           <p className="text-white/40 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
             {tx(TX.subtitle)}

@@ -8,7 +8,7 @@ export default function PurchasingReportHeader({ title, subtitle }) {
     <div className="flex items-center justify-between gap-4 pb-4 mb-2 border-b-2 border-[#c8a96e]/40" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="flex items-center gap-3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/asstes/logo-navbar-v2.png" alt="MNC" className="h-10 w-auto" />
+        <img src="/asstes/mnc-logo-2026.png" alt="MNC" className="h-5 w-auto" />
         <div>
           <p className="text-white font-black text-sm">{title}</p>
           {subtitle && <p className="text-white/40 text-xs mt-0.5">{subtitle}</p>}

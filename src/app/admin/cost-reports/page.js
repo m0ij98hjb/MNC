@@ -73,7 +73,7 @@ export default function CostReportsPage() {
     return (
       <AdminPageLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <Loader2 size={28} className="animate-spin text-[#c8a96e]" />
+          <Loader2 size={28} className="animate-spin text-[#f2a624]" />
         </div>
       </AdminPageLayout>
     );
@@ -101,7 +101,7 @@ export default function CostReportsPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h1 className={`text-xl font-black flex items-center gap-2 ${textPri}`}>
-              <FileText size={20} className="text-[#c8a96e]" />
+              <FileText size={20} className="text-[#f2a624]" />
               {t("costReports.title")}
             </h1>
             <p className={`text-sm mt-1 ${textSec}`}>{t("costReports.subtitle")}</p>
@@ -144,7 +144,7 @@ export default function CostReportsPage() {
         {/* List */}
         {loadingReports ? (
           <div className="flex items-center justify-center py-24">
-            <Loader2 size={24} className="animate-spin text-[#c8a96e]" />
+            <Loader2 size={24} className="animate-spin text-[#f2a624]" />
           </div>
         ) : filtered.length === 0 ? (
           <div className={`${cardCls} rounded-2xl py-20 text-center`}>
@@ -163,7 +163,7 @@ export default function CostReportsPage() {
                   className={`${cardCls} rounded-2xl p-5 text-start hover:border-[#D5B25D]/40 transition-all duration-200 space-y-3 block`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-2 text-xs font-bold text-[#D5B25D] uppercase tracking-wide">
+                    <span className="flex items-center gap-2 text-xs font-bold text-[#f2a624] uppercase tracking-wide">
                       <Icon size={14} />
                       {t(`calculator.${r.type}`) !== r.type ? t(`calculator.${r.type}`) : t(`calculator.${r.category}`)}
                     </span>

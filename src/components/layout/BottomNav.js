@@ -68,7 +68,7 @@ export default function BottomNav() {
                   </span>
                   <span
                     className="text-[9px] font-black tracking-wide leading-none truncate max-w-[52px] text-center"
-                    style={{ color: '#D5B25D' }}
+                    style={{ color: '#f2a624' }}
                   >
                     {t(key)}
                   </span>

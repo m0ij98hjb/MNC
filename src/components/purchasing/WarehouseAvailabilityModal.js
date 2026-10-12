@@ -25,7 +25,7 @@ export default function WarehouseAvailabilityModal({ availability, onConfirm, on
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.78)', backdropFilter: 'blur(8px)' }}>
       <div className="w-full max-w-2xl bg-[#111118] border border-white/10 rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]">
-          <h2 className="text-white font-bold text-base flex items-center gap-2"><Boxes size={17} className="text-[#c8a96e]" />{t('purchasing.warehouseAvailabilityTitle')}</h2>
+          <h2 className="text-white font-bold text-base flex items-center gap-2"><Boxes size={17} className="text-[#f2a624]" />{t('purchasing.warehouseAvailabilityTitle')}</h2>
           <button onClick={onClose} className="p-1.5 rounded-lg text-white/30 hover:text-white hover:bg-white/8"><X size={18} /></button>
         </div>
         <div className="px-6 py-5 space-y-3">

@@ -115,7 +115,7 @@ function RequestsContent() {
 
       <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">
         {requests === null ? (
-          <div className="flex items-center justify-center py-20"><Loader2 size={28} className="text-[#c8a96e] animate-spin" /></div>
+          <div className="flex items-center justify-center py-20"><Loader2 size={28} className="text-[#f2a624] animate-spin" /></div>
         ) : filtered.length === 0 ? (
           <p className="text-center text-white/30 text-sm py-16">{t('admin.noResults')}</p>
         ) : (

@@ -70,7 +70,7 @@ export default function AttachmentsUploader({ pathPrefix, attachments, onChange,
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-[#c8a96e]/30 text-[#c8a96e] hover:bg-[#c8a96e]/10 transition-all disabled:opacity-50"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-[#c8a96e]/30 text-[#f2a624] hover:bg-[#c8a96e]/10 transition-all disabled:opacity-50"
         >
           {uploading ? <Loader2 size={15} className="animate-spin" /> : <Upload size={15} />}
           {uploading ? t('purchasing.uploading') : t('purchasing.uploadAttachments')}
@@ -87,10 +87,10 @@ export default function AttachmentsUploader({ pathPrefix, attachments, onChange,
             {attachments.map((a, i) => (
               <li key={i} className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs">
                 <Paperclip size={12} className="text-white/40 shrink-0" />
-                <button type="button" onClick={() => setPreviewItem(a)} className="flex-1 min-w-0 truncate text-start text-white/70 hover:text-[#c8a96e]">
+                <button type="button" onClick={() => setPreviewItem(a)} className="flex-1 min-w-0 truncate text-start text-white/70 hover:text-[#f2a624]">
                   {a.name}
                 </button>
-                <button type="button" onClick={() => setPreviewItem(a)} className="text-white/30 hover:text-[#c8a96e] shrink-0">
+                <button type="button" onClick={() => setPreviewItem(a)} className="text-white/30 hover:text-[#f2a624] shrink-0">
                   <Eye size={13} />
                 </button>
                 {!disabled && (
@@ -103,7 +103,7 @@ export default function AttachmentsUploader({ pathPrefix, attachments, onChange,
           </ul>
           {attachments.length > 1 && (
             <button type="button" onClick={downloadAllZip} disabled={zipping}
-              className="flex items-center gap-1.5 text-xs font-semibold text-white/40 hover:text-[#c8a96e] disabled:opacity-50">
+              className="flex items-center gap-1.5 text-xs font-semibold text-white/40 hover:text-[#f2a624] disabled:opacity-50">
               {zipping ? <Loader2 size={13} className="animate-spin" /> : <FolderArchive size={13} />} {t('purchasing.downloadAllZip')}
             </button>
           )}

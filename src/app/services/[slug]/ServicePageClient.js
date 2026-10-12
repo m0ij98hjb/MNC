@@ -71,14 +71,14 @@ export default function ServicePageClient({ slug }) {
             {/* Badge */}
             <div className="inline-flex items-center gap-2.5 bg-white/5 backdrop-blur-sm border border-[#D5B25D]/30 rounded-full px-5 py-2 mb-8">
               <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D] animate-pulse" />
-              <span className="text-[#D5B25D] text-xs font-bold tracking-widest uppercase">{content.badge}</span>
+              <span className="text-[#f2a624] text-xs font-bold tracking-widest uppercase">{content.badge}</span>
             </div>
 
             {/* Title */}
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-4 font-heading leading-tight">
               {content.title}
             </h1>
-            <p className="text-[#D5B25D] text-lg md:text-2xl font-bold mb-6">{content.subtitle}</p>
+            <p className="text-[#f2a624] text-lg md:text-2xl font-bold mb-6">{content.subtitle}</p>
             <p className="text-white/70 text-base md:text-lg leading-relaxed max-w-2xl mb-10 font-medium">
               {content.description}
             </p>
@@ -94,7 +94,7 @@ export default function ServicePageClient({ slug }) {
               </Link>
               <a
                 href="#offerings"
-                className="inline-flex items-center gap-3 border-2 border-white/30 text-white font-bold px-8 py-4 rounded-full text-base transition-all duration-300 hover:border-[#D5B25D] hover:text-[#D5B25D]"
+                className="inline-flex items-center gap-3 border-2 border-white/30 text-white font-bold px-8 py-4 rounded-full text-base transition-all duration-300 hover:border-[#D5B25D] hover:text-[#f2a624]"
               >
                 {{ ar: "استكشف التفاصيل", en: "Explore Details", hi: "विवरण देखें", ru: "Исследовать детали", de: "Details erkunden", fr: "Explorer les détails", es: "Explorar detalles", tr: "Detayları Keşfet", ur: "تفصیلات دیکھیں", zh: "探索细节" }[lang] || "Explore Details"}
                 {isRTLLang ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
@@ -112,7 +112,7 @@ export default function ServicePageClient({ slug }) {
           <div className="text-center mb-16" data-aos="fade-up">
             <div className="flex items-center justify-center gap-3 mb-4">
               <span className="h-px w-8 bg-[#D5B25D]" />
-              <span className="text-[#D5B25D] font-bold tracking-widest uppercase text-xs">{content.badge}</span>
+              <span className="text-[#f2a624] font-bold tracking-widest uppercase text-xs">{content.badge}</span>
               <span className="h-px w-8 bg-[#D5B25D]" />
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-[var(--foreground)] font-heading mb-4">
@@ -130,7 +130,7 @@ export default function ServicePageClient({ slug }) {
                 data-aos-delay={i * 70}
               >
                 <div className="w-8 h-8 rounded-lg bg-[#D5B25D]/10 border border-[#D5B25D]/20 flex items-center justify-center shrink-0 group-hover:bg-[#D5B25D]/20 transition-colors mt-0.5">
-                  <CheckCircle2 className="text-[#D5B25D]" size={16} />
+                  <CheckCircle2 className="text-[#f2a624]" size={16} />
                 </div>
                 <p className="text-[var(--foreground)]/80 text-sm md:text-base leading-relaxed font-medium">{item}</p>
               </div>
@@ -160,9 +160,9 @@ export default function ServicePageClient({ slug }) {
                   data-aos-delay={i * 100}
                 >
                   <div className="w-14 h-14 rounded-2xl bg-[#D5B25D]/10 border border-[#D5B25D]/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-[#D5B25D]/20 transition-colors">
-                    <Icon className="text-[#D5B25D]" size={26} />
+                    <Icon className="text-[#f2a624]" size={26} />
                   </div>
-                  <h3 className="font-black text-lg text-[#D5B25D] mb-3">{adv.title}</h3>
+                  <h3 className="font-black text-lg text-[#f2a624] mb-3">{adv.title}</h3>
                   <p className="text-[var(--foreground)]/65 text-sm leading-relaxed">{adv.desc}</p>
                 </div>
               );
@@ -202,7 +202,7 @@ export default function ServicePageClient({ slug }) {
                   <p className="text-white/70 text-xs line-clamp-2">{proj.desc}</p>
                 </div>
                 <div className={`absolute bottom-4 ${isRTLLang ? "right-4" : "left-4"} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}>
-                  <span className="text-[#D5B25D] text-xs font-bold uppercase tracking-widest bg-black/60 px-3 py-1.5 rounded-full border border-[#D5B25D]/20">
+                  <span className="text-[#f2a624] text-xs font-bold uppercase tracking-widest bg-black/60 px-3 py-1.5 rounded-full border border-[#D5B25D]/20">
                     {{ ar: "مشروع متميز", en: "Featured Project", hi: "प्रमुख परियोजना", ru: "Рекомендуемый проект", de: "Hervorragendes Projekt", es: "Proyecto destacado", fr: "Projet en vedette", tr: "Öne Çıkan Proje", ur: "نمایاں منصوبہ", zh: "特色项目" }[lang] || "Featured Project"}
                   </span>
                 </div>
@@ -260,7 +260,7 @@ export default function ServicePageClient({ slug }) {
               </Link>
               <Link
                 href="/projects"
-                className="inline-flex items-center justify-center gap-3 border-2 border-[#D5B25D]/35 text-[#D5B25D] font-bold px-10 py-4 rounded-full text-base transition-all duration-300 hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/60"
+                className="inline-flex items-center justify-center gap-3 border-2 border-[#D5B25D]/35 text-[#f2a624] font-bold px-10 py-4 rounded-full text-base transition-all duration-300 hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/60"
               >
                 {{ ar: "عرض جميع المشاريع", en: "View All Projects", hi: "सभी परियोजनाएं देखें", ru: "Посмотреть все проекты", de: "Alle Projekte anzeigen", fr: "Voir tous les projets", es: "Ver todos los proyectos", tr: "Tüm Projeleri Görüntüle", ur: "تمام منصوبے دیکھیں", zh: "查看所有项目" }[lang] || "View All Projects"}
                 {isRTLLang ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}

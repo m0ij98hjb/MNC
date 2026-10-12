@@ -246,7 +246,7 @@ export default function MessagesPage() {
         {/* ── Header ── */}
         <div className="flex items-center gap-3 mb-6">
           <div className="w-9 h-9 rounded-xl bg-[#c8a96e]/10 border border-[#c8a96e]/20 flex items-center justify-center">
-            <MessageSquare size={16} className="text-[#c8a96e]" />
+            <MessageSquare size={16} className="text-[#f2a624]" />
           </div>
           <h1 className="text-2xl font-bold text-white">{t('admin.messagesMenu')}</h1>
         </div>
@@ -290,7 +290,7 @@ export default function MessagesPage() {
                 <button key={s} onClick={() => setFilter(s)}
                   className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
                     filter === s
-                      ? 'bg-[#c8a96e]/15 text-[#c8a96e] border border-[#c8a96e]/30'
+                      ? 'bg-[#c8a96e]/15 text-[#f2a624] border border-[#c8a96e]/30'
                       : 'text-white/40 border border-white/8 hover:text-white/70'
                   }`}>
                   {label}
@@ -317,7 +317,7 @@ export default function MessagesPage() {
 
         {/* ── Table ── */}
         {loading ? (
-          <div className="flex justify-center py-24"><Loader2 size={28} className="text-[#c8a96e] animate-spin" /></div>
+          <div className="flex justify-center py-24"><Loader2 size={28} className="text-[#f2a624] animate-spin" /></div>
         ) : visible.length === 0 ? (
           <div className="text-center py-24 text-white/25 text-sm">
             <MessageSquare size={32} className="mx-auto mb-3 opacity-20" />
@@ -370,7 +370,7 @@ export default function MessagesPage() {
                           </button>
                           {msg.email && (
                             <button onClick={() => openReply(msg)}
-                              className="p-1.5 rounded-lg text-white/30 hover:text-[#c8a96e] hover:bg-[#c8a96e]/8 transition-all"
+                              className="p-1.5 rounded-lg text-white/30 hover:text-[#f2a624] hover:bg-[#c8a96e]/8 transition-all"
                               title={t('admin.messages.replyShort')}>
                               <CornerUpLeft size={14} />
                             </button>
@@ -428,12 +428,12 @@ export default function MessagesPage() {
                     className="w-7 h-7 rounded-full flex items-center justify-center text-white/40 hover:text-white hover:bg-white/8 transition-all">
                     <BackIcon size={15} />
                   </button>
-                  <MessageSquare size={15} className="text-[#c8a96e]" />
+                  <MessageSquare size={15} className="text-[#f2a624]" />
                   <h2 className="text-base font-bold text-white">{t('admin.messages.detailsTitle')}</h2>
                 </div>
                 <div className="flex items-center gap-2">
                   <button onClick={() => downloadReport(viewMsg)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-[#c8a96e]/10 border border-[#c8a96e]/25 text-[#c8a96e] hover:bg-[#c8a96e]/18">
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-[#c8a96e]/10 border border-[#c8a96e]/25 text-[#f2a624] hover:bg-[#c8a96e]/18">
                     <FileText size={12} /> {t('admin.downloadReport')}
                   </button>
                   <StatusChip status={viewMsg.status || 'new'} />
@@ -450,7 +450,7 @@ export default function MessagesPage() {
                 {/* Info Grid */}
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { icon: User,      color: '#c8a96e', bg: 'rgba(200,169,110,0.10)', label: t('admin.fullNameLabel'),        val: viewMsg.fullName || viewMsg.name || '—' },
+                    { icon: User,      color: '#f2a624', bg: 'rgba(200,169,110,0.10)', label: t('admin.fullNameLabel'),        val: viewMsg.fullName || viewMsg.name || '—' },
                     { icon: Mail,      color: '#3b82f6', bg: 'rgba(59,130,246,0.10)',  label: t('admin.emailLabel'),           val: viewMsg.email   || '—' },
                     { icon: Phone,     color: '#10b981', bg: 'rgba(16,185,129,0.10)',  label: t('admin.phoneCol'),             val: viewMsg.phone   || '—' },
                     { icon: Building2, color: '#a78bfa', bg: 'rgba(167,139,250,0.10)', label: t('admin.messages.companyLabel'), val: viewMsg.company || '—' },
@@ -478,7 +478,7 @@ export default function MessagesPage() {
                 {/* Admin Reply */}
                 {viewMsg.adminReply && (
                   <div className="bg-[#c8a96e]/5 border border-[#c8a96e]/18 rounded-xl p-4">
-                    <p className="text-[10px] text-[#c8a96e]/55 uppercase tracking-wider mb-3">{t('admin.messages.adminReplyLabel')}</p>
+                    <p className="text-[10px] text-[#f2a624]/55 uppercase tracking-wider mb-3">{t('admin.messages.adminReplyLabel')}</p>
                     <p className="text-white/75 text-sm leading-relaxed whitespace-pre-wrap">{viewMsg.adminReply}</p>
                   </div>
                 )}
@@ -487,7 +487,7 @@ export default function MessagesPage() {
                 <div className="flex gap-2 flex-wrap pt-1 border-t border-white/[0.06]">
                   {viewMsg.email && (
                     <button onClick={() => { setViewMsg(null); openReply(viewMsg); }}
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all bg-[#c8a96e]/10 border border-[#c8a96e]/25 text-[#c8a96e] hover:bg-[#c8a96e]/18">
+                      className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all bg-[#c8a96e]/10 border border-[#c8a96e]/25 text-[#f2a624] hover:bg-[#c8a96e]/18">
                       <CornerUpLeft size={12} /> {t('admin.messages.replyShort')}
                     </button>
                   )}
@@ -533,7 +533,7 @@ export default function MessagesPage() {
               {/* Header */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]">
                 <div className="flex items-center gap-3">
-                  <CornerUpLeft size={15} className="text-[#c8a96e]" />
+                  <CornerUpLeft size={15} className="text-[#f2a624]" />
                   <h2 className="text-base font-bold text-white">{t('admin.messages.sendReplyTitle')}</h2>
                 </div>
                 <button onClick={() => !replySending && setReplyMsg(null)}

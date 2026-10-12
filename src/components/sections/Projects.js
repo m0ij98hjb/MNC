@@ -70,12 +70,11 @@ const Projects = () => {
                       onClick={() => setFilter(cat.key)}
                       className={`rounded-full whitespace-nowrap py-2 transition-all duration-300 ${
                         isActive
-                          ? "px-5 font-medium text-[#2c1f0a] border-0"
-                          : "px-[18px] font-normal bg-transparent border border-secondary text-white"
+                          ? "px-5 font-bold text-black border-0 bg-[#f2a624] shadow-[0_2px_12px_rgba(242,166,36,0.4)]"
+                          : "px-[18px] font-normal bg-transparent border border-[#f2a624]/60 text-white hover:border-[#f2a624]"
                       }`}
                       style={{
                         fontSize: "clamp(12px, 3.5vw, 13px)",
-                        ...(isActive ? { background: "linear-gradient(180deg, #d4af6a, #b8944f)" } : undefined),
                       }}
                     >
                       {cat.label}

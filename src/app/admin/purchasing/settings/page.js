@@ -25,7 +25,7 @@ function SettingsContent() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Settings size={22} className="text-[#c8a96e]" />
+            <Settings size={22} className="text-[#f2a624]" />
             {t('purchasing.settingsPageTitle')}
           </h1>
           <p className="text-xs text-white/40 mt-1">{t('purchasing.settingsPageSubtitle')}</p>
@@ -42,7 +42,7 @@ function SettingsContent() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Workflow Info */}
         <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6 shadow-xl">
-          <div className="flex items-center gap-2.5 mb-4 text-[#c8a96e] font-bold text-base">
+          <div className="flex items-center gap-2.5 mb-4 text-[#f2a624] font-bold text-base">
             <Layers size={18} />
             {t('purchasing.currentWorkflowTitle')}
           </div>
@@ -58,7 +58,7 @@ function SettingsContent() {
 
         {/* Currency & Financial Preferences */}
         <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6 shadow-xl space-y-4">
-          <div className="flex items-center gap-2.5 mb-2 text-[#c8a96e] font-bold text-base">
+          <div className="flex items-center gap-2.5 mb-2 text-[#f2a624] font-bold text-base">
             <FileText size={18} />
             {t('purchasing.currencyWarehouseOptionsTitle')}
           </div>
@@ -91,7 +91,7 @@ function SettingsContent() {
 
         {/* Notification Settings */}
         <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-6 shadow-xl space-y-4 md:col-span-2">
-          <div className="flex items-center gap-2.5 mb-2 text-[#c8a96e] font-bold text-base">
+          <div className="flex items-center gap-2.5 mb-2 text-[#f2a624] font-bold text-base">
             <Bell size={18} />
             {t('purchasing.notifAlertsTitle')}
           </div>

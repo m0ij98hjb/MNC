@@ -44,9 +44,9 @@ export default function PurchasingDashboardWidget() {
   return (
     <div className="mt-6">
       <div className="flex items-center gap-2 mb-3">
-        <ShoppingCart size={14} className="text-[#c8a96e]" />
+        <ShoppingCart size={14} className="text-[#f2a624]" />
         <span className="text-xs font-bold text-white/40 uppercase tracking-widest">{t('purchasing.dashboardWidgetTitle')}</span>
-        <Link href="/admin/purchasing" className="ms-auto text-xs text-[#c8a96e] hover:underline flex items-center gap-1">
+        <Link href="/admin/purchasing" className="ms-auto text-xs text-[#f2a624] hover:underline flex items-center gap-1">
           {t('admin.viewAll')} <ArrowIcon size={11} />
         </Link>
       </div>
@@ -67,7 +67,7 @@ export default function PurchasingDashboardWidget() {
       <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">
         <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.07]">
           <h2 className="text-sm font-semibold text-white">{t('purchasing.latestRequests')}</h2>
-          <Link href="/admin/purchasing/requests" className="flex items-center gap-1 text-xs text-[#c8a96e] hover:underline">
+          <Link href="/admin/purchasing/requests" className="flex items-center gap-1 text-xs text-[#f2a624] hover:underline">
             {t('admin.viewAll')} <ArrowIcon size={11} />
           </Link>
         </div>
@@ -77,7 +77,7 @@ export default function PurchasingDashboardWidget() {
           ) : latest.map(r => (
             <Link key={r.id} href={`/admin/purchasing/requests/${r.id}`} className="flex items-center justify-between px-5 py-3 hover:bg-white/[0.03] transition-colors group">
               <div className="min-w-0 flex-1">
-                <p className="text-sm text-white font-medium truncate group-hover:text-[#c8a96e] transition-colors" dir="ltr">{r.requestNumber}</p>
+                <p className="text-sm text-white font-medium truncate group-hover:text-[#f2a624] transition-colors" dir="ltr">{r.requestNumber}</p>
                 <p className="text-xs text-white/30 mt-0.5 truncate">{r.projectName} · {r.requesterName}</p>
               </div>
               <PurchaseStatusBadge status={r.status} />

@@ -14,7 +14,7 @@ export default function JobPostingsPage() {
       <div className="p-6 lg:p-8" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="flex items-center gap-3 mb-6">
           <div className="w-9 h-9 rounded-xl bg-[#c8a96e]/10 border border-[#c8a96e]/20 flex items-center justify-center">
-            <PenSquare size={16} className="text-[#c8a96e]" />
+            <PenSquare size={16} className="text-[#f2a624]" />
           </div>
           <h1 className="text-2xl font-bold text-white">{t('admin.jobPostingsMenu')}</h1>
         </div>

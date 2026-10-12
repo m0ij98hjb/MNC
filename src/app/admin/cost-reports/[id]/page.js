@@ -37,7 +37,7 @@ export default function CostReportDetailPage() {
     return (
       <AdminPageLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <Loader2 size={28} className="animate-spin text-[#c8a96e]" />
+          <Loader2 size={28} className="animate-spin text-[#f2a624]" />
         </div>
       </AdminPageLayout>
     );
@@ -63,13 +63,13 @@ export default function CostReportDetailPage() {
 
         {report === undefined ? (
           <div className="flex items-center justify-center min-h-[50vh]">
-            <Loader2 size={26} className="animate-spin text-[#c8a96e]" />
+            <Loader2 size={26} className="animate-spin text-[#f2a624]" />
           </div>
         ) : report === null ? (
           <div className="text-center py-24">
             <FileText size={28} className="mx-auto mb-2 text-white/20" />
             <p className="text-white/50">{t("costReports.noReportsYet")}</p>
-            <Link href="/admin/cost-reports" className="inline-flex items-center gap-2 mt-4 text-sm text-[#c8a96e] hover:underline">
+            <Link href="/admin/cost-reports" className="inline-flex items-center gap-2 mt-4 text-sm text-[#f2a624] hover:underline">
               <BackIcon size={14} />
               {t("costReports.backToList")}
             </Link>
@@ -111,7 +111,7 @@ export default function CostReportDetailPage() {
                   <p className="text-[11px] text-[#64748b]">{COMPANY.email}</p>
                 </div>
                 <div className="text-start">
-                  <p className="font-bold text-[#D5B25D]">{t("costReports.detailsTitle")}</p>
+                  <p className="font-bold text-[#f2a624]">{t("costReports.detailsTitle")}</p>
                   <p className="text-xs text-[#64748b]" dir="ltr">
                     {t("costReports.generatedOnLabel")}: {formatDateTime(new Date(), lang, { dateStyle: "medium", timeStyle: "short" })}
                   </p>
@@ -120,7 +120,7 @@ export default function CostReportDetailPage() {
 
               {/* Screen-only title */}
               <h1 className="text-lg font-black flex items-center gap-2 print:hidden">
-                <FileText size={20} className="text-[#D5B25D]" />
+                <FileText size={20} className="text-[#f2a624]" />
                 {t("costReports.detailsTitle")}
               </h1>
 

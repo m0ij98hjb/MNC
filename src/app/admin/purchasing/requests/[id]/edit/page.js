@@ -16,7 +16,7 @@ import { Loader2, Save, ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 const inputCls = 'w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/25 focus:border-[#c8a96e]/60 focus:bg-black/20 outline-none transition-all';
-const labelCls = 'text-[#c8a96e] text-[11px] font-black uppercase tracking-widest block mb-1.5';
+const labelCls = 'text-[#f2a624] text-[11px] font-black uppercase tracking-widest block mb-1.5';
 
 function EditRequestContent({ id }) {
   const { t, isRTL } = useLanguage();
@@ -72,7 +72,7 @@ function EditRequestContent({ id }) {
     }
   };
 
-  if (request === undefined || !form) return <div className="flex items-center justify-center min-h-[60vh]"><Loader2 size={28} className="animate-spin text-[#c8a96e]" /></div>;
+  if (request === undefined || !form) return <div className="flex items-center justify-center min-h-[60vh]"><Loader2 size={28} className="animate-spin text-[#f2a624]" /></div>;
   if (request === null) return <div className="flex items-center justify-center min-h-[60vh] text-white/40">{t('admin.noResults')}</div>;
 
   return (
@@ -82,7 +82,7 @@ function EditRequestContent({ id }) {
           <h1 className="text-xl font-bold text-white">{t('purchasing.editRequestTitle')}</h1>
           <p className="text-sm text-white/40 mt-1" dir="ltr">{request.requestNumber}</p>
         </div>
-        <Link href={`/admin/purchasing/requests/${id}`} className="text-xs text-[#c8a96e] hover:underline flex items-center gap-1">
+        <Link href={`/admin/purchasing/requests/${id}`} className="text-xs text-[#f2a624] hover:underline flex items-center gap-1">
           {isRTL ? <ArrowRight size={12} /> : <ArrowLeft size={12} />} {t('purchasing.backToRequest')}
         </Link>
       </div>

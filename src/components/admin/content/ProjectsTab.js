@@ -142,14 +142,14 @@ export default function ProjectsTab() {
           <button
             onClick={openNew}
             className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all"
-            style={{ background: 'rgba(201,163,77,0.10)', border: '1px solid rgba(201,163,77,0.30)', color: '#c8a96e' }}
+            style={{ background: 'rgba(201,163,77,0.10)', border: '1px solid rgba(201,163,77,0.30)', color: '#f2a624' }}
           >
             <Plus size={13} /> {t('admin.contentTabs.projectsTab.newProjectBtn')}
           </button>
         </div>
       </div>
 
-      {importMsg && <p className="text-xs text-[#c8a96e] text-center">{importMsg}</p>}
+      {importMsg && <p className="text-xs text-[#f2a624] text-center">{importMsg}</p>}
 
       {/* Filters */}
       <div className="flex flex-wrap gap-2 items-center">
@@ -207,7 +207,7 @@ export default function ProjectsTab() {
               <button
                 onClick={() => toggle(p, 'featured')}
                 title={t('admin.contentTabs.projectsTab.featuredLabel')}
-                className={`p-1.5 rounded-lg transition-all ${p.featured ? 'text-[#c8a96e]' : 'text-white/20 hover:text-white/50'}`}
+                className={`p-1.5 rounded-lg transition-all ${p.featured ? 'text-[#f2a624]' : 'text-white/20 hover:text-white/50'}`}
               >
                 <Star size={13} fill={p.featured ? 'currentColor' : 'none'} />
               </button>

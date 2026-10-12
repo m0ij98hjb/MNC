@@ -114,7 +114,7 @@ export default function ItemsTable({ items, onChange, readOnly = false }) {
                   {readOnly ? <span className="px-1 text-white/60">{it.notes || '—'}</span> :
                     <input className={inputCls} value={it.notes} onChange={e => updateRow(it.id, 'notes', e.target.value)} />}
                 </td>
-                <td className="px-2.5 text-[#c8a96e] font-bold whitespace-nowrap" dir="ltr">
+                <td className="px-2.5 text-[#f2a624] font-bold whitespace-nowrap" dir="ltr">
                   {lineTotal(it).toLocaleString()}
                 </td>
                 {!readOnly && (
@@ -122,7 +122,7 @@ export default function ItemsTable({ items, onChange, readOnly = false }) {
                     <div className="flex items-center gap-1">
                       <button type="button" onClick={() => moveRow(idx, -1)} disabled={idx === 0} className="p-1 rounded text-white/30 hover:text-white disabled:opacity-20" title={t('purchasing.moveUp')}><ArrowUp size={13} /></button>
                       <button type="button" onClick={() => moveRow(idx, 1)} disabled={idx === items.length - 1} className="p-1 rounded text-white/30 hover:text-white disabled:opacity-20" title={t('purchasing.moveDown')}><ArrowDown size={13} /></button>
-                      <button type="button" onClick={() => duplicateRow(idx)} className="p-1 rounded text-white/30 hover:text-[#c8a96e]" title={t('purchasing.duplicateItem')}><Copy size={13} /></button>
+                      <button type="button" onClick={() => duplicateRow(idx)} className="p-1 rounded text-white/30 hover:text-[#f2a624]" title={t('purchasing.duplicateItem')}><Copy size={13} /></button>
                       <button type="button" onClick={() => removeRow(idx)} className="p-1 rounded text-white/30 hover:text-red-400" title={t('purchasing.removeItem')}><Trash2 size={13} /></button>
                     </div>
                   </td>
@@ -136,7 +136,7 @@ export default function ItemsTable({ items, onChange, readOnly = false }) {
                 <td colSpan={4} className="px-2.5 py-2.5 text-white/50">{t('purchasing.totals')}</td>
                 <td className="px-2.5 py-2.5 text-white" dir="ltr">{totalQuantity.toLocaleString()}</td>
                 <td colSpan={3} />
-                <td className="px-2.5 py-2.5 text-[#c8a96e]" dir="ltr">{totalCost.toLocaleString()}</td>
+                <td className="px-2.5 py-2.5 text-[#f2a624]" dir="ltr">{totalCost.toLocaleString()}</td>
                 {!readOnly && <td />}
               </tr>
             </tfoot>
@@ -146,7 +146,7 @@ export default function ItemsTable({ items, onChange, readOnly = false }) {
 
       {!readOnly && (
         <button type="button" onClick={addRow}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold text-[#c8a96e] border border-[#c8a96e]/30 hover:bg-[#c8a96e]/10 transition-all">
+          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold text-[#f2a624] border border-[#c8a96e]/30 hover:bg-[#c8a96e]/10 transition-all">
           <Plus size={14} /> {t('purchasing.addItem')}
         </button>
       )}

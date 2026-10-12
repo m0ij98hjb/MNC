@@ -21,7 +21,7 @@ export async function POST(req) {
       },
     });
 
-    const logoPath = join(process.cwd(), 'public', 'asstes', 'logo-navbar-v2.png');
+    const logoPath = join(process.cwd(), 'public', 'asstes', 'mnc-logo-2026.png');
 
     const html = isAr ? `
 <!DOCTYPE html>
@@ -36,9 +36,9 @@ export async function POST(req) {
         <tr>
           <td style="background:linear-gradient(135deg,#1a1408,#0d0d14);padding:44px 40px;text-align:center;border-bottom:1px solid rgba(200,169,110,0.15);">
             <div style="display:inline-block;background:#ffffff;border-radius:14px;padding:10px 18px;margin-bottom:18px;">
-              <img src="cid:mnc-logo" alt="MNC" width="160" style="display:block;max-height:60px;width:auto;" />
+              <img src="cid:mnc-logo" alt="MNC" width="140" style="display:block;max-height:51px;width:auto;" />
             </div>
-            <h1 style="color:#c8a96e;margin:0;font-size:24px;font-weight:900;letter-spacing:1px;">MNC Construction</h1>
+            <h1 style="color:#f2a624;margin:0;font-size:24px;font-weight:900;letter-spacing:1px;">MNC Construction</h1>
             <p style="color:rgba(255,255,255,0.35);margin:6px 0 0;font-size:13px;letter-spacing:0.5px;">شركة MNC للإنشاءات</p>
           </td>
         </tr>
@@ -46,12 +46,12 @@ export async function POST(req) {
         <!-- Banner -->
         <tr>
           <td style="background:linear-gradient(135deg,rgba(184,146,58,0.12),rgba(184,146,58,0.05));padding:28px 40px;border-bottom:1px solid rgba(200,169,110,0.1);">
-            <p style="color:#c8a96e;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 10px;">دعوة زيارة</p>
+            <p style="color:#f2a624;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 10px;">دعوة زيارة</p>
             <h2 style="color:#ffffff;font-size:22px;font-weight:800;margin:0 0 10px;line-height:1.4;">
               تمت دعوتكم لزيارة موقع شركة MNC Construction
             </h2>
             <p style="color:rgba(255,255,255,0.5);font-size:14px;line-height:1.8;margin:0;">
-              يسعدنا دعوتكم لزيارة مقر شركة <strong style="color:#c8a96e;">MNC Construction</strong> في الموعد المحدد أدناه لاستكمال إجراءات التعاون.
+              يسعدنا دعوتكم لزيارة مقر شركة <strong style="color:#f2a624;">MNC Construction</strong> في الموعد المحدد أدناه لاستكمال إجراءات التعاون.
             </p>
           </td>
         </tr>
@@ -68,7 +68,7 @@ export async function POST(req) {
 
             <!-- Visit Details Card -->
             <div style="background:rgba(184,146,58,0.06);border:1px solid rgba(184,146,58,0.2);border-radius:16px;padding:24px;margin-bottom:28px;">
-              <h3 style="color:#c8a96e;font-size:15px;font-weight:800;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(184,146,58,0.15);">
+              <h3 style="color:#f2a624;font-size:15px;font-weight:800;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(184,146,58,0.15);">
                 📅 تفاصيل الزيارة
               </h3>
               <table width="100%" cellpadding="0" cellspacing="0">
@@ -86,7 +86,7 @@ export async function POST(req) {
             ${additionalMessage ? `
             <!-- Additional message -->
             <div style="background:rgba(200,169,110,0.06);border:1px solid rgba(200,169,110,0.18);border-radius:12px;padding:20px;margin-bottom:28px;">
-              <p style="color:#c8a96e;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 10px;">ملاحظة من الإدارة</p>
+              <p style="color:#f2a624;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 10px;">ملاحظة من الإدارة</p>
               <p style="color:rgba(255,255,255,0.7);font-size:14px;line-height:1.8;margin:0;">${additionalMessage}</p>
             </div>` : ''}
 
@@ -123,9 +123,9 @@ export async function POST(req) {
         <tr>
           <td style="background:linear-gradient(135deg,#1a1408,#0d0d14);padding:44px 40px;text-align:center;border-bottom:1px solid rgba(200,169,110,0.15);">
             <div style="display:inline-block;background:#ffffff;border-radius:14px;padding:10px 18px;margin-bottom:18px;">
-              <img src="cid:mnc-logo" alt="MNC" width="160" style="display:block;max-height:60px;width:auto;" />
+              <img src="cid:mnc-logo" alt="MNC" width="140" style="display:block;max-height:51px;width:auto;" />
             </div>
-            <h1 style="color:#c8a96e;margin:0;font-size:24px;font-weight:900;letter-spacing:1px;">MNC Construction</h1>
+            <h1 style="color:#f2a624;margin:0;font-size:24px;font-weight:900;letter-spacing:1px;">MNC Construction</h1>
             <p style="color:rgba(255,255,255,0.35);margin:6px 0 0;font-size:13px;letter-spacing:0.5px;">شركة MNC للإنشاءات</p>
           </td>
         </tr>
@@ -133,12 +133,12 @@ export async function POST(req) {
         <!-- Banner -->
         <tr>
           <td style="background:linear-gradient(135deg,rgba(184,146,58,0.12),rgba(184,146,58,0.05));padding:28px 40px;border-bottom:1px solid rgba(200,169,110,0.1);">
-            <p style="color:#c8a96e;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 10px;">Visit Invitation</p>
+            <p style="color:#f2a624;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 10px;">Visit Invitation</p>
             <h2 style="color:#ffffff;font-size:22px;font-weight:800;margin:0 0 10px;line-height:1.4;">
               You've been invited to visit MNC Construction
             </h2>
             <p style="color:rgba(255,255,255,0.5);font-size:14px;line-height:1.8;margin:0;">
-              We're pleased to invite you to visit <strong style="color:#c8a96e;">MNC Construction</strong>'s office at the time specified below to complete the partnership process.
+              We're pleased to invite you to visit <strong style="color:#f2a624;">MNC Construction</strong>'s office at the time specified below to complete the partnership process.
             </p>
           </td>
         </tr>
@@ -155,7 +155,7 @@ export async function POST(req) {
 
             <!-- Visit Details Card -->
             <div style="background:rgba(184,146,58,0.06);border:1px solid rgba(184,146,58,0.2);border-radius:16px;padding:24px;margin-bottom:28px;">
-              <h3 style="color:#c8a96e;font-size:15px;font-weight:800;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(184,146,58,0.15);">
+              <h3 style="color:#f2a624;font-size:15px;font-weight:800;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(184,146,58,0.15);">
                 📅 Visit Details
               </h3>
               <table width="100%" cellpadding="0" cellspacing="0">
@@ -173,7 +173,7 @@ export async function POST(req) {
             ${additionalMessage ? `
             <!-- Additional message -->
             <div style="background:rgba(200,169,110,0.06);border:1px solid rgba(200,169,110,0.18);border-radius:12px;padding:20px;margin-bottom:28px;">
-              <p style="color:#c8a96e;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 10px;">Note from Management</p>
+              <p style="color:#f2a624;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 10px;">Note from Management</p>
               <p style="color:rgba(255,255,255,0.7);font-size:14px;line-height:1.8;margin:0;">${additionalMessage}</p>
             </div>` : ''}
 

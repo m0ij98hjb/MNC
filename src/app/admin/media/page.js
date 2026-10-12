@@ -135,7 +135,7 @@ export default function MediaLibraryPage() {
       <div className="p-5 lg:p-7 max-w-5xl mx-auto" dir="rtl">
         <div className="mb-6 flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-[#c8a96e]/10 border border-[#c8a96e]/20 flex items-center justify-center">
-            <ImageIcon size={16} className="text-[#c8a96e]" />
+            <ImageIcon size={16} className="text-[#f2a624]" />
           </div>
           <div>
             <h1 className="text-xl font-black text-white">{t('admin.contentTabs.mediaLibrary.pageTitle')}</h1>
@@ -150,7 +150,7 @@ export default function MediaLibraryPage() {
               key={f}
               onClick={() => setType(f)}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
-                type === f ? 'bg-[#c8a96e]/12 text-[#c8a96e]' : 'text-white/35 hover:text-white/70 hover:bg-white/5'
+                type === f ? 'bg-[#c8a96e]/12 text-[#f2a624]' : 'text-white/35 hover:text-white/70 hover:bg-white/5'
               }`}
               style={type === f ? { border: '1px solid rgba(201,163,77,0.30)' } : { border: '1px solid transparent' }}
             >

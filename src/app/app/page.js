@@ -331,7 +331,7 @@ export default function AppPage() {
               <div className="absolute -top-6 -right-8 z-20 bg-[#0a1828]/90 border border-[#C9A34D]/25 rounded-2xl px-4 py-3 backdrop-blur-md shadow-2xl hidden sm:block">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-xl bg-[#C9A34D]/15 border border-[#C9A34D]/25 flex items-center justify-center flex-shrink-0">
-                    <BarChart3 size={14} className="text-[#C9A34D]" />
+                    <BarChart3 size={14} className="text-[#f2a624]" />
                   </div>
                   <div>
                     <div className="text-white font-black text-sm">{isAr ? "٧٥٪ منجز" : "75% Done"}</div>
@@ -393,7 +393,7 @@ export default function AppPage() {
               {/* Badge */}
               <div className="inline-flex items-center gap-2.5 border border-[#C9A34D]/35 bg-[#C9A34D]/8 backdrop-blur-sm rounded-full px-5 py-2 mb-3 sm:mb-8">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#C9A34D] animate-pulse block" />
-                <span className="text-[#C9A34D] text-[11px] font-bold tracking-[0.2em] uppercase">{c.badge}</span>
+                <span className="text-[#f2a624] text-[11px] font-bold tracking-[0.2em] uppercase">{c.badge}</span>
               </div>
 
               {/* Headline */}
@@ -401,7 +401,7 @@ export default function AppPage() {
                 {heroTitle}
                 <br />
                 <span className="relative inline-block">
-                  <span className="text-[#C9A34D]">{c.title2}</span>
+                  <span className="text-[#f2a624]">{c.title2}</span>
                   <span
                     className="absolute left-0 -bottom-2 w-full h-[3px] rounded-full"
                     style={{ background: "linear-gradient(90deg,#C9A34D,rgba(201,163,77,0.2))" }}
@@ -457,7 +457,7 @@ export default function AppPage() {
               <div className={`flex items-center gap-3 mb-2 sm:mb-12 ${isRTL ? "flex-row-reverse justify-end" : ""}`}>
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={14} className="text-[#C9A34D] fill-[#C9A34D]" />
+                    <Star key={i} size={14} className="text-[#f2a624] fill-[#C9A34D]" />
                   ))}
                 </div>
                 <span className="text-white/40 text-xs sm:text-sm font-medium">{c.ratingLabel}</span>
@@ -498,7 +498,7 @@ export default function AppPage() {
           <div className={`${ta} mb-10 lg:mb-16`}>
             <div className="inline-flex items-center gap-2.5 border border-[#C9A34D]/25 bg-[#C9A34D]/6 rounded-full px-5 py-2 mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C9A34D] animate-pulse block" />
-              <span className="text-[#C9A34D] text-[11px] font-bold tracking-[0.2em] uppercase">{c.featuresBadge}</span>
+              <span className="text-[#f2a624] text-[11px] font-bold tracking-[0.2em] uppercase">{c.featuresBadge}</span>
             </div>
             <h2 className={`text-3xl sm:text-4xl md:text-5xl font-black ${isLightMode ? 'text-[#1e293b]' : 'text-white'}`}>{c.featuresTitle}</h2>
           </div>
@@ -570,7 +570,7 @@ export default function AppPage() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2.5 bg-[#C9A34D]/10 border border-[#C9A34D]/25 rounded-full px-5 py-2 mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-[#C9A34D] animate-pulse block" />
-            <span className="text-[#C9A34D] text-[11px] font-bold tracking-[0.2em] uppercase">{c.ctaBadge}</span>
+            <span className="text-[#f2a624] text-[11px] font-bold tracking-[0.2em] uppercase">{c.ctaBadge}</span>
           </div>
 
           <h2 className={`text-3xl sm:text-4xl md:text-5xl font-black mb-4 sm:mb-5 leading-tight ${isLightMode ? 'text-[#0f172a]' : 'text-white'}`}>{c.ctaTitle}</h2>

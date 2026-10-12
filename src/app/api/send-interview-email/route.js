@@ -25,7 +25,7 @@ export async function POST(req) {
       ? ({ in_person: 'حضوري', video: 'مكالمة فيديو', phone: 'مكالمة هاتفية' }[interviewType] || interviewType)
       : ({ in_person: 'In Person', video: 'Video Call', phone: 'Phone Call' }[interviewType] || interviewType);
 
-    const logoPath = join(process.cwd(), 'public', 'asstes', 'logo-navbar-v2.png');
+    const logoPath = join(process.cwd(), 'public', 'asstes', 'mnc-logo-2026.png');
 
     const html = isAr ? `
 <!DOCTYPE html>
@@ -39,9 +39,9 @@ export async function POST(req) {
         <tr>
           <td style="background:linear-gradient(135deg,#1a1408,#0a0a0f);padding:40px;text-align:center;border-bottom:1px solid rgba(200,169,110,0.15);">
             <div style="display:inline-block;background:#ffffff;border-radius:14px;padding:10px 18px;margin-bottom:18px;">
-              <img src="cid:mnc-logo" alt="MNC" width="160" style="display:block;max-height:60px;width:auto;" />
+              <img src="cid:mnc-logo" alt="MNC" width="140" style="display:block;max-height:51px;width:auto;" />
             </div>
-            <h1 style="color:#c8a96e;margin:0;font-size:22px;font-weight:900;letter-spacing:1px;">شركة MNC للإنشاءات</h1>
+            <h1 style="color:#f2a624;margin:0;font-size:22px;font-weight:900;letter-spacing:1px;">شركة MNC للإنشاءات</h1>
             <p style="color:rgba(255,255,255,0.4);margin:8px 0 0;font-size:13px;">MNC Construction</p>
           </td>
         </tr>
@@ -50,15 +50,15 @@ export async function POST(req) {
           <td style="padding:40px;">
             <h2 style="color:#fff;font-size:20px;font-weight:800;margin:0 0 8px;">مبروك! تم قبول طلبك ✨</h2>
             <p style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.8;margin:0 0 28px;">
-              عزيزي/عزيزتي <strong style="color:#c8a96e;">${applicantName}</strong>،<br/>
+              عزيزي/عزيزتي <strong style="color:#f2a624;">${applicantName}</strong>،<br/>
               يسعدنا إخبارك أنه تم مراجعة طلب التوظيف المقدم لوظيفة
-              <strong style="color:#c8a96e;">${position}</strong>
+              <strong style="color:#f2a624;">${position}</strong>
               وتم قبولك للمرحلة التالية.
             </p>
 
             <!-- Interview Details Card -->
             <div style="background:rgba(184,146,58,0.06);border:1px solid rgba(184,146,58,0.2);border-radius:16px;padding:24px;margin-bottom:28px;">
-              <h3 style="color:#c8a96e;font-size:15px;font-weight:800;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(184,146,58,0.15);">
+              <h3 style="color:#f2a624;font-size:15px;font-weight:800;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(184,146,58,0.15);">
                 📅 تفاصيل المقابلة
               </h3>
               <table width="100%" cellpadding="0" cellspacing="0">
@@ -77,7 +77,7 @@ export async function POST(req) {
                 ${interviewLocation ? `
                 <tr>
                   <td style="padding:8px 0;color:rgba(255,255,255,0.5);font-size:13px;">📍 الموقع / الرابط</td>
-                  <td style="padding:8px 0;color:#c8a96e;font-size:14px;font-weight:700;">${interviewLocation}</td>
+                  <td style="padding:8px 0;color:#f2a624;font-size:14px;font-weight:700;">${interviewLocation}</td>
                 </tr>` : ''}
               </table>
             </div>
@@ -115,9 +115,9 @@ export async function POST(req) {
         <tr>
           <td style="background:linear-gradient(135deg,#1a1408,#0a0a0f);padding:40px;text-align:center;border-bottom:1px solid rgba(200,169,110,0.15);">
             <div style="display:inline-block;background:#ffffff;border-radius:14px;padding:10px 18px;margin-bottom:18px;">
-              <img src="cid:mnc-logo" alt="MNC" width="160" style="display:block;max-height:60px;width:auto;" />
+              <img src="cid:mnc-logo" alt="MNC" width="140" style="display:block;max-height:51px;width:auto;" />
             </div>
-            <h1 style="color:#c8a96e;margin:0;font-size:22px;font-weight:900;letter-spacing:1px;">MNC Construction</h1>
+            <h1 style="color:#f2a624;margin:0;font-size:22px;font-weight:900;letter-spacing:1px;">MNC Construction</h1>
             <p style="color:rgba(255,255,255,0.4);margin:8px 0 0;font-size:13px;">شركة MNC للإنشاءات</p>
           </td>
         </tr>
@@ -126,15 +126,15 @@ export async function POST(req) {
           <td style="padding:40px;">
             <h2 style="color:#fff;font-size:20px;font-weight:800;margin:0 0 8px;">Congratulations! Your application has been accepted ✨</h2>
             <p style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.8;margin:0 0 28px;">
-              Dear <strong style="color:#c8a96e;">${applicantName}</strong>,<br/>
+              Dear <strong style="color:#f2a624;">${applicantName}</strong>,<br/>
               We're pleased to let you know that your job application for
-              <strong style="color:#c8a96e;">${position}</strong>
+              <strong style="color:#f2a624;">${position}</strong>
               has been reviewed and you've been accepted for the next stage.
             </p>
 
             <!-- Interview Details Card -->
             <div style="background:rgba(184,146,58,0.06);border:1px solid rgba(184,146,58,0.2);border-radius:16px;padding:24px;margin-bottom:28px;">
-              <h3 style="color:#c8a96e;font-size:15px;font-weight:800;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(184,146,58,0.15);">
+              <h3 style="color:#f2a624;font-size:15px;font-weight:800;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(184,146,58,0.15);">
                 📅 Interview Details
               </h3>
               <table width="100%" cellpadding="0" cellspacing="0">
@@ -153,7 +153,7 @@ export async function POST(req) {
                 ${interviewLocation ? `
                 <tr>
                   <td style="padding:8px 0;color:rgba(255,255,255,0.5);font-size:13px;">📍 Location / Link</td>
-                  <td style="padding:8px 0;color:#c8a96e;font-size:14px;font-weight:700;">${interviewLocation}</td>
+                  <td style="padding:8px 0;color:#f2a624;font-size:14px;font-weight:700;">${interviewLocation}</td>
                 </tr>` : ''}
               </table>
             </div>

@@ -49,7 +49,7 @@ export default function ApprovedSuppliersPage() {
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-white">{t('admin.approvedMenu')}</h1>
           <p className="text-sm text-white/40 mt-1">
-            <strong className="text-[#c8a96e]">{suppliers.length}</strong>{' '}
+            <strong className="text-[#f2a624]">{suppliers.length}</strong>{' '}
             {t('admin.approved').toLowerCase()}
             {hasFilters && <> · <strong className="text-white/60">{visible.length}</strong></>}
           </p>
@@ -107,7 +107,7 @@ export default function ApprovedSuppliersPage() {
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-10 h-10 rounded-xl bg-[#c8a96e]/10 flex items-center justify-center">
-                    <Building2 size={18} className="text-[#c8a96e]" />
+                    <Building2 size={18} className="text-[#f2a624]" />
                   </div>
                   <Eye size={14} className="text-white/20 group-hover:text-white/50 mt-1 transition-colors" />
                 </div>
@@ -116,7 +116,7 @@ export default function ApprovedSuppliersPage() {
                 <p className="text-xs text-white/40 mb-3">{s.contactName}</p>
 
                 {s.activity && (
-                  <div className="flex items-center gap-1.5 text-xs text-[#c8a96e]/70 mb-3">
+                  <div className="flex items-center gap-1.5 text-xs text-[#f2a624]/70 mb-3">
                     <Briefcase size={11} /> {getAct(s.activity)}
                   </div>
                 )}

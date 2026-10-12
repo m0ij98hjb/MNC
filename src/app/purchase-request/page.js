@@ -23,7 +23,7 @@ import {
 const SignaturePad = dynamic(() => import('@/components/purchasing/SignaturePad'), { ssr: false });
 
 const inputCls = 'w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/25 focus:border-[#c8a96e]/60 focus:bg-black/60 outline-none transition-all duration-300';
-const labelCls = 'text-[#c8a96e] text-[11px] font-black uppercase tracking-widest block mb-1.5';
+const labelCls = 'text-[#f2a624] text-[11px] font-black uppercase tracking-widest block mb-1.5';
 
 function emptyForm(profile, user) {
   return {
@@ -74,7 +74,7 @@ function InlineLogin() {
         <div>
           <label className={labelCls}>{t('admin.emailLabel')}</label>
           <div className="relative">
-            <Mail size={14} className="absolute start-3.5 top-1/2 -translate-y-1/2 text-[#c8a96e]/40" />
+            <Mail size={14} className="absolute start-3.5 top-1/2 -translate-y-1/2 text-[#f2a624]/40" />
             <input type="email" required dir="ltr" value={email}
               onChange={e => { setEmail(e.target.value); setError?.(''); }}
               className={`${inputCls} ps-10`} />
@@ -83,11 +83,11 @@ function InlineLogin() {
         <div>
           <label className={labelCls}>{t('admin.passwordLabel')}</label>
           <div className="relative">
-            <Lock size={14} className="absolute start-3.5 top-1/2 -translate-y-1/2 text-[#c8a96e]/40" />
+            <Lock size={14} className="absolute start-3.5 top-1/2 -translate-y-1/2 text-[#f2a624]/40" />
             <input type={showPass ? 'text' : 'password'} required dir="ltr" value={password}
               onChange={e => { setPassword(e.target.value); setError?.(''); }}
               className={`${inputCls} ps-10 pe-10`} />
-            <button type="button" onClick={() => setShowPass(v => !v)} className="absolute end-3.5 top-1/2 -translate-y-1/2 text-white/25 hover:text-[#c8a96e]">
+            <button type="button" onClick={() => setShowPass(v => !v)} className="absolute end-3.5 top-1/2 -translate-y-1/2 text-white/25 hover:text-[#f2a624]">
               {showPass ? <EyeOff size={14} /> : <Eye size={14} />}
             </button>
           </div>
@@ -335,7 +335,7 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'rgba(200,169,110,0.12)' }}>
-                  <PenLine size={18} className="text-[#c8a96e]" />
+                  <PenLine size={18} className="text-[#f2a624]" />
                 </div>
                 <div>
                   <h2 className="text-base font-black text-white">{t('purchasing.submitSignatureDialogTitle')}</h2>
@@ -387,7 +387,7 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'rgba(200,169,110,0.12)' }}>
-                  <PenLine size={18} className="text-[#c8a96e]" />
+                  <PenLine size={18} className="text-[#f2a624]" />
                 </div>
                 <div>
                   <h2 className="text-base font-black text-white">{t('purchasing.pmSignatureDialogTitle')}</h2>
@@ -499,7 +499,7 @@ function MyRequests({ user, onEdit }) {
     return unsub;
   }, [user.uid]);
 
-  if (requests === null) return <div className="flex justify-center py-16"><Loader2 size={26} className="animate-spin text-[#c8a96e]" /></div>;
+  if (requests === null) return <div className="flex justify-center py-16"><Loader2 size={26} className="animate-spin text-[#f2a624]" /></div>;
   if (requests.length === 0) return <p className="text-center text-white/30 py-16">{t('purchasing.noRequestsYet')}</p>;
 
   return (
@@ -550,7 +550,7 @@ export default function PurchaseRequestPage() {
     return (
       <main className="min-h-screen bg-black">
         <Navbar />
-        <div className="min-h-[70vh] flex items-center justify-center"><Loader2 size={30} className="animate-spin text-[#c8a96e]" /></div>
+        <div className="min-h-[70vh] flex items-center justify-center"><Loader2 size={30} className="animate-spin text-[#f2a624]" /></div>
       </main>
     );
   }
@@ -585,7 +585,7 @@ export default function PurchaseRequestPage() {
       <section className="pt-36 lg:pt-40 pb-16 px-6" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
-            <span className="text-[#c8a96e] font-bold tracking-widest text-xs mb-2 block">{t('purchasing.portalBadge')}</span>
+            <span className="text-[#f2a624] font-bold tracking-widest text-xs mb-2 block">{t('purchasing.portalBadge')}</span>
             <h1 className="text-2xl sm:text-3xl font-black text-white">{t('purchasing.portalTitle')}</h1>
           </div>
 

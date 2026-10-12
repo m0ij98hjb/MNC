@@ -177,11 +177,11 @@ const Navbar = () => {
           {/* ── Logo ── */}
           <Link href="/" onClick={handleLogoTap} className="flex items-center flex-shrink-0 nav-logo-responsive me-5 lg:me-7 xl:me-12">
             <Image
-              src="/asstes/logo-navbar-v2.png"
+              src="/asstes/mnc-logo-2026.png"
               alt="MNC Logo"
-              width={240}
-              height={120}
-              className="h-12 sm:h-14 lg:h-16 xl:h-18 w-auto object-contain transition-all duration-500"
+              width={855}
+              height={310}
+              className="h-[22px] sm:h-[25px] lg:h-[29px] xl:h-8 w-auto object-contain transition-all duration-500"
               priority
             />
           </Link>
@@ -201,7 +201,7 @@ const Navbar = () => {
                       className={`flex items-center gap-1.5 text-[12px] xl:text-[13.5px] font-extrabold px-3.5 xl:px-4 py-[7px] xl:py-2 mx-1 xl:mx-1.5 rounded-full border transition-all duration-300 whitespace-nowrap nav-link-special-responsive ${
                         isActive
                           ? "bg-[#D5B25D] text-black border-transparent shadow-[0_4px_20px_rgba(213,178,93,0.45)]"
-                          : "bg-[#D5B25D]/[0.07] text-[#D5B25D] border-[#D5B25D]/28 hover:bg-[#D5B25D]/[0.13] hover:border-[#D5B25D]/45 hover:shadow-[0_2px_14px_rgba(213,178,93,0.13)]"
+                          : "bg-[#D5B25D]/[0.07] text-[#f2a624] border-[#D5B25D]/28 hover:bg-[#D5B25D]/[0.13] hover:border-[#D5B25D]/45 hover:shadow-[0_2px_14px_rgba(213,178,93,0.13)]"
                       }`}>
                       <Calculator size={11} />
                       <span>{link.name}</span>
@@ -213,9 +213,9 @@ const Navbar = () => {
                   <Link key={link.name} href={link.href}
                     className={`relative text-[14px] xl:text-[15px] px-3.5 xl:px-4 py-2.5 transition-colors duration-200 whitespace-nowrap group font-semibold tracking-[0.018em] nav-link-responsive ${
                       isActive
-                        ? "text-[#D5B25D]"
+                        ? "text-[#f2a624]"
                         : isLightMode
-                          ? "text-slate-500 hover:text-[#D5B25D]"
+                          ? "text-slate-500 hover:text-[#f2a624]"
                           : "text-white/55 hover:text-white"
                     } ${link.isSecondary ? "hidden xl:inline-flex" : ""}`}>
                     {link.showDesktopIcon
@@ -250,7 +250,7 @@ const Navbar = () => {
                   >
                     <LangFlag code={currentLang.code} className="w-[18px]" />
                     <span className="text-[10.5px] font-bold tracking-widest uppercase">{currentLang.code.toUpperCase()}</span>
-                    <Globe size={11} className="text-[#D5B25D]/45" />
+                    <Globe size={11} className="text-[#f2a624]/45" />
                   </button>
                   <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[268px] rounded-2xl border ${isLightMode ? 'bg-white border-slate-200 shadow-[0_24px_60px_-16px_rgba(15,23,42,0.22)]' : 'bg-[#0b0e12] border-[#D5B25D]/12 shadow-[0_20px_60px_rgba(0,0,0,0.85)]'} transition-all duration-300 overflow-hidden z-50 ${
                     isLangOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-3 pointer-events-none"
@@ -266,7 +266,7 @@ const Navbar = () => {
                             onClick={() => { setLang(language.code); setIsLangOpen(false); }}
                             className={`flex items-center gap-2.5 px-3 py-2.5 rounded-[10px] transition-all duration-200 text-start ${
                               lang === language.code
-                                ? (isLightMode ? "bg-[#D5B25D]/10 border border-[#D5B25D]/35 text-[#7F611B]" : "bg-[#D5B25D]/10 border border-[#D5B25D]/22 text-[#D5B25D]")
+                                ? (isLightMode ? "bg-[#D5B25D]/10 border border-[#D5B25D]/35 text-[#f2a624]" : "bg-[#D5B25D]/10 border border-[#D5B25D]/22 text-[#f2a624]")
                                 : (isLightMode ? "border border-transparent text-[#334155] hover:bg-slate-50 hover:border-slate-200 hover:text-[#0f172a]" : "hover:bg-white/5 border border-transparent text-white/50 hover:text-white")
                             }`}
                           >
@@ -296,7 +296,7 @@ const Navbar = () => {
                         setIsBellOpen(opening);
                         if (opening && markBellOpened) markBellOpened();
                       }}
-                      className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D]/70 hover:text-[#D5B25D] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 active:scale-95 nav-action-icon-btn-responsive"
+                      className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#f2a624]/70 hover:text-[#f2a624] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 active:scale-95 nav-action-icon-btn-responsive"
                     >
                       <Bell size={15} />
                       {unreadCount > 0 && (
@@ -337,7 +337,7 @@ const Navbar = () => {
                             <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${n.type === 'supplier' ? 'bg-blue-500/12 border border-blue-500/25' : 'bg-[#c8a96e]/12 border border-[#c8a96e]/25'}`}>
                               {n.type === 'supplier'
                                 ? <Building2 size={12} className="text-blue-400" />
-                                : <Briefcase size={12} className="text-[#c8a96e]" />}
+                                : <Briefcase size={12} className="text-[#f2a624]" />}
                             </div>
                             <div className="flex-1 min-w-0">
                               <p className="text-white text-xs font-semibold truncate">
@@ -359,7 +359,7 @@ const Navbar = () => {
                           </Link>
                           <div className="w-px bg-white/10" />
                           <Link href="/admin/jobs" onClick={() => setIsBellOpen(false)}
-                            className="flex-1 text-center text-[11px] text-[#c8a96e]/70 hover:text-[#c8a96e] transition-colors font-semibold">
+                            className="flex-1 text-center text-[11px] text-[#f2a624]/70 hover:text-[#f2a624] transition-colors font-semibold">
                             {t('admin.jobsMenu')}
                           </Link>
                         </div>
@@ -373,10 +373,10 @@ const Navbar = () => {
                   <div className="relative">
                     <button onClick={() => setIsProfileOpen(!isProfileOpen)}
                       className="flex items-center gap-1.5 group">
-                      <span className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 border border-[#D5B25D]/22 text-[#D5B25D] rounded-lg transition-all duration-300 group-hover:bg-[#D5B25D]/10 group-hover:border-[#D5B25D]/40 active:scale-95 nav-action-icon-btn-responsive">
+                      <span className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 border border-[#f2a624]/35 text-[#f2a624] rounded-lg transition-all duration-300 group-hover:bg-[#f2a624]/10 group-hover:border-[#f2a624] active:scale-95 nav-action-icon-btn-responsive">
                         <HiDocumentText size={17} />
                       </span>
-                      <span className="bg-[#D5B25D] text-black px-3 xl:px-4 py-[7px] xl:py-2 rounded-lg font-bold text-[12.5px] xl:text-[13.5px] shadow-[0_2px_12px_rgba(213,178,93,0.25)] transition-all duration-300 hover:bg-[#E1BF67] hover:shadow-[0_4px_20px_rgba(213,178,93,0.35)] active:scale-95 flex items-center gap-1.5 whitespace-nowrap nav-action-btn-responsive">
+                      <span className="bg-[#f2a624] text-black px-3 xl:px-4 py-[7px] xl:py-2 rounded-lg font-bold text-[12.5px] xl:text-[13.5px] shadow-[0_2px_12px_rgba(242,166,36,0.35)] transition-all duration-300 hover:bg-[#f3ad38] hover:shadow-[0_4px_20px_rgba(242,166,36,0.5)] active:scale-95 flex items-center gap-1.5 whitespace-nowrap nav-action-btn-responsive">
                         {t('nav.profile')}
                         <ChevronDown size={11} className={`transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
                       </span>
@@ -385,13 +385,13 @@ const Navbar = () => {
                       isProfileOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"
                     }`}>
                       <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                        className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#D5B25D] hover:bg-[#D5B25D]/8 transition-colors"
+                        className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#D5B25D]/8 transition-colors"
                         onClick={() => setIsProfileOpen(false)}>
                         {tPortfolio.ar}
                       </a>
                       <div className="h-px bg-white/[0.04] mx-3" />
                       <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                        className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#D5B25D] hover:bg-[#D5B25D]/8 transition-colors"
+                        className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#D5B25D]/8 transition-colors"
                         onClick={() => setIsProfileOpen(false)}>
                         {tPortfolio.en}
                       </a>
@@ -404,11 +404,11 @@ const Navbar = () => {
                   <button
                     id="staff-portal-btn-admin"
                     onClick={handlePortalClick}
-                    className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D]/70 hover:text-[#D5B25D] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 active:scale-95 nav-action-icon-btn-responsive"
+                    className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#f2a624]/70 hover:text-[#f2a624] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 active:scale-95 nav-action-icon-btn-responsive"
                   >
                     <Briefcase size={15} />
                   </button>
-                  <div className={`absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 whitespace-nowrap bg-[#0b0e12]/95 border border-[#D5B25D]/30 text-[#D5B25D] text-[10.5px] font-black py-1.5 px-3 rounded-lg shadow-lg`}>
+                  <div className={`absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 whitespace-nowrap bg-[#0b0e12]/95 border border-[#D5B25D]/30 text-[#f2a624] text-[10.5px] font-black py-1.5 px-3 rounded-lg shadow-lg`}>
                     {portalTooltipText}
                   </div>
                 </div>
@@ -419,11 +419,11 @@ const Navbar = () => {
                     onClick={() => setIsAdminOpen(!isAdminOpen)}
                     className="flex items-center gap-1.5 xl:gap-2 px-2.5 xl:px-3 py-[7px] xl:py-2 rounded-lg border border-[#C9A34D]/30 hover:border-[#C9A34D]/50 hover:bg-[#C9A34D]/8 transition-all duration-300 active:scale-95 nav-action-btn-responsive"
                   >
-                    <UserCog size={14} className="text-[#C9A34D] flex-shrink-0" />
-                    <span className="text-[12.5px] xl:text-[13.5px] font-bold text-[#C9A34D] whitespace-nowrap">
+                    <UserCog size={14} className="text-[#f2a624] flex-shrink-0" />
+                    <span className="text-[12.5px] xl:text-[13.5px] font-bold text-[#f2a624] whitespace-nowrap">
                       {adminDisplayName}
                     </span>
-                    <ChevronDown size={10} className={`text-[#C9A34D]/50 transition-transform duration-300 ${isAdminOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown size={10} className={`text-[#f2a624]/50 transition-transform duration-300 ${isAdminOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[185px] bg-[#0b0e12] border border-[#C9A34D]/15 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
@@ -434,7 +434,7 @@ const Navbar = () => {
                       onClick={() => setIsAdminOpen(false)}
                       className="flex items-center gap-2.5 w-full px-4 py-3 text-[12px] font-bold text-white/65 hover:text-white hover:bg-white/5 transition-colors"
                     >
-                      <LayoutDashboard size={13} className="text-[#C9A34D] flex-shrink-0" />
+                      <LayoutDashboard size={13} className="text-[#f2a624] flex-shrink-0" />
                       {t('admin.dashboard')}
                     </Link>
                     <div className="h-px bg-white/[0.05] mx-3" />
@@ -456,7 +456,7 @@ const Navbar = () => {
                 <div className="relative">
                   <button onClick={() => setIsProfileOpen(!isProfileOpen)}
                     className="flex items-center gap-1.5 group">
-                    <span className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 border border-[#D5B25D]/22 text-[#D5B25D] rounded-lg transition-all duration-300 group-hover:bg-[#D5B25D]/10 group-hover:border-[#D5B25D]/40 active:scale-95 nav-action-icon-btn-responsive">
+                    <span className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 border border-[#D5B25D]/22 text-[#f2a624] rounded-lg transition-all duration-300 group-hover:bg-[#D5B25D]/10 group-hover:border-[#D5B25D]/40 active:scale-95 nav-action-icon-btn-responsive">
                       <HiDocumentText size={17} />
                     </span>
                     <span className="bg-[#D5B25D] text-black px-3 xl:px-4 py-[7px] xl:py-2 rounded-lg font-bold text-[12.5px] xl:text-[13.5px] shadow-[0_2px_12px_rgba(213,178,93,0.25)] transition-all duration-300 hover:bg-[#E1BF67] hover:shadow-[0_4px_20px_rgba(213,178,93,0.35)] active:scale-95 flex items-center gap-1.5 whitespace-nowrap nav-action-btn-responsive">
@@ -469,13 +469,13 @@ const Navbar = () => {
                     isProfileOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"
                   }`}>
                     <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                      className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#D5B25D] hover:bg-[#D5B25D]/8 transition-colors"
+                      className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#D5B25D]/8 transition-colors"
                       onClick={() => setIsProfileOpen(false)}>
                       {tPortfolio.ar}
                     </a>
                     <div className="h-px bg-white/[0.04] mx-3" />
                     <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                      className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#D5B25D] hover:bg-[#D5B25D]/8 transition-colors"
+                      className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#D5B25D]/8 transition-colors"
                       onClick={() => setIsProfileOpen(false)}>
                       {tPortfolio.en}
                     </a>
@@ -487,11 +487,11 @@ const Navbar = () => {
                   <button
                     id="staff-portal-btn"
                     onClick={handlePortalClick}
-                    className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D]/70 hover:text-[#D5B25D] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 active:scale-95 nav-action-icon-btn-responsive"
+                    className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#f2a624]/70 hover:text-[#f2a624] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 active:scale-95 nav-action-icon-btn-responsive"
                   >
                     <Briefcase size={15} />
                   </button>
-                  <div className={`absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 whitespace-nowrap bg-[#0b0e12]/95 border border-[#D5B25D]/30 text-[#D5B25D] text-[10.5px] font-black py-1.5 px-3 rounded-lg shadow-lg`}>
+                  <div className={`absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 whitespace-nowrap bg-[#0b0e12]/95 border border-[#D5B25D]/30 text-[#f2a624] text-[10.5px] font-black py-1.5 px-3 rounded-lg shadow-lg`}>
                     {portalTooltipText}
                   </div>
                 </div>
@@ -499,7 +499,7 @@ const Navbar = () => {
                 {/* Theme Toggle (hidden while THEME_TOGGLE_ENABLED is false) */}
                 {THEME_TOGGLE_ENABLED && (
                 <button onClick={toggleTheme}
-                  className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 overflow-hidden active:scale-95 nav-action-icon-btn-responsive">
+                  className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#f2a624] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 overflow-hidden active:scale-95 nav-action-icon-btn-responsive">
                   <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
                   <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}><Moon size={15} /></span>
                 </button>
@@ -513,7 +513,7 @@ const Navbar = () => {
                   >
                     <LangFlag code={currentLang.code} className="w-[18px]" />
                     <span className="text-[10.5px] font-bold tracking-widest uppercase">{currentLang.code.toUpperCase()}</span>
-                    <Globe size={11} className="text-[#D5B25D]/45" />
+                    <Globe size={11} className="text-[#f2a624]/45" />
                   </button>
 
                   <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[268px] rounded-2xl border ${isLightMode ? 'bg-white border-slate-200 shadow-[0_24px_60px_-16px_rgba(15,23,42,0.22)]' : 'bg-[#0b0e12] border-[#D5B25D]/12 shadow-[0_20px_60px_rgba(0,0,0,0.85)]'} transition-all duration-300 overflow-hidden z-50 ${
@@ -530,7 +530,7 @@ const Navbar = () => {
                             onClick={() => { setLang(language.code); setIsLangOpen(false); }}
                             className={`flex items-center gap-2.5 px-3 py-2.5 rounded-[10px] transition-all duration-200 text-start ${
                               lang === language.code
-                                ? (isLightMode ? "bg-[#D5B25D]/10 border border-[#D5B25D]/35 text-[#7F611B]" : "bg-[#D5B25D]/10 border border-[#D5B25D]/22 text-[#D5B25D]")
+                                ? (isLightMode ? "bg-[#D5B25D]/10 border border-[#D5B25D]/35 text-[#f2a624]" : "bg-[#D5B25D]/10 border border-[#D5B25D]/22 text-[#f2a624]")
                                 : (isLightMode ? "border border-transparent text-[#334155] hover:bg-slate-50 hover:border-slate-200 hover:text-[#0f172a]" : "hover:bg-white/5 border border-transparent text-white/50 hover:text-white")
                             }`}
                           >
@@ -558,7 +558,7 @@ const Navbar = () => {
           <div className="flex items-center gap-2 lg:hidden ms-auto">
             {isAdmin || !THEME_TOGGLE_ENABLED ? null : (
               <button onClick={toggleTheme}
-                className="relative flex items-center justify-center w-8 h-8 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all duration-300 overflow-hidden">
+                className="relative flex items-center justify-center w-8 h-8 rounded-lg border border-[#D5B25D]/22 text-[#f2a624] hover:bg-[#D5B25D]/10 transition-all duration-300 overflow-hidden">
                 <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
                 <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}><Moon size={15} /></span>
               </button>
@@ -597,10 +597,10 @@ const Navbar = () => {
           {/* Panel Header */}
           <div className="flex items-center justify-between px-5 pt-8 pb-4 flex-shrink-0" style={{ backgroundColor: isLightMode ? '#ffffff' : '#0a0a0a', borderBottom: `1px solid ${isLightMode ? '#e2e8f0' : 'rgba(255,255,255,0.05)'}` }}>
             <Link href="/" onClick={() => setIsOpen(false)}>
-              <Image src="/asstes/logo-navbar-v2.png" alt="MNC Logo" width={90} height={45} className="h-9 w-auto object-contain" />
+              <Image src="/asstes/mnc-logo-2026.png" alt="MNC Logo" width={855} height={310} className="h-5 w-auto object-contain" />
             </Link>
             <button onClick={() => setIsOpen(false)}
-              className="w-8 h-8 rounded-[10px] border border-[#D5B25D]/22 bg-[#D5B25D]/5 flex items-center justify-center text-[#D5B25D] hover:bg-[#D5B25D]/12 transition-all active:scale-95">
+              className="w-8 h-8 rounded-[10px] border border-[#D5B25D]/22 bg-[#D5B25D]/5 flex items-center justify-center text-[#f2a624] hover:bg-[#D5B25D]/12 transition-all active:scale-95">
               <X size={16} />
             </button>
           </div>
@@ -618,8 +618,8 @@ const Navbar = () => {
                   return (
                     <Link key={link.name} href={link.href} onClick={() => setIsOpen(false)}
                       className="flex items-center gap-3 py-[11px] px-3 rounded-[12px] border border-[#D5B25D]/22 bg-gradient-to-r from-[#D5B25D]/12 to-[#D5B25D]/6 transition-all duration-200 active:scale-[0.98]">
-                      <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/18 flex items-center justify-center text-[#D5B25D] flex-shrink-0"><LinkIcon size={15} /></span>
-                      <span className="text-[13px] font-bold text-[#D5B25D] flex-1">{link.name}</span>
+                      <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/18 flex items-center justify-center text-[#f2a624] flex-shrink-0"><LinkIcon size={15} /></span>
+                      <span className="text-[13px] font-bold text-[#f2a624] flex-1">{link.name}</span>
                       <span className="w-1.5 h-1.5 rounded-full bg-[#D5B25D] flex-shrink-0" />
                     </Link>
                   );
@@ -632,9 +632,9 @@ const Navbar = () => {
                         : isLightMode ? "border-transparent hover:bg-slate-100" : "border-transparent hover:bg-white/[0.04]"
                     }`}>
                     <span className={`w-[34px] h-[34px] rounded-[10px] flex items-center justify-center flex-shrink-0 ${
-                      isActive ? "bg-[#D5B25D]/14 text-[#D5B25D]" : isLightMode ? "bg-slate-100 text-slate-400" : "bg-white/5 text-white/30"
+                      isActive ? "bg-[#D5B25D]/14 text-[#f2a624]" : isLightMode ? "bg-slate-100 text-slate-400" : "bg-white/5 text-white/30"
                     }`}><LinkIcon size={15} /></span>
-                    <span className={`text-[13px] font-semibold flex-1 ${isActive ? "text-[#D5B25D]" : isLightMode ? "text-[#1e293b]" : "text-white/65"}`}>{link.name}</span>
+                    <span className={`text-[13px] font-semibold flex-1 ${isActive ? "text-[#f2a624]" : isLightMode ? "text-[#1e293b]" : "text-white/65"}`}>{link.name}</span>
                     {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#D5B25D] flex-shrink-0" />}
                   </Link>
                 );
@@ -645,7 +645,7 @@ const Navbar = () => {
                 onClick={() => { setIsOpen(false); handlePortalClick(); }}
                 className="flex items-center gap-3 py-[11px] px-3 rounded-[12px] border border-transparent hover:bg-white/[0.04] transition-all duration-200 active:scale-[0.98] w-full text-start"
               >
-                <span className={`w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/14 text-[#D5B25D] flex items-center justify-center flex-shrink-0`}>
+                <span className={`w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/14 text-[#f2a624] flex items-center justify-center flex-shrink-0`}>
                   <Briefcase size={15} />
                 </span>
                 <span className={`text-[13px] font-semibold flex-1 ${isLightMode ? "text-[#1e293b]" : "text-white/65"}`}>
@@ -662,7 +662,7 @@ const Navbar = () => {
               className={`w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] border transition-all active:scale-[0.98] ${isLightMode ? 'bg-slate-50 border-[#e2e8f0] hover:bg-slate-100' : 'bg-white/[0.03] border-white/8 hover:bg-white/6'}`}
             >
               <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/10 flex items-center justify-center flex-shrink-0">
-                <Globe size={16} className="text-[#D5B25D]" />
+                <Globe size={16} className="text-[#f2a624]" />
               </span>
               <div className="flex-1 text-start flex items-center gap-2">
                 <LangFlag code={currentLang.code} className="w-6" />
@@ -684,7 +684,7 @@ const Navbar = () => {
                     onClick={() => { setLang(language.code); setIsMobileLangOpen(false); setIsOpen(false); }}
                     className={`flex items-center gap-2.5 px-3 py-3 rounded-[12px] border transition-all duration-200 active:scale-[0.97] ${
                       lang === language.code
-                        ? (isLightMode ? "bg-[#D5B25D]/10 border-[#D5B25D]/35 text-[#7F611B]" : "bg-[#D5B25D]/10 border-[#D5B25D]/22 text-[#D5B25D]")
+                        ? (isLightMode ? "bg-[#D5B25D]/10 border-[#D5B25D]/35 text-[#f2a624]" : "bg-[#D5B25D]/10 border-[#D5B25D]/22 text-[#f2a624]")
                         : isLightMode
                           ? "border-[#e2e8f0] bg-white text-[#334155] hover:bg-slate-50 hover:text-[#0f172a]"
                           : "border-white/6 bg-white/[0.03] text-white/55 hover:bg-white/6 hover:text-white"
@@ -719,23 +719,23 @@ const Navbar = () => {
                   <div>
                     <button onClick={() => setIsProfileOpen(!isProfileOpen)}
                       className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-[#D5B25D]/6 border border-[#D5B25D]/18 hover:bg-[#D5B25D]/10 transition-all active:scale-[0.98]">
-                      <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/14 flex items-center justify-center text-[#D5B25D] flex-shrink-0"><HiDocumentText size={18} /></span>
+                      <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/14 flex items-center justify-center text-[#f2a624] flex-shrink-0"><HiDocumentText size={18} /></span>
                       <div className="flex-1 text-start">
-                        <p className="text-[12px] font-bold text-[#D5B25D] leading-none">{t('nav.profile')}</p>
+                        <p className="text-[12px] font-bold text-[#f2a624] leading-none">{t('nav.profile')}</p>
                         <p className="text-[10px] mt-0.5 text-white/28">PDF</p>
                       </div>
-                      <ChevronDown size={13} className={`text-[#D5B25D]/45 transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
+                      <ChevronDown size={13} className={`text-[#f2a624]/45 transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
                     </button>
                     <div className={`overflow-hidden transition-all duration-300 ${isProfileOpen ? "max-h-28 mt-2 opacity-100" : "max-h-0 opacity-0"}`}>
                       <div className="grid grid-cols-2 gap-2">
                         <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
                           onClick={() => setIsOpen(false)}
-                          className="text-[11px] font-bold text-[#D5B25D] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
+                          className="text-[11px] font-bold text-[#f2a624] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
                           {tPortfolio.ar}
                         </a>
                         <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
                           onClick={() => setIsOpen(false)}
-                          className="text-[11px] font-bold text-[#D5B25D] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
+                          className="text-[11px] font-bold text-[#f2a624] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
                           {tPortfolio.en}
                         </a>
                       </div>
@@ -747,14 +747,14 @@ const Navbar = () => {
                   onClick={() => setIsOpen(false)}
                   className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-[#C9A34D]/8 border border-[#C9A34D]/20 hover:bg-[#C9A34D]/14 transition-all active:scale-[0.98]"
                 >
-                  <span className="w-[34px] h-[34px] rounded-[10px] bg-[#C9A34D]/15 flex items-center justify-center text-[#C9A34D] flex-shrink-0">
+                  <span className="w-[34px] h-[34px] rounded-[10px] bg-[#C9A34D]/15 flex items-center justify-center text-[#f2a624] flex-shrink-0">
                     <LayoutDashboard size={17} />
                   </span>
                   <div className="flex-1 text-start">
-                    <p className="text-[12px] font-bold text-[#C9A34D] leading-none">{t('admin.dashboard')}</p>
+                    <p className="text-[12px] font-bold text-[#f2a624] leading-none">{t('admin.dashboard')}</p>
                     <p className="text-[10px] mt-0.5 text-white/28">{adminJobTitle}</p>
                   </div>
-                  <UserCircle size={14} className="text-[#C9A34D]/40 flex-shrink-0" />
+                  <UserCircle size={14} className="text-[#f2a624]/40 flex-shrink-0" />
                 </Link>
 
                 <button
@@ -774,23 +774,23 @@ const Navbar = () => {
                 <div>
                   <button onClick={() => setIsProfileOpen(!isProfileOpen)}
                     className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-[#D5B25D]/6 border border-[#D5B25D]/18 hover:bg-[#D5B25D]/10 transition-all active:scale-[0.98]">
-                    <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/14 flex items-center justify-center text-[#D5B25D] flex-shrink-0"><HiDocumentText size={18} /></span>
+                    <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/14 flex items-center justify-center text-[#f2a624] flex-shrink-0"><HiDocumentText size={18} /></span>
                     <div className="flex-1 text-start">
-                      <p className="text-[12px] font-bold text-[#D5B25D] leading-none">{t('nav.profile')}</p>
+                      <p className="text-[12px] font-bold text-[#f2a624] leading-none">{t('nav.profile')}</p>
                       <p className={`text-[10px] mt-0.5 ${isLightMode ? 'text-slate-400' : 'text-white/28'}`}>PDF</p>
                     </div>
-                    <ChevronDown size={13} className={`text-[#D5B25D]/45 transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
+                    <ChevronDown size={13} className={`text-[#f2a624]/45 transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
                   </button>
                   <div className={`overflow-hidden transition-all duration-300 ${isProfileOpen ? "max-h-28 mt-2 opacity-100" : "max-h-0 opacity-0"}`}>
                     <div className="grid grid-cols-2 gap-2">
                       <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
                         onClick={() => setIsOpen(false)}
-                        className="text-[11px] font-bold text-[#D5B25D] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
+                        className="text-[11px] font-bold text-[#f2a624] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
                         {tPortfolio.ar}
                       </a>
                       <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
                         onClick={() => setIsOpen(false)}
-                        className="text-[11px] font-bold text-[#D5B25D] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
+                        className="text-[11px] font-bold text-[#f2a624] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
                         {tPortfolio.en}
                       </a>
                     </div>
@@ -801,7 +801,7 @@ const Navbar = () => {
                 {THEME_TOGGLE_ENABLED && (
                 <button onClick={toggleTheme}
                   className={`w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] border transition-colors ${isLightMode ? 'bg-slate-50 border-[#e2e8f0] hover:bg-slate-100' : 'bg-white/[0.03] border-white/8 hover:bg-white/6'}`}>
-                  <span className={`w-[34px] h-[34px] rounded-[10px] flex items-center justify-center text-[#D5B25D] flex-shrink-0 ${isLightMode ? 'bg-slate-100' : 'bg-white/5'}`}>
+                  <span className={`w-[34px] h-[34px] rounded-[10px] flex items-center justify-center text-[#f2a624] flex-shrink-0 ${isLightMode ? 'bg-slate-100' : 'bg-white/5'}`}>
                     {isLightMode ? <Sun size={16} /> : <Moon size={16} />}
                   </span>
                   <span className={`text-[12px] font-semibold ${isLightMode ? 'text-[#1e293b]/70' : 'text-white/55'}`}>

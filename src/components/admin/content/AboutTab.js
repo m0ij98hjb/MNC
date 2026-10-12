@@ -125,7 +125,7 @@ export default function AboutTab() {
               </Grid2>
             </div>
           ))}
-          <button onClick={addVal} className="flex items-center gap-1.5 text-xs text-[#c8a96e]/60 hover:text-[#c8a96e] transition-colors">
+          <button onClick={addVal} className="flex items-center gap-1.5 text-xs text-[#f2a624]/60 hover:text-[#f2a624] transition-colors">
             <Plus size={12} /> {t('admin.contentTabs.aboutTab.addValueBtn')}
           </button>
         </div>

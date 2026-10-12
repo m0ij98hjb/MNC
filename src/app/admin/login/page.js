@@ -70,17 +70,17 @@ export default function AdminLoginPage() {
         {/* Logo + title */}
         <div className="flex flex-col items-center mb-8">
           <Image
-            src="/asstes/logo-navbar-v2.png"
+            src="/asstes/mnc-logo-2026.png"
             alt="MNC"
-            width={280}
-            height={140}
-            className="h-20 sm:h-24 w-auto object-contain mb-6"
+            width={855}
+            height={310}
+            className="h-9 sm:h-11 w-auto object-contain mb-6"
             priority
           />
 
           <div className="flex items-center gap-2 rounded-full px-4 py-1.5 mb-3 bg-[#D5B25D]/10 border border-[#D5B25D]/30">
-            <ShieldCheck size={13} className="text-[#7F611B]" />
-            <span className="text-[11px] font-black uppercase tracking-[2px] text-[#7F611B]">
+            <ShieldCheck size={13} className="text-[#f2a624]" />
+            <span className="text-[11px] font-black uppercase tracking-[2px] text-[#f2a624]">
               {t('admin.loginTitle')}
             </span>
           </div>
@@ -149,7 +149,7 @@ export default function AdminLoginPage() {
                 type="button"
                 onClick={() => setShowPass(v => !v)}
                 aria-label={showPass ? 'Hide password' : 'Show password'}
-                className={`absolute ${isRTL ? 'left-3.5' : 'right-3.5'} top-1/2 -translate-y-1/2 transition-colors duration-200 text-[#94a3b8] hover:text-[#7F611B]`}
+                className={`absolute ${isRTL ? 'left-3.5' : 'right-3.5'} top-1/2 -translate-y-1/2 transition-colors duration-200 text-[#94a3b8] hover:text-[#f2a624]`}
               >
                 {showPass ? <EyeOff size={15} /> : <Eye size={15} />}
               </button>

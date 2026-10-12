@@ -143,7 +143,7 @@ const Footer = () => {
           <div className="lg:col-span-2 flex flex-col gap-5">
             <div className="w-full max-w-sm">
               <Image
-                src="/asstes/logo-footer-v2.png"
+                src="/asstes/mnc-logo-2026.png"
                 alt="MNC Logo"
                 width={520}
                 height={260}
@@ -194,7 +194,7 @@ const Footer = () => {
                     href={l.href}
                     className={`text-sm transition-colors duration-200 flex items-center gap-2 group
                       ${l.gold
-                        ? 'text-[#C9A34D] hover:text-[#E1BF67] font-semibold'
+                        ? 'text-[#f2a624] hover:text-[#f2a624] font-semibold'
                         : 'text-[var(--foreground)] hover:text-[var(--secondary)]'
                       }`}
                   >

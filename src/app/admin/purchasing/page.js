@@ -77,7 +77,7 @@ function DashboardContent() {
   }, [requests]);
 
   if (!data) {
-    return <div className="flex items-center justify-center min-h-[60vh]"><Loader2 size={28} className="animate-spin text-[#c8a96e]" /></div>;
+    return <div className="flex items-center justify-center min-h-[60vh]"><Loader2 size={28} className="animate-spin text-[#f2a624]" /></div>;
   }
 
   return (
@@ -109,7 +109,7 @@ function DashboardContent() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-8">
         <div className="bg-white/[0.025] border border-white/[0.07] rounded-2xl p-5">
-          <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2"><TrendingUp size={14} className="text-[#c8a96e]" />{t('purchasing.monthlyTrend')}</h3>
+          <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2"><TrendingUp size={14} className="text-[#f2a624]" />{t('purchasing.monthlyTrend')}</h3>
           {data.monthly.length === 0 ? <p className="text-white/20 text-sm text-center py-14">—</p> : (
             <ResponsiveContainer width="100%" height={220}>
               <AreaChart data={data.monthly} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -149,7 +149,7 @@ function DashboardContent() {
       <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">
         <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.07]">
           <h2 className="text-sm font-semibold text-white">{t('purchasing.latestRequests')}</h2>
-          <Link href="/admin/purchasing/requests" className="flex items-center gap-1 text-xs text-[#c8a96e] hover:underline">
+          <Link href="/admin/purchasing/requests" className="flex items-center gap-1 text-xs text-[#f2a624] hover:underline">
             {t('admin.viewAll')} <ArrowIcon size={11} />
           </Link>
         </div>
@@ -157,7 +157,7 @@ function DashboardContent() {
           {data.latest.length === 0 ? <p className="text-center text-white/25 text-sm py-8">{t('purchasing.noRequestsYet')}</p> : data.latest.map(r => (
             <Link key={r.id} href={`/admin/purchasing/requests/${r.id}`} className="flex items-center justify-between px-5 py-3 hover:bg-white/[0.03] transition-colors group">
               <div className="min-w-0 flex-1">
-                <p className="text-sm text-white font-medium truncate group-hover:text-[#c8a96e] transition-colors" dir="ltr">{r.requestNumber}</p>
+                <p className="text-sm text-white font-medium truncate group-hover:text-[#f2a624] transition-colors" dir="ltr">{r.requestNumber}</p>
                 <p className="text-xs text-white/30 mt-0.5 truncate">{r.projectName} · {r.requesterName}</p>
               </div>
               <div className="flex items-center gap-2.5 shrink-0 ms-3">

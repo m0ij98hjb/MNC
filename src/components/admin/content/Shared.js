@@ -43,7 +43,7 @@ export function Section({ title, icon: Icon, children, className = '' }) {
     <div className={`rounded-2xl p-5 space-y-4 ${className}`}
       style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)' }}>
       <div className="flex items-center gap-2.5 pb-3.5 border-b border-white/[0.06]">
-        {Icon && <Icon size={14} className="text-[#c8a96e]" />}
+        {Icon && <Icon size={14} className="text-[#f2a624]" />}
         <h3 className="text-[13px] font-bold text-white">{title}</h3>
       </div>
       <div className="space-y-3">{children}</div>
@@ -117,7 +117,7 @@ export function ImageUpload({ label, value, onChange, className = '' }) {
           onClick={() => ref.current?.click()}
           disabled={uploading}
           className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold transition-all disabled:opacity-50 flex-shrink-0"
-          style={{ background: 'rgba(201,163,77,0.08)', border: '1px solid rgba(201,163,77,0.25)', color: '#c8a96e' }}
+          style={{ background: 'rgba(201,163,77,0.08)', border: '1px solid rgba(201,163,77,0.25)', color: '#f2a624' }}
         >
           {uploading ? <Loader2 size={12} className="animate-spin" /> : <Upload size={12} />}
           {uploading ? t('admin.contentTabs.shared.uploading') : value ? t('admin.contentTabs.shared.change') : t('admin.contentTabs.shared.uploadImage')}
@@ -153,7 +153,7 @@ export function ListEditor({ label, items = [], onChange }) {
         ))}
       </div>
       <button type="button" onClick={add}
-        className="flex items-center gap-1.5 text-xs text-[#c8a96e]/60 hover:text-[#c8a96e] transition-colors mt-1">
+        className="flex items-center gap-1.5 text-xs text-[#f2a624]/60 hover:text-[#f2a624] transition-colors mt-1">
         <Plus size={12} /> {t('admin.contentTabs.shared.addItem')}
       </button>
     </div>
@@ -164,7 +164,7 @@ export function ListEditor({ label, items = [], onChange }) {
 export function TabLoading() {
   return (
     <div className="flex items-center justify-center py-20">
-      <Loader2 size={22} className="animate-spin text-[#c8a96e]/40" />
+      <Loader2 size={22} className="animate-spin text-[#f2a624]/40" />
     </div>
   );
 }

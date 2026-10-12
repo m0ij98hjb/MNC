@@ -260,14 +260,14 @@ export default function CostCalculatorPage() {
   ];
 
   const projectTypes = [
-    { key: "residential", icon: Building, color: "#D5B25D" },
+    { key: "residential", icon: Building, color: "#f2a624" },
     { key: "hotel",       icon: Hotel, color: "#f472b6" },
     { key: "commercial",  icon: Building2, color: "#60a5fa" },
     { key: "industrial",  icon: Factory, color: "#34d399" },
   ];
 
   const residentialSubtypes = [
-    { key: "residential_building", icon: Building, color: "#D5B25D" },
+    { key: "residential_building", icon: Building, color: "#f2a624" },
     { key: "villa",                icon: Home, color: "#c9975a" },
   ];
 
@@ -338,7 +338,7 @@ export default function CostCalculatorPage() {
 
   const qualityOptions = [
     { key: "economic", color: "#64748b", label: t("calculator.economic") },
-    { key: "standard", color: "#D5B25D", label: t("calculator.standard") },
+    { key: "standard", color: "#f2a624", label: t("calculator.standard") },
     { key: "premium",  color: "#f59e0b", label: t("calculator.premium") },
     { key: "ultra",    color: "#a855f7", label: t("calculator.ultra") },
   ];
@@ -577,7 +577,7 @@ export default function CostCalculatorPage() {
     return (
       <AdminPageLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <Loader2 size={28} className="animate-spin text-[#c8a96e]" />
+          <Loader2 size={28} className="animate-spin text-[#f2a624]" />
         </div>
       </AdminPageLayout>
     );
@@ -616,10 +616,10 @@ export default function CostCalculatorPage() {
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D5B25D" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 2L3 7v5c0 5 4 9.3 9 10.5C17 21.3 21 17 21 12V7l-9-5z"/>
             </svg>
-            <span className="text-[#D5B25D] text-xs font-bold tracking-widest uppercase">{t("calculator.badge")}</span>
+            <span className="text-[#f2a624] text-xs font-bold tracking-widest uppercase">{t("calculator.badge")}</span>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black mb-4 leading-tight text-white">
-            <span className="text-gradient">{t("calculator.title")}</span>
+            <span className="text-[#f2a624]">{t("calculator.title")}</span>
           </h1>
           <div className="w-20 h-1 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto mb-6 rounded-full" />
           <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed text-white/70">
@@ -627,7 +627,7 @@ export default function CostCalculatorPage() {
           </p>
           <Link
             href="/admin/cost-reports"
-            className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full border border-[#D5B25D]/40 bg-[#D5B25D]/10 hover:bg-[#D5B25D]/20 hover:border-[#D5B25D]/70 text-[#D5B25D] font-bold text-sm transition-all duration-300"
+            className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full border border-[#D5B25D]/40 bg-[#D5B25D]/10 hover:bg-[#D5B25D]/20 hover:border-[#D5B25D]/70 text-[#f2a624] font-bold text-sm transition-all duration-300"
           >
             <FileText size={16} />
             {t("costReports.title")}
@@ -643,11 +643,11 @@ export default function CostCalculatorPage() {
               <div key={s} className="flex items-center gap-2 sm:gap-4">
                 <div className={`flex items-center gap-2 transition-all duration-300 ${step >= s ? "opacity-100" : "opacity-40"}`}>
                   <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold transition-all duration-300 ${
-                    step > s ? "bg-[#D5B25D] text-black" : step === s ? "bg-[#D5B25D]/20 border-2 border-[#D5B25D] text-[#D5B25D]" : isLightMode ? "bg-slate-100 border border-slate-300 text-slate-400" : "bg-white/5 border border-white/20 text-white/40"
+                    step > s ? "bg-[#D5B25D] text-black" : step === s ? "bg-[#D5B25D]/20 border-2 border-[#D5B25D] text-[#f2a624]" : isLightMode ? "bg-slate-100 border border-slate-300 text-slate-400" : "bg-white/5 border border-white/20 text-white/40"
                   }`}>
                     {step > s ? <CheckCircle2 size={14} /> : s}
                   </div>
-                  <span className={`text-xs sm:text-sm font-semibold hidden sm:block ${step === s ? "text-[#D5B25D]" : textMut}`}>
+                  <span className={`text-xs sm:text-sm font-semibold hidden sm:block ${step === s ? "text-[#f2a624]" : textMut}`}>
                     {t(`calculator.step${s}`)}
                   </span>
                 </div>
@@ -717,7 +717,7 @@ export default function CostCalculatorPage() {
                 >
                   {isSelected && (
                     <div className="absolute top-3 right-3">
-                      <CheckCircle2 size={16} className="text-[#D5B25D]" />
+                      <CheckCircle2 size={16} className="text-[#f2a624]" />
                     </div>
                   )}
                   <div
@@ -753,7 +753,7 @@ export default function CostCalculatorPage() {
                     >
                       {formData.type === key && (
                         <div className="absolute top-3 right-3">
-                          <CheckCircle2 size={16} className="text-[#D5B25D]" />
+                          <CheckCircle2 size={16} className="text-[#f2a624]" />
                         </div>
                       )}
                       <div
@@ -790,7 +790,7 @@ export default function CostCalculatorPage() {
                     >
                       {formData.type === key && (
                         <div className="absolute top-3 right-3">
-                          <CheckCircle2 size={16} className="text-[#D5B25D]" />
+                          <CheckCircle2 size={16} className="text-[#f2a624]" />
                         </div>
                       )}
                       <div
@@ -827,7 +827,7 @@ export default function CostCalculatorPage() {
                     >
                       {formData.type === key && (
                         <div className="absolute top-3 right-3">
-                          <CheckCircle2 size={16} className="text-[#D5B25D]" />
+                          <CheckCircle2 size={16} className="text-[#f2a624]" />
                         </div>
                       )}
                       <div
@@ -868,13 +868,13 @@ export default function CostCalculatorPage() {
                 <div className="space-y-6">
                   {/* Construction Quality */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.quality")}
                     </label>
                     <div className="grid grid-cols-2 gap-2">
                       {industrialQualityOptions.map(({ key, color, label }) => (
                         <button key={key} onClick={() => { setFormData((p) => ({ ...p, quality: key })); setErrors({}); }}
-                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#D5B25D] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#f2a624] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
                           style={formData.quality === key ? { borderColor: color, color } : {}}
                         >{label}</button>
                       ))}
@@ -883,7 +883,7 @@ export default function CostCalculatorPage() {
 
                   {/* Ground Floor Area */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.groundFloorArea")}
                     </label>
                     <input
@@ -902,7 +902,7 @@ export default function CostCalculatorPage() {
                 <div className="space-y-6">
                   {/* Mezzanine Area */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.mezzanineArea")}
                     </label>
                     <input
@@ -918,7 +918,7 @@ export default function CostCalculatorPage() {
 
                   {/* First Floor Area */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.firstFloorArea")}
                     </label>
                     <input
@@ -939,13 +939,13 @@ export default function CostCalculatorPage() {
                 <div className="space-y-6">
                   {/* Hotel Rating */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.hotelRating")}
                     </label>
                     <div className="grid grid-cols-1 gap-2">
                       {hotelRatingOptions.map(({ key, label }) => (
                         <button key={key} onClick={() => { setFormData((p) => ({ ...p, hotelRating: key })); setErrors({}); }}
-                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.hotelRating === key ? "border-[#D5B25D] text-[#D5B25D] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.hotelRating === key ? "border-[#D5B25D] text-[#f2a624] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
                         >{label}</button>
                       ))}
                     </div>
@@ -954,7 +954,7 @@ export default function CostCalculatorPage() {
 
                   {/* Number of Basements */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.basementsCount")}
                     </label>
                     <div className="flex items-center gap-4">
@@ -962,7 +962,7 @@ export default function CostCalculatorPage() {
                         onClick={() => setBasementsCount(Number(formData.basementsCount) - 1)}
                         className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >−</button>
-                      <span className="text-3xl font-black text-[#D5B25D] min-w-[60px] text-center">
+                      <span className="text-3xl font-black text-[#f2a624] min-w-[60px] text-center">
                         {Number(formData.basementsCount) === 0 ? t("calculator.engineering.noBasementOption") : fmt(Number(formData.basementsCount))}
                       </span>
                       <button
@@ -993,7 +993,7 @@ export default function CostCalculatorPage() {
 
                   {/* Ground Floor Area */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.groundFloorArea")}
                     </label>
                     <input
@@ -1012,7 +1012,7 @@ export default function CostCalculatorPage() {
                 <div className="space-y-6">
                   {/* Mezzanine Area */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.mezzanineArea")}
                     </label>
                     <input
@@ -1028,7 +1028,7 @@ export default function CostCalculatorPage() {
 
                   {/* Number of Floors */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.floorsCount")}
                     </label>
                     <div className="flex items-center gap-4">
@@ -1036,7 +1036,7 @@ export default function CostCalculatorPage() {
                         onClick={() => setCommercialFloorsCount(Number(formData.floorsCount) - 1)}
                         className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >−</button>
-                      <span className="text-3xl font-black text-[#D5B25D] min-w-[60px] text-center">{fmt(Number(formData.floorsCount))}</span>
+                      <span className="text-3xl font-black text-[#f2a624] min-w-[60px] text-center">{fmt(Number(formData.floorsCount))}</span>
                       <button
                         onClick={() => setCommercialFloorsCount(Number(formData.floorsCount) + 1)}
                         className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
@@ -1065,7 +1065,7 @@ export default function CostCalculatorPage() {
 
                   {/* Penthouse Area */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.penthouseArea")}
                     </label>
                     <input
@@ -1086,13 +1086,13 @@ export default function CostCalculatorPage() {
                 <div className="space-y-6">
                   {/* Quality */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.quality")}
                     </label>
                     <div className="grid grid-cols-2 gap-2">
                       {qualityOptions.map(({ key, color, label }) => (
                         <button key={key} onClick={() => setFormData((p) => ({ ...p, quality: key }))}
-                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#D5B25D] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#f2a624] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
                           style={formData.quality === key ? { borderColor: color, color } : {}}
                         >{label}</button>
                       ))}
@@ -1101,7 +1101,7 @@ export default function CostCalculatorPage() {
 
                   {/* Number of Basements */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.basementsCount")}
                     </label>
                     <div className="flex items-center gap-4">
@@ -1109,7 +1109,7 @@ export default function CostCalculatorPage() {
                         onClick={() => setBasementsCount(Number(formData.basementsCount) - 1)}
                         className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >−</button>
-                      <span className="text-3xl font-black text-[#D5B25D] min-w-[60px] text-center">
+                      <span className="text-3xl font-black text-[#f2a624] min-w-[60px] text-center">
                         {Number(formData.basementsCount) === 0 ? t("calculator.engineering.noBasementOption") : fmt(Number(formData.basementsCount))}
                       </span>
                       <button
@@ -1140,7 +1140,7 @@ export default function CostCalculatorPage() {
 
                   {/* Ground Floor Area */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.groundFloorArea")}
                     </label>
                     <input
@@ -1159,7 +1159,7 @@ export default function CostCalculatorPage() {
                 <div className="space-y-6">
                   {/* Mezzanine Area */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.mezzanineArea")}
                     </label>
                     <input
@@ -1175,7 +1175,7 @@ export default function CostCalculatorPage() {
 
                   {/* Number of Floors */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.floorsCount")}
                     </label>
                     <div className="flex items-center gap-4">
@@ -1183,7 +1183,7 @@ export default function CostCalculatorPage() {
                         onClick={() => setCommercialFloorsCount(Number(formData.floorsCount) - 1)}
                         className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >−</button>
-                      <span className="text-3xl font-black text-[#D5B25D] min-w-[60px] text-center">{fmt(Number(formData.floorsCount))}</span>
+                      <span className="text-3xl font-black text-[#f2a624] min-w-[60px] text-center">{fmt(Number(formData.floorsCount))}</span>
                       <button
                         onClick={() => setCommercialFloorsCount(Number(formData.floorsCount) + 1)}
                         className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
@@ -1212,7 +1212,7 @@ export default function CostCalculatorPage() {
 
                   {/* Penthouse Area */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.penthouseArea")}
                     </label>
                     <input
@@ -1234,7 +1234,7 @@ export default function CostCalculatorPage() {
                   {/* Basement / Ground Floor / Typical Floor Area */}
                   {engineeringAreaFields.slice(0, 3).map(({ key, label }) => (
                     <div key={key} className={`${cardCls} rounded-2xl p-6`}>
-                      <label className="block text-[#D5B25D] font-bold text-sm mb-3">{label}</label>
+                      <label className="block text-[#f2a624] font-bold text-sm mb-3">{label}</label>
                       <input
                         type="number"
                         min="0"
@@ -1249,7 +1249,7 @@ export default function CostCalculatorPage() {
 
                   {/* Number of Typical Floors */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.floorsCount")}
                     </label>
                     <div className="flex items-center gap-4">
@@ -1257,7 +1257,7 @@ export default function CostCalculatorPage() {
                         onClick={() => setFormData((p) => ({ ...p, floorsCount: String(Math.max(1, Number(p.floorsCount) - 1)) }))}
                         className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >−</button>
-                      <span className="text-3xl font-black text-[#D5B25D] min-w-[60px] text-center">{fmt(Number(formData.floorsCount))}</span>
+                      <span className="text-3xl font-black text-[#f2a624] min-w-[60px] text-center">{fmt(Number(formData.floorsCount))}</span>
                       <button
                         onClick={() => setFormData((p) => ({ ...p, floorsCount: String(Math.min(60, Number(p.floorsCount) + 1)) }))}
                         className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
@@ -1272,7 +1272,7 @@ export default function CostCalculatorPage() {
                   {/* Penthouse / Water Tank / Septic Tank */}
                   {engineeringAreaFields.slice(3).map(({ key, label }) => (
                     <div key={key} className={`${cardCls} rounded-2xl p-6`}>
-                      <label className="block text-[#D5B25D] font-bold text-sm mb-3">{label}</label>
+                      <label className="block text-[#f2a624] font-bold text-sm mb-3">{label}</label>
                       <input
                         type="number"
                         min="0"
@@ -1287,7 +1287,7 @@ export default function CostCalculatorPage() {
 
                   {/* Fence Length (linear meters) */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.engineering.fenceLength")}
                     </label>
                     <input
@@ -1303,13 +1303,13 @@ export default function CostCalculatorPage() {
 
                   {/* Quality */}
                   <div className={`${cardCls} rounded-2xl p-6`}>
-                    <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                    <label className="block text-[#f2a624] font-bold text-sm mb-3">
                       {t("calculator.quality")}
                     </label>
                     <div className="grid grid-cols-2 gap-2">
                       {qualityOptions.map(({ key, color, label }) => (
                         <button key={key} onClick={() => setFormData((p) => ({ ...p, quality: key }))}
-                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#D5B25D] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#f2a624] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
                           style={formData.quality === key ? { borderColor: color, color } : {}}
                         >{label}</button>
                       ))}
@@ -1323,7 +1323,7 @@ export default function CostCalculatorPage() {
               <div className="space-y-6">
                 {/* Area */}
                 <div className={`${cardCls} rounded-2xl p-6`}>
-                  <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                  <label className="block text-[#f2a624] font-bold text-sm mb-3">
                     {t("calculator.area")}
                   </label>
                   <input
@@ -1347,7 +1347,7 @@ export default function CostCalculatorPage() {
 
                 {/* Floors */}
                 <div className={`${cardCls} rounded-2xl p-6`}>
-                  <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                  <label className="block text-[#f2a624] font-bold text-sm mb-3">
                     {t("calculator.floors")}
                   </label>
                   <div className="flex items-center gap-4">
@@ -1355,7 +1355,7 @@ export default function CostCalculatorPage() {
                       onClick={() => setFormData((p) => ({ ...p, floors: String(Math.max(1, Number(p.floors) - 1)) }))}
                       className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                     >−</button>
-                    <span className="text-3xl font-black text-[#D5B25D] min-w-[60px] text-center">{fmt(Number(formData.floors))}</span>
+                    <span className="text-3xl font-black text-[#f2a624] min-w-[60px] text-center">{fmt(Number(formData.floors))}</span>
                     <button
                       onClick={() => setFormData((p) => ({ ...p, floors: String(Math.min(20, Number(p.floors) + 1)) }))}
                       className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
@@ -1365,13 +1365,13 @@ export default function CostCalculatorPage() {
 
                 {/* Quality */}
                 <div className={`${cardCls} rounded-2xl p-6`}>
-                  <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                  <label className="block text-[#f2a624] font-bold text-sm mb-3">
                     {t("calculator.quality")}
                   </label>
                   <div className="grid grid-cols-2 gap-2">
                     {qualityOptions.map(({ key, color, label }) => (
                       <button key={key} onClick={() => setFormData((p) => ({ ...p, quality: key }))}
-                        className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#D5B25D] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                        className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#f2a624] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
                         style={formData.quality === key ? { borderColor: color, color } : {}}
                       >{label}</button>
                     ))}
@@ -1383,13 +1383,13 @@ export default function CostCalculatorPage() {
               <div className="space-y-6">
                 {/* Location */}
                 <div className={`${cardCls} rounded-2xl p-6`}>
-                  <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                  <label className="block text-[#f2a624] font-bold text-sm mb-3">
                     {t("calculator.location")}
                   </label>
                   <div className="flex flex-col gap-2">
                     {locationOptions.map(({ key, label }) => (
                       <button key={key} onClick={() => setFormData((p) => ({ ...p, location: key }))}
-                        className={`w-full py-2.5 px-4 rounded-xl border text-sm font-semibold text-start transition-all duration-200 ${formData.location === key ? "border-[#D5B25D] bg-[#D5B25D]/10 text-[#D5B25D]" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/40" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                        className={`w-full py-2.5 px-4 rounded-xl border text-sm font-semibold text-start transition-all duration-200 ${formData.location === key ? "border-[#D5B25D] bg-[#D5B25D]/10 text-[#f2a624]" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/40" : "border-white/10 text-white/60 hover:border-white/25"}`}
                       >{label}</button>
                     ))}
                   </div>
@@ -1397,7 +1397,7 @@ export default function CostCalculatorPage() {
 
                 {/* Extras */}
                 <div className={`${cardCls} rounded-2xl p-6`}>
-                  <label className="block text-[#D5B25D] font-bold text-sm mb-3">
+                  <label className="block text-[#f2a624] font-bold text-sm mb-3">
                     {t("calculator.extras")}
                   </label>
                   <div className="grid grid-cols-2 gap-2">
@@ -1405,7 +1405,7 @@ export default function CostCalculatorPage() {
                       const active = formData.extras.includes(key);
                       return (
                         <button key={key} onClick={() => toggleExtra(key)}
-                          className={`flex items-center gap-2 py-2.5 px-3 rounded-xl border text-xs font-bold transition-all duration-200 ${active ? "border-[#D5B25D] bg-[#D5B25D]/10 text-[#D5B25D]" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/40" : "border-white/10 text-white/50 hover:border-white/25"}`}
+                          className={`flex items-center gap-2 py-2.5 px-3 rounded-xl border text-xs font-bold transition-all duration-200 ${active ? "border-[#D5B25D] bg-[#D5B25D]/10 text-[#f2a624]" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/40" : "border-white/10 text-white/50 hover:border-white/25"}`}
                         >
                           <Icon size={15} />
                           <span className="truncate">{label}</span>
@@ -1442,10 +1442,10 @@ export default function CostCalculatorPage() {
               <div className="absolute inset-0 rounded-full border-4 border-[#D5B25D]/20" />
               <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-[#D5B25D] animate-spin" />
               <div className="absolute inset-4 rounded-full bg-[#D5B25D]/10 flex items-center justify-center">
-                <Calculator size={28} className="text-[#D5B25D] animate-pulse" />
+                <Calculator size={28} className="text-[#f2a624] animate-pulse" />
               </div>
             </div>
-            <p className="text-[#D5B25D] font-bold text-xl">{t("calculator.calculating")}</p>
+            <p className="text-[#f2a624] font-bold text-xl">{t("calculator.calculating")}</p>
             <p className={`text-sm mt-2 ${textMut}`}>{ui.processing[lang] || ui.processing['en']}</p>
             {/* Animated dots */}
             <div className="flex gap-2 mt-6">
@@ -1467,7 +1467,7 @@ export default function CostCalculatorPage() {
             {lastReportId && (
               <Link
                 href={`/admin/cost-reports/${lastReportId}`}
-                className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl border-2 border-[#D5B25D] bg-[#D5B25D]/10 hover:bg-[#D5B25D]/20 text-[#D5B25D] font-bold text-base transition-all duration-300"
+                className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl border-2 border-[#D5B25D] bg-[#D5B25D]/10 hover:bg-[#D5B25D]/20 text-[#f2a624] font-bold text-base transition-all duration-300"
               >
                 <Printer size={18} />
                 {t("costReports.printBtn")}

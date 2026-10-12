@@ -112,7 +112,7 @@ function QrScanView({ onResult, onBack }) {
       <div className="relative rounded-2xl overflow-hidden border-2 border-[#C9A34D]/35 w-full max-w-[280px] aspect-square bg-black flex items-center justify-center">
         {status === "loading" && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 z-10 bg-black/80">
-            <Loader2 size={32} className="text-[#C9A34D] animate-spin" />
+            <Loader2 size={32} className="text-[#f2a624] animate-spin" />
             <span className="text-white/50 text-xs">{t("camera.startingCamera")}</span>
           </div>
         )}
@@ -122,7 +122,7 @@ function QrScanView({ onResult, onBack }) {
             <p className="text-red-400 text-sm font-bold leading-snug">{errMsg}</p>
             <button
               onClick={() => startScanner(activeCamId)}
-              className="flex items-center gap-1.5 text-[#C9A34D] text-xs border border-[#C9A34D]/30 px-3 py-1.5 rounded-lg hover:bg-[#C9A34D]/10 transition-colors"
+              className="flex items-center gap-1.5 text-[#f2a624] text-xs border border-[#C9A34D]/30 px-3 py-1.5 rounded-lg hover:bg-[#C9A34D]/10 transition-colors"
             >
               <RefreshCw size={11} /> {t("camera.retry")}
             </button>
@@ -147,14 +147,14 @@ function QrScanView({ onResult, onBack }) {
 
       {cameras.length > 1 && (
         <div className="flex items-center gap-2 flex-wrap justify-center">
-          <SwitchCamera size={13} className="text-[#C9A34D]/50 shrink-0" />
+          <SwitchCamera size={13} className="text-[#f2a624]/50 shrink-0" />
           {cameras.map((cam, i) => (
             <button
               key={cam.id}
               onClick={() => switchCamera(cam.id)}
               className={`text-[11px] px-2.5 py-1 rounded-lg border transition-all ${
                 activeCamId === cam.id
-                  ? "bg-[#C9A34D]/15 border-[#C9A34D]/45 text-[#C9A34D] font-bold"
+                  ? "bg-[#C9A34D]/15 border-[#C9A34D]/45 text-[#f2a624] font-bold"
                   : "bg-white/[0.04] border-white/10 text-white/35 hover:text-white/60"
               }`}
             >
@@ -166,7 +166,7 @@ function QrScanView({ onResult, onBack }) {
 
       <button
         onClick={onBack}
-        className="flex items-center gap-2 text-[#C9A34D]/60 hover:text-[#C9A34D] text-sm transition-colors mt-1"
+        className="flex items-center gap-2 text-[#f2a624]/60 hover:text-[#f2a624] text-sm transition-colors mt-1"
       >
         <ChevronLeft size={16} /> {t("camera.back")}
       </button>
@@ -243,7 +243,7 @@ export default function CameraModal({ onClose }) {
         <div className="flex items-center justify-between px-6 pt-5 pb-4 shrink-0 border-b border-white/[0.06]">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-[#C9A34D]/10 border border-[#C9A34D]/20 flex items-center justify-center">
-              <Eye size={17} className="text-[#C9A34D]" />
+              <Eye size={17} className="text-[#f2a624]" />
             </div>
             <div>
               <h2 className="font-black text-base text-white leading-tight">{t("camera.title")}</h2>
@@ -267,7 +267,7 @@ export default function CameraModal({ onClose }) {
 
               {/* Serial input */}
               <div className="flex flex-col gap-2">
-                <label className="text-[#C9A34D]/70 text-xs font-bold flex items-center gap-1.5">
+                <label className="text-[#f2a624]/70 text-xs font-bold flex items-center gap-1.5">
                   <Search size={11} /> {t("camera.serialLabel")}
                 </label>
                 <div className="flex gap-2">
@@ -309,7 +309,7 @@ export default function CameraModal({ onClose }) {
                 className="flex flex-col items-center gap-3 py-6 border-2 border-dashed border-[#C9A34D]/25 hover:border-[#C9A34D]/55 rounded-2xl hover:bg-[#C9A34D]/[0.04] transition-all group"
               >
                 <div className="w-14 h-14 rounded-2xl bg-[#C9A34D]/10 border border-[#C9A34D]/20 flex items-center justify-center group-hover:bg-[#C9A34D]/18 transition-colors">
-                  <QrCode size={26} className="text-[#C9A34D]" />
+                  <QrCode size={26} className="text-[#f2a624]" />
                 </div>
                 <div className="text-center">
                   <p className="font-bold text-sm text-white">{t("camera.scanQrTitle")}</p>

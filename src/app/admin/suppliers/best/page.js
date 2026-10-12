@@ -70,7 +70,7 @@ export default function BestSuppliersPage() {
     return (
       <AdminPageLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <Sparkles size={28} className="text-[#c8a96e] animate-pulse" />
+          <Sparkles size={28} className="text-[#f2a624] animate-pulse" />
         </div>
       </AdminPageLayout>
     );
@@ -197,7 +197,7 @@ export default function BestSuppliersPage() {
                       <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-black shrink-0 ${
                         i === 0 ? 'bg-amber-500/20 text-amber-400' :
                         i === 1 ? 'bg-slate-500/20 text-slate-400' :
-                        i === 2 ? 'bg-[#c8a96e]/20 text-[#c8a96e]' :
+                        i === 2 ? 'bg-[#c8a96e]/20 text-[#f2a624]' :
                         'bg-white/5 text-white/25'
                       }`}>
                         {i + 1}

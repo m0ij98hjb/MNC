@@ -20,7 +20,7 @@ function NotificationsContent() {
     <div className="p-6 lg:p-8 max-w-4xl mx-auto" dir={isRTL ? 'rtl' : 'ltr'}>
       <PurchasingSubNav />
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2"><Bell size={20} className="text-[#c8a96e]" />{t('purchasing.notificationsTitle')}</h1>
+        <h1 className="text-2xl font-bold text-white flex items-center gap-2"><Bell size={20} className="text-[#f2a624]" />{t('purchasing.notificationsTitle')}</h1>
         {unreadCount > 0 && (
           <span className="flex items-center gap-1.5 text-xs text-white/40"><CheckCheck size={13} />{unreadCount} {t('purchasing.unreadLabel')}</span>
         )}

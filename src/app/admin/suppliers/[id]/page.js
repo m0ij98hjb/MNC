@@ -100,7 +100,7 @@ export default function SupplierDetailPage() {
     return (
       <AdminPageLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <Loader2 size={32} className="text-[#c8a96e] animate-spin" />
+          <Loader2 size={32} className="text-[#f2a624] animate-spin" />
         </div>
       </AdminPageLayout>
     );
@@ -159,7 +159,7 @@ export default function SupplierDetailPage() {
 
             <Card title={t('admin.businessActivity')}>
               {supplier.activity ? (
-                <span className="inline-flex items-center gap-2 bg-[#c8a96e]/10 text-[#c8a96e] text-sm font-semibold px-4 py-2 rounded-xl border border-[#c8a96e]/20">
+                <span className="inline-flex items-center gap-2 bg-[#c8a96e]/10 text-[#f2a624] text-sm font-semibold px-4 py-2 rounded-xl border border-[#c8a96e]/20">
                   <Briefcase size={14} />
                   {getAct(supplier.activity)}
                 </span>
@@ -184,7 +184,7 @@ export default function SupplierDetailPage() {
                       href={supplier.documentUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm text-[#c8a96e] hover:text-[#e8c98a] underline underline-offset-2 transition-colors"
+                      className="inline-flex items-center gap-2 text-sm text-[#f2a624] hover:text-[#e8c98a] underline underline-offset-2 transition-colors"
                     >
                       <ExternalLink size={13} />
                       {t('admin.viewDetails')}
@@ -227,7 +227,7 @@ export default function SupplierDetailPage() {
                 <div className="mt-4">
                   <button
                     onClick={() => { setVisitFormOpen(v => !v); setVisitStatus(''); }}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#c8a96e]/10 hover:bg-[#c8a96e]/20 border border-[#c8a96e]/20 text-[#c8a96e] text-sm font-semibold transition-colors"
+                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#c8a96e]/10 hover:bg-[#c8a96e]/20 border border-[#c8a96e]/20 text-[#f2a624] text-sm font-semibold transition-colors"
                   >
                     <MapPin size={14} />
                     {t('admin.visitRequestBtn')}
@@ -236,7 +236,7 @@ export default function SupplierDetailPage() {
                   {visitFormOpen && (
                     <div className="mt-3 space-y-3 border-t border-white/[0.07] pt-4">
                       <div className="space-y-1.5">
-                        <label className="text-xs text-[#c8a96e] block">{t('admin.visitDateLabel')}</label>
+                        <label className="text-xs text-[#f2a624] block">{t('admin.visitDateLabel')}</label>
                         <input
                           type="date" required value={visitDate}
                           onChange={e => setVisitDate(e.target.value)}
@@ -244,7 +244,7 @@ export default function SupplierDetailPage() {
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs text-[#c8a96e] block">{t('admin.visitTimeLabel')}</label>
+                        <label className="text-xs text-[#f2a624] block">{t('admin.visitTimeLabel')}</label>
                         <input
                           type="time" required value={visitTime}
                           onChange={e => setVisitTime(e.target.value)}
@@ -252,7 +252,7 @@ export default function SupplierDetailPage() {
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs text-[#c8a96e] block">{t('admin.visitNotesLabel')}</label>
+                        <label className="text-xs text-[#f2a624] block">{t('admin.visitNotesLabel')}</label>
                         <textarea
                           rows={3} value={visitNote}
                           onChange={e => setVisitNote(e.target.value)}
@@ -293,7 +293,7 @@ export default function SupplierDetailPage() {
                 className={`mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold border transition-colors disabled:opacity-50
                   ${saved
                     ? 'bg-green-500/10 border-green-500/20 text-green-400'
-                    : 'bg-[#c8a96e]/10 hover:bg-[#c8a96e]/20 border-[#c8a96e]/20 text-[#c8a96e]'
+                    : 'bg-[#c8a96e]/10 hover:bg-[#c8a96e]/20 border-[#c8a96e]/20 text-[#f2a624]'
                   }`}
               >
                 {saving
@@ -337,7 +337,7 @@ export default function SupplierDetailPage() {
                   <p className="text-white font-black text-xl tracking-tight">{t('admin.visitSuccessTitle')}</p>
                   <p className="text-white/40 text-sm leading-relaxed">
                     {t('admin.visitSuccessSub')}<br />
-                    <span className="text-[#c8a96e] font-semibold">{supplier.companyName}</span>
+                    <span className="text-[#f2a624] font-semibold">{supplier.companyName}</span>
                   </p>
                 </div>
 
@@ -373,7 +373,7 @@ export default function SupplierDetailPage() {
 function Card({ title, children }) {
   return (
     <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-5">
-      <h3 className="text-xs font-semibold text-[#c8a96e] uppercase tracking-wider mb-4">{title}</h3>
+      <h3 className="text-xs font-semibold text-[#f2a624] uppercase tracking-wider mb-4">{title}</h3>
       {children}
     </div>
   );

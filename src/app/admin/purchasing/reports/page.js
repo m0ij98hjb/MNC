@@ -120,7 +120,7 @@ function ReportsContent() {
     Status: r.status, Priority: r.priority, TotalCost: r.totalEstimatedCost, Date: r.requestDate,
   }));
 
-  if (!data) return <div className="flex items-center justify-center min-h-[60vh]"><Loader2 size={28} className="animate-spin text-[#c8a96e]" /></div>;
+  if (!data) return <div className="flex items-center justify-center min-h-[60vh]"><Loader2 size={28} className="animate-spin text-[#f2a624]" /></div>;
 
   return (
     <div className="p-6 lg:p-8 max-w-6xl mx-auto" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -220,7 +220,7 @@ function ReportsContent() {
                 {data.topMaterials.map((m, i) => (
                   <div key={i} className="flex items-center justify-between text-sm">
                     <span className="text-white/60">{m.name}</span>
-                    <span className="text-[#c8a96e] font-bold" dir="ltr">{m.qty.toLocaleString()}</span>
+                    <span className="text-[#f2a624] font-bold" dir="ltr">{m.qty.toLocaleString()}</span>
                   </div>
                 ))}
               </div>

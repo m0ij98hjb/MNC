@@ -137,7 +137,7 @@ function MapCard({
             padding: "6px 13px",
             fontSize: "11px",
             fontWeight: 700,
-            color: "#D5B25D",
+            color: "#f2a624",
             boxShadow: "0 4px 24px rgba(0,0,0,0.35)",
           }}
         >
@@ -353,7 +353,7 @@ export default function ContactPage() {
               <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 sm:mb-6 font-heading leading-tight">
                 {t("contact.ready")}
                 <br />
-                <span className="text-gradient">{t("contact.nextProject")}</span>
+                <span className="text-[#f2a624]">{t("contact.nextProject")}</span>
               </h1>
 
               <p className="text-white/70 text-sm sm:text-base md:text-xl leading-relaxed mb-6 sm:mb-10 max-w-lg font-medium">
@@ -434,10 +434,10 @@ export default function ContactPage() {
                 className="flex items-center gap-4 bg-[#C9A34D]/10 border border-[#C9A34D]/40 hover:bg-[#C9A34D]/18 hover:border-[#C9A34D]/70 rounded-2xl p-5 transition-all duration-300 group"
               >
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[#C9A34D]/15 border border-[#C9A34D]/30 shrink-0 group-hover:bg-[#C9A34D]/25 transition-colors">
-                  <Truck className="text-[#C9A34D]" size={22} />
+                  <Truck className="text-[#f2a624]" size={22} />
                 </div>
                 <div>
-                  <p className="text-[#C9A34D] font-black text-base leading-tight">{t("suppliers.joinCTA")}</p>
+                  <p className="text-[#f2a624] font-black text-base leading-tight">{t("suppliers.joinCTA")}</p>
                   <p className="text-white/70 text-sm mt-0.5 group-hover:text-white transition-colors">{t("suppliers.joinDesc")}</p>
                 </div>
               </Link>
@@ -474,7 +474,7 @@ export default function ContactPage() {
                     <Phone className="text-secondary" size={20} />
                   </div>
                   <div>
-                    <p className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider mb-1">{t("contact.phone")}</p>
+                    <p className="text-[#f2a624] text-xs font-bold uppercase tracking-wider mb-1">{t("contact.phone")}</p>
                     <p className="text-lg font-bold text-white group-hover:text-[var(--secondary)] transition-colors">{phone1}</p>
                   </div>
                 </a>
@@ -484,7 +484,7 @@ export default function ContactPage() {
                     <Mail className="text-secondary" size={20} />
                   </div>
                   <div>
-                    <p className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider mb-1">{t("contact.email")}</p>
+                    <p className="text-[#f2a624] text-xs font-bold uppercase tracking-wider mb-1">{t("contact.email")}</p>
                     <p className="text-lg font-bold text-white group-hover:text-[var(--secondary)] transition-colors">{email}</p>
                   </div>
                 </a>
@@ -495,7 +495,7 @@ export default function ContactPage() {
                     <MapPin className="text-secondary" size={20} />
                   </div>
                   <div>
-                    <p className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider mb-1">{t("contact.location")}</p>
+                    <p className="text-[#f2a624] text-xs font-bold uppercase tracking-wider mb-1">{t("contact.location")}</p>
                     <p className="text-base font-bold text-white group-hover:text-[var(--secondary)] transition-colors leading-relaxed font-sans max-w-sm">{t("contactPage.address")}</p>
                   </div>
                 </div>
@@ -506,7 +506,7 @@ export default function ContactPage() {
                     <MapPin className="text-secondary" size={20} />
                   </div>
                   <div>
-                    <p className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider mb-1">{t("contact.location")}</p>
+                    <p className="text-[#f2a624] text-xs font-bold uppercase tracking-wider mb-1">{t("contact.location")}</p>
                     <p className="text-base font-bold text-white group-hover:text-[var(--secondary)] transition-colors leading-relaxed font-sans max-w-sm">{t("contactPage.riyadhAddress")}</p>
                   </div>
                 </div>
@@ -526,10 +526,10 @@ export default function ContactPage() {
                 data-aos-delay="600"
               >
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[#C9A34D]/15 border border-[#C9A34D]/30 shrink-0 group-hover:bg-[#C9A34D]/25 transition-colors">
-                  <Truck className="text-[#C9A34D]" size={22} />
+                  <Truck className="text-[#f2a624]" size={22} />
                 </div>
                 <div>
-                  <p className="text-[#C9A34D] font-black text-base leading-tight">{t("suppliers.joinCTA")}</p>
+                  <p className="text-[#f2a624] font-black text-base leading-tight">{t("suppliers.joinCTA")}</p>
                   <p className="text-white/70 text-sm mt-0.5 group-hover:text-white transition-colors">{t("suppliers.joinDesc")}</p>
                 </div>
               </Link>
@@ -563,7 +563,7 @@ export default function ContactPage() {
                   <form onSubmit={handleContactSubmit} className="space-y-6 relative z-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t("contact.form.name")}</label>
+                        <label className="text-xs font-bold text-[#f2a624] px-1 uppercase tracking-wider">{t("contact.form.name")}</label>
                         <input
                           type="text"
                           required
@@ -574,7 +574,7 @@ export default function ContactPage() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t("contact.form.phone")}</label>
+                        <label className="text-xs font-bold text-[#f2a624] px-1 uppercase tracking-wider">{t("contact.form.phone")}</label>
                         <input
                           type="tel"
                           required
@@ -585,7 +585,7 @@ export default function ContactPage() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t("contactPage.formEmailLabel")}</label>
+                        <label className="text-xs font-bold text-[#f2a624] px-1 uppercase tracking-wider">{t("contactPage.formEmailLabel")}</label>
                         <input
                           type="email"
                           value={formEmail}
@@ -595,7 +595,7 @@ export default function ContactPage() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t("contactPage.formCompanyLabel")}</label>
+                        <label className="text-xs font-bold text-[#f2a624] px-1 uppercase tracking-wider">{t("contactPage.formCompanyLabel")}</label>
                         <input
                           type="text"
                           value={formCompany}
@@ -606,7 +606,7 @@ export default function ContactPage() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t("contact.form.service")}</label>
+                      <label className="text-xs font-bold text-[#f2a624] px-1 uppercase tracking-wider">{t("contact.form.service")}</label>
                       <div className="relative">
                         <select
                           value={formService}
@@ -622,7 +622,7 @@ export default function ContactPage() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-[#D5B25D] px-1 uppercase tracking-wider">{t("contact.form.message")}</label>
+                      <label className="text-xs font-bold text-[#f2a624] px-1 uppercase tracking-wider">{t("contact.form.message")}</label>
                       <textarea
                         rows="4"
                         required

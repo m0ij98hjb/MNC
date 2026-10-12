@@ -71,10 +71,10 @@ function BudgetsContent() {
   return (
     <div className="p-6 lg:p-8 max-w-6xl mx-auto" dir={isRTL ? 'rtl' : 'ltr'}>
       <PurchasingSubNav />
-      <h1 className="text-2xl font-bold text-white mb-6 flex items-center gap-2"><Wallet size={20} className="text-[#c8a96e]" />{t('purchasing.budgetsTitle')}</h1>
+      <h1 className="text-2xl font-bold text-white mb-6 flex items-center gap-2"><Wallet size={20} className="text-[#f2a624]" />{t('purchasing.budgetsTitle')}</h1>
       <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">
         {loading ? (
-          <div className="flex items-center justify-center py-20"><Loader2 size={28} className="text-[#c8a96e] animate-spin" /></div>
+          <div className="flex items-center justify-center py-20"><Loader2 size={28} className="text-[#f2a624] animate-spin" /></div>
         ) : projectNames.length === 0 ? (
           <p className="text-center text-white/30 text-sm py-16">{t('admin.noResults')}</p>
         ) : (

@@ -94,7 +94,7 @@ export default function SettingsTab() {
         <div className="space-y-3">
           {form.music_url && (
             <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <Music size={13} className="text-[#c8a96e] flex-shrink-0" />
+              <Music size={13} className="text-[#f2a624] flex-shrink-0" />
               <p className="text-xs text-white/50 truncate flex-1">{form.music_url.split('/').pop()}</p>
               <button onClick={() => set('music_url', '')} className="text-red-400/50 hover:text-red-400 flex-shrink-0">
                 <X size={13} />
@@ -106,7 +106,7 @@ export default function SettingsTab() {
             onClick={() => musicRef.current?.click()}
             disabled={musicUp}
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all disabled:opacity-50"
-            style={{ background: 'rgba(201,163,77,0.08)', border: '1px solid rgba(201,163,77,0.25)', color: '#c8a96e' }}
+            style={{ background: 'rgba(201,163,77,0.08)', border: '1px solid rgba(201,163,77,0.25)', color: '#f2a624' }}
           >
             {musicUp ? <Loader2 size={13} className="animate-spin" /> : <Music size={13} />}
             {musicUp ? t('admin.contentTabs.settingsTab.uploadingLabel') : form.music_url ? t('admin.contentTabs.settingsTab.changeMusicBtn') : t('admin.contentTabs.settingsTab.uploadAudioFileBtn')}

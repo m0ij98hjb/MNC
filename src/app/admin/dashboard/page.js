@@ -116,7 +116,7 @@ export default function DashboardPage() {
           <div className="flex items-center gap-2 mb-3">
             <Building2 size={14} className="text-blue-400" />
             <span className="text-xs font-bold text-white/40 uppercase tracking-widest">{t('admin.suppliersStats')}</span>
-            <Link href="/admin/suppliers" className="ms-auto text-xs text-[#c8a96e] hover:underline flex items-center gap-1">
+            <Link href="/admin/suppliers" className="ms-auto text-xs text-[#f2a624] hover:underline flex items-center gap-1">
               {t('admin.viewAll')} <ArrowIcon size={11} />
             </Link>
           </div>
@@ -134,9 +134,9 @@ export default function DashboardPage() {
         {!hideJobsAndMessages && (
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-3">
-            <Briefcase size={14} className="text-[#c8a96e]" />
+            <Briefcase size={14} className="text-[#f2a624]" />
             <span className="text-xs font-bold text-white/40 uppercase tracking-widest">{t('admin.jobsStats')}</span>
-            <Link href="/admin/jobs" className="ms-auto text-xs text-[#c8a96e] hover:underline flex items-center gap-1">
+            <Link href="/admin/jobs" className="ms-auto text-xs text-[#f2a624] hover:underline flex items-center gap-1">
               {t('admin.viewAll')} <ArrowIcon size={11} />
             </Link>
           </div>
@@ -155,7 +155,7 @@ export default function DashboardPage() {
           <div className="flex items-center gap-2 mb-3">
             <MessageSquare size={14} className="text-green-400" />
             <span className="text-xs font-bold text-white/40 uppercase tracking-widest">{t('admin.messagesMenu')}</span>
-            <Link href="/admin/messages" className="ms-auto text-xs text-[#c8a96e] hover:underline flex items-center gap-1">
+            <Link href="/admin/messages" className="ms-auto text-xs text-[#f2a624] hover:underline flex items-center gap-1">
               {t('admin.viewAll')} <ArrowIcon size={11} />
             </Link>
           </div>
@@ -181,7 +181,7 @@ export default function DashboardPage() {
                 </div>
                 <h2 className="text-sm font-semibold text-white">{t('admin.latestSuppliers')}</h2>
               </div>
-              <Link href="/admin/suppliers" className="flex items-center gap-1 text-xs text-[#c8a96e] hover:underline">
+              <Link href="/admin/suppliers" className="flex items-center gap-1 text-xs text-[#f2a624] hover:underline">
                 {t('admin.viewAll')} <ArrowIcon size={11} />
               </Link>
             </div>
@@ -195,7 +195,7 @@ export default function DashboardPage() {
                                     className="flex items-center justify-between px-5 py-3 hover:bg-white/[0.03] transition-colors group"
                 >
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm text-white font-medium truncate group-hover:text-[#c8a96e] transition-colors">{s.companyName}</p>
+                    <p className="text-sm text-white font-medium truncate group-hover:text-[#f2a624] transition-colors">{s.companyName}</p>
                     <p className="text-xs text-white/30 mt-0.5 truncate">{s.city}{s.country ? `, ${s.country}` : ''} · {s.activity || '—'}</p>
                   </div>
                   <div className="flex items-center gap-2.5 shrink-0 ms-3">
@@ -216,11 +216,11 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.07]">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-lg bg-[#c8a96e]/12 border border-[#c8a96e]/20 flex items-center justify-center">
-                  <Briefcase size={13} className="text-[#c8a96e]" />
+                  <Briefcase size={13} className="text-[#f2a624]" />
                 </div>
                 <h2 className="text-sm font-semibold text-white">{t('admin.latestJobs')}</h2>
               </div>
-              <Link href="/admin/jobs" className="flex items-center gap-1 text-xs text-[#c8a96e] hover:underline">
+              <Link href="/admin/jobs" className="flex items-center gap-1 text-xs text-[#f2a624] hover:underline">
                 {t('admin.viewAll')} <ArrowIcon size={11} />
               </Link>
             </div>
@@ -239,7 +239,7 @@ export default function DashboardPage() {
                     className="flex items-center justify-between px-5 py-3 hover:bg-white/[0.03] transition-colors group"
                   >
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm text-white font-medium truncate group-hover:text-[#c8a96e] transition-colors">{j.fullName}</p>
+                      <p className="text-sm text-white font-medium truncate group-hover:text-[#f2a624] transition-colors">{j.fullName}</p>
                       <p className="text-xs text-white/30 mt-0.5 truncate">{j.position || '—'}{j.city ? ` · ${j.city}` : ''}</p>
                     </div>
                     <div className="flex items-center gap-2.5 shrink-0 ms-3">
@@ -268,7 +268,7 @@ export default function DashboardPage() {
                 </div>
                 <h2 className="text-sm font-semibold text-white">{t('admin.latestMessages')}</h2>
               </div>
-              <Link href="/admin/messages" className="flex items-center gap-1 text-xs text-[#c8a96e] hover:underline">
+              <Link href="/admin/messages" className="flex items-center gap-1 text-xs text-[#f2a624] hover:underline">
                 {t('admin.viewAll')} <ArrowIcon size={11} />
               </Link>
             </div>
@@ -292,7 +292,7 @@ export default function DashboardPage() {
                     className="flex items-center justify-between px-5 py-3 hover:bg-white/[0.03] transition-colors group"
                   >
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm text-white font-medium truncate group-hover:text-[#c8a96e] transition-colors">
+                      <p className="text-sm text-white font-medium truncate group-hover:text-[#f2a624] transition-colors">
                         {m.fullName || m.name || '—'}
                       </p>
                       <p className="text-xs text-white/30 mt-0.5 truncate">{m.email || m.phone || '—'}</p>

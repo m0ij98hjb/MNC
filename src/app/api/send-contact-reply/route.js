@@ -21,7 +21,7 @@ export async function POST(req) {
       },
     });
 
-    const logoPath = join(process.cwd(), 'public', 'asstes', 'logo-navbar-v2.png');
+    const logoPath = join(process.cwd(), 'public', 'asstes', 'mnc-logo-2026.png');
 
     // Two shipped templates (Arabic + English). Other site languages fall
     // back to English rather than fabricating unreviewed translations for
@@ -39,9 +39,9 @@ export async function POST(req) {
         <tr>
           <td style="background:linear-gradient(135deg,#1a1408,#0a0a0f);padding:40px;text-align:center;border-bottom:1px solid rgba(200,169,110,0.15);">
             <div style="display:inline-block;background:#ffffff;border-radius:14px;padding:10px 18px;margin-bottom:18px;">
-              <img src="cid:mnc-logo" alt="MNC" width="160" style="display:block;max-height:60px;width:auto;" />
+              <img src="cid:mnc-logo" alt="MNC" width="140" style="display:block;max-height:51px;width:auto;" />
             </div>
-            <h1 style="color:#c8a96e;margin:0;font-size:22px;font-weight:900;letter-spacing:1px;">شركة MNC للإنشاءات</h1>
+            <h1 style="color:#f2a624;margin:0;font-size:22px;font-weight:900;letter-spacing:1px;">شركة MNC للإنشاءات</h1>
             <p style="color:rgba(255,255,255,0.4);margin:8px 0 0;font-size:13px;">MNC Construction</p>
           </td>
         </tr>
@@ -50,13 +50,13 @@ export async function POST(req) {
         <tr>
           <td style="padding:40px;">
             <p style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.8;margin:0 0 24px;">
-              عزيزنا/عزيزتنا <strong style="color:#c8a96e;">${customerName || 'العميل الكريم'}</strong>،<br/>
+              عزيزنا/عزيزتنا <strong style="color:#f2a624;">${customerName || 'العميل الكريم'}</strong>،<br/>
               شكراً لتواصلكم معنا. نسعد بالرد على رسالتكم وتقديم الدعم اللازم.
             </p>
 
             <!-- Reply Card -->
             <div style="background:rgba(184,146,58,0.06);border:1px solid rgba(184,146,58,0.2);border-radius:16px;padding:28px;margin-bottom:28px;">
-              <h3 style="color:#c8a96e;font-size:14px;font-weight:800;margin:0 0 18px;padding-bottom:12px;border-bottom:1px solid rgba(184,146,58,0.15);">
+              <h3 style="color:#f2a624;font-size:14px;font-weight:800;margin:0 0 18px;padding-bottom:12px;border-bottom:1px solid rgba(184,146,58,0.15);">
                 💬 رد فريق MNC
               </h3>
               <p style="color:rgba(255,255,255,0.80);font-size:14px;line-height:1.9;margin:0;white-space:pre-wrap;">${replyMessage}</p>
@@ -96,9 +96,9 @@ export async function POST(req) {
         <tr>
           <td style="background:linear-gradient(135deg,#1a1408,#0a0a0f);padding:40px;text-align:center;border-bottom:1px solid rgba(200,169,110,0.15);">
             <div style="display:inline-block;background:#ffffff;border-radius:14px;padding:10px 18px;margin-bottom:18px;">
-              <img src="cid:mnc-logo" alt="MNC" width="160" style="display:block;max-height:60px;width:auto;" />
+              <img src="cid:mnc-logo" alt="MNC" width="140" style="display:block;max-height:51px;width:auto;" />
             </div>
-            <h1 style="color:#c8a96e;margin:0;font-size:22px;font-weight:900;letter-spacing:1px;">MNC Construction</h1>
+            <h1 style="color:#f2a624;margin:0;font-size:22px;font-weight:900;letter-spacing:1px;">MNC Construction</h1>
             <p style="color:rgba(255,255,255,0.4);margin:8px 0 0;font-size:13px;">شركة MNC للإنشاءات</p>
           </td>
         </tr>
@@ -107,13 +107,13 @@ export async function POST(req) {
         <tr>
           <td style="padding:40px;">
             <p style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.8;margin:0 0 24px;">
-              Dear <strong style="color:#c8a96e;">${customerName || 'Valued Customer'}</strong>,<br/>
+              Dear <strong style="color:#f2a624;">${customerName || 'Valued Customer'}</strong>,<br/>
               Thank you for contacting us. We're glad to reply to your message and provide the support you need.
             </p>
 
             <!-- Reply Card -->
             <div style="background:rgba(184,146,58,0.06);border:1px solid rgba(184,146,58,0.2);border-radius:16px;padding:28px;margin-bottom:28px;">
-              <h3 style="color:#c8a96e;font-size:14px;font-weight:800;margin:0 0 18px;padding-bottom:12px;border-bottom:1px solid rgba(184,146,58,0.15);">
+              <h3 style="color:#f2a624;font-size:14px;font-weight:800;margin:0 0 18px;padding-bottom:12px;border-bottom:1px solid rgba(184,146,58,0.15);">
                 💬 Reply from the MNC Team
               </h3>
               <p style="color:rgba(255,255,255,0.80);font-size:14px;line-height:1.9;margin:0;white-space:pre-wrap;">${replyMessage}</p>

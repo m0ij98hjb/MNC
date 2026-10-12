@@ -23,7 +23,7 @@ function UsersContent() {
       <PurchasingSubNav />
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-          <UserCog size={20} className="text-[#c8a96e]" />
+          <UserCog size={20} className="text-[#f2a624]" />
           {t('purchasing.usersTitle')}
         </h1>
       </div>
@@ -31,7 +31,7 @@ function UsersContent() {
       <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden shadow-xl">
         {users === null ? (
           <div className="flex items-center justify-center py-20">
-            <Loader2 size={28} className="text-[#c8a96e] animate-spin" />
+            <Loader2 size={28} className="text-[#f2a624] animate-spin" />
           </div>
         ) : users.length === 0 ? (
           <p className="text-center text-white/30 text-sm py-16">{t('admin.noResults')}</p>
@@ -59,7 +59,7 @@ function UsersContent() {
                     <td className="px-5 py-3.5 text-white font-medium">{u.name}</td>
                     <td className="px-5 py-3.5 text-white/60 text-xs font-mono" dir="ltr">{u.email}</td>
                     <td className="px-5 py-3.5">
-                      <span className="inline-block bg-white/5 border border-white/10 rounded-lg px-2.5 py-1 text-xs text-[#c8a96e] font-medium">
+                      <span className="inline-block bg-white/5 border border-white/10 rounded-lg px-2.5 py-1 text-xs text-[#f2a624] font-medium">
                         {t(ROLE_LABEL_KEYS[u.role]) || u.role}
                       </span>
                     </td>

@@ -117,7 +117,7 @@ function RtspInfo({ url }) {
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 px-5 py-3 bg-[#C9A34D]/15 border border-[#C9A34D]/30 text-[#C9A34D] rounded-xl text-sm font-bold hover:bg-[#C9A34D]/25 transition-colors"
+        className="flex items-center gap-2 px-5 py-3 bg-[#C9A34D]/15 border border-[#C9A34D]/30 text-[#f2a624] rounded-xl text-sm font-bold hover:bg-[#C9A34D]/25 transition-colors"
       >
         <ExternalLink size={15} /> {t("camera.copyRtspLink")}
       </a>
@@ -205,7 +205,7 @@ export default function LiveCameraPage() {
       <div className="min-h-screen bg-black flex items-center justify-center" dir={isRTL ? "rtl" : "ltr"}>
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 rounded-2xl bg-[#C9A34D]/15 border border-[#C9A34D]/30 flex items-center justify-center animate-pulse">
-            <Camera size={22} className="text-[#C9A34D]" />
+            <Camera size={22} className="text-[#f2a624]" />
           </div>
           <p className="text-white/40 text-sm">{t("camera.loadingCamera")}</p>
         </div>
@@ -228,7 +228,7 @@ export default function LiveCameraPage() {
         </div>
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-2 px-5 py-3 bg-[#C9A34D]/15 border border-[#C9A34D]/30 text-[#C9A34D] rounded-xl font-bold text-sm hover:bg-[#C9A34D]/25 transition-colors"
+          className="flex items-center gap-2 px-5 py-3 bg-[#C9A34D]/15 border border-[#C9A34D]/30 text-[#f2a624] rounded-xl font-bold text-sm hover:bg-[#C9A34D]/25 transition-colors"
         >
           <ChevronLeft size={16} /> {t("camera.backAction")}
         </button>
@@ -269,10 +269,10 @@ export default function LiveCameraPage() {
           </button>
           <Link href="/">
             <Image
-              src="/asstes/logo-navbar-v2.png"
+              src="/asstes/logo-mnc-full.png"
               alt="MNC"
-              width={120}
-              height={60}
+              width={1187}
+              height={459}
               className="h-8 w-auto object-contain"
               priority
             />
@@ -289,7 +289,7 @@ export default function LiveCameraPage() {
             {isOnline ? <Wifi size={11} /> : <WifiOff size={11} />}
             {isOnline ? t("camera.live") : t("camera.offline")}
           </div>
-          <span className="hidden sm:block text-[#C9A34D]/60 text-xs font-mono font-bold">
+          <span className="hidden sm:block text-[#f2a624]/60 text-xs font-mono font-bold">
             {camera.serialNumber}
           </span>
         </div>
@@ -317,7 +317,7 @@ export default function LiveCameraPage() {
               <p className="text-red-400 font-bold text-sm">{t("camera.streamLoadFailed")}</p>
               <button
                 onClick={refresh}
-                className="flex items-center gap-2 px-4 py-2 text-xs text-[#C9A34D] border border-[#C9A34D]/30 rounded-xl hover:bg-[#C9A34D]/10 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 text-xs text-[#f2a624] border border-[#C9A34D]/30 rounded-xl hover:bg-[#C9A34D]/10 transition-colors"
               >
                 <RefreshCw size={12} /> {t("camera.retry")}
               </button>
@@ -352,7 +352,7 @@ export default function LiveCameraPage() {
 
           {/* Camera type badge */}
           <div className="absolute bottom-3 right-3 px-2.5 py-1 bg-black/70 backdrop-blur rounded-lg border border-[#C9A34D]/15 z-30">
-            <span className="text-[#C9A34D]/60 text-[10px] font-mono font-bold">{camType}</span>
+            <span className="text-[#f2a624]/60 text-[10px] font-mono font-bold">{camType}</span>
           </div>
         </div>
 
@@ -369,11 +369,11 @@ export default function LiveCameraPage() {
           <div className="px-5 pt-5 pb-4 border-b border-white/[0.05] shrink-0">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-[#C9A34D]/10 border border-[#C9A34D]/20 flex items-center justify-center shrink-0 mt-0.5">
-                <Camera size={18} className="text-[#C9A34D]" />
+                <Camera size={18} className="text-[#f2a624]" />
               </div>
               <div className="min-w-0">
                 <h1 className="font-black text-base text-white leading-tight truncate">{camera.cameraName}</h1>
-                <p className="text-[#C9A34D]/60 text-xs mt-0.5 truncate">{camera.projectName}</p>
+                <p className="text-[#f2a624]/60 text-xs mt-0.5 truncate">{camera.projectName}</p>
               </div>
             </div>
           </div>
@@ -383,17 +383,17 @@ export default function LiveCameraPage() {
 
             {/* Serial */}
             <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-              <Hash size={14} className="text-[#C9A34D]/50 shrink-0" />
+              <Hash size={14} className="text-[#f2a624]/50 shrink-0" />
               <div className="min-w-0">
                 <p className="text-white/30 text-[10px] mb-0.5">{t("camera.serialNumberLabel")}</p>
-                <p className="text-[#C9A34D] text-sm font-mono font-black">{camera.serialNumber}</p>
+                <p className="text-[#f2a624] text-sm font-mono font-black">{camera.serialNumber}</p>
               </div>
             </div>
 
             {/* Location */}
             {camera.projectLocation && (
               <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <MapPin size={14} className="text-[#C9A34D]/50 shrink-0" />
+                <MapPin size={14} className="text-[#f2a624]/50 shrink-0" />
                 <div className="min-w-0">
                   <p className="text-white/30 text-[10px] mb-0.5">{t("camera.locationLabel")}</p>
                   <p className="text-white/70 text-sm font-bold truncate">{camera.projectLocation}</p>
@@ -415,7 +415,7 @@ export default function LiveCameraPage() {
             {/* Last refresh */}
             {lastRefresh && (
               <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <Clock size={14} className="text-[#C9A34D]/50 shrink-0" />
+                <Clock size={14} className="text-[#f2a624]/50 shrink-0" />
                 <div>
                   <p className="text-white/30 text-[10px] mb-0.5">{t("camera.lastUpdateLabel")}</p>
                   <p className="text-white/60 text-xs">
@@ -448,7 +448,7 @@ export default function LiveCameraPage() {
           <div className="shrink-0 p-5 border-t border-white/[0.05]">
             <button
               onClick={refresh}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#C9A34D]/10 border border-[#C9A34D]/20 text-[#C9A34D] font-bold text-sm hover:bg-[#C9A34D]/18 transition-colors"
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#C9A34D]/10 border border-[#C9A34D]/20 text-[#f2a624] font-bold text-sm hover:bg-[#C9A34D]/18 transition-colors"
             >
               <RefreshCw size={14} />
               {t("camera.refreshStreamTitle")}

@@ -55,7 +55,7 @@ function SearchContent() {
   return (
     <div className="p-6 lg:p-8 max-w-7xl mx-auto" dir={isRTL ? 'rtl' : 'ltr'}>
       <PurchasingSubNav />
-      <h1 className="text-2xl font-bold text-white mb-6 flex items-center gap-2"><SearchIcon size={20} className="text-[#c8a96e]" />{t('purchasing.advancedSearchTitle')}</h1>
+      <h1 className="text-2xl font-bold text-white mb-6 flex items-center gap-2"><SearchIcon size={20} className="text-[#f2a624]" />{t('purchasing.advancedSearchTitle')}</h1>
 
       <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-5 mb-6 space-y-3">
         <input value={q} onChange={e => setQ(e.target.value)} placeholder={t('purchasing.searchGlobalPlaceholder')}
@@ -78,7 +78,7 @@ function SearchContent() {
 
       <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">
         {loading ? (
-          <div className="flex items-center justify-center py-20"><Loader2 size={28} className="text-[#c8a96e] animate-spin" /></div>
+          <div className="flex items-center justify-center py-20"><Loader2 size={28} className="text-[#f2a624] animate-spin" /></div>
         ) : results.length === 0 ? (
           <p className="text-center text-white/30 text-sm py-16">{t('admin.noResults')}</p>
         ) : (

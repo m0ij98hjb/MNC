@@ -155,7 +155,7 @@ export default function AdminSidebar() {
           )}
 
           {/* Role Label */}
-          <p className="text-[13px] font-bold text-[#c8a96e] leading-tight text-center">
+          <p className="text-[13px] font-bold text-[#f2a624] leading-tight text-center">
             {roleLabel}
           </p>
           {/* Gold underline */}
@@ -174,7 +174,7 @@ export default function AdminSidebar() {
                   href={href}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all duration-200
                     ${active
-                      ? 'bg-[#c8a96e]/10 text-[#c8a96e] font-semibold'
+                      ? 'bg-[#c8a96e]/10 text-[#f2a624] font-semibold'
                       : 'text-white/45 hover:text-white hover:bg-white/5'
                     }`}
                 >
@@ -237,7 +237,7 @@ export default function AdminSidebar() {
             </div>
 
             {/* Name */}
-            <p className="text-[13px] font-bold text-[#c8a96e] text-center leading-snug">
+            <p className="text-[13px] font-bold text-[#f2a624] text-center leading-snug">
               {profile?.name || roleLabel}
             </p>
 
@@ -258,7 +258,7 @@ export default function AdminSidebar() {
               style={{
                 background: 'rgba(201,163,77,0.10)',
                 border: '1px solid rgba(201,163,77,0.28)',
-                color: '#c8a96e',
+                color: '#f2a624',
               }}
             >
               {isUploading

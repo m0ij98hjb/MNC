@@ -70,7 +70,7 @@ export function openPrintReport({
   body { font-family: 'Cairo', 'Segoe UI', sans-serif; margin: 0; color: #1a1a1a; background: #fff; }
   .page { max-width: 800px; margin: 0 auto; padding: 40px; }
   .header { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 3px solid #c8a96e; padding-bottom: 18px; margin-bottom: 24px; }
-  .header img { height: 52px; }
+  .header img { height: 26px; }
   .header .meta { text-align: ${side}; font-size: 11px; color: #888; }
   h1 { font-size: 21px; margin: 0 0 4px; }
   .badge { display: inline-block; padding: 3px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; margin-top: 8px; }
@@ -92,7 +92,7 @@ export function openPrintReport({
   <div class="toolbar"><button onclick="window.print()">${esc(printLabel)}</button></div>
   <div class="page">
     <div class="header">
-      <img src="${window.location.origin}/asstes/logo-navbar-v2.png" alt="logo" />
+      <img src="${window.location.origin}/asstes/mnc-logo-2026.png" alt="logo" />
       <div class="meta">${esc(generatedLabel)}</div>
     </div>
     <h1>${esc(heading)}</h1>

@@ -18,7 +18,7 @@ export default function BudgetWidget({ projectName }) {
   const { loading, hasBudget, summary } = useProjectBudget(projectName);
 
   if (loading) {
-    return <div className="flex items-center justify-center py-6"><Loader2 size={18} className="animate-spin text-[#c8a96e]" /></div>;
+    return <div className="flex items-center justify-center py-6"><Loader2 size={18} className="animate-spin text-[#f2a624]" /></div>;
   }
   if (!hasBudget) {
     return (
@@ -33,7 +33,7 @@ export default function BudgetWidget({ projectName }) {
 
   return (
     <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-5 space-y-4" dir={isRTL ? 'rtl' : 'ltr'}>
-      <h3 className="text-xs text-[#c8a96e] font-bold uppercase tracking-widest flex items-center gap-1.5">
+      <h3 className="text-xs text-[#f2a624] font-bold uppercase tracking-widest flex items-center gap-1.5">
         <Wallet size={13} /> {t('purchasing.budgetSectionTitle')}
       </h3>
       <div className="grid grid-cols-3 gap-4">

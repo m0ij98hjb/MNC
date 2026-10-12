@@ -63,10 +63,10 @@ export default function CalculatorResultView({ result, isLightMode }) {
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
             </div>
-            <p className="text-3xl font-black text-[#D5B25D] mt-2">{fmt(result.estimatedCost)}</p>
-            <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
+            <p className="text-3xl font-black text-[#f2a624] mt-2">{fmt(result.estimatedCost)}</p>
+            <p className="text-[#f2a624]/60 text-xs mt-1">{t("calculator.currency")}</p>
             {lang === "ar" && (
-              <p className="text-[#D5B25D]/70 text-[11px] mt-2 px-2 leading-relaxed">
+              <p className="text-[#f2a624]/70 text-[11px] mt-2 px-2 leading-relaxed">
                 {numberToArabicWords(result.estimatedCost)} {t("calculator.currency")}
               </p>
             )}
@@ -75,7 +75,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
           {/* Estimated Built-up Area */}
           <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
             <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
-              <TrendingUp size={22} className="text-[#D5B25D]" />
+              <TrendingUp size={22} className="text-[#f2a624]" />
             </div>
             <div>
               <p className={`text-xs ${textMut}`}>{t("calculator.engineering.builtupArea")}</p>
@@ -86,7 +86,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
           {/* Project Summary */}
           <div className={`${cardCls} rounded-2xl p-6`}>
             <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
-              <Zap size={18} className="text-[#D5B25D]" />
+              <Zap size={18} className="text-[#f2a624]" />
               {t("calculator.engineering.summary")}
             </h3>
             <div className="space-y-3">
@@ -119,10 +119,10 @@ export default function CalculatorResultView({ result, isLightMode }) {
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
             </div>
-            <p className="text-3xl font-black text-[#D5B25D] mt-2">{fmt(result.estimatedCost)}</p>
-            <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
+            <p className="text-3xl font-black text-[#f2a624] mt-2">{fmt(result.estimatedCost)}</p>
+            <p className="text-[#f2a624]/60 text-xs mt-1">{t("calculator.currency")}</p>
             {lang === "ar" && (
-              <p className="text-[#D5B25D]/70 text-[11px] mt-2 px-2 leading-relaxed">
+              <p className="text-[#f2a624]/70 text-[11px] mt-2 px-2 leading-relaxed">
                 {numberToArabicWords(result.estimatedCost)} {t("calculator.currency")}
               </p>
             )}
@@ -130,7 +130,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
 
           <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
             <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
-              <TrendingUp size={22} className="text-[#D5B25D]" />
+              <TrendingUp size={22} className="text-[#f2a624]" />
             </div>
             <div>
               <p className={`text-xs ${textMut}`}>{t("calculator.engineering.builtupArea")}</p>
@@ -140,7 +140,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
 
           <div className={`${cardCls} rounded-2xl p-6`}>
             <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
-              <Zap size={18} className="text-[#D5B25D]" />
+              <Zap size={18} className="text-[#f2a624]" />
               {t("calculator.engineering.summary")}
             </h3>
             <div className="space-y-3">
@@ -189,10 +189,10 @@ export default function CalculatorResultView({ result, isLightMode }) {
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
             </div>
-            <p className="text-3xl font-black text-[#D5B25D] mt-2">{fmt(result.estimatedCost)}</p>
-            <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
+            <p className="text-3xl font-black text-[#f2a624] mt-2">{fmt(result.estimatedCost)}</p>
+            <p className="text-[#f2a624]/60 text-xs mt-1">{t("calculator.currency")}</p>
             {lang === "ar" && (
-              <p className="text-[#D5B25D]/70 text-[11px] mt-2 px-2 leading-relaxed">
+              <p className="text-[#f2a624]/70 text-[11px] mt-2 px-2 leading-relaxed">
                 {numberToArabicWords(result.estimatedCost)} {t("calculator.currency")}
               </p>
             )}
@@ -200,7 +200,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
 
           <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
             <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
-              <TrendingUp size={22} className="text-[#D5B25D]" />
+              <TrendingUp size={22} className="text-[#f2a624]" />
             </div>
             <div>
               <p className={`text-xs ${textMut}`}>{t("calculator.engineering.builtupArea")}</p>
@@ -210,7 +210,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
 
           <div className={`${cardCls} rounded-2xl p-6`}>
             <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
-              <Zap size={18} className="text-[#D5B25D]" />
+              <Zap size={18} className="text-[#f2a624]" />
               {t("calculator.engineering.summary")}
             </h3>
             <div className="space-y-3">
@@ -263,10 +263,10 @@ export default function CalculatorResultView({ result, isLightMode }) {
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
             </div>
-            <p className="text-3xl font-black text-[#D5B25D] mt-2">{fmt(result.estimatedCost)}</p>
-            <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
+            <p className="text-3xl font-black text-[#f2a624] mt-2">{fmt(result.estimatedCost)}</p>
+            <p className="text-[#f2a624]/60 text-xs mt-1">{t("calculator.currency")}</p>
             {lang === "ar" && (
-              <p className="text-[#D5B25D]/70 text-[11px] mt-2 px-2 leading-relaxed">
+              <p className="text-[#f2a624]/70 text-[11px] mt-2 px-2 leading-relaxed">
                 {numberToArabicWords(result.estimatedCost)} {t("calculator.currency")}
               </p>
             )}
@@ -274,7 +274,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
 
           <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
             <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
-              <TrendingUp size={22} className="text-[#D5B25D]" />
+              <TrendingUp size={22} className="text-[#f2a624]" />
             </div>
             <div>
               <p className={`text-xs ${textMut}`}>{t("calculator.engineering.builtupArea")}</p>
@@ -284,7 +284,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
 
           <div className={`${cardCls} rounded-2xl p-6`}>
             <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
-              <Zap size={18} className="text-[#D5B25D]" />
+              <Zap size={18} className="text-[#f2a624]" />
               {t("calculator.engineering.summary")}
             </h3>
             <div className="space-y-3">
@@ -326,10 +326,10 @@ export default function CalculatorResultView({ result, isLightMode }) {
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                 <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.avg_cost")}</span>
               </div>
-              <p className="text-3xl font-black text-[#D5B25D] mt-2">{fmt(result.avg)}</p>
-              <p className="text-[#D5B25D]/60 text-xs mt-1">{t("calculator.currency")}</p>
+              <p className="text-3xl font-black text-[#f2a624] mt-2">{fmt(result.avg)}</p>
+              <p className="text-[#f2a624]/60 text-xs mt-1">{t("calculator.currency")}</p>
               {lang === "ar" && (
-                <p className="text-[#D5B25D]/70 text-[11px] mt-2 px-2 leading-relaxed">
+                <p className="text-[#f2a624]/70 text-[11px] mt-2 px-2 leading-relaxed">
                   {numberToArabicWords(result.avg)} {t("calculator.currency")}
                 </p>
               )}
@@ -345,7 +345,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
           <div className="grid grid-cols-2 gap-4">
             <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
               <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
-                <TrendingUp size={22} className="text-[#D5B25D]" />
+                <TrendingUp size={22} className="text-[#f2a624]" />
               </div>
               <div>
                 <p className={`text-xs ${textMut}`}>{t("calculator.cost_per_sqm")}</p>
@@ -366,7 +366,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
           {/* Cost Breakdown */}
           <div className={`${cardCls} rounded-2xl p-6`}>
             <h3 className={`font-black text-lg mb-5 flex items-center gap-2 ${textPri}`}>
-              <Zap size={18} className="text-[#D5B25D]" />
+              <Zap size={18} className="text-[#f2a624]" />
               {t("calculator.breakdown")}
             </h3>
             <div className="space-y-4">
@@ -402,7 +402,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
           {/* Engineering Insights */}
           {result.insights?.length > 0 && (
             <div className="bg-gradient-to-br from-[#D5B25D]/10 to-transparent border border-[#D5B25D]/20 rounded-2xl p-6">
-              <h3 className="text-[#D5B25D] font-black text-lg mb-4 flex items-center gap-2">
+              <h3 className="text-[#f2a624] font-black text-lg mb-4 flex items-center gap-2">
                 <TrendingUp size={18} />
                 {t("calculator.aiInsights")}
               </h3>

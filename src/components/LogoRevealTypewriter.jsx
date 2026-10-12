@@ -31,7 +31,7 @@ export default function LogoRevealTypewriter({
   cursorClassName = "animate-cursor-blink",
   className = "",
   textClassName = "text-white",
-  wordClassName = "text-gradient",
+  wordClassName = "text-[#f2a624]",
 }) {
   const [phase, setPhase] = useState("typing-text"); // typing-text | deleting-text | revealing-logo | typing-word | deleting-word | hiding-logo
   const [displayText, setDisplayText] = useState("");

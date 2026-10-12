@@ -26,13 +26,13 @@ const ACTION_ICON = {
   po_issued: { icon: ShoppingCart, cls: 'bg-cyan-500/15 border-cyan-500/40 text-cyan-400' },
   status_changed: { icon: Truck, cls: 'bg-orange-500/15 border-orange-500/40 text-orange-400' },
   received: { icon: PackageCheck, cls: 'bg-lime-500/15 border-lime-500/40 text-lime-400' },
-  completed: { icon: CheckCircle2, cls: 'bg-[#c8a96e]/15 border-[#c8a96e]/40 text-[#c8a96e]' },
+  completed: { icon: CheckCircle2, cls: 'bg-[#c8a96e]/15 border-[#c8a96e]/40 text-[#f2a624]' },
   archived: { icon: ArchiveIcon, cls: 'bg-white/10 border-white/30 text-white/50' },
   budget_exception: { icon: AlertTriangle, cls: 'bg-red-500/15 border-red-500/40 text-red-400' },
   fulfilled_from_warehouse: { icon: Boxes, cls: 'bg-purple-500/15 border-purple-500/40 text-purple-400' },
   edited: { icon: Pencil, cls: 'bg-white/10 border-white/30 text-white/50' },
 };
-const DEFAULT_ICON = { icon: History, cls: 'bg-[#c8a96e]/15 border-[#c8a96e]/40 text-[#c8a96e]' };
+const DEFAULT_ICON = { icon: History, cls: 'bg-[#c8a96e]/15 border-[#c8a96e]/40 text-[#f2a624]' };
 const APPROVAL_ACTIONS = ['submitted', 'resubmitted', 'project_manager_signed', 'approved_stage', 'reject', 'return'];
 
 export default function ApprovalTimeline({ requestId }) {
@@ -69,7 +69,7 @@ export default function ApprovalTimeline({ requestId }) {
   }, [entries, approvals]);
 
   if (merged === null) {
-    return <div className="flex items-center justify-center py-6"><Loader2 size={18} className="animate-spin text-[#c8a96e]" /></div>;
+    return <div className="flex items-center justify-center py-6"><Loader2 size={18} className="animate-spin text-[#f2a624]" /></div>;
   }
   if (merged.length === 0) {
     return <p className="text-white/25 text-sm text-center py-6">{t('purchasing.noHistoryYet')}</p>;

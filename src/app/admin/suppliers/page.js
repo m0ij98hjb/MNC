@@ -203,7 +203,7 @@ export default function SuppliersListPage() {
         <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">
           {loading ? (
             <div className="flex items-center justify-center py-20">
-              <Loader2 size={28} className="text-[#c8a96e] animate-spin" />
+              <Loader2 size={28} className="text-[#f2a624] animate-spin" />
             </div>
           ) : visible.length === 0 ? (
             <p className="text-center text-white/30 text-sm py-16">{t('admin.noResults')}</p>
@@ -239,7 +239,7 @@ export default function SuppliersListPage() {
                               </span>
                             )}
                             <div>
-                              <Link href={`/admin/suppliers/${s.id}`} className="text-white font-medium hover:text-[#c8a96e] transition-colors block">
+                              <Link href={`/admin/suppliers/${s.id}`} className="text-white font-medium hover:text-[#f2a624] transition-colors block">
                                 {s.companyName}
                               </Link>
                               <p className="text-xs text-white/30 mt-0.5">{s.contactName}</p>
@@ -325,22 +325,22 @@ export default function SuppliersListPage() {
             </div>
 
             <div className="px-6 py-4 grid grid-cols-2 gap-3 border-b border-white/[0.05]">
-              <div className="flex items-center gap-2 text-xs text-white/45"><Building2 size={12} className="text-[#c8a96e] shrink-0" />{dialogSupplier.companyName}</div>
-              <div className="flex items-center gap-2 text-xs text-white/45"><Mail size={12} className="text-[#c8a96e] shrink-0" />{dialogSupplier.email || <span className="text-red-400/70">{t('admin.supplierEmailOptional')}</span>}</div>
-              <div className="flex items-center gap-2 text-xs text-white/45"><Phone size={12} className="text-[#c8a96e] shrink-0" />{dialogSupplier.phone}</div>
-              <div className="flex items-center gap-2 text-xs text-white/45"><MapPin size={12} className="text-[#c8a96e] shrink-0" />{dialogSupplier.city}{dialogSupplier.country ? `, ${dialogSupplier.country}` : ''}</div>
+              <div className="flex items-center gap-2 text-xs text-white/45"><Building2 size={12} className="text-[#f2a624] shrink-0" />{dialogSupplier.companyName}</div>
+              <div className="flex items-center gap-2 text-xs text-white/45"><Mail size={12} className="text-[#f2a624] shrink-0" />{dialogSupplier.email || <span className="text-red-400/70">{t('admin.supplierEmailOptional')}</span>}</div>
+              <div className="flex items-center gap-2 text-xs text-white/45"><Phone size={12} className="text-[#f2a624] shrink-0" />{dialogSupplier.phone}</div>
+              <div className="flex items-center gap-2 text-xs text-white/45"><MapPin size={12} className="text-[#f2a624] shrink-0" />{dialogSupplier.city}{dialogSupplier.country ? `, ${dialogSupplier.country}` : ''}</div>
             </div>
 
             <div className="px-6 pt-5 pb-2">
               <div className="flex items-start gap-3 bg-[#c8a96e]/8 border border-[#c8a96e]/20 rounded-xl px-4 py-3">
-                <Mail size={14} className="text-[#c8a96e] mt-0.5 shrink-0" />
+                <Mail size={14} className="text-[#f2a624] mt-0.5 shrink-0" />
                 <p className="text-white/60 text-xs leading-relaxed">{t('admin.supplierAcceptNote')}</p>
               </div>
             </div>
 
             <div className="px-6 py-4 space-y-4">
               <div className="space-y-1.5">
-                <label className="text-[#c8a96e] text-[10px] font-black uppercase tracking-widest block">
+                <label className="text-[#f2a624] text-[10px] font-black uppercase tracking-widest block">
                   {t('admin.supplierExtraNoteLabel')} <span className="text-white/25 normal-case font-normal">{t('admin.supplierOptionalLabel')}</span>
                 </label>
                 <textarea rows={3} value={additionalMessage} onChange={e => setAdditionalMessage(e.target.value)}
