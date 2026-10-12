@@ -95,6 +95,24 @@ html.dark .text-gradient:not(.image-hero *, .keep-dark *) {
   background-image: linear-gradient(135deg, #B8923A 0%, #8F6F22 100%);
 }
 
+/* No gold blur glows on the white background. Exact class tokens so
+   backdrop-blur-* (frosted panels) is never matched; dark image heroes keep theirs. */
+html.dark :is([class*="bg-[#D5B25D]"], [class*="bg-[#C9A34D]"], [class*="bg-[#B8923A]"], [class*="bg-[#E1BF67]"], [class*="bg-secondary/"], [class*="bg-gold/"]):is([class~="blur-xl"], [class~="blur-2xl"], [class~="blur-3xl"], [class~="blur-[100px]"], [class~="blur-[120px]"], [class~="blur-[130px]"], [class~="blur-[140px]"], [class~="blur-[180px]"]):not(.image-hero *) {
+  display: none !important;
+}
+
+/* Gold halo shadows (0 0 Npx gold) read as a yellow haze on white:
+   swap them for a soft neutral shadow. */
+html.dark [class*="shadow-[0_0_"][class*="rgba(213,178,93"]:not(.image-hero *) {
+  box-shadow: 0 12px 32px -14px rgba(15, 23, 42, 0.14) !important;
+}
+/* Large gold-wash panels (rounded-3xl CTA cards) become clean white cards */
+html.dark .rounded-3xl:is([class*="from-[#D5B25D]/"], [class*="from-[#B8923A]/"], [class*="from-secondary/"]):not(.image-hero *) {
+  background-image: none !important;
+  background-color: #ffffff !important;
+  border-color: var(--line) !important;
+}
+
 /* Headings default to the strongest ink (layered so utility classes still win) */
 @layer base {
   .dark :where(h1, h2, h3, h4, h5, h6) { color: var(--ink-strong); }
