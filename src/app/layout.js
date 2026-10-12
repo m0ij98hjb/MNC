@@ -34,7 +34,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ar" dir="rtl" className={`${cairo.variable}`}>
+    <html lang="ar" dir="rtl" className={`${cairo.variable} dark`} suppressHydrationWarning>
+      <head>
+        {/* Apply the saved theme before first paint so there is no flash. Light look (html.dark) is the default. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem("mnc-theme-v2")==="light")document.documentElement.classList.remove("dark")}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="antialiased flex flex-col min-h-screen relative">
         <AuthProvider>
         <ThemeProvider>
