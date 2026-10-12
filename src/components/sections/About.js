@@ -104,7 +104,7 @@ const About = () => {
             </div>
           </div>
 
-          {/* ── Portraits column: two equal portrait cards (1019x1600), stacked, each with
+          {/* ── Portraits column: two equal portrait cards (slightly shorter than the 1019x1600 CEO photo), stacked, each with
                the name plate tucked into a bottom corner (original style) ── */}
           <div className="lg:col-span-6 flex flex-col items-center gap-14 md:gap-16">
             {leaders.map((leader, i) => {
@@ -118,7 +118,7 @@ const About = () => {
                   data-aos-delay={150 + i * 150}
                 >
                   <div className="relative z-10 group">
-                    <div className="relative rounded-2xl overflow-hidden border-4 border-white bg-white shadow-[0_20px_45px_-15px_rgba(15,23,42,0.35)] aspect-[1019/1600]">
+                    <div className="relative rounded-2xl overflow-hidden border-4 border-white bg-white shadow-[0_20px_45px_-15px_rgba(15,23,42,0.35)] aspect-[1019/1450]">
                       {leader.image ? (() => {
                         const crop = leader.landscapeCrop && ratios[leader.key] > 1 ? leader.landscapeCrop : null;
                         return (
