@@ -3,7 +3,6 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import { useMusic } from "@/context/MusicContext";
 import {
   Hammer, Layers, Building2, Zap, Sparkles, CheckCircle,
   Play, Pause, Maximize,
@@ -240,7 +239,6 @@ function VideoPlayer({ lang }) {
   const [muted,    setMuted]    = useState(false);
   const [started,  setStarted]  = useState(false);
   const [progress, setProgress] = useState(0);
-  const { pauseMusicForVoice, resumeMusicAfterVoice } = useMusic();
 
   const togglePlay = () => {
     const v = videoRef.current;
@@ -249,11 +247,9 @@ function VideoPlayer({ lang }) {
       v.play();
       setPlaying(true);
       setStarted(true);
-      pauseMusicForVoice();
     } else {
       v.pause();
       setPlaying(false);
-      resumeMusicAfterVoice();
     }
   };
 
@@ -305,7 +301,7 @@ function VideoPlayer({ lang }) {
             className="w-full h-full object-cover block"
             playsInline
             onTimeUpdate={handleTimeUpdate}
-            onEnded={() => { setPlaying(false); setProgress(0); resumeMusicAfterVoice(); }}
+            onEnded={() => { setPlaying(false); setProgress(0); }}
           />
 
           {/* Overlay */}

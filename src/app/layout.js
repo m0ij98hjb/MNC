@@ -6,7 +6,6 @@ import Footer from "@/components/layout/Footer";
 import FloatingContact from "@/components/layout/FloatingContact";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ThemeProvider } from "@/context/ThemeContext";
-import { MusicProvider } from "@/context/MusicContext";
 import { AuthProvider } from "@/context/AuthContext";
 import AdminShortcut from "@/components/AdminShortcut";
 
@@ -47,14 +46,12 @@ export default function RootLayout({ children }) {
         <AuthProvider>
         <ThemeProvider>
           <LanguageProvider>
-            <MusicProvider>
-              <AOSInit />
-              <AdminShortcut />
-              <VoicePresentation />
-              {children}
-              <FloatingContact />
-              <Footer />
-            </MusicProvider>
+            <AOSInit />
+            <AdminShortcut />
+            <VoicePresentation />
+            {children}
+            <FloatingContact />
+            <Footer />
           </LanguageProvider>
         </ThemeProvider>
         </AuthProvider>

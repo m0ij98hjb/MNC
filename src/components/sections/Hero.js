@@ -8,7 +8,6 @@ import Button from "../ui/Button";
 import TypewriterText from "@/components/TypewriterText";
 import { ArrowLeft } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import BackgroundMusicButton from "@/components/ui/BackgroundMusicButton";
 import CounterStat from "@/components/ui/CounterStat";
 import { siteStats, getStatLabel } from "@/lib/siteConfig";
 import { useSiteContent } from "@/hooks/useSiteContent";
@@ -81,8 +80,8 @@ const Hero = () => {
         {/* Main content */}
         <div className="relative z-30 flex flex-col flex-1 justify-center px-5 pt-[100px] pb-6">
 
-          {/* Badge & Music Button Row */}
-          <div className="flex items-center justify-between w-full mb-5" data-aos="fade-down" data-aos-delay="100">
+          {/* Badge */}
+          <div className="flex items-center w-full mb-5" data-aos="fade-down" data-aos-delay="100">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-morphism border border-secondary/30">
               <span className="relative flex h-2.5 w-2.5">
@@ -90,11 +89,6 @@ const Hero = () => {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary" />
               </span>
               <span className="text-secondary text-xs font-bold tracking-widest uppercase">{t('hero.badge')}</span>
-            </div>
-
-            {/* Music button */}
-            <div className="flex-shrink-0 z-40">
-              <BackgroundMusicButton />
             </div>
           </div>
 
@@ -188,11 +182,6 @@ const Hero = () => {
           </Swiper>
           <div className="absolute inset-0 bg-black/15 z-10" />
           <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] z-20" />
-        </div>
-
-        {/* Sound Icon - start side middle (right for Arabic, left for other languages) */}
-        <div className={`absolute ${isRTL ? 'left-8' : 'right-8'} top-1/2 -translate-y-1/2 z-40`}>
-          <BackgroundMusicButton />
         </div>
 
         <div className="container mx-auto px-6 relative z-30">

@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react';
 import { Mic, MicOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
-import { useMusic } from '@/context/MusicContext';
 import { usePathname } from 'next/navigation';
 import useHasMounted from '@/hooks/useHasMounted';
 
@@ -20,7 +19,6 @@ const LANG_BCP47 = {
 export default function VoicePresentation() {
   const pathname  = usePathname();
   const { t, isRTL, lang } = useLanguage();
-  const { pauseMusicForVoice, resumeMusicAfterVoice } = useMusic();
 
   const [isPlaying, setIsPlaying]           = useState(false);
   const [volume, setVolume]                 = useState(1);
@@ -55,7 +53,7 @@ export default function VoicePresentation() {
       const audio = new Audio(`/asstes/presentation-${lang}.mp3`);
       audio.playbackRate = 1.1;
       audio.volume = volume;
-      audio.onended = () => { setIsPlaying(false); resumeMusicAfterVoice(); };
+      audio.onended = () => setIsPlaying(false);
       audioRef.current = audio;
     }
   }, [lang, isMounted]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -74,7 +72,6 @@ export default function VoicePresentation() {
       if (isPlaying) {
         window.speechSynthesis.cancel();
         setIsPlaying(false);
-        resumeMusicAfterVoice();
         return;
       }
 
@@ -87,11 +84,10 @@ export default function VoicePresentation() {
       utt.rate    = 0.92;
       utt.pitch   = 1;
       utt.volume  = volume;
-      utt.onend   = () => { setIsPlaying(false); resumeMusicAfterVoice(); };
-      utt.onerror = () => { setIsPlaying(false); resumeMusicAfterVoice(); };
+      utt.onend   = () => setIsPlaying(false);
+      utt.onerror = () => setIsPlaying(false);
       uttRef.current = utt;
 
-      pauseMusicForVoice();
       window.speechSynthesis.speak(utt);
       setIsPlaying(true);
       return;
@@ -103,9 +99,7 @@ export default function VoicePresentation() {
     if (isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
-      resumeMusicAfterVoice();
     } else {
-      pauseMusicForVoice();
       audioRef.current.play().catch(console.error);
       setIsPlaying(true);
     }
