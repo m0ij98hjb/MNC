@@ -555,13 +555,13 @@ export default function AppPage() {
       {/* ═══════════════════════════════════════════════════════
           DOWNLOAD CTA
       ══════════════════════════════════════════════════════════ */}
-      <section className="image-hero no-mobile-vh py-10 sm:py-20 lg:py-24 px-4 sm:px-6 relative overflow-hidden">
-        {/* Background: same style as cost-calculator hero — always dark in both modes */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0d1526] to-black" />
-        <div className="absolute inset-0 opacity-10"
+      <section className={`${isLightMode ? 'bg-white border-t border-slate-200' : 'image-hero'} no-mobile-vh py-10 sm:py-20 lg:py-24 px-4 sm:px-6 relative overflow-hidden`}>
+        {/* Background: white with a faint gold grid in light mode, dark (cost-calculator hero style) in dark mode */}
+        {!isLightMode && <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0d1526] to-black" />}
+        <div className={`absolute inset-0 ${isLightMode ? 'opacity-[0.06]' : 'opacity-10'}`}
           style={{ backgroundImage: "radial-gradient(circle at 30% 50%, #D5B25D 0%, transparent 60%), radial-gradient(circle at 70% 30%, #B8923A 0%, transparent 50%)" }} />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#D5B25D]/10 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute inset-0 opacity-[0.04]"
+        <div className={`absolute inset-0 ${isLightMode ? 'opacity-[0.07]' : 'opacity-[0.04]'}`}
           style={{ backgroundImage: "linear-gradient(to right, #D5B25D 1px, transparent 1px), linear-gradient(to bottom, #D5B25D 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
 
         <div className="relative z-10 container mx-auto max-w-4xl text-center">
@@ -571,8 +571,8 @@ export default function AppPage() {
             <span className="text-[#C9A34D] text-[11px] font-bold tracking-[0.2em] uppercase">{c.ctaBadge}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 sm:mb-5 leading-tight text-white">{c.ctaTitle}</h2>
-          <p className="text-base sm:text-lg max-w-lg mx-auto mb-10 sm:mb-14 leading-relaxed text-white/70">{c.ctaDesc}</p>
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-black mb-4 sm:mb-5 leading-tight ${isLightMode ? 'text-[#0f172a]' : 'text-white'}`}>{c.ctaTitle}</h2>
+          <p className={`text-base sm:text-lg max-w-lg mx-auto mb-10 sm:mb-14 leading-relaxed ${isLightMode ? 'text-[#475569]' : 'text-white/70'}`}>{c.ctaDesc}</p>
 
           {/* Buttons */}
           <div className="flex flex-col xs:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center">
