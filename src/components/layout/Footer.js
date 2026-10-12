@@ -108,7 +108,7 @@ const Footer = () => {
     alignItems: "center",
     justifyContent: "center",
     border: isLightMode ? "1px solid rgba(15,23,42,0.12)" : "1px solid rgba(255,255,255,0.1)",
-    color: "#B8923A",
+    color: isLightMode ? "#A8832B" : "#B8923A",
     textDecoration: "none",
   };
 
@@ -130,7 +130,7 @@ const Footer = () => {
 
   return (
     <footer
-      className={`text-[var(--foreground)] ${isLightMode ? 'bg-slate-100' : 'bg-[var(--background)]'}`}
+      className={`text-[var(--foreground)] ${isLightMode ? 'bg-white border-t border-slate-200' : 'bg-[var(--background)]'}`}
       dir={isRTL ? "rtl" : "ltr"}
     >
       {/* ── TOP DIVIDER ─────────────────────────────── */}

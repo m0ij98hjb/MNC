@@ -31,21 +31,73 @@
 /* Light Mode Variables (html.dark = visual light — the default) */
 .dark {
   color-scheme: light;
-  --background: #f8fafc;
-  --foreground: #1e293b;
+  --background: #ffffff;
+  --foreground: #334155;
   --primary: #0f172a;
   --secondary: #D5B25D;
   --gold: #E1BF67;
   --card-bg: #ffffff;
   --card-border: rgba(15,23,42,0.05);
   --nav-bg: rgba(255,255,255,0.97);
+
+  /* Light-look ink scale — every text color on white comes from here */
+  --ink-strong: #0f172a; /* headings, primary text      17.8:1 */
+  --ink:        #334155; /* body copy                   10.3:1 */
+  --ink-2:      #475569; /* secondary copy               7.6:1 */
+  --ink-muted:  #64748b; /* captions, meta               4.8:1 */
+  --ink-faint:  #7d8da3; /* inactive / decorative states   3.4:1 */
+  --gold-ink:   #7F611B; /* gold text, AA on white + tints 5.8:1 */
+  --gold-icon:  #A8832B; /* gold icons / accents         3.5:1 */
+  --line:       #e2e8f0; /* hairlines and card borders        */
 }
 
 /* ── LIGHT MODE (html.dark) TEXT & BG OVERRIDES ─────────────────────── */
 
-/* Non-hero sections: white text → dark */
-html.dark section:not(.image-hero) [class*="text-white"] {
-  color: #1e293b !important;
+/* Non-hero sections: white text → ink scale, keeping the same hierarchy the
+   dark look gets from opacity. Exact class tokens (~=) so hover:/group-hover:
+   variants don't repaint an element's base color. .keep-dark opts a surface out. */
+html.dark :is(section:not(.image-hero), footer) :is([class~="text-white"], [class~="text-white/90"], [class~="text-white/85"]):not(.keep-dark, .keep-dark *) {
+  color: var(--ink-strong) !important;
+}
+html.dark :is(section:not(.image-hero), footer) :is([class~="text-white/80"], [class~="text-white/70"]):not(.keep-dark, .keep-dark *) {
+  color: var(--ink) !important;
+}
+html.dark :is(section:not(.image-hero), footer) :is([class~="text-white/65"], [class~="text-white/60"], [class~="text-white/55"]):not(.keep-dark, .keep-dark *) {
+  color: var(--ink-2) !important;
+}
+html.dark :is(section:not(.image-hero), footer) :is([class~="text-white/50"], [class~="text-white/45"], [class~="text-white/42"], [class~="text-white/40"], [class~="text-white/35"]):not(.keep-dark, .keep-dark *) {
+  color: var(--ink-muted) !important;
+}
+html.dark :is(section:not(.image-hero), footer) :is([class~="text-white/30"], [class~="text-white/28"], [class~="text-white/25"], [class~="text-white/20"]):not(.keep-dark, .keep-dark *) {
+  color: var(--ink-faint) !important;
+}
+html.dark :is(section:not(.image-hero), footer) :is([class~="text-white/15"], [class~="text-white/14"], [class~="text-white/10"], [class~="text-white/[0.04]"], [class~="text-white/[0.03]"]):not(.keep-dark, .keep-dark *) {
+  color: rgba(15, 23, 42, 0.06) !important;
+}
+html.dark :is(section:not(.image-hero), footer) [class~="hover:text-white"]:hover:not(.keep-dark, .keep-dark *),
+html.dark :is(section:not(.image-hero), footer) .group:hover [class~="group-hover:text-white"]:not(.keep-dark, .keep-dark *) {
+  color: var(--ink-strong) !important;
+}
+
+/* Gold text: brand #D5B25D is only 2:1 on white, so text uses a deeper gold
+   from the same hue. Gold fills (buttons, bars) keep the bright brand gold. */
+html.dark :is([class~="text-[#D5B25D]"], [class~="text-[#C9A34D]"], [class~="text-[#B8923A]"], [class~="text-[#c8a96e]"], [class~="text-[#E1BF67]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold):not(.image-hero *, .keep-dark, .keep-dark *, [class*="bg-[#D5B25D]"]:not([class*="bg-[#D5B25D]/"])) {
+  color: var(--gold-ink) !important;
+}
+html.dark svg:is([class~="text-[#D5B25D]"], [class~="text-[#C9A34D]"], [class~="text-[#B8923A]"], [class~="text-[#c8a96e]"], [class~="text-[#E1BF67]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"]):not(.image-hero *, .keep-dark *) {
+  color: var(--gold-icon) !important;
+}
+html.dark [class~="hover:text-[#D5B25D]"]:hover:not(.image-hero *, .keep-dark *),
+html.dark .group:hover [class~="group-hover:text-[#D5B25D]"]:not(.image-hero *, .keep-dark *) {
+  color: var(--gold-ink) !important;
+}
+html.dark .text-gradient:not(.image-hero *, .keep-dark *) {
+  background-image: linear-gradient(135deg, #B8923A 0%, #8F6F22 100%);
+}
+
+/* Headings default to the strongest ink (layered so utility classes still win) */
+@layer base {
+  .dark :where(h1, h2, h3, h4, h5, h6) { color: var(--ink-strong); }
 }
 
 /* Non-hero sections: semi-transparent white backgrounds → solid white card */
@@ -87,16 +139,20 @@ html.dark input,
 html.dark textarea,
 html.dark select {
   background-color: #ffffff !important;
-  border-color: rgba(15, 23, 42, 0.15) !important;
-  color: #1e293b !important;
+  border-color: #cbd5e1 !important;
+  color: var(--ink-strong) !important;
+}
+html.dark :is(input, textarea, select):focus {
+  border-color: #B8923A !important;
+  box-shadow: 0 0 0 3px rgba(213, 178, 93, 0.18) !important;
 }
 html.dark input::placeholder,
 html.dark textarea::placeholder {
-  color: rgba(15, 23, 42, 0.4) !important;
+  color: var(--ink-faint) !important;
 }
 html.dark option {
   background-color: #ffffff;
-  color: #1e293b;
+  color: var(--ink-strong);
 }
 
 /* Section background default — without !important so utility classes can override */
@@ -107,18 +163,21 @@ main {
 
 .dark .bg-white { background-color: var(--card-bg) !important; box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04) !important; }
 .dark .bg-\[\#eaeaea\] { background-color: #f1f5f9 !important; }
+/* Full-width surfaces stay pure white; small chips/tags keep a faint tint */
 .dark .bg-slate-50, .dark .bg-slate-100 { background-color: #f8fafc !important; }
+html.dark :is(section, main, footer):is(.bg-slate-50, .bg-slate-100, [class*="bg-[#f"]) { background-color: #ffffff !important; }
 
-.dark .text-slate-700, .dark .text-slate-600, .dark .text-slate-800, .dark .text-primary {
-  color: #1e293b !important;
-}
+.dark .text-slate-800, .dark .text-primary { color: var(--ink-strong) !important; }
+.dark .text-slate-700 { color: var(--ink) !important; }
+.dark .text-slate-600 { color: var(--ink-2) !important; }
 
 /* Normalize legacy slate-500 text: white in the dark look, a readable muted slate in the light look */
 .text-slate-500 { color: var(--foreground) !important; }
-.dark .text-slate-500 { color: #475569 !important; }
+.dark .text-slate-500 { color: var(--ink-2) !important; }
+.dark [class~="hover:text-[#D5B25D]"].text-slate-500:hover { color: var(--gold-ink) !important; }
 
 .dark .border-slate-200, .dark .border-slate-300, .dark .border-slate-100 {
-  border-color: rgba(213,178,93,0.15) !important;
+  border-color: var(--line) !important;
 }
 
 /* Footer handled via inline conditional in Footer.js */
