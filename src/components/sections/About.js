@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
@@ -9,6 +10,9 @@ const About = () => {
   const { lang, t } = useLanguage();
   const isRTL = lang === 'ar' || lang === 'ur';
   const { data: aboutCms, loading: aboutLoading } = useSiteContent('about');
+  // Natural aspect (w/h) of each loaded portrait, so a landscape photo can be
+  // zoomed onto the person instead of showing the whole room.
+  const [ratios, setRatios] = useState({});
 
   // While the CMS doc is still loading, don't render either the stale
   // hardcoded fallback or a wrong image — render null and show a skeleton
@@ -24,8 +28,12 @@ const About = () => {
   const ceoName  = aboutCms?.ceo_name  || t('about.ceoName');
   const ceoTitle = (isRTL ? aboutCms?.ceo_pos_ar : aboutCms?.ceo_pos_en) || t('about.ceoTitle');
 
+  // Both frames use the CEO portrait's ratio (1019x1600). `landscapeCrop`
+  // applies only when the photo is wider than tall: it frames the chairman
+  // (seated at ~54% across in the office shot) from head to desk at ~1.28x.
   const leaders = [
-    { key: 'director', image: directorImage, name: directorName, title: directorTitle, objectPosition: 'center 65%' },
+    { key: 'director', image: directorImage, name: directorName, title: directorTitle, objectPosition: 'center top',
+      landscapeCrop: { objectPosition: '58% center', transform: 'scale(1.28)', transformOrigin: '50% 100%' } },
     { key: 'ceo',      image: ceoImage,      name: ceoName,      title: ceoTitle,      objectPosition: 'center top' },
   ];
 
@@ -96,7 +104,7 @@ const About = () => {
             </div>
           </div>
 
-          {/* ── Portraits column: two equal portrait cards, stacked, each with
+          {/* ── Portraits column: two equal portrait cards (1019x1600), stacked, each with
                the name plate tucked into a bottom corner (original style) ── */}
           <div className="lg:col-span-6 flex flex-col items-center gap-14 md:gap-16">
             {leaders.map((leader, i) => {
@@ -105,26 +113,35 @@ const About = () => {
               return (
                 <article
                   key={leader.key}
-                  className="relative w-[240px] sm:w-[270px]"
+                  className="relative w-[220px] sm:w-[240px]"
                   data-aos="fade-up"
                   data-aos-delay={150 + i * 150}
                 >
                   <div className="relative z-10 group">
-                    <div className="relative rounded-2xl overflow-hidden border-4 border-white bg-white shadow-[0_20px_45px_-15px_rgba(15,23,42,0.35)] aspect-square">
-                      {leader.image ? (
+                    <div className="relative rounded-2xl overflow-hidden border-4 border-white bg-white shadow-[0_20px_45px_-15px_rgba(15,23,42,0.35)] aspect-[1019/1600]">
+                      {leader.image ? (() => {
+                        const crop = leader.landscapeCrop && ratios[leader.key] > 1 ? leader.landscapeCrop : null;
+                        return (
                         <>
-                          <Image
-                            src={cldOptimize(leader.image)}
-                            alt={leader.name}
-                            fill
-                            sizes="270px"
-                            className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                            style={{ objectPosition: leader.objectPosition }}
-                            unoptimized={leader.image.startsWith('http')}
-                          />
+                          <div className="absolute inset-0" style={crop ? { transform: crop.transform, transformOrigin: crop.transformOrigin } : undefined}>
+                            <Image
+                              src={cldOptimize(leader.image)}
+                              alt={leader.name}
+                              fill
+                              sizes="(max-width: 640px) 440px, 480px"
+                              className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                              style={{ objectPosition: crop ? crop.objectPosition : leader.objectPosition }}
+                              unoptimized={leader.image.startsWith('http')}
+                              onLoad={(e) => {
+                                const { naturalWidth: w, naturalHeight: h } = e.currentTarget;
+                                if (w && h) setRatios((r) => (r[leader.key] === w / h ? r : { ...r, [leader.key]: w / h }));
+                              }}
+                            />
+                          </div>
                           <div className="absolute inset-0 bg-linear-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         </>
-                      ) : (
+                        );
+                      })() : (
                         <div className="absolute inset-0 bg-slate-200 animate-pulse" />
                       )}
                     </div>
