@@ -10,7 +10,7 @@ import Image from "next/image";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { useLanguage } from "@/context/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
-import { COMPANY } from "@/config/company";
+import { COMPANY, LEGACY_PHONES, LEGACY_WHATSAPP } from "@/config/company";
 
 /* ── Reusable Map Toggle (Segmented Control) ── */
 function MapToggle({ mode, onChange }) {
@@ -265,10 +265,10 @@ export default function ContactPage() {
   const [formSubmitted, setFormSubmitted]   = useState(false);
   const [formError, setFormError]           = useState("");
 
-  const phone1   = (cms?.phone1 && cms.phone1 !== '0598242385') ? cms.phone1 : (COMPANY.phone || "966569898000");
+  const phone1   = (cms?.phone1 && !LEGACY_PHONES.includes(cms.phone1)) ? cms.phone1 : COMPANY.phone;
   const phone2   = cms?.phone2   || "";
   const email    = cms?.email    || COMPANY.email;
-  const whatsapp = (cms?.whatsapp && cms.whatsapp !== '966598242385') ? cms.whatsapp : (COMPANY.whatsapp || "966569898000");
+  const whatsapp = (cms?.whatsapp && cms.whatsapp !== LEGACY_WHATSAPP) ? cms.whatsapp : COMPANY.whatsapp;
 
   const handleContactSubmit = async (e) => {
     e.preventDefault();
