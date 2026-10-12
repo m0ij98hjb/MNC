@@ -5,7 +5,7 @@ import VoicePresentation from "@/components/VoicePresentation";
 import Footer from "@/components/layout/Footer";
 import FloatingContact from "@/components/layout/FloatingContact";
 import { LanguageProvider } from "@/context/LanguageContext";
-import { ThemeProvider } from "@/context/ThemeContext";
+import { ThemeProvider, THEME_TOGGLE_ENABLED } from "@/context/ThemeContext";
 import { AuthProvider } from "@/context/AuthContext";
 import AdminShortcut from "@/components/AdminShortcut";
 
@@ -38,7 +38,9 @@ export default function RootLayout({ children }) {
         {/* Apply the saved theme before first paint so there is no flash. Light look (html.dark) is the default. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if(localStorage.getItem("mnc-theme-v2")==="light")document.documentElement.classList.remove("dark")}catch(e){}`,
+            __html: THEME_TOGGLE_ENABLED
+              ? `try{if(localStorage.getItem("mnc-theme-v2")==="light")document.documentElement.classList.remove("dark")}catch(e){}`
+              : "",
           }}
         />
       </head>

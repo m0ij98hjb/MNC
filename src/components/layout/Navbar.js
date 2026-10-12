@@ -7,7 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users, Smartphone, UserCircle, UserCog, LogOut, LayoutDashboard, Bell, Building2 } from "lucide-react";
 import { useLanguage, LANGUAGES } from "@/context/LanguageContext";
 import LangFlag from "@/components/ui/LangFlag";
-import { useTheme } from "@/context/ThemeContext";
+import { useTheme, THEME_TOGGLE_ENABLED } from "@/context/ThemeContext";
 import { useAuth } from "@/context/AuthContext";
 import { useNotifications } from "@/context/NotificationsContext";
 import { HiDocumentText } from "react-icons/hi";
@@ -496,12 +496,14 @@ const Navbar = () => {
                   </div>
                 </div>
 
-                {/* Theme Toggle */}
+                {/* Theme Toggle (hidden while THEME_TOGGLE_ENABLED is false) */}
+                {THEME_TOGGLE_ENABLED && (
                 <button onClick={toggleTheme}
                   className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 overflow-hidden active:scale-95 nav-action-icon-btn-responsive">
                   <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
                   <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}><Moon size={15} /></span>
                 </button>
+                )}
 
                 {/* Language Selector */}
                 <div className="relative" ref={langDropdownRef}>
@@ -554,7 +556,7 @@ const Navbar = () => {
 
           {/* ── Mobile Header Actions ── */}
           <div className="flex items-center gap-2 lg:hidden ms-auto">
-            {isAdmin ? null : (
+            {isAdmin || !THEME_TOGGLE_ENABLED ? null : (
               <button onClick={toggleTheme}
                 className="relative flex items-center justify-center w-8 h-8 rounded-lg border border-[#D5B25D]/22 text-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all duration-300 overflow-hidden">
                 <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
@@ -795,7 +797,8 @@ const Navbar = () => {
                   </div>
                 </div>
 
-                {/* Theme */}
+                {/* Theme (hidden while THEME_TOGGLE_ENABLED is false) */}
+                {THEME_TOGGLE_ENABLED && (
                 <button onClick={toggleTheme}
                   className={`w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] border transition-colors ${isLightMode ? 'bg-slate-50 border-[#e2e8f0] hover:bg-slate-100' : 'bg-white/[0.03] border-white/8 hover:bg-white/6'}`}>
                   <span className={`w-[34px] h-[34px] rounded-[10px] flex items-center justify-center text-[#D5B25D] flex-shrink-0 ${isLightMode ? 'bg-slate-100' : 'bg-white/5'}`}>
@@ -807,6 +810,7 @@ const Navbar = () => {
                       : (lang === 'ar' || lang === 'ur' ? 'وضع الليل' : 'Dark Mode')}
                   </span>
                 </button>
+                )}
               </>
             )}
 
