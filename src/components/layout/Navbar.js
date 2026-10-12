@@ -15,6 +15,9 @@ import { ROLES, ROLE_LABEL_KEYS } from "@/lib/purchasingConfig";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
+// The /app page stays live; flip to true to show its link in the navbar again.
+const SHOW_APP_NAV_LINK = false;
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
@@ -138,9 +141,9 @@ const Navbar = () => {
     { name: t('nav.services'), href: "/#services",       icon: Briefcase },
     { name: t('nav.projects'), href: "/projects",        icon: FolderOpen },
     { name: t('nav.contact'),  href: "/contact",         icon: PhoneCall },
-    { name: t('nav.app'),      href: "/app",             icon: Smartphone, showDesktopIcon: true, isSecondary: true },
+    { name: t('nav.app'),      href: "/app",             icon: Smartphone, showDesktopIcon: true, isSecondary: true, hidden: !SHOW_APP_NAV_LINK },
     { name: t('nav.careers'),  href: "/careers",         icon: Users, isSecondary: true },
-  ];
+  ].filter((link) => !link.hidden);
 
   const currentLang = LANGUAGES.find(l => l.code === lang) || LANGUAGES[0];
 
