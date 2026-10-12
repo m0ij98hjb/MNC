@@ -25,7 +25,7 @@ const About = () => {
   const ceoTitle = (isRTL ? aboutCms?.ceo_pos_ar : aboutCms?.ceo_pos_en) || t('about.ceoTitle');
 
   const leaders = [
-    { key: 'director', image: directorImage, name: directorName, title: directorTitle, objectPosition: 'center 2%' },
+    { key: 'director', image: directorImage, name: directorName, title: directorTitle, objectPosition: 'center 65%' },
     { key: 'ceo',      image: ceoImage,      name: ceoName,      title: ceoTitle,      objectPosition: 'center top' },
   ];
 
@@ -96,42 +96,55 @@ const About = () => {
             </div>
           </div>
 
-          {/* ── Portraits column: two leader cards, stacked ── */}
-          <div className="lg:col-span-6 flex flex-col gap-6 md:gap-8">
-            {leaders.map((leader, i) => (
-              <article
-                key={leader.key}
-                className={`group flex items-center gap-5 sm:gap-7 p-3 sm:p-4 rounded-3xl bg-white/[0.03] border border-white/10 shadow-[0_20px_50px_-24px_rgba(15,23,42,0.35)] transition-transform duration-500 hover:-translate-y-1 ${i === 1 ? 'lg:ms-12' : 'lg:me-12'}`}
-                data-aos="fade-up"
-                data-aos-delay={150 + i * 150}
-              >
-                {/* Portrait */}
-                <div className="relative shrink-0 w-[120px] sm:w-[160px] md:w-[180px] aspect-[1019/1600] rounded-2xl overflow-hidden bg-white">
-                  {leader.image ? (
-                    <Image
-                      src={cldOptimize(leader.image)}
-                      alt={leader.name}
-                      fill
-                      sizes="180px"
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                      style={{ objectPosition: leader.objectPosition }}
-                      unoptimized={leader.image.startsWith('http')}
-                    />
-                  ) : (
-                    <div className="absolute inset-0 bg-slate-200 animate-pulse" />
-                  )}
-                  <span className="absolute inset-x-0 bottom-0 h-1 bg-linear-to-r from-secondary to-gold" />
-                </div>
+          {/* ── Portraits column: two equal portrait cards, stacked, each with
+               the name plate tucked into a bottom corner (original style) ── */}
+          <div className="lg:col-span-6 flex flex-col items-center gap-14 md:gap-16">
+            {leaders.map((leader, i) => {
+              // First card: plate + frame on one side; second card mirrors it.
+              const plateOnLeft = (i === 0) === isRTL;
+              return (
+                <article
+                  key={leader.key}
+                  className="relative w-[240px] sm:w-[270px]"
+                  data-aos="fade-up"
+                  data-aos-delay={150 + i * 150}
+                >
+                  <div className="relative z-10 group">
+                    <div className="relative rounded-2xl overflow-hidden border-4 border-white bg-white shadow-[0_20px_45px_-15px_rgba(15,23,42,0.35)] aspect-square">
+                      {leader.image ? (
+                        <>
+                          <Image
+                            src={cldOptimize(leader.image)}
+                            alt={leader.name}
+                            fill
+                            sizes="270px"
+                            className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                            style={{ objectPosition: leader.objectPosition }}
+                            unoptimized={leader.image.startsWith('http')}
+                          />
+                          <div className="absolute inset-0 bg-linear-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        </>
+                      ) : (
+                        <div className="absolute inset-0 bg-slate-200 animate-pulse" />
+                      )}
+                    </div>
 
-                {/* Details opposite the portrait */}
-                <div className="min-w-0 flex-1 text-start pe-2">
-                  <span className="text-[#D5B25D] text-[11px] font-bold tracking-[0.18em] tabular-nums">0{i + 1}</span>
-                  <h3 className="mt-2 text-white text-lg sm:text-xl md:text-2xl font-black leading-snug">{leader.name}</h3>
-                  <span className="block h-px w-10 bg-[#D5B25D]/60 my-3 sm:my-4" />
-                  <p className="text-white/60 text-sm md:text-[15px] font-semibold leading-relaxed">{leader.title}</p>
-                </div>
-              </article>
-            ))}
+                    {/* Decorative gold corner frame (opposite the plate) */}
+                    <div className={`absolute -top-4 w-16 h-16 md:w-20 md:h-20 border-t-4 border-secondary -z-10 ${plateOnLeft ? '-right-4 border-r-4 rounded-tr-3xl' : '-left-4 border-l-4 rounded-tl-3xl'}`} />
+                  </div>
+
+                  {/* Name plate — small, in the bottom corner */}
+                  <div
+                    className={`absolute -bottom-6 ${plateOnLeft ? '-left-6' : '-right-6'} z-20 max-w-[85%] bg-white px-4 py-3 rounded-xl border border-slate-200 shadow-[0_12px_30px_-10px_rgba(15,23,42,0.3)] text-start`}
+                    data-aos="fade-up"
+                    data-aos-delay={400 + i * 150}
+                  >
+                    <h4 className="text-secondary font-bold text-sm md:text-base leading-snug mb-0.5">{leader.name}</h4>
+                    <p className="text-slate-700 text-[9px] md:text-[10px] uppercase tracking-wider font-bold leading-relaxed">{leader.title}</p>
+                  </div>
+                </article>
+              );
+            })}
           </div>
 
         </div>
