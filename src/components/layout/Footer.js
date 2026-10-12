@@ -5,7 +5,6 @@ import Link from "next/link";
 import {
   FaFacebookF,
   FaInstagram,
-  FaEnvelope,
   FaWhatsapp,
   FaArrowUp,
   FaHome,
@@ -167,7 +166,6 @@ const Footer = () => {
                 },
                 { icon: BsTwitterX, href: "https://x.com/KsaMnc?lang=ar" },
                 { icon: FaWhatsapp, href: "https://wa.me/966569898000" },
-                { icon: FaEnvelope, href: `mailto:${COMPANY.email}` },
               ].map((social, index) => (
                 <motion.a
                   key={index}
