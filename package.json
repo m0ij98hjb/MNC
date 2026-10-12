@@ -13,6 +13,7 @@
     "@react-google-maps/api": "^2.20.8",
     "aos": "^2.3.4",
     "clsx": "^2.1.1",
+    "country-flag-icons": "1.6.20",
     "firebase": "^12.15.0",
     "firebase-admin": "^14.2.0",
     "framer-motion": "^12.38.0",

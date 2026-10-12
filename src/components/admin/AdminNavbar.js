@@ -10,6 +10,7 @@ import {
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useLanguage, LANGUAGES } from '@/context/LanguageContext';
+import LangFlag from "@/components/ui/LangFlag";
 import { useAuth } from '@/context/AuthContext';
 import { useNotifications } from '@/context/NotificationsContext';
 import { useRoleAccess } from '@/hooks/useRoleAccess';
@@ -362,7 +363,7 @@ export default function AdminNavbar() {
               onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(201,163,77,0.40)'; e.currentTarget.style.color = 'rgba(255,255,255,0.9)'; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(201,163,77,0.18)'; e.currentTarget.style.color = 'rgba(255,255,255,0.55)'; }}
             >
-              <span className="text-base leading-none">{currentLang.flag}</span>
+              <LangFlag code={currentLang.code} className="w-[18px]" />
               <span className="hidden sm:inline text-[10px] font-bold tracking-widest uppercase">
                 {currentLang.code.toUpperCase()}
               </span>
@@ -392,7 +393,7 @@ export default function AdminNavbar() {
                           : 'border border-transparent text-white/60 hover:bg-white/10 hover:text-white'
                       }`}
                     >
-                      <span className="text-lg leading-none">{language.flag}</span>
+                      <LangFlag code={language.code} className="w-6" />
                       <div>
                         <p className="text-[11px] font-bold leading-tight">{language.nativeName}</p>
                         <p className="text-[8.5px] opacity-60 uppercase tracking-wide">{language.dir.toUpperCase()}</p>

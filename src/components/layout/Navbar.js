@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users, Smartphone, UserCircle, UserCog, LogOut, LayoutDashboard, Bell, Building2 } from "lucide-react";
 import { useLanguage, LANGUAGES } from "@/context/LanguageContext";
+import LangFlag from "@/components/ui/LangFlag";
 import { useTheme } from "@/context/ThemeContext";
 import { useAuth } from "@/context/AuthContext";
 import { useNotifications } from "@/context/NotificationsContext";
@@ -247,15 +248,15 @@ const Navbar = () => {
                     onClick={() => setIsLangOpen(!isLangOpen)}
                     className={`flex items-center gap-1.5 px-2.5 xl:px-3 py-[7px] xl:py-2 rounded-lg border border-[#D5B25D]/22 hover:border-[#D5B25D]/42 hover:bg-[#D5B25D]/7 transition-all duration-300 nav-action-btn-responsive ${isLightMode ? 'text-slate-600' : 'text-white/65 hover:text-white'}`}
                   >
-                    <span className="text-base leading-none">{currentLang.flag}</span>
+                    <LangFlag code={currentLang.code} className="w-[18px]" />
                     <span className="text-[10.5px] font-bold tracking-widest uppercase">{currentLang.code.toUpperCase()}</span>
                     <Globe size={11} className="text-[#D5B25D]/45" />
                   </button>
-                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[262px] bg-[#0b0e12] border border-[#D5B25D]/12 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
+                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[268px] rounded-2xl border ${isLightMode ? 'bg-white border-slate-200 shadow-[0_24px_60px_-16px_rgba(15,23,42,0.22)]' : 'bg-[#0b0e12] border-[#D5B25D]/12 shadow-[0_20px_60px_rgba(0,0,0,0.85)]'} transition-all duration-300 overflow-hidden z-50 ${
                     isLangOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-3 pointer-events-none"
                   }`}>
                     <div className="p-3">
-                      <p className="text-[9px] text-white/20 font-medium tracking-[2.5px] uppercase mb-2.5 px-1">
+                      <p className={`text-[10px] font-bold tracking-[2px] uppercase mb-2.5 px-1 ${isLightMode ? 'text-[#64748b]' : 'text-white/20'}`}>
                         {lang === 'ar' || lang === 'ur' ? 'اختر اللغة' : 'Select Language'}
                       </p>
                       <div className="grid grid-cols-2 gap-1.5">
@@ -265,14 +266,16 @@ const Navbar = () => {
                             onClick={() => { setLang(language.code); setIsLangOpen(false); }}
                             className={`flex items-center gap-2.5 px-3 py-2.5 rounded-[10px] transition-all duration-200 text-start ${
                               lang === language.code
-                                ? "bg-[#D5B25D]/10 border border-[#D5B25D]/22 text-[#D5B25D]"
-                                : "hover:bg-white/5 border border-transparent text-white/50 hover:text-white"
+                                ? (isLightMode ? "bg-[#D5B25D]/10 border border-[#D5B25D]/35 text-[#7F611B]" : "bg-[#D5B25D]/10 border border-[#D5B25D]/22 text-[#D5B25D]")
+                                : (isLightMode ? "border border-transparent text-[#334155] hover:bg-slate-50 hover:border-slate-200 hover:text-[#0f172a]" : "hover:bg-white/5 border border-transparent text-white/50 hover:text-white")
                             }`}
                           >
-                            <span className="text-xl leading-none">{language.flag}</span>
-                            <div>
-                              <p className="text-[11.5px] font-bold leading-tight">{language.nativeName}</p>
-                              <p className="text-[9px] opacity-40 uppercase tracking-wide">{language.dir.toUpperCase()}</p>
+                            <LangFlag code={language.code} className="w-6" />
+                            <div className="min-w-0">
+                              <p className="text-[12px] font-bold leading-tight truncate">{language.nativeName}</p>
+                              {language.name !== language.nativeName && (
+                                <p className={`text-[10px] leading-tight mt-0.5 ${isLightMode ? 'text-[#64748b]' : 'opacity-40'}`}>{language.name}</p>
+                              )}
                             </div>
                             {lang === language.code && (
                               <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#D5B25D] flex-shrink-0" />
@@ -506,16 +509,16 @@ const Navbar = () => {
                     onClick={() => setIsLangOpen(!isLangOpen)}
                     className={`flex items-center gap-1.5 px-2.5 xl:px-3 py-[7px] xl:py-2 rounded-lg border border-[#D5B25D]/22 hover:border-[#D5B25D]/42 hover:bg-[#D5B25D]/7 transition-all duration-300 nav-action-btn-responsive ${isLightMode ? 'text-slate-600' : 'text-white/65 hover:text-white'}`}
                   >
-                    <span className="text-base leading-none">{currentLang.flag}</span>
+                    <LangFlag code={currentLang.code} className="w-[18px]" />
                     <span className="text-[10.5px] font-bold tracking-widest uppercase">{currentLang.code.toUpperCase()}</span>
                     <Globe size={11} className="text-[#D5B25D]/45" />
                   </button>
 
-                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[262px] bg-[#0b0e12] border border-[#D5B25D]/12 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
+                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[268px] rounded-2xl border ${isLightMode ? 'bg-white border-slate-200 shadow-[0_24px_60px_-16px_rgba(15,23,42,0.22)]' : 'bg-[#0b0e12] border-[#D5B25D]/12 shadow-[0_20px_60px_rgba(0,0,0,0.85)]'} transition-all duration-300 overflow-hidden z-50 ${
                     isLangOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-3 pointer-events-none"
                   }`}>
                     <div className="p-3">
-                      <p className="text-[9px] text-white/20 font-medium tracking-[2.5px] uppercase mb-2.5 px-1">
+                      <p className={`text-[10px] font-bold tracking-[2px] uppercase mb-2.5 px-1 ${isLightMode ? 'text-[#64748b]' : 'text-white/20'}`}>
                         {lang === 'ar' || lang === 'ur' ? 'اختر اللغة' : 'Select Language'}
                       </p>
                       <div className="grid grid-cols-2 gap-1.5">
@@ -525,14 +528,16 @@ const Navbar = () => {
                             onClick={() => { setLang(language.code); setIsLangOpen(false); }}
                             className={`flex items-center gap-2.5 px-3 py-2.5 rounded-[10px] transition-all duration-200 text-start ${
                               lang === language.code
-                                ? "bg-[#D5B25D]/10 border border-[#D5B25D]/22 text-[#D5B25D]"
-                                : "hover:bg-white/5 border border-transparent text-white/50 hover:text-white"
+                                ? (isLightMode ? "bg-[#D5B25D]/10 border border-[#D5B25D]/35 text-[#7F611B]" : "bg-[#D5B25D]/10 border border-[#D5B25D]/22 text-[#D5B25D]")
+                                : (isLightMode ? "border border-transparent text-[#334155] hover:bg-slate-50 hover:border-slate-200 hover:text-[#0f172a]" : "hover:bg-white/5 border border-transparent text-white/50 hover:text-white")
                             }`}
                           >
-                            <span className="text-xl leading-none">{language.flag}</span>
-                            <div>
-                              <p className="text-[11.5px] font-bold leading-tight">{language.nativeName}</p>
-                              <p className="text-[9px] opacity-40 uppercase tracking-wide">{language.dir.toUpperCase()}</p>
+                            <LangFlag code={language.code} className="w-6" />
+                            <div className="min-w-0">
+                              <p className="text-[12px] font-bold leading-tight truncate">{language.nativeName}</p>
+                              {language.name !== language.nativeName && (
+                                <p className={`text-[10px] leading-tight mt-0.5 ${isLightMode ? 'text-[#64748b]' : 'opacity-40'}`}>{language.name}</p>
+                              )}
                             </div>
                             {lang === language.code && (
                               <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#D5B25D] flex-shrink-0" />
@@ -658,7 +663,7 @@ const Navbar = () => {
                 <Globe size={16} className="text-[#D5B25D]" />
               </span>
               <div className="flex-1 text-start flex items-center gap-2">
-                <span className="text-xl">{currentLang.flag}</span>
+                <LangFlag code={currentLang.code} className="w-6" />
                 <div>
                   <p className={`text-[12px] font-bold leading-none ${isLightMode ? 'text-[#1e293b]' : 'text-white'}`}>{currentLang.nativeName}</p>
                   <p className={`text-[10px] mt-0.5 ${isLightMode ? 'text-slate-400' : 'text-white/28'}`}>
@@ -677,16 +682,18 @@ const Navbar = () => {
                     onClick={() => { setLang(language.code); setIsMobileLangOpen(false); setIsOpen(false); }}
                     className={`flex items-center gap-2.5 px-3 py-3 rounded-[12px] border transition-all duration-200 active:scale-[0.97] ${
                       lang === language.code
-                        ? "bg-[#D5B25D]/10 border-[#D5B25D]/22 text-[#D5B25D]"
+                        ? (isLightMode ? "bg-[#D5B25D]/10 border-[#D5B25D]/35 text-[#7F611B]" : "bg-[#D5B25D]/10 border-[#D5B25D]/22 text-[#D5B25D]")
                         : isLightMode
-                          ? "border-[#e2e8f0] bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-[#1e293b]"
+                          ? "border-[#e2e8f0] bg-white text-[#334155] hover:bg-slate-50 hover:text-[#0f172a]"
                           : "border-white/6 bg-white/[0.03] text-white/55 hover:bg-white/6 hover:text-white"
                     }`}
                   >
-                    <span className="text-2xl leading-none">{language.flag}</span>
-                    <div className="text-start">
-                      <p className="text-[12px] font-bold leading-tight">{language.nativeName}</p>
-                      <p className="text-[9px] opacity-38 uppercase tracking-wide">{language.code}</p>
+                    <LangFlag code={language.code} className="w-7" />
+                    <div className="text-start min-w-0">
+                      <p className="text-[12px] font-bold leading-tight truncate">{language.nativeName}</p>
+                      {language.name !== language.nativeName && (
+                        <p className={`text-[10px] leading-tight mt-0.5 ${isLightMode ? 'text-[#64748b]' : 'opacity-40'}`}>{language.name}</p>
+                      )}
                     </div>
                     {lang === language.code && (
                       <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#D5B25D] flex-shrink-0" />
