@@ -390,7 +390,7 @@ html.dark :is(section, main, footer):is(.bg-slate-50, .bg-slate-100, [class*="bg
      logo↔first-link gap and the last-link↔actions gap stay equal while both
      read as clearly bigger. */
   .nav-logo-responsive {
-          margin-inline-end: clamp(21px, 6.4vw, 80px) !important;
+          margin-inline-end: clamp(21px, 7.6vw, 120px) !important;
 
   }
   /* 3. Responsive Nav links — 13-15px professional desktop range. */
@@ -412,8 +412,8 @@ html.dark :is(section, main, footer):is(.bg-slate-50, .bg-slate-100, [class*="bg
   /* 5. Responsive Separator Margin — matched to the logo margin (see #2)
      so "وظائف"↔actions-group and logo↔"الرئيسية" are the same visible gap. */
   .nav-separator-responsive {
-    margin-left: clamp(10px, 1.2vw, 24px) !important;
-    margin-right: clamp(10px, 6.2vw, 80px) !important;
+    margin-left: clamp(10px, 1.7vw, 32px) !important;
+    margin-right: clamp(10px, 7.4vw, 115px) !important;
 
   }
 
