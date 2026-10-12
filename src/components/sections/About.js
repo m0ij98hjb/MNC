@@ -77,13 +77,13 @@ const About = () => {
           </p>
         </div>
 
-        {/* ── Row 1: Two Image Cards ── */}
-        <div className="flex flex-col sm:flex-row gap-10 sm:gap-16 justify-center mb-20">
+        {/* ── Leadership: two compact portrait cards, stacked ── */}
+        <div className="flex flex-col items-center gap-12 md:gap-14 mb-20">
 
           {/* Chairman Card */}
-          <div className="w-full sm:w-1/2 lg:w-2/5 relative pb-14" data-aos="fade-up">
-            <div className="relative z-10 group">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[1019/1600]">
+          <div className="w-[200px] sm:w-[230px] relative flex flex-col items-center" data-aos="fade-up">
+            <div className="relative z-10 group w-full">
+              <div className="relative rounded-2xl overflow-hidden shadow-[0_18px_40px_-12px_rgba(15,23,42,0.35)] border-4 border-white aspect-[1019/1600]">
                 {directorImage ? (
                   <>
                     <Image
@@ -102,20 +102,20 @@ const About = () => {
               </div>
 
               {/* Decorative Frame */}
-              <div className={`absolute -top-4 ${isRTL ? '-left-2 md:-top-6 md:-left-6' : '-right-2 md:-top-6 md:-right-6'} w-20 h-20 md:w-28 md:h-28 ${isRTL ? 'border-t-4 border-l-4 rounded-tl-3xl' : 'border-t-4 border-r-4 rounded-tr-3xl'} border-secondary -z-10`} />
+              <div className={`absolute -top-4 ${isRTL ? '-left-3 md:-top-4 md:-left-4' : '-right-3 md:-top-4 md:-right-4'} w-14 h-14 md:w-16 md:h-16 ${isRTL ? 'border-t-4 border-l-4 rounded-tl-3xl' : 'border-t-4 border-r-4 rounded-tr-3xl'} border-secondary -z-10`} />
             </div>
 
             {/* Title Card */}
-            <div className={`absolute -bottom-2 ${isRTL ? 'left-2 md:left-4' : 'right-2 md:right-4'} bg-white p-4 md:p-5 rounded-xl border border-[rgba(255,255,255,0.08)] shadow-2xl z-20`} data-aos="fade-up" data-aos-delay="400">
-              <h4 className="text-secondary font-bold text-base md:text-lg mb-0.5">{directorName}</h4>
-              <p className="text-black text-[8px] md:text-[10px] uppercase tracking-widest font-bold">{directorTitle}</p>
+            <div className="relative -mt-6 z-20 w-[88%] bg-white px-4 py-3 rounded-xl border border-slate-200 shadow-[0_10px_30px_-10px_rgba(15,23,42,0.25)] text-center" data-aos="fade-up" data-aos-delay="400">
+              <h4 className="text-secondary font-bold text-sm md:text-base mb-0.5 leading-snug">{directorName}</h4>
+              <p className="text-slate-600 text-[9px] md:text-[10px] uppercase tracking-wider font-bold leading-relaxed">{directorTitle}</p>
             </div>
           </div>
 
           {/* CEO Card */}
-          <div className="w-full sm:w-1/2 lg:w-2/5 relative pb-14" data-aos="fade-up" data-aos-delay="150">
-            <div className="relative z-10 group">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white aspect-[1019/1600]">
+          <div className="w-[200px] sm:w-[230px] relative flex flex-col items-center" data-aos="fade-up" data-aos-delay="150">
+            <div className="relative z-10 group w-full">
+              <div className="relative rounded-2xl overflow-hidden shadow-[0_18px_40px_-12px_rgba(15,23,42,0.35)] border-4 border-white aspect-[1019/1600]">
                 {ceoImage ? (
                   <>
                     <Image
@@ -134,13 +134,13 @@ const About = () => {
               </div>
 
               {/* Decorative Frame (mirrored) */}
-              <div className={`absolute -top-4 ${isRTL ? '-right-2 md:-top-6 md:-right-6' : '-left-2 md:-top-6 md:-left-6'} w-20 h-20 md:w-28 md:h-28 ${isRTL ? 'border-t-4 border-r-4 rounded-tr-3xl' : 'border-t-4 border-l-4 rounded-tl-3xl'} border-secondary -z-10`} />
+              <div className={`absolute -top-4 ${isRTL ? '-right-3 md:-top-4 md:-right-4' : '-left-3 md:-top-4 md:-left-4'} w-14 h-14 md:w-16 md:h-16 ${isRTL ? 'border-t-4 border-r-4 rounded-tr-3xl' : 'border-t-4 border-l-4 rounded-tl-3xl'} border-secondary -z-10`} />
             </div>
 
             {/* Title Card */}
-            <div className={`absolute -bottom-2 ${isRTL ? 'right-2 md:right-4' : 'left-2 md:left-4'} bg-white p-4 md:p-5 rounded-xl border border-[rgba(255,255,255,0.08)] shadow-2xl z-20`} data-aos="fade-up" data-aos-delay="550">
-              <h4 className="text-secondary font-bold text-base md:text-lg mb-0.5">{ceoName}</h4>
-              <p className="text-black text-[8px] md:text-[10px] uppercase tracking-widest font-bold">{ceoTitle}</p>
+            <div className="relative -mt-6 z-20 w-[88%] bg-white px-4 py-3 rounded-xl border border-slate-200 shadow-[0_10px_30px_-10px_rgba(15,23,42,0.25)] text-center" data-aos="fade-up" data-aos-delay="550">
+              <h4 className="text-secondary font-bold text-sm md:text-base mb-0.5 leading-snug">{ceoName}</h4>
+              <p className="text-slate-600 text-[9px] md:text-[10px] uppercase tracking-wider font-bold leading-relaxed">{ceoTitle}</p>
             </div>
           </div>
 
