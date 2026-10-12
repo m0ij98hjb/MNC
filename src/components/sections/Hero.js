@@ -78,7 +78,7 @@ const Hero = () => {
         </div>
 
         {/* Main content */}
-        <div className="relative z-30 flex flex-col flex-1 justify-center px-5 pt-[100px] pb-6">
+        <div className="relative z-30 flex flex-col flex-1 justify-center px-6 pt-[100px] pb-6">
 
           {/* Badge */}
           <div className="flex items-center w-full mb-5" data-aos="fade-down" data-aos-delay="100">

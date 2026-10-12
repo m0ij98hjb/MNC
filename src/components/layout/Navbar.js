@@ -172,7 +172,7 @@ const Navbar = () => {
             ? "bg-white border-b border-slate-200/70 shadow-[0_2px_16px_rgba(15,23,42,0.05)]"
             : `bg-gradient-to-b from-black/35 to-transparent backdrop-blur-sm border-b ${isAdmin ? 'border-[#D5B25D]/30' : 'border-white/[0.04]'}`
       }`}>
-        <div className="w-full max-w-7xl mx-auto flex items-center lg:justify-center nav-container-responsive px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-3 sm:py-3.5">
+        <div className="w-full max-w-7xl mx-auto flex items-center lg:justify-center nav-container-responsive px-6 lg:px-12 xl:px-16 py-3 sm:py-3.5">
 
           {/* ── Logo ── */}
           <Link href="/" onClick={handleLogoTap} className="flex items-center flex-shrink-0 nav-logo-responsive me-5 lg:me-7 xl:me-12">
