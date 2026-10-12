@@ -127,7 +127,7 @@ export default function AdminLoginPage() {
               style={{ background: 'radial-gradient(ellipse,rgba(213,178,93,0.12) 0%,transparent 65%)', filter: 'blur(8px)' }}
             />
             <Image
-              src="/asstes/logo-navbar.png"
+              src="/asstes/logo-navbar-v2.png"
               alt="MNC"
               width={280}
               height={140}

@@ -21,7 +21,7 @@ export async function POST(req) {
       },
     });
 
-    const logoPath = join(process.cwd(), 'public', 'asstes', 'logo-navbar.png');
+    const logoPath = join(process.cwd(), 'public', 'asstes', 'logo-navbar-v2.png');
 
     const html = isAr ? `
 <!DOCTYPE html>

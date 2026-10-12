@@ -269,7 +269,7 @@ export default function LiveCameraPage() {
           </button>
           <Link href="/">
             <Image
-              src="/asstes/logo-navbar.png"
+              src="/asstes/logo-navbar-v2.png"
               alt="MNC"
               width={120}
               height={60}

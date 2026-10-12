@@ -21,7 +21,7 @@ export async function POST(req) {
       },
     });
 
-    const logoPath = join(process.cwd(), 'public', 'asstes', 'logo-navbar.png');
+    const logoPath = join(process.cwd(), 'public', 'asstes', 'logo-navbar-v2.png');
 
     // Two shipped templates (Arabic + English). Other site languages fall
     // back to English rather than fabricating unreviewed translations for

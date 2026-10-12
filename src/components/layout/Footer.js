@@ -144,7 +144,7 @@ const Footer = () => {
           <div className="lg:col-span-2 flex flex-col gap-5">
             <div className="w-full max-w-sm">
               <Image
-                src="/asstes/logo-footer.png"
+                src="/asstes/logo-footer-v2.png"
                 alt="MNC Logo"
                 width={520}
                 height={260}

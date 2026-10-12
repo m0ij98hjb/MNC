@@ -111,7 +111,7 @@ export default function AdminNavbar() {
         {/* ── RIGHT: Logo ── */}
         <Link href="/" className="flex-shrink-0 pe-4">
           <Image
-            src="/asstes/logo-navbar.png"
+            src="/asstes/logo-navbar-v2.png"
             alt="MNC"
             width={180}
             height={90}
