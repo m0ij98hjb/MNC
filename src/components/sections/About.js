@@ -30,10 +30,10 @@ const About = () => {
 
   // Both frames use the CEO portrait's ratio (1019x1600). `landscapeCrop`
   // applies only when the photo is wider than tall: it frames the chairman
-  // (seated at ~54% across in the office shot) from head to desk at ~1.28x.
+  // (seated at ~54% across in the office shot) close up, head to chest, at 1.6x.
   const leaders = [
     { key: 'director', image: directorImage, name: directorName, title: directorTitle, objectPosition: 'center top',
-      landscapeCrop: { objectPosition: '58% center', transform: 'scale(1.28)', transformOrigin: '50% 100%' } },
+      landscapeCrop: { objectPosition: '58% center', transform: 'scale(1.6)', transformOrigin: '50% 66%' } },
     { key: 'ceo',      image: ceoImage,      name: ceoName,      title: ceoTitle,      objectPosition: 'center top' },
   ];
 
