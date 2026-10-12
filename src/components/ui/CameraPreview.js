@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Building2, Loader2, AlertCircle, Camera, RefreshCw } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 
 /* ── Stream helpers (logic from /live-camera/[serial]/page.js) ──────────── */
 
@@ -69,13 +70,14 @@ function HlsPlayer({ url, onError }) {
 
 /* ── Blueprint placeholder ──────────────────────────────────────────────── */
 
-function Placeholder({ children }) {
+function Placeholder({ children, isLight }) {
+  const line = isLight ? "rgba(184,146,58,0.10)" : "rgba(213,178,93,0.045)";
   return (
-    <div className="relative flex flex-col items-center justify-center w-full h-full gap-3 p-6">
+    <div className={`keep-dark relative flex flex-col items-center justify-center w-full h-full gap-3 p-6 ${isLight ? "bg-white" : "bg-black"}`}>
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{
         backgroundImage: `
-          linear-gradient(rgba(213,178,93,0.045) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(213,178,93,0.045) 1px, transparent 1px)
+          linear-gradient(${line} 1px, transparent 1px),
+          linear-gradient(90deg, ${line} 1px, transparent 1px)
         `,
         backgroundSize: "32px 32px",
       }} />
@@ -92,6 +94,8 @@ function Placeholder({ children }) {
  */
 export default function CameraPreview({ projectCode }) {
   const { t, isRTL } = useLanguage();
+  const { theme } = useTheme();
+  const isLight = theme === "dark"; // html.dark = light look
   const [phase, setPhase] = useState("idle"); // idle | loading | success | error
   const [cameras, setCameras] = useState([]);
   const [activeCam, setActiveCam] = useState(0);
@@ -208,10 +212,10 @@ export default function CameraPreview({ projectCode }) {
 
   if (phase === "idle") {
     return (
-      <div className="w-full h-full bg-black">
-        <Placeholder>
-          <Building2 size={42} className="text-[#D5B25D]/35" />
-          <p className="text-white/25 text-xs text-center leading-relaxed">
+      <div className="w-full h-full">
+        <Placeholder isLight={isLight}>
+          <Building2 size={42} className={isLight ? "text-[#B8923A]/70" : "text-[#D5B25D]/35"} />
+          <p className={`text-xs text-center leading-relaxed ${isLight ? "text-[#64748b]" : "text-white/25"}`}>
             {t("camera.enterProjectCode")}<br />{t("camera.toViewCamera")}
           </p>
         </Placeholder>
@@ -221,10 +225,10 @@ export default function CameraPreview({ projectCode }) {
 
   if (phase === "loading") {
     return (
-      <div className="w-full h-full bg-black">
-        <Placeholder>
-          <Loader2 size={32} className="text-[#D5B25D] animate-spin" />
-          <p className="text-white/40 text-xs">{t("camera.verifying")}</p>
+      <div className="w-full h-full">
+        <Placeholder isLight={isLight}>
+          <Loader2 size={32} className={`animate-spin ${isLight ? "text-[#A8832B]" : "text-[#D5B25D]"}`} />
+          <p className={`text-xs ${isLight ? "text-[#64748b]" : "text-white/40"}`}>{t("camera.verifying")}</p>
         </Placeholder>
       </div>
     );
@@ -232,10 +236,10 @@ export default function CameraPreview({ projectCode }) {
 
   if (phase === "error") {
     return (
-      <div className="w-full h-full bg-black">
-        <Placeholder>
-          <AlertCircle size={32} className="text-red-400/70" />
-          <p className="text-red-400/75 text-xs text-center leading-relaxed">{errMsg}</p>
+      <div className="w-full h-full">
+        <Placeholder isLight={isLight}>
+          <AlertCircle size={32} className={isLight ? "text-red-600/80" : "text-red-400/70"} />
+          <p className={`text-xs text-center leading-relaxed ${isLight ? "text-red-700" : "text-red-400/75"}`}>{errMsg}</p>
         </Placeholder>
       </div>
     );

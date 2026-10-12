@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { QrCode } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
 import CameraPreview from "@/components/ui/CameraPreview";
 
 export default function CameraTeaser() {
   const { lang, isRTL } = useLanguage();
+  const { theme } = useTheme();
+  const isLight = theme === "dark"; // html.dark = light look
   const [inputCode, setInputCode]       = useState("");
   const [submittedCode, setSubmittedCode] = useState("");
 
@@ -144,10 +147,10 @@ export default function CameraTeaser() {
           {/* ── Preview Card (left in RTL) ── */}
           <div className="w-full lg:w-1/2" data-aos="fade-up" data-aos-delay="150">
             <div
-              className="relative rounded-2xl overflow-hidden"
+              className={`relative rounded-2xl overflow-hidden ${isLight ? "shadow-[0_20px_50px_-24px_rgba(15,23,42,0.25)]" : ""}`}
               style={{
-                border: "1px solid rgba(213,178,93,0.2)",
-                background: "#000",
+                border: isLight ? "1px solid #e2e8f0" : "1px solid rgba(213,178,93,0.2)",
+                background: isLight ? "#ffffff" : "#000",
               }}
             >
               {/* Corner brackets */}
