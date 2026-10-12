@@ -18,6 +18,7 @@ import { BsTwitterX } from "react-icons/bs";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { usePathname } from "next/navigation";
+import { COMPANY } from "@/config/company";
 
 const SocialIcon = ({ name }) => {
   const common = "w-4 h-4";
@@ -165,7 +166,8 @@ const Footer = () => {
                   href: "https://www.instagram.com/mnc_sa/",
                 },
                 { icon: BsTwitterX, href: "https://x.com/KsaMnc?lang=ar" },
-                { icon: FaWhatsapp, href: "https://wa.me/966598242385" },
+                { icon: FaWhatsapp, href: "https://wa.me/966569898000" },
+                { icon: FaEnvelope, href: `mailto:${COMPANY.email}` },
               ].map((social, index) => (
                 <motion.a
                   key={index}

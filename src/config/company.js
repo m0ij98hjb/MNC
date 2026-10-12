@@ -1,4 +1,6 @@
 export const COMPANY = {
   name: "MNC Construction",
-  email: "hr@mnc.sa",
+  email: "info@mnc.sa",
+  phone: "966569898000",
+  whatsapp: "966569898000",
 };

@@ -11,7 +11,7 @@ const Contact = () => {
   const isRTL = lang === 'ar' || lang === 'ur';
   const { data: cms } = useSiteContent('contact');
 
-  const phone1   = cms?.phone1    || '0598242385';
+  const phone1   = (cms?.phone1 && cms.phone1 !== '0598242385') ? cms.phone1 : (COMPANY.phone || '966569898000');
   const phone2   = cms?.phone2    || '';
   const email    = cms?.email     || COMPANY.email;
   const address  = (isRTL ? cms?.address_ar : cms?.address_en) || t('footer.location');
@@ -35,7 +35,7 @@ const Contact = () => {
             </div>
 
             <div className="space-y-4 md:space-y-6">
-              <div className="flex items-center gap-4 md:gap-5 group cursor-default justify-center lg:justify-start rtl:lg:justify-end" data-aos="fade-up" data-aos-delay="150">
+              <a href={`tel:${phone1}`} className="flex items-center gap-4 md:gap-5 group cursor-pointer justify-center lg:justify-start rtl:lg:justify-end" data-aos="fade-up" data-aos-delay="150">
                 <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center border border-[rgba(15,23,42,0.06)] bg-[var(--card-bg)] group-hover:border-[var(--secondary)] transition-all duration-300 shadow-sm shrink-0">
                   <Phone className="text-secondary" size={18} md:size={20} />
                 </div>
@@ -43,9 +43,9 @@ const Contact = () => {
                   <p className="text-[var(--foreground)] text-[10px] md:text-xs mb-0.5">{t('contact.phone')}</p>
                   <p className="text-base md:text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors line-clamp-1">{phone1}{phone2 && ` - ${phone2}`}</p>
                 </div>
-              </div>
+              </a>
 
-              <div className="flex items-center gap-4 md:gap-5 group cursor-default justify-center lg:justify-start rtl:lg:justify-end" data-aos="fade-up" data-aos-delay="250">
+              <a href={`mailto:${email}`} className="flex items-center gap-4 md:gap-5 group cursor-pointer justify-center lg:justify-start rtl:lg:justify-end" data-aos="fade-up" data-aos-delay="250">
                 <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center border border-slate-300 bg-white group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
                   <Mail className="text-secondary" size={18} md:size={20} />
                 </div>
@@ -53,7 +53,7 @@ const Contact = () => {
                   <p className="text-[var(--foreground)] text-[10px] md:text-xs mb-0.5">{t('contact.email')}</p>
                   <p className="text-base md:text-lg font-bold text-[var(--foreground)] group-hover:text-[var(--secondary)] transition-colors">{email}</p>
                 </div>
-              </div>
+              </a>
 
               <div className="flex items-center gap-4 md:gap-5 group cursor-default justify-center lg:justify-start rtl:lg:justify-end" data-aos="fade-up" data-aos-delay="350">
                 <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center border border-slate-300 bg-white group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">

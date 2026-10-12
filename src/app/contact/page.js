@@ -265,10 +265,10 @@ export default function ContactPage() {
   const [formSubmitted, setFormSubmitted]   = useState(false);
   const [formError, setFormError]           = useState("");
 
-  const phone1   = cms?.phone1   || "0598242385";
+  const phone1   = (cms?.phone1 && cms.phone1 !== '0598242385') ? cms.phone1 : (COMPANY.phone || "966569898000");
   const phone2   = cms?.phone2   || "";
   const email    = cms?.email    || COMPANY.email;
-  const whatsapp = cms?.whatsapp || "966598242385";
+  const whatsapp = (cms?.whatsapp && cms.whatsapp !== '966598242385') ? cms.whatsapp : (COMPANY.whatsapp || "966569898000");
 
   const handleContactSubmit = async (e) => {
     e.preventDefault();
@@ -469,15 +469,15 @@ export default function ContactPage() {
               </div>
 
               <div className="space-y-5">
-                <div className="flex items-center gap-5 group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                <a href={`tel:${phone1}`} className="flex items-center gap-5 group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#D5B25D]/30 bg-[#D5B25D]/10 group-hover:border-[var(--secondary)] transition-all duration-300 shadow-sm shrink-0">
                     <Phone className="text-secondary" size={20} />
                   </div>
                   <div>
                     <p className="text-[#D5B25D] text-xs font-bold uppercase tracking-wider mb-1">{t("contact.phone")}</p>
-                    <p className="text-lg font-bold text-white group-hover:text-[var(--secondary)] transition-colors">0598242385</p>
+                    <p className="text-lg font-bold text-white group-hover:text-[var(--secondary)] transition-colors">{phone1}</p>
                   </div>
-                </div>
+                </a>
 
                 <a href={`mailto:${email}`} className="flex items-center gap-5 group cursor-pointer" data-aos="fade-up" data-aos-delay="300">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#D5B25D]/30 bg-[#D5B25D]/10 group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
