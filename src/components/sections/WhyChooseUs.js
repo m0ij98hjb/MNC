@@ -42,7 +42,6 @@ const WhyChooseUs = () => {
 
       {/* Background ambiance */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#f2a624]/[0.04] rounded-full blur-[120px]" />
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f2a624]/20 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f2a624]/10 to-transparent" />
       </div>
@@ -91,51 +90,32 @@ const WhyChooseUs = () => {
             return (
               <div
                 key={index}
-                className="group relative rounded-2xl p-6 flex flex-col gap-5 overflow-hidden transition-all duration-500 cursor-default"
-                style={{
-                  background: "rgba(255,255,255,0.025)",
-                  border: "1px solid rgba(242,166,36,0.1)",
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.background = "rgba(242,166,36,0.05)";
-                  e.currentTarget.style.border = "1px solid rgba(242,166,36,0.25)";
-                  e.currentTarget.style.boxShadow = "0 0 40px rgba(242,166,36,0.08), 0 20px 60px rgba(0,0,0,0.4)";
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.background = "rgba(255,255,255,0.025)";
-                  e.currentTarget.style.border = "1px solid rgba(242,166,36,0.1)";
-                  e.currentTarget.style.boxShadow = "none";
-                }}
+                className="group relative rounded-2xl p-6 flex flex-col gap-5 overflow-hidden cursor-default bg-[var(--card-bg)] border border-slate-200 transition-[transform,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-[#f2a624]"
                 data-aos="fade-up"
                 data-aos-delay={feature.delay}
               >
-                {/* Top accent line */}
-                <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-[#f2a624]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Orange top bar that grows in on hover */}
+                <span aria-hidden="true" className="absolute top-0 inset-x-0 h-[3px] bg-[#f2a624] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" />
 
                 {/* Number watermark */}
-                <span className={`absolute top-4 ${isRTL ? 'left-5' : 'right-5'} text-5xl font-black text-white/[0.04] group-hover:text-[#f2a624]/[0.07] transition-colors duration-500 select-none leading-none`}>
+                <span aria-hidden="true" className={`absolute top-4 ${isRTL ? 'left-5' : 'right-5'} text-5xl font-black text-slate-100 group-hover:text-[#f2a624]/20 transition-colors duration-300 select-none leading-none`}>
                   {feature.num}
                 </span>
 
-                {/* Icon */}
-                <div className="relative w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 shrink-0"
-                  style={{ background: "rgba(242,166,36,0.1)", border: "1px solid rgba(242,166,36,0.2)" }}
-                >
-                  <Icon size={22} className="text-[#f2a624] transition-transform duration-500 group-hover:scale-110" />
+                {/* Icon tile: tinted, fills with the brand orange on hover */}
+                <div className="relative w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-[#f2a624]/10 text-[var(--brand,#f2a624)] transition-colors duration-300 group-hover:bg-[#f2a624] group-hover:text-[#0f172a]">
+                  <Icon size={22} aria-hidden="true" />
                 </div>
 
                 {/* Text */}
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-white font-bold text-base leading-snug group-hover:text-[#f2a624] transition-colors duration-300">
+                  <h3 className="text-[var(--primary)] font-bold text-base leading-snug">
                     {feature.title}
                   </h3>
-                  <p className="text-white/40 text-sm leading-relaxed group-hover:text-white/55 transition-colors duration-300">
+                  <p className="text-white/60 text-sm leading-relaxed">
                     {feature.desc}
                   </p>
                 </div>
-
-                {/* Bottom accent */}
-                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f2a624]/0 to-transparent group-hover:via-[#f2a624]/20 transition-all duration-500" />
               </div>
             );
           })}
