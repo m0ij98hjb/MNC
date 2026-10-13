@@ -99,18 +99,12 @@ const Footer = () => {
 
   if (pathname.startsWith('/admin')) return null;
 
-  const socialBtnStyle = {
-    width: "45px",
-    height: "45px",
-    background: isLightMode ? "rgba(15,23,42,0.06)" : "rgba(255,255,255,0.05)",
-    borderRadius: "12px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    border: isLightMode ? "1px solid rgba(15,23,42,0.12)" : "1px solid rgba(255,255,255,0.1)",
-    color: isLightMode ? "#f2a624" : "#f2a624",
-    textDecoration: "none",
-  };
+  // Social buttons: neutral circles that fill with the brand orange on hover
+  const socialBtnClass = `w-10 h-10 rounded-full flex items-center justify-center border transition-colors duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#f2a624]/30 hover:bg-[#f2a624] hover:border-[#f2a624] hover:text-[#0f172a] hover:shadow-[0_8px_18px_-8px_rgba(242,166,36,0.8)] ${
+    isLightMode
+      ? "bg-white border-slate-200 text-[#0f172a] shadow-[0_1px_2px_rgba(15,23,42,0.06)]"
+      : "bg-white/5 border-white/10 text-white/80"
+  }`;
 
   const links = {
     company: [
@@ -154,28 +148,25 @@ const Footer = () => {
               {t("footer.brandDesc")}
             </p>
             {/* Social */}
-            <div style={{ display: "flex", gap: "12px" }}>
+            <div className="flex items-center gap-2.5">
               {[
-                {
-                  icon: FaFacebookF,
-                  href: "https://www.facebook.com/mnc.nazer/?locale=ar_AR",
-                },
-                {
-                  icon: FaInstagram,
-                  href: "https://www.instagram.com/mnc_sa/",
-                },
-                { icon: BsTwitterX, href: "https://x.com/KsaMnc?lang=ar" },
-                { icon: FaWhatsapp, href: "https://wa.me/966569898000" },
-              ].map((social, index) => (
+                { name: "Facebook",  icon: FaFacebookF, size: 15, href: "https://www.facebook.com/mnc.nazer/?locale=ar_AR" },
+                { name: "Instagram", icon: FaInstagram, size: 16, href: "https://www.instagram.com/mnc_sa/" },
+                { name: "X",         icon: BsTwitterX,  size: 14, href: "https://x.com/KsaMnc?lang=ar" },
+                { name: "WhatsApp",  icon: FaWhatsapp,  size: 17, href: "https://wa.me/966569898000" },
+              ].map((social) => (
                 <motion.a
-                  key={index}
+                  key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, y: -3 }}
-                  style={socialBtnStyle}
+                  aria-label={social.name}
+                  title={social.name}
+                  whileHover={{ y: -2 }}
+                  transition={{ duration: 0.15 }}
+                  className={socialBtnClass}
                 >
-                  <social.icon size={18} />
+                  <social.icon size={social.size} aria-hidden="true" />
                 </motion.a>
               ))}
             </div>
