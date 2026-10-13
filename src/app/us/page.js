@@ -53,7 +53,9 @@ export default function AboutUsPage() {
   const heroStatsLabels = t('aboutUsPage.heroStatsLabels');
   const heroStats = aboutCms?.stats?.length
     ? aboutCms.stats.map(s => ({
-      value: s.value,
+      // The dashboard may still hold the old experience figure (38+); the
+      // company's experience is now 40 years site-wide.
+      value: ['38+', '+38', '38'].includes(String(s.value).trim()) ? '40+' : s.value,
       // CMS stats are admin-authored bilingual (ar/en) content fields — out of scope for i18n remediation.
       label: isRTL ? s.label_ar : (s.label_en || s.label_ar),
     }))
