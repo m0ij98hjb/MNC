@@ -71,7 +71,7 @@ function HlsPlayer({ url, onError }) {
 /* ── Blueprint placeholder ──────────────────────────────────────────────── */
 
 function Placeholder({ children, isLight }) {
-  const line = isLight ? "rgba(222,142,13,0.10)" : "rgba(242,166,36,0.045)";
+  const line = isLight ? "rgba(242,166,36,0.10)" : "rgba(242,166,36,0.045)";
   return (
     <div className={`keep-dark relative flex flex-col items-center justify-center w-full h-full gap-3 p-6 ${isLight ? "bg-white" : "bg-black"}`}>
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{
@@ -227,7 +227,7 @@ export default function CameraPreview({ projectCode }) {
     return (
       <div className="w-full h-full">
         <Placeholder isLight={isLight}>
-          <Loader2 size={32} className={`animate-spin ${isLight ? "text-[#de8e0d]" : "text-[#f2a624]"}`} />
+          <Loader2 size={32} className={`animate-spin ${isLight ? "text-[#f2a624]" : "text-[#f2a624]"}`} />
           <p className={`text-xs ${isLight ? "text-[#64748b]" : "text-white/40"}`}>{t("camera.verifying")}</p>
         </Placeholder>
       </div>

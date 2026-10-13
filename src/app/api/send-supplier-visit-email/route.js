@@ -45,7 +45,7 @@ export async function POST(req) {
 
         <!-- Banner -->
         <tr>
-          <td style="background:linear-gradient(135deg,rgba(222,142,13,0.12),rgba(222,142,13,0.05));padding:28px 40px;border-bottom:1px solid rgba(242,166,36,0.1);">
+          <td style="background:linear-gradient(135deg,rgba(242,166,36,0.12),rgba(242,166,36,0.05));padding:28px 40px;border-bottom:1px solid rgba(242,166,36,0.1);">
             <p style="color:#f2a624;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 10px;">دعوة زيارة</p>
             <h2 style="color:#ffffff;font-size:22px;font-weight:800;margin:0 0 10px;line-height:1.4;">
               تمت دعوتكم لزيارة موقع شركة MNC Construction
@@ -67,8 +67,8 @@ export async function POST(req) {
             </p>
 
             <!-- Visit Details Card -->
-            <div style="background:rgba(222,142,13,0.06);border:1px solid rgba(222,142,13,0.2);border-radius:16px;padding:24px;margin-bottom:28px;">
-              <h3 style="color:#f2a624;font-size:15px;font-weight:800;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(222,142,13,0.15);">
+            <div style="background:rgba(242,166,36,0.06);border:1px solid rgba(242,166,36,0.2);border-radius:16px;padding:24px;margin-bottom:28px;">
+              <h3 style="color:#f2a624;font-size:15px;font-weight:800;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(242,166,36,0.15);">
                 📅 تفاصيل الزيارة
               </h3>
               <table width="100%" cellpadding="0" cellspacing="0">
@@ -132,7 +132,7 @@ export async function POST(req) {
 
         <!-- Banner -->
         <tr>
-          <td style="background:linear-gradient(135deg,rgba(222,142,13,0.12),rgba(222,142,13,0.05));padding:28px 40px;border-bottom:1px solid rgba(242,166,36,0.1);">
+          <td style="background:linear-gradient(135deg,rgba(242,166,36,0.12),rgba(242,166,36,0.05));padding:28px 40px;border-bottom:1px solid rgba(242,166,36,0.1);">
             <p style="color:#f2a624;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 10px;">Visit Invitation</p>
             <h2 style="color:#ffffff;font-size:22px;font-weight:800;margin:0 0 10px;line-height:1.4;">
               You've been invited to visit MNC Construction
@@ -154,8 +154,8 @@ export async function POST(req) {
             </p>
 
             <!-- Visit Details Card -->
-            <div style="background:rgba(222,142,13,0.06);border:1px solid rgba(222,142,13,0.2);border-radius:16px;padding:24px;margin-bottom:28px;">
-              <h3 style="color:#f2a624;font-size:15px;font-weight:800;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(222,142,13,0.15);">
+            <div style="background:rgba(242,166,36,0.06);border:1px solid rgba(242,166,36,0.2);border-radius:16px;padding:24px;margin-bottom:28px;">
+              <h3 style="color:#f2a624;font-size:15px;font-weight:800;margin:0 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(242,166,36,0.15);">
                 📅 Visit Details
               </h3>
               <table width="100%" cellpadding="0" cellspacing="0">

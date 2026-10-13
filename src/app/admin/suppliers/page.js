@@ -314,7 +314,7 @@ export default function SuppliersListPage() {
       {dialogSupplier && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.78)', backdropFilter: 'blur(8px)' }}>
           <div className="w-full max-w-lg bg-[#111118] border border-white/10 rounded-2xl overflow-hidden shadow-2xl" dir={isRTL ? 'rtl' : 'ltr'}>
-            <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]" style={{ background: 'linear-gradient(135deg,rgba(222,142,13,0.1),rgba(0,0,0,0))' }}>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]" style={{ background: 'linear-gradient(135deg,rgba(242,166,36,0.1),rgba(0,0,0,0))' }}>
               <div>
                 <h2 className="text-white font-bold text-base">{t('admin.supplierAcceptDialogTitle')}</h2>
                 <p className="text-white/40 text-xs mt-0.5">{dialogSupplier.companyName} — {dialogSupplier.contactName}</p>
@@ -361,7 +361,7 @@ export default function SuppliersListPage() {
                 {t('admin.supplierCancelBtn')}
               </button>
               <button onClick={handleSendAcceptance} disabled={sending || !dialogSupplier.email}
-                className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#f2a624] to-[#de8e0d] text-black text-sm font-black flex items-center justify-center gap-2 hover:from-[#f2a624] hover:to-[#f2a624] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#f2a624] to-[#f2a624] text-black text-sm font-black flex items-center justify-center gap-2 hover:from-[#f2a624] hover:to-[#f2a624] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
                 {sending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
                 {t('admin.supplierSendBtn')}
               </button>

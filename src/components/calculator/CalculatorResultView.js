@@ -59,7 +59,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
       {result.kind === "industrial" ? (
         <>
           {/* Estimated Construction Cost — highlighted */}
-          <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#de8e0d]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
+          <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#f2a624]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <span className="bg-[#f2a624] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
             </div>
@@ -115,7 +115,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
         </>
       ) : result.kind === "hotel" ? (
         <>
-          <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#de8e0d]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
+          <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#f2a624]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <span className="bg-[#f2a624] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
             </div>
@@ -185,7 +185,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
         </>
       ) : result.kind === "commercial" ? (
         <>
-          <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#de8e0d]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
+          <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#f2a624]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <span className="bg-[#f2a624] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
             </div>
@@ -259,7 +259,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
         </>
       ) : result.kind === "engineering" ? (
         <>
-          <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#de8e0d]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
+          <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#f2a624]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <span className="bg-[#f2a624] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
             </div>
@@ -322,7 +322,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
               <p className={`text-2xl font-black ${textPri}`}>{fmt(result.min)}</p>
               <p className={`text-xs mt-1 ${textMut}`}>{t("calculator.currency")}</p>
             </div>
-            <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#de8e0d]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
+            <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#f2a624]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                 <span className="bg-[#f2a624] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.avg_cost")}</span>
               </div>

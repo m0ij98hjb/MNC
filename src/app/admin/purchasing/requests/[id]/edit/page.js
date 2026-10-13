@@ -137,7 +137,7 @@ function EditRequestContent({ id }) {
         <div className="flex gap-3">
           <button type="submit" disabled={saving}
             className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-widest disabled:opacity-50"
-            style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)', color: '#000' }}>
+            style={{ background: 'linear-gradient(135deg,#f2a624,#f2a624,#f2a624,#f2a624,#f2a624)', color: '#000' }}>
             {saving ? <Loader2 size={15} className="animate-spin" /> : <Save size={15} />} {t('admin.saveChangesBtn')}
           </button>
           <Link href={`/admin/purchasing/requests/${id}`} className="flex items-center px-5 py-3 rounded-xl text-sm font-bold text-white/60 border border-white/10 hover:text-white hover:border-white/20 transition-all">

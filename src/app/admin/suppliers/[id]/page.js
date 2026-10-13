@@ -268,7 +268,7 @@ export default function SupplierDetailPage() {
                       <button
                         onClick={handleSendVisit}
                         disabled={visitSending || !visitDate || !visitTime}
-                        className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-[#f2a624] to-[#de8e0d] text-black text-sm font-black transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
+                        className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-[#f2a624] to-[#f2a624] text-black text-sm font-black transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
                       >
                         {visitSending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
                         {t('admin.visitSendBtn')}
@@ -356,7 +356,7 @@ export default function SupplierDetailPage() {
                 {/* Button */}
                 <button
                   onClick={closeVisitDialog}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#f2a624] to-[#de8e0d] text-black font-black text-sm tracking-wide hover:opacity-90 transition-opacity"
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#f2a624] to-[#f2a624] text-black font-black text-sm tracking-wide hover:opacity-90 transition-opacity"
                 >
                   {t('admin.jobDoneBtn')}
                 </button>

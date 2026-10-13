@@ -115,7 +115,7 @@ function SettingsContent() {
             <button
               onClick={handleSave}
               className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold text-black hover:opacity-90 transition-all shadow-lg"
-              style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)' }}
+              style={{ background: 'linear-gradient(135deg,#f2a624,#f2a624,#f2a624,#f2a624,#f2a624)' }}
             >
               <Save size={14} />
               {t('purchasing.saveSettingsBtn')}

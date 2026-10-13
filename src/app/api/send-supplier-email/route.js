@@ -45,7 +45,7 @@ export async function POST(req) {
 
         <!-- Congratulations banner -->
         <tr>
-          <td style="background:linear-gradient(135deg,rgba(222,142,13,0.12),rgba(222,142,13,0.05));padding:28px 40px;border-bottom:1px solid rgba(242,166,36,0.1);">
+          <td style="background:linear-gradient(135deg,rgba(242,166,36,0.12),rgba(242,166,36,0.05));padding:28px 40px;border-bottom:1px solid rgba(242,166,36,0.1);">
             <p style="color:#f2a624;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 10px;">تهانينا 🎉</p>
             <h2 style="color:#ffffff;font-size:22px;font-weight:800;margin:0 0 10px;line-height:1.4;">
               تمت الموافقة على طلب تسجيلكم كمورد معتمد
@@ -74,7 +74,7 @@ export async function POST(req) {
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="padding:10px 0;vertical-align:top;width:32px;">
-                    <div style="width:26px;height:26px;background:rgba(222,142,13,0.15);border:1px solid rgba(222,142,13,0.3);border-radius:50%;text-align:center;line-height:26px;font-size:12px;font-weight:800;color:#f2a624;">١</div>
+                    <div style="width:26px;height:26px;background:rgba(242,166,36,0.15);border:1px solid rgba(242,166,36,0.3);border-radius:50%;text-align:center;line-height:26px;font-size:12px;font-weight:800;color:#f2a624;">١</div>
                   </td>
                   <td style="padding:10px 0 10px 14px;vertical-align:top;">
                     <p style="color:#fff;font-size:13px;font-weight:700;margin:0 0 4px;">التواصل مع فريقنا</p>
@@ -83,7 +83,7 @@ export async function POST(req) {
                 </tr>
                 <tr>
                   <td style="padding:10px 0;vertical-align:top;width:32px;">
-                    <div style="width:26px;height:26px;background:rgba(222,142,13,0.15);border:1px solid rgba(222,142,13,0.3);border-radius:50%;text-align:center;line-height:26px;font-size:12px;font-weight:800;color:#f2a624;">٢</div>
+                    <div style="width:26px;height:26px;background:rgba(242,166,36,0.15);border:1px solid rgba(242,166,36,0.3);border-radius:50%;text-align:center;line-height:26px;font-size:12px;font-weight:800;color:#f2a624;">٢</div>
                   </td>
                   <td style="padding:10px 0 10px 14px;vertical-align:top;">
                     <p style="color:#fff;font-size:13px;font-weight:700;margin:0 0 4px;">تجهيز المستندات الرسمية</p>
@@ -92,7 +92,7 @@ export async function POST(req) {
                 </tr>
                 <tr>
                   <td style="padding:10px 0;vertical-align:top;width:32px;">
-                    <div style="width:26px;height:26px;background:rgba(222,142,13,0.15);border:1px solid rgba(222,142,13,0.3);border-radius:50%;text-align:center;line-height:26px;font-size:12px;font-weight:800;color:#f2a624;">٣</div>
+                    <div style="width:26px;height:26px;background:rgba(242,166,36,0.15);border:1px solid rgba(242,166,36,0.3);border-radius:50%;text-align:center;line-height:26px;font-size:12px;font-weight:800;color:#f2a624;">٣</div>
                   </td>
                   <td style="padding:10px 0 10px 14px;vertical-align:top;">
                     <p style="color:#fff;font-size:13px;font-weight:700;margin:0 0 4px;">زيارة فرع الشركة</p>
@@ -151,7 +151,7 @@ export async function POST(req) {
 
         <!-- Congratulations banner -->
         <tr>
-          <td style="background:linear-gradient(135deg,rgba(222,142,13,0.12),rgba(222,142,13,0.05));padding:28px 40px;border-bottom:1px solid rgba(242,166,36,0.1);">
+          <td style="background:linear-gradient(135deg,rgba(242,166,36,0.12),rgba(242,166,36,0.05));padding:28px 40px;border-bottom:1px solid rgba(242,166,36,0.1);">
             <p style="color:#f2a624;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 10px;">Congratulations 🎉</p>
             <h2 style="color:#ffffff;font-size:22px;font-weight:800;margin:0 0 10px;line-height:1.4;">
               Your registration as an approved supplier has been accepted
@@ -180,7 +180,7 @@ export async function POST(req) {
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="padding:10px 0;vertical-align:top;width:32px;">
-                    <div style="width:26px;height:26px;background:rgba(222,142,13,0.15);border:1px solid rgba(222,142,13,0.3);border-radius:50%;text-align:center;line-height:26px;font-size:12px;font-weight:800;color:#f2a624;">1</div>
+                    <div style="width:26px;height:26px;background:rgba(242,166,36,0.15);border:1px solid rgba(242,166,36,0.3);border-radius:50%;text-align:center;line-height:26px;font-size:12px;font-weight:800;color:#f2a624;">1</div>
                   </td>
                   <td style="padding:10px 14px 10px 0;vertical-align:top;">
                     <p style="color:#fff;font-size:13px;font-weight:700;margin:0 0 4px;">Contact our team</p>
@@ -189,7 +189,7 @@ export async function POST(req) {
                 </tr>
                 <tr>
                   <td style="padding:10px 0;vertical-align:top;width:32px;">
-                    <div style="width:26px;height:26px;background:rgba(222,142,13,0.15);border:1px solid rgba(222,142,13,0.3);border-radius:50%;text-align:center;line-height:26px;font-size:12px;font-weight:800;color:#f2a624;">2</div>
+                    <div style="width:26px;height:26px;background:rgba(242,166,36,0.15);border:1px solid rgba(242,166,36,0.3);border-radius:50%;text-align:center;line-height:26px;font-size:12px;font-weight:800;color:#f2a624;">2</div>
                   </td>
                   <td style="padding:10px 14px 10px 0;vertical-align:top;">
                     <p style="color:#fff;font-size:13px;font-weight:700;margin:0 0 4px;">Prepare official documents</p>
@@ -198,7 +198,7 @@ export async function POST(req) {
                 </tr>
                 <tr>
                   <td style="padding:10px 0;vertical-align:top;width:32px;">
-                    <div style="width:26px;height:26px;background:rgba(222,142,13,0.15);border:1px solid rgba(222,142,13,0.3);border-radius:50%;text-align:center;line-height:26px;font-size:12px;font-weight:800;color:#f2a624;">3</div>
+                    <div style="width:26px;height:26px;background:rgba(242,166,36,0.15);border:1px solid rgba(242,166,36,0.3);border-radius:50%;text-align:center;line-height:26px;font-size:12px;font-weight:800;color:#f2a624;">3</div>
                   </td>
                   <td style="padding:10px 14px 10px 0;vertical-align:top;">
                     <p style="color:#fff;font-size:13px;font-weight:700;margin:0 0 4px;">Visit our office</p>

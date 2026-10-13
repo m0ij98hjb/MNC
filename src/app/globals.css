@@ -46,12 +46,14 @@
   --ink-2:      #475569; /* secondary copy               7.6:1 */
   --ink-muted:  #64748b; /* captions, meta               4.8:1 */
   --ink-faint:  #7d8da3; /* inactive / decorative states   3.4:1 */
-  /* Brand = logo orange. Fills use --brand; orange *text* uses darker shades
-     of the same hue so it stays readable on white. */
-  --brand:         #f2a624; /* fills, bars, borders, icon tiles (text on it: ink-strong 8.7:1) */
-  --brand-hover:   #de8e0d; /* hover / pressed fills                             */
-  --brand-display: #ca810c; /* large headline accents and icons            3.2:1 */
-  --brand-ink:     #955f09; /* small orange text: eyebrows, labels, links  5.4:1 */
+  /* Brand = logo orange #f2a624, used as-is for fills, icons and orange text
+     everywhere (same orange as the floating WhatsApp/email buttons). Text on
+     orange fills uses --ink-strong. Separate tokens are kept so a darker text
+     shade can be reintroduced in one place if needed. */
+  --brand:         #f2a624;
+  --brand-hover:   #f2a624;
+  --brand-display: #f2a624;
+  --brand-ink:     #f2a624;
   --gold-ink:      var(--brand-ink);     /* legacy alias */
   --gold-icon:     var(--brand-display); /* legacy alias */
   --line:       #e2e8f0; /* hairlines and card borders        */
@@ -90,30 +92,30 @@ html.dark :is(section:not(.image-hero), footer) .group:hover [class~="group-hove
    --brand-display; card / sub-section titles (h3–h6) are always black.
    Text sitting on a solid orange fill keeps its own (dark) colour. */
 /* :where() keeps this base rule low-specificity so the heading rules below win */
-html.dark :is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold):where(:not(.image-hero *, .keep-dark, .keep-dark *)):where(:not([class*="bg-[#f2a624]"]:not([class*="bg-[#f2a624]/"]))) {
+html.dark :is([class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold):where(:not(.image-hero *, .keep-dark, .keep-dark *)):where(:not([class*="bg-[#f2a624]"]:not([class*="bg-[#f2a624]/"]))) {
   color: var(--brand-ink) !important;
 }
 /* Large display figures (stats) read as headline accents */
-html.dark :is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold):is([class*="text-3xl"], [class*="text-4xl"], [class*="text-5xl"], [class*="text-6xl"]):not(.image-hero *, .keep-dark, .keep-dark *) {
+html.dark :is([class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold):is([class*="text-3xl"], [class*="text-4xl"], [class*="text-5xl"], [class*="text-6xl"]):not(.image-hero *, .keep-dark, .keep-dark *) {
   color: var(--brand-display) !important;
 }
-html.dark :is(h1, h2):is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold, .text-gradient):not(.image-hero *, .keep-dark, .keep-dark *),
-html.dark :is(h1, h2) :is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold, .text-gradient):not(.image-hero *, .keep-dark, .keep-dark *) {
+html.dark :is(h1, h2):is([class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold, .text-gradient):not(.image-hero *, .keep-dark, .keep-dark *),
+html.dark :is(h1, h2) :is([class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold, .text-gradient):not(.image-hero *, .keep-dark, .keep-dark *) {
   color: var(--brand-display) !important;
 }
-html.dark :is(h3, h4, h5, h6):is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold, .text-gradient):not(.image-hero *, .keep-dark, .keep-dark *),
-html.dark :is(h3, h4, h5, h6) :is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold, .text-gradient):not(.image-hero *, .keep-dark, .keep-dark *) {
+html.dark :is(h3, h4, h5, h6):is([class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold, .text-gradient):not(.image-hero *, .keep-dark, .keep-dark *),
+html.dark :is(h3, h4, h5, h6) :is([class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold, .text-gradient):not(.image-hero *, .keep-dark, .keep-dark *) {
   color: var(--ink-strong) !important;
 }
 /* Headings set to the body colour (--foreground) read as headings: strongest ink */
 html.dark :is(h1, h2, h3, h4, h5, h6)[class~="text-[var(--foreground)]"]:not(.image-hero *, .keep-dark *) {
   color: var(--ink-strong) !important;
 }
-html.dark svg:is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold):not(.image-hero *, .keep-dark, .keep-dark *) {
+html.dark svg:is([class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold):not(.image-hero *, .keep-dark, .keep-dark *) {
   color: var(--brand-display) !important;
 }
-html.dark :is([class~="hover:text-[#f2a624]"], [class~="hover:text-[#de8e0d]"]):hover:not(.image-hero *, .keep-dark, .keep-dark *),
-html.dark .group:hover :is([class~="group-hover:text-[#f2a624]"], [class~="group-hover:text-[#de8e0d]"]):not(.image-hero *, .keep-dark, .keep-dark *) {
+html.dark :is([class~="hover:text-[#f2a624]"], [class~="hover:text-[#f2a624]"]):hover:not(.image-hero *, .keep-dark, .keep-dark *),
+html.dark .group:hover :is([class~="group-hover:text-[#f2a624]"], [class~="group-hover:text-[#f2a624]"]):not(.image-hero *, .keep-dark, .keep-dark *) {
   color: var(--brand-ink) !important;
 }
 html.dark .text-gradient:not(.image-hero *, .keep-dark, .keep-dark *) {
@@ -124,7 +126,7 @@ html.dark .text-gradient:not(.image-hero *, .keep-dark, .keep-dark *) {
 
 /* No gold blur glows on the white background. Exact class tokens so
    backdrop-blur-* (frosted panels) is never matched; dark image heroes keep theirs. */
-html.dark :is([class*="bg-[#f2a624]"], [class*="bg-[#f2a624]"], [class*="bg-[#de8e0d]"], [class*="bg-[#f2a624]"], [class*="bg-secondary/"], [class*="bg-gold/"]):is([class~="blur-xl"], [class~="blur-2xl"], [class~="blur-3xl"], [class~="blur-[100px]"], [class~="blur-[120px]"], [class~="blur-[130px]"], [class~="blur-[140px]"], [class~="blur-[180px]"]):not(.image-hero *) {
+html.dark :is([class*="bg-[#f2a624]"], [class*="bg-[#f2a624]"], [class*="bg-[#f2a624]"], [class*="bg-[#f2a624]"], [class*="bg-secondary/"], [class*="bg-gold/"]):is([class~="blur-xl"], [class~="blur-2xl"], [class~="blur-3xl"], [class~="blur-[100px]"], [class~="blur-[120px]"], [class~="blur-[130px]"], [class~="blur-[140px]"], [class~="blur-[180px]"]):not(.image-hero *) {
   display: none !important;
 }
 
@@ -134,7 +136,7 @@ html.dark [class*="shadow-[0_0_"][class*="rgba(242,166,36"]:not(.image-hero *) {
   box-shadow: 0 12px 32px -14px rgba(15, 23, 42, 0.14) !important;
 }
 /* Large gold-wash panels (rounded-3xl CTA cards) become clean white cards */
-html.dark .rounded-3xl:is([class*="from-[#f2a624]/"], [class*="from-[#de8e0d]/"], [class*="from-secondary/"]):not(.image-hero *) {
+html.dark .rounded-3xl:is([class*="from-[#f2a624]/"], [class*="from-[#f2a624]/"], [class*="from-secondary/"]):not(.image-hero *) {
   background-image: none !important;
   background-color: #ffffff !important;
   border-color: var(--line) !important;
@@ -188,7 +190,7 @@ html.dark select {
   color: var(--ink-strong) !important;
 }
 html.dark :is(input, textarea, select):focus {
-  border-color: #de8e0d !important;
+  border-color: #f2a624 !important;
   box-shadow: 0 0 0 3px rgba(242, 166, 36, 0.18) !important;
 }
 html.dark input::placeholder,

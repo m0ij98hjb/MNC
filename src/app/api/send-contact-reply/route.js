@@ -55,8 +55,8 @@ export async function POST(req) {
             </p>
 
             <!-- Reply Card -->
-            <div style="background:rgba(222,142,13,0.06);border:1px solid rgba(222,142,13,0.2);border-radius:16px;padding:28px;margin-bottom:28px;">
-              <h3 style="color:#f2a624;font-size:14px;font-weight:800;margin:0 0 18px;padding-bottom:12px;border-bottom:1px solid rgba(222,142,13,0.15);">
+            <div style="background:rgba(242,166,36,0.06);border:1px solid rgba(242,166,36,0.2);border-radius:16px;padding:28px;margin-bottom:28px;">
+              <h3 style="color:#f2a624;font-size:14px;font-weight:800;margin:0 0 18px;padding-bottom:12px;border-bottom:1px solid rgba(242,166,36,0.15);">
                 💬 رد فريق MNC
               </h3>
               <p style="color:rgba(255,255,255,0.80);font-size:14px;line-height:1.9;margin:0;white-space:pre-wrap;">${replyMessage}</p>
@@ -112,8 +112,8 @@ export async function POST(req) {
             </p>
 
             <!-- Reply Card -->
-            <div style="background:rgba(222,142,13,0.06);border:1px solid rgba(222,142,13,0.2);border-radius:16px;padding:28px;margin-bottom:28px;">
-              <h3 style="color:#f2a624;font-size:14px;font-weight:800;margin:0 0 18px;padding-bottom:12px;border-bottom:1px solid rgba(222,142,13,0.15);">
+            <div style="background:rgba(242,166,36,0.06);border:1px solid rgba(242,166,36,0.2);border-radius:16px;padding:28px;margin-bottom:28px;">
+              <h3 style="color:#f2a624;font-size:14px;font-weight:800;margin:0 0 18px;padding-bottom:12px;border-bottom:1px solid rgba(242,166,36,0.15);">
                 💬 Reply from the MNC Team
               </h3>
               <p style="color:rgba(255,255,255,0.80);font-size:14px;line-height:1.9;margin:0;white-space:pre-wrap;">${replyMessage}</p>

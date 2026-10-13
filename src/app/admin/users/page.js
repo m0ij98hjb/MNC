@@ -292,7 +292,7 @@ function UserModal({ onClose, currentUid, editUser = null }) {
             onClick={submit}
             disabled={saving}
             className="flex-1 py-2.5 rounded-xl text-black text-sm font-black flex items-center justify-center gap-2 disabled:opacity-60 transition-all"
-            style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)' }}
+            style={{ background: 'linear-gradient(135deg,#f2a624,#f2a624,#f2a624,#f2a624,#f2a624)' }}
           >
             {saving ? <Loader2 size={15} className="animate-spin" /> : (editUser ? t('admin.saveChangesBtn') : t('purchasing.createUser'))}
           </button>
@@ -395,7 +395,7 @@ function ChangePasswordModal({ targetUser, onClose }) {
             onClick={submit}
             disabled={saving || success}
             className="flex-1 py-2.5 rounded-xl text-black text-sm font-black flex items-center justify-center gap-2 disabled:opacity-60 transition-all"
-            style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)' }}
+            style={{ background: 'linear-gradient(135deg,#f2a624,#f2a624,#f2a624,#f2a624,#f2a624)' }}
           >
             {saving ? <Loader2 size={15} className="animate-spin" /> : t('admin.changePasswordBtn')}
           </button>
@@ -597,7 +597,7 @@ function UsersContent() {
         <button
           onClick={() => { setEditUser(null); setShowModal(true); }}
           className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-black shadow-lg transition-all hover:scale-105"
-          style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)' }}
+          style={{ background: 'linear-gradient(135deg,#f2a624,#f2a624,#f2a624,#f2a624,#f2a624)' }}
         >
           <Plus size={14} /> {t('purchasing.addUser')}
         </button>

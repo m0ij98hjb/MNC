@@ -560,7 +560,7 @@ export default function AppPage() {
         {!isLightMode && <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0d1526] to-black" />}
         {!isLightMode && (
           <div className="absolute inset-0 opacity-10"
-            style={{ backgroundImage: "radial-gradient(circle at 30% 50%, #f2a624 0%, transparent 60%), radial-gradient(circle at 70% 30%, #de8e0d 0%, transparent 50%)" }} />
+            style={{ backgroundImage: "radial-gradient(circle at 30% 50%, #f2a624 0%, transparent 60%), radial-gradient(circle at 70% 30%, #f2a624 0%, transparent 50%)" }} />
         )}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#f2a624]/10 rounded-full blur-[100px] pointer-events-none" />
         <div className={`absolute inset-0 ${isLightMode ? 'opacity-[0.07]' : 'opacity-[0.04]'}`}

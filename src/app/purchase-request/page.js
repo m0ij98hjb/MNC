@@ -94,7 +94,7 @@ function InlineLogin() {
         </div>
         <button type="submit" disabled={loading}
           className="w-full py-3.5 rounded-xl text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-          style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)', color: '#000' }}>
+          style={{ background: 'linear-gradient(135deg,#f2a624,#f2a624,#f2a624,#f2a624,#f2a624)', color: '#000' }}>
           {loading && <Loader2 size={15} className="animate-spin" />}
           {loading ? t('admin.loggingIn') : t('admin.loginBtn')}
         </button>
@@ -316,7 +316,7 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
 
       <button type="submit" disabled={submitting}
         className="w-full py-3.5 rounded-xl text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-        style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)', color: '#000' }}>
+        style={{ background: 'linear-gradient(135deg,#f2a624,#f2a624,#f2a624,#f2a624,#f2a624)', color: '#000' }}>
         {submitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
         {editingRequest ? t('purchasing.resubmitRequest') : t('purchasing.submitRequest')}
       </button>
@@ -364,7 +364,7 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
               </button>
               <button type="button" disabled={submitting || !signature || !form.requesterName.trim()} onClick={handleConfirmSignature}
                 className="flex-1 py-3 rounded-xl text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-                style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)', color: '#000' }}>
+                style={{ background: 'linear-gradient(135deg,#f2a624,#f2a624,#f2a624,#f2a624,#f2a624)', color: '#000' }}>
                 {submitting && <Loader2 size={15} className="animate-spin" />}
                 {t('purchasing.submitSignatureConfirm')}
               </button>
@@ -416,7 +416,7 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
               </button>
               <button type="button" disabled={submitting || !pmSignature || !pmName.trim()} onClick={handleConfirmPmSignature}
                 className="flex-1 py-3 rounded-xl text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-                style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)', color: '#000' }}>
+                style={{ background: 'linear-gradient(135deg,#f2a624,#f2a624,#f2a624,#f2a624,#f2a624)', color: '#000' }}>
                 {submitting && <Loader2 size={15} className="animate-spin" />}
                 {t('purchasing.submitSignatureConfirm')}
               </button>
@@ -475,7 +475,7 @@ function DeliveryConfirmSection({ request, user }) {
       {error && <div className="rounded-lg px-3 py-2 text-xs bg-red-500/10 border border-red-500/25 text-red-400">{error}</div>}
       <button type="button" disabled={submitting || photos.length === 0} onClick={confirmDelivery}
         className="w-full py-2.5 rounded-xl text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-        style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)', color: '#000' }}>
+        style={{ background: 'linear-gradient(135deg,#f2a624,#f2a624,#f2a624,#f2a624,#f2a624)', color: '#000' }}>
         {submitting && <Loader2 size={14} className="animate-spin" />}
         {t('purchasing.deliveryConfirmButton')}
       </button>

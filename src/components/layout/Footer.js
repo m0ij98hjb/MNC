@@ -108,7 +108,7 @@ const Footer = () => {
     alignItems: "center",
     justifyContent: "center",
     border: isLightMode ? "1px solid rgba(15,23,42,0.12)" : "1px solid rgba(255,255,255,0.1)",
-    color: isLightMode ? "#de8e0d" : "#de8e0d",
+    color: isLightMode ? "#f2a624" : "#f2a624",
     textDecoration: "none",
   };
 
@@ -134,7 +134,7 @@ const Footer = () => {
       dir={isRTL ? "rtl" : "ltr"}
     >
       {/* ── TOP DIVIDER ─────────────────────────────── */}
-      <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-[#de8e0d] to-transparent" />
+      <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-[#f2a624] to-transparent" />
 
       {/* ── MAIN CONTENT ────────────────────────────── */}
       <div className="max-w-7xl mx-auto px-6 py-14">
@@ -186,7 +186,7 @@ const Footer = () => {
             <h4 className="text-[var(--secondary)] font-bold text-sm tracking-widest uppercase">
               {t("footer.quickLinks")}
             </h4>
-            <div className="w-8 h-[2px] bg-gradient-to-r from-[#de8e0d] to-transparent" />
+            <div className="w-8 h-[2px] bg-gradient-to-r from-[#f2a624] to-transparent" />
             <ul className="flex flex-col gap-3">
               {links.company.map((l) => (
                 <li key={l.label}>
@@ -216,7 +216,7 @@ const Footer = () => {
             <h4 className="text-[var(--secondary)] font-bold text-sm tracking-widest uppercase">
               {t("footer.services")}
             </h4>
-            <div className="w-8 h-[2px] bg-gradient-to-r from-[#de8e0d] to-transparent" />
+            <div className="w-8 h-[2px] bg-gradient-to-r from-[#f2a624] to-transparent" />
             <ul className="flex flex-col gap-3">
               {links.services.map((s) => (
                 <li
@@ -243,7 +243,7 @@ const Footer = () => {
             {t("footer.rightsReserved")}
           </p>
           <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#de8e0d] animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#f2a624] animate-pulse" />
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--secondary)] animate-pulse" />
             <span className="text-[var(--foreground)] text-xs">
               {t("footer.location")}

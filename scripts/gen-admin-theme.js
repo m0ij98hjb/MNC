@@ -33,11 +33,12 @@ const tiers = [
 ];
 
 // Brand (logo orange) palette — same tokens as the public site (globals.css)
-const BRAND = '#f2a624';        // fills, bars, borders
-const BRAND_DISPLAY = '#ca810c'; // icons / large figures on white (3.2:1)
-const BRAND_INK = '#955f09';     // small orange text on white (5.4:1)
-const ORANGE_TEXT = ['#f2a624', '#de8e0d', '#ca810c', 'var(--secondary)', 'var(--gold)'].map((g) => tok(`text-[${g}]`)).concat([tok('text-secondary'), tok('text-gold')]).join(', ');
-const orangeInline = ['rgb(242, 166, 36)', 'rgb(222, 142, 13)'].map((c) => `[style^="color: ${c}"], [style*="; color: ${c}"]`).join(', ');
+// Logo orange used as-is everywhere (matches globals.css --brand*)
+const BRAND = '#f2a624';         // fills, bars, borders
+const BRAND_DISPLAY = '#f2a624'; // icons / large figures
+const BRAND_INK = '#f2a624';     // orange text
+const ORANGE_TEXT = ['#f2a624', '#f2a624', '#f2a624', 'var(--secondary)', 'var(--gold)'].map((g) => tok(`text-[${g}]`)).concat([tok('text-secondary'), tok('text-gold')]).join(', ');
+const orangeInline = ['rgb(242, 166, 36)', 'rgb(242, 166, 36)'].map((c) => `[style^="color: ${c}"], [style*="; color: ${c}"]`).join(', ');
 
 // Light coloured text (300/400) → darker shade readable on white
 const shade = { red: '#b91c1c', rose: '#be123c', pink: '#be185d', orange: '#c2410c', amber: '#b45309', yellow: '#a16207', lime: '#4d7c0f', green: '#15803d', emerald: '#047857', teal: '#0f766e', cyan: '#0e7490', sky: '#0369a1', blue: '#1d4ed8', indigo: '#4338ca', violet: '#6d28d9', purple: '#7e22ce', fuchsia: '#a21caf' };
@@ -131,7 +132,7 @@ ${S} :is(input, textarea, select):not([type="checkbox"]):not([type="radio"]):not
   color: #0f172a !important;
 }
 ${S} :is(input, textarea, select):focus:not(${KEEP}) {
-  border-color: #de8e0d !important;
+  border-color: #f2a624 !important;
   box-shadow: 0 0 0 3px rgba(242, 166, 36, 0.18) !important;
   outline: none;
 }
