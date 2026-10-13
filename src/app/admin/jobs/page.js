@@ -133,7 +133,7 @@ export default function JobsPage() {
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
           <h1 className="text-2xl font-bold text-white">{t('admin.jobsTitle')}</h1>
           <Link href="/admin/jobs/approved"
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#c8a96e]/10 border border-[#c8a96e]/25 text-[#f2a624] text-xs font-bold hover:bg-[#c8a96e]/18 transition-all">
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#f2a624]/10 border border-[#f2a624]/25 text-[#f2a624] text-xs font-bold hover:bg-[#f2a624]/18 transition-all">
             <CalendarCheck size={14} />
             {t('admin.acceptedCount')} ({totalAccepted})
           </Link>
@@ -150,7 +150,7 @@ export default function JobsPage() {
             <p className="text-white/35 text-[11px] mt-1">{t('admin.acceptedCount')}</p>
           </div>
           <Link href="/admin/jobs/best"
-            className="bg-white/[0.02] border border-[#c8a96e]/25 rounded-xl p-4 text-center hover:bg-[#c8a96e]/8 hover:border-[#c8a96e]/45 transition-all group">
+            className="bg-white/[0.02] border border-[#f2a624]/25 rounded-xl p-4 text-center hover:bg-[#f2a624]/8 hover:border-[#f2a624]/45 transition-all group">
             <p className="text-2xl font-black" style={{ color: '#f2a624' }}>{bestMatches || apps.length}</p>
             <p className="text-white/35 text-[11px] mt-1 flex items-center justify-center gap-1 group-hover:text-[#f2a624]/70 transition-colors">
               <Star size={11} className="text-[#f2a624]" /> {t('admin.bestMatchLabel')}
@@ -164,12 +164,12 @@ export default function JobsPage() {
             <Search size={15} className={`absolute ${isRTL ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 text-white/30`} />
             <input value={search} onChange={e => setSearch(e.target.value)}
               placeholder={t('admin.searchJobsPlaceholder')}
-              className={`w-full bg-white/5 border border-white/10 rounded-xl py-2.5 ${isRTL ? 'pr-9 pl-3' : 'pl-9 pr-3'} text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#c8a96e]/40`} />
+              className={`w-full bg-white/5 border border-white/10 rounded-xl py-2.5 ${isRTL ? 'pr-9 pl-3' : 'pl-9 pr-3'} text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#f2a624]/40`} />
           </div>
           <div className="flex gap-2 flex-wrap items-center">
             {STATUS_FILTERS.map(s => (
               <button key={s} onClick={() => setFilter(s)}
-                className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all ${filter === s ? 'bg-[#c8a96e]/15 text-[#f2a624] border border-[#c8a96e]/30' : 'text-white/40 border border-white/8 hover:text-white/70'}`}>
+                className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all ${filter === s ? 'bg-[#f2a624]/15 text-[#f2a624] border border-[#f2a624]/30' : 'text-white/40 border border-white/8 hover:text-white/70'}`}>
                 {s === 'all' ? t('admin.allStatuses') : t(STATUS_CONFIG[s]?.labelKey || s)}
               </button>
             ))}
@@ -243,7 +243,7 @@ export default function JobsPage() {
                           {/* CV */}
                           {app.cvUrl && (
                             <a href={app.cvUrl} target="_blank" rel="noreferrer"
-                              className="p-1.5 rounded-lg text-white/30 hover:text-[#f2a624] hover:bg-[#c8a96e]/8 transition-all" title={t('admin.viewCV')}>
+                              className="p-1.5 rounded-lg text-white/30 hover:text-[#f2a624] hover:bg-[#f2a624]/8 transition-all" title={t('admin.viewCV')}>
                               <FileText size={14} />
                             </a>
                           )}

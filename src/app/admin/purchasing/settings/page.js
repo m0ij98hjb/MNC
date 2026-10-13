@@ -68,7 +68,7 @@ function SettingsContent() {
             <select
               value={currency}
               onChange={e => setCurrency(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-[#c8a96e]/50"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-[#f2a624]/50"
             >
               <option value="SAR" className="bg-slate-900">{t('purchasing.currencySAR')}</option>
               <option value="USD" className="bg-slate-900">{t('purchasing.currencyUSD')}</option>
@@ -82,7 +82,7 @@ function SettingsContent() {
                 type="checkbox"
                 checked={allowOverStock}
                 onChange={e => setAllowOverStock(e.target.checked)}
-                className="w-4 h-4 rounded border-white/20 accent-[#c8a96e]"
+                className="w-4 h-4 rounded border-white/20 accent-[#f2a624]"
               />
               <span className="text-xs text-white/70">{t('purchasing.allowOverStockLabel')}</span>
             </label>
@@ -102,7 +102,7 @@ function SettingsContent() {
                 type="checkbox"
                 checked={autoNotify}
                 onChange={e => setAutoNotify(e.target.checked)}
-                className="w-4 h-4 rounded border-white/20 accent-[#c8a96e]"
+                className="w-4 h-4 rounded border-white/20 accent-[#f2a624]"
               />
               <div>
                 <div className="text-xs text-white font-medium">{t('purchasing.instantNotifyPMTitle')}</div>
@@ -115,7 +115,7 @@ function SettingsContent() {
             <button
               onClick={handleSave}
               className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold text-black hover:opacity-90 transition-all shadow-lg"
-              style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)' }}
+              style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)' }}
             >
               <Save size={14} />
               {t('purchasing.saveSettingsBtn')}

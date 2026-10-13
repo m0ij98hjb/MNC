@@ -232,7 +232,7 @@ export default function JobDetailPage() {
           <div className="flex gap-2 flex-wrap">
             <button
               onClick={downloadReport}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold border transition-colors text-[#f2a624] border-[#c8a96e]/25 hover:bg-[#c8a96e]/10"
+              className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold border transition-colors text-[#f2a624] border-[#f2a624]/25 hover:bg-[#f2a624]/10"
             >
               <FileText size={14} />
               {t('admin.downloadReport')}
@@ -295,7 +295,7 @@ export default function JobDetailPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   download
-                  className="inline-flex items-center gap-2 py-2.5 px-4 rounded-xl bg-[#c8a96e]/10 border border-[#c8a96e]/25 text-[#f2a624] text-sm font-bold hover:bg-[#c8a96e]/18 transition-all"
+                  className="inline-flex items-center gap-2 py-2.5 px-4 rounded-xl bg-[#f2a624]/10 border border-[#f2a624]/25 text-[#f2a624] text-sm font-bold hover:bg-[#f2a624]/18 transition-all"
                 >
                   <Download size={15} />
                   {t('admin.downloadCV')}
@@ -330,7 +330,7 @@ export default function JobDetailPage() {
                 <div className="mt-4">
                   <button
                     onClick={() => { setShowInterviewForm(v => !v); setSendStatus(''); setSendError(''); }}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#c8a96e]/10 hover:bg-[#c8a96e]/20 border border-[#c8a96e]/20 text-[#f2a624] text-sm font-semibold transition-colors"
+                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#f2a624]/10 hover:bg-[#f2a624]/20 border border-[#f2a624]/20 text-[#f2a624] text-sm font-semibold transition-colors"
                   >
                     <CalendarCheck size={14} />
                     {t('admin.jobScheduleBtn')}
@@ -344,7 +344,7 @@ export default function JobDetailPage() {
                           <input
                             type="date" required value={interviewDate}
                             onChange={e => setInterviewDate(e.target.value)}
-                            className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#c8a96e]/50 outline-none transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#f2a624]/50 outline-none transition-colors"
                           />
                         </div>
                         <div className="space-y-1.5">
@@ -352,7 +352,7 @@ export default function JobDetailPage() {
                           <input
                             type="time" required value={interviewTime}
                             onChange={e => setInterviewTime(e.target.value)}
-                            className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#c8a96e]/50 outline-none transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#f2a624]/50 outline-none transition-colors"
                           />
                         </div>
                       </div>
@@ -363,7 +363,7 @@ export default function JobDetailPage() {
                           <select
                             value={interviewType}
                             onChange={e => setInterviewType(e.target.value)}
-                            className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#c8a96e]/50 outline-none transition-colors appearance-none cursor-pointer"
+                            className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#f2a624]/50 outline-none transition-colors appearance-none cursor-pointer"
                           >
                             <option value="in_person" className="bg-[#111]">{t('admin.inPerson')}</option>
                             <option value="video"     className="bg-[#111]">{t('admin.videoCall')}</option>
@@ -379,7 +379,7 @@ export default function JobDetailPage() {
                             type="text" value={interviewLocation}
                             onChange={e => setInterviewLocation(e.target.value)}
                             placeholder={interviewType === 'in_person' ? t('admin.jobLocationPlaceholder_inPerson') : interviewType === 'video' ? t('admin.jobLocationPlaceholder_video') : t('admin.jobLocationPlaceholder_phone')}
-                            className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-colors"
+                            className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#f2a624]/50 outline-none transition-colors"
                           />
                         </div>
 
@@ -389,7 +389,7 @@ export default function JobDetailPage() {
                             rows={3} value={additionalMessage}
                             onChange={e => setAdditionalMessage(e.target.value)}
                             placeholder={t('admin.jobAdditionalPlaceholder')}
-                            className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-colors resize-none"
+                            className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#f2a624]/50 outline-none transition-colors resize-none"
                           />
                         </div>
 
@@ -403,7 +403,7 @@ export default function JobDetailPage() {
                       <button
                         onClick={handleSendInterview}
                         disabled={sending || !interviewDate || !interviewTime}
-                        className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black text-sm font-black transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
+                        className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-[#f2a624] to-[#de8e0d] text-black text-sm font-black transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
                       >
                         {sending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
                         {t('admin.sendAcceptance')}
@@ -450,12 +450,12 @@ export default function JobDetailPage() {
             dir="rtl"
           >
             {/* Glow */}
-            <div className="absolute -inset-px rounded-3xl bg-gradient-to-b from-[#c8a96e]/40 to-transparent blur-xl pointer-events-none" />
+            <div className="absolute -inset-px rounded-3xl bg-gradient-to-b from-[#f2a624]/40 to-transparent blur-xl pointer-events-none" />
 
-            <div className="relative rounded-3xl border border-[#c8a96e]/20 bg-[#0e0d0a] overflow-hidden shadow-2xl">
+            <div className="relative rounded-3xl border border-[#f2a624]/20 bg-[#0e0d0a] overflow-hidden shadow-2xl">
 
               {/* Top bar */}
-              <div className="h-1 w-full bg-gradient-to-r from-transparent via-[#c8a96e] to-transparent" />
+              <div className="h-1 w-full bg-gradient-to-r from-transparent via-[#f2a624] to-transparent" />
 
               <div className="p-8 flex flex-col items-center text-center gap-6">
 
@@ -497,7 +497,7 @@ export default function JobDetailPage() {
                   {/* Button */}
                   <button
                     onClick={closeSuccessDialog}
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black font-black text-sm tracking-wide hover:opacity-90 transition-opacity"
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-[#f2a624] to-[#de8e0d] text-black font-black text-sm tracking-wide hover:opacity-90 transition-opacity"
                   >
                     {t('admin.jobDoneBtn')}
                 </button>

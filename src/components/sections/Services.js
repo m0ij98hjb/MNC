@@ -76,7 +76,7 @@ const Services = () => {
 
               {/* Icon Container */}
               <div className="w-24 h-24 rounded-2xl flex items-center justify-center mb-8 relative z-10 transition-all duration-500 group-hover:scale-105"
-                style={{ background: "rgba(213,178,93,0.1)", border: "1px solid rgba(213,178,93,0.25)" }}
+                style={{ background: "rgba(242,166,36,0.1)", border: "1px solid rgba(242,166,36,0.25)" }}
               >
                 <div className="text-secondary group-hover:text-secondary/90 transition-colors duration-300">
                   {service.icon}

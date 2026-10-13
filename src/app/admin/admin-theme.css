@@ -61,10 +61,10 @@
 .admin-shell :is([class~="hover:text-white/70"], [class~="hover:text-white/60"], [class~="hover:text-white/50"]):hover:not(.keep-dark, .keep-dark *) { color: #334155 !important; }
 
 /* Gold text → logo orange */
-.admin-shell :is([class~="text-[#c8a96e]"], [class~="text-[#C9A34D]"], [class~="text-[#D5B25D]"], [class~="text-[#E1BF67]"], [class~="text-[#dcbb7d]"], [class~="text-[#B8923A]"], [class~="text-[#F2B233]"], [class~="text-[#f2a624]"], [class~="text-secondary"], [class~="text-gold"]):not(.keep-dark, .keep-dark *),
-.admin-shell :is([style^="color: rgb(201, 163, 77)"], [style*="; color: rgb(201, 163, 77)"], [style^="color: rgb(200, 169, 110)"], [style*="; color: rgb(200, 169, 110)"], [style^="color: rgb(213, 178, 93)"], [style*="; color: rgb(213, 178, 93)"], [style^="color: rgb(225, 191, 103)"], [style*="; color: rgb(225, 191, 103)"], [style^="color: rgb(242, 166, 36)"], [style*="; color: rgb(242, 166, 36)"]):not(.keep-dark, .keep-dark *) { color: #f2a624 !important; }
+.admin-shell :is([class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-secondary"], [class~="text-gold"]):not(.keep-dark, .keep-dark *),
+.admin-shell :is([style^="color: rgb(242, 166, 36)"], [style*="; color: rgb(242, 166, 36)"], [style^="color: rgb(242, 166, 36)"], [style*="; color: rgb(242, 166, 36)"], [style^="color: rgb(242, 166, 36)"], [style*="; color: rgb(242, 166, 36)"], [style^="color: rgb(242, 166, 36)"], [style*="; color: rgb(242, 166, 36)"], [style^="color: rgb(242, 166, 36)"], [style*="; color: rgb(242, 166, 36)"]):not(.keep-dark, .keep-dark *) { color: #f2a624 !important; }
 /* Gold fills keep brand gold with dark text */
-.admin-shell :is([class~="bg-[#c8a96e]"], [class~="bg-[#C9A34D]"], [class~="bg-[#D5B25D]"], [class~="bg-[#E1BF67]"]) { color: #0f172a; }
+.admin-shell :is([class~="bg-[#f2a624]"], [class~="bg-[#f2a624]"], [class~="bg-[#f2a624]"], [class~="bg-[#f2a624]"]) { color: #0f172a; }
 
 /* Text on solid coloured fills (buttons, badges) stays white — listed once
    here instead of excluded in every rule; higher specificity wins. */
@@ -97,8 +97,8 @@
   color: #0f172a !important;
 }
 .admin-shell :is(input, textarea, select):focus:not(.keep-dark, .keep-dark *) {
-  border-color: #B8923A !important;
-  box-shadow: 0 0 0 3px rgba(213, 178, 93, 0.18) !important;
+  border-color: #de8e0d !important;
+  box-shadow: 0 0 0 3px rgba(242, 166, 36, 0.18) !important;
   outline: none;
 }
 .admin-shell :is(input, textarea)::placeholder { color: #94a3b8 !important; }

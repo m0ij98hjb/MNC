@@ -18,7 +18,7 @@ export async function POST(_, { params }) {
 
     const qrUrl = `${BASE_URL}/live-camera/${camera.serialNumber}`;
     const qrCode = await QRCode.toDataURL(qrUrl, {
-      color: { dark: '#C9A34D', light: '#00000000' },
+      color: { dark: '#f2a624', light: '#00000000' },
       margin: 1,
       width: 240,
       errorCorrectionLevel: 'M',

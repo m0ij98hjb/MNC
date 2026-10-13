@@ -117,7 +117,7 @@ function RtspInfo({ url }) {
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 px-5 py-3 bg-[#C9A34D]/15 border border-[#C9A34D]/30 text-[#f2a624] rounded-xl text-sm font-bold hover:bg-[#C9A34D]/25 transition-colors"
+        className="flex items-center gap-2 px-5 py-3 bg-[#f2a624]/15 border border-[#f2a624]/30 text-[#f2a624] rounded-xl text-sm font-bold hover:bg-[#f2a624]/25 transition-colors"
       >
         <ExternalLink size={15} /> {t("camera.copyRtspLink")}
       </a>
@@ -204,7 +204,7 @@ export default function LiveCameraPage() {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center" dir={isRTL ? "rtl" : "ltr"}>
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-[#C9A34D]/15 border border-[#C9A34D]/30 flex items-center justify-center animate-pulse">
+          <div className="w-12 h-12 rounded-2xl bg-[#f2a624]/15 border border-[#f2a624]/30 flex items-center justify-center animate-pulse">
             <Camera size={22} className="text-[#f2a624]" />
           </div>
           <p className="text-white/40 text-sm">{t("camera.loadingCamera")}</p>
@@ -228,7 +228,7 @@ export default function LiveCameraPage() {
         </div>
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-2 px-5 py-3 bg-[#C9A34D]/15 border border-[#C9A34D]/30 text-[#f2a624] rounded-xl font-bold text-sm hover:bg-[#C9A34D]/25 transition-colors"
+          className="flex items-center gap-2 px-5 py-3 bg-[#f2a624]/15 border border-[#f2a624]/30 text-[#f2a624] rounded-xl font-bold text-sm hover:bg-[#f2a624]/25 transition-colors"
         >
           <ChevronLeft size={16} /> {t("camera.backAction")}
         </button>
@@ -256,7 +256,7 @@ export default function LiveCameraPage() {
 
       {/* ── Top bar ── */}
       <header
-        className="shrink-0 flex items-center justify-between px-4 sm:px-6 py-3 border-b border-[#C9A34D]/10"
+        className="shrink-0 flex items-center justify-between px-4 sm:px-6 py-3 border-b border-[#f2a624]/10"
         style={{ background: 'rgba(0,0,0,0.95)', backdropFilter: 'blur(20px)' }}
       >
         {/* Logo + back */}
@@ -317,7 +317,7 @@ export default function LiveCameraPage() {
               <p className="text-red-400 font-bold text-sm">{t("camera.streamLoadFailed")}</p>
               <button
                 onClick={refresh}
-                className="flex items-center gap-2 px-4 py-2 text-xs text-[#f2a624] border border-[#C9A34D]/30 rounded-xl hover:bg-[#C9A34D]/10 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 text-xs text-[#f2a624] border border-[#f2a624]/30 rounded-xl hover:bg-[#f2a624]/10 transition-colors"
               >
                 <RefreshCw size={12} /> {t("camera.retry")}
               </button>
@@ -329,14 +329,14 @@ export default function LiveCameraPage() {
             <button
               onClick={refresh}
               title={t("camera.refreshStreamTitle")}
-              className="w-9 h-9 rounded-xl bg-black/70 backdrop-blur border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-[#C9A34D]/40 transition-all"
+              className="w-9 h-9 rounded-xl bg-black/70 backdrop-blur border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-[#f2a624]/40 transition-all"
             >
               <RefreshCw size={14} />
             </button>
             <button
               onClick={toggleFullscreen}
               title={t("camera.fullscreenTitle")}
-              className="w-9 h-9 rounded-xl bg-black/70 backdrop-blur border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-[#C9A34D]/40 transition-all"
+              className="w-9 h-9 rounded-xl bg-black/70 backdrop-blur border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-[#f2a624]/40 transition-all"
             >
               {fullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
             </button>
@@ -351,24 +351,24 @@ export default function LiveCameraPage() {
           )}
 
           {/* Camera type badge */}
-          <div className="absolute bottom-3 right-3 px-2.5 py-1 bg-black/70 backdrop-blur rounded-lg border border-[#C9A34D]/15 z-30">
+          <div className="absolute bottom-3 right-3 px-2.5 py-1 bg-black/70 backdrop-blur rounded-lg border border-[#f2a624]/15 z-30">
             <span className="text-[#f2a624]/60 text-[10px] font-mono font-bold">{camType}</span>
           </div>
         </div>
 
         {/* ── Info panel ── */}
         <div
-          className="w-full lg:w-72 xl:w-80 border-t lg:border-t-0 lg:border-r border-[#C9A34D]/10 flex flex-col shrink-0"
+          className="w-full lg:w-72 xl:w-80 border-t lg:border-t-0 lg:border-r border-[#f2a624]/10 flex flex-col shrink-0"
           style={{ background: '#080808' }}
         >
 
           {/* Gold top line */}
-          <div className="h-px bg-gradient-to-l from-transparent via-[#C9A34D]/30 to-transparent shrink-0" />
+          <div className="h-px bg-gradient-to-l from-transparent via-[#f2a624]/30 to-transparent shrink-0" />
 
           {/* Header */}
           <div className="px-5 pt-5 pb-4 border-b border-white/[0.05] shrink-0">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#C9A34D]/10 border border-[#C9A34D]/20 flex items-center justify-center shrink-0 mt-0.5">
+              <div className="w-10 h-10 rounded-xl bg-[#f2a624]/10 border border-[#f2a624]/20 flex items-center justify-center shrink-0 mt-0.5">
                 <Camera size={18} className="text-[#f2a624]" />
               </div>
               <div className="min-w-0">
@@ -448,7 +448,7 @@ export default function LiveCameraPage() {
           <div className="shrink-0 p-5 border-t border-white/[0.05]">
             <button
               onClick={refresh}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#C9A34D]/10 border border-[#C9A34D]/20 text-[#f2a624] font-bold text-sm hover:bg-[#C9A34D]/18 transition-colors"
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#f2a624]/10 border border-[#f2a624]/20 text-[#f2a624] font-bold text-sm hover:bg-[#f2a624]/18 transition-colors"
             >
               <RefreshCw size={14} />
               {t("camera.refreshStreamTitle")}

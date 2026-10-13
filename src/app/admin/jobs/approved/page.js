@@ -76,9 +76,9 @@ export default function ApprovedJobsPage() {
             <Search size={15} className={`absolute ${isRTL ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 text-white/30`} />
             <input value={search} onChange={e => setSearch(e.target.value)}
               placeholder={t('admin.searchApprovedPlaceholder')}
-              className={`w-full bg-white/5 border border-white/10 rounded-xl py-2.5 ${isRTL ? 'pr-9 pl-3' : 'pl-9 pr-3'} text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#c8a96e]/40`} />
+              className={`w-full bg-white/5 border border-white/10 rounded-xl py-2.5 ${isRTL ? 'pr-9 pl-3' : 'pl-9 pr-3'} text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#f2a624]/40`} />
           </div>
-          <div className="px-3 py-2 bg-[#c8a96e]/10 border border-[#c8a96e]/20 rounded-xl text-[#f2a624] text-xs font-bold">
+          <div className="px-3 py-2 bg-[#f2a624]/10 border border-[#f2a624]/20 rounded-xl text-[#f2a624] text-xs font-bold">
             {apps.length} {t('admin.acceptedCount')}
           </div>
         </div>
@@ -96,12 +96,12 @@ export default function ApprovedJobsPage() {
             {visible.map(app => (
               <div key={app.id}
                 onClick={() => setSelected(app)}
-                className="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-5 cursor-pointer hover:border-[#c8a96e]/25 hover:bg-white/[0.035] transition-all group">
+                className="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-5 cursor-pointer hover:border-[#f2a624]/25 hover:bg-white/[0.035] transition-all group">
 
                 {/* Top */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#c8a96e]/12 border border-[#c8a96e]/25 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-[#f2a624]/12 border border-[#f2a624]/25 flex items-center justify-center shrink-0">
                       <span className="text-[#f2a624] font-black text-sm">{app.fullName?.[0]?.toUpperCase()}</span>
                     </div>
                     <div>
@@ -131,7 +131,7 @@ export default function ApprovedJobsPage() {
 
                 {/* Interview details */}
                 {app.interviewDetails && (
-                  <div className="bg-[#c8a96e]/6 border border-[#c8a96e]/15 rounded-xl p-3 space-y-1.5">
+                  <div className="bg-[#f2a624]/6 border border-[#f2a624]/15 rounded-xl p-3 space-y-1.5">
                     <p className="text-[#f2a624] text-[10px] font-black uppercase tracking-wider mb-2">{t('admin.interviewDetailsTitle')}</p>
                     <div className="flex items-center gap-2 text-[11px] text-white/55">
                       <Calendar size={10} className="text-[#f2a624]/60" />
@@ -164,7 +164,7 @@ export default function ApprovedJobsPage() {
 
             <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07] bg-[#0d0d14]">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#c8a96e]/12 border border-[#c8a96e]/25 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-[#f2a624]/12 border border-[#f2a624]/25 flex items-center justify-center">
                   <span className="text-[#f2a624] font-black text-sm">{selected.fullName?.[0]?.toUpperCase()}</span>
                 </div>
                 <div>
@@ -195,7 +195,7 @@ export default function ApprovedJobsPage() {
 
               {/* Interview card */}
               {selected.interviewDetails && (
-                <div className="bg-[#c8a96e]/8 border border-[#c8a96e]/20 rounded-xl p-4">
+                <div className="bg-[#f2a624]/8 border border-[#f2a624]/20 rounded-xl p-4">
                   <p className="text-[#f2a624] text-[10px] font-black uppercase tracking-widest mb-3">{t('admin.interviewDetailsTitle')}</p>
                   <div className="space-y-2">
                     {[
@@ -232,7 +232,7 @@ export default function ApprovedJobsPage() {
               {/* CV */}
               {selected.cvUrl && (
                 <a href={selected.cvUrl} target="_blank" rel="noreferrer"
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#c8a96e]/10 border border-[#c8a96e]/25 text-[#f2a624] text-sm font-bold hover:bg-[#c8a96e]/18 transition-all">
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#f2a624]/10 border border-[#f2a624]/25 text-[#f2a624] text-sm font-bold hover:bg-[#f2a624]/18 transition-all">
                   <Download size={15} />
                   {t('admin.downloadCV')}
                 </a>

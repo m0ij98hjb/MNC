@@ -18,7 +18,7 @@ import {
   Loader2, FileSpreadsheet, FileText, FileDown, Printer, AlertTriangle, Zap, DollarSign, Clock,
 } from 'lucide-react';
 
-const GOLD = '#c8a96e';
+const GOLD = '#f2a624';
 
 function toMonthKey(ts) {
   if (!ts?.seconds) return null;
@@ -136,7 +136,7 @@ function ReportsContent() {
           <button onClick={exportPDF} className="purch-export-btn"><Printer size={13} /> PDF</button>
         </div>
       </div>
-      <style>{`.purch-export-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;font-size:11px;font-weight:700;color:#c8a96e;border:1px solid rgba(200,169,110,0.3);transition:background .2s} .purch-export-btn:hover{background:rgba(200,169,110,0.1)}`}</style>
+      <style>{`.purch-export-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;font-size:11px;font-weight:700;color:#f2a624;border:1px solid rgba(242,166,36,0.3);transition:background .2s} .purch-export-btn:hover{background:rgba(242,166,36,0.1)}`}</style>
 
       <div id="purchasing-print-area" className="space-y-6">
         <PurchasingReportHeader title={t('purchasing.reportsTitle')} subtitle={t('purchasing.execReportSubtitle')} />

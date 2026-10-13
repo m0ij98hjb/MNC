@@ -29,17 +29,17 @@ export default function CameraTeaser() {
       {/* Blueprint grid */}
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{
         backgroundImage: `
-          linear-gradient(rgba(213,178,93,0.035) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(213,178,93,0.035) 1px, transparent 1px)
+          linear-gradient(rgba(242,166,36,0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(242,166,36,0.035) 1px, transparent 1px)
         `,
         backgroundSize: "64px 64px",
       }} />
 
       {/* Ambient glows + separator lines */}
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D5B25D]/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D5B25D]/10 to-transparent" />
-        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#D5B25D]/[0.03] blur-[120px]" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f2a624]/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f2a624]/10 to-transparent" />
+        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#f2a624]/[0.03] blur-[120px]" />
       </div>
 
       <div className="container mx-auto px-6 max-w-6xl relative z-10">
@@ -50,14 +50,14 @@ export default function CameraTeaser() {
 
             {/* Eyebrow — same pattern as Vision section */}
             <div className={`inline-flex items-center gap-3 mb-5 ${isRTL ? "flex-row" : "flex-row-reverse"}`}>
-              <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#D5B25D]" />
+              <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#f2a624]" />
               <span className="text-[#f2a624] font-bold tracking-[0.2em] uppercase text-[11px]">
                 {{ ar: "شفافية كاملة", en: "Full Transparency", zh: "完全透明",
                    fr: "Transparence totale", es: "Transparencia total",
                    de: "Volle Transparenz", tr: "Tam Şeffaflık", ur: "مکمل شفافیت",
                    hi: "पूर्ण पारदर्शिता", ru: "Полная прозрачность" }[lang] || "Full Transparency"}
               </span>
-              <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#D5B25D]" />
+              <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#f2a624]" />
             </div>
 
             {/* Title */}
@@ -77,7 +77,7 @@ export default function CameraTeaser() {
 
             {/* Gold underline */}
             <div
-              className="h-1 w-16 rounded-full bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mb-6"
+              className="h-1 w-16 rounded-full bg-gradient-to-r from-[#f2a624] to-[#f2a624] mb-6"
               data-aos="fade-up"
               data-aos-delay="150"
             />
@@ -109,8 +109,8 @@ export default function CameraTeaser() {
                 type="submit"
                 className="shrink-0 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300
                   hover:brightness-110 active:scale-95
-                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5B25D]/60"
-                style={{ backgroundColor: "#D5B25D", color: "#0f172a" }}
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f2a624]/60"
+                style={{ backgroundColor: "#f2a624", color: "#0f172a" }}
               >
                 {{ ar: "دخول", en: "Access", zh: "访问", fr: "Accéder",
                    es: "Acceder", de: "Zugang", tr: "Giriş", ur: "داخل",
@@ -126,10 +126,10 @@ export default function CameraTeaser() {
                   placeholder="MNC-XXXX-•••"
                   className="w-full px-4 py-3 rounded-xl text-white text-sm
                     placeholder:text-white/20 transition-all
-                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5B25D]/50"
+                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f2a624]/50"
                   style={{
                     background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(213,178,93,0.2)",
+                    border: "1px solid rgba(242,166,36,0.2)",
                   }}
                   dir="ltr"
                   autoComplete="off"
@@ -149,15 +149,15 @@ export default function CameraTeaser() {
             <div
               className={`relative rounded-2xl overflow-hidden ${isLight ? "shadow-[0_20px_50px_-24px_rgba(15,23,42,0.25)]" : ""}`}
               style={{
-                border: isLight ? "1px solid #e2e8f0" : "1px solid rgba(213,178,93,0.2)",
+                border: isLight ? "1px solid #e2e8f0" : "1px solid rgba(242,166,36,0.2)",
                 background: isLight ? "#ffffff" : "#000",
               }}
             >
               {/* Corner brackets */}
               <span aria-hidden="true" className="absolute top-2.5 right-2.5 w-5 h-5 z-20 pointer-events-none"
-                style={{ borderTop: "1px solid rgba(213,178,93,0.5)", borderRight: "1px solid rgba(213,178,93,0.5)" }} />
+                style={{ borderTop: "1px solid rgba(242,166,36,0.5)", borderRight: "1px solid rgba(242,166,36,0.5)" }} />
               <span aria-hidden="true" className="absolute bottom-2.5 left-2.5 w-5 h-5 z-20 pointer-events-none"
-                style={{ borderBottom: "1px solid rgba(213,178,93,0.5)", borderLeft: "1px solid rgba(213,178,93,0.5)" }} />
+                style={{ borderBottom: "1px solid rgba(242,166,36,0.5)", borderLeft: "1px solid rgba(242,166,36,0.5)" }} />
 
               {/* Aspect-ratio wrapper */}
               <div className="relative aspect-video">

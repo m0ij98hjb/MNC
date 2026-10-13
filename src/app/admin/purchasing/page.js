@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
-const GOLD = '#c8a96e', BLUE = '#3b82f6', GREEN = '#10b981', AMBER = '#f59e0b', RED = '#ef4444';
+const GOLD = '#f2a624', BLUE = '#3b82f6', GREEN = '#10b981', AMBER = '#f59e0b', RED = '#ef4444';
 
 const PENDING_STATUSES = [STATUS.PENDING_ENGINEER_APPROVAL, STATUS.PENDING_PROC_APPROVAL];
 

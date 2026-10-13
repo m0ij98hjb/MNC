@@ -80,16 +80,16 @@ html.dark :is(section:not(.image-hero), footer) .group:hover [class~="group-hove
 }
 
 /* Logo orange text */
-html.dark :is([class~="text-[#f2a624]"], [class~="text-[#D5B25D]"], [class~="text-[#c8a96e]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold):not(.image-hero *, .keep-dark, .keep-dark *, [class*="bg-[#f2a624]"]:not([class*="bg-[#f2a624]/"]), [class*="bg-[#D5B25D]"]:not([class*="bg-[#D5B25D]/"])) {
+html.dark :is([class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold):not(.image-hero *, .keep-dark, .keep-dark *, [class*="bg-[#f2a624]"]:not([class*="bg-[#f2a624]/"]), [class*="bg-[#f2a624]"]:not([class*="bg-[#f2a624]/"])) {
   color: var(--gold-ink) !important;
 }
-html.dark svg:is([class~="text-[#f2a624]"], [class~="text-[#D5B25D]"], [class~="text-[#c8a96e]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"]):not(.image-hero *, .keep-dark *) {
+html.dark svg:is([class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"]):not(.image-hero *, .keep-dark *) {
   color: var(--gold-icon) !important;
 }
 html.dark [class~="hover:text-[#f2a624]"]:hover:not(.image-hero *, .keep-dark *),
-html.dark [class~="hover:text-[#D5B25D]"]:hover:not(.image-hero *, .keep-dark *),
+html.dark [class~="hover:text-[#f2a624]"]:hover:not(.image-hero *, .keep-dark *),
 html.dark .group:hover [class~="group-hover:text-[#f2a624]"]:not(.image-hero *, .keep-dark *),
-html.dark .group:hover [class~="group-hover:text-[#D5B25D]"]:not(.image-hero *, .keep-dark *) {
+html.dark .group:hover [class~="group-hover:text-[#f2a624]"]:not(.image-hero *, .keep-dark *) {
   color: var(--gold-ink) !important;
 }
 html.dark .text-gradient:not(.image-hero *, .keep-dark *) {
@@ -100,17 +100,17 @@ html.dark .text-gradient:not(.image-hero *, .keep-dark *) {
 
 /* No gold blur glows on the white background. Exact class tokens so
    backdrop-blur-* (frosted panels) is never matched; dark image heroes keep theirs. */
-html.dark :is([class*="bg-[#D5B25D]"], [class*="bg-[#C9A34D]"], [class*="bg-[#B8923A]"], [class*="bg-[#E1BF67]"], [class*="bg-secondary/"], [class*="bg-gold/"]):is([class~="blur-xl"], [class~="blur-2xl"], [class~="blur-3xl"], [class~="blur-[100px]"], [class~="blur-[120px]"], [class~="blur-[130px]"], [class~="blur-[140px]"], [class~="blur-[180px]"]):not(.image-hero *) {
+html.dark :is([class*="bg-[#f2a624]"], [class*="bg-[#f2a624]"], [class*="bg-[#de8e0d]"], [class*="bg-[#f2a624]"], [class*="bg-secondary/"], [class*="bg-gold/"]):is([class~="blur-xl"], [class~="blur-2xl"], [class~="blur-3xl"], [class~="blur-[100px]"], [class~="blur-[120px]"], [class~="blur-[130px]"], [class~="blur-[140px]"], [class~="blur-[180px]"]):not(.image-hero *) {
   display: none !important;
 }
 
 /* Gold halo shadows (0 0 Npx gold) read as a yellow haze on white:
    swap them for a soft neutral shadow. */
-html.dark [class*="shadow-[0_0_"][class*="rgba(213,178,93"]:not(.image-hero *) {
+html.dark [class*="shadow-[0_0_"][class*="rgba(242,166,36"]:not(.image-hero *) {
   box-shadow: 0 12px 32px -14px rgba(15, 23, 42, 0.14) !important;
 }
 /* Large gold-wash panels (rounded-3xl CTA cards) become clean white cards */
-html.dark .rounded-3xl:is([class*="from-[#D5B25D]/"], [class*="from-[#B8923A]/"], [class*="from-secondary/"]):not(.image-hero *) {
+html.dark .rounded-3xl:is([class*="from-[#f2a624]/"], [class*="from-[#de8e0d]/"], [class*="from-secondary/"]):not(.image-hero *) {
   background-image: none !important;
   background-color: #ffffff !important;
   border-color: var(--line) !important;
@@ -164,8 +164,8 @@ html.dark select {
   color: var(--ink-strong) !important;
 }
 html.dark :is(input, textarea, select):focus {
-  border-color: #B8923A !important;
-  box-shadow: 0 0 0 3px rgba(213, 178, 93, 0.18) !important;
+  border-color: #de8e0d !important;
+  box-shadow: 0 0 0 3px rgba(242, 166, 36, 0.18) !important;
 }
 html.dark input::placeholder,
 html.dark textarea::placeholder {

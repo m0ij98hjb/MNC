@@ -167,10 +167,10 @@ const Navbar = () => {
         scrolled
           ? isLightMode
             ? "bg-white backdrop-blur-2xl border-b border-slate-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.07)]"
-            : "bg-[#05090d]/95 backdrop-blur-2xl border-b border-[#D5B25D]/18 shadow-[0_8px_40px_rgba(0,0,0,0.75),0_1px_0_rgba(213,178,93,0.10)]"
+            : "bg-[#05090d]/95 backdrop-blur-2xl border-b border-[#f2a624]/18 shadow-[0_8px_40px_rgba(0,0,0,0.75),0_1px_0_rgba(242,166,36,0.10)]"
           : isLightMode
             ? "bg-white border-b border-slate-200/70 shadow-[0_2px_16px_rgba(15,23,42,0.05)]"
-            : `bg-gradient-to-b from-black/35 to-transparent backdrop-blur-sm border-b ${isAdmin ? 'border-[#D5B25D]/30' : 'border-white/[0.04]'}`
+            : `bg-gradient-to-b from-black/35 to-transparent backdrop-blur-sm border-b ${isAdmin ? 'border-[#f2a624]/30' : 'border-white/[0.04]'}`
       }`}>
         <div className="w-full max-w-7xl mx-auto flex items-center lg:justify-center nav-container-responsive px-6 lg:px-12 xl:px-16 py-3 sm:py-3.5">
 
@@ -200,8 +200,8 @@ const Navbar = () => {
                     <Link key={link.name} href={link.href}
                       className={`flex items-center gap-1.5 text-[12px] xl:text-[13.5px] font-extrabold px-3.5 xl:px-4 py-[7px] xl:py-2 mx-1 xl:mx-1.5 rounded-full border transition-all duration-300 whitespace-nowrap nav-link-special-responsive ${
                         isActive
-                          ? "bg-[#D5B25D] text-black border-transparent shadow-[0_4px_20px_rgba(213,178,93,0.45)]"
-                          : "bg-[#D5B25D]/[0.07] text-[#f2a624] border-[#D5B25D]/28 hover:bg-[#D5B25D]/[0.13] hover:border-[#D5B25D]/45 hover:shadow-[0_2px_14px_rgba(213,178,93,0.13)]"
+                          ? "bg-[#f2a624] text-black border-transparent shadow-[0_4px_20px_rgba(242,166,36,0.45)]"
+                          : "bg-[#f2a624]/[0.07] text-[#f2a624] border-[#f2a624]/28 hover:bg-[#f2a624]/[0.13] hover:border-[#f2a624]/45 hover:shadow-[0_2px_14px_rgba(242,166,36,0.13)]"
                       }`}>
                       <Calculator size={11} />
                       <span>{link.name}</span>
@@ -224,8 +224,8 @@ const Navbar = () => {
                     {/* Underline indicator */}
                     <span className={`absolute bottom-[5px] left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${
                       isActive
-                        ? 'w-5 opacity-100 bg-gradient-to-r from-transparent via-[#D5B25D] to-transparent'
-                        : 'w-0 opacity-0 group-hover:w-3 group-hover:opacity-30 bg-[#D5B25D]'
+                        ? 'w-5 opacity-100 bg-gradient-to-r from-transparent via-[#f2a624] to-transparent'
+                        : 'w-0 opacity-0 group-hover:w-3 group-hover:opacity-30 bg-[#f2a624]'
                     }`} />
                   </Link>
                 );
@@ -234,7 +234,7 @@ const Navbar = () => {
           </div>
 
           {/* ── Vertical Separator ── */}
-          <div className="hidden lg:block w-px h-6 bg-[#D5B25D]/14 nav-separator-responsive mx-3 lg:mx-3.5 xl:mx-6 flex-shrink-0" />
+          <div className="hidden lg:block w-px h-6 bg-[#f2a624]/14 nav-separator-responsive mx-3 lg:mx-3.5 xl:mx-6 flex-shrink-0" />
 
           {/* ── Desktop Actions ── */}
           <div className="hidden lg:flex items-center nav-actions-responsive gap-1.5 xl:gap-2 flex-shrink-0">
@@ -246,13 +246,13 @@ const Navbar = () => {
                 <div className="relative" ref={langDropdownRef}>
                   <button
                     onClick={() => setIsLangOpen(!isLangOpen)}
-                    className={`flex items-center gap-1.5 px-2.5 xl:px-3 py-[7px] xl:py-2 rounded-lg border border-[#D5B25D]/22 hover:border-[#D5B25D]/42 hover:bg-[#D5B25D]/7 transition-all duration-300 nav-action-btn-responsive ${isLightMode ? 'text-slate-600' : 'text-white/65 hover:text-white'}`}
+                    className={`flex items-center gap-1.5 px-2.5 xl:px-3 py-[7px] xl:py-2 rounded-lg border border-[#f2a624]/22 hover:border-[#f2a624]/42 hover:bg-[#f2a624]/7 transition-all duration-300 nav-action-btn-responsive ${isLightMode ? 'text-slate-600' : 'text-white/65 hover:text-white'}`}
                   >
                     <LangFlag code={currentLang.code} className="w-[18px]" />
                     <span className="text-[10.5px] font-bold tracking-widest uppercase">{currentLang.code.toUpperCase()}</span>
                     <Globe size={11} className="text-[#f2a624]/45" />
                   </button>
-                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[268px] rounded-2xl border ${isLightMode ? 'bg-white border-slate-200 shadow-[0_24px_60px_-16px_rgba(15,23,42,0.22)]' : 'bg-[#0b0e12] border-[#D5B25D]/12 shadow-[0_20px_60px_rgba(0,0,0,0.85)]'} transition-all duration-300 overflow-hidden z-50 ${
+                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[268px] rounded-2xl border ${isLightMode ? 'bg-white border-slate-200 shadow-[0_24px_60px_-16px_rgba(15,23,42,0.22)]' : 'bg-[#0b0e12] border-[#f2a624]/12 shadow-[0_20px_60px_rgba(0,0,0,0.85)]'} transition-all duration-300 overflow-hidden z-50 ${
                     isLangOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-3 pointer-events-none"
                   }`}>
                     <div className="p-3">
@@ -266,7 +266,7 @@ const Navbar = () => {
                             onClick={() => { setLang(language.code); setIsLangOpen(false); }}
                             className={`flex items-center gap-2.5 px-3 py-2.5 rounded-[10px] transition-all duration-200 text-start ${
                               lang === language.code
-                                ? (isLightMode ? "bg-[#D5B25D]/10 border border-[#D5B25D]/35 text-[#f2a624]" : "bg-[#D5B25D]/10 border border-[#D5B25D]/22 text-[#f2a624]")
+                                ? (isLightMode ? "bg-[#f2a624]/10 border border-[#f2a624]/35 text-[#f2a624]" : "bg-[#f2a624]/10 border border-[#f2a624]/22 text-[#f2a624]")
                                 : (isLightMode ? "border border-transparent text-[#334155] hover:bg-slate-50 hover:border-slate-200 hover:text-[#0f172a]" : "hover:bg-white/5 border border-transparent text-white/50 hover:text-white")
                             }`}
                           >
@@ -278,7 +278,7 @@ const Navbar = () => {
                               )}
                             </div>
                             {lang === language.code && (
-                              <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#D5B25D] flex-shrink-0" />
+                              <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#f2a624] flex-shrink-0" />
                             )}
                           </button>
                         ))}
@@ -296,7 +296,7 @@ const Navbar = () => {
                         setIsBellOpen(opening);
                         if (opening && markBellOpened) markBellOpened();
                       }}
-                      className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#f2a624]/70 hover:text-[#f2a624] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 active:scale-95 nav-action-icon-btn-responsive"
+                      className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#f2a624]/22 text-[#f2a624]/70 hover:text-[#f2a624] hover:bg-[#f2a624]/10 hover:border-[#f2a624]/40 transition-all duration-300 active:scale-95 nav-action-icon-btn-responsive"
                     >
                       <Bell size={15} />
                       {unreadCount > 0 && (
@@ -311,7 +311,7 @@ const Navbar = () => {
                       className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[300px] rounded-2xl overflow-hidden z-50 transition-all duration-250 ${
                         isBellOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
                       }`}
-                      style={{ background: '#0b1320', border: '1px solid rgba(201,163,77,0.14)', boxShadow: '0 20px 60px rgba(0,0,0,0.88)' }}
+                      style={{ background: '#0b1320', border: '1px solid rgba(242,166,36,0.14)', boxShadow: '0 20px 60px rgba(0,0,0,0.88)' }}
                     >
                       <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.07]">
                         <p className="text-white text-xs font-bold">{t('admin.notifications')}</p>
@@ -334,7 +334,7 @@ const Navbar = () => {
                             onClick={() => setIsBellOpen(false)}
                             className="flex items-start gap-3 px-4 py-3 hover:bg-white/[0.04] transition-colors"
                           >
-                            <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${n.type === 'supplier' ? 'bg-blue-500/12 border border-blue-500/25' : 'bg-[#c8a96e]/12 border border-[#c8a96e]/25'}`}>
+                            <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${n.type === 'supplier' ? 'bg-blue-500/12 border border-blue-500/25' : 'bg-[#f2a624]/12 border border-[#f2a624]/25'}`}>
                               {n.type === 'supplier'
                                 ? <Building2 size={12} className="text-blue-400" />
                                 : <Briefcase size={12} className="text-[#f2a624]" />}
@@ -347,7 +347,7 @@ const Navbar = () => {
                                 {n.type === 'supplier' ? `${t('admin.supplierReqLabel')} · ${n.activity || ''}` : `${t('admin.jobReqLabel')} · ${n.position || ''}`}
                               </p>
                             </div>
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#c8a96e]/60 shrink-0 mt-1.5" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#f2a624]/60 shrink-0 mt-1.5" />
                           </Link>
                         ))}
                       </div>
@@ -381,17 +381,17 @@ const Navbar = () => {
                         <ChevronDown size={11} className={`transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
                       </span>
                     </button>
-                    <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[178px] bg-[#0b0e12] border border-[#D5B25D]/14 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
+                    <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[178px] bg-[#0b0e12] border border-[#f2a624]/14 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
                       isProfileOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"
                     }`}>
                       <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                        className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#D5B25D]/8 transition-colors"
+                        className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#f2a624]/8 transition-colors"
                         onClick={() => setIsProfileOpen(false)}>
                         {tPortfolio.ar}
                       </a>
                       <div className="h-px bg-white/[0.04] mx-3" />
                       <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                        className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#D5B25D]/8 transition-colors"
+                        className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#f2a624]/8 transition-colors"
                         onClick={() => setIsProfileOpen(false)}>
                         {tPortfolio.en}
                       </a>
@@ -404,11 +404,11 @@ const Navbar = () => {
                   <button
                     id="staff-portal-btn-admin"
                     onClick={handlePortalClick}
-                    className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#f2a624]/70 hover:text-[#f2a624] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 active:scale-95 nav-action-icon-btn-responsive"
+                    className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#f2a624]/22 text-[#f2a624]/70 hover:text-[#f2a624] hover:bg-[#f2a624]/10 hover:border-[#f2a624]/40 transition-all duration-300 active:scale-95 nav-action-icon-btn-responsive"
                   >
                     <Briefcase size={15} />
                   </button>
-                  <div className={`absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 whitespace-nowrap bg-[#0b0e12]/95 border border-[#D5B25D]/30 text-[#f2a624] text-[10.5px] font-black py-1.5 px-3 rounded-lg shadow-lg`}>
+                  <div className={`absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 whitespace-nowrap bg-[#0b0e12]/95 border border-[#f2a624]/30 text-[#f2a624] text-[10.5px] font-black py-1.5 px-3 rounded-lg shadow-lg`}>
                     {portalTooltipText}
                   </div>
                 </div>
@@ -417,7 +417,7 @@ const Navbar = () => {
                 <div className="relative" ref={adminDropdownRef}>
                   <button
                     onClick={() => setIsAdminOpen(!isAdminOpen)}
-                    className="flex items-center gap-1.5 xl:gap-2 px-2.5 xl:px-3 py-[7px] xl:py-2 rounded-lg border border-[#C9A34D]/30 hover:border-[#C9A34D]/50 hover:bg-[#C9A34D]/8 transition-all duration-300 active:scale-95 nav-action-btn-responsive"
+                    className="flex items-center gap-1.5 xl:gap-2 px-2.5 xl:px-3 py-[7px] xl:py-2 rounded-lg border border-[#f2a624]/30 hover:border-[#f2a624]/50 hover:bg-[#f2a624]/8 transition-all duration-300 active:scale-95 nav-action-btn-responsive"
                   >
                     <UserCog size={14} className="text-[#f2a624] flex-shrink-0" />
                     <span className="text-[12.5px] xl:text-[13.5px] font-bold text-[#f2a624] whitespace-nowrap">
@@ -426,7 +426,7 @@ const Navbar = () => {
                     <ChevronDown size={10} className={`text-[#f2a624]/50 transition-transform duration-300 ${isAdminOpen ? 'rotate-180' : ''}`} />
                   </button>
 
-                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[185px] bg-[#0b0e12] border border-[#C9A34D]/15 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
+                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[185px] bg-[#0b0e12] border border-[#f2a624]/15 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
                     isAdminOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
                   }`}>
                     <Link
@@ -465,17 +465,17 @@ const Navbar = () => {
                     </span>
                   </button>
 
-                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[178px] bg-[#0b0e12] border border-[#D5B25D]/14 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
+                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[178px] bg-[#0b0e12] border border-[#f2a624]/14 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
                     isProfileOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"
                   }`}>
                     <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                      className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#D5B25D]/8 transition-colors"
+                      className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#f2a624]/8 transition-colors"
                       onClick={() => setIsProfileOpen(false)}>
                       {tPortfolio.ar}
                     </a>
                     <div className="h-px bg-white/[0.04] mx-3" />
                     <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                      className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#D5B25D]/8 transition-colors"
+                      className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#f2a624]/8 transition-colors"
                       onClick={() => setIsProfileOpen(false)}>
                       {tPortfolio.en}
                     </a>
@@ -487,11 +487,11 @@ const Navbar = () => {
                   <button
                     id="staff-portal-btn"
                     onClick={handlePortalClick}
-                    className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#f2a624]/70 hover:text-[#f2a624] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 active:scale-95 nav-action-icon-btn-responsive"
+                    className="flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#f2a624]/22 text-[#f2a624]/70 hover:text-[#f2a624] hover:bg-[#f2a624]/10 hover:border-[#f2a624]/40 transition-all duration-300 active:scale-95 nav-action-icon-btn-responsive"
                   >
                     <Briefcase size={15} />
                   </button>
-                  <div className={`absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 whitespace-nowrap bg-[#0b0e12]/95 border border-[#D5B25D]/30 text-[#f2a624] text-[10.5px] font-black py-1.5 px-3 rounded-lg shadow-lg`}>
+                  <div className={`absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 whitespace-nowrap bg-[#0b0e12]/95 border border-[#f2a624]/30 text-[#f2a624] text-[10.5px] font-black py-1.5 px-3 rounded-lg shadow-lg`}>
                     {portalTooltipText}
                   </div>
                 </div>
@@ -499,7 +499,7 @@ const Navbar = () => {
                 {/* Theme Toggle (hidden while THEME_TOGGLE_ENABLED is false) */}
                 {THEME_TOGGLE_ENABLED && (
                 <button onClick={toggleTheme}
-                  className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#D5B25D]/22 text-[#f2a624] hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/40 transition-all duration-300 overflow-hidden active:scale-95 nav-action-icon-btn-responsive">
+                  className="relative flex items-center justify-center w-8 h-8 xl:w-9 xl:h-9 rounded-lg border border-[#f2a624]/22 text-[#f2a624] hover:bg-[#f2a624]/10 hover:border-[#f2a624]/40 transition-all duration-300 overflow-hidden active:scale-95 nav-action-icon-btn-responsive">
                   <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
                   <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}><Moon size={15} /></span>
                 </button>
@@ -509,14 +509,14 @@ const Navbar = () => {
                 <div className="relative" ref={langDropdownRef}>
                   <button
                     onClick={() => setIsLangOpen(!isLangOpen)}
-                    className={`flex items-center gap-1.5 px-2.5 xl:px-3 py-[7px] xl:py-2 rounded-lg border border-[#D5B25D]/22 hover:border-[#D5B25D]/42 hover:bg-[#D5B25D]/7 transition-all duration-300 nav-action-btn-responsive ${isLightMode ? 'text-slate-600' : 'text-white/65 hover:text-white'}`}
+                    className={`flex items-center gap-1.5 px-2.5 xl:px-3 py-[7px] xl:py-2 rounded-lg border border-[#f2a624]/22 hover:border-[#f2a624]/42 hover:bg-[#f2a624]/7 transition-all duration-300 nav-action-btn-responsive ${isLightMode ? 'text-slate-600' : 'text-white/65 hover:text-white'}`}
                   >
                     <LangFlag code={currentLang.code} className="w-[18px]" />
                     <span className="text-[10.5px] font-bold tracking-widest uppercase">{currentLang.code.toUpperCase()}</span>
                     <Globe size={11} className="text-[#f2a624]/45" />
                   </button>
 
-                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[268px] rounded-2xl border ${isLightMode ? 'bg-white border-slate-200 shadow-[0_24px_60px_-16px_rgba(15,23,42,0.22)]' : 'bg-[#0b0e12] border-[#D5B25D]/12 shadow-[0_20px_60px_rgba(0,0,0,0.85)]'} transition-all duration-300 overflow-hidden z-50 ${
+                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[268px] rounded-2xl border ${isLightMode ? 'bg-white border-slate-200 shadow-[0_24px_60px_-16px_rgba(15,23,42,0.22)]' : 'bg-[#0b0e12] border-[#f2a624]/12 shadow-[0_20px_60px_rgba(0,0,0,0.85)]'} transition-all duration-300 overflow-hidden z-50 ${
                     isLangOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-3 pointer-events-none"
                   }`}>
                     <div className="p-3">
@@ -530,7 +530,7 @@ const Navbar = () => {
                             onClick={() => { setLang(language.code); setIsLangOpen(false); }}
                             className={`flex items-center gap-2.5 px-3 py-2.5 rounded-[10px] transition-all duration-200 text-start ${
                               lang === language.code
-                                ? (isLightMode ? "bg-[#D5B25D]/10 border border-[#D5B25D]/35 text-[#f2a624]" : "bg-[#D5B25D]/10 border border-[#D5B25D]/22 text-[#f2a624]")
+                                ? (isLightMode ? "bg-[#f2a624]/10 border border-[#f2a624]/35 text-[#f2a624]" : "bg-[#f2a624]/10 border border-[#f2a624]/22 text-[#f2a624]")
                                 : (isLightMode ? "border border-transparent text-[#334155] hover:bg-slate-50 hover:border-slate-200 hover:text-[#0f172a]" : "hover:bg-white/5 border border-transparent text-white/50 hover:text-white")
                             }`}
                           >
@@ -542,7 +542,7 @@ const Navbar = () => {
                               )}
                             </div>
                             {lang === language.code && (
-                              <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#D5B25D] flex-shrink-0" />
+                              <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#f2a624] flex-shrink-0" />
                             )}
                           </button>
                         ))}
@@ -558,13 +558,13 @@ const Navbar = () => {
           <div className="flex items-center gap-2 lg:hidden ms-auto">
             {isAdmin || !THEME_TOGGLE_ENABLED ? null : (
               <button onClick={toggleTheme}
-                className="relative flex items-center justify-center w-8 h-8 rounded-lg border border-[#D5B25D]/22 text-[#f2a624] hover:bg-[#D5B25D]/10 transition-all duration-300 overflow-hidden">
+                className="relative flex items-center justify-center w-8 h-8 rounded-lg border border-[#f2a624]/22 text-[#f2a624] hover:bg-[#f2a624]/10 transition-all duration-300 overflow-hidden">
                 <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}><Sun size={15} /></span>
                 <span className={`absolute transition-all duration-500 ${theme !== 'dark' ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}><Moon size={15} /></span>
               </button>
             )}
             <button
-              className={`p-2 rounded-lg border border-[#D5B25D]/22 hover:bg-[#D5B25D]/10 transition-colors ${isLightMode ? 'text-slate-700' : 'text-white/80'}`}
+              className={`p-2 rounded-lg border border-[#f2a624]/22 hover:bg-[#f2a624]/10 transition-colors ${isLightMode ? 'text-slate-700' : 'text-white/80'}`}
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X size={22} /> : <Menu size={22} />}
@@ -600,7 +600,7 @@ const Navbar = () => {
               <Image src="/asstes/mnc-logo-2026.png" alt="MNC Logo" width={855} height={310} className="h-5 w-auto object-contain" />
             </Link>
             <button onClick={() => setIsOpen(false)}
-              className="w-8 h-8 rounded-[10px] border border-[#D5B25D]/22 bg-[#D5B25D]/5 flex items-center justify-center text-[#f2a624] hover:bg-[#D5B25D]/12 transition-all active:scale-95">
+              className="w-8 h-8 rounded-[10px] border border-[#f2a624]/22 bg-[#f2a624]/5 flex items-center justify-center text-[#f2a624] hover:bg-[#f2a624]/12 transition-all active:scale-95">
               <X size={16} />
             </button>
           </div>
@@ -617,10 +617,10 @@ const Navbar = () => {
                 if (link.isSpecial) {
                   return (
                     <Link key={link.name} href={link.href} onClick={() => setIsOpen(false)}
-                      className="flex items-center gap-3 py-[11px] px-3 rounded-[12px] border border-[#D5B25D]/22 bg-gradient-to-r from-[#D5B25D]/12 to-[#D5B25D]/6 transition-all duration-200 active:scale-[0.98]">
-                      <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/18 flex items-center justify-center text-[#f2a624] flex-shrink-0"><LinkIcon size={15} /></span>
+                      className="flex items-center gap-3 py-[11px] px-3 rounded-[12px] border border-[#f2a624]/22 bg-gradient-to-r from-[#f2a624]/12 to-[#f2a624]/6 transition-all duration-200 active:scale-[0.98]">
+                      <span className="w-[34px] h-[34px] rounded-[10px] bg-[#f2a624]/18 flex items-center justify-center text-[#f2a624] flex-shrink-0"><LinkIcon size={15} /></span>
                       <span className="text-[13px] font-bold text-[#f2a624] flex-1">{link.name}</span>
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D5B25D] flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#f2a624] flex-shrink-0" />
                     </Link>
                   );
                 }
@@ -628,14 +628,14 @@ const Navbar = () => {
                   <Link key={link.name} href={link.href} onClick={() => setIsOpen(false)}
                     className={`flex items-center gap-3 py-[11px] px-3 rounded-[12px] border transition-all duration-200 active:scale-[0.98] ${
                       isActive
-                        ? "bg-[#D5B25D]/10 border-[#D5B25D]/20"
+                        ? "bg-[#f2a624]/10 border-[#f2a624]/20"
                         : isLightMode ? "border-transparent hover:bg-slate-100" : "border-transparent hover:bg-white/[0.04]"
                     }`}>
                     <span className={`w-[34px] h-[34px] rounded-[10px] flex items-center justify-center flex-shrink-0 ${
-                      isActive ? "bg-[#D5B25D]/14 text-[#f2a624]" : isLightMode ? "bg-slate-100 text-slate-400" : "bg-white/5 text-white/30"
+                      isActive ? "bg-[#f2a624]/14 text-[#f2a624]" : isLightMode ? "bg-slate-100 text-slate-400" : "bg-white/5 text-white/30"
                     }`}><LinkIcon size={15} /></span>
                     <span className={`text-[13px] font-semibold flex-1 ${isActive ? "text-[#f2a624]" : isLightMode ? "text-[#1e293b]" : "text-white/65"}`}>{link.name}</span>
-                    {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#D5B25D] flex-shrink-0" />}
+                    {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#f2a624] flex-shrink-0" />}
                   </Link>
                 );
               })}
@@ -645,7 +645,7 @@ const Navbar = () => {
                 onClick={() => { setIsOpen(false); handlePortalClick(); }}
                 className="flex items-center gap-3 py-[11px] px-3 rounded-[12px] border border-transparent hover:bg-white/[0.04] transition-all duration-200 active:scale-[0.98] w-full text-start"
               >
-                <span className={`w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/14 text-[#f2a624] flex items-center justify-center flex-shrink-0`}>
+                <span className={`w-[34px] h-[34px] rounded-[10px] bg-[#f2a624]/14 text-[#f2a624] flex items-center justify-center flex-shrink-0`}>
                   <Briefcase size={15} />
                 </span>
                 <span className={`text-[13px] font-semibold flex-1 ${isLightMode ? "text-[#1e293b]" : "text-white/65"}`}>
@@ -661,7 +661,7 @@ const Navbar = () => {
               onClick={() => setIsMobileLangOpen(!isMobileLangOpen)}
               className={`w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] border transition-all active:scale-[0.98] ${isLightMode ? 'bg-slate-50 border-[#e2e8f0] hover:bg-slate-100' : 'bg-white/[0.03] border-white/8 hover:bg-white/6'}`}
             >
-              <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/10 flex items-center justify-center flex-shrink-0">
+              <span className="w-[34px] h-[34px] rounded-[10px] bg-[#f2a624]/10 flex items-center justify-center flex-shrink-0">
                 <Globe size={16} className="text-[#f2a624]" />
               </span>
               <div className="flex-1 text-start flex items-center gap-2">
@@ -684,7 +684,7 @@ const Navbar = () => {
                     onClick={() => { setLang(language.code); setIsMobileLangOpen(false); setIsOpen(false); }}
                     className={`flex items-center gap-2.5 px-3 py-3 rounded-[12px] border transition-all duration-200 active:scale-[0.97] ${
                       lang === language.code
-                        ? (isLightMode ? "bg-[#D5B25D]/10 border-[#D5B25D]/35 text-[#f2a624]" : "bg-[#D5B25D]/10 border-[#D5B25D]/22 text-[#f2a624]")
+                        ? (isLightMode ? "bg-[#f2a624]/10 border-[#f2a624]/35 text-[#f2a624]" : "bg-[#f2a624]/10 border-[#f2a624]/22 text-[#f2a624]")
                         : isLightMode
                           ? "border-[#e2e8f0] bg-white text-[#334155] hover:bg-slate-50 hover:text-[#0f172a]"
                           : "border-white/6 bg-white/[0.03] text-white/55 hover:bg-white/6 hover:text-white"
@@ -698,7 +698,7 @@ const Navbar = () => {
                       )}
                     </div>
                     {lang === language.code && (
-                      <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#D5B25D] flex-shrink-0" />
+                      <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#f2a624] flex-shrink-0" />
                     )}
                   </button>
                 ))}
@@ -718,8 +718,8 @@ const Navbar = () => {
                 {!isAdminPage && (
                   <div>
                     <button onClick={() => setIsProfileOpen(!isProfileOpen)}
-                      className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-[#D5B25D]/6 border border-[#D5B25D]/18 hover:bg-[#D5B25D]/10 transition-all active:scale-[0.98]">
-                      <span className="w-[34px] h-[34px] rounded-[10px] bg-[#D5B25D]/14 flex items-center justify-center text-[#f2a624] flex-shrink-0"><HiDocumentText size={18} /></span>
+                      className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-[#f2a624]/6 border border-[#f2a624]/18 hover:bg-[#f2a624]/10 transition-all active:scale-[0.98]">
+                      <span className="w-[34px] h-[34px] rounded-[10px] bg-[#f2a624]/14 flex items-center justify-center text-[#f2a624] flex-shrink-0"><HiDocumentText size={18} /></span>
                       <div className="flex-1 text-start">
                         <p className="text-[12px] font-bold text-[#f2a624] leading-none">{t('nav.profile')}</p>
                         <p className="text-[10px] mt-0.5 text-white/28">PDF</p>
@@ -730,12 +730,12 @@ const Navbar = () => {
                       <div className="grid grid-cols-2 gap-2">
                         <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
                           onClick={() => setIsOpen(false)}
-                          className="text-[11px] font-bold text-[#f2a624] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
+                          className="text-[11px] font-bold text-[#f2a624] border border-[#f2a624]/18 py-2.5 rounded-[10px] hover:bg-[#f2a624]/10 transition-colors text-center bg-white/[0.03]">
                           {tPortfolio.ar}
                         </a>
                         <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
                           onClick={() => setIsOpen(false)}
-                          className="text-[11px] font-bold text-[#f2a624] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
+                          className="text-[11px] font-bold text-[#f2a624] border border-[#f2a624]/18 py-2.5 rounded-[10px] hover:bg-[#f2a624]/10 transition-colors text-center bg-white/[0.03]">
                           {tPortfolio.en}
                         </a>
                       </div>
@@ -745,9 +745,9 @@ const Navbar = () => {
                 <Link
                   href="/admin/dashboard"
                   onClick={() => setIsOpen(false)}
-                  className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-[#C9A34D]/8 border border-[#C9A34D]/20 hover:bg-[#C9A34D]/14 transition-all active:scale-[0.98]"
+                  className="w-full flex items-center gap-3 px-3 py-[10px] rounded-[12px] bg-[#f2a624]/8 border border-[#f2a624]/20 hover:bg-[#f2a624]/14 transition-all active:scale-[0.98]"
                 >
-                  <span className="w-[34px] h-[34px] rounded-[10px] bg-[#C9A34D]/15 flex items-center justify-center text-[#f2a624] flex-shrink-0">
+                  <span className="w-[34px] h-[34px] rounded-[10px] bg-[#f2a624]/15 flex items-center justify-center text-[#f2a624] flex-shrink-0">
                     <LayoutDashboard size={17} />
                   </span>
                   <div className="flex-1 text-start">
@@ -785,12 +785,12 @@ const Navbar = () => {
                     <div className="grid grid-cols-2 gap-2">
                       <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
                         onClick={() => setIsOpen(false)}
-                        className="text-[11px] font-bold text-[#f2a624] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
+                        className="text-[11px] font-bold text-[#f2a624] border border-[#f2a624]/18 py-2.5 rounded-[10px] hover:bg-[#f2a624]/10 transition-colors text-center bg-white/[0.03]">
                         {tPortfolio.ar}
                       </a>
                       <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
                         onClick={() => setIsOpen(false)}
-                        className="text-[11px] font-bold text-[#f2a624] border border-[#D5B25D]/18 py-2.5 rounded-[10px] hover:bg-[#D5B25D]/10 transition-colors text-center bg-white/[0.03]">
+                        className="text-[11px] font-bold text-[#f2a624] border border-[#f2a624]/18 py-2.5 rounded-[10px] hover:bg-[#f2a624]/10 transition-colors text-center bg-white/[0.03]">
                         {tPortfolio.en}
                       </a>
                     </div>

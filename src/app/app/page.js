@@ -231,7 +231,7 @@ const C = {
   },
 };
 
-const FEAT_COLORS = ["#C9A34D", "#60a5fa", "#34d399", "#f472b6"];
+const FEAT_COLORS = ["#f2a624", "#60a5fa", "#34d399", "#f472b6"];
 
 /* ─── Apple Icon ──────────────────────────────────────────── */
 function AppleIcon({ size = 22, color = "currentColor" }) {
@@ -309,7 +309,7 @@ export default function AppPage() {
           <div className="absolute inset-0" style={{ background: "linear-gradient(135deg,rgba(4,13,24,0.45) 0%,rgba(7,22,38,0.30) 50%,rgba(4,13,24,0.50) 100%)" }} />
           {/* Top border line */}
           <div className="absolute top-0 left-0 w-full h-[2px]"
-            style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.5),transparent)" }} />
+            style={{ background: "linear-gradient(90deg,transparent,rgba(242,166,36,0.5),transparent)" }} />
         </div>
 
         <div className="relative container mx-auto px-6 max-w-7xl">
@@ -322,15 +322,15 @@ export default function AppPage() {
             <div className="relative flex-shrink-0 flex items-center justify-center lg:justify-start order-2 lg:order-1 w-full sm:w-auto">
 
               {/* Background glow rings — hidden on mobile to prevent overflow */}
-              <div className="absolute w-[420px] h-[420px] rounded-full border border-[#C9A34D]/8 pointer-events-none hidden sm:block" />
-              <div className="absolute w-[320px] h-[320px] rounded-full border border-[#C9A34D]/12 pointer-events-none hidden sm:block" />
+              <div className="absolute w-[420px] h-[420px] rounded-full border border-[#f2a624]/8 pointer-events-none hidden sm:block" />
+              <div className="absolute w-[320px] h-[320px] rounded-full border border-[#f2a624]/12 pointer-events-none hidden sm:block" />
               <div className="absolute inset-0 pointer-events-none"
-                style={{ background: "radial-gradient(circle at center, rgba(201,163,77,0.13) 0%, transparent 65%)" }} />
+                style={{ background: "radial-gradient(circle at center, rgba(242,166,36,0.13) 0%, transparent 65%)" }} />
 
               {/* Floating card — top right */}
-              <div className="absolute -top-6 -right-8 z-20 bg-[#0a1828]/90 border border-[#C9A34D]/25 rounded-2xl px-4 py-3 backdrop-blur-md shadow-2xl hidden sm:block">
+              <div className="absolute -top-6 -right-8 z-20 bg-[#0a1828]/90 border border-[#f2a624]/25 rounded-2xl px-4 py-3 backdrop-blur-md shadow-2xl hidden sm:block">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-[#C9A34D]/15 border border-[#C9A34D]/25 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-xl bg-[#f2a624]/15 border border-[#f2a624]/25 flex items-center justify-center flex-shrink-0">
                     <BarChart3 size={14} className="text-[#f2a624]" />
                   </div>
                   <div>
@@ -339,7 +339,7 @@ export default function AppPage() {
                   </div>
                 </div>
                 <div className="mt-2.5 h-1.5 bg-white/8 rounded-full overflow-hidden">
-                  <div className="h-full w-3/4 bg-[#C9A34D] rounded-full" />
+                  <div className="h-full w-3/4 bg-[#f2a624] rounded-full" />
                 </div>
               </div>
 
@@ -360,13 +360,13 @@ export default function AppPage() {
               <div className="relative z-10">
                 {/* Outer glow */}
                 <div className="absolute inset-[-18px] rounded-[2.8rem] pointer-events-none"
-                  style={{ background: "radial-gradient(ellipse at center, rgba(201,163,77,0.18) 0%, transparent 70%)" }} />
+                  style={{ background: "radial-gradient(ellipse at center, rgba(242,166,36,0.18) 0%, transparent 70%)" }} />
                 {/* Frame border */}
                 <div
                   className="relative rounded-[1.6rem] sm:rounded-[2.4rem] p-[4px] sm:p-[5px]"
                   style={{
-                    background: "linear-gradient(145deg,rgba(201,163,77,0.55) 0%,rgba(201,163,77,0.10) 40%,rgba(255,255,255,0.06) 60%,rgba(201,163,77,0.35) 100%)",
-                    boxShadow: "0 30px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(201,163,77,0.15) inset, 0 8px 32px rgba(201,163,77,0.12)",
+                    background: "linear-gradient(145deg,rgba(242,166,36,0.55) 0%,rgba(242,166,36,0.10) 40%,rgba(255,255,255,0.06) 60%,rgba(242,166,36,0.35) 100%)",
+                    boxShadow: "0 30px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(242,166,36,0.15) inset, 0 8px 32px rgba(242,166,36,0.12)",
                   }}
                 >
                   {/* Inner container with rounded clip */}
@@ -391,8 +391,8 @@ export default function AppPage() {
             <div className={`flex-1 ${ta} order-1 lg:order-2`} dir={isRTL ? "rtl" : "ltr"}>
 
               {/* Badge */}
-              <div className="inline-flex items-center gap-2.5 border border-[#C9A34D]/35 bg-[#C9A34D]/8 backdrop-blur-sm rounded-full px-5 py-2 mb-3 sm:mb-8">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#C9A34D] animate-pulse block" />
+              <div className="inline-flex items-center gap-2.5 border border-[#f2a624]/35 bg-[#f2a624]/8 backdrop-blur-sm rounded-full px-5 py-2 mb-3 sm:mb-8">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#f2a624] animate-pulse block" />
                 <span className="text-[#f2a624] text-[11px] font-bold tracking-[0.2em] uppercase">{c.badge}</span>
               </div>
 
@@ -404,7 +404,7 @@ export default function AppPage() {
                   <span className="text-[#f2a624]">{c.title2}</span>
                   <span
                     className="absolute left-0 -bottom-2 w-full h-[3px] rounded-full"
-                    style={{ background: "linear-gradient(90deg,#C9A34D,rgba(201,163,77,0.2))" }}
+                    style={{ background: "linear-gradient(90deg,#f2a624,rgba(242,166,36,0.2))" }}
                   />
                 </span>
               </h1>
@@ -457,7 +457,7 @@ export default function AppPage() {
               <div className={`flex items-center gap-3 mb-2 sm:mb-12 ${isRTL ? "flex-row-reverse justify-end" : ""}`}>
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={14} className="text-[#f2a624] fill-[#C9A34D]" />
+                    <Star key={i} size={14} className="text-[#f2a624] fill-[#f2a624]" />
                   ))}
                 </div>
                 <span className="text-white/40 text-xs sm:text-sm font-medium">{c.ratingLabel}</span>
@@ -485,7 +485,7 @@ export default function AppPage() {
       <section className={`py-16 sm:py-20 lg:py-28 relative overflow-hidden ${isLightMode ? 'bg-[#f0f4f8]' : ''}`}>
         {/* Separator line */}
         <div className="absolute top-0 left-0 w-full h-[1px]"
-          style={{ background: "linear-gradient(90deg,transparent,rgba(201,163,77,0.2),transparent)" }} />
+          style={{ background: "linear-gradient(90deg,transparent,rgba(242,166,36,0.2),transparent)" }} />
         {/* Background tint — dark mode only */}
         {!isLightMode && (
           <div className="absolute inset-0"
@@ -496,8 +496,8 @@ export default function AppPage() {
 
           {/* Section header */}
           <div className={`${ta} mb-10 lg:mb-16`}>
-            <div className="inline-flex items-center gap-2.5 border border-[#C9A34D]/25 bg-[#C9A34D]/6 rounded-full px-5 py-2 mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#C9A34D] animate-pulse block" />
+            <div className="inline-flex items-center gap-2.5 border border-[#f2a624]/25 bg-[#f2a624]/6 rounded-full px-5 py-2 mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f2a624] animate-pulse block" />
               <span className="text-[#f2a624] text-[11px] font-bold tracking-[0.2em] uppercase">{c.featuresBadge}</span>
             </div>
             <h2 className={`text-3xl sm:text-4xl md:text-5xl font-black ${isLightMode ? 'text-[#1e293b]' : 'text-white'}`}>{c.featuresTitle}</h2>
@@ -560,16 +560,16 @@ export default function AppPage() {
         {!isLightMode && <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0d1526] to-black" />}
         {!isLightMode && (
           <div className="absolute inset-0 opacity-10"
-            style={{ backgroundImage: "radial-gradient(circle at 30% 50%, #D5B25D 0%, transparent 60%), radial-gradient(circle at 70% 30%, #B8923A 0%, transparent 50%)" }} />
+            style={{ backgroundImage: "radial-gradient(circle at 30% 50%, #f2a624 0%, transparent 60%), radial-gradient(circle at 70% 30%, #de8e0d 0%, transparent 50%)" }} />
         )}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#D5B25D]/10 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#f2a624]/10 rounded-full blur-[100px] pointer-events-none" />
         <div className={`absolute inset-0 ${isLightMode ? 'opacity-[0.07]' : 'opacity-[0.04]'}`}
-          style={{ backgroundImage: "linear-gradient(to right, #D5B25D 1px, transparent 1px), linear-gradient(to bottom, #D5B25D 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+          style={{ backgroundImage: "linear-gradient(to right, #f2a624 1px, transparent 1px), linear-gradient(to bottom, #f2a624 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
 
         <div className="relative z-10 container mx-auto max-w-4xl text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2.5 bg-[#C9A34D]/10 border border-[#C9A34D]/25 rounded-full px-5 py-2 mb-8">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C9A34D] animate-pulse block" />
+          <div className="inline-flex items-center gap-2.5 bg-[#f2a624]/10 border border-[#f2a624]/25 rounded-full px-5 py-2 mb-8">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#f2a624] animate-pulse block" />
             <span className="text-[#f2a624] text-[11px] font-bold tracking-[0.2em] uppercase">{c.ctaBadge}</span>
           </div>
 

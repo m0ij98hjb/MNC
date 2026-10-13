@@ -108,7 +108,7 @@ const Footer = () => {
     alignItems: "center",
     justifyContent: "center",
     border: isLightMode ? "1px solid rgba(15,23,42,0.12)" : "1px solid rgba(255,255,255,0.1)",
-    color: isLightMode ? "#A8832B" : "#B8923A",
+    color: isLightMode ? "#de8e0d" : "#de8e0d",
     textDecoration: "none",
   };
 
@@ -134,7 +134,7 @@ const Footer = () => {
       dir={isRTL ? "rtl" : "ltr"}
     >
       {/* ── TOP DIVIDER ─────────────────────────────── */}
-      <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-[#B8923A] to-transparent" />
+      <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-[#de8e0d] to-transparent" />
 
       {/* ── MAIN CONTENT ────────────────────────────── */}
       <div className="max-w-7xl mx-auto px-6 py-14">
@@ -186,7 +186,7 @@ const Footer = () => {
             <h4 className="text-[var(--secondary)] font-bold text-sm tracking-widest uppercase">
               {t("footer.quickLinks")}
             </h4>
-            <div className="w-8 h-[2px] bg-gradient-to-r from-[#B8923A] to-transparent" />
+            <div className="w-8 h-[2px] bg-gradient-to-r from-[#de8e0d] to-transparent" />
             <ul className="flex flex-col gap-3">
               {links.company.map((l) => (
                 <li key={l.label}>
@@ -200,7 +200,7 @@ const Footer = () => {
                   >
                     <span className={`w-1 h-1 rounded-full transition-colors shrink-0
                       ${l.gold
-                        ? 'bg-[#C9A34D] group-hover:bg-[#E1BF67]'
+                        ? 'bg-[#f2a624] group-hover:bg-[#f2a624]'
                         : 'bg-[var(--secondary)]/40 group-hover:bg-[var(--secondary)]'
                       }`}
                     />
@@ -216,7 +216,7 @@ const Footer = () => {
             <h4 className="text-[var(--secondary)] font-bold text-sm tracking-widest uppercase">
               {t("footer.services")}
             </h4>
-            <div className="w-8 h-[2px] bg-gradient-to-r from-[#B8923A] to-transparent" />
+            <div className="w-8 h-[2px] bg-gradient-to-r from-[#de8e0d] to-transparent" />
             <ul className="flex flex-col gap-3">
               {links.services.map((s) => (
                 <li
@@ -243,7 +243,7 @@ const Footer = () => {
             {t("footer.rightsReserved")}
           </p>
           <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#B8923A] animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#de8e0d] animate-pulse" />
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--secondary)] animate-pulse" />
             <span className="text-[var(--foreground)] text-xs">
               {t("footer.location")}

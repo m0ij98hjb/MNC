@@ -88,12 +88,12 @@ function RequestsContent() {
           <Search size={15} className="absolute start-3 top-1/2 -translate-y-1/2 text-white/30" />
           <input value={search} onChange={e => setSearch(e.target.value)}
             placeholder={t('purchasing.searchRequestsPlaceholder')}
-            className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 ps-9 pe-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#c8a96e]/40" />
+            className="w-full bg-white/5 border border-white/10 rounded-xl py-2.5 ps-9 pe-3 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#f2a624]/40" />
         </div>
         <div className="flex gap-2 flex-wrap">
           {DATE_PRESETS.map(p => (
             <button key={p} onClick={() => setDatePreset(p)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border ${datePreset === p ? 'bg-[#c8a96e] border-[#c8a96e] text-black' : 'border-white/10 text-white/50 hover:text-white'}`}>
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border ${datePreset === p ? 'bg-[#f2a624] border-[#f2a624] text-black' : 'border-white/10 text-white/50 hover:text-white'}`}>
               {t(`purchasing.datePreset_${p}`)}
             </button>
           ))}
@@ -102,12 +102,12 @@ function RequestsContent() {
 
       <div className="flex gap-2 flex-wrap mb-6">
         <button onClick={() => setTab('all')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border ${tab === 'all' ? 'bg-[#c8a96e] border-[#c8a96e] text-black' : 'border-white/10 text-white/50 hover:text-white'}`}>
+          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border ${tab === 'all' ? 'bg-[#f2a624] border-[#f2a624] text-black' : 'border-white/10 text-white/50 hover:text-white'}`}>
           {t('admin.allStatuses')}
         </button>
         {DASHBOARD_TABS.map(s => (
           <button key={s} onClick={() => setTab(s)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border ${tab === s ? 'bg-[#c8a96e] border-[#c8a96e] text-black' : 'border-white/10 text-white/50 hover:text-white'}`}>
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border ${tab === s ? 'bg-[#f2a624] border-[#f2a624] text-black' : 'border-white/10 text-white/50 hover:text-white'}`}>
             {t(STATUS_LABEL_KEYS[s])}
           </button>
         ))}

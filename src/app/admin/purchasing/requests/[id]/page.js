@@ -110,7 +110,7 @@ function ApprovalActionPanel({ request, stageConfig, currentUser, actorName, act
   };
 
   return (
-    <div className="bg-white/[0.03] border border-[#c8a96e]/25 rounded-2xl p-5 space-y-4" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="bg-white/[0.03] border border-[#f2a624]/25 rounded-2xl p-5 space-y-4" dir={isRTL ? 'rtl' : 'ltr'}>
       <h3 className="text-sm font-bold text-white flex items-center gap-2"><Info size={14} className="text-[#f2a624]" />{t('purchasing.approvalActionTitle')}</h3>
       {error && <div className="rounded-lg px-3 py-2 text-xs bg-red-500/10 border border-red-500/25 text-red-400">{error}</div>}
       {budgetExceeded && (
@@ -131,7 +131,7 @@ function ApprovalActionPanel({ request, stageConfig, currentUser, actorName, act
       <div>
         <label className="text-xs text-white/40 block mb-1.5">{t('purchasing.commentLabel')}</label>
         <textarea rows={2} value={comment} onChange={e => setComment(e.target.value)}
-          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none resize-none" />
+          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#f2a624]/50 outline-none resize-none" />
       </div>
       <div>
         <label className="text-xs text-white/40 block mb-1.5">{t('purchasing.signatureLabel')}</label>
@@ -182,7 +182,7 @@ function DeliveryReceivedPanel({ request, currentUser, actorName }) {
   };
 
   return (
-    <div className="bg-white/[0.03] border border-[#c8a96e]/25 rounded-2xl p-5 space-y-4" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="bg-white/[0.03] border border-[#f2a624]/25 rounded-2xl p-5 space-y-4" dir={isRTL ? 'rtl' : 'ltr'}>
       <h3 className="text-sm font-bold text-white flex items-center gap-2"><ShieldCheck size={14} className="text-lime-400" />{t('purchasing.deliveryConfirmedNote')}</h3>
       {request.deliveryProof?.length > 0 && (
         <div>
@@ -225,7 +225,7 @@ function RequestDetailContent({ id }) {
 
   return (
     <div className="p-6 lg:p-8 max-w-5xl mx-auto space-y-6" dir={isRTL ? 'rtl' : 'ltr'}>
-      <style>{`.purch-btn-gold{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:12px;font-size:12px;font-weight:800;background:linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e);color:#000;transition:opacity .2s} .purch-btn-gold:disabled{opacity:.5} .purch-btn-outline{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:12px;font-size:12px;font-weight:700;border:1px solid rgba(200,169,110,0.35);color:#c8a96e}`}</style>
+      <style>{`.purch-btn-gold{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:12px;font-size:12px;font-weight:800;background:linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d);color:#000;transition:opacity .2s} .purch-btn-gold:disabled{opacity:.5} .purch-btn-outline{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:12px;font-size:12px;font-weight:700;border:1px solid rgba(242,166,36,0.35);color:#f2a624}`}</style>
       <style media="print">{PRINT_AREA_CSS('purchasing-request-print-area')}</style>
 
       <Link href="/admin/purchasing/requests" className="text-xs text-[#f2a624] hover:underline flex items-center gap-1 w-fit">

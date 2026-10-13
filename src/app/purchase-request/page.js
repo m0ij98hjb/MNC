@@ -22,7 +22,7 @@ import {
 
 const SignaturePad = dynamic(() => import('@/components/purchasing/SignaturePad'), { ssr: false });
 
-const inputCls = 'w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/25 focus:border-[#c8a96e]/60 focus:bg-black/60 outline-none transition-all duration-300';
+const inputCls = 'w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/25 focus:border-[#f2a624]/60 focus:bg-black/60 outline-none transition-all duration-300';
 const labelCls = 'text-[#f2a624] text-[11px] font-black uppercase tracking-widest block mb-1.5';
 
 function emptyForm(profile, user) {
@@ -61,7 +61,7 @@ function InlineLogin() {
 
   return (
     <section className="min-h-[70vh] flex items-center justify-center py-20 px-6" dir={isRTL ? 'rtl' : 'ltr'}>
-      <form onSubmit={handleSubmit} className="w-full max-w-md bg-black/40 border border-[#c8a96e]/20 rounded-2xl p-7 sm:p-8 space-y-5">
+      <form onSubmit={handleSubmit} className="w-full max-w-md bg-black/40 border border-[#f2a624]/20 rounded-2xl p-7 sm:p-8 space-y-5">
         <div className="text-center mb-2">
           <h1 className="text-xl font-black text-white">{t('purchasing.portalLoginTitle')}</h1>
           <p className="text-sm text-white/40 mt-1.5">{t('purchasing.portalLoginSubtitle')}</p>
@@ -94,7 +94,7 @@ function InlineLogin() {
         </div>
         <button type="submit" disabled={loading}
           className="w-full py-3.5 rounded-xl text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-          style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)', color: '#000' }}>
+          style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)', color: '#000' }}>
           {loading && <Loader2 size={15} className="animate-spin" />}
           {loading ? t('admin.loggingIn') : t('admin.loginBtn')}
         </button>
@@ -316,7 +316,7 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
 
       <button type="submit" disabled={submitting}
         className="w-full py-3.5 rounded-xl text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-        style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)', color: '#000' }}>
+        style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)', color: '#000' }}>
         {submitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
         {editingRequest ? t('purchasing.resubmitRequest') : t('purchasing.submitRequest')}
       </button>
@@ -327,14 +327,14 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
           onClick={() => !submitting && setShowSignDialog(false)}
         >
           <div
-            className="w-full max-w-lg bg-[#0a0e17] border border-[#c8a96e]/25 rounded-2xl p-6 sm:p-7 space-y-5"
+            className="w-full max-w-lg bg-[#0a0e17] border border-[#f2a624]/25 rounded-2xl p-6 sm:p-7 space-y-5"
             style={{ boxShadow: '0 24px 80px rgba(0,0,0,0.9)' }}
             dir={isRTL ? 'rtl' : 'ltr'}
             onClick={e => e.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'rgba(200,169,110,0.12)' }}>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'rgba(242,166,36,0.12)' }}>
                   <PenLine size={18} className="text-[#f2a624]" />
                 </div>
                 <div>
@@ -364,7 +364,7 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
               </button>
               <button type="button" disabled={submitting || !signature || !form.requesterName.trim()} onClick={handleConfirmSignature}
                 className="flex-1 py-3 rounded-xl text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-                style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)', color: '#000' }}>
+                style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)', color: '#000' }}>
                 {submitting && <Loader2 size={15} className="animate-spin" />}
                 {t('purchasing.submitSignatureConfirm')}
               </button>
@@ -379,14 +379,14 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
           onClick={() => !submitting && setShowPmSignDialog(false)}
         >
           <div
-            className="w-full max-w-lg bg-[#0a0e17] border border-[#c8a96e]/25 rounded-2xl p-6 sm:p-7 space-y-5"
+            className="w-full max-w-lg bg-[#0a0e17] border border-[#f2a624]/25 rounded-2xl p-6 sm:p-7 space-y-5"
             style={{ boxShadow: '0 24px 80px rgba(0,0,0,0.9)' }}
             dir={isRTL ? 'rtl' : 'ltr'}
             onClick={e => e.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'rgba(200,169,110,0.12)' }}>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'rgba(242,166,36,0.12)' }}>
                   <PenLine size={18} className="text-[#f2a624]" />
                 </div>
                 <div>
@@ -416,7 +416,7 @@ function RequestForm({ profile, user, editingRequest, onDone }) {
               </button>
               <button type="button" disabled={submitting || !pmSignature || !pmName.trim()} onClick={handleConfirmPmSignature}
                 className="flex-1 py-3 rounded-xl text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-                style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)', color: '#000' }}>
+                style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)', color: '#000' }}>
                 {submitting && <Loader2 size={15} className="animate-spin" />}
                 {t('purchasing.submitSignatureConfirm')}
               </button>
@@ -475,7 +475,7 @@ function DeliveryConfirmSection({ request, user }) {
       {error && <div className="rounded-lg px-3 py-2 text-xs bg-red-500/10 border border-red-500/25 text-red-400">{error}</div>}
       <button type="button" disabled={submitting || photos.length === 0} onClick={confirmDelivery}
         className="w-full py-2.5 rounded-xl text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-        style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)', color: '#000' }}>
+        style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)', color: '#000' }}>
         {submitting && <Loader2 size={14} className="animate-spin" />}
         {t('purchasing.deliveryConfirmButton')}
       </button>
@@ -591,11 +591,11 @@ export default function PurchaseRequestPage() {
 
           <div className="flex gap-1 p-1 rounded-xl bg-white/[0.04] border border-white/[0.08] w-fit mx-auto mb-8">
             <button onClick={() => { setTab('new'); setEditingRequest(null); }}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition-all ${tab === 'new' ? 'bg-[#c8a96e] text-black' : 'text-white/45 hover:text-white'}`}>
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition-all ${tab === 'new' ? 'bg-[#f2a624] text-black' : 'text-white/45 hover:text-white'}`}>
               <FileText size={13} /> {t('purchasing.newRequestTab')}
             </button>
             <button onClick={() => { setTab('mine'); setEditingRequest(null); }}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition-all ${tab === 'mine' ? 'bg-[#c8a96e] text-black' : 'text-white/45 hover:text-white'}`}>
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold transition-all ${tab === 'mine' ? 'bg-[#f2a624] text-black' : 'text-white/45 hover:text-white'}`}>
               <ListChecks size={13} /> {t('purchasing.myRequestsTab')}
             </button>
           </div>

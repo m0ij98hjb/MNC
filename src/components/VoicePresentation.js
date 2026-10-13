@@ -123,7 +123,7 @@ export default function VoicePresentation() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              className="flex flex-col items-center gap-2 bg-[var(--card-bg)]/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-[rgba(213,178,93,0.2)]"
+              className="flex flex-col items-center gap-2 bg-[var(--card-bg)]/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-[rgba(242,166,36,0.2)]"
             >
               <input
                 type="range"
@@ -131,7 +131,7 @@ export default function VoicePresentation() {
                 max="100"
                 value={volume * 100}
                 onChange={(e) => setVolume(e.target.value / 100)}
-                className="w-20 h-1 transform -rotate-90 origin-left accent-[#D5B25D]"
+                className="w-20 h-1 transform -rotate-90 origin-left accent-[#f2a624]"
                 style={{ transformOrigin: 'left center' }}
               />
               <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
@@ -148,7 +148,7 @@ export default function VoicePresentation() {
           onMouseLeave={() => setShowVolumeControl(false)}
           whileTap={{ scale: 0.95 }}
           transition={{ type: 'spring', stiffness: 400, damping: 20, mass: 0.5 }}
-          className="relative p-5 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center cursor-pointer bg-[var(--secondary)] text-[var(--foreground)] shadow-[0_0_20px_rgba(213,178,93,0.4)]"
+          className="relative p-5 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center cursor-pointer bg-[var(--secondary)] text-[var(--foreground)] shadow-[0_0_20px_rgba(242,166,36,0.4)]"
           title={isPlaying ? t('voice.stop') : t('voice.play')}
         >
           <AnimatePresence mode="wait">

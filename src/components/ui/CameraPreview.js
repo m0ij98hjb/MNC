@@ -71,7 +71,7 @@ function HlsPlayer({ url, onError }) {
 /* ── Blueprint placeholder ──────────────────────────────────────────────── */
 
 function Placeholder({ children, isLight }) {
-  const line = isLight ? "rgba(184,146,58,0.10)" : "rgba(213,178,93,0.045)";
+  const line = isLight ? "rgba(222,142,13,0.10)" : "rgba(242,166,36,0.045)";
   return (
     <div className={`keep-dark relative flex flex-col items-center justify-center w-full h-full gap-3 p-6 ${isLight ? "bg-white" : "bg-black"}`}>
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{
@@ -227,7 +227,7 @@ export default function CameraPreview({ projectCode }) {
     return (
       <div className="w-full h-full">
         <Placeholder isLight={isLight}>
-          <Loader2 size={32} className={`animate-spin ${isLight ? "text-[#A8832B]" : "text-[#f2a624]"}`} />
+          <Loader2 size={32} className={`animate-spin ${isLight ? "text-[#de8e0d]" : "text-[#f2a624]"}`} />
           <p className={`text-xs ${isLight ? "text-[#64748b]" : "text-white/40"}`}>{t("camera.verifying")}</p>
         </Placeholder>
       </div>
@@ -260,8 +260,8 @@ export default function CameraPreview({ projectCode }) {
                 key={c.serialNumber}
                 onClick={() => switchTo(i)}
                 className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all duration-200
-                  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D5B25D]/60
-                  ${i === activeCam ? "text-[#f2a624] bg-[#D5B25D]/15" : "text-white/35 hover:text-white/60"}`}
+                  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#f2a624]/60
+                  ${i === activeCam ? "text-[#f2a624] bg-[#f2a624]/15" : "text-white/35 hover:text-white/60"}`}
               >
                 {i + 1}
               </button>
@@ -284,7 +284,7 @@ export default function CameraPreview({ projectCode }) {
                   .catch(() => setStreamError(true));
               }}
               className="flex items-center gap-1 text-[#f2a624] text-[10px] hover:text-[#f2a624] transition-colors
-                focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#D5B25D]/60 rounded px-1"
+                focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#f2a624]/60 rounded px-1"
             >
               <RefreshCw size={11} />{t("camera.retry")}
             </button>

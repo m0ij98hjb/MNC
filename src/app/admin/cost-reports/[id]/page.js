@@ -84,7 +84,7 @@ export default function CostReportDetailPage() {
               </Link>
               <button
                 onClick={() => window.print()}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#D5B25D] hover:bg-[#E1BF67] text-black font-bold text-sm transition-all"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#f2a624] hover:bg-[#f2a624] text-black font-bold text-sm transition-all"
               >
                 <Printer size={16} />
                 {t("costReports.printBtn")}
@@ -98,7 +98,7 @@ export default function CostReportDetailPage() {
             <div className="bg-[#ffffff] text-[#1e293b] rounded-2xl p-6 sm:p-10 max-w-3xl mx-auto print:rounded-none print:p-0 print:max-w-none print:mx-0 space-y-6">
 
               {/* Print-only branded header — company logo top-right (leading edge in RTL) */}
-              <div className="hidden print:flex items-start justify-between border-b-2 border-[#D5B25D] pb-4 mb-2">
+              <div className="hidden print:flex items-start justify-between border-b-2 border-[#f2a624] pb-4 mb-2">
                 <div className="flex flex-col items-end gap-1.5">
                   <Image
                     src="/asstes/ph dashborad.png"

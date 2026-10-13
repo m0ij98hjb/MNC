@@ -78,11 +78,11 @@ export default function SignaturePad({ onChange, defaultName = '' }) {
     <div className="space-y-3">
       <div className="flex gap-2">
         <button type="button" onClick={() => switchMode('drawn')}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${mode === 'drawn' ? 'bg-[#c8a96e] text-black border-[#c8a96e]' : 'text-white/50 border-white/10 hover:text-white'}`}>
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${mode === 'drawn' ? 'bg-[#f2a624] text-black border-[#f2a624]' : 'text-white/50 border-white/10 hover:text-white'}`}>
           <PenLine size={13} /> {t('purchasing.signatureDraw')}
         </button>
         <button type="button" onClick={() => switchMode('typed')}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${mode === 'typed' ? 'bg-[#c8a96e] text-black border-[#c8a96e]' : 'text-white/50 border-white/10 hover:text-white'}`}>
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${mode === 'typed' ? 'bg-[#f2a624] text-black border-[#f2a624]' : 'text-white/50 border-white/10 hover:text-white'}`}>
           <Type size={13} /> {t('purchasing.signatureType')}
         </button>
       </div>
@@ -109,7 +109,7 @@ export default function SignaturePad({ onChange, defaultName = '' }) {
             value={typedName}
             onChange={e => handleTypedChange(e.target.value)}
             placeholder={t('purchasing.signatureTypedPlaceholder')}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/25 focus:border-[#c8a96e]/50 outline-none transition-all"
+            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/25 focus:border-[#f2a624]/50 outline-none transition-all"
             style={{ fontFamily: 'cursive', fontSize: '20px' }}
           />
           <p className="text-[11px] text-white/30">{t('purchasing.signatureConfirmText')}</p>

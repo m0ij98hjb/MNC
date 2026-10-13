@@ -15,7 +15,7 @@ export function Field({ label, value, onChange, type = 'text', placeholder = '',
         value={value ?? ''}
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full px-3 py-2.5 rounded-xl text-sm text-white bg-white/[0.04] border border-white/10 focus:border-[#c8a96e]/50 focus:outline-none transition-colors placeholder:text-white/15"
+        className="w-full px-3 py-2.5 rounded-xl text-sm text-white bg-white/[0.04] border border-white/10 focus:border-[#f2a624]/50 focus:outline-none transition-colors placeholder:text-white/15"
       />
     </div>
   );
@@ -31,7 +31,7 @@ export function TextArea({ label, value, onChange, rows = 3, placeholder = '', c
         onChange={e => onChange(e.target.value)}
         rows={rows}
         placeholder={placeholder}
-        className="w-full px-3 py-2.5 rounded-xl text-sm text-white bg-white/[0.04] border border-white/10 focus:border-[#c8a96e]/50 focus:outline-none transition-colors placeholder:text-white/15 resize-none"
+        className="w-full px-3 py-2.5 rounded-xl text-sm text-white bg-white/[0.04] border border-white/10 focus:border-[#f2a624]/50 focus:outline-none transition-colors placeholder:text-white/15 resize-none"
       />
     </div>
   );
@@ -61,9 +61,9 @@ export function SaveBtn({ saving, saved, onClick, label }) {
       disabled={saving}
       className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 disabled:opacity-60"
       style={{
-        background: saved ? 'rgba(34,197,94,0.10)' : 'rgba(201,163,77,0.10)',
-        border: `1px solid ${saved ? 'rgba(34,197,94,0.40)' : 'rgba(201,163,77,0.35)'}`,
-        color: saved ? '#22c55e' : '#c8a96e',
+        background: saved ? 'rgba(34,197,94,0.10)' : 'rgba(242,166,36,0.10)',
+        border: `1px solid ${saved ? 'rgba(34,197,94,0.40)' : 'rgba(242,166,36,0.35)'}`,
+        color: saved ? '#22c55e' : '#f2a624',
       }}
     >
       {saving ? <Loader2 size={14} className="animate-spin" />
@@ -117,7 +117,7 @@ export function ImageUpload({ label, value, onChange, className = '' }) {
           onClick={() => ref.current?.click()}
           disabled={uploading}
           className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold transition-all disabled:opacity-50 flex-shrink-0"
-          style={{ background: 'rgba(201,163,77,0.08)', border: '1px solid rgba(201,163,77,0.25)', color: '#f2a624' }}
+          style={{ background: 'rgba(242,166,36,0.08)', border: '1px solid rgba(242,166,36,0.25)', color: '#f2a624' }}
         >
           {uploading ? <Loader2 size={12} className="animate-spin" /> : <Upload size={12} />}
           {uploading ? t('admin.contentTabs.shared.uploading') : value ? t('admin.contentTabs.shared.change') : t('admin.contentTabs.shared.uploadImage')}
@@ -144,7 +144,7 @@ export function ListEditor({ label, items = [], onChange }) {
             <input
               value={item}
               onChange={e => update(i, e.target.value)}
-              className="flex-1 px-3 py-2 rounded-xl text-sm text-white bg-white/[0.04] border border-white/10 focus:border-[#c8a96e]/50 focus:outline-none transition-colors"
+              className="flex-1 px-3 py-2 rounded-xl text-sm text-white bg-white/[0.04] border border-white/10 focus:border-[#f2a624]/50 focus:outline-none transition-colors"
             />
             <button type="button" onClick={() => remove(i)} className="text-red-400/50 hover:text-red-400 transition-colors flex-shrink-0">
               <X size={14} />

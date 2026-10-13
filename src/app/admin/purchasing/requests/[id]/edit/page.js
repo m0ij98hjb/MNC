@@ -15,7 +15,7 @@ import { PRIORITY, PRIORITY_LABEL_KEYS } from '@/lib/purchasingConfig';
 import { Loader2, Save, ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
-const inputCls = 'w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/25 focus:border-[#c8a96e]/60 focus:bg-black/20 outline-none transition-all';
+const inputCls = 'w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/25 focus:border-[#f2a624]/60 focus:bg-black/20 outline-none transition-all';
 const labelCls = 'text-[#f2a624] text-[11px] font-black uppercase tracking-widest block mb-1.5';
 
 function EditRequestContent({ id }) {
@@ -137,7 +137,7 @@ function EditRequestContent({ id }) {
         <div className="flex gap-3">
           <button type="submit" disabled={saving}
             className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-black uppercase tracking-widest disabled:opacity-50"
-            style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)', color: '#000' }}>
+            style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)', color: '#000' }}>
             {saving ? <Loader2 size={15} className="animate-spin" /> : <Save size={15} />} {t('admin.saveChangesBtn')}
           </button>
           <Link href={`/admin/purchasing/requests/${id}`} className="flex items-center px-5 py-3 rounded-xl text-sm font-bold text-white/60 border border-white/10 hover:text-white hover:border-white/20 transition-all">

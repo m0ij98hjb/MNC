@@ -215,7 +215,7 @@ export default function DashboardPage() {
           <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl overflow-hidden">
             <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.07]">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-[#c8a96e]/12 border border-[#c8a96e]/20 flex items-center justify-center">
+                <div className="w-7 h-7 rounded-lg bg-[#f2a624]/12 border border-[#f2a624]/20 flex items-center justify-center">
                   <Briefcase size={13} className="text-[#f2a624]" />
                 </div>
                 <h2 className="text-sm font-semibold text-white">{t('admin.latestJobs')}</h2>

@@ -70,7 +70,7 @@ export default function AttachmentsUploader({ pathPrefix, attachments, onChange,
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-[#c8a96e]/30 text-[#f2a624] hover:bg-[#c8a96e]/10 transition-all disabled:opacity-50"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-[#f2a624]/30 text-[#f2a624] hover:bg-[#f2a624]/10 transition-all disabled:opacity-50"
         >
           {uploading ? <Loader2 size={15} className="animate-spin" /> : <Upload size={15} />}
           {uploading ? t('purchasing.uploading') : t('purchasing.uploadAttachments')}

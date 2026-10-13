@@ -53,7 +53,7 @@ export default function ProjectEditorModal({ project, onClose, onSave, saving, e
     <div className="fixed inset-0 z-[300] flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.75)' }} onClick={onClose}>
       <div
         className="w-full max-w-2xl rounded-2xl p-6 space-y-5 overflow-y-auto max-h-[90vh]"
-        style={{ background: '#0a0e17', border: '1px solid rgba(201,163,77,0.2)', boxShadow: '0 24px 80px rgba(0,0,0,0.9)' }}
+        style={{ background: '#0a0e17', border: '1px solid rgba(242,166,36,0.2)', boxShadow: '0 24px 80px rgba(0,0,0,0.9)' }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
@@ -81,7 +81,7 @@ export default function ProjectEditorModal({ project, onClose, onSave, saving, e
               <select
                 value={form.category}
                 onChange={(e) => set('category', e.target.value)}
-                className="w-full px-3 py-2.5 rounded-xl text-sm text-white bg-white/[0.04] border border-white/10 focus:border-[#c8a96e]/50 focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl text-sm text-white bg-white/[0.04] border border-white/10 focus:border-[#f2a624]/50 focus:outline-none"
               >
                 {PROJECT_CATEGORY_IDS.map((id) => (
                   <option key={id} value={id} className="bg-[#0a0e17]">
@@ -95,7 +95,7 @@ export default function ProjectEditorModal({ project, onClose, onSave, saving, e
               <select
                 value={form.constructionStatus}
                 onChange={(e) => set('constructionStatus', e.target.value)}
-                className="w-full px-3 py-2.5 rounded-xl text-sm text-white bg-white/[0.04] border border-white/10 focus:border-[#c8a96e]/50 focus:outline-none"
+                className="w-full px-3 py-2.5 rounded-xl text-sm text-white bg-white/[0.04] border border-white/10 focus:border-[#f2a624]/50 focus:outline-none"
               >
                 <option value="ongoing" className="bg-[#0a0e17]">{t('admin.contentTabs.projectsTab.statusOngoing')}</option>
                 <option value="completed" className="bg-[#0a0e17]">{t('admin.contentTabs.projectsTab.statusCompleted')}</option>
@@ -156,7 +156,7 @@ export default function ProjectEditorModal({ project, onClose, onSave, saving, e
                     type="button"
                     onClick={() => toggleService(slug)}
                     className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                      active ? 'bg-[#c8a96e]/12 text-[#f2a624] border border-[#c8a96e]/30' : 'text-white/35 border border-white/10 hover:text-white/60'
+                      active ? 'bg-[#f2a624]/12 text-[#f2a624] border border-[#f2a624]/30' : 'text-white/35 border border-white/10 hover:text-white/60'
                     }`}
                   >
                     {title}
@@ -183,7 +183,7 @@ export default function ProjectEditorModal({ project, onClose, onSave, saving, e
           />
           <Grid2>
             <label className="flex items-center gap-2 text-sm text-white/70">
-              <input type="checkbox" checked={form.featured} onChange={(e) => set('featured', e.target.checked)} className="accent-[#c8a96e]" />
+              <input type="checkbox" checked={form.featured} onChange={(e) => set('featured', e.target.checked)} className="accent-[#f2a624]" />
               {t('admin.contentTabs.projectsTab.featuredLabel')}
             </label>
             <Field label={t('admin.contentTabs.projectsTab.orderLabel')} value={form.order} onChange={(v) => set('order', Number(v) || 0)} type="number" />
@@ -197,7 +197,7 @@ export default function ProjectEditorModal({ project, onClose, onSave, saving, e
             onClick={handleSubmit}
             disabled={saving || !form.name_ar || !form.name_en || !form.slug}
             className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold transition-all disabled:opacity-50"
-            style={{ background: 'rgba(201,163,77,0.12)', border: '1px solid rgba(201,163,77,0.35)', color: '#f2a624' }}
+            style={{ background: 'rgba(242,166,36,0.12)', border: '1px solid rgba(242,166,36,0.35)', color: '#f2a624' }}
           >
             {saving && <Loader2 size={14} className="animate-spin" />}
             {t('admin.contentTabs.projectsTab.confirmBtn')}

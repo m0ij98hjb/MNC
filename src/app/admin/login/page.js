@@ -42,7 +42,7 @@ export default function AdminLoginPage() {
     >
       <style>{`
         .login-input { transition: border-color 0.2s, box-shadow 0.2s; }
-        .login-input:focus { border-color: #B8923A !important; box-shadow: 0 0 0 3px rgba(213,178,93,0.18) !important; outline: none; }
+        .login-input:focus { border-color: #de8e0d !important; box-shadow: 0 0 0 3px rgba(242,166,36,0.18) !important; outline: none; }
       `}</style>
 
       {/* ── Faint gold grid (same blueprint motif as the site) ── */}
@@ -51,7 +51,7 @@ export default function AdminLoginPage() {
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(184,146,58,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(184,146,58,0.07) 1px,transparent 1px)',
+            'linear-gradient(rgba(222,142,13,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(222,142,13,0.07) 1px,transparent 1px)',
           backgroundSize: '64px 64px',
           maskImage: 'radial-gradient(ellipse at center, #000 30%, transparent 75%)',
           WebkitMaskImage: 'radial-gradient(ellipse at center, #000 30%, transparent 75%)',
@@ -62,7 +62,7 @@ export default function AdminLoginPage() {
       <div
         aria-hidden="true"
         className="absolute top-0 inset-x-0 h-[3px] pointer-events-none"
-        style={{ background: 'linear-gradient(90deg,transparent,#B8923A 35%,#D5B25D 50%,#B8923A 65%,transparent)' }}
+        style={{ background: 'linear-gradient(90deg,transparent,#de8e0d 35%,#f2a624 50%,#de8e0d 65%,transparent)' }}
       />
 
       <div className="relative z-10 w-full max-w-[420px] px-5 py-10">
@@ -78,7 +78,7 @@ export default function AdminLoginPage() {
             priority
           />
 
-          <div className="flex items-center gap-2 rounded-full px-4 py-1.5 mb-3 bg-[#D5B25D]/10 border border-[#D5B25D]/30">
+          <div className="flex items-center gap-2 rounded-full px-4 py-1.5 mb-3 bg-[#f2a624]/10 border border-[#f2a624]/30">
             <ShieldCheck size={13} className="text-[#f2a624]" />
             <span className="text-[11px] font-black uppercase tracking-[2px] text-[#f2a624]">
               {t('admin.loginTitle')}
@@ -160,7 +160,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-1 py-3.5 rounded-xl text-[13px] font-black tracking-[2px] uppercase flex items-center justify-center gap-2.5 bg-[#D5B25D] text-[#0f172a] hover:bg-[#C9A34D] shadow-[0_10px_24px_-10px_rgba(184,146,58,0.55)] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
+            className="w-full mt-1 py-3.5 rounded-xl text-[13px] font-black tracking-[2px] uppercase flex items-center justify-center gap-2.5 bg-[#f2a624] text-[#0f172a] hover:bg-[#f2a624] shadow-[0_10px_24px_-10px_rgba(222,142,13,0.55)] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
           >
             {loading && <Loader2 size={15} className="animate-spin" />}
             {loading ? t('admin.loggingIn') : t('admin.loginBtn')}

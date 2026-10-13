@@ -35,7 +35,7 @@ export default function PurchasingSubNav() {
           const active = pathname === href;
           return (
             <Link key={href} href={href}
-              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${active ? 'bg-[#c8a96e] text-black' : 'text-white/45 hover:text-white'}`}>
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${active ? 'bg-[#f2a624] text-black' : 'text-white/45 hover:text-white'}`}>
               <Icon size={13} /> {t(labelKey)}
             </Link>
           );

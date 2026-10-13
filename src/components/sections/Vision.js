@@ -84,8 +84,8 @@ const Vision = () => {
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(213,178,93,0.035) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(213,178,93,0.035) 1px, transparent 1px)
+            linear-gradient(rgba(242,166,36,0.035) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(242,166,36,0.035) 1px, transparent 1px)
           `,
           backgroundSize: "64px 64px",
         }}
@@ -93,10 +93,10 @@ const Vision = () => {
 
       {/* ── Ambient glows ───────────────────────────────────────────────── */}
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D5B25D]/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D5B25D]/10 to-transparent" />
-        <div className="absolute top-1/3 right-0 w-[600px] h-[600px] rounded-full bg-[#D5B25D]/[0.04] blur-[140px] -translate-y-1/2 translate-x-1/3" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#D5B25D]/[0.03] blur-[100px] translate-y-1/3 -translate-x-1/4" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f2a624]/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f2a624]/10 to-transparent" />
+        <div className="absolute top-1/3 right-0 w-[600px] h-[600px] rounded-full bg-[#f2a624]/[0.04] blur-[140px] -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#f2a624]/[0.03] blur-[100px] translate-y-1/3 -translate-x-1/4" />
       </div>
 
       <div className="container mx-auto px-6 max-w-6xl relative z-10">
@@ -106,14 +106,14 @@ const Vision = () => {
 
           {/* Eyebrow */}
           <div className={`inline-flex items-center gap-3 mb-5 ${isRTL ? 'flex-row' : 'flex-row-reverse'}`}>
-            <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#D5B25D]" />
+            <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#f2a624]" />
             <span className="text-[#f2a624] font-bold tracking-[0.2em] uppercase text-[11px]">
               {{ ar: "رؤية وخبرة", en: "Vision & Expertise", zh: "愿景与专长",
                  es: "Visión y experiencia", fr: "Vision et expertise",
                  de: "Vision & Expertise", tr: "Vizyon & Uzmanlık", ur: "وژن اور مہارت",
                  hi: "दृष्टि और विशेषज्ञता", ru: "Видение и опыт" }[lang] || "Vision & Expertise"}
             </span>
-            <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#D5B25D]" />
+            <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#f2a624]" />
           </div>
 
           {/* Title */}
@@ -137,7 +137,7 @@ const Vision = () => {
           </h2>
 
           {/* Gold underline */}
-          <div className={`h-1 w-16 rounded-full bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] ${isRTL ? 'mr-0' : 'ml-0'}`} data-aos="fade-up" data-aos-delay="150" />
+          <div className={`h-1 w-16 rounded-full bg-gradient-to-r from-[#f2a624] to-[#f2a624] ${isRTL ? 'mr-0' : 'ml-0'}`} data-aos="fade-up" data-aos-delay="150" />
 
           {/* Description */}
           <p className="mt-6 text-white/50 text-base md:text-lg leading-relaxed max-w-2xl" data-aos="fade-up" data-aos-delay="200">
@@ -191,36 +191,36 @@ const Vision = () => {
           ].map((card) => (
             <div
               key={card.num}
-              className="group relative rounded-2xl p-7 overflow-hidden transition-all duration-500 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5B25D]/60"
+              className="group relative rounded-2xl p-7 overflow-hidden transition-all duration-500 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f2a624]/60"
               tabIndex={0}
               style={{
                 background: "rgba(255,255,255,0.025)",
-                border: "1px solid rgba(213,178,93,0.1)",
+                border: "1px solid rgba(242,166,36,0.1)",
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = "rgba(213,178,93,0.05)";
-                e.currentTarget.style.border = "1px solid rgba(213,178,93,0.25)";
-                e.currentTarget.style.boxShadow = "0 0 40px rgba(213,178,93,0.08), 0 20px 60px rgba(0,0,0,0.4)";
+                e.currentTarget.style.background = "rgba(242,166,36,0.05)";
+                e.currentTarget.style.border = "1px solid rgba(242,166,36,0.25)";
+                e.currentTarget.style.boxShadow = "0 0 40px rgba(242,166,36,0.08), 0 20px 60px rgba(0,0,0,0.4)";
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.background = "rgba(255,255,255,0.025)";
-                e.currentTarget.style.border = "1px solid rgba(213,178,93,0.1)";
+                e.currentTarget.style.border = "1px solid rgba(242,166,36,0.1)";
                 e.currentTarget.style.boxShadow = "none";
               }}
               data-aos="fade-up"
               data-aos-delay={card.delay}
             >
               {/* Top accent line */}
-              <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-[#D5B25D]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-[#f2a624]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               {/* Corner brackets */}
               <span aria-hidden="true"
                 className={`absolute top-3 w-4 h-4 transition-colors duration-500 ${isRTL ? 'right-3' : 'left-3'}`}
-                style={{ borderTop: '1px solid rgba(213,178,93,0.3)', [isRTL ? 'borderRight' : 'borderLeft']: '1px solid rgba(213,178,93,0.3)' }}
+                style={{ borderTop: '1px solid rgba(242,166,36,0.3)', [isRTL ? 'borderRight' : 'borderLeft']: '1px solid rgba(242,166,36,0.3)' }}
               />
               <span aria-hidden="true"
                 className={`absolute bottom-3 w-4 h-4 transition-colors duration-500 ${isRTL ? 'left-3' : 'right-3'}`}
-                style={{ borderBottom: '1px solid rgba(213,178,93,0.3)', [isRTL ? 'borderLeft' : 'borderRight']: '1px solid rgba(213,178,93,0.3)' }}
+                style={{ borderBottom: '1px solid rgba(242,166,36,0.3)', [isRTL ? 'borderLeft' : 'borderRight']: '1px solid rgba(242,166,36,0.3)' }}
               />
 
               {/* Number watermark */}
@@ -230,8 +230,8 @@ const Vision = () => {
 
               {/* Gold pill label */}
               <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full"
-                style={{ background: "rgba(213,178,93,0.1)", border: "1px solid rgba(213,178,93,0.2)" }}>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D5B25D]" />
+                style={{ background: "rgba(242,166,36,0.1)", border: "1px solid rgba(242,166,36,0.2)" }}>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#f2a624]" />
                 <span className="text-[#f2a624] text-[11px] font-bold tracking-widest uppercase">
                   {tx(card.label)}
                 </span>
@@ -242,7 +242,7 @@ const Vision = () => {
               </p>
 
               {/* Bottom accent */}
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D5B25D]/0 to-transparent group-hover:via-[#D5B25D]/20 transition-all duration-500" />
+              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#f2a624]/0 to-transparent group-hover:via-[#f2a624]/20 transition-all duration-500" />
             </div>
           ))}
         </div>
@@ -252,26 +252,26 @@ const Vision = () => {
           {VALUES.map((val, i) => (
             <div
               key={i}
-              className="group flex items-start gap-4 rounded-xl p-5 transition-all duration-400 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5B25D]/60"
+              className="group flex items-start gap-4 rounded-xl p-5 transition-all duration-400 cursor-default focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f2a624]/60"
               tabIndex={0}
               style={{
                 background: "rgba(255,255,255,0.015)",
-                border: "1px solid rgba(213,178,93,0.07)",
+                border: "1px solid rgba(242,166,36,0.07)",
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = "rgba(213,178,93,0.04)";
-                e.currentTarget.style.border = "1px solid rgba(213,178,93,0.18)";
+                e.currentTarget.style.background = "rgba(242,166,36,0.04)";
+                e.currentTarget.style.border = "1px solid rgba(242,166,36,0.18)";
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.background = "rgba(255,255,255,0.015)";
-                e.currentTarget.style.border = "1px solid rgba(213,178,93,0.07)";
+                e.currentTarget.style.border = "1px solid rgba(242,166,36,0.07)";
               }}
               data-aos="fade-up"
               data-aos-delay={val.delay}
             >
               {/* Icon */}
               <div className="shrink-0 mt-0.5 w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-                style={{ background: "rgba(213,178,93,0.1)", border: "1px solid rgba(213,178,93,0.2)" }}>
+                style={{ background: "rgba(242,166,36,0.1)", border: "1px solid rgba(242,166,36,0.2)" }}>
                 <CheckCircle2 size={16} className="text-[#f2a624]" />
               </div>
 

@@ -120,7 +120,7 @@ export default function CostReportsPage() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("costReports.searchPlaceholder")}
               className={`w-full ${isRTL ? "pr-9 pl-3" : "pl-9 pr-3"} py-2.5 rounded-xl text-sm outline-none transition-all ${
-                isLightMode ? "bg-[#ffffff] border border-slate-200 text-[#1e293b] focus:border-[#D5B25D]" : "bg-white/5 border border-white/10 text-white focus:border-[#D5B25D]/50"
+                isLightMode ? "bg-[#ffffff] border border-slate-200 text-[#1e293b] focus:border-[#f2a624]" : "bg-white/5 border border-white/10 text-white focus:border-[#f2a624]/50"
               }`}
             />
           </div>
@@ -131,7 +131,7 @@ export default function CostReportsPage() {
                 onClick={() => setCategory(c)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                   category === c
-                    ? "bg-[#D5B25D] text-black"
+                    ? "bg-[#f2a624] text-black"
                     : isLightMode ? "bg-slate-100 text-[#64748b] hover:bg-slate-200" : "bg-white/5 text-white/60 hover:bg-white/10"
                 }`}
               >
@@ -160,7 +160,7 @@ export default function CostReportsPage() {
                 <Link
                   key={r.id}
                   href={`/admin/cost-reports/${r.id}`}
-                  className={`${cardCls} rounded-2xl p-5 text-start hover:border-[#D5B25D]/40 transition-all duration-200 space-y-3 block`}
+                  className={`${cardCls} rounded-2xl p-5 text-start hover:border-[#f2a624]/40 transition-all duration-200 space-y-3 block`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-2 text-xs font-bold text-[#f2a624] uppercase tracking-wide">

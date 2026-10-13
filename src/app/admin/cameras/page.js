@@ -45,15 +45,15 @@ function QrModal({ camera, onClose, onRegenerate }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center" dir="rtl">
       <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={onClose} />
-      <div className="relative z-10 w-full max-w-sm mx-4 rounded-3xl border border-[#C9A34D]/20 p-6 flex flex-col items-center gap-5"
+      <div className="relative z-10 w-full max-w-sm mx-4 rounded-3xl border border-[#f2a624]/20 p-6 flex flex-col items-center gap-5"
         style={{ background: '#0a0a0a', boxShadow: '0 0 80px rgba(0,0,0,0.9)' }}
       >
-        <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#C9A34D]/40 to-transparent" />
+        <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#f2a624]/40 to-transparent" />
         <button onClick={onClose} className="absolute top-4 left-4 w-8 h-8 flex items-center justify-center text-white/30 hover:text-white rounded-lg hover:bg-white/[0.06] transition-all">
           <X size={16} />
         </button>
 
-        <div className="w-12 h-12 rounded-2xl bg-[#C9A34D]/10 border border-[#C9A34D]/20 flex items-center justify-center">
+        <div className="w-12 h-12 rounded-2xl bg-[#f2a624]/10 border border-[#f2a624]/20 flex items-center justify-center">
           <QrCode size={22} className="text-[#f2a624]" />
         </div>
 
@@ -75,7 +75,7 @@ function QrModal({ camera, onClose, onRegenerate }) {
 
         <div className="text-center">
           <p className="text-white/30 text-[10px] mb-1">{t('admin.contentTabs.camerasPage.encryptedLink')}</p>
-          <p className="text-[#f2a624]/70 text-xs font-mono bg-[#C9A34D]/5 px-3 py-1.5 rounded-lg border border-[#C9A34D]/10">
+          <p className="text-[#f2a624]/70 text-xs font-mono bg-[#f2a624]/5 px-3 py-1.5 rounded-lg border border-[#f2a624]/10">
             /live-camera/{camera.serialNumber}
           </p>
         </div>
@@ -84,7 +84,7 @@ function QrModal({ camera, onClose, onRegenerate }) {
           <button
             onClick={handleRegen}
             disabled={regen}
-            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#C9A34D]/10 border border-[#C9A34D]/25 text-[#f2a624] text-sm font-bold hover:bg-[#C9A34D]/18 disabled:opacity-50 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#f2a624]/10 border border-[#f2a624]/25 text-[#f2a624] text-sm font-bold hover:bg-[#f2a624]/18 disabled:opacity-50 transition-colors"
           >
             {regen ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
             {t('admin.contentTabs.camerasPage.regenerate')}
@@ -123,7 +123,7 @@ function FormField({ icon: Icon, label, name, type = "text", placeholder, readOn
         placeholder={placeholder}
         readOnly={readOnly}
         dir={dir}
-        className={`w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#C9A34D]/40 transition-colors ${readOnly ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#f2a624]/40 transition-colors ${readOnly ? 'opacity-50 cursor-not-allowed' : ''}`}
       />
     </div>
   );
@@ -185,14 +185,14 @@ function CameraFormModal({ mode, initial, onClose, onSaved }) {
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center" dir="rtl">
       <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={onClose} />
       <div className="relative z-10 w-full sm:max-w-2xl mx-0 sm:mx-4 rounded-t-3xl sm:rounded-3xl flex flex-col max-h-[92dvh]"
-        style={{ background: '#0a0a0a', border: '1px solid rgba(201,163,77,0.15)', boxShadow: '0 -20px 80px rgba(0,0,0,0.9)' }}
+        style={{ background: '#0a0a0a', border: '1px solid rgba(242,166,36,0.15)', boxShadow: '0 -20px 80px rgba(0,0,0,0.9)' }}
       >
-        <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#C9A34D]/40 to-transparent" />
+        <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#f2a624]/40 to-transparent" />
 
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-white/[0.06] shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#C9A34D]/10 border border-[#C9A34D]/20 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-[#f2a624]/10 border border-[#f2a624]/20 flex items-center justify-center">
               <Camera size={16} className="text-[#f2a624]" />
             </div>
             <h2 className="font-black text-white text-base">
@@ -207,7 +207,7 @@ function CameraFormModal({ mode, initial, onClose, onSaved }) {
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 flex flex-col gap-5">
           {/* Section: Project Info */}
           <div className="space-y-3.5">
-            <p className="text-[#f2a624]/60 text-[10px] font-black uppercase tracking-widest border-b border-[#C9A34D]/10 pb-2">{t('admin.contentTabs.camerasPage.projectInfoSection')}</p>
+            <p className="text-[#f2a624]/60 text-[10px] font-black uppercase tracking-widest border-b border-[#f2a624]/10 pb-2">{t('admin.contentTabs.camerasPage.projectInfoSection')}</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <FormField icon={Hash}    label={t('admin.contentTabs.camerasPage.serialNumberLabel')}  name="serialNumber"    placeholder="MNC-CAM-004" readOnly={mode === "edit"} value={form.serialNumber} onChange={e => set("serialNumber", e.target.value)} />
               <FormField icon={Monitor} label={t('admin.contentTabs.camerasPage.cameraNameLabel')}     name="cameraName"     placeholder={t('admin.contentTabs.camerasPage.cameraNamePlaceholder')} value={form.cameraName} onChange={e => set("cameraName", e.target.value)} />
@@ -220,7 +220,7 @@ function CameraFormModal({ mode, initial, onClose, onSaved }) {
                 <select
                   value={form.cameraType}
                   onChange={e => set("cameraType", e.target.value)}
-                  className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-[#C9A34D]/40 transition-colors"
+                  className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-[#f2a624]/40 transition-colors"
                   dir="ltr"
                 >
                   {CAMERA_TYPES.map(ct => <option key={ct} value={ct} className="bg-[#111]">{ct}</option>)}
@@ -231,7 +231,7 @@ function CameraFormModal({ mode, initial, onClose, onSaved }) {
                 <select
                   value={form.status}
                   onChange={e => set("status", e.target.value)}
-                  className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-[#C9A34D]/40 transition-colors"
+                  className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-[#f2a624]/40 transition-colors"
                 >
                   <option value="offline" className="bg-[#111]">{t('admin.contentTabs.camerasPage.offlineOption')}</option>
                   <option value="online"  className="bg-[#111]">{t('admin.contentTabs.camerasPage.onlineOption')}</option>
@@ -242,7 +242,7 @@ function CameraFormModal({ mode, initial, onClose, onSaved }) {
 
           {/* Section: Credentials */}
           <div className="space-y-3.5">
-            <p className="text-[#f2a624]/60 text-[10px] font-black uppercase tracking-widest border-b border-[#C9A34D]/10 pb-2">{t('admin.contentTabs.camerasPage.credentialsSection')}</p>
+            <p className="text-[#f2a624]/60 text-[10px] font-black uppercase tracking-widest border-b border-[#f2a624]/10 pb-2">{t('admin.contentTabs.camerasPage.credentialsSection')}</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <FormField icon={Globe} label={t('admin.contentTabs.camerasPage.externalIpLabel')}   name="externalIp"  placeholder="192.168.1.100" value={form.externalIp} onChange={e => set("externalIp", e.target.value)} />
               <FormField icon={Globe} label={t('admin.contentTabs.camerasPage.domainLabel')} name="domain"  placeholder="cam1.mnc-project.com" value={form.domain} onChange={e => set("domain", e.target.value)} />
@@ -263,7 +263,7 @@ function CameraFormModal({ mode, initial, onClose, onSaved }) {
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-[#C9A34D] to-[#e0b85a] text-black font-black text-sm hover:opacity-90 active:scale-[0.98] disabled:opacity-60 transition-all"
+            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-[#f2a624] to-[#e0b85a] text-black font-black text-sm hover:opacity-90 active:scale-[0.98] disabled:opacity-60 transition-all"
           >
             {loading ? <Loader2 size={15} className="animate-spin" /> : <Check size={15} />}
             {mode === "add" ? t('admin.contentTabs.camerasPage.addCameraSubmitBtn') : t('admin.contentTabs.camerasPage.saveChangesBtn')}
@@ -340,7 +340,7 @@ function CameraRow({ camera, onEdit, onDelete, onQr, onToggleStatus }) {
   };
 
   return (
-    <div className="flex items-center gap-3 p-4 rounded-2xl border border-white/[0.06] hover:border-[#C9A34D]/20 bg-white/[0.02] hover:bg-white/[0.03] transition-all group">
+    <div className="flex items-center gap-3 p-4 rounded-2xl border border-white/[0.06] hover:border-[#f2a624]/20 bg-white/[0.02] hover:bg-white/[0.03] transition-all group">
       {/* Status dot */}
       <button onClick={handleToggle} disabled={toggling} title={t('admin.contentTabs.camerasPage.toggleStatusTitle')} className="shrink-0">
         {toggling
@@ -350,7 +350,7 @@ function CameraRow({ camera, onEdit, onDelete, onQr, onToggleStatus }) {
       </button>
 
       {/* Camera icon */}
-      <div className="w-9 h-9 rounded-xl bg-[#C9A34D]/8 border border-[#C9A34D]/15 flex items-center justify-center shrink-0">
+      <div className="w-9 h-9 rounded-xl bg-[#f2a624]/8 border border-[#f2a624]/15 flex items-center justify-center shrink-0">
         <Camera size={15} className="text-[#f2a624]/60" />
       </div>
 
@@ -373,7 +373,7 @@ function CameraRow({ camera, onEdit, onDelete, onQr, onToggleStatus }) {
       </div>
 
       {/* Type badge */}
-      <span className="hidden sm:block text-[10px] font-mono font-bold text-[#f2a624]/40 bg-[#C9A34D]/5 border border-[#C9A34D]/10 px-2 py-1 rounded-lg shrink-0">
+      <span className="hidden sm:block text-[10px] font-mono font-bold text-[#f2a624]/40 bg-[#f2a624]/5 border border-[#f2a624]/10 px-2 py-1 rounded-lg shrink-0">
         {camera.cameraType || 'MJPEG'}
       </span>
 
@@ -391,14 +391,14 @@ function CameraRow({ camera, onEdit, onDelete, onQr, onToggleStatus }) {
           href={`/live-camera/${camera.serialNumber}`}
           target="_blank"
           title={t('admin.contentTabs.camerasPage.previewCameraTitle')}
-          className="w-8 h-8 rounded-xl border border-white/[0.07] bg-white/[0.03] flex items-center justify-center text-white/30 hover:text-[#f2a624] hover:border-[#C9A34D]/30 transition-all"
+          className="w-8 h-8 rounded-xl border border-white/[0.07] bg-white/[0.03] flex items-center justify-center text-white/30 hover:text-[#f2a624] hover:border-[#f2a624]/30 transition-all"
         >
           <Eye size={13} />
         </Link>
         <button
           onClick={onQr}
           title={t('admin.contentTabs.camerasPage.qrCodeTitle')}
-          className="w-8 h-8 rounded-xl border border-white/[0.07] bg-white/[0.03] flex items-center justify-center text-white/30 hover:text-[#f2a624] hover:border-[#C9A34D]/30 transition-all"
+          className="w-8 h-8 rounded-xl border border-white/[0.07] bg-white/[0.03] flex items-center justify-center text-white/30 hover:text-[#f2a624] hover:border-[#f2a624]/30 transition-all"
         >
           <QrCode size={13} />
         </button>
@@ -488,7 +488,7 @@ export default function AdminCamerasPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
             <div className="flex items-center gap-2.5 mb-1">
-              <div className="w-8 h-8 rounded-xl bg-[#C9A34D]/10 border border-[#C9A34D]/20 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-xl bg-[#f2a624]/10 border border-[#f2a624]/20 flex items-center justify-center">
                 <Camera size={15} className="text-[#f2a624]" />
               </div>
               <h1 className="text-xl font-black text-white">{t('admin.contentTabs.camerasPage.pageTitle')}</h1>
@@ -499,14 +499,14 @@ export default function AdminCamerasPage() {
             <button
               onClick={handleSeed}
               disabled={seeding}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#C9A34D]/20 bg-[#C9A34D]/8 text-[#f2a624] text-sm font-bold hover:bg-[#C9A34D]/15 disabled:opacity-50 transition-all"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#f2a624]/20 bg-[#f2a624]/8 text-[#f2a624] text-sm font-bold hover:bg-[#f2a624]/15 disabled:opacity-50 transition-all"
             >
               {seeding ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
               {t('admin.contentTabs.camerasPage.seedDemoCamerasBtn')}
             </button>
             <button
               onClick={() => setAddModal(true)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#C9A34D] to-[#e0b85a] text-black text-sm font-black hover:opacity-90 active:scale-[0.98] transition-all shadow-[0_0_20px_rgba(201,163,77,0.25)]"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#f2a624] to-[#e0b85a] text-black text-sm font-black hover:opacity-90 active:scale-[0.98] transition-all shadow-[0_0_20px_rgba(242,166,36,0.25)]"
             >
               <Plus size={15} /> {t('admin.contentTabs.camerasPage.addCameraBtn')}
             </button>
@@ -542,7 +542,7 @@ export default function AdminCamerasPage() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder={t('admin.contentTabs.camerasPage.searchPlaceholder')}
-            className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl pr-10 pl-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#C9A34D]/35 transition-colors"
+            className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl pr-10 pl-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#f2a624]/35 transition-colors"
           />
           {search && (
             <button onClick={() => setSearch("")} className="absolute top-1/2 left-3 -translate-y-1/2 text-white/25 hover:text-white/60 transition-colors">
@@ -585,7 +585,7 @@ export default function AdminCamerasPage() {
         )}
 
         {/* ── Documentation note ── */}
-        <div className="mt-8 p-5 rounded-2xl border border-[#C9A34D]/10 bg-[#C9A34D]/[0.03]">
+        <div className="mt-8 p-5 rounded-2xl border border-[#f2a624]/10 bg-[#f2a624]/[0.03]">
           <p className="text-[#f2a624]/70 text-xs font-bold mb-2">{t('admin.contentTabs.camerasPage.docNoteTitle')}</p>
           <ol className="text-white/30 text-xs space-y-1 list-decimal list-inside">
             <li>{t('admin.contentTabs.camerasPage.docStep1')}</li>

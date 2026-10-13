@@ -61,10 +61,10 @@ export default function ContentPage() {
               onClick={() => setActive(tab.id)}
               className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 flex-shrink-0 ${
                 active === tab.id
-                  ? 'bg-[#c8a96e]/12 text-[#f2a624]'
+                  ? 'bg-[#f2a624]/12 text-[#f2a624]'
                   : 'text-white/35 hover:text-white/70 hover:bg-white/5'
               }`}
-              style={active === tab.id ? { border: '1px solid rgba(201,163,77,0.30)' } : { border: '1px solid transparent' }}
+              style={active === tab.id ? { border: '1px solid rgba(242,166,36,0.30)' } : { border: '1px solid transparent' }}
             >
               <span>{tab.emoji}</span>
               <span className="hidden sm:inline">{t(tab.labelKey)}</span>

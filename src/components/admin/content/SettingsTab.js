@@ -106,7 +106,7 @@ export default function SettingsTab() {
             onClick={() => musicRef.current?.click()}
             disabled={musicUp}
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all disabled:opacity-50"
-            style={{ background: 'rgba(201,163,77,0.08)', border: '1px solid rgba(201,163,77,0.25)', color: '#f2a624' }}
+            style={{ background: 'rgba(242,166,36,0.08)', border: '1px solid rgba(242,166,36,0.25)', color: '#f2a624' }}
           >
             {musicUp ? <Loader2 size={13} className="animate-spin" /> : <Music size={13} />}
             {musicUp ? t('admin.contentTabs.settingsTab.uploadingLabel') : form.music_url ? t('admin.contentTabs.settingsTab.changeMusicBtn') : t('admin.contentTabs.settingsTab.uploadAudioFileBtn')}

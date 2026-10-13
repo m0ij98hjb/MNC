@@ -63,13 +63,13 @@ export default function ApprovedSuppliersPage() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder={t('admin.searchPlaceholder')}
-              className={`w-full bg-white/5 border border-white/10 rounded-xl py-2.5 ${isRTL ? 'pr-9 pl-3' : 'pl-9 pr-3'} text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#c8a96e]/40`}
+              className={`w-full bg-white/5 border border-white/10 rounded-xl py-2.5 ${isRTL ? 'pr-9 pl-3' : 'pl-9 pr-3'} text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#f2a624]/40`}
             />
           </div>
           <select
             value={filterActivity}
             onChange={e => setFilterActivity(e.target.value)}
-            className="bg-white/5 border border-white/10 rounded-xl py-2.5 px-3 text-sm text-white focus:outline-none focus:border-[#c8a96e]/40 cursor-pointer"
+            className="bg-white/5 border border-white/10 rounded-xl py-2.5 px-3 text-sm text-white focus:outline-none focus:border-[#f2a624]/40 cursor-pointer"
           >
             <option value="">{t('admin.allActivities')}</option>
             {ACTIVITY_TYPES.map(a => <option key={a} value={a} className="bg-[#111]">{getAct(a)}</option>)}
@@ -77,7 +77,7 @@ export default function ApprovedSuppliersPage() {
           <select
             value={filterCity}
             onChange={e => setFilterCity(e.target.value)}
-            className="bg-white/5 border border-white/10 rounded-xl py-2.5 px-3 text-sm text-white focus:outline-none focus:border-[#c8a96e]/40 cursor-pointer"
+            className="bg-white/5 border border-white/10 rounded-xl py-2.5 px-3 text-sm text-white focus:outline-none focus:border-[#f2a624]/40 cursor-pointer"
           >
             <option value="">{t('admin.allCities')}</option>
             {cities.map(c => <option key={c} value={c} className="bg-[#111]">{c}</option>)}
@@ -103,10 +103,10 @@ export default function ApprovedSuppliersPage() {
               <Link
                 key={s.id}
                 href={`/admin/suppliers/${s.id}`}
-                className="group bg-white/[0.02] border border-white/[0.07] hover:border-[#c8a96e]/30 rounded-2xl p-5 transition-all"
+                className="group bg-white/[0.02] border border-white/[0.07] hover:border-[#f2a624]/30 rounded-2xl p-5 transition-all"
               >
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-[#c8a96e]/10 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-[#f2a624]/10 flex items-center justify-center">
                     <Building2 size={18} className="text-[#f2a624]" />
                   </div>
                   <Eye size={14} className="text-white/20 group-hover:text-white/50 mt-1 transition-colors" />

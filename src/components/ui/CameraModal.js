@@ -109,7 +109,7 @@ function QrScanView({ onResult, onBack }) {
         {t("camera.pointAtCode")}
       </p>
 
-      <div className="relative rounded-2xl overflow-hidden border-2 border-[#C9A34D]/35 w-full max-w-[280px] aspect-square bg-black flex items-center justify-center">
+      <div className="relative rounded-2xl overflow-hidden border-2 border-[#f2a624]/35 w-full max-w-[280px] aspect-square bg-black flex items-center justify-center">
         {status === "loading" && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 z-10 bg-black/80">
             <Loader2 size={32} className="text-[#f2a624] animate-spin" />
@@ -122,7 +122,7 @@ function QrScanView({ onResult, onBack }) {
             <p className="text-red-400 text-sm font-bold leading-snug">{errMsg}</p>
             <button
               onClick={() => startScanner(activeCamId)}
-              className="flex items-center gap-1.5 text-[#f2a624] text-xs border border-[#C9A34D]/30 px-3 py-1.5 rounded-lg hover:bg-[#C9A34D]/10 transition-colors"
+              className="flex items-center gap-1.5 text-[#f2a624] text-xs border border-[#f2a624]/30 px-3 py-1.5 rounded-lg hover:bg-[#f2a624]/10 transition-colors"
             >
               <RefreshCw size={11} /> {t("camera.retry")}
             </button>
@@ -133,13 +133,13 @@ function QrScanView({ onResult, onBack }) {
 
         {status === "scanning" && (
           <>
-            <div className="absolute top-3 left-3   w-7 h-7 border-t-2 border-l-2 border-[#C9A34D] rounded-tl pointer-events-none" />
-            <div className="absolute top-3 right-3  w-7 h-7 border-t-2 border-r-2 border-[#C9A34D] rounded-tr pointer-events-none" />
-            <div className="absolute bottom-3 left-3  w-7 h-7 border-b-2 border-l-2 border-[#C9A34D] rounded-bl pointer-events-none" />
-            <div className="absolute bottom-3 right-3 w-7 h-7 border-b-2 border-r-2 border-[#C9A34D] rounded-br pointer-events-none" />
+            <div className="absolute top-3 left-3   w-7 h-7 border-t-2 border-l-2 border-[#f2a624] rounded-tl pointer-events-none" />
+            <div className="absolute top-3 right-3  w-7 h-7 border-t-2 border-r-2 border-[#f2a624] rounded-tr pointer-events-none" />
+            <div className="absolute bottom-3 left-3  w-7 h-7 border-b-2 border-l-2 border-[#f2a624] rounded-bl pointer-events-none" />
+            <div className="absolute bottom-3 right-3 w-7 h-7 border-b-2 border-r-2 border-[#f2a624] rounded-br pointer-events-none" />
             <div
-              className="absolute left-3 right-3 h-px bg-gradient-to-r from-transparent via-[#C9A34D] to-transparent pointer-events-none"
-              style={{ top: "50%", boxShadow: "0 0 6px rgba(201,163,77,0.8)", animation: "mnc-scan 2s ease-in-out infinite" }}
+              className="absolute left-3 right-3 h-px bg-gradient-to-r from-transparent via-[#f2a624] to-transparent pointer-events-none"
+              style={{ top: "50%", boxShadow: "0 0 6px rgba(242,166,36,0.8)", animation: "mnc-scan 2s ease-in-out infinite" }}
             />
           </>
         )}
@@ -154,7 +154,7 @@ function QrScanView({ onResult, onBack }) {
               onClick={() => switchCamera(cam.id)}
               className={`text-[11px] px-2.5 py-1 rounded-lg border transition-all ${
                 activeCamId === cam.id
-                  ? "bg-[#C9A34D]/15 border-[#C9A34D]/45 text-[#f2a624] font-bold"
+                  ? "bg-[#f2a624]/15 border-[#f2a624]/45 text-[#f2a624] font-bold"
                   : "bg-white/[0.04] border-white/10 text-white/35 hover:text-white/60"
               }`}
             >
@@ -236,13 +236,13 @@ export default function CameraModal({ onClose }) {
     <div className="fixed inset-0 z-[999] flex items-end sm:items-center justify-center" dir={isRTL ? "rtl" : "ltr"}>
       <div className="absolute inset-0 bg-black/75 backdrop-blur-md" onClick={onClose} />
 
-      <div className="relative z-10 w-full sm:max-w-md sm:mx-4 rounded-t-3xl sm:rounded-3xl flex flex-col max-h-[92dvh] sm:max-h-[85dvh] bg-[#0a0a0a] border border-[#C9A34D]/15 shadow-[0_-20px_80px_rgba(0,0,0,0.9)]">
-        <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#C9A34D]/40 to-transparent rounded-full" />
+      <div className="relative z-10 w-full sm:max-w-md sm:mx-4 rounded-t-3xl sm:rounded-3xl flex flex-col max-h-[92dvh] sm:max-h-[85dvh] bg-[#0a0a0a] border border-[#f2a624]/15 shadow-[0_-20px_80px_rgba(0,0,0,0.9)]">
+        <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#f2a624]/40 to-transparent rounded-full" />
 
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-4 shrink-0 border-b border-white/[0.06]">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#C9A34D]/10 border border-[#C9A34D]/20 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-[#f2a624]/10 border border-[#f2a624]/20 flex items-center justify-center">
               <Eye size={17} className="text-[#f2a624]" />
             </div>
             <div>
@@ -279,12 +279,12 @@ export default function CameraModal({ onClose }) {
                     placeholder={t("camera.serialPlaceholder")}
                     dir="ltr"
                     autoFocus
-                    className="flex-1 rounded-xl px-4 py-3 text-sm bg-white/[0.05] border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-[#C9A34D]/50 transition-colors"
+                    className="flex-1 rounded-xl px-4 py-3 text-sm bg-white/[0.05] border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-[#f2a624]/50 transition-colors"
                   />
                   <button
                     onClick={() => resolve(serial)}
                     disabled={loading || !serial.trim()}
-                    className="px-5 py-3 bg-gradient-to-r from-[#C9A34D] to-[#e0b85a] text-black font-black text-sm rounded-xl hover:opacity-90 active:scale-95 disabled:opacity-40 transition-all shadow-[0_0_18px_rgba(201,163,77,0.3)]"
+                    className="px-5 py-3 bg-gradient-to-r from-[#f2a624] to-[#e0b85a] text-black font-black text-sm rounded-xl hover:opacity-90 active:scale-95 disabled:opacity-40 transition-all shadow-[0_0_18px_rgba(242,166,36,0.3)]"
                   >
                     {loading ? <Loader2 size={14} className="animate-spin" /> : t("camera.search")}
                   </button>
@@ -306,9 +306,9 @@ export default function CameraModal({ onClose }) {
               {/* QR scan button */}
               <button
                 onClick={() => setView("scan")}
-                className="flex flex-col items-center gap-3 py-6 border-2 border-dashed border-[#C9A34D]/25 hover:border-[#C9A34D]/55 rounded-2xl hover:bg-[#C9A34D]/[0.04] transition-all group"
+                className="flex flex-col items-center gap-3 py-6 border-2 border-dashed border-[#f2a624]/25 hover:border-[#f2a624]/55 rounded-2xl hover:bg-[#f2a624]/[0.04] transition-all group"
               >
-                <div className="w-14 h-14 rounded-2xl bg-[#C9A34D]/10 border border-[#C9A34D]/20 flex items-center justify-center group-hover:bg-[#C9A34D]/18 transition-colors">
+                <div className="w-14 h-14 rounded-2xl bg-[#f2a624]/10 border border-[#f2a624]/20 flex items-center justify-center group-hover:bg-[#f2a624]/18 transition-colors">
                   <QrCode size={26} className="text-[#f2a624]" />
                 </div>
                 <div className="text-center">

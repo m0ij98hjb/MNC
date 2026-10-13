@@ -10,7 +10,7 @@ export function openPrintReport({
   heading,
   refLine,
   statusLabel,
-  statusColor = '#c8a96e',
+  statusColor = '#f2a624',
   generatedLabel,
   printLabel,
   confidentialNote,
@@ -69,7 +69,7 @@ export function openPrintReport({
   * { box-sizing: border-box; }
   body { font-family: 'Cairo', 'Segoe UI', sans-serif; margin: 0; color: #1a1a1a; background: #fff; }
   .page { max-width: 800px; margin: 0 auto; padding: 40px; }
-  .header { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 3px solid #c8a96e; padding-bottom: 18px; margin-bottom: 24px; }
+  .header { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 3px solid #f2a624; padding-bottom: 18px; margin-bottom: 24px; }
   .header img { height: 26px; }
   .header .meta { text-align: ${side}; font-size: 11px; color: #888; }
   h1 { font-size: 21px; margin: 0 0 4px; }
@@ -84,7 +84,7 @@ export function openPrintReport({
   .longtext { font-size: 13px; line-height: 1.9; white-space: pre-wrap; color: #333; }
   .footer { margin-top: 36px; padding-top: 14px; border-top: 1px solid #eee; font-size: 10px; color: #aaa; text-align: center; }
   .toolbar { position: fixed; inset-inline-end: 16px; top: 16px; }
-  .toolbar button { font-family: inherit; font-size: 13px; font-weight: 700; padding: 9px 18px; border-radius: 10px; border: none; background: #c8a96e; color: #111; cursor: pointer; }
+  .toolbar button { font-family: inherit; font-size: 13px; font-weight: 700; padding: 9px 18px; border-radius: 10px; border: none; background: #f2a624; color: #111; cursor: pointer; }
   @media print { .toolbar { display: none; } .page { padding: 0; } @page { margin: 16mm; } }
 </style>
 </head>

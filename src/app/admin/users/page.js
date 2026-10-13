@@ -67,7 +67,7 @@ const ROLE_OPTIONS = Object.entries(ROLE_LABELS).map(([key, label]) => ({
 const PURCHASING_ROLE_OPTIONS = [PURCH_ROLES.SITE_SUPERVISOR, PURCH_ROLES.SITE_ENGINEER, PURCH_ROLES.PROCUREMENT_MANAGER]
   .map(value => ({ value, labelKey: PURCH_ROLE_LABEL_KEYS[value] }));
 
-const inputCls = 'w-full bg-black border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-all';
+const inputCls = 'w-full bg-black border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#f2a624]/50 outline-none transition-all';
 const labelCls = 'text-[#f2a624] text-[10px] font-black uppercase tracking-widest block mb-1.5';
 
 /* ─── Add / Edit User Modal ─── */
@@ -147,7 +147,7 @@ function UserModal({ onClose, currentUid, editUser = null }) {
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-[#c8a96e]/15 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-[#f2a624]/15 flex items-center justify-center">
               {editUser ? <Edit2 size={14} className="text-[#f2a624]" /> : <Plus size={14} className="text-[#f2a624]" />}
             </div>
             <h2 className="text-white font-bold text-base">
@@ -233,7 +233,7 @@ function UserModal({ onClose, currentUid, editUser = null }) {
                     onClick={() => togglePerm(id)}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border text-start transition-all duration-200 ${
                       checked
-                        ? 'border-[#c8a96e]/40 bg-[#c8a96e]/8'
+                        ? 'border-[#f2a624]/40 bg-[#f2a624]/8'
                         : 'border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.04]'
                     }`}
                   >
@@ -248,7 +248,7 @@ function UserModal({ onClose, currentUid, editUser = null }) {
                       <p className="text-[11px] text-white/25 mt-0.5">{t(descKey)}</p>
                     </div>
                     <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
-                      checked ? 'border-[#c8a96e] bg-[#c8a96e]' : 'border-white/20'
+                      checked ? 'border-[#f2a624] bg-[#f2a624]' : 'border-white/20'
                     }`}>
                       {checked && <Check size={11} className="text-black" strokeWidth={3} />}
                     </div>
@@ -292,7 +292,7 @@ function UserModal({ onClose, currentUid, editUser = null }) {
             onClick={submit}
             disabled={saving}
             className="flex-1 py-2.5 rounded-xl text-black text-sm font-black flex items-center justify-center gap-2 disabled:opacity-60 transition-all"
-            style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)' }}
+            style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)' }}
           >
             {saving ? <Loader2 size={15} className="animate-spin" /> : (editUser ? t('admin.saveChangesBtn') : t('purchasing.createUser'))}
           </button>
@@ -344,7 +344,7 @@ function ChangePasswordModal({ targetUser, onClose }) {
       <div className="w-full max-w-sm bg-[#0d1117] border border-white/10 rounded-2xl overflow-hidden shadow-2xl" dir="rtl">
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-[#c8a96e]/15 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-[#f2a624]/15 flex items-center justify-center">
               <KeyRound size={14} className="text-[#f2a624]" />
             </div>
             <h2 className="text-white font-bold text-base">{t('admin.changePasswordTitle')}</h2>
@@ -395,7 +395,7 @@ function ChangePasswordModal({ targetUser, onClose }) {
             onClick={submit}
             disabled={saving || success}
             className="flex-1 py-2.5 rounded-xl text-black text-sm font-black flex items-center justify-center gap-2 disabled:opacity-60 transition-all"
-            style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)' }}
+            style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)' }}
           >
             {saving ? <Loader2 size={15} className="animate-spin" /> : t('admin.changePasswordBtn')}
           </button>
@@ -456,7 +456,7 @@ function CompanyManagerAccessPanel() {
   return (
     <div className="bg-white/[0.02] border border-white/[0.07] rounded-2xl p-5 mb-6" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="flex items-center gap-2 mb-1">
-        <div className="w-8 h-8 rounded-xl bg-[#c8a96e]/15 flex items-center justify-center">
+        <div className="w-8 h-8 rounded-xl bg-[#f2a624]/15 flex items-center justify-center">
           <Crown size={14} className="text-[#f2a624]" />
         </div>
         <h2 className="text-white font-bold text-sm">
@@ -486,7 +486,7 @@ function CompanyManagerAccessPanel() {
                 onClick={() => toggle(id)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-start transition-all duration-200 disabled:opacity-60 ${
                   checked
-                    ? 'border-[#c8a96e]/40 bg-[#c8a96e]/8'
+                    ? 'border-[#f2a624]/40 bg-[#f2a624]/8'
                     : 'border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.04]'
                 }`}
               >
@@ -501,7 +501,7 @@ function CompanyManagerAccessPanel() {
                   <p className="text-[11px] text-white/25 mt-0.5">{t(descKey)}</p>
                 </div>
                 <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
-                  checked ? 'border-[#c8a96e] bg-[#c8a96e]' : 'border-white/20'
+                  checked ? 'border-[#f2a624] bg-[#f2a624]' : 'border-white/20'
                 }`}>
                   {checked && <Check size={11} className="text-black" strokeWidth={3} />}
                 </div>
@@ -597,7 +597,7 @@ function UsersContent() {
         <button
           onClick={() => { setEditUser(null); setShowModal(true); }}
           className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-black shadow-lg transition-all hover:scale-105"
-          style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)' }}
+          style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)' }}
         >
           <Plus size={14} /> {t('purchasing.addUser')}
         </button>
@@ -682,7 +682,7 @@ function UsersContent() {
                       <div className="flex items-center gap-1">
                         <button
                           onClick={() => openEdit(u)}
-                          className="p-1.5 rounded-lg text-white/40 hover:text-[#f2a624] hover:bg-[#c8a96e]/10 transition-all"
+                          className="p-1.5 rounded-lg text-white/40 hover:text-[#f2a624] hover:bg-[#f2a624]/10 transition-all"
                           title={t('admin.editLabel')}
                         >
                           <Edit2 size={13} />
@@ -700,7 +700,7 @@ function UsersContent() {
                         </button>
                         <button
                           onClick={() => setPasswordTarget(u)}
-                          className="p-1.5 rounded-lg text-white/40 hover:text-[#f2a624] hover:bg-[#c8a96e]/10 transition-all"
+                          className="p-1.5 rounded-lg text-white/40 hover:text-[#f2a624] hover:bg-[#f2a624]/10 transition-all"
                           title={t('admin.changePasswordLabel')}
                         >
                           <KeyRound size={13} />

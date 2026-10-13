@@ -72,7 +72,7 @@ export async function POST() {
       // Generate QR code pointing to the camera viewer page
       const qrUrl = `${BASE_URL}/live-camera/${cam.serialNumber}`;
       const qrCode = await QRCode.toDataURL(qrUrl, {
-        color: { dark: '#C9A34D', light: '#00000000' },
+        color: { dark: '#f2a624', light: '#00000000' },
         margin: 1,
         width: 240,
         errorCorrectionLevel: 'M',

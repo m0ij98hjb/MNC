@@ -11,7 +11,7 @@ import { DASHBOARD_TABS, STATUS_LABEL_KEYS, ITEM_CATEGORIES, ITEM_CATEGORY_LABEL
 import { Search as SearchIcon, Loader2, Eye } from 'lucide-react';
 import Link from 'next/link';
 
-const inputCls = 'bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none';
+const inputCls = 'bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-white/20 focus:border-[#f2a624]/50 outline-none';
 
 function SearchContent() {
   const { t, isRTL } = useLanguage();

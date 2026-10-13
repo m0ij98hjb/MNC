@@ -60,17 +60,17 @@ export default function ServicePageClient({ slug }) {
           <div className={`absolute inset-0 ${isRTLLang ? "bg-gradient-to-l" : "bg-gradient-to-r"} from-black/70 to-transparent`} />
         </div>
 
-        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-[#D5B25D] to-transparent z-10" />
+        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-[#f2a624] to-transparent z-10" />
         <div
           className="absolute inset-0 opacity-[0.04] z-0"
-          style={{ backgroundImage: "repeating-linear-gradient(45deg,#D5B25D 0px,#D5B25D 1px,transparent 1px,transparent 80px)" }}
+          style={{ backgroundImage: "repeating-linear-gradient(45deg,#f2a624 0px,#f2a624 1px,transparent 1px,transparent 80px)" }}
         />
 
         <div className="container relative z-10 mx-auto px-6 max-w-7xl pt-24 md:pt-28">
           <div className={isRTLLang ? "text-right" : "text-left"} data-aos="fade-up">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2.5 bg-white/5 backdrop-blur-sm border border-[#D5B25D]/30 rounded-full px-5 py-2 mb-8">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#D5B25D] animate-pulse" />
+            <div className="inline-flex items-center gap-2.5 bg-white/5 backdrop-blur-sm border border-[#f2a624]/30 rounded-full px-5 py-2 mb-8">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#f2a624] animate-pulse" />
               <span className="text-[#f2a624] text-xs font-bold tracking-widest uppercase">{content.badge}</span>
             </div>
 
@@ -87,14 +87,14 @@ export default function ServicePageClient({ slug }) {
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] text-black font-black px-8 py-4 rounded-full text-base transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(213,178,93,0.3)]"
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-[#f2a624] to-[#f2a624] text-black font-black px-8 py-4 rounded-full text-base transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(242,166,36,0.3)]"
               >
                 {content.ctaBtn}
                 {isRTLLang ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
               </Link>
               <a
                 href="#offerings"
-                className="inline-flex items-center gap-3 border-2 border-white/30 text-white font-bold px-8 py-4 rounded-full text-base transition-all duration-300 hover:border-[#D5B25D] hover:text-[#f2a624]"
+                className="inline-flex items-center gap-3 border-2 border-white/30 text-white font-bold px-8 py-4 rounded-full text-base transition-all duration-300 hover:border-[#f2a624] hover:text-[#f2a624]"
               >
                 {{ ar: "استكشف التفاصيل", en: "Explore Details", hi: "विवरण देखें", ru: "Исследовать детали", de: "Details erkunden", fr: "Explorer les détails", es: "Explorar detalles", tr: "Detayları Keşfet", ur: "تفصیلات دیکھیں", zh: "探索细节" }[lang] || "Explore Details"}
                 {isRTLLang ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
@@ -111,25 +111,25 @@ export default function ServicePageClient({ slug }) {
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="text-center mb-16" data-aos="fade-up">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="h-px w-8 bg-[#D5B25D]" />
+              <span className="h-px w-8 bg-[#f2a624]" />
               <span className="text-[#f2a624] font-bold tracking-widest uppercase text-xs">{content.badge}</span>
-              <span className="h-px w-8 bg-[#D5B25D]" />
+              <span className="h-px w-8 bg-[#f2a624]" />
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-[var(--foreground)] font-heading mb-4">
               {content.offeringsTitle}
             </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto rounded-full" />
+            <div className="w-20 h-1 bg-gradient-to-r from-[#f2a624] to-[#f2a624] mx-auto rounded-full" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {content.offerings.map((item, i) => (
               <div
                 key={i}
-                className="flex items-start gap-4 bg-[var(--background)] p-5 rounded-2xl border border-[var(--card-border)] hover:border-[#D5B25D]/30 transition-all duration-300 group"
+                className="flex items-start gap-4 bg-[var(--background)] p-5 rounded-2xl border border-[var(--card-border)] hover:border-[#f2a624]/30 transition-all duration-300 group"
                 data-aos="fade-up"
                 data-aos-delay={i * 70}
               >
-                <div className="w-8 h-8 rounded-lg bg-[#D5B25D]/10 border border-[#D5B25D]/20 flex items-center justify-center shrink-0 group-hover:bg-[#D5B25D]/20 transition-colors mt-0.5">
+                <div className="w-8 h-8 rounded-lg bg-[#f2a624]/10 border border-[#f2a624]/20 flex items-center justify-center shrink-0 group-hover:bg-[#f2a624]/20 transition-colors mt-0.5">
                   <CheckCircle2 className="text-[#f2a624]" size={16} />
                 </div>
                 <p className="text-[var(--foreground)]/80 text-sm md:text-base leading-relaxed font-medium">{item}</p>
@@ -146,7 +146,7 @@ export default function ServicePageClient({ slug }) {
             <h2 className="text-3xl md:text-4xl font-black text-[var(--foreground)] font-heading mb-4">
               {content.advantagesTitle}
             </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto rounded-full" />
+            <div className="w-20 h-1 bg-gradient-to-r from-[#f2a624] to-[#f2a624] mx-auto rounded-full" />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -155,11 +155,11 @@ export default function ServicePageClient({ slug }) {
               return (
                 <div
                   key={i}
-                  className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--card-border)] hover:border-[#D5B25D]/30 transition-all duration-300 group text-center"
+                  className="bg-[var(--card-bg)] rounded-2xl p-6 border border-[var(--card-border)] hover:border-[#f2a624]/30 transition-all duration-300 group text-center"
                   data-aos="fade-up"
                   data-aos-delay={i * 100}
                 >
-                  <div className="w-14 h-14 rounded-2xl bg-[#D5B25D]/10 border border-[#D5B25D]/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-[#D5B25D]/20 transition-colors">
+                  <div className="w-14 h-14 rounded-2xl bg-[#f2a624]/10 border border-[#f2a624]/20 flex items-center justify-center mx-auto mb-5 group-hover:bg-[#f2a624]/20 transition-colors">
                     <Icon className="text-[#f2a624]" size={26} />
                   </div>
                   <h3 className="font-black text-lg text-[#f2a624] mb-3">{adv.title}</h3>
@@ -178,7 +178,7 @@ export default function ServicePageClient({ slug }) {
             <h2 className="text-3xl md:text-5xl font-black text-white mb-4 font-heading">
               {content.projectsTitle}
             </h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto rounded-full" />
+            <div className="w-16 h-1 bg-gradient-to-r from-[#f2a624] to-[#f2a624] mx-auto rounded-full" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -202,7 +202,7 @@ export default function ServicePageClient({ slug }) {
                   <p className="text-white/70 text-xs line-clamp-2">{proj.desc}</p>
                 </div>
                 <div className={`absolute bottom-4 ${isRTLLang ? "right-4" : "left-4"} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}>
-                  <span className="text-[#f2a624] text-xs font-bold uppercase tracking-widest bg-black/60 px-3 py-1.5 rounded-full border border-[#D5B25D]/20">
+                  <span className="text-[#f2a624] text-xs font-bold uppercase tracking-widest bg-black/60 px-3 py-1.5 rounded-full border border-[#f2a624]/20">
                     {{ ar: "مشروع متميز", en: "Featured Project", hi: "प्रमुख परियोजना", ru: "Рекомендуемый проект", de: "Hervorragendes Projekt", es: "Proyecto destacado", fr: "Projet en vedette", tr: "Öne Çıkan Proje", ur: "نمایاں منصوبہ", zh: "特色项目" }[lang] || "Featured Project"}
                   </span>
                 </div>
@@ -215,16 +215,16 @@ export default function ServicePageClient({ slug }) {
       {/* ═══════ CTA ═══════ */}
       <section className="py-28 bg-[#060E1A] relative overflow-hidden">
         {/* Diagonal texture */}
-        <div className="absolute inset-0 opacity-[0.035]" style={{ backgroundImage: "repeating-linear-gradient(45deg,#D5B25D 0px,#D5B25D 1px,transparent 1px,transparent 80px)" }} />
+        <div className="absolute inset-0 opacity-[0.035]" style={{ backgroundImage: "repeating-linear-gradient(45deg,#f2a624 0px,#f2a624 1px,transparent 1px,transparent 80px)" }} />
         {/* Top & bottom gold lines */}
-        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#D5B25D] to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#D5B25D] to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#f2a624] to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#f2a624] to-transparent" />
         {/* Glow blob */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#D5B25D]/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#f2a624]/10 rounded-full blur-[120px] pointer-events-none" />
 
         <div className="container relative z-10 mx-auto px-6">
           <div
-            className="max-w-4xl mx-auto rounded-3xl border-2 border-[#D5B25D]/25 bg-gradient-to-br from-[#D5B25D]/10 via-[#D5B25D]/5 to-transparent p-10 md:p-16 text-center shadow-[0_0_100px_rgba(213,178,93,0.12),inset_0_1px_0_rgba(213,178,93,0.15)]"
+            className="max-w-4xl mx-auto rounded-3xl border-2 border-[#f2a624]/25 bg-gradient-to-br from-[#f2a624]/10 via-[#f2a624]/5 to-transparent p-10 md:p-16 text-center shadow-[0_0_100px_rgba(242,166,36,0.12),inset_0_1px_0_rgba(242,166,36,0.15)]"
             data-aos="fade-up"
           >
             {/* Title */}
@@ -247,20 +247,20 @@ export default function ServicePageClient({ slug }) {
             </p>
 
             {/* Divider */}
-            <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-[#D5B25D] to-transparent mx-auto mb-10" />
+            <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-[#f2a624] to-transparent mx-auto mb-10" />
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] text-black font-black px-10 py-4 rounded-full text-base transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_35px_rgba(213,178,93,0.4)] hover:shadow-[0_0_50px_rgba(213,178,93,0.55)]"
+                className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#f2a624] to-[#f2a624] text-black font-black px-10 py-4 rounded-full text-base transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_35px_rgba(242,166,36,0.4)] hover:shadow-[0_0_50px_rgba(242,166,36,0.55)]"
               >
                 <Phone size={18} />
                 {content.ctaBtn}
               </Link>
               <Link
                 href="/projects"
-                className="inline-flex items-center justify-center gap-3 border-2 border-[#D5B25D]/35 text-[#f2a624] font-bold px-10 py-4 rounded-full text-base transition-all duration-300 hover:bg-[#D5B25D]/10 hover:border-[#D5B25D]/60"
+                className="inline-flex items-center justify-center gap-3 border-2 border-[#f2a624]/35 text-[#f2a624] font-bold px-10 py-4 rounded-full text-base transition-all duration-300 hover:bg-[#f2a624]/10 hover:border-[#f2a624]/60"
               >
                 {{ ar: "عرض جميع المشاريع", en: "View All Projects", hi: "सभी परियोजनाएं देखें", ru: "Посмотреть все проекты", de: "Alle Projekte anzeigen", fr: "Voir tous les projets", es: "Ver todos los proyectos", tr: "Tüm Projeleri Görüntüle", ur: "تمام منصوبے دیکھیں", zh: "查看所有项目" }[lang] || "View All Projects"}
                 {isRTLLang ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}

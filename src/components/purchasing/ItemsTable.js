@@ -13,7 +13,7 @@ export function blankItem() {
   };
 }
 
-const inputCls = 'w-full bg-white/5 border border-white/10 rounded-lg px-2.5 py-2 text-xs text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-all';
+const inputCls = 'w-full bg-white/5 border border-white/10 rounded-lg px-2.5 py-2 text-xs text-white placeholder-white/20 focus:border-[#f2a624]/50 outline-none transition-all';
 
 export default function ItemsTable({ items, onChange, readOnly = false }) {
   const { t, isRTL } = useLanguage();
@@ -146,7 +146,7 @@ export default function ItemsTable({ items, onChange, readOnly = false }) {
 
       {!readOnly && (
         <button type="button" onClick={addRow}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold text-[#f2a624] border border-[#c8a96e]/30 hover:bg-[#c8a96e]/10 transition-all">
+          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold text-[#f2a624] border border-[#f2a624]/30 hover:bg-[#f2a624]/10 transition-all">
           <Plus size={14} /> {t('purchasing.addItem')}
         </button>
       )}

@@ -5,7 +5,7 @@ import { useLanguage } from '@/context/LanguageContext';
 const VARIANTS = {
   danger:  { tint: 'rgba(239,68,68,0.10)',  color: '#ef4444', btn: 'bg-red-500 hover:bg-red-600 text-white' },
   warning: { tint: 'rgba(245,158,11,0.10)', color: '#f59e0b', btn: 'bg-amber-500 hover:bg-amber-600 text-black' },
-  default: { tint: 'rgba(201,163,77,0.10)', color: '#f2a624', btn: 'bg-[#c8a96e] hover:bg-[#dcbb7d] text-black' },
+  default: { tint: 'rgba(242,166,36,0.10)', color: '#f2a624', btn: 'bg-[#f2a624] hover:bg-[#f2a624] text-black' },
 };
 
 export default function ConfirmDialog({

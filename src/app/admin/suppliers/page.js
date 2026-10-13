@@ -171,12 +171,12 @@ export default function SuppliersListPage() {
             <Search size={15} className={`absolute ${isRTL ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 text-white/30`} />
             <input value={search} onChange={e => setSearch(e.target.value)}
               placeholder={t('admin.searchPlaceholder')}
-              className={`w-full bg-white/5 border border-white/10 rounded-xl py-2.5 ${isRTL ? 'pr-9 pl-3' : 'pl-9 pr-3'} text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#c8a96e]/40`} />
+              className={`w-full bg-white/5 border border-white/10 rounded-xl py-2.5 ${isRTL ? 'pr-9 pl-3' : 'pl-9 pr-3'} text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#f2a624]/40`} />
           </div>
           <div className="flex gap-2 flex-wrap items-center">
             {STATUS_FILTER_KEYS.map(f => (
               <button key={f} onClick={() => setFilter(f)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border ${filter === f ? 'bg-[#c8a96e] border-[#c8a96e] text-black' : 'border-white/10 text-white/50 hover:text-white'}`}>
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border ${filter === f ? 'bg-[#f2a624] border-[#f2a624] text-black' : 'border-white/10 text-white/50 hover:text-white'}`}>
                 {f === 'all' ? t('admin.allStatuses') : t(STATUS_T_KEYS[f])}
               </button>
             ))}
@@ -314,7 +314,7 @@ export default function SuppliersListPage() {
       {dialogSupplier && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.78)', backdropFilter: 'blur(8px)' }}>
           <div className="w-full max-w-lg bg-[#111118] border border-white/10 rounded-2xl overflow-hidden shadow-2xl" dir={isRTL ? 'rtl' : 'ltr'}>
-            <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]" style={{ background: 'linear-gradient(135deg,rgba(184,146,58,0.1),rgba(0,0,0,0))' }}>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07]" style={{ background: 'linear-gradient(135deg,rgba(222,142,13,0.1),rgba(0,0,0,0))' }}>
               <div>
                 <h2 className="text-white font-bold text-base">{t('admin.supplierAcceptDialogTitle')}</h2>
                 <p className="text-white/40 text-xs mt-0.5">{dialogSupplier.companyName} — {dialogSupplier.contactName}</p>
@@ -332,7 +332,7 @@ export default function SuppliersListPage() {
             </div>
 
             <div className="px-6 pt-5 pb-2">
-              <div className="flex items-start gap-3 bg-[#c8a96e]/8 border border-[#c8a96e]/20 rounded-xl px-4 py-3">
+              <div className="flex items-start gap-3 bg-[#f2a624]/8 border border-[#f2a624]/20 rounded-xl px-4 py-3">
                 <Mail size={14} className="text-[#f2a624] mt-0.5 shrink-0" />
                 <p className="text-white/60 text-xs leading-relaxed">{t('admin.supplierAcceptNote')}</p>
               </div>
@@ -345,7 +345,7 @@ export default function SuppliersListPage() {
                 </label>
                 <textarea rows={3} value={additionalMessage} onChange={e => setAdditionalMessage(e.target.value)}
                   placeholder={t('admin.supplierExtraNotePlaceholder')}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#c8a96e]/50 outline-none transition-all resize-none" />
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/20 focus:border-[#f2a624]/50 outline-none transition-all resize-none" />
               </div>
               {sendStatus === 'success' && <p className="text-green-400 text-sm font-semibold text-center">{t('admin.supplierSendSuccess')}</p>}
               {sendStatus === 'error' && (
@@ -361,7 +361,7 @@ export default function SuppliersListPage() {
                 {t('admin.supplierCancelBtn')}
               </button>
               <button onClick={handleSendAcceptance} disabled={sending || !dialogSupplier.email}
-                className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black text-sm font-black flex items-center justify-center gap-2 hover:from-[#D5B25D] hover:to-[#c8a96e] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#f2a624] to-[#de8e0d] text-black text-sm font-black flex items-center justify-center gap-2 hover:from-[#f2a624] hover:to-[#f2a624] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
                 {sending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
                 {t('admin.supplierSendBtn')}
               </button>

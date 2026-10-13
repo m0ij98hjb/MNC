@@ -451,7 +451,7 @@ export default function ProjectDirectory({ projects, categories }) {
               {/* Close Button */}
               <button
                 onClick={closeLightbox}
-                className="p-2.5 rounded-xl bg-secondary hover:bg-[#E1BF67] border border-secondary/20 text-black font-black transition-all"
+                className="p-2.5 rounded-xl bg-secondary hover:bg-[#f2a624] border border-secondary/20 text-black font-black transition-all"
                 title={t("aboutUsPage.closeLabel")}
               >
                 <X size={18} />

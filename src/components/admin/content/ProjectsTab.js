@@ -142,7 +142,7 @@ export default function ProjectsTab() {
           <button
             onClick={openNew}
             className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all"
-            style={{ background: 'rgba(201,163,77,0.10)', border: '1px solid rgba(201,163,77,0.30)', color: '#f2a624' }}
+            style={{ background: 'rgba(242,166,36,0.10)', border: '1px solid rgba(242,166,36,0.30)', color: '#f2a624' }}
           >
             <Plus size={13} /> {t('admin.contentTabs.projectsTab.newProjectBtn')}
           </button>
@@ -156,7 +156,7 @@ export default function ProjectsTab() {
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="px-3 py-2 rounded-xl text-xs text-white bg-black/40 border border-white/10 focus:border-[#c8a96e]/50 focus:outline-none"
+          className="px-3 py-2 rounded-xl text-xs text-white bg-black/40 border border-white/10 focus:border-[#f2a624]/50 focus:outline-none"
         >
           <option value="all" className="bg-[#0a0e17]">{getCategoryLabel('all', lang)}</option>
           {PROJECT_CATEGORY_IDS.map((id) => (
@@ -169,11 +169,11 @@ export default function ProjectsTab() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t('admin.contentTabs.projectsTab.searchPlaceholder')}
-            className="w-full pl-9 pr-3 py-2 rounded-xl text-xs text-white bg-black/40 border border-white/10 focus:border-[#c8a96e]/50 focus:outline-none"
+            className="w-full pl-9 pr-3 py-2 rounded-xl text-xs text-white bg-black/40 border border-white/10 focus:border-[#f2a624]/50 focus:outline-none"
           />
         </div>
         <label className="flex items-center gap-1.5 text-xs text-white/40 px-2">
-          <input type="checkbox" checked={showArchived} onChange={(e) => setShowArchived(e.target.checked)} className="accent-[#c8a96e]" />
+          <input type="checkbox" checked={showArchived} onChange={(e) => setShowArchived(e.target.checked)} className="accent-[#f2a624]" />
           {t('admin.contentTabs.projectsTab.showArchivedLabel')}
         </label>
       </div>

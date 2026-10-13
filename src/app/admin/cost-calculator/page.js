@@ -568,7 +568,7 @@ export default function CostCalculatorPage() {
   };
 
   const breakdownKeys = ["structure", "finishing", "mep", "external", "contingency"];
-  const breakdownColors = ["#D5B25D", "#60a5fa", "#34d399", "#f472b6", "#f59e0b"];
+  const breakdownColors = ["#f2a624", "#60a5fa", "#34d399", "#f472b6", "#f59e0b"];
 
   // Role gate: this is an internal tool, restricted to the 6 roles in ALLOWED_ROLES.
   // UI-level check (hides the sidebar entry) lives in roleBasedAccess.js / AdminSidebar;
@@ -605,15 +605,15 @@ export default function CostCalculatorPage() {
       <div className="relative pt-6 sm:pt-8 md:pt-10 pb-8 sm:pb-10 md:pb-12 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0d1526] to-black" />
         <div className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: "radial-gradient(circle at 30% 50%, #D5B25D 0%, transparent 60%), radial-gradient(circle at 70% 30%, #B8923A 0%, transparent 50%)" }}
+          style={{ backgroundImage: "radial-gradient(circle at 30% 50%, #f2a624 0%, transparent 60%), radial-gradient(circle at 70% 30%, #de8e0d 0%, transparent 50%)" }}
         />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-[#D5B25D]/10 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-[#f2a624]/10 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.04]"
-          style={{ backgroundImage: "linear-gradient(to right, #D5B25D 1px, transparent 1px), linear-gradient(to bottom, #D5B25D 1px, transparent 1px)", backgroundSize: "60px 60px" }}
+          style={{ backgroundImage: "linear-gradient(to right, #f2a624 1px, transparent 1px), linear-gradient(to bottom, #f2a624 1px, transparent 1px)", backgroundSize: "60px 60px" }}
         />
         <div className="relative z-10 container mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#D5B25D]/30 bg-[#D5B25D]/10 mb-6">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D5B25D" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#f2a624]/30 bg-[#f2a624]/10 mb-6">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f2a624" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 2L3 7v5c0 5 4 9.3 9 10.5C17 21.3 21 17 21 12V7l-9-5z"/>
             </svg>
             <span className="text-[#f2a624] text-xs font-bold tracking-widest uppercase">{t("calculator.badge")}</span>
@@ -621,13 +621,13 @@ export default function CostCalculatorPage() {
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black mb-4 leading-tight text-white">
             <span className="text-[#f2a624]">{t("calculator.title")}</span>
           </h1>
-          <div className="w-20 h-1 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto mb-6 rounded-full" />
+          <div className="w-20 h-1 bg-gradient-to-r from-[#f2a624] to-[#f2a624] mx-auto mb-6 rounded-full" />
           <p className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed text-white/70">
             {t("calculator.subtitle")}
           </p>
           <Link
             href="/admin/cost-reports"
-            className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full border border-[#D5B25D]/40 bg-[#D5B25D]/10 hover:bg-[#D5B25D]/20 hover:border-[#D5B25D]/70 text-[#f2a624] font-bold text-sm transition-all duration-300"
+            className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full border border-[#f2a624]/40 bg-[#f2a624]/10 hover:bg-[#f2a624]/20 hover:border-[#f2a624]/70 text-[#f2a624] font-bold text-sm transition-all duration-300"
           >
             <FileText size={16} />
             {t("costReports.title")}
@@ -636,14 +636,14 @@ export default function CostCalculatorPage() {
       </div>
 
       {/* Steps Indicator */}
-      <div className={`sticky top-[72px] z-40 backdrop-blur-xl border-b ${isLightMode ? 'bg-white/90 border-[#D5B25D]/20' : 'bg-black/80 border-[#D5B25D]/10'}`}>
+      <div className={`sticky top-[72px] z-40 backdrop-blur-xl border-b ${isLightMode ? 'bg-white/90 border-[#f2a624]/20' : 'bg-black/80 border-[#f2a624]/10'}`}>
         <div className="container mx-auto px-6 py-3">
           <div className="flex items-center justify-center gap-2 sm:gap-4">
             {[1, 2, 3].map((s, i) => (
               <div key={s} className="flex items-center gap-2 sm:gap-4">
                 <div className={`flex items-center gap-2 transition-all duration-300 ${step >= s ? "opacity-100" : "opacity-40"}`}>
                   <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold transition-all duration-300 ${
-                    step > s ? "bg-[#D5B25D] text-black" : step === s ? "bg-[#D5B25D]/20 border-2 border-[#D5B25D] text-[#f2a624]" : isLightMode ? "bg-slate-100 border border-slate-300 text-slate-400" : "bg-white/5 border border-white/20 text-white/40"
+                    step > s ? "bg-[#f2a624] text-black" : step === s ? "bg-[#f2a624]/20 border-2 border-[#f2a624] text-[#f2a624]" : isLightMode ? "bg-slate-100 border border-slate-300 text-slate-400" : "bg-white/5 border border-white/20 text-white/40"
                   }`}>
                     {step > s ? <CheckCircle2 size={14} /> : s}
                   </div>
@@ -652,7 +652,7 @@ export default function CostCalculatorPage() {
                   </span>
                 </div>
                 {i < 2 && (
-                  <div className={`w-8 sm:w-16 h-px transition-all duration-500 ${step > s + 0 ? "bg-[#D5B25D]" : isLightMode ? "bg-slate-200" : "bg-white/10"}`} />
+                  <div className={`w-8 sm:w-16 h-px transition-all duration-500 ${step > s + 0 ? "bg-[#f2a624]" : isLightMode ? "bg-slate-200" : "bg-white/10"}`} />
                 )}
               </div>
             ))}
@@ -709,9 +709,9 @@ export default function CostCalculatorPage() {
                   }}
                   className={`group relative p-6 sm:p-8 rounded-2xl border-2 transition-all duration-300 cursor-pointer text-center flex flex-col items-center gap-3 ${
                     isSelected
-                      ? "border-[#D5B25D] bg-[#D5B25D]/10 shadow-[0_0_30px_rgba(213,178,93,0.2)]"
+                      ? "border-[#f2a624] bg-[#f2a624]/10 shadow-[0_0_30px_rgba(242,166,36,0.2)]"
                       : isLightMode
-                        ? "border-slate-200 bg-white hover:border-[#D5B25D]/50 hover:bg-slate-50 shadow-sm"
+                        ? "border-slate-200 bg-white hover:border-[#f2a624]/50 hover:bg-slate-50 shadow-sm"
                         : "border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10"
                   }`}
                 >
@@ -745,9 +745,9 @@ export default function CostCalculatorPage() {
                       onClick={() => { setFormData((p) => ({ ...p, type: key })); setErrors({}); }}
                       className={`group relative p-5 sm:p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer text-center flex flex-col items-center gap-3 ${
                         formData.type === key
-                          ? "border-[#D5B25D] bg-[#D5B25D]/10 shadow-[0_0_30px_rgba(213,178,93,0.2)]"
+                          ? "border-[#f2a624] bg-[#f2a624]/10 shadow-[0_0_30px_rgba(242,166,36,0.2)]"
                           : isLightMode
-                            ? "border-slate-200 bg-white hover:border-[#D5B25D]/50 hover:bg-slate-50 shadow-sm"
+                            ? "border-slate-200 bg-white hover:border-[#f2a624]/50 hover:bg-slate-50 shadow-sm"
                             : "border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10"
                       }`}
                     >
@@ -782,9 +782,9 @@ export default function CostCalculatorPage() {
                       onClick={() => { setFormData((p) => ({ ...p, type: key })); setErrors({}); }}
                       className={`group relative p-5 sm:p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer text-center flex flex-col items-center gap-3 ${
                         formData.type === key
-                          ? "border-[#D5B25D] bg-[#D5B25D]/10 shadow-[0_0_30px_rgba(213,178,93,0.2)]"
+                          ? "border-[#f2a624] bg-[#f2a624]/10 shadow-[0_0_30px_rgba(242,166,36,0.2)]"
                           : isLightMode
-                            ? "border-slate-200 bg-white hover:border-[#D5B25D]/50 hover:bg-slate-50 shadow-sm"
+                            ? "border-slate-200 bg-white hover:border-[#f2a624]/50 hover:bg-slate-50 shadow-sm"
                             : "border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10"
                       }`}
                     >
@@ -819,9 +819,9 @@ export default function CostCalculatorPage() {
                       onClick={() => { setFormData((p) => ({ ...p, type: key })); setErrors({}); }}
                       className={`group relative p-5 sm:p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer text-center flex flex-col items-center gap-3 ${
                         formData.type === key
-                          ? "border-[#D5B25D] bg-[#D5B25D]/10 shadow-[0_0_30px_rgba(213,178,93,0.2)]"
+                          ? "border-[#f2a624] bg-[#f2a624]/10 shadow-[0_0_30px_rgba(242,166,36,0.2)]"
                           : isLightMode
-                            ? "border-slate-200 bg-white hover:border-[#D5B25D]/50 hover:bg-slate-50 shadow-sm"
+                            ? "border-slate-200 bg-white hover:border-[#f2a624]/50 hover:bg-slate-50 shadow-sm"
                             : "border-white/10 bg-white/5 hover:border-white/30 hover:bg-white/10"
                       }`}
                     >
@@ -849,7 +849,7 @@ export default function CostCalculatorPage() {
             <div className="flex justify-center">
               <button
                 onClick={handleNext}
-                className="flex items-center gap-2 px-8 py-3.5 bg-[#D5B25D] hover:bg-[#E1BF67] text-black font-bold rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-[#D5B25D]/20 text-base cursor-pointer"
+                className="flex items-center gap-2 px-8 py-3.5 bg-[#f2a624] hover:bg-[#f2a624] text-black font-bold rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-[#f2a624]/20 text-base cursor-pointer"
               >
                 {isRtl && <ChevronLeft size={20} />}
                 <span>{ui.next[lang] || ui.next['en']}</span>
@@ -874,7 +874,7 @@ export default function CostCalculatorPage() {
                     <div className="grid grid-cols-2 gap-2">
                       {industrialQualityOptions.map(({ key, color, label }) => (
                         <button key={key} onClick={() => { setFormData((p) => ({ ...p, quality: key })); setErrors({}); }}
-                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#f2a624] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#f2a624] text-[#f2a624] bg-[#f2a624]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#f2a624]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
                           style={formData.quality === key ? { borderColor: color, color } : {}}
                         >{label}</button>
                       ))}
@@ -892,7 +892,7 @@ export default function CostCalculatorPage() {
                       value={formData.groundFloorArea}
                       onChange={(e) => { setFormData((p) => ({ ...p, groundFloorArea: e.target.value })); setErrors({}); }}
                       placeholder="0"
-                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.groundFloorArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors.groundFloorArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                     />
                     {errors.groundFloorArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
                   </div>
@@ -911,7 +911,7 @@ export default function CostCalculatorPage() {
                       value={formData.mezzanineArea}
                       onChange={(e) => { setFormData((p) => ({ ...p, mezzanineArea: e.target.value })); setErrors({}); }}
                       placeholder="0"
-                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.mezzanineArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors.mezzanineArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                     />
                     {errors.mezzanineArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
                   </div>
@@ -927,7 +927,7 @@ export default function CostCalculatorPage() {
                       value={formData.firstFloorArea}
                       onChange={(e) => { setFormData((p) => ({ ...p, firstFloorArea: e.target.value })); setErrors({}); }}
                       placeholder="0"
-                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.firstFloorArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors.firstFloorArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                     />
                     {errors.firstFloorArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
                   </div>
@@ -945,7 +945,7 @@ export default function CostCalculatorPage() {
                     <div className="grid grid-cols-1 gap-2">
                       {hotelRatingOptions.map(({ key, label }) => (
                         <button key={key} onClick={() => { setFormData((p) => ({ ...p, hotelRating: key })); setErrors({}); }}
-                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.hotelRating === key ? "border-[#D5B25D] text-[#f2a624] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.hotelRating === key ? "border-[#f2a624] text-[#f2a624] bg-[#f2a624]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#f2a624]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
                         >{label}</button>
                       ))}
                     </div>
@@ -960,14 +960,14 @@ export default function CostCalculatorPage() {
                     <div className="flex items-center gap-4">
                       <button
                         onClick={() => setBasementsCount(Number(formData.basementsCount) - 1)}
-                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#f2a624] hover:bg-[#f2a624]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >−</button>
                       <span className="text-3xl font-black text-[#f2a624] min-w-[60px] text-center">
                         {Number(formData.basementsCount) === 0 ? t("calculator.engineering.noBasementOption") : fmt(Number(formData.basementsCount))}
                       </span>
                       <button
                         onClick={() => setBasementsCount(Number(formData.basementsCount) + 1)}
-                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#f2a624] hover:bg-[#f2a624]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >+</button>
                     </div>
                     {errors.basementsCount && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
@@ -983,7 +983,7 @@ export default function CostCalculatorPage() {
                               value={value}
                               onChange={(e) => updateBasementArea(i, e.target.value)}
                               placeholder="0"
-                              className={`w-full border rounded-lg px-3 py-2 text-sm font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors[`basementArea_${i}`] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                              className={`w-full border rounded-lg px-3 py-2 text-sm font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors[`basementArea_${i}`] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                             />
                           </div>
                         ))}
@@ -1002,7 +1002,7 @@ export default function CostCalculatorPage() {
                       value={formData.groundFloorArea}
                       onChange={(e) => { setFormData((p) => ({ ...p, groundFloorArea: e.target.value })); setErrors({}); }}
                       placeholder="0"
-                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.groundFloorArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors.groundFloorArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                     />
                     {errors.groundFloorArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
                   </div>
@@ -1021,7 +1021,7 @@ export default function CostCalculatorPage() {
                       value={formData.mezzanineArea}
                       onChange={(e) => { setFormData((p) => ({ ...p, mezzanineArea: e.target.value })); setErrors({}); }}
                       placeholder="0"
-                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.mezzanineArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors.mezzanineArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                     />
                     {errors.mezzanineArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
                   </div>
@@ -1034,12 +1034,12 @@ export default function CostCalculatorPage() {
                     <div className="flex items-center gap-4">
                       <button
                         onClick={() => setCommercialFloorsCount(Number(formData.floorsCount) - 1)}
-                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#f2a624] hover:bg-[#f2a624]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >−</button>
                       <span className="text-3xl font-black text-[#f2a624] min-w-[60px] text-center">{fmt(Number(formData.floorsCount))}</span>
                       <button
                         onClick={() => setCommercialFloorsCount(Number(formData.floorsCount) + 1)}
-                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#f2a624] hover:bg-[#f2a624]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >+</button>
                     </div>
                     {errors.floorsCount && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
@@ -1055,7 +1055,7 @@ export default function CostCalculatorPage() {
                               value={value}
                               onChange={(e) => updateFloorArea(i, e.target.value)}
                               placeholder="0"
-                              className={`w-full border rounded-lg px-3 py-2 text-sm font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors[`floorArea_${i}`] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                              className={`w-full border rounded-lg px-3 py-2 text-sm font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors[`floorArea_${i}`] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                             />
                           </div>
                         ))}
@@ -1074,7 +1074,7 @@ export default function CostCalculatorPage() {
                       value={formData.penthouseArea}
                       onChange={(e) => { setFormData((p) => ({ ...p, penthouseArea: e.target.value })); setErrors({}); }}
                       placeholder="0"
-                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.penthouseArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors.penthouseArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                     />
                     {errors.penthouseArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
                   </div>
@@ -1092,7 +1092,7 @@ export default function CostCalculatorPage() {
                     <div className="grid grid-cols-2 gap-2">
                       {qualityOptions.map(({ key, color, label }) => (
                         <button key={key} onClick={() => setFormData((p) => ({ ...p, quality: key }))}
-                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#f2a624] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#f2a624] text-[#f2a624] bg-[#f2a624]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#f2a624]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
                           style={formData.quality === key ? { borderColor: color, color } : {}}
                         >{label}</button>
                       ))}
@@ -1107,14 +1107,14 @@ export default function CostCalculatorPage() {
                     <div className="flex items-center gap-4">
                       <button
                         onClick={() => setBasementsCount(Number(formData.basementsCount) - 1)}
-                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#f2a624] hover:bg-[#f2a624]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >−</button>
                       <span className="text-3xl font-black text-[#f2a624] min-w-[60px] text-center">
                         {Number(formData.basementsCount) === 0 ? t("calculator.engineering.noBasementOption") : fmt(Number(formData.basementsCount))}
                       </span>
                       <button
                         onClick={() => setBasementsCount(Number(formData.basementsCount) + 1)}
-                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#f2a624] hover:bg-[#f2a624]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >+</button>
                     </div>
                     {errors.basementsCount && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
@@ -1130,7 +1130,7 @@ export default function CostCalculatorPage() {
                               value={value}
                               onChange={(e) => updateBasementArea(i, e.target.value)}
                               placeholder="0"
-                              className={`w-full border rounded-lg px-3 py-2 text-sm font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors[`basementArea_${i}`] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                              className={`w-full border rounded-lg px-3 py-2 text-sm font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors[`basementArea_${i}`] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                             />
                           </div>
                         ))}
@@ -1149,7 +1149,7 @@ export default function CostCalculatorPage() {
                       value={formData.groundFloorArea}
                       onChange={(e) => { setFormData((p) => ({ ...p, groundFloorArea: e.target.value })); setErrors({}); }}
                       placeholder="0"
-                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.groundFloorArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors.groundFloorArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                     />
                     {errors.groundFloorArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
                   </div>
@@ -1168,7 +1168,7 @@ export default function CostCalculatorPage() {
                       value={formData.mezzanineArea}
                       onChange={(e) => { setFormData((p) => ({ ...p, mezzanineArea: e.target.value })); setErrors({}); }}
                       placeholder="0"
-                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.mezzanineArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors.mezzanineArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                     />
                     {errors.mezzanineArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
                   </div>
@@ -1181,12 +1181,12 @@ export default function CostCalculatorPage() {
                     <div className="flex items-center gap-4">
                       <button
                         onClick={() => setCommercialFloorsCount(Number(formData.floorsCount) - 1)}
-                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#f2a624] hover:bg-[#f2a624]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >−</button>
                       <span className="text-3xl font-black text-[#f2a624] min-w-[60px] text-center">{fmt(Number(formData.floorsCount))}</span>
                       <button
                         onClick={() => setCommercialFloorsCount(Number(formData.floorsCount) + 1)}
-                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#f2a624] hover:bg-[#f2a624]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >+</button>
                     </div>
                     {errors.floorsCount && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
@@ -1202,7 +1202,7 @@ export default function CostCalculatorPage() {
                               value={value}
                               onChange={(e) => updateFloorArea(i, e.target.value)}
                               placeholder="0"
-                              className={`w-full border rounded-lg px-3 py-2 text-sm font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors[`floorArea_${i}`] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                              className={`w-full border rounded-lg px-3 py-2 text-sm font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors[`floorArea_${i}`] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                             />
                           </div>
                         ))}
@@ -1221,7 +1221,7 @@ export default function CostCalculatorPage() {
                       value={formData.penthouseArea}
                       onChange={(e) => { setFormData((p) => ({ ...p, penthouseArea: e.target.value })); setErrors({}); }}
                       placeholder="0"
-                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.penthouseArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors.penthouseArea ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                     />
                     {errors.penthouseArea && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
                   </div>
@@ -1241,7 +1241,7 @@ export default function CostCalculatorPage() {
                         value={formData[key]}
                         onChange={(e) => { setFormData((p) => ({ ...p, [key]: e.target.value })); setErrors({}); }}
                         placeholder="0"
-                        className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors[key] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                        className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors[key] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                       />
                       {errors[key] && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
                     </div>
@@ -1255,12 +1255,12 @@ export default function CostCalculatorPage() {
                     <div className="flex items-center gap-4">
                       <button
                         onClick={() => setFormData((p) => ({ ...p, floorsCount: String(Math.max(1, Number(p.floorsCount) - 1)) }))}
-                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#f2a624] hover:bg-[#f2a624]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >−</button>
                       <span className="text-3xl font-black text-[#f2a624] min-w-[60px] text-center">{fmt(Number(formData.floorsCount))}</span>
                       <button
                         onClick={() => setFormData((p) => ({ ...p, floorsCount: String(Math.min(60, Number(p.floorsCount) + 1)) }))}
-                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                        className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#f2a624] hover:bg-[#f2a624]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                       >+</button>
                     </div>
                     {errors.floorsCount && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
@@ -1279,7 +1279,7 @@ export default function CostCalculatorPage() {
                         value={formData[key]}
                         onChange={(e) => { setFormData((p) => ({ ...p, [key]: e.target.value })); setErrors({}); }}
                         placeholder="0"
-                        className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors[key] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                        className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors[key] ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                       />
                       {errors[key] && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
                     </div>
@@ -1296,7 +1296,7 @@ export default function CostCalculatorPage() {
                       value={formData.fenceLength}
                       onChange={(e) => { setFormData((p) => ({ ...p, fenceLength: e.target.value })); setErrors({}); }}
                       placeholder="0"
-                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.fenceLength ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                      className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors.fenceLength ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                     />
                     {errors.fenceLength && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
                   </div>
@@ -1309,7 +1309,7 @@ export default function CostCalculatorPage() {
                     <div className="grid grid-cols-2 gap-2">
                       {qualityOptions.map(({ key, color, label }) => (
                         <button key={key} onClick={() => setFormData((p) => ({ ...p, quality: key }))}
-                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#f2a624] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                          className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#f2a624] text-[#f2a624] bg-[#f2a624]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#f2a624]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
                           style={formData.quality === key ? { borderColor: color, color } : {}}
                         >{label}</button>
                       ))}
@@ -1332,13 +1332,13 @@ export default function CostCalculatorPage() {
                     value={formData.area}
                     onChange={(e) => { setFormData((p) => ({ ...p, area: e.target.value })); setErrors({}); }}
                     placeholder={t("calculator.areaPlaceholder")}
-                    className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#D5B25D] ${errors.area ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
+                    className={`w-full border rounded-xl px-4 py-3 text-lg font-bold outline-none transition-all duration-300 focus:border-[#f2a624] ${errors.area ? "border-red-500" : isLightMode ? "border-slate-200 bg-white text-[#1e293b]" : "border-white/15 bg-black/40 text-white"}`}
                   />
                   {errors.area && <p className="text-red-400 text-xs mt-2">{t("calculator.required")}</p>}
                   <div className="flex flex-wrap gap-2 mt-3">
                     {[200, 400, 600, 1000, 2000].map((v) => (
                       <button key={v} onClick={() => setFormData((p) => ({ ...p, area: String(v) }))}
-                        className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all duration-200 ${formData.area === String(v) ? "bg-[#D5B25D] text-black border-[#D5B25D]" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/15 text-white/60 hover:border-[#D5B25D]/50"}`}>
+                        className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all duration-200 ${formData.area === String(v) ? "bg-[#f2a624] text-black border-[#f2a624]" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#f2a624]/50" : "border-white/15 text-white/60 hover:border-[#f2a624]/50"}`}>
                         {fmt(v)} {lang === "ar" || lang === "ur" ? "م²" : "m²"}
                       </button>
                     ))}
@@ -1353,12 +1353,12 @@ export default function CostCalculatorPage() {
                   <div className="flex items-center gap-4">
                     <button
                       onClick={() => setFormData((p) => ({ ...p, floors: String(Math.max(1, Number(p.floors) - 1)) }))}
-                      className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                      className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#f2a624] hover:bg-[#f2a624]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                     >−</button>
                     <span className="text-3xl font-black text-[#f2a624] min-w-[60px] text-center">{fmt(Number(formData.floors))}</span>
                     <button
                       onClick={() => setFormData((p) => ({ ...p, floors: String(Math.min(20, Number(p.floors) + 1)) }))}
-                      className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#D5B25D] hover:bg-[#D5B25D]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
+                      className={`w-10 h-10 rounded-xl border flex items-center justify-center hover:border-[#f2a624] hover:bg-[#f2a624]/10 transition-all text-xl font-bold ${isLightMode ? 'border-slate-200 text-[#1e293b]' : 'border-white/20 text-white'}`}
                     >+</button>
                   </div>
                 </div>
@@ -1371,7 +1371,7 @@ export default function CostCalculatorPage() {
                   <div className="grid grid-cols-2 gap-2">
                     {qualityOptions.map(({ key, color, label }) => (
                       <button key={key} onClick={() => setFormData((p) => ({ ...p, quality: key }))}
-                        className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#D5B25D] text-[#f2a624] bg-[#D5B25D]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                        className={`py-2.5 px-3 rounded-xl border-2 text-sm font-bold transition-all duration-200 ${formData.quality === key ? "border-[#f2a624] text-[#f2a624] bg-[#f2a624]/10" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#f2a624]/50" : "border-white/10 text-white/60 hover:border-white/25"}`}
                         style={formData.quality === key ? { borderColor: color, color } : {}}
                       >{label}</button>
                     ))}
@@ -1389,7 +1389,7 @@ export default function CostCalculatorPage() {
                   <div className="flex flex-col gap-2">
                     {locationOptions.map(({ key, label }) => (
                       <button key={key} onClick={() => setFormData((p) => ({ ...p, location: key }))}
-                        className={`w-full py-2.5 px-4 rounded-xl border text-sm font-semibold text-start transition-all duration-200 ${formData.location === key ? "border-[#D5B25D] bg-[#D5B25D]/10 text-[#f2a624]" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/40" : "border-white/10 text-white/60 hover:border-white/25"}`}
+                        className={`w-full py-2.5 px-4 rounded-xl border text-sm font-semibold text-start transition-all duration-200 ${formData.location === key ? "border-[#f2a624] bg-[#f2a624]/10 text-[#f2a624]" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#f2a624]/40" : "border-white/10 text-white/60 hover:border-white/25"}`}
                       >{label}</button>
                     ))}
                   </div>
@@ -1405,7 +1405,7 @@ export default function CostCalculatorPage() {
                       const active = formData.extras.includes(key);
                       return (
                         <button key={key} onClick={() => toggleExtra(key)}
-                          className={`flex items-center gap-2 py-2.5 px-3 rounded-xl border text-xs font-bold transition-all duration-200 ${active ? "border-[#D5B25D] bg-[#D5B25D]/10 text-[#f2a624]" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#D5B25D]/40" : "border-white/10 text-white/50 hover:border-white/25"}`}
+                          className={`flex items-center gap-2 py-2.5 px-3 rounded-xl border text-xs font-bold transition-all duration-200 ${active ? "border-[#f2a624] bg-[#f2a624]/10 text-[#f2a624]" : isLightMode ? "border-slate-200 text-slate-500 hover:border-[#f2a624]/40" : "border-white/10 text-white/50 hover:border-white/25"}`}
                         >
                           <Icon size={15} />
                           <span className="truncate">{label}</span>
@@ -1427,7 +1427,7 @@ export default function CostCalculatorPage() {
                 <span>{ui.back[lang] || ui.back['en']}</span>
               </button>
               <button onClick={handleNext}
-                className="flex items-center gap-2 px-8 py-3.5 bg-[#D5B25D] hover:bg-[#E1BF67] text-black font-bold rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-[#D5B25D]/20 text-base">
+                className="flex items-center gap-2 px-8 py-3.5 bg-[#f2a624] hover:bg-[#f2a624] text-black font-bold rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-[#f2a624]/20 text-base">
                 <Calculator size={18} />
                 {t("calculator.calculate")}
               </button>
@@ -1439,9 +1439,9 @@ export default function CostCalculatorPage() {
         {calculating && (
           <div className="flex flex-col items-center justify-center py-32 animate-in fade-in duration-300">
             <div className="relative w-24 h-24 mb-8">
-              <div className="absolute inset-0 rounded-full border-4 border-[#D5B25D]/20" />
-              <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-[#D5B25D] animate-spin" />
-              <div className="absolute inset-4 rounded-full bg-[#D5B25D]/10 flex items-center justify-center">
+              <div className="absolute inset-0 rounded-full border-4 border-[#f2a624]/20" />
+              <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-[#f2a624] animate-spin" />
+              <div className="absolute inset-4 rounded-full bg-[#f2a624]/10 flex items-center justify-center">
                 <Calculator size={28} className="text-[#f2a624] animate-pulse" />
               </div>
             </div>
@@ -1450,7 +1450,7 @@ export default function CostCalculatorPage() {
             {/* Animated dots */}
             <div className="flex gap-2 mt-6">
               {[0, 1, 2].map((i) => (
-                <div key={i} className="w-2 h-2 rounded-full bg-[#D5B25D]"
+                <div key={i} className="w-2 h-2 rounded-full bg-[#f2a624]"
                   style={{ animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite` }} />
               ))}
             </div>
@@ -1467,7 +1467,7 @@ export default function CostCalculatorPage() {
             {lastReportId && (
               <Link
                 href={`/admin/cost-reports/${lastReportId}`}
-                className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl border-2 border-[#D5B25D] bg-[#D5B25D]/10 hover:bg-[#D5B25D]/20 text-[#f2a624] font-bold text-base transition-all duration-300"
+                className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl border-2 border-[#f2a624] bg-[#f2a624]/10 hover:bg-[#f2a624]/20 text-[#f2a624] font-bold text-base transition-all duration-300"
               >
                 <Printer size={18} />
                 {t("costReports.printBtn")}
@@ -1483,7 +1483,7 @@ export default function CostCalculatorPage() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact"
-                className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-[#D5B25D] hover:bg-[#E1BF67] text-black font-bold rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-[#D5B25D]/20 text-base">
+                className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-[#f2a624] hover:bg-[#f2a624] text-black font-bold rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-[#f2a624]/20 text-base">
                 <Phone size={18} />
                 {t("calculator.contact_cta")}
               </Link>

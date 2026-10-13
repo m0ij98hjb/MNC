@@ -106,7 +106,7 @@ export default function MediaPicker({ open, onClose, onSelect, accept = 'image',
     >
       <div
         className="w-full max-w-2xl rounded-2xl p-6 space-y-4 overflow-y-auto max-h-[90vh]"
-        style={{ background: '#0a0e17', border: '1px solid rgba(201,163,77,0.2)', boxShadow: '0 24px 80px rgba(0,0,0,0.9)' }}
+        style={{ background: '#0a0e17', border: '1px solid rgba(242,166,36,0.2)', boxShadow: '0 24px 80px rgba(0,0,0,0.9)' }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between">
@@ -120,9 +120,9 @@ export default function MediaPicker({ open, onClose, onSelect, accept = 'image',
               key={id}
               onClick={() => setTab(id)}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
-                tab === id ? 'bg-[#c8a96e]/12 text-[#f2a624]' : 'text-white/35 hover:text-white/70 hover:bg-white/5'
+                tab === id ? 'bg-[#f2a624]/12 text-[#f2a624]' : 'text-white/35 hover:text-white/70 hover:bg-white/5'
               }`}
-              style={tab === id ? { border: '1px solid rgba(201,163,77,0.30)' } : { border: '1px solid transparent' }}
+              style={tab === id ? { border: '1px solid rgba(242,166,36,0.30)' } : { border: '1px solid transparent' }}
             >
               {id === 'upload' ? t('admin.contentTabs.mediaLibrary.uploadNew') : t('admin.contentTabs.mediaLibrary.chooseExisting')}
             </button>
@@ -137,8 +137,8 @@ export default function MediaPicker({ open, onClose, onSelect, accept = 'image',
             onClick={() => !uploading && inputRef.current?.click()}
             className="rounded-2xl py-16 text-center cursor-pointer transition-colors"
             style={{
-              border: `1px dashed ${dragOver ? 'rgba(201,163,77,0.6)' : 'rgba(255,255,255,0.15)'}`,
-              background: dragOver ? 'rgba(201,163,77,0.05)' : 'transparent',
+              border: `1px dashed ${dragOver ? 'rgba(242,166,36,0.6)' : 'rgba(255,255,255,0.15)'}`,
+              background: dragOver ? 'rgba(242,166,36,0.05)' : 'transparent',
             }}
           >
             {uploading ? (
@@ -166,7 +166,7 @@ export default function MediaPicker({ open, onClose, onSelect, accept = 'image',
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={t('admin.contentTabs.mediaLibrary.searchPlaceholder')}
-                className="w-full pl-9 pr-3 py-2.5 rounded-xl text-sm text-white bg-white/[0.04] border border-white/10 focus:border-[#c8a96e]/50 focus:outline-none"
+                className="w-full pl-9 pr-3 py-2.5 rounded-xl text-sm text-white bg-white/[0.04] border border-white/10 focus:border-[#f2a624]/50 focus:outline-none"
               />
             </div>
             {assets.length === 0 ? (
@@ -181,7 +181,7 @@ export default function MediaPicker({ open, onClose, onSelect, accept = 'image',
                       type="button"
                       onClick={() => toggleSelect(asset)}
                       className="relative aspect-square rounded-xl overflow-hidden border transition-all"
-                      style={{ borderColor: isSelected ? '#c8a96e' : 'rgba(255,255,255,0.1)' }}
+                      style={{ borderColor: isSelected ? '#f2a624' : 'rgba(255,255,255,0.1)' }}
                     >
                       {asset.type === 'image' ? (
                         <img src={asset.url} alt="" className="w-full h-full object-cover" />
@@ -192,7 +192,7 @@ export default function MediaPicker({ open, onClose, onSelect, accept = 'image',
                         </div>
                       )}
                       {isSelected && (
-                        <div className="absolute inset-0 bg-[#c8a96e]/20 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-[#f2a624]/20 flex items-center justify-center">
                           <Check size={18} className="text-[#f2a624]" />
                         </div>
                       )}
@@ -206,7 +206,7 @@ export default function MediaPicker({ open, onClose, onSelect, accept = 'image',
                 onClick={confirmMultiSelect}
                 disabled={!selected.length}
                 className="w-full py-2.5 rounded-xl text-sm font-bold transition-all disabled:opacity-40"
-                style={{ background: 'rgba(201,163,77,0.12)', border: '1px solid rgba(201,163,77,0.35)', color: '#f2a624' }}
+                style={{ background: 'rgba(242,166,36,0.12)', border: '1px solid rgba(242,166,36,0.35)', color: '#f2a624' }}
               >
                 {t('admin.contentTabs.mediaLibrary.useSelected')} ({selected.length})
               </button>

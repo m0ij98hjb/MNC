@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 
 /* ─── palette ─── */
-const GOLD   = '#c8a96e';
+const GOLD   = '#f2a624';
 const BLUE   = '#3b82f6';
 const GREEN  = '#10b981';
 const AMBER  = '#f59e0b';
@@ -305,7 +305,7 @@ export default function ReportsPage() {
               <button key={tb.id} onClick={() => setTab(tb.id)}
                 className={`px-4 py-1.5 rounded-lg text-[12px] font-semibold transition-all duration-200 ${
                   tab === tb.id
-                    ? 'bg-[#c8a96e] text-black shadow-lg shadow-[#c8a96e]/20'
+                    ? 'bg-[#f2a624] text-black shadow-lg shadow-[#f2a624]/20'
                     : 'text-white/45 hover:text-white'
                 }`}>
                 {tb.label}

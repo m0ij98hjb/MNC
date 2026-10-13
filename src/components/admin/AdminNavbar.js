@@ -36,7 +36,7 @@ function GoldSep() {
   return (
     <div
       className="flex-shrink-0 self-stretch my-2.5"
-      style={{ width: '1px', background: 'linear-gradient(to bottom, transparent, rgba(201,163,77,0.35) 30%, rgba(201,163,77,0.35) 70%, transparent)' }}
+      style={{ width: '1px', background: 'linear-gradient(to bottom, transparent, rgba(242,166,36,0.35) 30%, rgba(242,166,36,0.35) 70%, transparent)' }}
     />
   );
 }
@@ -122,13 +122,13 @@ export default function AdminNavbar() {
         </Link>
 
         {/* Right → Center separator */}
-        <div className="w-px h-8 bg-[#C9A34D]/18 flex-shrink-0" />
+        <div className="w-px h-8 bg-[#f2a624]/18 flex-shrink-0" />
 
         {/* ── CENTER: ADMIN PANEL + page name ── */}
         <div className="flex-1 flex flex-col items-center justify-center gap-0.5 min-w-0 px-4">
           <p
             className="text-[7.5px] font-black tracking-[5px] uppercase leading-none select-none"
-            style={{ color: 'rgba(201,163,77,0.28)' }}
+            style={{ color: 'rgba(242,166,36,0.28)' }}
           >
             {roleLabel?.toUpperCase() || 'ADMIN PANEL'}
           </p>
@@ -141,7 +141,7 @@ export default function AdminNavbar() {
         </div>
 
         {/* Center → Left separator */}
-        <div className="w-px h-8 bg-[#C9A34D]/18 flex-shrink-0" />
+        <div className="w-px h-8 bg-[#f2a624]/18 flex-shrink-0" />
 
         {/* ── LEFT ACTIONS (RTL: first child is visually rightmost of the left group) ── */}
         <div className="flex items-center flex-shrink-0 ps-3">
@@ -151,14 +151,14 @@ export default function AdminNavbar() {
             <button
               onClick={() => setIsUserOpen(v => !v)}
               className="flex items-center gap-1.5 py-1.5 px-2 rounded-xl transition-all duration-200 active:scale-95 group"
-              style={{ border: '1px solid rgba(201,163,77,0.20)' }}
-              onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(201,163,77,0.40)'}
-              onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(201,163,77,0.20)'}
+              style={{ border: '1px solid rgba(242,166,36,0.20)' }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(242,166,36,0.40)'}
+              onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(242,166,36,0.20)'}
             >
               <div
                 className="relative w-7 h-7 rounded-full overflow-hidden flex-shrink-0"
                 style={{ 
-                  boxShadow: '0 0 0 1.5px rgba(201,163,77,0.45)',
+                  boxShadow: '0 0 0 1.5px rgba(242,166,36,0.45)',
                   backgroundColor: 'transparent'
                 }}
               >
@@ -187,18 +187,18 @@ export default function AdminNavbar() {
               }`}
               style={{
                 background: '#0a0e17',
-                border: '2px solid rgba(201,163,77,0.4)',
-                boxShadow: '0 25px 70px rgba(0,0,0,0.9), 0 0 0 1px rgba(201,163,77,0.2)',
+                border: '2px solid rgba(242,166,36,0.4)',
+                boxShadow: '0 25px 70px rgba(0,0,0,0.9), 0 0 0 1px rgba(242,166,36,0.2)',
               }}
             >
               <div
                 className="flex items-center gap-3 px-4 py-3.5"
-                style={{ borderBottom: '2px solid rgba(201,163,77,0.3)' }}
+                style={{ borderBottom: '2px solid rgba(242,166,36,0.3)' }}
               >
                 <div
                   className="relative w-9 h-9 rounded-full overflow-hidden flex-shrink-0"
                   style={{ 
-                    boxShadow: '0 0 0 3px rgba(201,163,77,0.6), 0 6px 16px rgba(0,0,0,0.5)',
+                    boxShadow: '0 0 0 3px rgba(242,166,36,0.6), 0 6px 16px rgba(0,0,0,0.5)',
                     backgroundColor: 'transparent'
                   }}
                 >
@@ -221,7 +221,7 @@ export default function AdminNavbar() {
               <Link
                 href={getDashboard()}
                 onClick={() => setIsUserOpen(false)}
-                className="flex items-center gap-2.5 w-full px-4 py-3 text-[13px] font-semibold text-white/70 hover:text-white hover:bg-[#c8a96e]/15 transition-colors"
+                className="flex items-center gap-2.5 w-full px-4 py-3 text-[13px] font-semibold text-white/70 hover:text-white hover:bg-[#f2a624]/15 transition-colors"
               >
                 <LayoutDashboard size={14} className="text-[#f2a624] flex-shrink-0" />
                 {roleLabel}
@@ -248,9 +248,9 @@ export default function AdminNavbar() {
                 if (opening && markBellOpened) markBellOpened();
               }}
               className="relative flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-200 active:scale-95 flex-shrink-0"
-              style={{ border: '1px solid rgba(201,163,77,0.18)', color: 'rgba(255,255,255,0.55)' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(201,163,77,0.40)'; e.currentTarget.style.color = 'rgba(255,255,255,0.9)'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(201,163,77,0.18)'; e.currentTarget.style.color = 'rgba(255,255,255,0.55)'; }}
+              style={{ border: '1px solid rgba(242,166,36,0.18)', color: 'rgba(255,255,255,0.55)' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(242,166,36,0.40)'; e.currentTarget.style.color = 'rgba(255,255,255,0.9)'; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(242,166,36,0.18)'; e.currentTarget.style.color = 'rgba(255,255,255,0.55)'; }}
             >
               <Bell size={15} />
               {unreadCount > 0 && (
@@ -270,8 +270,8 @@ export default function AdminNavbar() {
               }`}
               style={{
                 background: '#0a0e17',
-                border: '2px solid rgba(201,163,77,0.4)',
-                boxShadow: '0 25px 70px rgba(0,0,0,0.9), 0 0 0 1px rgba(201,163,77,0.2)',
+                border: '2px solid rgba(242,166,36,0.4)',
+                boxShadow: '0 25px 70px rgba(0,0,0,0.9), 0 0 0 1px rgba(242,166,36,0.2)',
               }}
             >
               <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.15]">
@@ -308,7 +308,7 @@ export default function AdminNavbar() {
                         isSupplier ? 'bg-blue-500/20 border border-blue-500/40'
                         : isContact ? 'bg-green-500/20 border border-green-500/40'
                         : isPurchase ? 'bg-purple-500/20 border border-purple-500/40'
-                        :             'bg-[#c8a96e]/20 border border-[#c8a96e]/40'
+                        :             'bg-[#f2a624]/20 border border-[#f2a624]/40'
                       }`}>
                         {isSupplier ? <Building2 size={13} className="text-blue-400" />
                         : isContact ? <MessageSquare size={13} className="text-green-400" />
@@ -328,7 +328,7 @@ export default function AdminNavbar() {
                           :             `${t('admin.jobReqLabel')} · ${n.position || ''}`}
                         </p>
                       </div>
-                      {unread && <span className="w-2 h-2 rounded-full bg-[#c8a96e] shrink-0 mt-2" />}
+                      {unread && <span className="w-2 h-2 rounded-full bg-[#f2a624] shrink-0 mt-2" />}
                     </Link>
                   );
                 })}
@@ -359,15 +359,15 @@ export default function AdminNavbar() {
             <button
               onClick={() => setIsLangOpen(v => !v)}
               className="flex items-center gap-1.5 px-2.5 py-2 rounded-lg transition-all duration-200"
-              style={{ border: '1px solid rgba(201,163,77,0.18)', color: 'rgba(255,255,255,0.55)' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(201,163,77,0.40)'; e.currentTarget.style.color = 'rgba(255,255,255,0.9)'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(201,163,77,0.18)'; e.currentTarget.style.color = 'rgba(255,255,255,0.55)'; }}
+              style={{ border: '1px solid rgba(242,166,36,0.18)', color: 'rgba(255,255,255,0.55)' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(242,166,36,0.40)'; e.currentTarget.style.color = 'rgba(255,255,255,0.9)'; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(242,166,36,0.18)'; e.currentTarget.style.color = 'rgba(255,255,255,0.55)'; }}
             >
               <LangFlag code={currentLang.code} className="w-[18px]" />
               <span className="hidden sm:inline text-[10px] font-bold tracking-widest uppercase">
                 {currentLang.code.toUpperCase()}
               </span>
-              <Globe size={10} style={{ color: 'rgba(201,163,77,0.45)' }} />
+              <Globe size={10} style={{ color: 'rgba(242,166,36,0.45)' }} />
             </button>
 
             {/* Language dropdown */}
@@ -377,8 +377,8 @@ export default function AdminNavbar() {
               }`}
               style={{
                 background: '#0a0e17',
-                border: '2px solid rgba(201,163,77,0.4)',
-                boxShadow: '0 25px 70px rgba(0,0,0,0.9), 0 0 0 1px rgba(201,163,77,0.2)',
+                border: '2px solid rgba(242,166,36,0.4)',
+                boxShadow: '0 25px 70px rgba(0,0,0,0.9), 0 0 0 1px rgba(242,166,36,0.2)',
               }}
             >
               <div className="p-2.5">
@@ -389,7 +389,7 @@ export default function AdminNavbar() {
                       onClick={() => { setLang(language.code); setIsLangOpen(false); }}
                       className={`flex items-center gap-2 px-2.5 py-2 rounded-xl text-start transition-all duration-200 ${
                         lang === language.code
-                          ? 'bg-[#C9A34D]/20 border border-[#C9A34D]/40 text-[#f2a624]'
+                          ? 'bg-[#f2a624]/20 border border-[#f2a624]/40 text-[#f2a624]'
                           : 'border border-transparent text-white/60 hover:bg-white/10 hover:text-white'
                       }`}
                     >
@@ -399,7 +399,7 @@ export default function AdminNavbar() {
                         <p className="text-[8.5px] opacity-60 uppercase tracking-wide">{language.dir.toUpperCase()}</p>
                       </div>
                       {lang === language.code && (
-                        <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#C9A34D] flex-shrink-0" />
+                        <span className="ms-auto w-1.5 h-1.5 rounded-full bg-[#f2a624] flex-shrink-0" />
                       )}
                     </button>
                   ))}
@@ -419,9 +419,9 @@ export default function AdminNavbar() {
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold whitespace-nowrap transition-all duration-200 active:scale-95"
               style={{
                 color: '#f2a624',
-                border: '1px dashed rgba(201,163,77,0.50)',
+                border: '1px dashed rgba(242,166,36,0.50)',
               }}
-              onMouseEnter={e => e.currentTarget.style.background = 'rgba(201,163,77,0.08)'}
+              onMouseEnter={e => e.currentTarget.style.background = 'rgba(242,166,36,0.08)'}
               onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
             >
               <ExternalLink size={11} />
@@ -436,7 +436,7 @@ export default function AdminNavbar() {
       <div
         className="absolute bottom-0 inset-x-0 h-[1.5px]"
         style={{
-          background: 'linear-gradient(90deg, transparent 0%, rgba(201,163,77,0.12) 10%, rgba(201,163,77,0.55) 35%, rgba(201,163,77,0.7) 50%, rgba(201,163,77,0.55) 65%, rgba(201,163,77,0.12) 90%, transparent 100%)',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(242,166,36,0.12) 10%, rgba(242,166,36,0.55) 35%, rgba(242,166,36,0.7) 50%, rgba(242,166,36,0.55) 65%, rgba(242,166,36,0.12) 90%, transparent 100%)',
         }}
       />
     </header>

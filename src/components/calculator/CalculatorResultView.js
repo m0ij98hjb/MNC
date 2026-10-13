@@ -5,7 +5,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { numberToArabicWords } from "@/lib/numberToArabicWords";
 
 const breakdownKeys = ["structure", "finishing", "mep", "external", "contingency"];
-const breakdownColors = ["#D5B25D", "#60a5fa", "#34d399", "#f472b6", "#f59e0b"];
+const breakdownColors = ["#f2a624", "#60a5fa", "#34d399", "#f472b6", "#f59e0b"];
 
 // Renders a calculation result exactly as it appears on the calculator's
 // step-3 screen. Shared between the live calculator (fresh result) and the
@@ -59,9 +59,9 @@ export default function CalculatorResultView({ result, isLightMode }) {
       {result.kind === "industrial" ? (
         <>
           {/* Estimated Construction Cost — highlighted */}
-          <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
+          <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#de8e0d]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-              <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
+              <span className="bg-[#f2a624] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
             </div>
             <p className="text-3xl font-black text-[#f2a624] mt-2">{fmt(result.estimatedCost)}</p>
             <p className="text-[#f2a624]/60 text-xs mt-1">{t("calculator.currency")}</p>
@@ -74,7 +74,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
 
           {/* Estimated Built-up Area */}
           <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
-            <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-[#f2a624]/15 border border-[#f2a624]/30 flex items-center justify-center">
               <TrendingUp size={22} className="text-[#f2a624]" />
             </div>
             <div>
@@ -115,9 +115,9 @@ export default function CalculatorResultView({ result, isLightMode }) {
         </>
       ) : result.kind === "hotel" ? (
         <>
-          <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
+          <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#de8e0d]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-              <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
+              <span className="bg-[#f2a624] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
             </div>
             <p className="text-3xl font-black text-[#f2a624] mt-2">{fmt(result.estimatedCost)}</p>
             <p className="text-[#f2a624]/60 text-xs mt-1">{t("calculator.currency")}</p>
@@ -129,7 +129,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
           </div>
 
           <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
-            <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-[#f2a624]/15 border border-[#f2a624]/30 flex items-center justify-center">
               <TrendingUp size={22} className="text-[#f2a624]" />
             </div>
             <div>
@@ -185,9 +185,9 @@ export default function CalculatorResultView({ result, isLightMode }) {
         </>
       ) : result.kind === "commercial" ? (
         <>
-          <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
+          <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#de8e0d]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-              <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
+              <span className="bg-[#f2a624] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
             </div>
             <p className="text-3xl font-black text-[#f2a624] mt-2">{fmt(result.estimatedCost)}</p>
             <p className="text-[#f2a624]/60 text-xs mt-1">{t("calculator.currency")}</p>
@@ -199,7 +199,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
           </div>
 
           <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
-            <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-[#f2a624]/15 border border-[#f2a624]/30 flex items-center justify-center">
               <TrendingUp size={22} className="text-[#f2a624]" />
             </div>
             <div>
@@ -259,9 +259,9 @@ export default function CalculatorResultView({ result, isLightMode }) {
         </>
       ) : result.kind === "engineering" ? (
         <>
-          <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
+          <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#de8e0d]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-              <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
+              <span className="bg-[#f2a624] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.engineering.estimatedCost")}</span>
             </div>
             <p className="text-3xl font-black text-[#f2a624] mt-2">{fmt(result.estimatedCost)}</p>
             <p className="text-[#f2a624]/60 text-xs mt-1">{t("calculator.currency")}</p>
@@ -273,7 +273,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
           </div>
 
           <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
-            <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-[#f2a624]/15 border border-[#f2a624]/30 flex items-center justify-center">
               <TrendingUp size={22} className="text-[#f2a624]" />
             </div>
             <div>
@@ -322,9 +322,9 @@ export default function CalculatorResultView({ result, isLightMode }) {
               <p className={`text-2xl font-black ${textPri}`}>{fmt(result.min)}</p>
               <p className={`text-xs mt-1 ${textMut}`}>{t("calculator.currency")}</p>
             </div>
-            <div className="relative bg-gradient-to-br from-[#D5B25D]/20 to-[#B8923A]/10 border-2 border-[#D5B25D] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(213,178,93,0.2)]">
+            <div className="relative bg-gradient-to-br from-[#f2a624]/20 to-[#de8e0d]/10 border-2 border-[#f2a624] rounded-2xl p-6 text-center shadow-[0_0_40px_rgba(242,166,36,0.2)]">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-[#D5B25D] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.avg_cost")}</span>
+                <span className="bg-[#f2a624] text-black text-[10px] font-black px-3 py-1 rounded-full">{t("calculator.avg_cost")}</span>
               </div>
               <p className="text-3xl font-black text-[#f2a624] mt-2">{fmt(result.avg)}</p>
               <p className="text-[#f2a624]/60 text-xs mt-1">{t("calculator.currency")}</p>
@@ -344,7 +344,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
           {/* Stats Row */}
           <div className="grid grid-cols-2 gap-4">
             <div className={`${cardCls} rounded-2xl p-5 flex items-center gap-4`}>
-              <div className="w-12 h-12 rounded-xl bg-[#D5B25D]/15 border border-[#D5B25D]/30 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-[#f2a624]/15 border border-[#f2a624]/30 flex items-center justify-center">
                 <TrendingUp size={22} className="text-[#f2a624]" />
               </div>
               <div>
@@ -401,7 +401,7 @@ export default function CalculatorResultView({ result, isLightMode }) {
 
           {/* Engineering Insights */}
           {result.insights?.length > 0 && (
-            <div className="bg-gradient-to-br from-[#D5B25D]/10 to-transparent border border-[#D5B25D]/20 rounded-2xl p-6">
+            <div className="bg-gradient-to-br from-[#f2a624]/10 to-transparent border border-[#f2a624]/20 rounded-2xl p-6">
               <h3 className="text-[#f2a624] font-black text-lg mb-4 flex items-center gap-2">
                 <TrendingUp size={18} />
                 {t("calculator.aiInsights")}

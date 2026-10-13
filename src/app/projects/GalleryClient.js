@@ -137,11 +137,11 @@ export default function GalleryClient({ galleries }) {
               </Swiper>
               <style jsx global>{`
                 .architecture-swiper .swiper-pagination-bullet-active {
-                  background: #c5a059 !important;
+                  background: #f2a624 !important;
                 }
                 .architecture-swiper .swiper-button-next,
                 .architecture-swiper .swiper-button-prev {
-                  color: #c5a059 !important;
+                  color: #f2a624 !important;
                   background: rgba(255, 255, 255, 0.8);
                   width: 50px;
                   height: 50px;
@@ -238,7 +238,7 @@ export default function GalleryClient({ galleries }) {
                   opacity: 1 !important;
                 }
                 .interior-swiper .swiper-pagination-bullet-active {
-                  background: #c5a059 !important;
+                  background: #f2a624 !important;
                   width: 24px !important;
                   border-radius: 4px !important;
                 }

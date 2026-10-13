@@ -159,7 +159,7 @@ export default function SupplierDetailPage() {
 
             <Card title={t('admin.businessActivity')}>
               {supplier.activity ? (
-                <span className="inline-flex items-center gap-2 bg-[#c8a96e]/10 text-[#f2a624] text-sm font-semibold px-4 py-2 rounded-xl border border-[#c8a96e]/20">
+                <span className="inline-flex items-center gap-2 bg-[#f2a624]/10 text-[#f2a624] text-sm font-semibold px-4 py-2 rounded-xl border border-[#f2a624]/20">
                   <Briefcase size={14} />
                   {getAct(supplier.activity)}
                 </span>
@@ -227,7 +227,7 @@ export default function SupplierDetailPage() {
                 <div className="mt-4">
                   <button
                     onClick={() => { setVisitFormOpen(v => !v); setVisitStatus(''); }}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#c8a96e]/10 hover:bg-[#c8a96e]/20 border border-[#c8a96e]/20 text-[#f2a624] text-sm font-semibold transition-colors"
+                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#f2a624]/10 hover:bg-[#f2a624]/20 border border-[#f2a624]/20 text-[#f2a624] text-sm font-semibold transition-colors"
                   >
                     <MapPin size={14} />
                     {t('admin.visitRequestBtn')}
@@ -240,7 +240,7 @@ export default function SupplierDetailPage() {
                         <input
                           type="date" required value={visitDate}
                           onChange={e => setVisitDate(e.target.value)}
-                          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#c8a96e]/50 outline-none transition-colors"
+                          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#f2a624]/50 outline-none transition-colors"
                         />
                       </div>
                       <div className="space-y-1.5">
@@ -248,7 +248,7 @@ export default function SupplierDetailPage() {
                         <input
                           type="time" required value={visitTime}
                           onChange={e => setVisitTime(e.target.value)}
-                          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#c8a96e]/50 outline-none transition-colors"
+                          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:border-[#f2a624]/50 outline-none transition-colors"
                         />
                       </div>
                       <div className="space-y-1.5">
@@ -257,7 +257,7 @@ export default function SupplierDetailPage() {
                           rows={3} value={visitNote}
                           onChange={e => setVisitNote(e.target.value)}
                           placeholder={t('admin.visitNotesPlaceholder')}
-                          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder:text-white/20 focus:border-[#c8a96e]/50 outline-none transition-colors resize-none"
+                          className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder:text-white/20 focus:border-[#f2a624]/50 outline-none transition-colors resize-none"
                         />
                       </div>
 
@@ -268,7 +268,7 @@ export default function SupplierDetailPage() {
                       <button
                         onClick={handleSendVisit}
                         disabled={visitSending || !visitDate || !visitTime}
-                        className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black text-sm font-black transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
+                        className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-[#f2a624] to-[#de8e0d] text-black text-sm font-black transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
                       >
                         {visitSending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
                         {t('admin.visitSendBtn')}
@@ -285,7 +285,7 @@ export default function SupplierDetailPage() {
                 onChange={e => setNotes(e.target.value)}
                 rows={7}
                 dir={isRTL ? 'rtl' : 'ltr'}
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#c8a96e]/40 resize-none transition-colors"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-white text-sm placeholder:text-white/20 focus:outline-none focus:border-[#f2a624]/40 resize-none transition-colors"
               />
               <button
                 onClick={saveNotes}
@@ -293,7 +293,7 @@ export default function SupplierDetailPage() {
                 className={`mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold border transition-colors disabled:opacity-50
                   ${saved
                     ? 'bg-green-500/10 border-green-500/20 text-green-400'
-                    : 'bg-[#c8a96e]/10 hover:bg-[#c8a96e]/20 border-[#c8a96e]/20 text-[#f2a624]'
+                    : 'bg-[#f2a624]/10 hover:bg-[#f2a624]/20 border-[#f2a624]/20 text-[#f2a624]'
                   }`}
               >
                 {saving
@@ -315,12 +315,12 @@ export default function SupplierDetailPage() {
 
           <div className="relative z-10 w-full max-w-sm" dir="rtl">
             {/* Glow */}
-            <div className="absolute -inset-px rounded-3xl bg-gradient-to-b from-[#c8a96e]/40 to-transparent blur-xl pointer-events-none" />
+            <div className="absolute -inset-px rounded-3xl bg-gradient-to-b from-[#f2a624]/40 to-transparent blur-xl pointer-events-none" />
 
-            <div className="relative rounded-3xl border border-[#c8a96e]/20 bg-[#0e0d0a] overflow-hidden shadow-2xl">
+            <div className="relative rounded-3xl border border-[#f2a624]/20 bg-[#0e0d0a] overflow-hidden shadow-2xl">
 
               {/* Top bar */}
-              <div className="h-1 w-full bg-gradient-to-r from-transparent via-[#c8a96e] to-transparent" />
+              <div className="h-1 w-full bg-gradient-to-r from-transparent via-[#f2a624] to-transparent" />
 
               <div className="p-8 flex flex-col items-center text-center gap-6">
 
@@ -356,7 +356,7 @@ export default function SupplierDetailPage() {
                 {/* Button */}
                 <button
                   onClick={closeVisitDialog}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#c8a96e] to-[#B8923A] text-black font-black text-sm tracking-wide hover:opacity-90 transition-opacity"
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#f2a624] to-[#de8e0d] text-black font-black text-sm tracking-wide hover:opacity-90 transition-opacity"
                 >
                   {t('admin.jobDoneBtn')}
                 </button>

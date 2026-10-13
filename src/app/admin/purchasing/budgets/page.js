@@ -39,7 +39,7 @@ function BudgetRow({ projectName, requests, budgetDoc, actorUid, t }) {
       <td className="px-5 py-3.5 text-xs font-bold" dir="ltr" style={{ color: budgetBarColor(summary.consumedPct) }}>{summary.remaining.toLocaleString()}</td>
       <td className="px-5 py-3.5">
         <button onClick={save} disabled={saving} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-black disabled:opacity-50"
-          style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)' }}>
+          style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)' }}>
           {saving ? <Loader2 size={12} className="animate-spin" /> : <Save size={12} />} {t('admin.save')}
         </button>
       </td>

@@ -33,8 +33,8 @@ const tiers = [
 ];
 
 // Gold text → logo orange
-const goldText = ['#c8a96e', '#C9A34D', '#D5B25D', '#E1BF67', '#dcbb7d', '#B8923A', '#F2B233', '#f2a624'].map((g) => tok(`text-[${g}]`)).concat([tok('text-secondary'), tok('text-gold')]);
-const goldInline = ['rgb(201, 163, 77)', 'rgb(200, 169, 110)', 'rgb(213, 178, 93)', 'rgb(225, 191, 103)', 'rgb(242, 166, 36)'].map((c) => `[style^="color: ${c}"], [style*="; color: ${c}"]`);
+const goldText = ['#f2a624', '#f2a624', '#f2a624', '#f2a624', '#f2a624', '#de8e0d', '#f2a624', '#f2a624'].map((g) => tok(`text-[${g}]`)).concat([tok('text-secondary'), tok('text-gold')]);
+const goldInline = ['rgb(242, 166, 36)', 'rgb(242, 166, 36)', 'rgb(242, 166, 36)', 'rgb(242, 166, 36)', 'rgb(242, 166, 36)'].map((c) => `[style^="color: ${c}"], [style*="; color: ${c}"]`);
 
 // Light coloured text (300/400) → darker shade readable on white
 const shade = { red: '#b91c1c', rose: '#be123c', pink: '#be185d', orange: '#c2410c', amber: '#b45309', yellow: '#a16207', lime: '#4d7c0f', green: '#15803d', emerald: '#047857', teal: '#0f766e', cyan: '#0e7490', sky: '#0369a1', blue: '#1d4ed8', indigo: '#4338ca', violet: '#6d28d9', purple: '#7e22ce', fuchsia: '#a21caf' };
@@ -103,7 +103,7 @@ ${S} :is([class~="hover:text-white/70"], [class~="hover:text-white/60"], [class~
 ${S} :is(${goldText.join(', ')}):not(${KEEP}),
 ${S} :is(${goldInline.join(', ')}):not(${KEEP}) { color: #f2a624 !important; }
 /* Gold fills keep brand gold with dark text */
-${S} :is(${['#c8a96e', '#C9A34D', '#D5B25D', '#E1BF67'].map((g) => tok(`bg-[${g}]`)).join(', ')}) { color: #0f172a; }
+${S} :is(${['#f2a624', '#f2a624', '#f2a624', '#f2a624'].map((g) => tok(`bg-[${g}]`)).join(', ')}) { color: #0f172a; }
 
 /* Text on solid coloured fills (buttons, badges) stays white — listed once
    here instead of excluded in every rule; higher specificity wins. */
@@ -123,8 +123,8 @@ ${S} :is(input, textarea, select):not([type="checkbox"]):not([type="radio"]):not
   color: #0f172a !important;
 }
 ${S} :is(input, textarea, select):focus:not(${KEEP}) {
-  border-color: #B8923A !important;
-  box-shadow: 0 0 0 3px rgba(213, 178, 93, 0.18) !important;
+  border-color: #de8e0d !important;
+  box-shadow: 0 0 0 3px rgba(242, 166, 36, 0.18) !important;
   outline: none;
 }
 ${S} :is(input, textarea)::placeholder { color: #94a3b8 !important; }

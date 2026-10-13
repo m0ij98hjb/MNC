@@ -124,7 +124,7 @@ export default function SuppliersPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0a0a0a] to-[#0f172a]" />
         <div
           className="absolute inset-0 opacity-[0.035]"
-          style={{ backgroundImage: 'repeating-linear-gradient(45deg, #D5B25D 0px, #D5B25D 1px, transparent 1px, transparent 80px)' }}
+          style={{ backgroundImage: 'repeating-linear-gradient(45deg, #f2a624 0px, #f2a624 1px, transparent 1px, transparent 80px)' }}
         />
         <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-secondary to-transparent" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-secondary/5 rounded-full blur-3xl pointer-events-none" />
@@ -164,7 +164,7 @@ export default function SuppliersPage() {
               </p>
               <button
                 onClick={resetForm}
-                className="inline-flex items-center gap-3 bg-[var(--secondary)] hover:bg-[#E1BF67] text-black font-black px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(213,178,93,0.3)]"
+                className="inline-flex items-center gap-3 bg-[var(--secondary)] hover:bg-[#f2a624] text-black font-black px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(242,166,36,0.3)]"
               >
                 {t('suppliers.submitAnother')}
               </button>
@@ -354,7 +354,7 @@ export default function SuppliersPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="inline-flex items-center gap-3 bg-[var(--secondary)] hover:bg-[#E1BF67] disabled:opacity-60 disabled:cursor-not-allowed text-black font-black px-12 py-4 rounded-full text-base transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_35px_rgba(213,178,93,0.3)]"
+                  className="inline-flex items-center gap-3 bg-[var(--secondary)] hover:bg-[#f2a624] disabled:opacity-60 disabled:cursor-not-allowed text-black font-black px-12 py-4 rounded-full text-base transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_35px_rgba(242,166,36,0.3)]"
                 >
                   {submitting ? (
                     <><Loader2 size={20} className="animate-spin" />

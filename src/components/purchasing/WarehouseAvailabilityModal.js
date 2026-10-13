@@ -61,7 +61,7 @@ export default function WarehouseAvailabilityModal({ availability, onConfirm, on
         <div className="px-6 py-4 border-t border-white/[0.07] flex gap-3">
           <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-white/10 text-white/50 text-sm font-semibold hover:text-white">{t('admin.back')}</button>
           <button onClick={confirm} disabled={busy} className="flex-1 py-2.5 rounded-xl text-black text-sm font-black flex items-center justify-center gap-2 disabled:opacity-50"
-            style={{ background: 'linear-gradient(135deg,#8a6a1e,#D5B25D,#e8c96e,#D5B25D,#8a6a1e)' }}>
+            style={{ background: 'linear-gradient(135deg,#de8e0d,#f2a624,#f2a624,#f2a624,#de8e0d)' }}>
             {busy ? <Loader2 size={15} className="animate-spin" /> : t('purchasing.confirmAndContinue')}
           </button>
         </div>

@@ -33,10 +33,10 @@ function scoreSupplier(s) {
   return { priceScore, capacityScore, deliveryScore, total };
 }
 
-const RANK_COLORS = ['#f59e0b', '#94a3b8', '#c8a96e'];
+const RANK_COLORS = ['#f59e0b', '#94a3b8', '#f2a624'];
 const RANK_ICONS  = [Trophy, Medal, Award];
-const RANK_BG     = ['rgba(245,158,11,0.12)', 'rgba(148,163,184,0.10)', 'rgba(200,169,110,0.10)'];
-const RANK_BORDER = ['rgba(245,158,11,0.3)', 'rgba(148,163,184,0.25)', 'rgba(200,169,110,0.25)'];
+const RANK_BG     = ['rgba(245,158,11,0.12)', 'rgba(148,163,184,0.10)', 'rgba(242,166,36,0.10)'];
+const RANK_BORDER = ['rgba(245,158,11,0.3)', 'rgba(148,163,184,0.25)', 'rgba(242,166,36,0.25)'];
 
 const MAX_POSSIBLE = 70 + 80 + 30; // 180
 
@@ -197,7 +197,7 @@ export default function BestSuppliersPage() {
                       <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-black shrink-0 ${
                         i === 0 ? 'bg-amber-500/20 text-amber-400' :
                         i === 1 ? 'bg-slate-500/20 text-slate-400' :
-                        i === 2 ? 'bg-[#c8a96e]/20 text-[#f2a624]' :
+                        i === 2 ? 'bg-[#f2a624]/20 text-[#f2a624]' :
                         'bg-white/5 text-white/25'
                       }`}>
                         {i + 1}

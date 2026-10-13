@@ -55,10 +55,10 @@ function MapToggle({ mode, onChange }) {
               cursor: "pointer",
               transition: "background 0.22s ease, color 0.22s ease, box-shadow 0.22s ease, transform 0.15s ease",
               background: isActive
-                ? "linear-gradient(135deg, #D5B25D 0%, #E1BF67 100%)"
+                ? "linear-gradient(135deg, #f2a624 0%, #f2a624 100%)"
                 : "transparent",
               color: isActive ? "#000" : "rgba(255,255,255,0.75)",
-              boxShadow: isActive ? "0 2px 12px rgba(213,178,93,0.45)" : "none",
+              boxShadow: isActive ? "0 2px 12px rgba(242,166,36,0.45)" : "none",
               transform: isActive ? "scale(1.04)" : "scale(1)",
               whiteSpace: "nowrap",
             }}
@@ -132,7 +132,7 @@ function MapCard({
             background: "rgba(0,0,0,0.55)",
             backdropFilter: "blur(14px)",
             WebkitBackdropFilter: "blur(14px)",
-            border: "1px solid rgba(213,178,93,0.3)",
+            border: "1px solid rgba(242,166,36,0.3)",
             borderRadius: "999px",
             padding: "6px 13px",
             fontSize: "11px",
@@ -177,7 +177,7 @@ function MapCard({
           href={mapsHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-secondary text-black font-bold text-xs px-4 py-2 rounded-lg hover:bg-[#E1BF67] transition-colors"
+          className="inline-block bg-secondary text-black font-bold text-xs px-4 py-2 rounded-lg hover:bg-[#f2a624] transition-colors"
         >
           {openMapsLabel}
         </a>
@@ -333,7 +333,7 @@ export default function ContactPage() {
         {/* Diagonal pattern */}
         <div
           className="absolute inset-0 opacity-[0.04] z-0"
-          style={{ backgroundImage: "repeating-linear-gradient(45deg, #D5B25D 0px, #D5B25D 1px, transparent 1px, transparent 80px)" }}
+          style={{ backgroundImage: "repeating-linear-gradient(45deg, #f2a624 0px, #f2a624 1px, transparent 1px, transparent 80px)" }}
         />
 
         <div className="container relative z-10 mx-auto px-4 sm:px-6 max-w-7xl py-6 sm:py-16">
@@ -362,7 +362,7 @@ export default function ContactPage() {
 
               <a
                 href="#contact"
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-secondary to-[#E1BF67] text-black font-black px-8 py-4 rounded-full text-base transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(213,178,93,0.35)] hover:shadow-[0_0_45px_rgba(213,178,93,0.5)] cursor-pointer"
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-secondary to-[#f2a624] text-black font-black px-8 py-4 rounded-full text-base transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(242,166,36,0.35)] hover:shadow-[0_0_45px_rgba(242,166,36,0.5)] cursor-pointer"
               >
                 {t("contactPage.startProjectCta")}
                 {isRTL ? <ArrowLeft size={20} /> : <ArrowLeft size={20} className="rotate-180" />}
@@ -431,9 +431,9 @@ export default function ContactPage() {
               {/* Supplier CTA */}
               <Link
                 href="/suppliers"
-                className="flex items-center gap-4 bg-[#C9A34D]/10 border border-[#C9A34D]/40 hover:bg-[#C9A34D]/18 hover:border-[#C9A34D]/70 rounded-2xl p-5 transition-all duration-300 group"
+                className="flex items-center gap-4 bg-[#f2a624]/10 border border-[#f2a624]/40 hover:bg-[#f2a624]/18 hover:border-[#f2a624]/70 rounded-2xl p-5 transition-all duration-300 group"
               >
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[#C9A34D]/15 border border-[#C9A34D]/30 shrink-0 group-hover:bg-[#C9A34D]/25 transition-colors">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[#f2a624]/15 border border-[#f2a624]/30 shrink-0 group-hover:bg-[#f2a624]/25 transition-colors">
                   <Truck className="text-[#f2a624]" size={22} />
                 </div>
                 <div>
@@ -470,7 +470,7 @@ export default function ContactPage() {
 
               <div className="space-y-5">
                 <a href={`tel:${phone1}`} className="flex items-center gap-5 group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#D5B25D]/30 bg-[#D5B25D]/10 group-hover:border-[var(--secondary)] transition-all duration-300 shadow-sm shrink-0">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#f2a624]/30 bg-[#f2a624]/10 group-hover:border-[var(--secondary)] transition-all duration-300 shadow-sm shrink-0">
                     <Phone className="text-secondary" size={20} />
                   </div>
                   <div>
@@ -480,7 +480,7 @@ export default function ContactPage() {
                 </a>
 
                 <a href={`mailto:${email}`} className="flex items-center gap-5 group cursor-pointer" data-aos="fade-up" data-aos-delay="300">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#D5B25D]/30 bg-[#D5B25D]/10 group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#f2a624]/30 bg-[#f2a624]/10 group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
                     <Mail className="text-secondary" size={20} />
                   </div>
                   <div>
@@ -491,7 +491,7 @@ export default function ContactPage() {
 
                 {/* Jeddah address */}
                 <div className="flex items-center gap-5 group cursor-default" data-aos="fade-up" data-aos-delay="400">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#D5B25D]/30 bg-[#D5B25D]/10 group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#f2a624]/30 bg-[#f2a624]/10 group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
                     <MapPin className="text-secondary" size={20} />
                   </div>
                   <div>
@@ -502,7 +502,7 @@ export default function ContactPage() {
 
                 {/* Riyadh address */}
                 <div className="flex items-center gap-5 group cursor-default" data-aos="fade-up" data-aos-delay="450">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#D5B25D]/30 bg-[#D5B25D]/10 group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-[#f2a624]/30 bg-[#f2a624]/10 group-hover:border-secondary transition-all duration-300 shadow-sm shrink-0">
                     <MapPin className="text-secondary" size={20} />
                   </div>
                   <div>
@@ -521,11 +521,11 @@ export default function ContactPage() {
               {/* Supplier CTA */}
               <Link
                 href="/suppliers"
-                className="flex items-center gap-4 bg-[#C9A34D]/10 border border-[#C9A34D]/40 hover:bg-[#C9A34D]/18 hover:border-[#C9A34D]/70 rounded-2xl p-6 transition-all duration-300 group"
+                className="flex items-center gap-4 bg-[#f2a624]/10 border border-[#f2a624]/40 hover:bg-[#f2a624]/18 hover:border-[#f2a624]/70 rounded-2xl p-6 transition-all duration-300 group"
                 data-aos="fade-up"
                 data-aos-delay="600"
               >
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[#C9A34D]/15 border border-[#C9A34D]/30 shrink-0 group-hover:bg-[#C9A34D]/25 transition-colors">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-[#f2a624]/15 border border-[#f2a624]/30 shrink-0 group-hover:bg-[#f2a624]/25 transition-colors">
                   <Truck className="text-[#f2a624]" size={22} />
                 </div>
                 <div>
@@ -554,7 +554,7 @@ export default function ContactPage() {
                     </div>
                     <button
                       onClick={handleContactReset}
-                      className="px-8 py-3 rounded-xl bg-[var(--secondary)] text-black font-black text-sm hover:bg-[#E1BF67] transition-all duration-300"
+                      className="px-8 py-3 rounded-xl bg-[var(--secondary)] text-black font-black text-sm hover:bg-[#f2a624] transition-all duration-300"
                     >
                       {t("contactPage.sendAnother")}
                     </button>
@@ -636,7 +636,7 @@ export default function ContactPage() {
                     <button
                       type="submit"
                       disabled={formSubmitting}
-                      className="w-full mt-4 bg-[var(--secondary)] hover:bg-[#E1BF67] disabled:opacity-60 disabled:cursor-not-allowed text-black font-black py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 text-sm shadow-xl shadow-secondary/20 transform hover:-translate-y-1 active:scale-95 cursor-pointer"
+                      className="w-full mt-4 bg-[var(--secondary)] hover:bg-[#f2a624] disabled:opacity-60 disabled:cursor-not-allowed text-black font-black py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 text-sm shadow-xl shadow-secondary/20 transform hover:-translate-y-1 active:scale-95 cursor-pointer"
                     >
                       {formSubmitting ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
                       {formSubmitting ? t("contactPage.sending") : t("contact.form.submit")}
@@ -662,7 +662,7 @@ export default function ContactPage() {
             <h2 className="text-3xl md:text-4xl font-black text-white font-heading">
               {t("contactPage.visitTitle")}
             </h2>
-            <div className="w-20 h-1.5 bg-gradient-to-r from-[#D5B25D] to-[#E1BF67] mx-auto mt-6 rounded-full" />
+            <div className="w-20 h-1.5 bg-gradient-to-r from-[#f2a624] to-[#f2a624] mx-auto mt-6 rounded-full" />
           </div>
 
           {/* ── Map labels ── */}

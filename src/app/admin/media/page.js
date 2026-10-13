@@ -134,7 +134,7 @@ export default function MediaLibraryPage() {
     <AdminPageLayout>
       <div className="p-5 lg:p-7 max-w-5xl mx-auto" dir="rtl">
         <div className="mb-6 flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#c8a96e]/10 border border-[#c8a96e]/20 flex items-center justify-center">
+          <div className="w-9 h-9 rounded-xl bg-[#f2a624]/10 border border-[#f2a624]/20 flex items-center justify-center">
             <ImageIcon size={16} className="text-[#f2a624]" />
           </div>
           <div>
@@ -150,9 +150,9 @@ export default function MediaLibraryPage() {
               key={f}
               onClick={() => setType(f)}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
-                type === f ? 'bg-[#c8a96e]/12 text-[#f2a624]' : 'text-white/35 hover:text-white/70 hover:bg-white/5'
+                type === f ? 'bg-[#f2a624]/12 text-[#f2a624]' : 'text-white/35 hover:text-white/70 hover:bg-white/5'
               }`}
-              style={type === f ? { border: '1px solid rgba(201,163,77,0.30)' } : { border: '1px solid transparent' }}
+              style={type === f ? { border: '1px solid rgba(242,166,36,0.30)' } : { border: '1px solid transparent' }}
             >
               {t(`admin.contentTabs.mediaLibrary.filter_${f}`)}
             </button>
@@ -163,7 +163,7 @@ export default function MediaLibraryPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t('admin.contentTabs.mediaLibrary.searchPlaceholder')}
-              className="w-full pl-9 pr-3 py-2 rounded-xl text-xs text-white bg-black/40 border border-white/10 focus:border-[#c8a96e]/50 focus:outline-none"
+              className="w-full pl-9 pr-3 py-2 rounded-xl text-xs text-white bg-black/40 border border-white/10 focus:border-[#f2a624]/50 focus:outline-none"
             />
           </div>
         </div>
@@ -176,8 +176,8 @@ export default function MediaLibraryPage() {
           onClick={() => !uploading && inputRef.current?.click()}
           className="rounded-2xl py-10 text-center cursor-pointer transition-colors mb-5"
           style={{
-            border: `1px dashed ${dragOver ? 'rgba(201,163,77,0.6)' : 'rgba(255,255,255,0.15)'}`,
-            background: dragOver ? 'rgba(201,163,77,0.05)' : 'transparent',
+            border: `1px dashed ${dragOver ? 'rgba(242,166,36,0.6)' : 'rgba(255,255,255,0.15)'}`,
+            background: dragOver ? 'rgba(242,166,36,0.05)' : 'transparent',
           }}
         >
           <Upload size={22} className="text-white/20 mx-auto mb-2" />

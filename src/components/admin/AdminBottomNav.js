@@ -50,7 +50,7 @@ export default function AdminBottomNav() {
           background: 'rgba(5,5,8,0.97)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
-          borderTop: '1px solid rgba(201,163,77,0.28)',
+          borderTop: '1px solid rgba(242,166,36,0.28)',
           boxShadow: '0 -4px 24px rgba(0,0,0,0.7)',
           /* safe-area padding BELOW the 72px content row */
           paddingBottom: 'env(safe-area-inset-bottom)',
@@ -73,18 +73,18 @@ export default function AdminBottomNav() {
                 {active && (
                   <span
                     className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-[2px] rounded-full"
-                    style={{ background: 'linear-gradient(90deg,transparent,#C9A34D,transparent)' }}
+                    style={{ background: 'linear-gradient(90deg,transparent,#f2a624,transparent)' }}
                   />
                 )}
                 {Icon && (
                   <Icon
                     size={active ? 20 : 18}
-                    style={{ color: active ? '#C9A34D' : 'rgba(255,255,255,0.65)', transition: 'all 0.2s' }}
+                    style={{ color: active ? '#f2a624' : 'rgba(255,255,255,0.65)', transition: 'all 0.2s' }}
                   />
                 )}
                 <span
                   className="text-[10px] font-bold leading-tight text-center w-full"
-                  style={{ color: active ? '#C9A34D' : 'rgba(255,255,255,0.65)' }}
+                  style={{ color: active ? '#f2a624' : 'rgba(255,255,255,0.65)' }}
                 >
                   {label}
                 </span>

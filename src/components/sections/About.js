@@ -55,7 +55,7 @@ const About = () => {
 
             {/* Eyebrow */}
             <div className="inline-flex items-center gap-3 mb-5">
-              <span className="h-px w-10 bg-[#D5B25D]" />
+              <span className="h-px w-10 bg-[#f2a624]" />
               <span className="text-[#f2a624] font-bold tracking-[0.2em] uppercase text-[11px]">
               {{ ar: "قيادة وخبرة", en: "Leadership & Expertise", zh: "领导力与专长",
                  es: "Liderazgo y experiencia", fr: "Leadership et expertise",

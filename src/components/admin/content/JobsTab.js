@@ -118,7 +118,7 @@ export default function JobsTab() {
         <p className="text-sm text-white/40">{jobs.length} {t('admin.contentTabs.jobsTab.jobsCountLabel')} · {jobs.filter(j => j.isPublished).length} {t('admin.contentTabs.jobsTab.visibleCountLabel')}</p>
         <button onClick={openNew}
           className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all"
-          style={{ background: 'rgba(201,163,77,0.10)', border: '1px solid rgba(201,163,77,0.30)', color: '#f2a624' }}>
+          style={{ background: 'rgba(242,166,36,0.10)', border: '1px solid rgba(242,166,36,0.30)', color: '#f2a624' }}>
           <Plus size={13} /> {t('admin.contentTabs.jobsTab.newJobBtn')}
         </button>
       </div>
@@ -129,7 +129,7 @@ export default function JobsTab() {
           <p className="text-white/20 text-sm mb-4">{t('admin.contentTabs.jobsTab.noJobsYetLabel')}</p>
           <button onClick={importLegacyPositions}
             className="px-4 py-2 rounded-xl text-xs font-bold transition-all"
-            style={{ background: 'rgba(201,163,77,0.10)', border: '1px solid rgba(201,163,77,0.30)', color: '#f2a624' }}>
+            style={{ background: 'rgba(242,166,36,0.10)', border: '1px solid rgba(242,166,36,0.30)', color: '#f2a624' }}>
             {t('admin.contentTabs.jobsTab.importPositionsBtn')}
           </button>
         </div>
@@ -164,7 +164,7 @@ export default function JobsTab() {
       {draft && (
         <div className="fixed inset-0 z-[300] flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.75)' }} onClick={close}>
           <div className="w-full max-w-lg rounded-2xl p-6 space-y-4 overflow-y-auto max-h-[90vh]"
-            style={{ background: '#0a0e17', border: '1px solid rgba(201,163,77,0.2)', boxShadow: '0 24px 80px rgba(0,0,0,0.9)' }}
+            style={{ background: '#0a0e17', border: '1px solid rgba(242,166,36,0.2)', boxShadow: '0 24px 80px rgba(0,0,0,0.9)' }}
             onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-bold text-white">{editId === '__new__' ? t('admin.contentTabs.jobsTab.newJobModalTitle') : t('admin.contentTabs.jobsTab.editJobModalTitle')}</h3>
@@ -204,7 +204,7 @@ export default function JobsTab() {
             <div className="flex gap-3 pt-2">
               <button onClick={applyDraft}
                 className="flex-1 py-2.5 rounded-xl text-sm font-bold"
-                style={{ background: 'rgba(201,163,77,0.12)', border: '1px solid rgba(201,163,77,0.35)', color: '#f2a624' }}>
+                style={{ background: 'rgba(242,166,36,0.12)', border: '1px solid rgba(242,166,36,0.35)', color: '#f2a624' }}>
                 {t('admin.contentTabs.jobsTab.confirmBtn')}
               </button>
               <button onClick={close} className="px-5 py-2.5 rounded-xl text-sm text-white/40 hover:text-white transition-colors">
