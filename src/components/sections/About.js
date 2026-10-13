@@ -66,7 +66,7 @@ const About = () => {
 
             {/* Title */}
             <h2 className="text-4xl md:text-5xl font-black leading-[1.2] mb-5">
-              <span className="text-[#f2a624]">
+              <span className="text-[var(--primary)]">
               {{ ar: "القيادة التي تبني الثقة", en: "The Leadership That Builds Trust",
                  zh: "建立信任的领导力", es: "El liderazgo que construye confianza",
                  fr: "Le leadership qui construit la confiance",
