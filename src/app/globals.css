@@ -411,8 +411,10 @@ html.dark :is(section, main, footer):is(.bg-slate-50, .bg-slate-100, [class*="bg
      whole bar sits with clear, deliberate breathing room from the browser
      edges, not just gaps between the internal elements. */
   .nav-container-responsive {
-    padding-left: clamp(20px, 2.6vw, 64px) !important;
-    padding-right: clamp(20px, 2.6vw, 64px) !important;
+    /* Same 24px gutter as the hero / section containers (px-6), so the logo
+       starts on the same line as the hero content. */
+    padding-left: 24px !important;
+    padding-right: 24px !important;
   }
 
   /* 2. Responsive Logo Margin — matches the separator's total contribution

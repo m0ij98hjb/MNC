@@ -172,7 +172,7 @@ const Navbar = () => {
             ? "bg-white border-b border-slate-200/70 shadow-[0_2px_16px_rgba(15,23,42,0.05)]"
             : `bg-gradient-to-b from-black/35 to-transparent backdrop-blur-sm border-b ${isAdmin ? 'border-[#f2a624]/30' : 'border-white/[0.04]'}`
       }`}>
-        <div className="w-full max-w-7xl mx-auto flex items-center lg:justify-center nav-container-responsive px-6 lg:px-12 xl:px-16 py-3 sm:py-3.5">
+        <div className="w-full max-w-7xl mx-auto flex items-center nav-container-responsive px-6 py-3 sm:py-3.5 lg:py-5">
 
           {/* ── Logo ── */}
           <Link href="/" onClick={handleLogoTap} className="flex items-center flex-shrink-0 nav-logo-responsive me-5 lg:me-7 xl:me-12">
@@ -181,7 +181,7 @@ const Navbar = () => {
               alt="MNC Logo"
               width={855}
               height={310}
-              className="h-[22px] sm:h-[25px] lg:h-[29px] xl:h-8 w-auto object-contain transition-all duration-500"
+              className="h-[22px] sm:h-[25px] lg:h-8 xl:h-9 w-auto object-contain transition-all duration-500"
               priority
             />
           </Link>
@@ -234,6 +234,10 @@ const Navbar = () => {
           </div>
 
           {/* ── Vertical Separator ── */}
+          {/* Desktop spacer: logo + links stay at the start (aligned with the hero
+              content), the actions group sits at the far end. */}
+          <div className="hidden lg:block flex-1" aria-hidden="true" />
+
           <div className="hidden lg:block w-px h-6 bg-[#f2a624]/14 nav-separator-responsive mx-3 lg:mx-3.5 xl:mx-6 flex-shrink-0" />
 
           {/* ── Desktop Actions ── */}
