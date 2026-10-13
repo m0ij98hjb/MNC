@@ -243,7 +243,10 @@ export default function CareersPage() {
             {t("careers.heroBadge")}
           </div>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.08] mb-6 text-white" data-aos="fade-up" data-aos-delay="100">
-            {t("careers.heroTitle")}<br />
+            {/* "MNC" in black, rest of the line white */}
+            {String(t("careers.heroTitle")).split(/(MNC)/).map((part, i) =>
+              part === "MNC" ? <span key={i} className="text-black">MNC</span> : part
+            )}<br />
             <span className="text-[#f2a624]">
               {t("careers.heroSubtitle")}
             </span>
