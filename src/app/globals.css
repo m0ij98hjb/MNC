@@ -142,6 +142,24 @@ html.dark .rounded-3xl:is([class*="from-[#f2a624]/"], [class*="from-[#f2a624]/"]
   border-color: var(--line) !important;
 }
 
+/* ── No blur anywhere on the site (public pages and dashboard) ─────────────
+   1. Decorative glow blobs (any element with a blur filter) are removed —
+      un-blurring them would only turn them into hard coloured circles.
+   2. Frosted-glass backdrop blur is disabled; panels keep their tint.
+   3. Heavy black shadows (the dark haze around cards) become a light,
+      tight neutral shadow. */
+:is([class~="blur"], [class~="blur-sm"], [class~="blur-md"], [class~="blur-lg"], [class~="blur-xl"], [class~="blur-2xl"], [class~="blur-3xl"], [class*=" blur-["], [class^="blur-["]) {
+  display: none !important;
+}
+*, *::before, *::after {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+:is([class*="shadow-["][class*="rgba(0,0,0"], [style*="box-shadow"][style*="rgba(0, 0, 0"], [style*="box-shadow"][style*="rgba(0,0,0"]),
+:is(.shadow-xl, .shadow-2xl) {
+  box-shadow: 0 6px 16px -10px rgba(15, 23, 42, 0.18) !important;
+}
+
 /* Headings default to the strongest ink (layered so utility classes still win) */
 @layer base {
   .dark :where(h1, h2, h3, h4, h5, h6) { color: var(--ink-strong); }
