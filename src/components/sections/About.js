@@ -157,7 +157,7 @@ const About = () => {
                     data-aos-delay={400 + i * 150}
                   >
                     <h4 className="text-secondary font-bold text-sm md:text-base leading-snug mb-0.5">{leader.name}</h4>
-                    <p className="text-slate-700 text-[9px] md:text-[10px] uppercase tracking-wider font-bold leading-relaxed">{leader.title}</p>
+                    <p className="text-[#f2a624] text-[9px] md:text-[10px] uppercase tracking-wider font-bold leading-relaxed">{leader.title}</p>
                   </div>
                 </article>
               );
