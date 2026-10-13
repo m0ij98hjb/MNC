@@ -118,7 +118,7 @@ const About = () => {
                   data-aos-delay={150 + i * 150}
                 >
                   <div className="relative z-10 group">
-                    <div className="relative rounded-2xl overflow-hidden border-4 border-white bg-white shadow-[0_20px_45px_-15px_rgba(15,23,42,0.35)] aspect-[1019/1450]">
+                    <div className="relative rounded-2xl overflow-hidden border border-[rgba(15,23,42,0.08)] bg-white shadow-[0_16px_36px_-18px_rgba(15,23,42,0.22)] aspect-[1019/1450]">
                       {leader.image ? (() => {
                         const crop = leader.landscapeCrop && ratios[leader.key] > 1 ? leader.landscapeCrop : null;
                         return (
@@ -147,7 +147,7 @@ const About = () => {
                     </div>
 
                     {/* Decorative gold corner frame (opposite the plate) */}
-                    <div className={`absolute -top-4 w-16 h-16 md:w-20 md:h-20 border-t-4 border-secondary -z-10 ${plateOnLeft ? '-right-4 border-r-4 rounded-tr-3xl' : '-left-4 border-l-4 rounded-tl-3xl'}`} />
+                    <div className={`absolute -top-3 w-16 h-16 md:w-20 md:h-20 border-t-2 border-secondary/45 -z-10 ${plateOnLeft ? '-right-3 border-r-2 rounded-tr-3xl' : '-left-3 border-l-2 rounded-tl-3xl'}`} />
                   </div>
 
                   {/* Name plate — small, in the bottom corner */}
