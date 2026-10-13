@@ -152,9 +152,10 @@ export default function AdminLoginPage() {
         </div>
 
         {/* Footer */}
-        <p className="mt-6 flex items-center justify-center gap-1.5 text-[12px] text-[#94a3b8]">
-          <Lock size={12} aria-hidden="true" />
-          MNC Construction © {new Date().getFullYear()}
+        <p dir="ltr" className="mt-6 flex items-center justify-center gap-1.5 text-[12px] font-bold tracking-wide">
+          <Lock size={12} aria-hidden="true" className="text-[#94a3b8]" />
+          <span className="text-[#0f172a]">MNC</span>
+          <span className="text-[#f2a624]">Construction</span>
         </p>
       </div>
 
