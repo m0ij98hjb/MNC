@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users, Smartphone, UserCircle, UserCog, LogOut, LayoutDashboard, Bell, Building2 } from "lucide-react";
+import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users, Smartphone, UserCircle, UserCog, LogOut, LayoutDashboard, Bell, Building2, FileText } from "lucide-react";
 import { useLanguage, LANGUAGES } from "@/context/LanguageContext";
 import LangFlag from "@/components/ui/LangFlag";
 import { useTheme } from "@/context/ThemeContext";
@@ -384,19 +384,26 @@ const Navbar = () => {
                         <ChevronDown size={11} className={`transition-transform duration-300 ${isProfileOpen ? "rotate-180" : ""}`} />
                       </span>
                     </button>
-                    <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[178px] bg-[#0b0e12] border border-[#f2a624]/14 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
-                      isProfileOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"
+                    <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[230px] p-1.5 bg-white border border-slate-200 rounded-xl shadow-[0_12px_28px_-14px_rgba(15,23,42,0.25)] transition-all duration-200 z-50 ${
+                      isProfileOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-1 pointer-events-none"
                     }`}>
                       <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                        className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#f2a624]/8 transition-colors"
+                        className="group/item flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-start hover:bg-slate-50 transition-colors"
                         onClick={() => setIsProfileOpen(false)}>
-                        {tPortfolio.ar}
+                        <span className="w-8 h-8 rounded-lg bg-[#f2a624]/12 text-[var(--brand,#f2a624)] flex items-center justify-center shrink-0 group-hover/item:bg-[#f2a624] group-hover/item:text-[#0f172a] transition-colors">
+                          <FileText size={15} aria-hidden="true" />
+                        </span>
+                        <span className="flex-1 text-[13px] font-semibold text-[#0f172a]">{tPortfolio.ar}</span>
+                        <span className="text-[10px] font-bold tracking-wide text-[#64748b] border border-slate-200 rounded px-1.5 py-0.5">PDF</span>
                       </a>
-                      <div className="h-px bg-white/[0.04] mx-3" />
                       <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                        className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#f2a624]/8 transition-colors"
+                        className="group/item flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-start hover:bg-slate-50 transition-colors"
                         onClick={() => setIsProfileOpen(false)}>
-                        {tPortfolio.en}
+                        <span className="w-8 h-8 rounded-lg bg-[#f2a624]/12 text-[var(--brand,#f2a624)] flex items-center justify-center shrink-0 group-hover/item:bg-[#f2a624] group-hover/item:text-[#0f172a] transition-colors">
+                          <FileText size={15} aria-hidden="true" />
+                        </span>
+                        <span className="flex-1 text-[13px] font-semibold text-[#0f172a]">{tPortfolio.en}</span>
+                        <span className="text-[10px] font-bold tracking-wide text-[#64748b] border border-slate-200 rounded px-1.5 py-0.5">PDF</span>
                       </a>
                     </div>
                   </div>
@@ -411,7 +418,7 @@ const Navbar = () => {
                   >
                     <Briefcase size={15} />
                   </button>
-                  <div className={`absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 whitespace-nowrap bg-[#0b0e12]/95 border border-[#f2a624]/30 text-[#f2a624] text-[10.5px] font-black py-1.5 px-3 rounded-lg shadow-lg`}>
+                  <div role="tooltip" className={`absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 whitespace-nowrap bg-white border border-slate-200 text-[#0f172a] text-[11.5px] font-semibold py-1.5 px-3 rounded-lg shadow-[0_8px_20px_-12px_rgba(15,23,42,0.3)]`}>
                     {portalTooltipText}
                   </div>
                 </div>
@@ -429,21 +436,21 @@ const Navbar = () => {
                     <ChevronDown size={10} className={`text-[#f2a624]/50 transition-transform duration-300 ${isAdminOpen ? 'rotate-180' : ''}`} />
                   </button>
 
-                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[185px] bg-[#0b0e12] border border-[#f2a624]/15 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
+                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[200px] p-1.5 bg-white border border-slate-200 rounded-xl shadow-[0_12px_28px_-14px_rgba(15,23,42,0.25)] transition-all duration-200 z-50 ${
                     isAdminOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
                   }`}>
                     <Link
                       href="/admin/dashboard"
                       onClick={() => setIsAdminOpen(false)}
-                      className="flex items-center gap-2.5 w-full px-4 py-3 text-[12px] font-bold text-white/65 hover:text-white hover:bg-white/5 transition-colors"
+                      className="flex items-center gap-2.5 w-full px-3 py-2.5 rounded-lg text-[13px] font-semibold text-[#0f172a] hover:bg-slate-50 transition-colors"
                     >
                       <LayoutDashboard size={13} className="text-[#f2a624] flex-shrink-0" />
                       {t('admin.dashboard')}
                     </Link>
-                    <div className="h-px bg-white/[0.05] mx-3" />
+                    <div className="h-px bg-slate-100 my-1 mx-2" />
                     <button
                       onClick={handleAdminLogout}
-                      className="flex items-center gap-2.5 w-full px-4 py-3 text-[12px] font-bold text-red-400/60 hover:text-red-400 hover:bg-red-500/5 transition-colors"
+                      className="flex items-center gap-2.5 w-full px-3 py-2.5 rounded-lg text-[13px] font-semibold text-red-600 hover:bg-red-50 transition-colors"
                     >
                       <LogOut size={13} className="flex-shrink-0" />
                       {t('admin.logout')}
@@ -468,20 +475,48 @@ const Navbar = () => {
                     </span>
                   </button>
 
-                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[178px] bg-[#0b0e12] border border-[#f2a624]/14 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] transition-all duration-300 overflow-hidden z-50 ${
-                    isProfileOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"
+                  <div className={`absolute top-[calc(100%+10px)] ${isRTL ? 'left-0' : 'right-0'} w-[230px] p-1.5 bg-white border border-slate-200 rounded-xl shadow-[0_12px_28px_-14px_rgba(15,23,42,0.25)] transition-all duration-200 z-50 ${
+
+                    isProfileOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-1 pointer-events-none"
+
                   }`}>
+
                     <a href="/Portfolio%20MNC/ARABIC%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                      className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#f2a624]/8 transition-colors"
+
+                      className="group/item flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-start hover:bg-slate-50 transition-colors"
+
                       onClick={() => setIsProfileOpen(false)}>
-                      {tPortfolio.ar}
+
+                      <span className="w-8 h-8 rounded-lg bg-[#f2a624]/12 text-[var(--brand,#f2a624)] flex items-center justify-center shrink-0 group-hover/item:bg-[#f2a624] group-hover/item:text-[#0f172a] transition-colors">
+
+                        <FileText size={15} aria-hidden="true" />
+
+                      </span>
+
+                      <span className="flex-1 text-[13px] font-semibold text-[#0f172a]">{tPortfolio.ar}</span>
+
+                      <span className="text-[10px] font-bold tracking-wide text-[#64748b] border border-slate-200 rounded px-1.5 py-0.5">PDF</span>
+
                     </a>
-                    <div className="h-px bg-white/[0.04] mx-3" />
+
                     <a href="/Portfolio%20MNC/ENGLISH%20PORTFOLIO.pdf" target="_blank" rel="noopener noreferrer"
-                      className="block w-full text-center px-4 py-3 text-[12px] font-bold text-[#f2a624] hover:bg-[#f2a624]/8 transition-colors"
+
+                      className="group/item flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-start hover:bg-slate-50 transition-colors"
+
                       onClick={() => setIsProfileOpen(false)}>
-                      {tPortfolio.en}
+
+                      <span className="w-8 h-8 rounded-lg bg-[#f2a624]/12 text-[var(--brand,#f2a624)] flex items-center justify-center shrink-0 group-hover/item:bg-[#f2a624] group-hover/item:text-[#0f172a] transition-colors">
+
+                        <FileText size={15} aria-hidden="true" />
+
+                      </span>
+
+                      <span className="flex-1 text-[13px] font-semibold text-[#0f172a]">{tPortfolio.en}</span>
+
+                      <span className="text-[10px] font-bold tracking-wide text-[#64748b] border border-slate-200 rounded px-1.5 py-0.5">PDF</span>
+
                     </a>
+
                   </div>
                 </div>
 
@@ -494,7 +529,7 @@ const Navbar = () => {
                   >
                     <Briefcase size={15} />
                   </button>
-                  <div className={`absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 whitespace-nowrap bg-[#0b0e12]/95 border border-[#f2a624]/30 text-[#f2a624] text-[10.5px] font-black py-1.5 px-3 rounded-lg shadow-lg`}>
+                  <div role="tooltip" className={`absolute top-[calc(100%+8px)] left-1/2 -translate-x-1/2 pointer-events-none opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-50 whitespace-nowrap bg-white border border-slate-200 text-[#0f172a] text-[11.5px] font-semibold py-1.5 px-3 rounded-lg shadow-[0_8px_20px_-12px_rgba(15,23,42,0.3)]`}>
                     {portalTooltipText}
                   </div>
                 </div>
