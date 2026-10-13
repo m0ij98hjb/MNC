@@ -7,7 +7,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, ChevronDown, Sun, Moon, Calculator, Home, Info, Briefcase, FolderOpen, PhoneCall, Globe, Users, Smartphone, UserCircle, UserCog, LogOut, LayoutDashboard, Bell, Building2 } from "lucide-react";
 import { useLanguage, LANGUAGES } from "@/context/LanguageContext";
 import LangFlag from "@/components/ui/LangFlag";
-import { useTheme, THEME_TOGGLE_ENABLED } from "@/context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
+import { THEME_TOGGLE_ENABLED, SHOW_APP_NAV_LINK } from "@/config/features";
 import { useAuth } from "@/context/AuthContext";
 import { useNotifications } from "@/context/NotificationsContext";
 import { HiDocumentText } from "react-icons/hi";
@@ -16,8 +17,6 @@ import { ROLES, ROLE_LABEL_KEYS } from "@/lib/purchasingConfig";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
-// The /app page stays live; flip to true to show its link in the navbar again.
-const SHOW_APP_NAV_LINK = false;
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

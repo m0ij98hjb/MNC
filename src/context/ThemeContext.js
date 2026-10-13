@@ -1,16 +1,15 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { THEME_TOGGLE_ENABLED } from "@/config/features";
 
 // NOTE: naming is inverted for historical reasons —
 // theme "dark" (html.dark) renders the LIGHT look, theme "light" renders the dark/black look.
 // The light look is the site default.
 export const THEME_STORAGE_KEY = "mnc-theme-v2";
 export const DEFAULT_THEME = "dark";
-// Theme toggle is hidden for now. While false, the navbar shows no toggle and
-// everyone gets the default (light) look, ignoring any saved choice; set back
-// to true to restore the toggle and each visitor's saved preference.
-export const THEME_TOGGLE_ENABLED = false;
+// Toggle switch lives in config/features.js (see note there).
+export { THEME_TOGGLE_ENABLED };
 
 const ThemeContext = createContext({ theme: DEFAULT_THEME, toggleTheme: () => {} });
 

@@ -5,7 +5,8 @@ import VoicePresentation from "@/components/VoicePresentation";
 import Footer from "@/components/layout/Footer";
 import FloatingContact from "@/components/layout/FloatingContact";
 import { LanguageProvider } from "@/context/LanguageContext";
-import { ThemeProvider, THEME_TOGGLE_ENABLED } from "@/context/ThemeContext";
+import { ThemeProvider } from "@/context/ThemeContext";
+import { THEME_TOGGLE_ENABLED, SHOW_VOICE_PRESENTATION } from "@/config/features";
 import { AuthProvider } from "@/context/AuthContext";
 import AdminShortcut from "@/components/AdminShortcut";
 
@@ -50,7 +51,7 @@ export default function RootLayout({ children }) {
           <LanguageProvider>
             <AOSInit />
             <AdminShortcut />
-            <VoicePresentation />
+            {SHOW_VOICE_PRESENTATION && <VoicePresentation />}
             {children}
             <FloatingContact />
             <Footer />
