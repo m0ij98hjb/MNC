@@ -1,10 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import { cldOptimize } from "@/lib/cloudinary";
+
+/* Counts up to `to` once, when the number first scrolls into view.
+   Users who prefer reduced motion see the final value straight away. */
+const CountUp = ({ to, prefix = "", duration = 2000 }) => {
+  const ref = useRef(null);
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    let frame;
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      if (reduce) { setValue(to); return; }
+      let start;
+      const tick = (t) => {
+        if (start === undefined) start = t;
+        const progress = Math.min((t - start) / duration, 1);
+        setValue(Math.round(to * (1 - Math.pow(1 - progress, 3))));
+        if (progress < 1) frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+    }, { threshold: 0.4 });
+    observer.observe(node);
+    return () => { observer.disconnect(); cancelAnimationFrame(frame); };
+  }, [to, duration]);
+
+  return (
+    <span ref={ref} className="tabular-nums" aria-label={`${prefix}${to}`}>
+      {prefix}{value}
+    </span>
+  );
+};
 
 const About = () => {
   const { lang, t } = useLanguage();
@@ -38,9 +73,9 @@ const About = () => {
   ];
 
   const stats = [
-    { value: '1986', label: { ar: 'سنة التأسيس', en: 'Founded', zh: '成立年份', es: 'Fundada', fr: 'Fondée',
+    { value: '1986', to: 1986, prefix: '', label: { ar: 'سنة التأسيس', en: 'Founded', zh: '成立年份', es: 'Fundada', fr: 'Fondée',
                               de: 'Gegründet', tr: 'Kuruluş', ur: 'سالِ قیام', hi: 'स्थापना', ru: 'Основана' } },
-    { value: '+40', label: { ar: 'عامًا من الخبرة', en: 'Years of experience', zh: '年经验', es: 'Años de experiencia',
+    { value: '+40', to: 40, prefix: '+', label: { ar: 'عامًا من الخبرة', en: 'Years of experience', zh: '年经验', es: 'Años de experiencia',
                              fr: "Ans d'expérience", de: 'Jahre Erfahrung', tr: 'Yıllık deneyim', ur: 'سال کا تجربہ',
                              hi: 'वर्षों का अनुभव', ru: 'Лет опыта' } },
   ];
@@ -97,7 +132,9 @@ const About = () => {
             <div className="mt-10 grid grid-cols-2 max-w-md border-y border-white/10">
               {stats.map((s, i) => (
                 <div key={s.value} className={`py-6 ${i === 0 ? 'pe-6 border-e border-white/10' : 'ps-6'}`}>
-                  <div className="text-[#f2a624] text-4xl md:text-5xl font-black leading-none tracking-tight">{s.value}</div>
+                  <div className="text-[#f2a624] text-4xl md:text-5xl font-black leading-none tracking-tight">
+                    <CountUp to={s.to} prefix={s.prefix} />
+                  </div>
                   <div className="mt-2 text-white/55 text-sm font-semibold">{s.label[lang] || s.label.en}</div>
                 </div>
               ))}
