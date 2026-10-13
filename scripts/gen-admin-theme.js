@@ -32,9 +32,12 @@ const tiers = [
   ['#cbd5e1', ['text-white/15', 'text-white/10', 'text-white/0']],
 ];
 
-// Gold text → logo orange
-const goldText = ['#f2a624', '#f2a624', '#f2a624', '#f2a624', '#f2a624', '#de8e0d', '#f2a624', '#f2a624'].map((g) => tok(`text-[${g}]`)).concat([tok('text-secondary'), tok('text-gold')]);
-const goldInline = ['rgb(242, 166, 36)', 'rgb(242, 166, 36)', 'rgb(242, 166, 36)', 'rgb(242, 166, 36)', 'rgb(242, 166, 36)'].map((c) => `[style^="color: ${c}"], [style*="; color: ${c}"]`);
+// Brand (logo orange) palette — same tokens as the public site (globals.css)
+const BRAND = '#f2a624';        // fills, bars, borders
+const BRAND_DISPLAY = '#ca810c'; // icons / large figures on white (3.2:1)
+const BRAND_INK = '#955f09';     // small orange text on white (5.4:1)
+const ORANGE_TEXT = ['#f2a624', '#de8e0d', '#ca810c', 'var(--secondary)', 'var(--gold)'].map((g) => tok(`text-[${g}]`)).concat([tok('text-secondary'), tok('text-gold')]).join(', ');
+const orangeInline = ['rgb(242, 166, 36)', 'rgb(222, 142, 13)'].map((c) => `[style^="color: ${c}"], [style*="; color: ${c}"]`).join(', ');
 
 // Light coloured text (300/400) → darker shade readable on white
 const shade = { red: '#b91c1c', rose: '#be123c', pink: '#be185d', orange: '#c2410c', amber: '#b45309', yellow: '#a16207', lime: '#4d7c0f', green: '#15803d', emerald: '#047857', teal: '#0f766e', cyan: '#0e7490', sky: '#0369a1', blue: '#1d4ed8', indigo: '#4338ca', violet: '#6d28d9', purple: '#7e22ce', fuchsia: '#a21caf' };
@@ -99,11 +102,16 @@ css += `${S} [class~="hover:text-white"]:hover:not(${KEEP}),
 ${S} .group:hover [class~="group-hover:text-white"]:not(${KEEP}) { color: #0f172a !important; }
 ${S} :is([class~="hover:text-white/70"], [class~="hover:text-white/60"], [class~="hover:text-white/50"]):hover:not(${KEEP}) { color: #334155 !important; }
 
-/* Gold text → logo orange */
-${S} :is(${goldText.join(', ')}):not(${KEEP}),
-${S} :is(${goldInline.join(', ')}):not(${KEEP}) { color: #f2a624 !important; }
-/* Gold fills keep brand gold with dark text */
-${S} :is(${['#f2a624', '#f2a624', '#f2a624', '#f2a624'].map((g) => tok(`bg-[${g}]`)).join(', ')}) { color: #0f172a; }
+/* Orange text → readable brand ink; icons and large figures → brand display */
+${S} :is(${ORANGE_TEXT}):where(:not(${KEEP})),
+${S} :is(${orangeInline}):where(:not(${KEEP})) { color: ${BRAND_INK} !important; }
+${S} svg:is(${ORANGE_TEXT}):not(${KEEP}),
+${S} :is(${ORANGE_TEXT}):is([class*="text-2xl"], [class*="text-3xl"], [class*="text-4xl"], [class*="text-5xl"]):not(${KEEP}) { color: ${BRAND_DISPLAY} !important; }
+/* Card / panel titles are always black, even when set to orange or white */
+${S} :is(h1, h2, h3, h4, h5, h6):not(${KEEP}),
+${S} :is(h1, h2, h3, h4, h5, h6) :is(${ORANGE_TEXT}):not(${KEEP}) { color: #0f172a !important; }
+/* Orange fills: brand orange with dark text */
+${S} :is(${tok(`bg-[${BRAND}]`)}, ${tok('bg-secondary')}) { color: #0f172a; }
 
 /* Text on solid coloured fills (buttons, badges) stays white — listed once
    here instead of excluded in every rule; higher specificity wins. */

@@ -60,11 +60,16 @@
 .admin-shell .group:hover [class~="group-hover:text-white"]:not(.keep-dark, .keep-dark *) { color: #0f172a !important; }
 .admin-shell :is([class~="hover:text-white/70"], [class~="hover:text-white/60"], [class~="hover:text-white/50"]):hover:not(.keep-dark, .keep-dark *) { color: #334155 !important; }
 
-/* Gold text → logo orange */
-.admin-shell :is([class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-secondary"], [class~="text-gold"]):not(.keep-dark, .keep-dark *),
-.admin-shell :is([style^="color: rgb(242, 166, 36)"], [style*="; color: rgb(242, 166, 36)"], [style^="color: rgb(242, 166, 36)"], [style*="; color: rgb(242, 166, 36)"], [style^="color: rgb(242, 166, 36)"], [style*="; color: rgb(242, 166, 36)"], [style^="color: rgb(242, 166, 36)"], [style*="; color: rgb(242, 166, 36)"], [style^="color: rgb(242, 166, 36)"], [style*="; color: rgb(242, 166, 36)"]):not(.keep-dark, .keep-dark *) { color: #f2a624 !important; }
-/* Gold fills keep brand gold with dark text */
-.admin-shell :is([class~="bg-[#f2a624]"], [class~="bg-[#f2a624]"], [class~="bg-[#f2a624]"], [class~="bg-[#f2a624]"]) { color: #0f172a; }
+/* Orange text → readable brand ink; icons and large figures → brand display */
+.admin-shell :is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], [class~="text-secondary"], [class~="text-gold"]):where(:not(.keep-dark, .keep-dark *)),
+.admin-shell :is([style^="color: rgb(242, 166, 36)"], [style*="; color: rgb(242, 166, 36)"], [style^="color: rgb(222, 142, 13)"], [style*="; color: rgb(222, 142, 13)"]):where(:not(.keep-dark, .keep-dark *)) { color: #955f09 !important; }
+.admin-shell svg:is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], [class~="text-secondary"], [class~="text-gold"]):not(.keep-dark, .keep-dark *),
+.admin-shell :is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], [class~="text-secondary"], [class~="text-gold"]):is([class*="text-2xl"], [class*="text-3xl"], [class*="text-4xl"], [class*="text-5xl"]):not(.keep-dark, .keep-dark *) { color: #ca810c !important; }
+/* Card / panel titles are always black, even when set to orange or white */
+.admin-shell :is(h1, h2, h3, h4, h5, h6):not(.keep-dark, .keep-dark *),
+.admin-shell :is(h1, h2, h3, h4, h5, h6) :is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], [class~="text-secondary"], [class~="text-gold"]):not(.keep-dark, .keep-dark *) { color: #0f172a !important; }
+/* Orange fills: brand orange with dark text */
+.admin-shell :is([class~="bg-[#f2a624]"], [class~="bg-secondary"]) { color: #0f172a; }
 
 /* Text on solid coloured fills (buttons, badges) stays white — listed once
    here instead of excluded in every rule; higher specificity wins. */
