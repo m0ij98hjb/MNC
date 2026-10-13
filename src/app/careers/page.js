@@ -242,7 +242,7 @@ export default function CareersPage() {
             <span className="w-1.5 h-1.5 rounded-full bg-[#f2a624] animate-pulse" />
             {t("careers.heroBadge")}
           </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.08] mb-6" data-aos="fade-up" data-aos-delay="100">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.08] mb-6 text-black" data-aos="fade-up" data-aos-delay="100">
             {t("careers.heroTitle")}<br />
             <span className="text-[#f2a624]">
               {t("careers.heroSubtitle")}
