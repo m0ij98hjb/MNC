@@ -46,8 +46,14 @@
   --ink-2:      #475569; /* secondary copy               7.6:1 */
   --ink-muted:  #64748b; /* captions, meta               4.8:1 */
   --ink-faint:  #7d8da3; /* inactive / decorative states   3.4:1 */
-  --gold-ink:   #f2a624; /* logo orange */
-  --gold-icon:  #f2a624; /* logo orange icons / accents */
+  /* Brand = logo orange. Fills use --brand; orange *text* uses darker shades
+     of the same hue so it stays readable on white. */
+  --brand:         #f2a624; /* fills, bars, borders, icon tiles (text on it: ink-strong 8.7:1) */
+  --brand-hover:   #de8e0d; /* hover / pressed fills                             */
+  --brand-display: #ca810c; /* large headline accents and icons            3.2:1 */
+  --brand-ink:     #955f09; /* small orange text: eyebrows, labels, links  5.4:1 */
+  --gold-ink:      var(--brand-ink);     /* legacy alias */
+  --gold-icon:     var(--brand-display); /* legacy alias */
   --line:       #e2e8f0; /* hairlines and card borders        */
 }
 
@@ -79,21 +85,39 @@ html.dark :is(section:not(.image-hero), footer) .group:hover [class~="group-hove
   color: var(--ink-strong) !important;
 }
 
-/* Logo orange text */
-html.dark :is([class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold):not(.image-hero *, .keep-dark, .keep-dark *, [class*="bg-[#f2a624]"]:not([class*="bg-[#f2a624]/"]), [class*="bg-[#f2a624]"]:not([class*="bg-[#f2a624]/"])) {
-  color: var(--gold-ink) !important;
+/* ── Brand orange text (light look) ──────────────────────────────────────
+   Small orange text -> --brand-ink; accents inside big headings (h1/h2) ->
+   --brand-display; card / sub-section titles (h3–h6) are always black.
+   Text sitting on a solid orange fill keeps its own (dark) colour. */
+/* :where() keeps this base rule low-specificity so the heading rules below win */
+html.dark :is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold):where(:not(.image-hero *, .keep-dark, .keep-dark *)):where(:not([class*="bg-[#f2a624]"]:not([class*="bg-[#f2a624]/"]))) {
+  color: var(--brand-ink) !important;
 }
-html.dark svg:is([class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[#f2a624]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"]):not(.image-hero *, .keep-dark *) {
-  color: var(--gold-icon) !important;
+/* Large display figures (stats) read as headline accents */
+html.dark :is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold):is([class*="text-3xl"], [class*="text-4xl"], [class*="text-5xl"], [class*="text-6xl"]):not(.image-hero *, .keep-dark, .keep-dark *) {
+  color: var(--brand-display) !important;
 }
-html.dark [class~="hover:text-[#f2a624]"]:hover:not(.image-hero *, .keep-dark *),
-html.dark [class~="hover:text-[#f2a624]"]:hover:not(.image-hero *, .keep-dark *),
-html.dark .group:hover [class~="group-hover:text-[#f2a624]"]:not(.image-hero *, .keep-dark *),
-html.dark .group:hover [class~="group-hover:text-[#f2a624]"]:not(.image-hero *, .keep-dark *) {
-  color: var(--gold-ink) !important;
+html.dark :is(h1, h2):is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold, .text-gradient):not(.image-hero *, .keep-dark, .keep-dark *),
+html.dark :is(h1, h2) :is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold, .text-gradient):not(.image-hero *, .keep-dark, .keep-dark *) {
+  color: var(--brand-display) !important;
 }
-html.dark .text-gradient:not(.image-hero *, .keep-dark *) {
-  color: #f2a624 !important;
+html.dark :is(h3, h4, h5, h6):is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold, .text-gradient):not(.image-hero *, .keep-dark, .keep-dark *),
+html.dark :is(h3, h4, h5, h6) :is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold, .text-gradient):not(.image-hero *, .keep-dark, .keep-dark *) {
+  color: var(--ink-strong) !important;
+}
+/* Headings set to the body colour (--foreground) read as headings: strongest ink */
+html.dark :is(h1, h2, h3, h4, h5, h6)[class~="text-[var(--foreground)]"]:not(.image-hero *, .keep-dark *) {
+  color: var(--ink-strong) !important;
+}
+html.dark svg:is([class~="text-[#f2a624]"], [class~="text-[#de8e0d]"], [class~="text-[#ca810c]"], [class~="text-[var(--secondary)]"], [class~="text-[var(--gold)]"], .text-secondary, .text-gold):not(.image-hero *, .keep-dark, .keep-dark *) {
+  color: var(--brand-display) !important;
+}
+html.dark :is([class~="hover:text-[#f2a624]"], [class~="hover:text-[#de8e0d]"]):hover:not(.image-hero *, .keep-dark, .keep-dark *),
+html.dark .group:hover :is([class~="group-hover:text-[#f2a624]"], [class~="group-hover:text-[#de8e0d]"]):not(.image-hero *, .keep-dark, .keep-dark *) {
+  color: var(--brand-ink) !important;
+}
+html.dark .text-gradient:not(.image-hero *, .keep-dark, .keep-dark *) {
+  color: var(--brand-display) !important;
   background: none !important;
   -webkit-text-fill-color: initial !important;
 }
