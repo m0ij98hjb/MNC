@@ -17,7 +17,7 @@ const C = {
     soon: "قريباً",
     stat1n: "١٢+", stat1l: "مشروع نشط",
     stat2n: "٥٠٠+", stat2l: "عميل راضٍ",
-    stat3n: "١٥+", stat3l: "سنة خبرة",
+    stat3n: "٤٠+", stat3l: "سنة خبرة",
     featuresBadge: "لماذا التطبيق؟",
     featuresTitle: "كل شيء في جيبك",
     features: [
@@ -39,7 +39,7 @@ const C = {
     soon: "Coming Soon",
     stat1n: "12+", stat1l: "Active Projects",
     stat2n: "500+", stat2l: "Happy Clients",
-    stat3n: "38+", stat3l: "Years of Experience",
+    stat3n: "40+", stat3l: "Years of Experience",
     featuresBadge: "Why the App?",
     featuresTitle: "Everything in Your Pocket",
     features: [
@@ -61,7 +61,7 @@ const C = {
     soon: "शीघ्र उपलब्ध",
     stat1n: "12+", stat1l: "सक्रिय परियोजनाएं",
     stat2n: "500+", stat2l: "संतुष्ट ग्राहक",
-    stat3n: "38+", stat3l: "वर्षों का अनुभव",
+    stat3n: "40+", stat3l: "वर्षों का अनुभव",
     featuresBadge: "ऐप क्यों?",
     featuresTitle: "आपकी जेब में सब कुछ",
     features: [
@@ -83,7 +83,7 @@ const C = {
     soon: "Скоро",
     stat1n: "12+", stat1l: "Активных проектов",
     stat2n: "500+", stat2l: "Довольных клиентов",
-    stat3n: "38+", stat3l: "Лет опыта",
+    stat3n: "40+", stat3l: "Лет опыта",
     featuresBadge: "Почему приложение?",
     featuresTitle: "Всё в вашем кармане",
     features: [
@@ -105,7 +105,7 @@ const C = {
     soon: "Demnächst",
     stat1n: "12+", stat1l: "Aktive Projekte",
     stat2n: "500+", stat2l: "Zufriedene Kunden",
-    stat3n: "38+", stat3l: "Jahre Erfahrung",
+    stat3n: "40+", stat3l: "Jahre Erfahrung",
     featuresBadge: "Warum die App?",
     featuresTitle: "Alles in Ihrer Tasche",
     features: [
@@ -127,7 +127,7 @@ const C = {
     soon: "Bientôt disponible",
     stat1n: "12+", stat1l: "Projets Actifs",
     stat2n: "500+", stat2l: "Clients Satisfaits",
-    stat3n: "38+", stat3l: "Ans d'Expérience",
+    stat3n: "40+", stat3l: "Ans d'Expérience",
     featuresBadge: "Pourquoi l'App ?",
     featuresTitle: "Tout dans votre poche",
     features: [
@@ -149,7 +149,7 @@ const C = {
     soon: "Próximamente",
     stat1n: "12+", stat1l: "Proyectos Activos",
     stat2n: "500+", stat2l: "Clientes Satisfechos",
-    stat3n: "38+", stat3l: "Años de Experiencia",
+    stat3n: "40+", stat3l: "Años de Experiencia",
     featuresBadge: "¿Por qué la App?",
     featuresTitle: "Todo en su bolsillo",
     features: [
@@ -171,7 +171,7 @@ const C = {
     soon: "Yakında",
     stat1n: "12+", stat1l: "Aktif Proje",
     stat2n: "500+", stat2l: "Mutlu Müşteri",
-    stat3n: "38+", stat3l: "Yıllık Deneyim",
+    stat3n: "40+", stat3l: "Yıllık Deneyim",
     featuresBadge: "Neden Uygulama?",
     featuresTitle: "Her Şey Cebinizde",
     features: [
@@ -193,7 +193,7 @@ const C = {
     soon: "عنقریب",
     stat1n: "۱۲+", stat1l: "فعال منصوبے",
     stat2n: "۵۰۰+", stat2l: "مطمئن گاہک",
-    stat3n: "۳۸+", stat3l: "سال کا تجربہ",
+    stat3n: "۴۰+", stat3l: "سال کا تجربہ",
     featuresBadge: "ایپ کیوں؟",
     featuresTitle: "سب کچھ آپ کی جیب میں",
     features: [
@@ -215,7 +215,7 @@ const C = {
     soon: "即将推出",
     stat1n: "12+", stat1l: "进行中项目",
     stat2n: "500+", stat2l: "满意客户",
-    stat3n: "38+", stat3l: "年行业经验",
+    stat3n: "40+", stat3l: "年行业经验",
     featuresBadge: "为什么选择应用？",
     featuresTitle: "一切尽在口袋中",
     features: [

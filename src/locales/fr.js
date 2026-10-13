@@ -71,7 +71,7 @@ export const fr = {
   },
   calculator: {
     title: "Calculez le Coût de Votre Projet",
-    subtitle: "Un outil d'estimation précis basé sur les données réelles du marché saoudien et plus de 38 ans d'expertise MNC",
+    subtitle: "Un outil d'estimation précis basé sur les données réelles du marché saoudien et plus de 40 ans d'expertise MNC",
     badge: "Basé sur des Normes d'Ingénierie Certifiées",
     step1: "Type de Projet",
     step2: "Spécifications",
@@ -418,7 +418,7 @@ export const fr = {
     scanToOpen: "Scannez pour ouvrir directement la caméra"
   },
   footer: {
-    brandDesc: "MNC Contracting — Nous bâtissons notre réputation dans le secteur de la construction avec les plus hauts standards de qualité et de professionnalisme depuis plus de 38 ans.",
+    brandDesc: "MNC Contracting — Nous bâtissons notre réputation dans le secteur de la construction avec les plus hauts standards de qualité et de professionnalisme depuis plus de 40 ans.",
     quickLinks: "Liens Rapides",
     services: "Services",
     rightsReserved: "MNC General Contracting — Tous droits réservés",
@@ -434,7 +434,7 @@ export const fr = {
     stop: "Arrêter la présentation",
     play: "Lire la présentation",
     intro: "Présentation de l'entreprise",
-    text: "MNC Contracting est une marque d'ingénierie de premier plan dans le secteur de la construction, fondée à Djeddah, en Arabie saoudite, bâtissant notre réputation dans ce domaine depuis plus de 38 ans. Nous proposons des services de conception architecturale, de gestion de projets et de construction avec les plus hauts standards de qualité et de professionnalisme. Contactez-nous dès aujourd'hui pour une consultation professionnelle."
+    text: "MNC Contracting est une marque d'ingénierie de premier plan dans le secteur de la construction, fondée à Djeddah, en Arabie saoudite, bâtissant notre réputation dans ce domaine depuis plus de 40 ans. Nous proposons des services de conception architecturale, de gestion de projets et de construction avec les plus hauts standards de qualité et de professionnalisme. Contactez-nous dès aujourd'hui pour une consultation professionnelle."
   },
   careers: {
     heroBadge: "Opportunités de Carrière",

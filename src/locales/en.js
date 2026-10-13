@@ -71,7 +71,7 @@ export const en = {
   },
   calculator: {
     title: "Calculate Your Project Cost",
-    subtitle: "A precision-engineered estimator built on real Saudi market data and MNC's 38+ years of project expertise",
+    subtitle: "A precision-engineered estimator built on real Saudi market data and MNC's 40+ years of project expertise",
     badge: "Engineering Precision",
     step1: "Project Type",
     step2: "Specifications",
@@ -418,7 +418,7 @@ export const en = {
     scanToOpen: "Scan to open the camera directly"
   },
   footer: {
-    brandDesc: "MNC General Contracting — Building our mark in construction with the highest standards of quality and professionalism for over 38 years.",
+    brandDesc: "MNC General Contracting — Building our mark in construction with the highest standards of quality and professionalism for over 40 years.",
     quickLinks: "Quick Links",
     services: "Services",
     rightsReserved: "MNC General Contracting — All Rights Reserved",
@@ -434,7 +434,7 @@ export const en = {
     stop: "Stop Presentation",
     play: "Play Presentation",
     intro: "Company Presentation",
-    text: "MNC General Contracting is a leading engineering brand in construction, founded in Jeddah, Saudi Arabia, building our mark in the industry for over 38 years. We provide architectural design, project management, and construction services with the highest standards of quality and professionalism. Contact us today for a professional consultation."
+    text: "MNC General Contracting is a leading engineering brand in construction, founded in Jeddah, Saudi Arabia, building our mark in the industry for over 40 years. We provide architectural design, project management, and construction services with the highest standards of quality and professionalism. Contact us today for a professional consultation."
   },
   careers: {
     heroBadge: "Career Opportunities",

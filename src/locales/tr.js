@@ -71,7 +71,7 @@ export const tr = {
   },
   calculator: {
     title: "Proje Maliyetinizi Hesaplayın",
-    subtitle: "Gerçek Suudi piyasa verilerine ve MNC'nin 38+ yıllık proje uzmanlığına dayanan hassas tahmin aracı",
+    subtitle: "Gerçek Suudi piyasa verilerine ve MNC'nin 40+ yıllık proje uzmanlığına dayanan hassas tahmin aracı",
     badge: "Sertifikalı Mühendislik Standartlarına Dayalı",
     step1: "Proje Türü",
     step2: "Özellikler",
@@ -418,7 +418,7 @@ export const tr = {
     scanToOpen: "Kamerayı doğrudan açmak için tarayın"
   },
   footer: {
-    brandDesc: "MNC Genel Müteahhitlik — 38 yılı aşkın süredir inşaat sektöründe markamızı en yüksek kalite ve profesyonellik standartlarıyla inşa ediyoruz.",
+    brandDesc: "MNC Genel Müteahhitlik — 40 yılı aşkın süredir inşaat sektöründe markamızı en yüksek kalite ve profesyonellik standartlarıyla inşa ediyoruz.",
     quickLinks: "Hızlı Linkler",
     services: "Hizmetler",
     rightsReserved: "MNC General Contracting — Tüm hakları saklıdır",
@@ -434,7 +434,7 @@ export const tr = {
     stop: "Sunumu durdur",
     play: "Sunumu oynat",
     intro: "Şirket Tanıtımı",
-    text: "MNC Genel Müteahhitlik, Suudi Arabistan'ın Cidde şehrinde kurulmuş, inşaat sektöründe öncü bir mühendislik markasıdır ve 38 yılı aşkın süredir markamızı bu alanda inşa ediyoruz. Mimari tasarım, proje yönetimi ve inşaat hizmetlerini en yüksek kalite ve profesyonellik standartlarıyla sunuyoruz. Profesyonel bir danışma için bugün bizimle iletişime geçin."
+    text: "MNC Genel Müteahhitlik, Suudi Arabistan'ın Cidde şehrinde kurulmuş, inşaat sektöründe öncü bir mühendislik markasıdır ve 40 yılı aşkın süredir markamızı bu alanda inşa ediyoruz. Mimari tasarım, proje yönetimi ve inşaat hizmetlerini en yüksek kalite ve profesyonellik standartlarıyla sunuyoruz. Profesyonel bir danışma için bugün bizimle iletişime geçin."
   },
   careers: {
     heroBadge: "Kariyer Fırsatları",

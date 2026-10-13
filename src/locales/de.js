@@ -71,7 +71,7 @@ export const de = {
   },
   calculator: {
     title: "Berechnen Sie Ihre Projektkosten",
-    subtitle: "Ein präzises Schätzwerkzeug basierend auf echten saudischen Marktdaten und MNCs über 38-jähriger Projekterfahrung",
+    subtitle: "Ein präzises Schätzwerkzeug basierend auf echten saudischen Marktdaten und MNCs über 40-jähriger Projekterfahrung",
     badge: "Basierend auf zertifizierten Ingenieurstandards",
     step1: "Projekttyp",
     step2: "Spezifikationen",
@@ -418,7 +418,7 @@ export const de = {
     scanToOpen: "Scannen, um die Kamera direkt zu öffnen"
   },
   footer: {
-    brandDesc: "MNC General Contracting — Seit über 38 Jahren bauen wir unsere Marke im Bauwesen mit höchsten Standards an Qualität und Professionalität.",
+    brandDesc: "MNC General Contracting — Seit über 40 Jahren bauen wir unsere Marke im Bauwesen mit höchsten Standards an Qualität und Professionalität.",
     quickLinks: "Schnelllinks",
     services: "Dienstleistungen",
     rightsReserved: "MNC General Contracting — Alle Rechte vorbehalten",
@@ -434,7 +434,7 @@ export const de = {
     stop: "Präsentation stoppen",
     play: "Präsentation abspielen",
     intro: "Firmenpräsentation",
-    text: "MNC General Contracting ist eine führende Ingenieurmarke im Bauwesen mit Sitz in Jeddah, Saudi-Arabien, und baut seit über 38 Jahren unsere Marke in der Branche auf. Wir bieten architektonische Planung, Projektmanagement und Bauleistungen mit höchsten Standards an Qualität und Professionalität. Kontaktieren Sie uns noch heute für eine professionelle Beratung."
+    text: "MNC General Contracting ist eine führende Ingenieurmarke im Bauwesen mit Sitz in Jeddah, Saudi-Arabien, und baut seit über 40 Jahren unsere Marke in der Branche auf. Wir bieten architektonische Planung, Projektmanagement und Bauleistungen mit höchsten Standards an Qualität und Professionalität. Kontaktieren Sie uns noch heute für eine professionelle Beratung."
   },
   careers: {
     heroBadge: "Karrieremöglichkeiten",

@@ -71,7 +71,7 @@ export const zh = {
   },
   calculator: {
     title: "计算您的项目费用",
-    subtitle: "基于沙特市场真实数据和MNC超过38年项目经验构建的精准估算工具",
+    subtitle: "基于沙特市场真实数据和MNC超过40年项目经验构建的精准估算工具",
     badge: "基于认证工程标准",
     step1: "项目类型",
     step2: "规格",
@@ -418,7 +418,7 @@ export const zh = {
     scanToOpen: "扫描以直接打开摄像头"
   },
   footer: {
-    brandDesc: "MNC 通用承包 — 38 年来，我们以最高的质量和专业标准打造我们在建筑行业的品牌。",
+    brandDesc: "MNC 通用承包 — 40 年来，我们以最高的质量和专业标准打造我们在建筑行业的品牌。",
     quickLinks: "快速链接",
     services: "我们的服务",
     rightsReserved: "MNC General Contracting — 保留所有权利",
@@ -434,7 +434,7 @@ export const zh = {
     stop: "停止介绍",
     play: "播放介绍",
     intro: "公司介绍",
-    text: "MNC 通用承包是建筑行业的领先工程品牌，创立于沙特阿拉伯吉达，38 年来我们始终致力于在这一领域打造我们的品牌。我们提供建筑设计、项目管理和施工服务，秉持最高的质量和专业标准。立即联系我们，获取专业咨询。"
+    text: "MNC 通用承包是建筑行业的领先工程品牌，创立于沙特阿拉伯吉达，40 年来我们始终致力于在这一领域打造我们的品牌。我们提供建筑设计、项目管理和施工服务，秉持最高的质量和专业标准。立即联系我们，获取专业咨询。"
   },
   careers: {
     heroBadge: "Career Opportunities",

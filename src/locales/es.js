@@ -71,7 +71,7 @@ export const es = {
   },
   calculator: {
     title: "Calcule el Costo de Su Proyecto",
-    subtitle: "Una herramienta de estimación precisa basada en datos reales del mercado saudí y más de 38 años de experiencia de MNC",
+    subtitle: "Una herramienta de estimación precisa basada en datos reales del mercado saudí y más de 40 años de experiencia de MNC",
     badge: "Basado en Estándares de Ingeniería Certificados",
     step1: "Tipo de Proyecto",
     step2: "Especificaciones",
@@ -418,7 +418,7 @@ export const es = {
     scanToOpen: "Escanee para abrir la cámara directamente"
   },
   footer: {
-    brandDesc: "MNC Contratación General — Construyendo nuestra marca en la construcción con los más altos estándares de calidad y profesionalismo por más de 38 años.",
+    brandDesc: "MNC Contratación General — Construyendo nuestra marca en la construcción con los más altos estándares de calidad y profesionalismo por más de 40 años.",
     quickLinks: "Enlaces Rápidos",
     services: "Servicios",
     rightsReserved: "MNC General Contracting — Todos los derechos reservados",
@@ -434,7 +434,7 @@ export const es = {
     stop: "Detener presentación",
     play: "Reproducir presentación",
     intro: "Presentación de la empresa",
-    text: "MNC Contratación General es una marca de ingeniería líder en el sector de la construcción, fundada en Yeda, Arabia Saudita, construyendo nuestra marca en la industria durante más de 38 años. Ofrecemos diseño arquitectónico, gestión de proyectos y servicios de construcción con los más altos estándares de calidad y profesionalismo. Contáctenos hoy para una consulta profesional."
+    text: "MNC Contratación General es una marca de ingeniería líder en el sector de la construcción, fundada en Yeda, Arabia Saudita, construyendo nuestra marca en la industria durante más de 40 años. Ofrecemos diseño arquitectónico, gestión de proyectos y servicios de construcción con los más altos estándares de calidad y profesionalismo. Contáctenos hoy para una consulta profesional."
   },
   careers: {
     heroBadge: "Oportunidades de Empleo",
