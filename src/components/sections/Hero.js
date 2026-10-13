@@ -184,7 +184,7 @@ const Hero = () => {
           <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] z-20" />
         </div>
 
-        <div className="container mx-auto px-6 relative z-30">
+        <div className="container mx-auto px-6 max-w-7xl relative z-30">
             {/* Engineering Excellence - Desktop only */}
             
             
