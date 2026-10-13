@@ -23,6 +23,9 @@ const Navbar = () => {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isMobileLangOpen, setIsMobileLangOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  // Sliding underline under the desktop nav links
+  const navLinksRef = useRef(null);
+  const [navLine, setNavLine] = useState({ x: 0, w: 0, visible: false });
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [isBellOpen, setIsBellOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -145,6 +148,33 @@ const Navbar = () => {
     { name: t('nav.careers'),  href: "/careers",         icon: Users, isSecondary: true },
   ].filter((link) => !link.hidden);
 
+  // Move the underline under a link (text width, excluding its padding);
+  // with no link it fades out.
+  const placeNavLine = (el) => {
+    if (!navLinksRef.current) return;
+    if (!el) { setNavLine((l) => ({ ...l, visible: false })); return; }
+    const cs = getComputedStyle(el);
+    const padL = parseFloat(cs.paddingLeft) || 0;
+    const padR = parseFloat(cs.paddingRight) || 0;
+    setNavLine({ x: el.offsetLeft + padL, w: el.offsetWidth - padL - padR, visible: true });
+  };
+  // Back to the current page's link (hidden on pages without one)
+  const resetNavLine = () =>
+    placeNavLine(navLinksRef.current?.querySelector('[data-nav-active="true"]'));
+
+  useEffect(() => {
+    const nav = navLinksRef.current;
+    if (!nav) return;
+    // First paint: start at the menu's start edge (the right in RTL), then slide in
+    const frame = requestAnimationFrame(() => {
+      setNavLine((l) => (l.w ? l : { x: isRTL ? nav.offsetWidth : 0, w: 0, visible: true }));
+      requestAnimationFrame(resetNavLine);
+    });
+    document.fonts?.ready?.then(resetNavLine);
+    window.addEventListener('resize', resetNavLine);
+    return () => { cancelAnimationFrame(frame); window.removeEventListener('resize', resetNavLine); };
+  }, [pathname, lang]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const currentLang = LANGUAGES.find(l => l.code === lang) || LANGUAGES[0];
 
   const portfolioTranslations = {
@@ -190,7 +220,7 @@ const Navbar = () => {
               in the single spacer below instead, so there's one balanced gap
               rather than two dead zones around a centered group. ── */}
           <div className="hidden lg:flex items-center">
-            <nav className="flex items-center gap-0.5 xl:gap-1" aria-label={t('nav.ariaLabel')}>
+            <nav ref={navLinksRef} onMouseLeave={resetNavLine} className="relative flex items-center gap-0.5 xl:gap-1" aria-label={t('nav.ariaLabel')}>
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
 
@@ -210,6 +240,9 @@ const Navbar = () => {
 
                 return (
                   <Link key={link.name} href={link.href}
+                    data-nav-active={isActive ? "true" : undefined}
+                    onMouseEnter={(e) => placeNavLine(e.currentTarget)}
+                    onFocus={(e) => placeNavLine(e.currentTarget)}
                     className={`relative text-[14px] xl:text-[15px] px-3.5 xl:px-4 py-2.5 transition-colors duration-200 whitespace-nowrap group font-semibold tracking-[0.018em] nav-link-responsive ${
                       isActive
                         ? "text-[#f2a624]"
@@ -220,15 +253,15 @@ const Navbar = () => {
                     {link.showDesktopIcon
                       ? <span className="inline-flex items-center gap-1.5"><Smartphone size={12} className="opacity-75 flex-shrink-0" />{link.name}</span>
                       : link.name}
-                    {/* Underline indicator */}
-                    <span className={`absolute bottom-[5px] left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${
-                      isActive
-                        ? 'w-5 opacity-100 bg-gradient-to-r from-transparent via-[#f2a624] to-transparent'
-                        : 'w-0 opacity-0 group-hover:w-3 group-hover:opacity-30 bg-[#f2a624]'
-                    }`} />
                   </Link>
                 );
               })}
+              {/* Sliding underline: rests under the current page, follows hover */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute bottom-[3px] h-[2px] rounded-full bg-[#f2a624] transition-[left,width,opacity] duration-300 ease-out"
+                style={{ left: navLine.x, width: navLine.w, opacity: navLine.visible ? 1 : 0 }}
+              />
             </nav>
           </div>
 
