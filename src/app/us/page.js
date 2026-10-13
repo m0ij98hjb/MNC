@@ -113,8 +113,9 @@ export default function AboutUsPage() {
               <LogoRevealTypewriter
                 firstText={(t("aboutUsPage.titleTypewriter") || ["تعرف علينا", "مقاولات"])[0]}
                 word={(t("aboutUsPage.titleTypewriter") || ["تعرف علينا", "مقاولات"])[1]}
-                logoSrc="/asstes/logo-mnc-full.png"
+                logoSrc="/asstes/mnc-logo-2026-clean.png"
                 logoAlt="MNC Construction"
+                logoAspect={857 / 310}
                 typingSpeed={120}
                 deletingSpeed={60}
                 pauseDuration={2500}

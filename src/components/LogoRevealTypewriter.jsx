@@ -22,6 +22,10 @@ export default function LogoRevealTypewriter({
   logoSrc,
   logoAlt = "MNC Construction",
   logoWidthClassName = "w-[150px] sm:w-[190px] md:w-[230px] lg:w-[280px]",
+  // Width / height of the logo artwork, and an optional white plate behind it
+  // (for logos with black lettering shown over a dark hero).
+  logoAspect = 1187 / 459,
+  logoPlate = false,
   typingSpeed = 120,
   deletingSpeed = 60,
   pauseDuration = 2500,
@@ -145,24 +149,17 @@ export default function LogoRevealTypewriter({
       ) : (
         <>
           <span
-            className={`relative inline-block align-middle ${logoWidthClassName}`}
+            className={`relative inline-block align-middle ${logoWidthClassName} ${logoPlate ? "bg-white rounded-xl" : ""}`}
             style={{
-              aspectRatio: "1187 / 459",
+              // plate adds 6% side / 12% top-bottom padding around the artwork
+              aspectRatio: logoPlate ? (logoAspect * 0.76) / 0.88 : logoAspect,
               clipPath: logoRevealed ? clipRevealed : clipHidden,
               transition: `clip-path ${revealDuration}ms linear`,
             }}
           >
-            {/* Authentic-logo-gold glow behind the mark, fades in with the reveal */}
-            <span
-              className="absolute inset-0 -z-10 rounded-full blur-2xl transition-opacity"
-              style={{
-                backgroundColor: "#FFA918",
-                opacity: logoRevealed ? 0.12 : 0,
-                transitionDuration: `${revealDuration}ms`,
-              }}
-              aria-hidden="true"
-            />
-            <Image src={logoSrc} alt={logoAlt} fill className="object-contain" priority />
+            <span className={`absolute ${logoPlate ? "inset-x-[6%] inset-y-[12%]" : "inset-0"}`}>
+              <Image src={logoSrc} alt={logoAlt} fill className="object-contain" priority />
+            </span>
           </span>
           {showingWord && (
             <span className={`whitespace-pre-wrap ${wordClassName}`}>{displayText}</span>
