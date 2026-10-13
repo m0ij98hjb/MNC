@@ -149,7 +149,7 @@ const Navbar = () => {
   ].filter((link) => !link.hidden);
 
   // Move the underline under a link (text width, excluding its padding);
-  // with no link it fades out.
+  // with no link it fades out. Called on click and on route change only.
   const placeNavLine = (el) => {
     if (!navLinksRef.current) return;
     if (!el) { setNavLine((l) => ({ ...l, visible: false })); return; }
@@ -220,7 +220,7 @@ const Navbar = () => {
               in the single spacer below instead, so there's one balanced gap
               rather than two dead zones around a centered group. ── */}
           <div className="hidden lg:flex items-center">
-            <nav ref={navLinksRef} onMouseLeave={resetNavLine} className="relative flex items-center gap-0.5 xl:gap-1" aria-label={t('nav.ariaLabel')}>
+            <nav ref={navLinksRef} className="relative flex items-center gap-0.5 xl:gap-1" aria-label={t('nav.ariaLabel')}>
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
 
@@ -241,8 +241,7 @@ const Navbar = () => {
                 return (
                   <Link key={link.name} href={link.href}
                     data-nav-active={isActive ? "true" : undefined}
-                    onMouseEnter={(e) => placeNavLine(e.currentTarget)}
-                    onFocus={(e) => placeNavLine(e.currentTarget)}
+                    onClick={(e) => placeNavLine(e.currentTarget)}
                     className={`relative text-[14px] xl:text-[15px] px-3.5 xl:px-4 py-2.5 transition-colors duration-200 whitespace-nowrap group font-semibold tracking-[0.018em] nav-link-responsive ${
                       isActive
                         ? "text-[#f2a624]"
@@ -256,7 +255,8 @@ const Navbar = () => {
                   </Link>
                 );
               })}
-              {/* Sliding underline: rests under the current page, follows hover */}
+              {/* Sliding underline: stays under the current page (hover doesn't move
+                  it) and slides to a link when it's clicked / the route changes */}
               <span
                 aria-hidden="true"
                 className="pointer-events-none absolute bottom-[3px] h-[2px] rounded-full bg-[#f2a624] transition-[left,width,opacity] duration-300 ease-out"
