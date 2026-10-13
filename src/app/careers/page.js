@@ -231,7 +231,7 @@ export default function CareersPage() {
             src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=85&w=2070&auto=format&fit=crop"
             alt="MNC Careers" fill className="object-cover object-center scale-105" priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/65 to-[#070d1a]/97" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-[#070d1a]/85" />
           <div className="absolute inset-0 opacity-[0.07]"
             style={{ backgroundImage: "repeating-linear-gradient(45deg,#f2a624 0px,#f2a624 1px,transparent 1px,transparent 80px)" }} />
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#f2a624]/8 rounded-full blur-[120px]" />
