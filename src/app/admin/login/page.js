@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { useRoleAccess } from '@/hooks/useRoleAccess';
-import { Eye, EyeOff, Lock, Mail, Loader2, ShieldCheck } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, Loader2, ShieldCheck, AlertCircle } from 'lucide-react';
 import Image from 'next/image';
 
 export default function AdminLoginPage() {
@@ -37,140 +37,133 @@ export default function AdminLoginPage() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-white"
+      className="min-h-screen bg-white flex flex-col items-center justify-center px-5 py-12"
       dir={isRTL ? 'rtl' : 'ltr'}
     >
-      <style>{`
-        .login-input { transition: border-color 0.2s, box-shadow 0.2s; }
-        .login-input:focus { border-color: #f2a624 !important; box-shadow: 0 0 0 3px rgba(242,166,36,0.18) !important; outline: none; }
-      `}</style>
+      <div className="w-full max-w-[420px]">
 
-      {/* ── Faint gold grid (same blueprint motif as the site) ── */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(242,166,36,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(242,166,36,0.07) 1px,transparent 1px)',
-          backgroundSize: '64px 64px',
-          maskImage: 'radial-gradient(ellipse at center, #000 30%, transparent 75%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at center, #000 30%, transparent 75%)',
-        }}
-      />
+        {/* ── Card ── */}
+        <div className="relative bg-white rounded-2xl border border-slate-200 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_24px_48px_-24px_rgba(15,23,42,0.18)] overflow-hidden">
+          {/* brand accent */}
+          <div aria-hidden="true" className="h-1 w-full bg-[#f2a624]" />
 
-      {/* ── Top gold accent line ── */}
-      <div
-        aria-hidden="true"
-        className="absolute top-0 inset-x-0 h-[3px] pointer-events-none"
-        style={{ background: 'linear-gradient(90deg,transparent,#f2a624 35%,#f2a624 50%,#f2a624 65%,transparent)' }}
-      />
+          <div className="px-7 sm:px-10 pt-9 pb-10">
+            {/* Logo */}
+            <div className="flex justify-center mb-8">
+              <Image
+                src="/asstes/mnc-logo-2026-clean.png"
+                alt="MNC Construction"
+                width={857}
+                height={310}
+                className="h-11 w-auto object-contain"
+                priority
+              />
+            </div>
 
-      <div className="relative z-10 w-full max-w-[420px] px-5 py-10">
+            {/* Heading */}
+            <div className="text-center mb-8">
+              <p className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#f2a624] mb-2">
+                <ShieldCheck size={13} strokeWidth={2.5} />
+                {t('admin.loginTitle')}
+              </p>
+              <h1 className="text-[22px] font-black text-[#0f172a] leading-tight">
+                {t('admin.loginSubtitle')}
+              </h1>
+            </div>
 
-        {/* Logo + title */}
-        <div className="flex flex-col items-center mb-8">
-          <Image
-            src="/asstes/mnc-logo-2026-clean.png"
-            alt="MNC"
-            width={857}
-            height={310}
-            className="h-9 sm:h-11 w-auto object-contain mb-6"
-            priority
-          />
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Error */}
+              {error && (
+                <div role="alert" className="flex items-start gap-2.5 rounded-xl px-4 py-3 text-[13px] leading-relaxed bg-red-50 border border-red-200 text-red-700">
+                  <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                  <span>{t('admin.loginError')}</span>
+                </div>
+              )}
 
-          <div className="flex items-center gap-2 rounded-full px-4 py-1.5 mb-3 bg-[#f2a624]/10 border border-[#f2a624]/30">
-            <ShieldCheck size={13} className="text-[#f2a624]" />
-            <span className="text-[11px] font-black uppercase tracking-[2px] text-[#f2a624]">
-              {t('admin.loginTitle')}
-            </span>
+              {/* Email */}
+              <div className="space-y-2">
+                <label htmlFor="admin-email" className="block text-[13px] font-semibold text-[#334155]">
+                  {t('admin.emailLabel')}
+                </label>
+                <div className="relative">
+                  <Mail
+                    size={17}
+                    aria-hidden="true"
+                    className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 text-[#94a3b8] pointer-events-none`}
+                  />
+                  <input
+                    id="admin-email"
+                    type="email"
+                    autoComplete="username"
+                    value={email}
+                    onChange={e => { setEmail(e.target.value); setError?.(''); }}
+                    required
+                    dir="ltr"
+                    placeholder="name@mnc.sa"
+                    className={`login-input w-full h-12 rounded-xl bg-white border border-slate-300 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] ${isRTL ? 'pr-11 pl-4 text-right' : 'pl-11 pr-4'}`}
+                  />
+                </div>
+              </div>
+
+              {/* Password */}
+              <div className="space-y-2">
+                <label htmlFor="admin-password" className="block text-[13px] font-semibold text-[#334155]">
+                  {t('admin.passwordLabel')}
+                </label>
+                <div className="relative">
+                  <Lock
+                    size={17}
+                    aria-hidden="true"
+                    className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 text-[#94a3b8] pointer-events-none`}
+                  />
+                  <input
+                    id="admin-password"
+                    type={showPass ? 'text' : 'password'}
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={e => { setPassword(e.target.value); setError?.(''); }}
+                    required
+                    dir="ltr"
+                    placeholder="••••••••"
+                    className={`login-input w-full h-12 rounded-xl bg-white border border-slate-300 text-[15px] text-[#0f172a] placeholder:text-[#94a3b8] ${isRTL ? 'pr-11 pl-12 text-right' : 'pl-11 pr-12'}`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPass(v => !v)}
+                    aria-label={showPass ? 'Hide password' : 'Show password'}
+                    className={`absolute ${isRTL ? 'left-2' : 'right-2'} top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg flex items-center justify-center text-[#94a3b8] hover:text-[#0f172a] hover:bg-slate-100 transition-colors`}
+                  >
+                    {showPass ? <EyeOff size={17} /> : <Eye size={17} />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Submit */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full h-12 mt-2 rounded-xl bg-[#f2a624] text-[#0f172a] text-[15px] font-bold flex items-center justify-center gap-2 shadow-[0_8px_20px_-10px_rgba(242,166,36,0.9)] hover:brightness-95 active:scale-[0.99] transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-4 focus-visible:ring-[#f2a624]/30"
+              >
+                {loading && <Loader2 size={17} className="animate-spin" />}
+                {loading ? t('admin.loggingIn') : t('admin.loginBtn')}
+              </button>
+            </form>
           </div>
-
-          <p className="text-[14px] text-[#475569] text-center font-medium">
-            {t('admin.loginSubtitle')}
-          </p>
         </div>
 
-        {/* ── Form card ── */}
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-2xl p-7 sm:p-8 space-y-5 bg-white border border-slate-200 shadow-[0_24px_60px_-20px_rgba(15,23,42,0.18)]"
-        >
-          {/* Error */}
-          {error && (
-            <div className="rounded-xl px-4 py-3 text-sm text-center bg-red-50 border border-red-200 text-red-700">
-              {t('admin.loginError')}
-            </div>
-          )}
-
-          {/* Email field */}
-          <div>
-            <label className={`block text-[11px] font-bold uppercase tracking-[1.5px] mb-2 text-[#475569] ${isRTL ? 'text-right' : 'text-left'}`}>
-              {t('admin.emailLabel')}
-            </label>
-            <div className="relative">
-              <Mail
-                size={15}
-                className={`absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2 pointer-events-none text-[#94a3b8]`}
-              />
-              <input
-                type="email"
-                value={email}
-                onChange={e => { setEmail(e.target.value); setError?.(''); }}
-                required
-                dir="ltr"
-                placeholder="admin@mnc.com"
-                className={`login-input w-full rounded-xl py-3.5 text-sm bg-white border border-slate-300 text-[#0f172a] placeholder:text-[#94a3b8]
-                  ${isRTL ? 'pr-10 pl-4' : 'pl-10 pr-4'}`}
-              />
-            </div>
-          </div>
-
-          {/* Password field */}
-          <div>
-            <label className={`block text-[11px] font-bold uppercase tracking-[1.5px] mb-2 text-[#475569] ${isRTL ? 'text-right' : 'text-left'}`}>
-              {t('admin.passwordLabel')}
-            </label>
-            <div className="relative">
-              <Lock
-                size={15}
-                className={`absolute ${isRTL ? 'right-3.5' : 'left-3.5'} top-1/2 -translate-y-1/2 pointer-events-none text-[#94a3b8]`}
-              />
-              <input
-                type={showPass ? 'text' : 'password'}
-                value={password}
-                onChange={e => { setPassword(e.target.value); setError?.(''); }}
-                required
-                dir="ltr"
-                placeholder="••••••••"
-                className={`login-input w-full rounded-xl py-3.5 text-sm bg-white border border-slate-300 text-[#0f172a] placeholder:text-[#94a3b8]
-                  ${isRTL ? 'pr-10 pl-10' : 'pl-10 pr-10'}`}
-              />
-              <button
-                type="button"
-                onClick={() => setShowPass(v => !v)}
-                aria-label={showPass ? 'Hide password' : 'Show password'}
-                className={`absolute ${isRTL ? 'left-3.5' : 'right-3.5'} top-1/2 -translate-y-1/2 transition-colors duration-200 text-[#94a3b8] hover:text-[#f2a624]`}
-              >
-                {showPass ? <EyeOff size={15} /> : <Eye size={15} />}
-              </button>
-            </div>
-          </div>
-
-          {/* Submit button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full mt-1 py-3.5 rounded-xl text-[13px] font-black tracking-[2px] uppercase flex items-center justify-center gap-2.5 bg-[#f2a624] text-[#0f172a] hover:bg-[#f2a624] shadow-[0_10px_24px_-10px_rgba(242,166,36,0.55)] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
-          >
-            {loading && <Loader2 size={15} className="animate-spin" />}
-            {loading ? t('admin.loggingIn') : t('admin.loginBtn')}
-          </button>
-        </form>
-
-        <p className="text-center text-[10px] font-medium mt-6 uppercase tracking-[3px] text-[#94a3b8]">
+        {/* Footer */}
+        <p className="mt-6 flex items-center justify-center gap-1.5 text-[12px] text-[#94a3b8]">
+          <Lock size={12} aria-hidden="true" />
           MNC Construction © {new Date().getFullYear()}
         </p>
       </div>
+
+      <style>{`
+        /* doubled class beats the site-wide border/input overrides */
+        .login-input.login-input { border-color: #cbd5e1 !important; transition: border-color .15s, box-shadow .15s; }
+        .login-input.login-input:hover { border-color: #94a3b8 !important; }
+        .login-input.login-input:focus { outline: none; border-color: #f2a624 !important; box-shadow: 0 0 0 4px rgba(242,166,36,0.18) !important; }
+      `}</style>
     </div>
   );
 }
