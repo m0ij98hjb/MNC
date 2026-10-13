@@ -21,7 +21,7 @@ export async function POST(req) {
       },
     });
 
-    const logoPath = join(process.cwd(), 'public', 'asstes', 'mnc-logo-2026.png');
+    const logoPath = join(process.cwd(), 'public', 'asstes', 'mnc-logo-2026-clean.png');
 
     const html = isAr ? `
 <!DOCTYPE html>

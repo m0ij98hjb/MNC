@@ -21,7 +21,7 @@ export async function POST(req) {
       },
     });
 
-    const logoPath = join(process.cwd(), 'public', 'asstes', 'mnc-logo-2026.png');
+    const logoPath = join(process.cwd(), 'public', 'asstes', 'mnc-logo-2026-clean.png');
 
     // Two shipped templates (Arabic + English). Other site languages fall
     // back to English rather than fabricating unreviewed translations for

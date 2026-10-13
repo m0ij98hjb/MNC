@@ -25,7 +25,7 @@ export async function POST(req) {
       ? ({ in_person: 'حضوري', video: 'مكالمة فيديو', phone: 'مكالمة هاتفية' }[interviewType] || interviewType)
       : ({ in_person: 'In Person', video: 'Video Call', phone: 'Phone Call' }[interviewType] || interviewType);
 
-    const logoPath = join(process.cwd(), 'public', 'asstes', 'mnc-logo-2026.png');
+    const logoPath = join(process.cwd(), 'public', 'asstes', 'mnc-logo-2026-clean.png');
 
     const html = isAr ? `
 <!DOCTYPE html>

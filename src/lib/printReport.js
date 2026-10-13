@@ -92,7 +92,7 @@ export function openPrintReport({
   <div class="toolbar"><button onclick="window.print()">${esc(printLabel)}</button></div>
   <div class="page">
     <div class="header">
-      <img src="${window.location.origin}/asstes/mnc-logo-2026.png" alt="logo" />
+      <img src="${window.location.origin}/asstes/mnc-logo-2026-clean.png" alt="logo" />
       <div class="meta">${esc(generatedLabel)}</div>
     </div>
     <h1>${esc(heading)}</h1>

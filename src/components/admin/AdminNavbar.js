@@ -112,9 +112,9 @@ export default function AdminNavbar() {
         {/* ── RIGHT: Logo ── */}
         <Link href="/" className="flex-shrink-0 pe-4">
           <Image
-            src="/asstes/mnc-logo-2026.png"
+            src="/asstes/mnc-logo-2026-clean.png"
             alt="MNC"
-            width={855}
+            width={857}
             height={310}
             className="h-[18px] sm:h-5 w-auto object-contain"
             priority

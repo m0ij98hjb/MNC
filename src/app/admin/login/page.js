@@ -70,9 +70,9 @@ export default function AdminLoginPage() {
         {/* Logo + title */}
         <div className="flex flex-col items-center mb-8">
           <Image
-            src="/asstes/mnc-logo-2026.png"
+            src="/asstes/mnc-logo-2026-clean.png"
             alt="MNC"
-            width={855}
+            width={857}
             height={310}
             className="h-9 sm:h-11 w-auto object-contain mb-6"
             priority

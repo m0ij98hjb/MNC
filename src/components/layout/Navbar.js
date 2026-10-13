@@ -176,9 +176,9 @@ const Navbar = () => {
           {/* ── Logo ── */}
           <Link href="/" onClick={handleLogoTap} className="flex items-center flex-shrink-0 nav-logo-responsive me-5 lg:me-7 xl:me-12">
             <Image
-              src="/asstes/mnc-logo-2026.png"
+              src="/asstes/mnc-logo-2026-clean.png"
               alt="MNC Logo"
-              width={855}
+              width={857}
               height={310}
               className="h-[22px] sm:h-[25px] lg:h-8 xl:h-9 w-auto object-contain transition-all duration-500"
               priority
@@ -600,7 +600,7 @@ const Navbar = () => {
           {/* Panel Header */}
           <div className="flex items-center justify-between px-5 pt-8 pb-4 flex-shrink-0" style={{ backgroundColor: isLightMode ? '#ffffff' : '#0a0a0a', borderBottom: `1px solid ${isLightMode ? '#e2e8f0' : 'rgba(255,255,255,0.05)'}` }}>
             <Link href="/" onClick={() => setIsOpen(false)}>
-              <Image src="/asstes/mnc-logo-2026.png" alt="MNC Logo" width={855} height={310} className="h-5 w-auto object-contain" />
+              <Image src="/asstes/mnc-logo-2026-clean.png" alt="MNC Logo" width={857} height={310} className="h-5 w-auto object-contain" />
             </Link>
             <button onClick={() => setIsOpen(false)}
               className="w-8 h-8 rounded-[10px] border border-[#f2a624]/22 bg-[#f2a624]/5 flex items-center justify-center text-[#f2a624] hover:bg-[#f2a624]/12 transition-all active:scale-95">
