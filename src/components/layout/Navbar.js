@@ -18,6 +18,11 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
 
+// Each page renders its own <Navbar>, so it remounts on navigation. The
+// underline's last position is kept here so the new page can slide it from
+// where it was instead of starting over.
+let lastNavLine = null;
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
@@ -25,7 +30,7 @@ const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   // Sliding underline under the desktop nav links
   const navLinksRef = useRef(null);
-  const [navLine, setNavLine] = useState({ x: 0, w: 0, visible: false });
+  const [navLine, setNavLine] = useState({ x: 0, w: 0, visible: false, animate: false });
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [isBellOpen, setIsBellOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -148,31 +153,41 @@ const Navbar = () => {
     { name: t('nav.careers'),  href: "/careers",         icon: Users, isSecondary: true },
   ].filter((link) => !link.hidden);
 
-  // Move the underline under a link (text width, excluding its padding);
-  // with no link it fades out. Called on click and on route change only.
-  const placeNavLine = (el) => {
-    if (!navLinksRef.current) return;
-    if (!el) { setNavLine((l) => ({ ...l, visible: false })); return; }
+  // Measure a link's text box (its width minus horizontal padding)
+  const measureNavLink = (el) => {
     const cs = getComputedStyle(el);
     const padL = parseFloat(cs.paddingLeft) || 0;
     const padR = parseFloat(cs.paddingRight) || 0;
-    setNavLine({ x: el.offsetLeft + padL, w: el.offsetWidth - padL - padR, visible: true });
+    return { x: el.offsetLeft + padL, w: el.offsetWidth - padL - padR };
   };
-  // Back to the current page's link (hidden on pages without one)
-  const resetNavLine = () =>
-    placeNavLine(navLinksRef.current?.querySelector('[data-nav-active="true"]'));
+  // Put the underline under the current page's link (hidden when the page
+  // has no nav link). animate=false snaps it (first load, resize, fonts).
+  const placeNavLine = (animate) => {
+    const active = navLinksRef.current?.querySelector('[data-nav-active="true"]');
+    if (!active) { setNavLine((l) => ({ ...l, visible: false, animate })); return; }
+    const pos = measureNavLink(active);
+    lastNavLine = pos;
+    setNavLine({ ...pos, visible: true, animate });
+  };
 
   useEffect(() => {
     const nav = navLinksRef.current;
     if (!nav) return;
-    // First paint: start at the menu's start edge (the right in RTL), then slide in
-    const frame = requestAnimationFrame(() => {
-      setNavLine((l) => (l.w ? l : { x: isRTL ? nav.offsetWidth : 0, w: 0, visible: true }));
-      requestAnimationFrame(resetNavLine);
+    let f2;
+    const f1 = requestAnimationFrame(() => {
+      if (lastNavLine) {
+        // Came from another page: start exactly where the line was there...
+        setNavLine({ ...lastNavLine, visible: true, animate: false });
+        // ...then slide once to this page's link
+        f2 = requestAnimationFrame(() => requestAnimationFrame(() => placeNavLine(true)));
+      } else {
+        placeNavLine(false); // first load: appear in place
+      }
     });
-    document.fonts?.ready?.then(resetNavLine);
-    window.addEventListener('resize', resetNavLine);
-    return () => { cancelAnimationFrame(frame); window.removeEventListener('resize', resetNavLine); };
+    const snap = () => placeNavLine(false);
+    document.fonts?.ready?.then(snap);
+    window.addEventListener('resize', snap);
+    return () => { cancelAnimationFrame(f1); cancelAnimationFrame(f2); window.removeEventListener('resize', snap); };
   }, [pathname, lang]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const currentLang = LANGUAGES.find(l => l.code === lang) || LANGUAGES[0];
@@ -241,7 +256,6 @@ const Navbar = () => {
                 return (
                   <Link key={link.name} href={link.href}
                     data-nav-active={isActive ? "true" : undefined}
-                    onClick={(e) => placeNavLine(e.currentTarget)}
                     className={`relative text-[14px] xl:text-[15px] px-3.5 xl:px-4 py-2.5 transition-colors duration-200 whitespace-nowrap group font-semibold tracking-[0.018em] nav-link-responsive ${
                       isActive
                         ? "text-[#f2a624]"
@@ -259,8 +273,12 @@ const Navbar = () => {
                   it) and slides to a link when it's clicked / the route changes */}
               <span
                 aria-hidden="true"
-                className="pointer-events-none absolute bottom-[3px] h-[2px] rounded-full bg-[#f2a624] transition-[left,width,opacity] duration-300 ease-out"
-                style={{ left: navLine.x, width: navLine.w, opacity: navLine.visible ? 1 : 0 }}
+                className={`pointer-events-none absolute bottom-[3px] left-0 h-[2px] rounded-full bg-[#f2a624] will-change-transform ${
+                  navLine.animate
+                    ? 'transition-[transform,width,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]'
+                    : 'transition-opacity duration-200'
+                }`}
+                style={{ transform: `translateX(${navLine.x}px)`, width: navLine.w, opacity: navLine.visible ? 1 : 0 }}
               />
             </nav>
           </div>
