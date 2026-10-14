@@ -9,7 +9,7 @@
 export const THEME_TOGGLE_ENABLED = false;
 
 // Floating voice-presentation (mic) button.
-export const SHOW_VOICE_PRESENTATION = false;
+export const SHOW_VOICE_PRESENTATION = true;
 
 // "MNC App" link in the navbar (the /app page itself stays live).
 export const SHOW_APP_NAV_LINK = false;
