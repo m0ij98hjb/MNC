@@ -421,7 +421,7 @@ export const es = {
     brandDesc: "MNC Contratación General — Construyendo nuestra marca en la construcción con los más altos estándares de calidad y profesionalismo por más de 40 años.",
     quickLinks: "Enlaces Rápidos",
     services: "Servicios",
-    rightsReserved: "MNC General Contracting — Todos los derechos reservados",
+    rightsReserved: "Todos los derechos reservados © {year} MNC General Contracting | Reino de Arabia Saudita",
     location: "Yeda, Arabia Saudita"
   },
   music: {

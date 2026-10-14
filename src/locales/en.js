@@ -421,7 +421,7 @@ export const en = {
     brandDesc: "MNC General Contracting — Building our mark in construction with the highest standards of quality and professionalism for over 40 years.",
     quickLinks: "Quick Links",
     services: "Services",
-    rightsReserved: "MNC General Contracting — All Rights Reserved",
+    rightsReserved: "All rights reserved © {year} MNC General Contracting | Kingdom of Saudi Arabia",
     location: "Jeddah, Saudi Arabia"
   },
   music: {

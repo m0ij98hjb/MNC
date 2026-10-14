@@ -421,7 +421,7 @@ export const zh = {
     brandDesc: "MNC 通用承包 — 40 年来，我们以最高的质量和专业标准打造我们在建筑行业的品牌。",
     quickLinks: "快速链接",
     services: "我们的服务",
-    rightsReserved: "MNC General Contracting — 保留所有权利",
+    rightsReserved: "保留所有权利 © {year} MNC General Contracting | 沙特阿拉伯王国",
     location: "吉达，沙特阿拉伯"
   },
   music: {

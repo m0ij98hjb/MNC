@@ -230,8 +230,7 @@ const Footer = () => {
           flex flex-col sm:flex-row items-center justify-between gap-3"
         >
           <p className="text-[var(--foreground)] text-xs">
-            &copy; {new Date().getFullYear()}&nbsp;
-            {t("footer.rightsReserved")}
+            {String(t("footer.rightsReserved")).replace("{year}", new Date().getFullYear())}
           </p>
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#f2a624] animate-pulse" />

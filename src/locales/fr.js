@@ -421,7 +421,7 @@ export const fr = {
     brandDesc: "MNC Contracting — Nous bâtissons notre réputation dans le secteur de la construction avec les plus hauts standards de qualité et de professionnalisme depuis plus de 40 ans.",
     quickLinks: "Liens Rapides",
     services: "Services",
-    rightsReserved: "MNC General Contracting — Tous droits réservés",
+    rightsReserved: "Tous droits réservés © {year} MNC General Contracting | Royaume d'Arabie saoudite",
     location: "Djeddah, Arabie Saoudite"
   },
   music: {
