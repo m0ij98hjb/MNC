@@ -421,7 +421,7 @@ export const de = {
     brandDesc: "MNC General Contracting — Seit über 40 Jahren bauen wir unsere Marke im Bauwesen mit höchsten Standards an Qualität und Professionalität.",
     quickLinks: "Schnelllinks",
     services: "Dienstleistungen",
-    rightsReserved: "Alle Rechte vorbehalten © {year} MNC General Contracting | Königreich Saudi-Arabien",
+    rightsReserved: "Alle Rechte vorbehalten © {year} MNC General Contracting",
     location: "Dschidda, Saudi-Arabien"
   },
   music: {

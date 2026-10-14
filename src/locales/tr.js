@@ -421,7 +421,7 @@ export const tr = {
     brandDesc: "MNC Genel Müteahhitlik — 40 yılı aşkın süredir inşaat sektöründe markamızı en yüksek kalite ve profesyonellik standartlarıyla inşa ediyoruz.",
     quickLinks: "Hızlı Linkler",
     services: "Hizmetler",
-    rightsReserved: "Tüm hakları saklıdır © {year} MNC General Contracting | Suudi Arabistan Krallığı",
+    rightsReserved: "Tüm hakları saklıdır © {year} MNC General Contracting",
     location: "Cidde, Suudi Arabistan"
   },
   music: {

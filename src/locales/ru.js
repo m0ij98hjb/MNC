@@ -421,7 +421,7 @@ export const ru = {
     brandDesc: "MNC General Contracting — Строим наш след в строительстве с высочайшими стандартами качества и профессионализма на протяжении более 40 лет.",
     quickLinks: "Быстрые ссылки",
     services: "Услуги",
-    rightsReserved: "Все права защищены © {year} MNC General Contracting | Королевство Саудовская Аравия",
+    rightsReserved: "Все права защищены © {year} MNC General Contracting",
     location: "Джидда, Саудовская Аравия"
   },
   music: {
