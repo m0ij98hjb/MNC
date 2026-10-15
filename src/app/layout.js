@@ -36,6 +36,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ar" dir="rtl" className={`${cairo.variable} dark`} suppressHydrationWarning>
       <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18437986841"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18437986841');`,
+          }}
+        />
         {/* Apply the saved theme before first paint so there is no flash. Light look (html.dark) is the default. */}
         <script
           dangerouslySetInnerHTML={{
