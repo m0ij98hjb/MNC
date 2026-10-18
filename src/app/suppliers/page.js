@@ -80,6 +80,10 @@ export default function SuppliersPage() {
         adminNotes: '',
         reviewedAt: null,
       });
+      // Google Ads conversion: lead form submitted
+      if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+        window.gtag('event', 'conversion', { send_to: 'AW-18437986841/LAZ2CJn87qAdEJm09ddE' });
+      }
       setSubmitted(true);
     } catch (err) {
       console.error('[Suppliers form] Error:', err?.code, err?.message, err);

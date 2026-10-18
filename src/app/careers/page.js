@@ -201,6 +201,10 @@ export default function CareersPage() {
         status: "pending", createdAt: serverTimestamp(),
         reviewedAt: null, interviewDetails: null,
       });
+      // Google Ads conversion: lead form submitted
+      if (typeof window !== "undefined" && typeof window.gtag === "function") {
+        window.gtag("event", "conversion", { send_to: "AW-18437986841/LAZ2CJn87qAdEJm09ddE" });
+      }
       setSubmitted(true);
       window.scrollTo({ top: formRef.current?.offsetTop - 100, behavior: "smooth" });
     } catch (err) {

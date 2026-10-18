@@ -289,6 +289,10 @@ export default function ContactPage() {
         createdAt:  serverTimestamp(),
         updatedAt:  null,
       });
+      // Google Ads conversion: lead form submitted
+      if (typeof window !== "undefined" && typeof window.gtag === "function") {
+        window.gtag("event", "conversion", { send_to: "AW-18437986841/LAZ2CJn87qAdEJm09ddE" });
+      }
       setFormSubmitted(true);
     } catch (err) {
       setFormError(err?.message || "Error. Please try again.");
