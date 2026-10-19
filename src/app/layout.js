@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { THEME_TOGGLE_ENABLED, SHOW_VOICE_PRESENTATION } from "@/config/features";
 import { AuthProvider } from "@/context/AuthContext";
 import AdminShortcut from "@/components/AdminShortcut";
+import RouteLoader, { IntroLoader } from "@/components/layout/LogoLoader";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -57,6 +58,8 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="antialiased flex flex-col min-h-screen relative">
+        <IntroLoader />
+        <RouteLoader />
         <AuthProvider>
         <ThemeProvider>
           <LanguageProvider>

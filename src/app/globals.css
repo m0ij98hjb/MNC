@@ -486,3 +486,113 @@ html.dark :is(section, main, footer):is(.bg-slate-50, .bg-slate-100, [class*="bg
     height: clamp(28px, 2.2vw, 36px) !important;
   }
 }
+
+/* ───────────── MNC logo loader (components/layout/LogoLoader.jsx) ───────────── */
+.mnc-loader {
+  --mnc-speed: 1;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(ellipse at center, #ffffff 0%, #f6f7f9 70%);
+}
+.mnc-loader--route {
+  --mnc-speed: 0.62;
+  animation: mnc-loader-in 0.25s ease both;
+}
+/* The first-visit loader removes itself with CSS, so it never depends on JavaScript. */
+.mnc-loader--intro {
+  animation: mnc-loader-out 0.7s cubic-bezier(0.7, 0, 0.3, 1) 2.15s forwards;
+}
+.mnc-loader.is-leaving {
+  animation: mnc-loader-out 0.55s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+.mnc-loader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+}
+.mnc-draw {
+  width: min(17rem, 70vw);
+  height: auto;
+}
+.mnc-loader__bar {
+  position: relative;
+  width: 12rem;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: #e5e7eb;
+}
+.mnc-loader__bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #f2a624;
+  transform-origin: right;
+  transform: scaleX(0);
+  animation: mnc-bar calc(1.9s * var(--mnc-speed)) cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.mnc-draw-lines path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: mnc-stroke calc(1.25s * var(--mnc-speed, 1)) cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.mnc-draw-fill {
+  opacity: 0;
+  animation: mnc-fill calc(0.6s * var(--mnc-speed, 1)) ease calc(1s * var(--mnc-speed, 1)) forwards;
+}
+.mnc-draw-lines {
+  animation: mnc-fade-out calc(0.5s * var(--mnc-speed, 1)) ease calc(1.35s * var(--mnc-speed, 1)) forwards;
+}
+@keyframes mnc-stroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes mnc-fill {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes mnc-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes mnc-bar {
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes mnc-loader-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes mnc-loader-out {
+  to {
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mnc-loader--intro {
+    animation: mnc-loader-out 0.3s ease 0.4s forwards !important;
+  }
+  .mnc-draw-fill {
+    opacity: 1;
+    animation: none;
+  }
+  .mnc-draw-lines {
+    display: none;
+  }
+}
+@media print {
+  .mnc-loader {
+    display: none !important;
+  }
+}
